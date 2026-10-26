@@ -7,7 +7,7 @@
  "icon": "hr",
  "indicator_color": "",
  "sequence_id": 5,
- "content": "[{\"id\": \"CXlMaXZjlj\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>People — documents, leave and payroll</b></span>\", \"col\": 12}}, {\"id\": \"ENUhJduRHH\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"HS Active Employees\", \"col\": 3}}, {\"id\": \"JEYXg4Jdpm\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"HS Visas Expiring\", \"col\": 3}}, {\"id\": \"rcXgGCJbW5\", \"type\": \"spacer\", \"data\": {\"col\": 12}}, {\"id\": \"6eCuNGMGmS\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Quick actions</b></span>\", \"col\": 12}}, {\"id\": \"rCGIZEG8pS\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Employee\", \"col\": 3}}, {\"id\": \"H4487q7J58\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Leave Application\", \"col\": 3}}, {\"id\": \"m1CiAhzCue\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Payroll Entry\", \"col\": 3}}, {\"id\": \"QpBenQtYh5\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Asset\", \"col\": 3}}, {\"id\": \"Xj8TPQxjq4\", \"type\": \"spacer\", \"data\": {\"col\": 12}}, {\"id\": \"i9DoV8gz4F\", \"type\": \"card\", \"data\": {\"card_name\": \"People\", \"col\": 4}}, {\"id\": \"kQ1okTBGzv\", \"type\": \"card\", \"data\": {\"card_name\": \"Payroll & WPS\", \"col\": 4}}, {\"id\": \"AmwufUxbvJ\", \"type\": \"card\", \"data\": {\"card_name\": \"Assets\", \"col\": 4}}, {\"id\": \"WJoleSrcBr\", \"type\": \"card\", \"data\": {\"card_name\": \"Expenses & advances\", \"col\": 4}}]",
+ "content": "[{\"id\": \"CXlMaXZjlj\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>People \\u2014 documents, leave and payroll</b></span>\", \"col\": 12}}, {\"id\": \"ENUhJduRHH\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Employees\", \"col\": 3}}, {\"id\": \"JEYXg4Jdpm\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Visas expiring \\u2264 60 days\", \"col\": 3}}, {\"id\": \"rcXgGCJbW5\", \"type\": \"spacer\", \"data\": {\"col\": 12}}, {\"id\": \"6eCuNGMGmS\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Quick actions</b></span>\", \"col\": 12}}, {\"id\": \"rCGIZEG8pS\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Employee\", \"col\": 3}}, {\"id\": \"H4487q7J58\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Leave Application\", \"col\": 3}}, {\"id\": \"m1CiAhzCue\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Payroll Entry\", \"col\": 3}}, {\"id\": \"QpBenQtYh5\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Asset\", \"col\": 3}}, {\"id\": \"Xj8TPQxjq4\", \"type\": \"spacer\", \"data\": {\"col\": 12}}, {\"id\": \"i9DoV8gz4F\", \"type\": \"card\", \"data\": {\"card_name\": \"People\", \"col\": 4}}, {\"id\": \"kQ1okTBGzv\", \"type\": \"card\", \"data\": {\"card_name\": \"Payroll & WPS\", \"col\": 4}}, {\"id\": \"AmwufUxbvJ\", \"type\": \"card\", \"data\": {\"card_name\": \"Assets\", \"col\": 4}}, {\"id\": \"WJoleSrcBr\", \"type\": \"card\", \"data\": {\"card_name\": \"Expenses & advances\", \"col\": 4}}]",
  "charts": [],
  "number_cards": [
   {
@@ -16,7 +16,7 @@
   },
   {
    "number_card_name": "HS Visas Expiring",
-   "label": "Visas expiring ≤ 60 days"
+   "label": "Visas expiring \u2264 60 days"
   }
  ],
  "shortcuts": [
@@ -269,5 +269,5 @@
  "module": "Hipersign Trading",
  "owner": "Administrator",
  "creation": "2026-10-22 18:00:00.000000",
- "modified": "2026-10-24 12:00:00.000000"
+ "modified": "2026-10-26 12:00:00.000000"
 }

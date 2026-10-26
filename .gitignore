@@ -5,3 +5,4 @@
 __pycache__
 node_modules
 hipersign_trading/docs/current
+hipersign_trading/zz_dbg/

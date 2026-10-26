@@ -75,8 +75,10 @@ def ensure_cheque_accounts():
 				"Account", {"company": company, "root_type": root, "is_group": 1}, order_by="lft asc")
 			if not parent:
 				continue
-			acc = frappe.get_doc({"doctype": "Account", "account_name": name, "company": company, "parent_account": parent, "root_type": root,
-				"report_type": "Balance Sheet", "account_currency": frappe.get_cached_value("Company", company, "default_currency")}).insert(ignore_permissions=True).name
+			a = frappe.get_doc({"doctype": "Account", "account_name": name, "company": company, "parent_account": parent, "root_type": root,
+				"report_type": "Balance Sheet", "account_currency": frappe.get_cached_value("Company", company, "default_currency")})
+			a.flags.ignore_root_company_validation = True  # the company may sit under a group company's chart
+			acc = a.insert(ignore_permissions=True).name
 		s.set(field, acc)
 		changed = True
 	if changed:

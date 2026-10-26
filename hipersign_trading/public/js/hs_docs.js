@@ -5,9 +5,9 @@ hipersign.docs.DEFAULT = ["Quotation", "Sales Order", "Delivery Note", "Sales In
 	"Payment Entry", "Journal Entry", "Letter of Credit", "Import Shipment", "Export Shipment"];
 
 hipersign.docs.render = function (frm) {
-	if (frm.is_new() || !frm.dashboard) return;
+	if (frm.is_new() || !frm.layout) return;
 	frappe.xcall("hipersign_trading.api.docs.doc_info", { doctype: frm.doctype, name: frm.docname }).then((r) => {
-		frm.dashboard.wrapper.find(".hs-docs-section").remove();
+		$(frm.layout.wrapper).find(".hs-docs-section").remove();
 		if (!r || r.level === "Off" || !(r.rules || []).length) return;
 		const badge = (lv) => `<span class="indicator-pill ${{ Block: "red", Required: "orange", Optional: "gray" }[lv] || "gray"}">${__(lv === "Block" ? "Blocks next step" : lv === "Required" && r.level === "Recommended" ? "Recommended" : lv)}</span>`;
 		const rows = r.rules.map((x) => {
@@ -17,14 +17,19 @@ hipersign.docs.render = function (frm) {
 			const when = x.event === "When status changes to" ? ` <span class="text-muted small">${__("when {0}", [__(x.when_value)])}</span>` : "";
 			const btns = x.attached ? "" : `<button class="btn btn-xs btn-default hs-attach" data-type="${frappe.utils.escape_html(x.document_type)}">${__("Attach")}</button>`
 				+ (!x.waiver && (x.level !== "Optional" || ["Customer KYC documents", "Advance payment"].includes(x.document_type)) && r.level === "Full" ? ` <button class="btn btn-xs btn-default hs-waive" data-type="${frappe.utils.escape_html(x.document_type)}" data-role="${frappe.utils.escape_html(x.approver_role || "")}">${__("Request exception")}</button>` : "");
-			return `<tr><td><b>${__(x.document_type)}</b>${when}${x.note ? `<div class="text-muted small">${frappe.utils.escape_html(__(x.note))}</div>` : ""}</td><td>${badge(x.level)}</td><td>${st}</td><td class="text-right">${btns}</td></tr>`;
+			return `<tr><td><b>${__(x.document_type)}</b>${when}${x.note ? `<div class="text-muted small">${frappe.utils.escape_html(__(x.note))}</div>` : ""}</td><td style="white-space:nowrap">${badge(x.level)}</td><td style="white-space:nowrap">${st}</td><td class="text-right" style="white-space:nowrap">${btns}</td></tr>`;
 		}).join("");
 		const other = (r.files || []).filter((f) => !f.hs_document_type);
 		const typed = `<table class="table table-sm" style="margin:0">${rows}</table>`
 			+ (other.length ? `<div class="small text-muted" style="margin-top:6px">${__("Attachments without a type")}: ${other.map((f) =>
 				`<a class="hs-settype" data-file="${f.name}">${frappe.utils.escape_html(f.file_name || f.name)}</a>`).join(", ")} — ${__("click one to give it a type")}</div>` : "");
-		const sec = frm.dashboard.add_section(typed, __("Documents"));
-		sec.addClass("hs-docs-section");
+		// at the top of the first tab (the dashboard sits in the Connections tab, where nobody would see it)
+		const $page = $(frm.layout.wrapper).find(".form-page").first();
+		const $host = $page.find(".tab-content > .tab-pane").first().length ? $page.find(".tab-content > .tab-pane").first() : $page;
+		const missing = r.rules.filter((x) => !x.attached && !x.waiver && x.level !== "Optional").length;
+		const sec = $(`<div class="hs-docs-section" style="padding:14px 30px;border-bottom:1px solid var(--border-color)">
+			<div style="font-weight:600;margin-bottom:6px">${__("Documents")}${missing ? ` <span class="indicator-pill orange" style="margin-left:6px">${__("{0} missing", [missing])}</span>` : ""}</div>
+			<div>${typed}</div></div>`).prependTo($host);
 		sec.find(".hs-attach").on("click", (e) => hipersign.docs.attach(frm, $(e.currentTarget).data("type")));
 		sec.find(".hs-waive").on("click", (e) => hipersign.docs.waive(frm, $(e.currentTarget).data("type"), $(e.currentTarget).data("role")));
 		sec.find(".hs-settype").on("click", (e) => hipersign.docs.set_type(frm, $(e.currentTarget).data("file")));

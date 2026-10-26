@@ -164,11 +164,22 @@ def quick_create(doctype, data, action="save"):
 	doc.set_missing_values()
 	doc.insert()
 	msg = _("{0} {1} created").format(_(doctype), doc.name)
+	needs = None
 	if action == "submit" and doctype in ("Sales Order", "Purchase Order"):
-		doc = _submit(doc)
-		state = doc.get("workflow_state") or (_("Submitted") if doc.docstatus == 1 else _("Draft"))
-		msg = _("{0} {1} · {2}").format(_(doctype), doc.name, _(state))
-	return {"name": doc.name, "message": msg, "grand_total": doc.grand_total, "currency": doc.currency}
+		from hipersign_trading.doc_rules import DocumentNeeded
+
+		frappe.db.savepoint("hs_quick_submit")
+		try:
+			doc = _submit(doc)
+			state = doc.get("workflow_state") or (_("Submitted") if doc.docstatus == 1 else _("Draft"))
+			msg = _("{0} {1} · {2}").format(_(doctype), doc.name, _(state))
+		except DocumentNeeded as e:
+			# keep the draft: the user attaches the document (or asks for an exception) on the form and submits there
+			frappe.db.rollback(save_point="hs_quick_submit")
+			frappe.local.message_log = []
+			needs = frappe.utils.strip_html(str(e))
+			msg = _("{0} {1} saved as a draft — attach the document needed, then submit").format(_(doctype), doc.name)
+	return {"name": doc.name, "message": msg, "grand_total": doc.grand_total, "currency": doc.currency, "needs_documents": needs}
 
 
 # ---------------------------------------------------------------- Quick invoice

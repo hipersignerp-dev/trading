@@ -92,7 +92,7 @@ hipersign.fm.COVERED.forEach((dt) => frappe.ui.form.on(dt, {
 		const cur = hipersign.fm.mode(dt);
 		hipersign.fm.MODES.forEach((m) => {
 			if (m === "Quick" && !hipersign.fm.quick_kinds.includes(dt)) return;
-			frm.add_custom_button((m === cur || (m === "Standard" && cur === "Quick") ? "✓ " : "") + __(m), () => {
+			frm.add_custom_button((m === cur ? "✓ " : "") + __(m), () => {
 				hipersign.fm.remember(dt, m).then(() => {
 					if (m === "Quick") return hipersign.fm.quick(dt, hipersign.fm.from_form(frm));
 					hipersign.fm.apply(frm);
@@ -212,7 +212,7 @@ hipersign.fm.repeat_btn = function (d, dt) {
 hipersign.fm.summary = function (d, dt) {
 	const items = (d.fields_dict.items.df.data || []).filter((r) => r.item_code && flt(r.qty) > 0);
 	const net = items.reduce((a, r) => a + flt(r.qty) * flt(r.rate), 0);
-	d.fields_dict.summary.$wrapper.html(`<div class="text-right" style="margin-top:6px"><span class="text-muted">${items.length} ${__("lines")} · ${__("estimated")}</span>
+	d.fields_dict.summary.$wrapper.html(`<div class="text-right" style="margin-top:6px"><span class="text-muted">${items.length} ${items.length === 1 ? __("line") : __("lines")} · ${__("estimated")}</span>
 		<b style="font-size:16px;margin-left:8px">${format_currency(net)}</b> <span class="text-muted small">${__("before tax — final prices, credit, approvals and documents are checked on save")}</span></div>`);
 };
 
@@ -224,10 +224,11 @@ hipersign.fm.quick_save = function (d, dt, action, send) {
 	frappe.xcall("hipersign_trading.api.quick.quick_create", { doctype: dt, data: { party: v.party, po_no: v.po_no, items }, action })
 		.then((r) => {
 			d.hide();
-			frappe.show_alert({ message: r.message, indicator: "green" }, 6);
+			frappe.show_alert({ message: r.message, indicator: r.needs_documents ? "orange" : "green" }, 8);
 			if (send) hipersign.send_whatsapp(dt, r.name);
 			else frappe.set_route("Form", dt, r.name);
 		})
+		.catch(() => {}) // the server message is already shown; the dialog stays open to fix it
 		.finally(() => d.enable_primary_action());
 };
 
@@ -242,7 +243,7 @@ hipersign.fm.quick_invoice = function () {
 		d.$wrapper.on("click", ".hs-inv", (e) => {
 			const dn = $(e.currentTarget).data("dn");
 			$(e.currentTarget).prop("disabled", true);
-			frappe.xcall("hipersign_trading.api.quick.quick_invoice", { delivery_note: dn }).then((r) => { frappe.show_alert({ message: r.message, indicator: "green" }); $(e.currentTarget).closest("tr").remove(); });
+			frappe.xcall("hipersign_trading.api.quick.quick_invoice", { delivery_note: dn }).then((r) => { frappe.show_alert({ message: r.message, indicator: "green" }); $(e.currentTarget).closest("tr").remove(); }).catch(() => $(e.currentTarget).prop("disabled", false));
 		});
 		d.show();
 	});
@@ -262,7 +263,7 @@ hipersign.fm.quick_receive = function (v) {
 		],
 		primary_action_label: __("Record receipt"),
 		primary_action(val) {
-			frappe.xcall("hipersign_trading.api.quick.quick_receive", val).then((r) => { d.hide(); frappe.show_alert({ message: r.message, indicator: "green" }, 6); frappe.set_route("Form", "Payment Entry", r.name); });
+			frappe.xcall("hipersign_trading.api.quick.quick_receive", val).then((r) => { d.hide(); frappe.show_alert({ message: r.message, indicator: "green" }, 6); frappe.set_route("Form", "Payment Entry", r.name); }).catch(() => {});
 		},
 		secondary_action_label: __("Standard / Detailed form"),
 		secondary_action: () => { d.hide(); hipersign.fm.remember("Payment Entry", "Standard").then(() => frappe.new_doc("Payment Entry", { payment_type: "Receive", party_type: "Customer", party: d.get_value("customer") })); },
