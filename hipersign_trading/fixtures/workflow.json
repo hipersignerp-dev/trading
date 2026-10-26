@@ -70,7 +70,7 @@
     "next_state": "Pending Finance Manager",
     "allowed": "Purchase Manager",
     "allow_self_approval": 1,
-    "condition": "doc.base_grand_total > frappe.db.get_single_value(\"Hipersign Settings\", \"po_finance_threshold\")",
+    "condition": "doc.base_grand_total > frappe.db.get_value(\"Hipersign Settings\", \"Hipersign Settings\", \"po_finance_threshold\")",
     "idx": 2
    },
    {
@@ -80,7 +80,7 @@
     "next_state": "Approved",
     "allowed": "Purchase Manager",
     "allow_self_approval": 1,
-    "condition": "doc.base_grand_total <= frappe.db.get_single_value(\"Hipersign Settings\", \"po_finance_threshold\")",
+    "condition": "doc.base_grand_total <= frappe.db.get_value(\"Hipersign Settings\", \"Hipersign Settings\", \"po_finance_threshold\")",
     "idx": 3
    },
    {
@@ -355,7 +355,7 @@
     "next_state": "Pending Finance Manager",
     "allowed": "Accounts User",
     "allow_self_approval": 1,
-    "condition": "doc.payment_type == \"Pay\" and doc.base_paid_amount > frappe.db.get_single_value(\"Hipersign Settings\", \"supplier_payment_threshold\")",
+    "condition": "doc.payment_type == \"Pay\" and doc.base_paid_amount > frappe.db.get_value(\"Hipersign Settings\", \"Hipersign Settings\", \"supplier_payment_threshold\")",
     "idx": 1
    },
    {
@@ -365,7 +365,7 @@
     "next_state": "Paid",
     "allowed": "Accounts User",
     "allow_self_approval": 1,
-    "condition": "doc.payment_type != \"Pay\" or doc.base_paid_amount <= frappe.db.get_single_value(\"Hipersign Settings\", \"supplier_payment_threshold\")",
+    "condition": "doc.payment_type != \"Pay\" or doc.base_paid_amount <= frappe.db.get_value(\"Hipersign Settings\", \"Hipersign Settings\", \"supplier_payment_threshold\")",
     "idx": 2
    },
    {
@@ -454,7 +454,7 @@
     "next_state": "Pending Warehouse Manager",
     "allowed": "Stock User",
     "allow_self_approval": 1,
-    "condition": "frappe.db.get_single_value(\"Hipersign Settings\", \"stock_count_approval\")",
+    "condition": "frappe.db.get_value(\"Hipersign Settings\", \"Hipersign Settings\", \"stock_count_approval\")",
     "idx": 1
    },
    {
@@ -464,7 +464,7 @@
     "next_state": "Approved",
     "allowed": "Stock Manager",
     "allow_self_approval": 1,
-    "condition": "not frappe.db.get_single_value(\"Hipersign Settings\", \"stock_count_approval\")",
+    "condition": "not frappe.db.get_value(\"Hipersign Settings\", \"Hipersign Settings\", \"stock_count_approval\")",
     "idx": 2
    },
    {

@@ -20,6 +20,12 @@ from hipersign_trading.utils import settings
 
 
 class PostDatedCheque(Document):
+	def _validate_links(self):
+		# Frappe v16 checks links before any hook runs: the party type must follow the direction first,
+		# so a supplier is looked up as a supplier
+		self.party_type = "Customer" if self.direction == "Received" else "Supplier"
+		return super()._validate_links()
+
 	def validate(self):
 		self.party_type = "Customer" if self.direction == "Received" else "Supplier"
 		if self.is_new() or not self.status:

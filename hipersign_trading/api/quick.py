@@ -179,7 +179,17 @@ def to_bill(company=None):
 		.where(dn.docstatus == 1).where(dn.is_return == 0).where(dn.per_billed < 100).orderby(dn.posting_date))
 	if company:
 		q = q.where(dn.company == company)
-	return [dict(name=r[0], customer=r[1], customer_name=r[2], date=r[3], amount=r[4], currency=r[5]) for r in q.limit(100).run()]
+	rows = [dict(name=r[0], customer=r[1], customer_name=r[2], date=r[3], amount=r[4], currency=r[5]) for r in q.limit(200).run()]
+	return [r for r in rows if _billable(r["name"])][:100]
+
+
+def _billable(delivery_note):
+	"""Something on the note is still to bill — not already invoiced from its sales order."""
+	return bool(frappe.db.sql("""select 1 from `tabDelivery Note Item` dni
+		left join `tabSales Order Item` soi on soi.name = dni.so_detail
+		where dni.parent = %s and (dni.so_detail is null or dni.so_detail = '' or soi.billed_amt < soi.amount - 0.01)
+		and dni.amount > ifnull((select sum(sii.amount) from `tabSales Invoice Item` sii where sii.dn_detail = dni.name and sii.docstatus = 1), 0) + 0.01
+		limit 1""", delivery_note))
 
 
 @frappe.whitelist()

@@ -19,7 +19,21 @@ def v13_setup(c):
 
 
 def _pdf(name):
-	return b"%PDF-1.4\n% Hipersign demo document: " + name.encode() + b"\n%%EOF\n"
+	"""A small but valid one-page PDF (ERPNext checks uploaded PDFs) with the document's name on it."""
+	text = name.replace("\\", "").replace("(", "").replace(")", "").encode("latin-1", "replace")
+	stream = b"BT /F1 14 Tf 60 760 Td (Hipersign demo document: " + text + b") Tj ET"
+	objs = [b"<< /Type /Catalog /Pages 2 0 R >>", b"<< /Type /Pages /Kids [3 0 R] /Count 1 >>",
+		b"<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 5 0 R >> >> /Contents 4 0 R >>",
+		b"<< /Length " + str(len(stream)).encode() + b" >>\nstream\n" + stream + b"\nendstream",
+		b"<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>"]
+	out, offsets = b"%PDF-1.4\n", []
+	for i, o in enumerate(objs, 1):
+		offsets.append(len(out))
+		out += str(i).encode() + b" 0 obj\n" + o + b"\nendobj\n"
+	xref = len(out)
+	out += b"xref\n0 " + str(len(objs) + 1).encode() + b"\n0000000000 65535 f \n" + b"".join(b"%010d 00000 n \n" % x for x in offsets)
+	out += b"trailer\n<< /Size " + str(len(objs) + 1).encode() + b" /Root 1 0 R >>\nstartxref\n" + str(xref).encode() + b"\n%%EOF\n"
+	return out
 
 
 def _attach(doctype, docname, document_type, file_name):
@@ -42,7 +56,7 @@ def v13_documents(c):
 	for pr in frappe.get_all("Purchase Receipt", filters={"docstatus": 1, "company": c.company}, pluck="name", order_by="creation asc")[1:]:
 		_attach("Purchase Receipt", pr, "Supplier delivery note", f"Supplier DN {pr}.pdf")
 	for dn in frappe.get_all("Delivery Note", filters={"docstatus": 1, "company": c.company, "hs_delivery_status": "Delivered"}, pluck="name", order_by="creation asc")[1:]:
-		_attach("Delivery Note", dn, "Signed delivery note", f"Signed DN {dn}.jpg")
+		_attach("Delivery Note", dn, "Signed delivery note", f"Signed DN {dn}.pdf")
 	for lc in frappe.get_all("Letter of Credit", filters={"status": ["not in", ["Applied", "Cancelled"]]}, fields=["name", "lc_number"]):
 		_attach("Letter of Credit", lc.name, "Bank's LC copy", f"LC {lc.lc_number or lc.name} MT700.pdf")
 	for s_ in frappe.get_all("Import Shipment", filters={"status": ["in", ["Cleared", "Received at Warehouse"]]}, fields=["name", "bill_of_entry"]):
@@ -164,6 +178,25 @@ def v13_price_lists(c):
 		frappe.db.set_value("Customer", cust, "default_price_list", "Wholesale")
 
 
+def v13_lc_margins(c):
+	"""The cash margin the bank blocked on each issued LC; released on the one already paid."""
+	for name in frappe.get_all("Letter of Credit", filters={"status": ["not in", ["Applied", "Cancelled"]], "margin_amount": [">", 0], "company": c.company},
+			pluck="name", order_by="creation asc"):
+		lc = frappe.get_doc("Letter of Credit", name)
+		if not lc.margin_entry:
+			lc.flags.ignore_permissions = True
+			je = frappe.get_doc("Journal Entry", lc.make_margin_entry())
+			je.posting_date = lc.issue_date or je.posting_date
+			je.save(ignore_permissions=True)
+			je.submit()
+			lc.reload()
+		if lc.status in ("Paid", "Expired") and not lc.margin_release_entry:
+			je = frappe.get_doc("Journal Entry", lc.make_margin_release_entry())
+			je.posting_date = lc.paid_on or je.posting_date
+			je.save(ignore_permissions=True)
+			je.submit()
+
+
 def v13_form_modes(c):
 	s = frappe.get_single("Hipersign Settings")
 	if s.form_modes:
@@ -175,4 +208,4 @@ def v13_form_modes(c):
 	s.save(ignore_permissions=True)
 
 
-STEPS = [v13_setup, v13_price_lists, v13_documents, v13_compliance, v13_group, v13_bank_charges, v13_form_modes]
+STEPS = [v13_setup, v13_price_lists, v13_documents, v13_compliance, v13_group, v13_bank_charges, v13_lc_margins, v13_form_modes]

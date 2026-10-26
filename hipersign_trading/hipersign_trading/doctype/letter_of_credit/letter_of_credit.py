@@ -70,6 +70,18 @@ class LetterofCredit(Document):
 			frappe.msgprint(_("This LC expired on {0}. Set the status to Expired or ask the bank for an amendment.").format(
 				frappe.format(self.expiry_date, "Date")), indicator="orange", alert=True)
 
+	def _bank(self):
+		"""The LC's bank account: the issuing bank's account if one is linked, else the company's default bank."""
+		bank = None
+		if self.meta.has_field("bank_account") and self.get("bank_account"):
+			bank = frappe.db.get_value("Bank Account", self.bank_account, "account") if frappe.db.exists("Bank Account", self.bank_account) else self.bank_account
+		bank = bank or frappe.get_cached_value("Company", self.company, "default_bank_account") or settings().get("cheque_bank_account")
+		if not bank:
+			bank = frappe.db.get_value("Account", {"company": self.company, "account_type": "Bank", "is_group": 0, "disabled": 0}, "name", order_by="lft asc")
+		if not bank:
+			frappe.throw(_("Set a default bank account on company {0}.").format(self.company))
+		return bank
+
 	def _je(self, title, rows, remark):
 		je = frappe.get_doc({"doctype": "Journal Entry", "voucher_type": "Journal Entry", "company": self.company, "posting_date": today(),
 			"title": title, "user_remark": remark, "accounts": rows})
@@ -84,9 +96,7 @@ class LetterofCredit(Document):
 			frappe.throw(_("Margin entry {0} already exists.").format(self.margin_entry))
 		if not s.lc_margin_account:
 			frappe.throw(_("Set the LC margin deposit account in Hipersign Settings first."))
-		bank = frappe.get_cached_value("Company", self.company, "default_bank_account")
-		if not bank:
-			frappe.throw(_("Set a default bank account on company {0}.").format(self.company))
+		bank = self._bank()
 		amt = flt(self.margin_amount, 2)
 		if amt <= 0:
 			frappe.throw(_("There is no cash margin on this LC."))
@@ -105,7 +115,7 @@ class LetterofCredit(Document):
 			return self.margin_release_entry
 		if not self.margin_entry:
 			frappe.throw(_("No margin was blocked for this LC."))
-		bank = frappe.get_cached_value("Company", self.company, "default_bank_account")
+		bank = self._bank()
 		amt = flt(frappe.db.get_value("Journal Entry", self.margin_entry, "total_debit"), 2) or flt(self.margin_amount, 2)
 		je = self._je(_("LC margin release {0}").format(self.lc_number or self.name), [
 			{"account": bank, "debit_in_account_currency": amt},
