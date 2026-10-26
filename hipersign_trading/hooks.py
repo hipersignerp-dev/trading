@@ -4,7 +4,7 @@ app_publisher = "Hipersign"
 app_description = "Trading, Distribution & Import/Export ERP built on ERPNext"
 app_email = "sales@hipersignerp.com"
 app_license = "Proprietary"
-app_version = "1.2.0"
+app_version = "1.3.0"
 
 required_apps = ["erpnext"]
 
@@ -27,6 +27,10 @@ app_include_js = [
 	"/assets/hipersign_trading/js/trading_forms.js",
 	"/assets/hipersign_trading/js/returns_forms.js",
 	"/assets/hipersign_trading/js/hr_forms.js",
+	"/assets/hipersign_trading/js/hs_setup.js",
+	"/assets/hipersign_trading/js/hs_docs.js",
+	"/assets/hipersign_trading/js/hs_form_modes.js",
+	"/assets/hipersign_trading/js/hs_money.js",
 ]
 
 website_context = {
@@ -39,6 +43,9 @@ before_install = "hipersign_trading.setup.before_install"
 after_install = "hipersign_trading.setup.after_install"
 before_migrate = "hipersign_trading.setup.before_migrate"
 after_migrate = "hipersign_trading.setup.after_migrate"
+before_uninstall = "hipersign_trading.setup.before_uninstall"
+
+boot_session = "hipersign_trading.boot.boot_session"
 
 # ---------------------------------------------------------------- fixtures
 # Custom fields, property setters, workflows and the CRM kanban board ship with the app.
@@ -67,6 +74,15 @@ fixtures = [
 
 # ---------------------------------------------------------------- document events
 doc_events = {
+	# external documents: blocking rules on submit and on status changes (Hipersign Document Rule)
+	"*": {
+		"before_submit": "hipersign_trading.doc_rules.before_submit",
+		"validate": "hipersign_trading.doc_rules.validate",
+	},
+	"File": {
+		"after_insert": "hipersign_trading.doc_rules.file_after_insert",
+		"on_update": "hipersign_trading.doc_rules.file_on_update",
+	},
 	"Customer": {
 		"before_save": [
 			"hipersign_trading.overrides.customer.before_save",
@@ -82,6 +98,7 @@ doc_events = {
 	"Supplier": {"before_save": "hipersign_trading.overrides.kyc.party_before_save"},
 	"Pick List": {"before_submit": "hipersign_trading.overrides.advances.pick_list_before_submit"},
 	"Payment Entry": {
+		"validate": "hipersign_trading.overrides.payment_entry.validate",
 		"on_submit": "hipersign_trading.overrides.advances.payment_entry_changed",
 		"on_cancel": "hipersign_trading.overrides.advances.payment_entry_changed",
 	},
@@ -117,6 +134,10 @@ scheduler_events = {
 		"hipersign_trading.tasks.letter_of_credit_alerts",
 		"hipersign_trading.tasks.advance_due_alerts",
 		"hipersign_trading.tasks.tax_return_alerts",
+		"hipersign_trading.compliance.company_document_alerts",
+		"hipersign_trading.compliance.deadline_alerts",
+		"hipersign_trading.doc_rules.waiver_alerts",
+		"hipersign_trading.group.sync_all",
 	],
 	"monthly": [
 		"hipersign_trading.tasks.revaluation_reminder",

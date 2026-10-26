@@ -1,11 +1,14 @@
 # Copyright (c) 2026, Hipersign
 """Post-dated cheques received from customers and issued to suppliers.
 
-The cheque is a promise, not money: nothing is posted to the ledger until it clears.
-On clearing, a Payment Entry (mode “Cheque”) is created against the invoice, so
-receivables / payables and the bank balance move on the day the bank credits or debits it.
-A bounced cheque cancels nothing that was not posted; it books the bank's return charges
-and raises an alert, and the invoice stays open.
+v1.3 (Hipersign Settings → “Post cheques when received / issued”, on for new sites):
+  received  Dr Cheques in hand        Cr Customer (against the invoice) — the receivable moves to cheques in hand
+  cleared   Dr Bank                   Cr Cheques in hand
+  bounced   Dr Customer (invoice)     Cr Cheques in hand — the invoice is open again; bank charges booked
+  issued    Dr Supplier (invoice)     Cr Cheques issued
+  presented Dr Cheques issued         Cr Bank
+Cheques recorded before v1.3, or with the setting off, post nothing until they clear: on clearing a
+Payment Entry (mode “Cheque”) is made against the invoice, as in v1.2.
 """
 
 import frappe
@@ -37,6 +40,66 @@ class PostDatedCheque(Document):
 		if dup:
 			frappe.throw(_("Cheque {0} from {1} is already recorded as {2}.").format(self.cheque_no, self.party_name, dup))
 
+	def after_insert(self):
+		if self._should_post():
+			self._post_receipt()
+
+	def _should_post(self):
+		s = settings()
+		if not s.get("pdc_post_on_receipt") or self.posted or self.status not in ("In Hand", "Issued"):
+			return False
+		acc = s.get("pdc_receivable_account") if self.direction == "Received" else s.get("pdc_payable_account")
+		if not acc:
+			return False
+		company_currency = frappe.get_cached_value("Company", self.company, "default_currency")
+		if self.reference_doctype and self.reference_name:
+			if frappe.db.get_value(self.reference_doctype, self.reference_name, "currency") != company_currency:
+				return False
+		return True
+
+	def _party_row(self, debit):
+		from erpnext.accounts.party import get_party_account
+
+		row = {"account": get_party_account(self.party_type, self.party, self.company), "party_type": self.party_type, "party": self.party}
+		row["debit_in_account_currency" if debit else "credit_in_account_currency"] = flt(self.amount)
+		if self.reference_doctype in ("Sales Invoice", "Purchase Invoice") and self.reference_name:
+			row["reference_type"], row["reference_name"] = self.reference_doctype, self.reference_name
+		return row
+
+	def _entry(self, date, remark, rows, voucher_type="Journal Entry"):
+		je = frappe.get_doc({"doctype": "Journal Entry", "voucher_type": voucher_type, "company": self.company, "posting_date": date,
+			"cheque_no": self.cheque_no, "cheque_date": self.cheque_date, "user_remark": remark, "accounts": rows})
+		je.flags.ignore_permissions = True
+		je.insert()
+		je.submit()
+		return je.name
+
+	def _hold_account(self):
+		s = settings()
+		return s.pdc_receivable_account if self.direction == "Received" else s.pdc_payable_account
+
+	def _post_receipt(self):
+		hold = self._hold_account()
+		date = self.received_on or today()
+		if self.direction == "Received":
+			rows = [{"account": hold, "debit_in_account_currency": flt(self.amount)}, self._party_row(debit=False)]
+			remark = _("Post-dated cheque {0} received from {1}, dated {2}").format(self.cheque_no, self.party_name, frappe.format(self.cheque_date, "Date"))
+		else:
+			rows = [self._party_row(debit=True), {"account": hold, "credit_in_account_currency": flt(self.amount)}]
+			remark = _("Post-dated cheque {0} issued to {1}, dated {2}").format(self.cheque_no, self.party_name, frappe.format(self.cheque_date, "Date"))
+		je = self._entry(date, remark, rows)
+		self.db_set({"posted": 1, "receipt_entry": je})
+
+	def _reverse(self, date, why):
+		hold = self._hold_account()
+		if self.direction == "Received":
+			rows = [self._party_row(debit=True), {"account": hold, "credit_in_account_currency": flt(self.amount)}]
+		else:
+			rows = [{"account": hold, "debit_in_account_currency": flt(self.amount)}, self._party_row(debit=False)]
+		je = self._entry(date, _("Cheque {0} {1} — back to {2}").format(self.cheque_no, why, self.party_name), rows)
+		self.reversal_entry = je
+		return je
+
 	def _log(self, text):
 		self.add_comment("Info", text)
 
@@ -56,11 +119,25 @@ class PostDatedCheque(Document):
 		self.check_permission("write")
 		if self.status not in ("Deposited", "Issued"):
 			frappe.throw(_("Only a deposited or issued cheque can be cleared."))
-		self.payment_entry = self._make_payment(cleared_on or today())
-		self.status, self.cleared_on = "Cleared", cleared_on or today()
+		date = cleared_on or today()
+		if self.posted:
+			hold, bank = self._hold_account(), self.bank_account or frappe.get_cached_value("Company", self.company, "default_bank_account")
+			rows = ([{"account": bank, "debit_in_account_currency": flt(self.amount)}, {"account": hold, "credit_in_account_currency": flt(self.amount)}]
+				if self.direction == "Received" else
+				[{"account": hold, "debit_in_account_currency": flt(self.amount)}, {"account": bank, "credit_in_account_currency": flt(self.amount)}])
+			self.clearing_entry = self._entry(date, _("Cheque {0} {1} — {2}").format(self.cheque_no, _("cleared") if self.direction == "Received" else _("presented"),
+				self.party_name), rows, voucher_type="Bank Entry")
+			je = frappe.get_doc("Journal Entry", self.clearing_entry)
+			if je.meta.has_field("clearance_date"):
+				je.db_set("clearance_date", date)
+			ref = self.clearing_entry
+		else:
+			self.payment_entry = self._make_payment(date)
+			ref = self.payment_entry
+		self.status, self.cleared_on = "Cleared", date
 		self.save()
-		self._log(_("Cleared — Payment Entry {0}").format(self.payment_entry))
-		return self.payment_entry
+		self._log(_("Cleared — {0}").format(ref))
+		return ref
 
 	@frappe.whitelist()
 	def bounce(self, reason=None):
@@ -88,6 +165,8 @@ class PostDatedCheque(Document):
 			je.insert()
 			je.submit()
 			self.charges_entry, self.bank_charges = je.name, charge
+		if self.posted and not self.reversal_entry:
+			self._reverse(today(), _("returned unpaid"))
 		self.status, self.bounced_on = "Bounced", today()
 		self.save()
 		if frappe.get_meta("Customer").has_field("hs_cheque_bounces"):
@@ -104,7 +183,8 @@ class PostDatedCheque(Document):
 		new = frappe.copy_doc(self)
 		new.update({"cheque_no": cheque_no, "cheque_date": cheque_date, "amount": flt(amount) or self.amount, "drawn_on": drawn_on or self.drawn_on,
 			"status": "In Hand", "received_on": today(), "deposited_on": None, "cleared_on": None, "bounced_on": None,
-			"payment_entry": None, "charges_entry": None, "bank_charges": 0, "replaced_by": None})
+			"payment_entry": None, "charges_entry": None, "bank_charges": 0, "replaced_by": None,
+			"posted": 0, "receipt_entry": None, "clearing_entry": None, "reversal_entry": None})
 		new.insert()
 		self.status, self.replaced_by = "Replaced", new.name
 		self.save()
@@ -115,6 +195,8 @@ class PostDatedCheque(Document):
 		self.check_permission("write")
 		if self.status in ("Cleared", "Cancelled"):
 			frappe.throw(_("This cheque cannot be cancelled."))
+		if self.posted and not self.reversal_entry and self.status in ("In Hand", "Deposited", "Issued"):
+			self._reverse(today(), _("cancelled"))
 		self.status = "Cancelled"
 		self.save()
 		self._log(_("Cancelled{0}").format(" — " + reason if reason else ""))

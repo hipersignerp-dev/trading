@@ -6,7 +6,7 @@
  "engine": "InnoDB",
  "owner": "Administrator",
  "creation": "2026-10-22 18:00:00.000000",
- "modified": "2026-10-22 18:00:00.000000",
+ "modified": "2026-10-26 09:00:00.000000",
  "autoname": "naming_series:",
  "naming_rule": "By \"Naming Series\" field",
  "title_field": "party_name",
@@ -43,6 +43,10 @@
   "reference_name",
   "cb_3",
   "payment_entry",
+  "posted",
+  "receipt_entry",
+  "clearing_entry",
+  "reversal_entry",
   "charges_entry",
   "bank_charges",
   "replaced_by",
@@ -210,6 +214,33 @@
    "fieldtype": "Link",
    "label": "Payment entry",
    "options": "Payment Entry",
+   "read_only": 1
+  },
+  {
+   "fieldname": "posted",
+   "fieldtype": "Check",
+   "label": "Posted when received / issued",
+   "read_only": 1
+  },
+  {
+   "fieldname": "receipt_entry",
+   "fieldtype": "Link",
+   "label": "Entry on receipt / issue",
+   "options": "Journal Entry",
+   "read_only": 1
+  },
+  {
+   "fieldname": "clearing_entry",
+   "fieldtype": "Link",
+   "label": "Clearing entry",
+   "options": "Journal Entry",
+   "read_only": 1
+  },
+  {
+   "fieldname": "reversal_entry",
+   "fieldtype": "Link",
+   "label": "Reversal entry",
+   "options": "Journal Entry",
    "read_only": 1
   },
   {

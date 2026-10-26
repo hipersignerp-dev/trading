@@ -1,0 +1,133 @@
+{
+ "doctype": "DocType",
+ "name": "Group Trial Balance",
+ "module": "Hipersign Trading",
+ "custom": 0,
+ "engine": "InnoDB",
+ "owner": "Administrator",
+ "creation": "2026-10-26 09:00:00.000000",
+ "modified": "2026-10-26 09:00:00.000000",
+ "actions": [],
+ "links": [],
+ "states": [],
+ "sort_field": "period_end",
+ "sort_order": "DESC",
+ "track_changes": 1,
+ "field_order": [
+  "member",
+  "period_end",
+  "currency",
+  "cb_1",
+  "synced_on",
+  "year_start",
+  "sb_rows",
+  "accounts"
+ ],
+ "fields": [
+  {
+   "fieldname": "member",
+   "fieldtype": "Link",
+   "label": "Member",
+   "options": "Hipersign Group Member",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "period_end",
+   "fieldtype": "Date",
+   "label": "Up to",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "currency",
+   "fieldtype": "Link",
+   "label": "Currency",
+   "options": "Currency",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "cb_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "synced_on",
+   "fieldtype": "Datetime",
+   "label": "Synced on",
+   "read_only": 1
+  },
+  {
+   "fieldname": "year_start",
+   "fieldtype": "Date",
+   "label": "Financial year from",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sb_rows",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "accounts",
+   "fieldtype": "Table",
+   "label": "Accounts",
+   "options": "Group Trial Balance Account"
+  }
+ ],
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "Accounts Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "Managing Director",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "Accounts User",
+   "read": 1,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "istable": 0,
+ "issingle": 0,
+ "is_submittable": 0,
+ "quick_entry": 0,
+ "editable_grid": 0,
+ "autoname": "format:GTB-{member}-{period_end}",
+ "naming_rule": "Expression",
+ "title_field": "member",
+ "show_title_field_in_link": 0
+}

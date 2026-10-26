@@ -6,7 +6,7 @@
  "engine": "InnoDB",
  "owner": "Administrator",
  "creation": "2026-10-21 14:30:00.000000",
- "modified": "2026-10-21 14:30:00.000000",
+ "modified": "2026-10-26 09:00:00.000000",
  "actions": [],
  "links": [],
  "states": [],
@@ -22,6 +22,9 @@
   "bl_awb",
   "vessel_flight",
   "forwarder",
+  "shipping_line",
+  "containers",
+  "insurance_policy",
   "sb_route",
   "port_of_loading",
   "port_of_discharge",
@@ -100,6 +103,21 @@
    "fieldtype": "Link",
    "label": "Forwarder",
    "options": "Supplier"
+  },
+  {
+   "fieldname": "shipping_line",
+   "fieldtype": "Data",
+   "label": "Shipping line / airline"
+  },
+  {
+   "fieldname": "containers",
+   "fieldtype": "Int",
+   "label": "Containers"
+  },
+  {
+   "fieldname": "insurance_policy",
+   "fieldtype": "Data",
+   "label": "Insurance policy no."
   },
   {
    "fieldname": "sb_route",

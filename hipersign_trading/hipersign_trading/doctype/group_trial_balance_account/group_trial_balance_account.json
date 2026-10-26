@@ -1,0 +1,99 @@
+{
+ "doctype": "DocType",
+ "name": "Group Trial Balance Account",
+ "module": "Hipersign Trading",
+ "custom": 0,
+ "engine": "InnoDB",
+ "owner": "Administrator",
+ "creation": "2026-10-26 09:00:00.000000",
+ "modified": "2026-10-26 09:00:00.000000",
+ "actions": [],
+ "links": [],
+ "states": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 0,
+ "field_order": [
+  "account",
+  "account_name",
+  "root_type",
+  "report_type",
+  "opening",
+  "debit",
+  "credit",
+  "closing",
+  "period_movement",
+  "is_intercompany"
+ ],
+ "fields": [
+  {
+   "fieldname": "account",
+   "fieldtype": "Data",
+   "label": "Account",
+   "in_list_view": 1,
+   "columns": 3
+  },
+  {
+   "fieldname": "account_name",
+   "fieldtype": "Data",
+   "label": "Name"
+  },
+  {
+   "fieldname": "root_type",
+   "fieldtype": "Data",
+   "label": "Root",
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "report_type",
+   "fieldtype": "Data",
+   "label": "Report"
+  },
+  {
+   "fieldname": "opening",
+   "fieldtype": "Float",
+   "label": "Opening",
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "debit",
+   "fieldtype": "Float",
+   "label": "Debit",
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "credit",
+   "fieldtype": "Float",
+   "label": "Credit",
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "closing",
+   "fieldtype": "Float",
+   "label": "Closing",
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "period_movement",
+   "fieldtype": "Float",
+   "label": "Year to date (P&L)"
+  },
+  {
+   "fieldname": "is_intercompany",
+   "fieldtype": "Check",
+   "label": "Inter-company"
+  }
+ ],
+ "permissions": [],
+ "index_web_pages_for_search": 0,
+ "istable": 1,
+ "issingle": 0,
+ "is_submittable": 0,
+ "quick_entry": 0,
+ "editable_grid": 1
+}

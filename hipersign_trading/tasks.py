@@ -5,6 +5,7 @@ from frappe import _
 from frappe.utils import add_days, date_diff, today
 
 from hipersign_trading.utils import settings
+from hipersign_trading.features import feature_on
 
 
 def _todo(doctype, name, user, text, date=None):
@@ -34,6 +35,8 @@ def _users_with_role(role):
 
 
 def lead_follow_up_reminders():
+	if not feature_on("crm"):
+		return
 	leads = frappe.get_all(
 		"Lead",
 		filters={
@@ -54,6 +57,8 @@ def lead_follow_up_reminders():
 
 
 def proof_of_export_alerts():
+	if not feature_on("exports"):
+		return
 	s = settings()
 	alert_after = s.proof_alert_days or 45
 	rows = frappe.get_all(
@@ -76,6 +81,8 @@ def proof_of_export_alerts():
 
 
 def late_import_shipment_alerts():
+	if not feature_on("imports"):
+		return
 	rows = frappe.get_all(
 		"Import Shipment",
 		filters={"eta": ["<", today()], "status": ["in", ["Booked", "Shipped", "In Transit"]]},
@@ -89,6 +96,8 @@ def late_import_shipment_alerts():
 
 def cheque_alerts():
 	"""Cheques to deposit (date reached) and issued cheques about to be presented."""
+	if not feature_on("pdc"):
+		return
 	if not frappe.db.table_exists("Post Dated Cheque"):
 		return
 	s = settings()
@@ -108,6 +117,8 @@ def cheque_alerts():
 
 def employee_document_alerts():
 	"""Passport, visa, Emirates ID and labour card expiring soon — expired documents block WPS salary."""
+	if not feature_on("hr"):
+		return
 	from hipersign_trading.constants import EMPLOYEE_DOCS
 
 	meta = frappe.get_meta("Employee")
@@ -130,6 +141,8 @@ def collection_reminders():
 
 	An invoice with a promise to pay dated today or later is left alone until that date.
 	"""
+	if not feature_on("advances"):
+		return
 	from frappe.utils import date_diff, getdate
 
 	s = settings()
@@ -159,6 +172,8 @@ def collection_reminders():
 
 def kyc_alerts():
 	"""Trade licences expiring soon or expired — the customer's new orders are blocked once it expires."""
+	if not feature_on("kyc"):
+		return
 	s = settings()
 	limit = add_days(today(), s.get("kyc_alert_days") or 30)
 	for doctype, role, name_field in [("Customer", "Sales Manager", "customer_name"), ("Supplier", "Purchase Manager", "supplier_name")]:
@@ -178,6 +193,8 @@ def kyc_alerts():
 
 def letter_of_credit_alerts():
 	"""LCs about to expire and trust receipt loans about to fall due."""
+	if not feature_on("lc"):
+		return
 	if not frappe.db.table_exists("Letter of Credit"):
 		return
 	limit = add_days(today(), settings().get("lc_alert_days") or 14)
@@ -196,6 +213,8 @@ def letter_of_credit_alerts():
 
 def advance_due_alerts():
 	"""Confirmed orders still waiting for their advance — remind the order's owner and the Sales Manager."""
+	if not feature_on("advances"):
+		return
 	if not frappe.get_meta("Sales Order").has_field("hs_advance_status"):
 		return
 	managers = _users_with_role("Sales Manager")
@@ -221,6 +240,8 @@ def tax_return_alerts():
 
 def revaluation_reminder():
 	"""First of the month: open foreign-currency receivables or payables should be revalued at last month's closing rate."""
+	if not feature_on("fx"):
+		return
 	from frappe.utils import add_months, get_first_day, get_last_day
 
 	if not settings().get("revaluation_reminder"):

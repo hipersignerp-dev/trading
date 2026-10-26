@@ -26,6 +26,25 @@ HS_WORKFLOWS = [
 ]
 
 
+def load_from_button(user=None):
+	"""Background job behind Hipersign Settings → Load demo data."""
+	frappe.flags.hs_force_demo = True
+	try:
+		load()
+		frappe.db.set_default("hs_demo_loaded", 1)
+		frappe.db.commit()
+		msg, ind = "\n".join(LOG), "green" if not any(x.startswith("✗") for x in LOG) else "orange"
+	except Exception:
+		frappe.log_error(title="Hipersign demo data")
+		msg, ind = "Demo data could not be loaded — see the Error Log.", "red"
+	finally:
+		frappe.cache.delete_value("hs_demo_running")
+	if user:
+		frappe.get_doc({"doctype": "Notification Log", "for_user": user, "type": "Alert", "subject": "Hipersign demo data loaded" if ind != "red" else "Hipersign demo data failed",
+			"email_content": "<pre>" + frappe.utils.escape_html(msg) + "</pre>"}).insert(ignore_permissions=True)
+		frappe.db.commit()
+
+
 def load():
 	if frappe.conf.get("hipersign_demo_site") is not True and not frappe.flags.hs_force_demo:
 		print(
@@ -37,6 +56,7 @@ def load():
 	ctx = context()
 	frappe.flags.hs_apply_credit_limit = True
 	frappe.flags.mute_emails = True
+	frappe.flags.hs_skip_doc_rules = True  # documents are attached in v13_documents; history is not blocked
 	paused = pause_workflows()
 	try:
 		for step in (
@@ -46,16 +66,19 @@ def load():
 			people_and_documents, drivers_and_deliveries, warranty_claims, portal_user, home_workspaces,
 		):
 			run(step, ctx)
-		from hipersign_trading.demo import v12
+		from hipersign_trading.demo import v12, v13
 
 		for step in (
 			v12.v12_masters, v12.v12_advances, v12.v12_collections, v12.v12_purchasing, v12.v12_reservations,
 			v12.v12_trade_finance, v12.v12_tax_returns, v12.v12_revaluation, v12.v12_group,
 		):
 			run(step, ctx)
+		for step in v13.STEPS:
+			run(step, ctx)
 	finally:
 		resume_workflows(paused)
 		frappe.flags.hs_apply_credit_limit = False
+		frappe.flags.hs_skip_doc_rules = False
 	run(set_pending_states, ctx)
 	frappe.db.commit()
 	print("\n".join(LOG))
@@ -656,8 +679,10 @@ def post_dated_cheques(c):
 		if not si:
 			continue
 		out = flt(frappe.db.get_value("Sales Invoice", si, "outstanding_amount"))
-		held = sum(flt(x) for x in frappe.get_all("Post Dated Cheque", filters={"reference_name": si, "status": ["in", ["In Hand", "Deposited"]]}, pluck="amount"))
-		amt = min(round(out * frac / 100) * 100, out - held)
+		open_ = {"reference_name": si, "status": ["in", ["In Hand", "Deposited"]]}
+		held = sum(flt(x) for x in frappe.get_all("Post Dated Cheque", filters={**open_, "posted": 0}, pluck="amount"))
+		posted = sum(flt(x) for x in frappe.get_all("Post Dated Cheque", filters={**open_, "posted": 1}, pluck="amount"))
+		amt = min(round((out + posted) * frac / 100) * 100, out - held)
 		if amt <= 0:
 			continue
 		p = frappe.get_doc({"doctype": "Post Dated Cheque", "direction": "Received", "party_type": "Customer", "party": customer, "company": c.company,

@@ -1,0 +1,19 @@
+{
+ "doctype": "Number Card",
+ "name": "HS Pending Exceptions",
+ "label": "Exceptions waiting for approval",
+ "document_type": "Document Waiver",
+ "function": "Count",
+ "type": "Document Type",
+ "filters_json": "[[\"Document Waiver\", \"status\", \"=\", \"Pending\"]]",
+ "is_public": 1,
+ "is_standard": 1,
+ "module": "Hipersign Trading",
+ "show_percentage_stats": 0,
+ "stats_time_interval": "Daily",
+ "creation": "2026-10-26 09:00:00.000000",
+ "modified": "2026-10-26 09:00:00.000000",
+ "owner": "Administrator",
+ "modified_by": "Administrator",
+ "color": "#F6A04D"
+}

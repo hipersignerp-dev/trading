@@ -1,0 +1,183 @@
+{
+ "doctype": "DocType",
+ "name": "Hipersign Group Member",
+ "module": "Hipersign Trading",
+ "custom": 0,
+ "engine": "InnoDB",
+ "owner": "Administrator",
+ "creation": "2026-10-26 09:00:00.000000",
+ "modified": "2026-10-26 09:00:00.000000",
+ "actions": [],
+ "links": [],
+ "states": [],
+ "sort_field": "member_name",
+ "sort_order": "ASC",
+ "track_changes": 1,
+ "field_order": [
+  "member_name",
+  "country",
+  "currency",
+  "ownership_pct",
+  "is_parent",
+  "active",
+  "cb_1",
+  "company",
+  "site_url",
+  "remote_company",
+  "api_key",
+  "api_secret",
+  "sb_sync",
+  "last_sync",
+  "sync_status"
+ ],
+ "fields": [
+  {
+   "fieldname": "member_name",
+   "fieldtype": "Data",
+   "label": "Company",
+   "reqd": 1,
+   "unique": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "country",
+   "fieldtype": "Link",
+   "label": "Country",
+   "options": "Country",
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "currency",
+   "fieldtype": "Link",
+   "label": "Currency",
+   "options": "Currency",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "ownership_pct",
+   "fieldtype": "Percent",
+   "label": "Group ownership %",
+   "default": "100",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "is_parent",
+   "fieldtype": "Check",
+   "label": "Parent / holding company"
+  },
+  {
+   "fieldname": "active",
+   "fieldtype": "Check",
+   "label": "Included in consolidation",
+   "default": "1"
+  },
+  {
+   "fieldname": "cb_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company on this site",
+   "options": "Company",
+   "description": "Leave empty when the company lives on another site"
+  },
+  {
+   "fieldname": "site_url",
+   "fieldtype": "Data",
+   "label": "Site URL",
+   "depends_on": "eval:!doc.company",
+   "description": "e.g. https://ksa.hipersignerp.cloud"
+  },
+  {
+   "fieldname": "remote_company",
+   "fieldtype": "Data",
+   "label": "Company name on that site",
+   "depends_on": "eval:!doc.company"
+  },
+  {
+   "fieldname": "api_key",
+   "fieldtype": "Data",
+   "label": "API key",
+   "depends_on": "eval:!doc.company"
+  },
+  {
+   "fieldname": "api_secret",
+   "fieldtype": "Password",
+   "label": "API secret",
+   "depends_on": "eval:!doc.company"
+  },
+  {
+   "fieldname": "sb_sync",
+   "fieldtype": "Section Break",
+   "label": "Last sync"
+  },
+  {
+   "fieldname": "last_sync",
+   "fieldtype": "Datetime",
+   "label": "Last sync",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sync_status",
+   "fieldtype": "Small Text",
+   "label": "Result",
+   "read_only": 1
+  }
+ ],
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "Accounts Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "Managing Director",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "Accounts User",
+   "read": 1,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "istable": 0,
+ "issingle": 0,
+ "is_submittable": 0,
+ "quick_entry": 0,
+ "editable_grid": 0,
+ "autoname": "field:member_name",
+ "naming_rule": "By fieldname"
+}

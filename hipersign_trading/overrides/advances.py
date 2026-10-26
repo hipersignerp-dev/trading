@@ -11,6 +11,7 @@ from frappe import _
 from frappe.utils import flt
 
 from hipersign_trading.utils import settings
+from hipersign_trading.features import feature_on
 
 
 def advance_terms():
@@ -60,20 +61,28 @@ def check_hold(sales_orders, what):
 		so = frappe.get_doc("Sales Order", name)
 		required, received = position(so)
 		if status_of(required, received) in ("Waiting", "Part received"):
+			from hipersign_trading.overrides.kyc import _use_waiver
+
+			if _use_waiver("Sales Order", name, "Advance payment"):
+				continue
 			frappe.throw(
-				_("{0} is on hold: the advance of {1} for {2} has not been received ({3} received). Record the advance as a Payment Entry against the order first.").format(
+				_("{0} is on hold: the advance of {1} for {2} has not been received ({3} received). Record the advance as a Payment Entry against the order first — or ask for an exception on the order (Documents → Request exception).").format(
 					what, frappe.format_value(required - received, {"fieldtype": "Currency"}), name, frappe.format_value(received, {"fieldtype": "Currency"})),
 				title=_("Advance before delivery"),
 			)
 
 
 def dn_before_submit(doc, method=None):
+	if not feature_on("advances"):
+		return
 	if doc.get("is_return"):
 		return
 	check_hold([i.against_sales_order for i in doc.items], _("Delivery"))
 
 
 def pick_list_before_submit(doc, method=None):
+	if not feature_on("advances"):
+		return
 	check_hold([r.sales_order for r in doc.get("locations") or []], _("Picking"))
 
 

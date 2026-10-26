@@ -1,0 +1,19 @@
+{
+ "doctype": "Number Card",
+ "name": "HS Overdue Exceptions",
+ "label": "Documents overdue under an exception",
+ "document_type": "Document Waiver",
+ "function": "Count",
+ "type": "Document Type",
+ "filters_json": "[[\"Document Waiver\", \"status\", \"=\", \"Overdue\"]]",
+ "is_public": 1,
+ "is_standard": 1,
+ "module": "Hipersign Trading",
+ "show_percentage_stats": 0,
+ "stats_time_interval": "Daily",
+ "creation": "2026-10-26 09:00:00.000000",
+ "modified": "2026-10-26 09:00:00.000000",
+ "owner": "Administrator",
+ "modified_by": "Administrator",
+ "color": "#E24C4C"
+}

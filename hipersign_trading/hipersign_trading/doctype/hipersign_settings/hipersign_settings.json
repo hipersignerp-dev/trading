@@ -6,7 +6,7 @@
  "engine": "InnoDB",
  "owner": "Administrator",
  "creation": "2026-10-21 14:30:00.000000",
- "modified": "2026-10-24 12:00:00.000000",
+ "modified": "2026-10-26 09:00:00.000000",
  "actions": [],
  "links": [],
  "states": [],
@@ -78,7 +78,76 @@
   "cb_ro",
   "reorder_safety_factor",
   "sb_group",
-  "intercompany_markup"
+  "intercompany_markup",
+  "tab_setup",
+  "sb_setup",
+  "company_mode",
+  "feature_pack",
+  "cb_setup",
+  "document_level",
+  "setup_done",
+  "hs_hidden_by_features",
+  "sb_feat_sales",
+  "feat_crm",
+  "feat_tracker",
+  "cb_feat_portal",
+  "feat_portal",
+  "feat_exports",
+  "sb_feat_buying",
+  "feat_rfq",
+  "feat_imports",
+  "cb_feat_lc",
+  "feat_lc",
+  "sb_feat_stock",
+  "feat_multiwh",
+  "feat_serial",
+  "cb_feat_trips",
+  "feat_trips",
+  "sb_feat_finance",
+  "feat_advances",
+  "feat_pdc",
+  "feat_recon",
+  "cb_feat_fx",
+  "feat_fx",
+  "feat_ctax",
+  "sb_feat_controls",
+  "feat_approvals",
+  "feat_kyc",
+  "cb_feat_codocs",
+  "feat_codocs",
+  "sb_feat_group",
+  "feat_group",
+  "sb_feat_people_assets",
+  "feat_hr",
+  "cb_feat_assets",
+  "feat_assets",
+  "tab_forms",
+  "sb_forms",
+  "form_modes",
+  "tab_money",
+  "sb_short",
+  "sp_auto_limit",
+  "sp_auto_pct",
+  "cb_short",
+  "sp_writeoff_account",
+  "sp_approver_role",
+  "sb_pdc_books",
+  "pdc_post_on_receipt",
+  "cb_pdc_books",
+  "pdc_receivable_account",
+  "pdc_payable_account",
+  "sb_pricing",
+  "price_list_items_only",
+  "tab_compliance",
+  "sb_cdocs",
+  "compliance_reminder_days",
+  "deadline_reminder_days",
+  "cb_cdocs",
+  "compliance_email",
+  "waiver_days",
+  "sb_grp",
+  "group_currency",
+  "group_sync_daily"
  ],
  "fields": [
   {
@@ -446,6 +515,416 @@
    "label": "Inter-company price — cost plus %",
    "default": "8",
    "description": "Arm's-length basis for transfer pricing; keep it on file for corporate tax"
+  },
+  {
+   "fieldname": "tab_setup",
+   "fieldtype": "Tab Break",
+   "label": "Setup & features"
+  },
+  {
+   "fieldname": "sb_setup",
+   "fieldtype": "Section Break",
+   "label": "Set-up"
+  },
+  {
+   "fieldname": "company_mode",
+   "fieldtype": "Select",
+   "label": "Companies",
+   "options": "Single company\nGroup",
+   "default": "Single company",
+   "description": "Group: several companies or countries, consolidation and inter-company"
+  },
+  {
+   "fieldname": "feature_pack",
+   "fieldtype": "Select",
+   "label": "Feature pack",
+   "options": "Starter\nStandard\nEnterprise\nCustom",
+   "default": "Enterprise"
+  },
+  {
+   "fieldname": "cb_setup",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "document_level",
+   "fieldtype": "Select",
+   "label": "Documents",
+   "options": "Off\nRecommended\nFull",
+   "default": "Full",
+   "description": "Off: plain attachments. Recommended: checklists, nothing blocks. Full: blocking rules and exceptions."
+  },
+  {
+   "fieldname": "setup_done",
+   "fieldtype": "Check",
+   "label": "Set-up completed",
+   "read_only": 1
+  },
+  {
+   "fieldname": "hs_hidden_by_features",
+   "fieldtype": "Long Text",
+   "label": "Hidden by feature switches",
+   "hidden": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "sb_feat_sales",
+   "fieldtype": "Section Break",
+   "label": "Sales"
+  },
+  {
+   "fieldname": "feat_crm",
+   "fieldtype": "Check",
+   "label": "CRM & leads",
+   "default": "1",
+   "description": "Lead pipeline, follow-ups, lead sources"
+  },
+  {
+   "fieldname": "feat_tracker",
+   "fieldtype": "Check",
+   "label": "Order tracker",
+   "default": "1",
+   "description": "Sales order tracker page"
+  },
+  {
+   "fieldname": "cb_feat_portal",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "feat_portal",
+   "fieldtype": "Check",
+   "label": "Customer portal",
+   "default": "1",
+   "description": "Statement of account and warranty pages for customers"
+  },
+  {
+   "fieldname": "feat_exports",
+   "fieldtype": "Check",
+   "label": "Exports & re-exports",
+   "default": "1",
+   "description": "Export shipments, proof of export for 0% VAT"
+  },
+  {
+   "fieldname": "sb_feat_buying",
+   "fieldtype": "Section Break",
+   "label": "Buying"
+  },
+  {
+   "fieldname": "feat_rfq",
+   "fieldtype": "Check",
+   "label": "Purchase requests & RFQs",
+   "default": "1",
+   "description": "Material requests and supplier quotation comparison"
+  },
+  {
+   "fieldname": "feat_imports",
+   "fieldtype": "Check",
+   "label": "Imports & landed cost",
+   "default": "1",
+   "description": "Import shipments, customs, landed cost"
+  },
+  {
+   "fieldname": "cb_feat_lc",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "feat_lc",
+   "fieldtype": "Check",
+   "label": "LCs & trade finance",
+   "default": "1",
+   "description": "Letters of credit, cash margin, trust receipts — needs Imports & landed cost"
+  },
+  {
+   "fieldname": "sb_feat_stock",
+   "fieldtype": "Section Break",
+   "label": "Stock"
+  },
+  {
+   "fieldname": "feat_multiwh",
+   "fieldtype": "Check",
+   "label": "Multiple warehouses",
+   "default": "1",
+   "description": "Transfers, reservations and pick lists"
+  },
+  {
+   "fieldname": "feat_serial",
+   "fieldtype": "Check",
+   "label": "Serial numbers & warranty",
+   "default": "1",
+   "description": "Serial tracking and warranty claims"
+  },
+  {
+   "fieldname": "cb_feat_trips",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "feat_trips",
+   "fieldtype": "Check",
+   "label": "Delivery trips & driver app",
+   "default": "1",
+   "description": "Delivery trips and the driver web app"
+  },
+  {
+   "fieldname": "sb_feat_finance",
+   "fieldtype": "Section Break",
+   "label": "Finance"
+  },
+  {
+   "fieldname": "feat_advances",
+   "fieldtype": "Check",
+   "label": "Advances & payment schedules",
+   "default": "1",
+   "description": "Advance before delivery, collection stages"
+  },
+  {
+   "fieldname": "feat_pdc",
+   "fieldtype": "Check",
+   "label": "Post-dated cheques",
+   "default": "1",
+   "description": "Cheques in hand and issued, deposit and bounce"
+  },
+  {
+   "fieldname": "feat_recon",
+   "fieldtype": "Check",
+   "label": "Bank reconciliation",
+   "default": "1",
+   "description": "Statement import and matching"
+  },
+  {
+   "fieldname": "cb_feat_fx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "feat_fx",
+   "fieldtype": "Check",
+   "label": "Multi-currency & revaluation",
+   "default": "1",
+   "description": "Month-end revaluation reminder"
+  },
+  {
+   "fieldname": "feat_ctax",
+   "fieldtype": "Check",
+   "label": "Corporate tax",
+   "default": "1",
+   "description": "Corporate tax return"
+  },
+  {
+   "fieldname": "sb_feat_controls",
+   "fieldtype": "Section Break",
+   "label": "Controls"
+  },
+  {
+   "fieldname": "feat_approvals",
+   "fieldtype": "Check",
+   "label": "Approval workflows",
+   "default": "1",
+   "description": "Approval routes — off: documents are approved at once"
+  },
+  {
+   "fieldname": "feat_kyc",
+   "fieldtype": "Check",
+   "label": "KYC & licence checks",
+   "default": "1",
+   "description": "Customer and supplier licences; orders blocked when expired"
+  },
+  {
+   "fieldname": "cb_feat_codocs",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "feat_codocs",
+   "fieldtype": "Check",
+   "label": "Company compliance",
+   "default": "1",
+   "description": "Company licences, deadlines and reminders"
+  },
+  {
+   "fieldname": "sb_feat_group",
+   "fieldtype": "Section Break",
+   "label": "Group"
+  },
+  {
+   "fieldname": "feat_group",
+   "fieldtype": "Check",
+   "label": "Group companies",
+   "default": "1",
+   "description": "Several companies and countries, consolidation"
+  },
+  {
+   "fieldname": "sb_feat_people_assets",
+   "fieldtype": "Section Break",
+   "label": "People & assets"
+  },
+  {
+   "fieldname": "feat_hr",
+   "fieldtype": "Check",
+   "label": "HR documents & WPS",
+   "default": "1",
+   "description": "Employee documents and WPS file"
+  },
+  {
+   "fieldname": "cb_feat_assets",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "feat_assets",
+   "fieldtype": "Check",
+   "label": "Fixed assets",
+   "default": "1",
+   "description": "Asset register and depreciation"
+  },
+  {
+   "fieldname": "tab_forms",
+   "fieldtype": "Tab Break",
+   "label": "Form modes"
+  },
+  {
+   "fieldname": "sb_forms",
+   "fieldtype": "Section Break",
+   "label": "How New documents open",
+   "description": "Quick: a small dialog with the fewest fields. Standard: the essential fields. Detailed: every field. The pack sets the starting point; rows here override it for a document or a role; each user's own last choice wins."
+  },
+  {
+   "fieldname": "form_modes",
+   "fieldtype": "Table",
+   "label": "Defaults",
+   "options": "Hipersign Form Mode"
+  },
+  {
+   "fieldname": "tab_money",
+   "fieldtype": "Tab Break",
+   "label": "Payments & pricing"
+  },
+  {
+   "fieldname": "sb_short",
+   "fieldtype": "Section Break",
+   "label": "Bank charges & short payments",
+   "description": "When a customer's transfer arrives short because of bank charges, the difference is booked as a deduction on the Payment Entry and the invoice is settled in full."
+  },
+  {
+   "fieldname": "sp_auto_limit",
+   "fieldtype": "Currency",
+   "label": "Absorb without approval up to",
+   "default": "100"
+  },
+  {
+   "fieldname": "sp_auto_pct",
+   "fieldtype": "Percent",
+   "label": "…and up to % of the invoice",
+   "default": "2",
+   "description": "The lower of the two applies"
+  },
+  {
+   "fieldname": "cb_short",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "sp_writeoff_account",
+   "fieldtype": "Link",
+   "label": "Short payment write-off account",
+   "options": "Account"
+  },
+  {
+   "fieldname": "sp_approver_role",
+   "fieldtype": "Link",
+   "label": "Above the limit, approved by",
+   "options": "Role",
+   "default": "Accounts Manager"
+  },
+  {
+   "fieldname": "sb_pdc_books",
+   "fieldtype": "Section Break",
+   "label": "Post-dated cheques in the books"
+  },
+  {
+   "fieldname": "pdc_post_on_receipt",
+   "fieldtype": "Check",
+   "label": "Post cheques when received / issued",
+   "default": "1",
+   "description": "Received: Dr cheques in hand, Cr customer. Cleared: Dr bank, Cr cheques in hand. Bounced: back to the customer. Off: nothing posts until the cheque clears."
+  },
+  {
+   "fieldname": "cb_pdc_books",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "pdc_receivable_account",
+   "fieldtype": "Link",
+   "label": "Cheques in hand account",
+   "options": "Account"
+  },
+  {
+   "fieldname": "pdc_payable_account",
+   "fieldtype": "Link",
+   "label": "Cheques issued account",
+   "options": "Account"
+  },
+  {
+   "fieldname": "sb_pricing",
+   "fieldtype": "Section Break",
+   "label": "Price lists"
+  },
+  {
+   "fieldname": "price_list_items_only",
+   "fieldtype": "Check",
+   "label": "Offer only the items in the selected price list",
+   "default": "1",
+   "description": "On quotations, orders and invoices; tick “All items” on the document to pick something outside the list"
+  },
+  {
+   "fieldname": "tab_compliance",
+   "fieldtype": "Tab Break",
+   "label": "Compliance & group"
+  },
+  {
+   "fieldname": "sb_cdocs",
+   "fieldtype": "Section Break",
+   "label": "Company documents and deadlines"
+  },
+  {
+   "fieldname": "compliance_reminder_days",
+   "fieldtype": "Data",
+   "label": "Licence reminders (days before expiry)",
+   "default": "60,30,7,0"
+  },
+  {
+   "fieldname": "deadline_reminder_days",
+   "fieldtype": "Data",
+   "label": "Deadline reminders (days before)",
+   "default": "7,3,0"
+  },
+  {
+   "fieldname": "cb_cdocs",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "compliance_email",
+   "fieldtype": "Check",
+   "label": "Email the reminders",
+   "default": "1"
+  },
+  {
+   "fieldname": "waiver_days",
+   "fieldtype": "Int",
+   "label": "Exception: document expected within (days)",
+   "default": "7"
+  },
+  {
+   "fieldname": "sb_grp",
+   "fieldtype": "Section Break",
+   "label": "Group consolidation"
+  },
+  {
+   "fieldname": "group_currency",
+   "fieldtype": "Link",
+   "label": "Presentation currency",
+   "options": "Currency",
+   "default": "AED"
+  },
+  {
+   "fieldname": "group_sync_daily",
+   "fieldtype": "Check",
+   "label": "Sync member trial balances every night",
+   "default": "1"
   }
  ],
  "permissions": [

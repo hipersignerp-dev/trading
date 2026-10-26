@@ -5,6 +5,7 @@ from frappe import _
 from frappe.utils import getdate, today
 
 from hipersign_trading.utils import settings
+from hipersign_trading.features import feature_on
 
 
 def party_before_save(doc, method=None):
@@ -21,6 +22,8 @@ def party_before_save(doc, method=None):
 
 
 def kyc_problem(customer):
+	if not feature_on("kyc"):
+		return None
 	c = frappe.db.get_value("Customer", customer, ["hs_kyc_status", "hs_trade_licence_expiry", "is_internal_customer"], as_dict=True)
 	if not c or c.is_internal_customer:
 		return None
@@ -32,9 +35,23 @@ def kyc_problem(customer):
 
 
 def sales_order_before_submit(doc, method=None):
+	if not feature_on("kyc"):
+		return
 	if not frappe.get_meta("Customer").has_field("hs_kyc_status") or not settings().get("kyc_block_orders"):
 		return
 	problem = kyc_problem(doc.customer)
+	if problem and _use_waiver(doc.doctype, doc.name, "Customer KYC documents"):
+		return
 	if problem:
-		frappe.throw(_("{0} cannot be confirmed: {1}. Update the customer's KYC (new licence copy and expiry date) and submit again. Drafts and quotations are still allowed.").format(
+		frappe.throw(_("{0} cannot be confirmed: {1}. Update the customer's KYC (new licence copy and expiry date) and submit again. Drafts and quotations are still allowed. Or ask for an exception (Documents → Request exception).").format(
 			doc.name, problem), title=_("KYC"))
+
+
+def _use_waiver(doctype, name, document_type):
+	"""An approved exception lets this one record through (once)."""
+	from hipersign_trading.doc_rules import approved_waiver
+
+	wv = approved_waiver(doctype, name, document_type)
+	if wv and frappe.db.get_value("Document Waiver", wv, "status") == "Approved":
+		frappe.db.set_value("Document Waiver", wv, {"status": "Used", "used_on": frappe.utils.now_datetime()})
+	return bool(wv)

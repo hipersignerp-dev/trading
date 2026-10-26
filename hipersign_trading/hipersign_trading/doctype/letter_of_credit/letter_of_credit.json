@@ -6,7 +6,7 @@
  "engine": "InnoDB",
  "owner": "Administrator",
  "creation": "2026-10-24 12:00:00.000000",
- "modified": "2026-10-24 12:00:00.000000",
+ "modified": "2026-10-26 09:00:00.000000",
  "autoname": "naming_series:",
  "naming_rule": "By \"Naming Series\" field",
  "title_field": "party_name",
@@ -66,6 +66,7 @@
   "sb_entries",
   "margin_entry",
   "tr_entry",
+  "margin_release_entry",
   "cb_5",
   "remarks"
  ],
@@ -361,6 +362,13 @@
    "fieldname": "tr_entry",
    "fieldtype": "Link",
    "label": "Trust receipt journal entry",
+   "options": "Journal Entry",
+   "read_only": 1
+  },
+  {
+   "fieldname": "margin_release_entry",
+   "fieldtype": "Link",
+   "label": "Margin release entry",
    "options": "Journal Entry",
    "read_only": 1
   },

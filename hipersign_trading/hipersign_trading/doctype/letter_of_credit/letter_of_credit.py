@@ -47,7 +47,15 @@ class LetterofCredit(Document):
 			if self.tr_start:
 				self.tr_due = add_days(self.tr_start, self.tr_days or 0)
 			self.tr_interest = flt(flt(self.tr_amount) * flt(self.tr_rate) / 100 * flt(self.tr_days) / 365, 2)
+		if self.paid_on and getdate(self.paid_on) > getdate(today()):
+			frappe.throw(_("The paid date cannot be in the future — record the payment on the day the bank pays."))
 		self.check_status()
+
+	def on_update(self):
+		"""The bank releases the cash margin when the LC is paid, expires or is cancelled."""
+		if self.status in ("Paid", "Expired", "Cancelled") and self.margin_entry and not self.margin_release_entry \
+				and frappe.db.get_value("Journal Entry", self.margin_entry, "docstatus") == 1 and not frappe.flags.in_import:
+			self.make_margin_release_entry()
 
 	def check_status(self):
 		order = ["Applied", "Issued", "Documents Presented", "Accepted", "Paid"]
@@ -87,6 +95,25 @@ class LetterofCredit(Document):
 			{"account": bank, "credit_in_account_currency": amt}], _("Cash margin blocked by {0} for LC {1}").format(self.issuing_bank, self.lc_number or self.name))
 		self.save()
 		return self.margin_entry
+
+	@frappe.whitelist()
+	def make_margin_release_entry(self):
+		"""Draft entry for the accountant: Dr bank, Cr LC margin deposit (the bank returns or applies the margin)."""
+		self.check_permission("write")
+		s = settings()
+		if self.margin_release_entry:
+			return self.margin_release_entry
+		if not self.margin_entry:
+			frappe.throw(_("No margin was blocked for this LC."))
+		bank = frappe.get_cached_value("Company", self.company, "default_bank_account")
+		amt = flt(frappe.db.get_value("Journal Entry", self.margin_entry, "total_debit"), 2) or flt(self.margin_amount, 2)
+		je = self._je(_("LC margin release {0}").format(self.lc_number or self.name), [
+			{"account": bank, "debit_in_account_currency": amt},
+			{"account": s.lc_margin_account, "credit_in_account_currency": amt}],
+			_("Cash margin released by {0} for LC {1} ({2})").format(self.issuing_bank, self.lc_number or self.name, _(self.status)))
+		self.db_set("margin_release_entry", je)
+		frappe.msgprint(_("Draft margin release entry {0} created — check and submit it.").format(je), alert=True)
+		return je
 
 	@frappe.whitelist()
 	def make_trust_receipt_entry(self):

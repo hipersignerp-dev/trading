@@ -1,0 +1,247 @@
+{
+ "doctype": "DocType",
+ "name": "Hipersign Document Rule",
+ "module": "Hipersign Trading",
+ "custom": 0,
+ "engine": "InnoDB",
+ "owner": "Administrator",
+ "creation": "2026-10-26 09:00:00.000000",
+ "modified": "2026-10-26 09:00:00.000000",
+ "actions": [],
+ "links": [],
+ "states": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1,
+ "field_order": [
+  "reference_doctype",
+  "document_type",
+  "level",
+  "cb_1",
+  "active",
+  "approver_role",
+  "sb_when",
+  "event",
+  "when_field",
+  "when_value",
+  "cb_2",
+  "min_amount",
+  "amount_field",
+  "only_returns",
+  "sb_note",
+  "note"
+ ],
+ "fields": [
+  {
+   "fieldname": "reference_doctype",
+   "fieldtype": "Link",
+   "label": "Record type",
+   "options": "DocType",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "document_type",
+   "fieldtype": "Link",
+   "label": "Document",
+   "options": "Hipersign Document Type",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "level",
+   "fieldtype": "Select",
+   "label": "Rule",
+   "options": "Block\nRequired\nOptional\nOff",
+   "default": "Required",
+   "reqd": 1,
+   "in_list_view": 1,
+   "description": "Block: the next step stops until the file is attached or an exception is approved. Required: flagged as missing. Optional: offered in the list."
+  },
+  {
+   "fieldname": "cb_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "active",
+   "fieldtype": "Check",
+   "label": "Active",
+   "default": "1"
+  },
+  {
+   "fieldname": "approver_role",
+   "fieldtype": "Link",
+   "label": "Exception approved by",
+   "options": "Role",
+   "description": "Who can approve an exception to a blocking rule"
+  },
+  {
+   "fieldname": "sb_when",
+   "fieldtype": "Section Break",
+   "label": "When"
+  },
+  {
+   "fieldname": "event",
+   "fieldtype": "Select",
+   "label": "Checked",
+   "options": "On submit\nWhen status changes to",
+   "default": "On submit"
+  },
+  {
+   "fieldname": "when_field",
+   "fieldtype": "Data",
+   "label": "Status field",
+   "depends_on": "eval:doc.event=='When status changes to'",
+   "description": "e.g. status or hs_delivery_status"
+  },
+  {
+   "fieldname": "when_value",
+   "fieldtype": "Data",
+   "label": "Status value",
+   "depends_on": "eval:doc.event=='When status changes to'",
+   "description": "e.g. Issued or Delivered"
+  },
+  {
+   "fieldname": "cb_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "min_amount",
+   "fieldtype": "Currency",
+   "label": "Only from amount",
+   "description": "Leave 0 to apply to every record"
+  },
+  {
+   "fieldname": "amount_field",
+   "fieldtype": "Data",
+   "label": "Amount field",
+   "default": "base_grand_total",
+   "depends_on": "eval:doc.min_amount"
+  },
+  {
+   "fieldname": "only_returns",
+   "fieldtype": "Check",
+   "label": "Only returns / credit notes"
+  },
+  {
+   "fieldname": "sb_note",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "note",
+   "fieldtype": "Small Text",
+   "label": "Why",
+   "description": "Shown to users when the document is missing"
+  }
+ ],
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "Managing Director",
+   "read": 1,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1
+  },
+  {
+   "role": "Accounts Manager",
+   "read": 1,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1
+  },
+  {
+   "role": "Sales Manager",
+   "read": 1,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1
+  },
+  {
+   "role": "Purchase Manager",
+   "read": 1,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1
+  },
+  {
+   "role": "Stock Manager",
+   "read": 1,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1
+  },
+  {
+   "role": "Accounts User",
+   "read": 1,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1
+  },
+  {
+   "role": "Sales User",
+   "read": 1,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1
+  },
+  {
+   "role": "Purchase User",
+   "read": 1,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1
+  },
+  {
+   "role": "Stock User",
+   "read": 1,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1
+  },
+  {
+   "role": "Accounts Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "istable": 0,
+ "issingle": 0,
+ "is_submittable": 0,
+ "quick_entry": 0,
+ "editable_grid": 0,
+ "autoname": "hash",
+ "naming_rule": "Random",
+ "title_field": "document_type",
+ "show_title_field_in_link": 0,
+ "search_fields": "reference_doctype,document_type"
+}
