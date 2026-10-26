@@ -47,7 +47,8 @@ hipersign.load_demo = function () {
 	frappe.xcall("hipersign_trading.api.setup.demo_status").then((st) => {
 		if (!st.allowed) return frappe.msgprint({ title: __("Demo data"), indicator: "orange", message: st.why });
 		if (st.running) return frappe.msgprint(__("Demo data is loading — check back in a few minutes."));
-		frappe.prompt({ fieldtype: "Data", fieldname: "confirm", label: __("Type DEMO to load the demo companies, customers, items and transactions"), reqd: 1 },
+		frappe.prompt({ fieldtype: "Data", fieldname: "confirm", label: __("Type DEMO to load the demo companies, customers, items and transactions"), reqd: 1,
+				description: __("The site switches to the Enterprise pack (group of companies) so every feature has sample data — you can switch back afterwards.") },
 			(v) => frappe.xcall("hipersign_trading.api.setup.load_demo", { confirm: v.confirm }).then((m) => frappe.msgprint({ title: __("Demo data"), indicator: "blue", message: m })),
 			__("Load demo data"), __("Load"));
 	});

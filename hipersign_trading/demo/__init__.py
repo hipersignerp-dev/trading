@@ -33,7 +33,9 @@ def load_from_button(user=None):
 		load()
 		frappe.db.set_default("hs_demo_loaded", 1)
 		frappe.db.commit()
-		msg, ind = "\n".join(LOG), "green" if not any(x.startswith("✗") for x in LOG) else "orange"
+		msg = ("The demo switched this site to the Enterprise pack, group of companies, so every feature has sample data. "
+			"Change it any time in Hipersign Settings → Setup & features.\n\n" + "\n".join(LOG))
+		ind = "green" if not any(x.startswith("✗") for x in LOG) else "orange"
 	except Exception:
 		frappe.log_error(title="Hipersign demo data")
 		msg, ind = "Demo data could not be loaded — see the Error Log.", "red"

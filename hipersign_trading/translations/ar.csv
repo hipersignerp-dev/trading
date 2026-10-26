@@ -207,3 +207,457 @@ Net VAT payable / (refundable),صافي الضريبة المستحقة / (ال�
 EmaraTax reference,مرجع إمارات تاكس
 Return & payment due,موعد الإقرار والدفع
 Locked accounting period,الفترة المحاسبية المقفلة
+1. How many companies?,1. كم عدد الشركات؟
+2. Which pack?,2. أي باقة؟
+A rule for {0} on {1} already exists: {2},توجد قاعدة لـ {0} على {1} بالفعل: {2}
+API key,مفتاح API
+API secret,سر API
+Above the bank-charge limit,أعلى من حد الرسوم البنكية
+Above the limit,أعلى من الحد
+Account,الحساب
+Accounts,الحسابات
+Add,إضافة
+Add at least one item with a quantity,أضف صنفاً واحداً على الأقل مع الكمية
+Amount,المبلغ
+Amount field,حقل المبلغ
+Amount received,المبلغ المستلم
+Applied,المطبَّق
+Approve,اعتماد
+Approve exception,اعتماد الاستثناء
+Approved,معتمد
+Approved by role,يعتمده الدور
+Approved by the requester,اعتمده مقدم الطلب
+"Approved by the requester, who holds the approving role",اعتمده مقدم الطلب لأنه يملك دور الاعتماد
+Attach,إرفاق
+"Attach the document below with its type (Documents on the form), or request an exception from the {0}:",أرفق المستند أدناه مع نوعه (قسم المستندات في النموذج)، أو اطلب استثناءً من {0}:
+Attachments without a type,مرفقات بدون نوع
+Audit,التدقيق
+Bank charges deducted from the customer's transfer,رسوم بنكية مخصومة من تحويل العميل
+Block,منع
+Book the difference as bank charges,تسجيل الفرق كرسوم بنكية
+Carry on without the {0} for now. The {1} approves the exception; the document stays due until it is attached.,تابع بدون {0} الآن. يعتمد {1} الاستثناء، ويبقى المستند مطلوباً حتى يُرفق.
+Category,الفئة
+Checked,تم التحقق
+Choose single company or group,اختر شركة واحدة أو مجموعة
+"Choose the company on this site, or enter the site URL and the company name on that site.",اختر الشركة على هذا الموقع، أو أدخل رابط الموقع واسم الشركة عليه.
+Choose the {0},اختر {0}
+Closing,الإقفال
+Company,الشركة
+Company Deadline,موعد نظامي للشركة
+Company Document,مستند الشركة
+Company Document Type,نوع مستند الشركة
+Company compliance,امتثال الشركة
+Company licences,تراخيص الشركة
+Company licences due or expired,تراخيص الشركة المستحقة أو المنتهية
+Company name on that site,اسم الشركة على ذلك الموقع
+Company on this site,الشركة على هذا الموقع
+Company {0} not found on this site,الشركة {0} غير موجودة على هذا الموقع
+Consolidation,التوحيد
+Copied {0} lines at today's prices — change the quantities if needed,تم نسخ {0} سطر بأسعار اليوم — عدّل الكميات عند الحاجة
+Corporate tax,ضريبة الشركات
+Country,الدولة
+Create,إنشاء
+Create invoice,إنشاء فاتورة
+Credit,دائن
+Currency,العملة
+Current copy,النسخة الحالية
+Customer,العميل
+Customer PO no.,رقم أمر شراء العميل
+Customs,الجمارك
+Date,التاريخ
+Deadline,الموعد النهائي
+Deadlines calendar,تقويم المواعيد النهائية
+Debit,مدين
+Decide,قرار
+Decided by,قرره
+Decided on,تاريخ القرار
+Decision note,ملاحظة القرار
+Delivered and not yet invoiced — one click creates and submits the tax invoice.,تم التسليم ولم تُصدر فاتورة بعد — نقرة واحدة تنشئ الفاتورة الضريبية وتعتمدها.
+Demo data,البيانات التجريبية
+Demo data is already loading — check back in a few minutes.,البيانات التجريبية قيد التحميل بالفعل — عد بعد بضع دقائق.
+Demo data is loading — check back in a few minutes.,البيانات التجريبية قيد التحميل — عد بعد بضع دقائق.
+Description,الوصف
+Detailed,مفصّل
+Document,المستند
+Document Waiver,استثناء مستند
+Document expected by,المستند متوقع بتاريخ
+Document needed,مستند مطلوب
+Document promised under exception {0} is overdue,المستند الموعود به ضمن الاستثناء {0} متأخر
+Document type,نوع المستند
+Documents overdue under an exception,مستندات متأخرة ضمن استثناء
+Done,تم
+Done on,تم بتاريخ
+Done{0},تم{0}
+Draft,مسودة
+Due,الاستحقاق
+Due for renewal,مستحق التجديد
+Due in {3} days: {0} — {1} ({2}),مستحق خلال {3} يوم: {0} — {1} ({2})
+Due on,تاريخ الاستحقاق
+ESR / UBO,المادة الاقتصادية / المستفيد الحقيقي
+Eliminations,الاستبعادات
+Enter the amount received,أدخل المبلغ المستلم
+Enter the status value.,أدخل قيمة الحالة.
+Every delivery has been invoiced.,صدرت فواتير لكل التسليمات.
+Every field,كل الحقول
+Exception,استثناء
+Exception approved by,اعتمد الاستثناء
+Exception approved: {0} for {1} {2},تم اعتماد الاستثناء: {0} لـ {1} {2}
+Exception approved{0},تم اعتماد الاستثناء{0}
+Exception rejected: {0} for {1} {2},تم رفض الاستثناء: {0} لـ {1} {2}
+Exception requested: {0} for {1} {2},طلب استثناء: {0} لـ {1} {2}
+Exception status,حالة الاستثناء
+Exception {0} approved — you can carry on,تم اعتماد الاستثناء {0} — يمكنك المتابعة
+Exception {0} sent for approval,أُرسل الاستثناء {0} للاعتماد
+Exceptions,الاستثناءات
+Exceptions waiting for approval,استثناءات بانتظار الاعتماد
+Expires,ينتهي
+Expires on,تاريخ الانتهاء
+Export shipment,شحنة تصدير
+External documents,المستندات الخارجية
+Failed: {0},فشل: {0}
+Fewest fields — everything else from the defaults,أقل عدد من الحقول — الباقي من القيم الافتراضية
+Financial year from,السنة المالية من
+Finish set-up,إنهاء الإعداد
+Form mode,وضع النموذج
+Group Trial Balance,ميزان مراجعة المجموعة
+Group Trial Balance Account,حساب ميزان مراجعة المجموعة
+Group consolidation,توحيد المجموعة
+Group ownership %,نسبة ملكية المجموعة %
+"Groups and larger traders — everything: LCs and trade finance, company compliance, group consolidation, HR documents, fixed assets, blocking document rules with exceptions.",للمجموعات والتجار الكبار — كل شيء: الاعتمادات المستندية وتمويل التجارة، امتثال الشركة، توحيد المجموعة، مستندات الموارد البشرية، الأصول الثابتة، وقواعد مستندات مانعة مع استثناءات.
+"Growing importer or exporter — adds CRM, imports and landed cost, exports, approvals, KYC, advances, cheques, bank reconciliation and currencies. Documents are recommended, nothing blocks.",لمستورد أو مصدّر نامٍ — يضيف إدارة العملاء، الاستيراد والتكلفة الواصلة، التصدير، الاعتمادات، اعرف عميلك، الدفعات المقدمة، الشيكات، التسوية البنكية والعملات. المستندات موصى بها ولا شيء يمنع.
+HS Deadlines Open,مواعيد نظامية مفتوحة
+HS Licences Due,تراخيص مستحقة
+HS Overdue Exceptions,استثناءات متأخرة
+HS Pending Exceptions,استثناءات معلقة
+Hipersign Document Rule,قاعدة مستندات هايبرساين
+Hipersign Document Type,نوع مستند هايبرساين
+Hipersign Documents,مستندات هايبرساين
+Hipersign Form Mode,وضع نموذج هايبرساين
+Hipersign Group Consolidation,توحيد مجموعة هايبرساين
+Hipersign Group Member,عضو مجموعة هايبرساين
+Hipersign List Value,قيمة قائمة هايبرساين
+In progress,قيد التنفيذ
+Included in consolidation,مشمول في التوحيد
+Inter-company,بين الشركات
+Inter-company balances do not agree by {0} — check the accounts ticked Inter-company,أرصدة ما بين الشركات غير متطابقة بفارق {0} — راجع الحسابات المعلّمة بين الشركات
+Invoice,الفاتورة
+Invoice settled in full: bank {0} + bank charges {1},سُددت الفاتورة بالكامل: البنك {0} + رسوم بنكية {1}
+Issued on,تاريخ الإصدار
+Issuing authority,جهة الإصدار
+Item,الصنف
+Items,الأصناف
+Last sync,آخر مزامنة
+Lead,عميل محتمل
+Licence,الترخيص
+Line,السطر
+List,القائمة
+Load,تحميل
+Load demo data,تحميل البيانات التجريبية
+Loading demo data in the background — it takes a few minutes. You will get a notification when it is done.,يجري تحميل البيانات التجريبية في الخلفية — يستغرق ذلك بضع دقائق. ستصلك إشعار عند الانتهاء.
+Lost reason,سبب الخسارة
+Main company,الشركة الرئيسية
+Mark done,تحديد كمنجز
+Member,العضو
+Method,الطريقة
+Missing,ناقص
+Missing Documents,المستندات الناقصة
+Missing documents,المستندات الناقصة
+Monthly,شهري
+More than the customer owes — record the extra as an advance in the Standard form.,أكثر مما على العميل — سجّل الزيادة كدفعة مقدمة في النموذج القياسي.
+Multiple companies (group) — consolidation and inter-company,عدة شركات (مجموعة) — التوحيد والمعاملات بين الشركات
+Name,الاسم
+New,جديد
+New expiry date,تاريخ الانتهاء الجديد
+New number (if it changed),الرقم الجديد (إن تغيّر)
+New {0},{0} جديد
+New — {0},جديد — {0}
+Next deadline,الموعد التالي
+Next deadline {0} created,تم إنشاء الموعد التالي {0}
+No expiry,بدون انتهاء
+No item matches — use the Standard form to add a new item,لا يوجد صنف مطابق — استخدم النموذج القياسي لإضافة صنف جديد
+None,لا شيء
+Not permitted,غير مسموح
+Note,ملاحظة
+Notes,ملاحظات
+Number,الرقم
+Off,إيقاف
+On file,موجود
+On submit,عند الاعتماد
+Only a pending request can be approved.,يمكن اعتماد الطلب المعلّق فقط.
+Only a pending request can be rejected.,يمكن رفض الطلب المعلّق فقط.
+Only from amount,فقط من مبلغ
+Only returns / credit notes,المرتجعات / إشعارات الدائن فقط
+Only the {0} can approve this exception.,فقط {0} يمكنه اعتماد هذا الاستثناء.
+Only the {0} can reject this exception.,فقط {0} يمكنه رفض هذا الاستثناء.
+Open,مفتوح
+Open it in Hipersign ERP → Company Compliance.,افتحه في هايبرساين ← امتثال الشركة.
+Open statutory deadlines,مواعيد نظامية مفتوحة
+Open {0},فتح {0}
+Opening,الافتتاحي
+Opens,يفتح
+Optional,اختياري
+Other,أخرى
+Outstanding,المستحق
+Overdue: {0} — {1} (was due {2}),متأخر: {0} — {1} (كان مستحقاً في {2})
+Parent / holding company,الشركة الأم / القابضة
+Party,الطرف
+Payment Entry,قيد الدفع
+Payment method,طريقة الدفع
+Payment {0} · {1} invoice(s),الدفعة {0} · {1} فاتورة
+Pending,معلّق
+Position,المركز
+Presentation currency,عملة العرض
+Price (from the list),السعر (من القائمة)
+Profit for the year,ربح السنة
+Promised by,موعود به بتاريخ
+Purchase Order,أمر الشراء
+Qty,الكمية
+Quantity and item — e.g. 200 cam — then Enter,الكمية والصنف — مثلاً 200 cam — ثم Enter
+Quarterly,ربع سنوي
+Quick,سريع
+Quick entry is not available for {0},الإدخال السريع غير متاح لـ {0}
+Quick invoice,فاتورة سريعة
+Quick receipt,استلام سريع
+Quick {0},{0} سريع
+Quotation,عرض السعر
+Rates to {0} — {1},الأسعار إلى {0} — {1}
+Reason,السبب
+Receive payment,استلام دفعة
+Record,تسجيل
+Record receipt,تسجيل الاستلام
+Record renewal,تسجيل التجديد
+Record type,نوع السجل
+Records,السجلات
+Reference,المرجع
+Reject exception,رفض الاستثناء
+Rejected,مرفوض
+Reminder sent to {0}: {1},أُرسل تذكير إلى {0}: {1}
+Renewal,التجديد
+Renewal cost,تكلفة التجديد
+Renewed,مجدد
+Renewed document,المستند المجدد
+Renewed — valid until {0} (was {1}),تم التجديد — صالح حتى {0} (كان {1})
+Repeat last order — {0} · {1} · {2} lines,تكرار آخر طلب — {0} · {1} · {2} سطر
+Repeats,التكرار
+Report,التقرير
+Request,الطلب
+Request exception,طلب استثناء
+Requested by,طلبه
+Required,مطلوب
+Responsible,المسؤول
+Result,النتيجة
+Role,الدور
+Root,الجذر
+Row {0}: {1} — only {2} is still owed after cheques already issued ({3}). Reduce the amount.,السطر {0}: {1} — المتبقي {2} فقط بعد الشيكات الصادرة ({3}). خفّض المبلغ.
+Rule,القاعدة
+Sales Invoice,فاتورة المبيعات
+Sales Invoice {0} · {1},فاتورة المبيعات {0} · {1}
+Sales Order,أمر البيع
+Save,حفظ
+Save & send on WhatsApp,حفظ وإرسال عبر واتساب
+Send,إرسال
+Series,السلسلة
+Set the bank charges account in Hipersign Settings first.,حدد حساب الرسوم البنكية في إعدادات هايبرساين أولاً.
+Set up Hipersign ERP,إعداد هايبرساين
+Set-up,الإعداد
+Set-up complete,اكتمل الإعداد
+Several items match — pick one,عدة أصناف مطابقة — اختر واحداً
+Shipment mode,طريقة الشحن
+Show,عرض
+Single company,شركة واحدة
+Site URL,رابط الموقع
+"Small local trader, one company — quotations, orders, purchases, stock, delivery, invoices, VAT and accounts. Forms open in Quick mode; no document rules.",تاجر محلي صغير بشركة واحدة — عروض الأسعار، الطلبات، المشتريات، المخزون، التسليم، الفواتير، ضريبة القيمة المضافة والحسابات. النماذج تفتح في الوضع السريع، بدون قواعد مستندات.
+Standard,قياسي
+Standard / Detailed form,النموذج القياسي / المفصّل
+Start renewal (days before expiry),بدء التجديد (أيام قبل الانتهاء)
+Status,الحالة
+Status field,حقل الحالة
+Status value,قيمة الحالة
+Submit order,اعتماد الطلب
+Submitted,معتمد
+Submitted to authority,مقدم للجهة
+Supplier,المورد
+Sync,مزامنة
+Sync all members,مزامنة كل الأعضاء
+Sync trial balance,مزامنة ميزان المراجعة
+Synced on,تاريخ المزامنة
+Synced {0} of {1},تمت مزامنة {0} من {1}
+The customer has no open invoices.,لا توجد فواتير مفتوحة على العميل.
+The date the document is expected cannot be in the past.,لا يمكن أن يكون تاريخ توقع المستند في الماضي.
+The difference of {0} is above the limit of {1} for these invoices (Hipersign Settings → Payments & pricing). ,الفرق {0} أعلى من الحد {1} لهذه الفواتير (إعدادات هايبرساين ← المدفوعات والتسعير). 
+The essential fields,الحقول الأساسية
+The expiry date is before the issue date.,تاريخ الانتهاء قبل تاريخ الإصدار.
+The item list shows the {0} items in {1}. Tick to pick any item.,قائمة الأصناف تعرض {0} صنفاً في {1}. حدد الخيار لاختيار أي صنف.
+The new expiry date must be after the current one ({0}).,يجب أن يكون تاريخ الانتهاء الجديد بعد الحالي ({0}).
+The site switches to the Enterprise pack (group of companies) so every feature has sample data — you can switch back afterwards.,سينتقل الموقع إلى باقة المؤسسات (مجموعة شركات) لتكون لكل ميزة بيانات تجريبية — يمكنك العودة بعد ذلك.
+This site already has {0} submitted invoices — demo data is only loaded on a new or demo site.,يحتوي هذا الموقع على {0} فاتورة معتمدة — تُحمّل البيانات التجريبية على موقع جديد أو تجريبي فقط.
+Total {0},إجمالي {0}
+Two questions — you can change both later in Hipersign Settings → Setup & features. Nothing is deleted when you switch.,سؤالان — يمكنك تغييرهما لاحقاً في إعدادات هايبرساين ← الإعداد والميزات. لا يُحذف شيء عند التبديل.
+Type DEMO to confirm,اكتب DEMO للتأكيد
+"Type DEMO to load the demo companies, customers, items and transactions",اكتب DEMO لتحميل الشركات والعملاء والأصناف والمعاملات التجريبية
+Unknown form mode,وضع نموذج غير معروف
+Unknown pack {0},باقة غير معروفة {0}
+Up to,حتى
+Used,مستخدم
+Used on,تاريخ الاستخدام
+VAT return,إقرار ضريبة القيمة المضافة
+Valid,ساري
+Value,القيمة
+WPS salary file,ملف رواتب نظام حماية الأجور
+When,متى
+When status changes to,عند تغيّر الحالة إلى
+Why,لماذا
+With an exception,مع استثناء
+Year to date (P&L),منذ بداية السنة (الأرباح والخسائر)
+Yearly,سنوي
+You cannot decide your own request.,لا يمكنك البت في طلبك بنفسك.
+Your choice is remembered for next time.,سيُحفظ اختيارك للمرة القادمة.
+"before tax — final prices, credit, approvals and documents are checked on save",قبل الضريبة — يتم التحقق من الأسعار النهائية والائتمان والاعتمادات والمستندات عند الحفظ
+click one to give it a type,انقر على أحدها لتحديد نوعه
+customer,العميل
+estimated,تقديري
+failed: {0},فشل: {0}
+in stock,في المخزون
+line,سطر
+lines,أسطر
+of which minority (non-controlling) interests in equity,منها حقوق الأقلية (غير المسيطرة) في حقوق الملكية
+supplier,المورد
+when {0},عند {0}
+your default,الافتراضي لديك
+{0} attached — you can carry on,تم إرفاق {0} — يمكنك المتابعة
+{0} has no field {1}.,{0} لا يحتوي على الحقل {1}.
+{0} is above the limit of {1} for these invoices. Only the {2} can absorb it — or keep the balance open on the invoice.,{0} أعلى من الحد {1} لهذه الفواتير. فقط {2} يمكنه تحمّله — أو اترك الرصيد مفتوحاً على الفاتورة.
+{0} is already in the {1} list.,{0} موجود بالفعل في قائمة {1}.
+{0} is more than the {1} the customer owes — record the extra as an advance on a full Payment Entry.,{0} أكثر من {1} المستحق على العميل — سجّل الزيادة كدفعة مقدمة في قيد دفع كامل.
+{0} is not submitted — choose “When status changes to” and the status field.,{0} لا يُعتمد — اختر «عند تغيّر الحالة إلى» وحقل الحالة.
+{0} is used on existing documents — deactivate it instead.,{0} مستخدم في مستندات قائمة — قم بتعطيله بدلاً من ذلك.
+"{0} is {1}% owned — minority share of net assets {2}, of profit {3}",{0} مملوكة بنسبة {1}% — حصة الأقلية من صافي الأصول {2} ومن الربح {3}
+"{0} less than the invoices — book it as bank charges to settle them in full, or leave the balance open.",{0} أقل من الفواتير — سجّله كرسوم بنكية لتسويتها بالكامل، أو اترك الرصيد مفتوحاً.
+{0} missing,{0} ناقص
+{0} of {1} expires in {2} days ({3}) — start the renewal,{0} لـ {1} ينتهي خلال {2} يوم ({3}) — ابدأ التجديد
+{0} of {1} has expired ({2}),{0} لـ {1} منتهي ({2})
+"{0} pack, {1}. The menus, rules and forms now follow it. Load demo data from Hipersign Settings → Set-up if this is a demo site.",باقة {0}، {1}. القوائم والقواعد والنماذج تتبعها الآن. حمّل البيانات التجريبية من إعدادات هايبرساين ← الإعداد إذا كان هذا موقعاً تجريبياً.
+{0} {1} created,تم إنشاء {0} {1}
+"{0} {1} saved as a draft — attach the document needed, then submit",حُفظ {0} {1} كمسودة — أرفق المستند المطلوب ثم اعتمده
+{0}: latest trial balance is up to {1},{0}: آخر ميزان مراجعة حتى {1}
+{0}: no trial balance synced up to {1},{0}: لا يوجد ميزان مراجعة متزامن حتى {1}
+{0}: {1} accounts up to {2},{0}: {1} حساب حتى {2}
+— attributable to minority (non-controlling) interests,— العائد لحقوق الأقلية (غير المسيطرة)
+— attributable to the owners of the group,— العائد لمالكي المجموعة
+Hipersign demo data loaded,تم تحميل بيانات هايبرساين التجريبية
+Hipersign demo data failed,فشل تحميل بيانات هايبرساين التجريبية
+Blocks next step,يمنع الخطوة التالية
+Recommended,موصى به
+Exception requested,طُلب استثناء
+"Advance before delivery, collection stages",دفعة مقدمة قبل التسليم، مراحل التحصيل
+Advance payment,دفعة مقدمة
+Advances & payment schedules,الدفعات المقدمة وجداول السداد
+Approval routes — off: documents are approved at once,مسارات الاعتماد — عند الإيقاف تُعتمد المستندات فوراً
+Approval workflows,مسارات الاعتماد
+Asset register and depreciation,سجل الأصول والإهلاك
+Bank advice / transfer copy,إشعار البنك / نسخة التحويل
+Bank reconciliation,التسوية البنكية
+Bank's LC copy,نسخة الاعتماد من البنك
+Bill of entry,بيان الإدخال الجمركي
+Bill of lading / AWB,بوليصة الشحن / بوليصة الشحن الجوي
+Business registration certificate,شهادة تسجيل الأعمال
+Buying,المشتريات
+CRM & leads,إدارة العملاء والفرص
+Certificate of incorporation,شهادة التأسيس
+Certificate of origin,شهادة المنشأ
+Chamber of commerce membership,عضوية غرفة التجارة
+"Cheques in hand and issued, deposit and bounce",الشيكات بالصندوق والصادرة، الإيداع والارتجاع
+Civil Defence,الدفاع المدني
+Civil defence certificate,شهادة الدفاع المدني
+Commercial invoice,الفاتورة التجارية
+Commercial registration (CR),السجل التجاري
+Companies House,سجل الشركات (Companies House)
+"Company licences, deadlines and reminders",تراخيص الشركة والمواعيد والتذكيرات
+Confirmation statement,بيان التأكيد السنوي
+Controls,الضوابط
+Corporate tax registration,تسجيل ضريبة الشركات
+Corporate tax return,إقرار ضريبة الشركات
+Credit notes need the customer's return request,إشعارات الدائن تتطلب طلب الإرجاع من العميل
+Customer KYC documents,مستندات اعرف عميلك
+Customer LPO,أمر شراء العميل
+Customer RFQ / BOQ,طلب عرض سعر العميل / جدول الكميات
+Customer and supplier licences; orders blocked when expired,تراخيص العملاء والموردين؛ تُمنع الطلبات عند انتهائها
+Customer portal,بوابة العملاء
+Customs clearance needs the bill of entry,التخليص الجمركي يتطلب بيان الإدخال
+Customs code,الرمز الجمركي
+DGFT,المديرية العامة للتجارة الخارجية (DGFT)
+Damage photos,صور التلف
+Delivery trips & driver app,رحلات التسليم وتطبيق السائق
+Delivery trips and the driver web app,رحلات التسليم وتطبيق السائق على الويب
+Department of Economy & Tourism,دائرة الاقتصاد والسياحة
+Dubai Chamber,غرفة دبي
+Dubai Customs,جمارك دبي
+Dubai Land Department,دائرة الأراضي والأملاك في دبي
+Emirates ID,الهوية الإماراتية
+Employee documents and WPS file,مستندات الموظفين وملف حماية الأجور
+Establishment card,بطاقة المنشأة
+Exceptions to the KYC block are asked for against this document,تُطلب استثناءات منع اعرف عميلك على هذا المستند
+Exceptions to the advance-before-delivery hold are asked for against this document,تُطلب استثناءات إيقاف الدفعة المقدمة قبل التسليم على هذا المستند
+Exit / export certificate,شهادة الخروج / التصدير
+"Export shipments, proof of export for 0% VAT",شحنات التصدير، إثبات التصدير لضريبة 0%
+Exports & re-exports,التصدير وإعادة التصدير
+Federal Tax Authority,الهيئة الاتحادية للضرائب
+Finance,المالية
+Fixed assets,الأصول الثابتة
+GOSI,التأمينات الاجتماعية (GOSI)
+GOSI certificate,شهادة التأمينات الاجتماعية
+GST registration,تسجيل ضريبة السلع والخدمات (GST)
+GSTN,شبكة ضريبة السلع والخدمات (GSTN)
+General Directorate of Residency (GDRFA),الإدارة العامة للإقامة وشؤون الأجانب
+HR documents & WPS,مستندات الموارد البشرية وحماية الأجور
+Hong Kong,هونغ كونغ
+Import Export Code (IEC),رمز الاستيراد والتصدير (IEC)
+"Import shipments, customs, landed cost",شحنات الاستيراد، الجمارك، التكلفة الواصلة
+Imports & landed cost,الاستيراد والتكلفة الواصلة
+India,الهند
+Inland Revenue Department,دائرة الإيرادات الداخلية
+Insurance certificate,شهادة التأمين
+KYC & licence checks,اعرف عميلك والتحقق من التراخيص
+LCs & trade finance,الاعتمادات المستندية وتمويل التجارة
+"Lead pipeline, follow-ups, lead sources",مسار الفرص، المتابعات، مصادر الفرص
+"Letters of credit, cash margin, trust receipts",الاعتمادات المستندية، الهامش النقدي، إيصالات الأمانة
+"Manual entries from AED 10,000 need a supporting document","القيود اليدوية من 10,000 درهم تتطلب مستنداً داعماً"
+Material requests and supplier quotation comparison,طلبات المواد ومقارنة عروض الموردين
+Ministry of Commerce,وزارة التجارة
+Month-end revaluation reminder,تذكير إعادة التقييم في نهاية الشهر
+Multi-currency & revaluation,تعدد العملات وإعادة التقييم
+Multiple warehouses,مستودعات متعددة
+Order tracker,متتبع الطلبات
+"Orders from AED 50,000 need the customer's purchase order","الطلبات من 50,000 درهم تتطلب أمر شراء العميل"
+Packing list,قائمة التعبئة
+Proforma invoice,الفاتورة المبدئية
+Proof of export for 0% VAT,إثبات التصدير لضريبة 0%
+Purchase requests & RFQs,طلبات الشراء وطلبات عروض الأسعار
+Return request,طلب الإرجاع
+Sales,المبيعات
+Sales order tracker page,صفحة متتبع أوامر البيع
+Saudi Arabia,المملكة العربية السعودية
+Serial numbers & warranty,الأرقام التسلسلية والضمان
+Serial tracking and warranty claims,تتبع الأرقام التسلسلية ومطالبات الضمان
+"Several companies and countries, consolidation",عدة شركات ودول، التوحيد
+Shops & establishment licence,ترخيص المحلات والمنشآت
+Signed delivery note,إشعار التسليم الموقع
+State labour department,دائرة العمل في الولاية
+Statement import and matching,استيراد كشف الحساب ومطابقته
+Statement of account and warranty pages for customers,صفحات كشف الحساب والضمان للعملاء
+Supplier delivery note,إشعار تسليم المورد
+Supplier invoice,فاتورة المورد
+Supplier order confirmation,تأكيد طلب المورد
+Supporting document,مستند داعم
+TRN certificate,شهادة الرقم الضريبي
+Tenancy contract (Ejari),عقد الإيجار (إيجاري)
+The bank's issued LC (MT700) before the LC is marked issued,الاعتماد الصادر من البنك (MT700) قبل تحديد الاعتماد كصادر
+The supplier's confirmation of price and date,تأكيد المورد للسعر والتاريخ
+The supplier's tax invoice must be on file before the bill is booked,يجب وجود الفاتورة الضريبية للمورد قبل تسجيل الفاتورة
+Trade licence,الرخصة التجارية
+"Transfers, reservations and pick lists",التحويلات والحجوزات وقوائم الالتقاط
+United Arab Emirates,الإمارات العربية المتحدة
+United Kingdom,المملكة المتحدة
+VAT registration certificate,شهادة التسجيل في ضريبة القيمة المضافة
+ZATCA,هيئة الزكاة والضريبة والجمارك
+Zakat & VAT certificate,شهادة الزكاة وضريبة القيمة المضافة

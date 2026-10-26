@@ -1,5 +1,34 @@
 # Changelog
 
+## 1.3.0 — 26 Oct 2026
+Built and tested on **Frappe 16 / ERPNext 16**. Brings the app in line with the prototype's set-up, document and form-mode work.
+
+**Set-up wizard:** on first login the System Manager answers two questions — single company or group, and which pack
+(Starter, Standard, Enterprise). 21 feature switches in Hipersign Settings → *Setup & features* follow the pack; switching a feature
+off hides its menus and workspaces and turns its approval workflow off, and nothing is deleted. **Load demo data** is now a button
+(Hipersign Settings → Set-up), allowed only on a new or demo site.
+**Form modes:** Quick (a small dialog with a smart item finder, *Repeat last order*, *Save & send on WhatsApp*), Standard (the essential
+fields) and Detailed (every field) for Quotation, Sales Order, Purchase Order, Sales Invoice (Quick invoice from deliveries), Payment
+Entry (Receive payment, oldest invoices first), Customer, Item and Lead. Each user's choice is remembered; defaults per role in settings.
+**External documents:** typed attachments, **Hipersign Document Rule** (Block / Required / Optional, on submit or on a status change,
+from an amount), a Documents box at the top of each form, **Document Waiver** (exception approved by the right role, then due by a date,
+overdue alerts) and the **Missing Documents** report. Document level Off / Recommended / Full follows the pack.
+**Company compliance:** **Company Document** (licences and certificates with expiry, renewal and reminders at 60/30/7/0 days) and
+**Company Deadline** (VAT, corporate tax, WPS, ESR… repeating), with calendars.
+**Group consolidation:** **Hipersign Group Member** (a company on this site or on another site through an API key),
+**Group Trial Balance** sync (daily), and the **Hipersign Group Consolidation** report — P&L at the average rate, balance sheet at the
+closing rate, equity at the historical rate, translation reserve, inter-company eliminations and minority interests.
+**Money:** post-dated cheques post when received / issued (cheques in hand / cheques issued accounts) and clear, bounce and replace
+through journal entries; a supplier payment on top of issued cheques is stopped; **Book the difference as bank charges** on payments
+with a limit per role; the LC cash margin release is drafted when an LC is paid, expires or is cancelled, and the paid date cannot be in
+the future; price lists can limit the item list (tick *All items* to override).
+**Editable lists:** payment methods, shipment modes, lost reasons and return reasons in **Hipersign List Value**.
+**New workspace:** Hipersign Documents. **Uninstall** now keeps a JSON copy of the app's records and removes its fields, workflows and roles.
+**Fixes for ERPNext 16:** workflow conditions, desk links (`/desk`), number cards on all Hipersign workspaces (they did not show before),
+cheque party type, LC bank account fallback, serial-number setting, payment schedules, revaluation rounding.
+**Upgrade:** `bench migrate` — patch `v1_3.upgrade_from_v12` keeps upgraded sites on the Enterprise pack with every feature on and
+cheques posting only when cleared, as in 1.2. Arabic added for all new labels and messages.
+
 ## 1.2.0 — 24 Oct 2026
 Brings the app in line with the prototype's newer modules.
 

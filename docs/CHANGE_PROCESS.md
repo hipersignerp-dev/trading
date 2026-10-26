@@ -17,9 +17,15 @@ implement it, deploy to the demo site, and test.
 | New sample record | Demo loader | `demo/data.py`, `demo/__init__.py`, `demo/v12.py` |
 | New setting on an upgraded site | Patch | `patches/`, `patches.txt` |
 | New calculated list (no new records) | Script Report | `report/<name>/` |
+| New feature that some clients do not need | Feature switch (`feat_<key>`) + entry in `FEATURES` / `PACKS` | `features.py`, Hipersign Settings → Setup & features |
+| "Document X must be on file before Y" | Hipersign Document Rule (default in `DEFAULT_RULES`) | `doc_rules.py` |
+| New drop-down that clients edit themselves | Hipersign List Value list | `lists.py → LISTS` |
+| Field shown only in Detailed mode / new Quick dialog | `hipersign.fm.OPTIONAL` / `api/quick.py` | `public/js/hs_form_modes.js` |
+| New company licence or statutory date | Company Document Type / Company Deadline seed | `compliance.py` |
 
 ## Release checklist
 - [ ] Version bumped in `hipersign_trading/__init__.py` and `hooks.py`, CHANGELOG.md updated
-- [ ] `bench --site <demo> migrate` runs clean
+- [ ] `bench --site <demo> migrate` runs clean, and a fresh install + demo load shows no ✗ steps
+- [ ] New labels and messages added to `translations/ar.csv` and `locale/ar.po`
 - [ ] Changed Test Centre scripts pass on the demo site
 - [ ] Live site backed up before `migrate`

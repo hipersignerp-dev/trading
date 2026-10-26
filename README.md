@@ -1,6 +1,6 @@
 # Hipersign Trading — ERPNext app
 
-The Hipersign Trading, Distribution & Import/Export ERP, packaged as a Frappe app for **ERPNext v15 and later**.
+The Hipersign Trading, Distribution & Import/Export ERP, packaged as a Frappe app for **ERPNext v16** (1.3 is built and tested on Frappe 16 / ERPNext 16; 1.2 and earlier on v15).
 It turns the clickable prototype into real ERPNext behaviour, and the app is self-contained:
 everything it adds lives in its own module (**Hipersign Trading**) and can be installed on one site
 without touching any other site on the same server.
@@ -8,8 +8,8 @@ without touching any other site on the same server.
 | Prototype section | In ERPNext |
 |---|---|
 | Hipersign Home dashboard, gross & net profit | Workspace **Hipersign Trading** + number cards + charts |
-| Create New | Page `/app/hipersign-create` |
-| Sales Order Tracker (stages, popups, reports, email/WhatsApp) | Page `/app/sales-order-tracker` |
+| Create New | Page `/desk/hipersign-create` |
+| Sales Order Tracker (stages, popups, reports, email/WhatsApp) | Page `/desk/sales-order-tracker` |
 | CRM & Leads pipeline, follow-ups | Lead + custom fields + Kanban **Hipersign Lead Pipeline** + daily follow-up ToDos |
 | Approvals (PO, SO discount / below cost / credit, supplier payment, stock count, credit limit) | 5 workflows + settings thresholds |
 | Import & Shipment, customs clearance, landed cost | DocType **Import Shipment** → Purchase Receipt (blocked before clearance) → Landed Cost Voucher |
@@ -40,6 +40,12 @@ without touching any other site on the same server.
 | **v1.2** VAT & corporate tax filing | DocType **Tax Return** (VAT 201 / Corporate Tax): figures from ERPNext's UAE VAT 201 → Finance Manager **approves and locks the period** (an ERPNext Accounting Period closes invoices, payments and journals) → filed by hand on **EmaraTax** with the reference → paid. Due-date reminders |
 | **v1.2** Currency revaluation | ERPNext **Exchange Rate Revaluation** (month-end unrealised gain/loss, reversed next month) and realised gain/loss on Payment Entries; a monthly reminder to the Finance Manager |
 | **v1.2** Group companies | Group company *Hipersign Demo Group* with the LLC, an FZE and a 70%-owned Oman company (ownership %, minority partner and licence on Company); inter-company customer/supplier (*Represents Company*), an inter-company invoice mirrored as a purchase invoice, and ERPNext's **Consolidated Financial Statement** |
+| **v1.3** Set-up & packs | First-login wizard: single company or group, Starter / Standard / Enterprise; 21 feature switches in **Hipersign Settings → Setup & features** hide menus and switch workflows off without deleting anything; **Load demo data** button |
+| **v1.3** Quick / Standard / Detailed forms | **New · Quick** on the lists; Quick dialogs for quotation, sales order, purchase order, quick invoice, receive payment; Standard hides the rarely used fields; **Form mode** button on each draft; choices remembered per user, defaults per role |
+| **v1.3** Documents & exceptions | Typed attachments, **Hipersign Document Rule**, Documents box on forms, **Document Waiver**, report **Missing Documents**, workspace **Hipersign Documents** |
+| **v1.3** Company compliance | **Company Document** (licences, certificates, renewals, reminders) and **Company Deadline** (statutory dates, repeating) |
+| **v1.3** Group consolidation | **Hipersign Group Member** (this site or another site by API key) → **Group Trial Balance** → report **Hipersign Group Consolidation** (translation, eliminations, minority interests) |
+| **v1.3** Money | Cheques posted when received / issued; overpayment guard; **Book the difference as bank charges** with limits; LC margin release; price-list item filter; editable lists (**Hipersign List Value**) |
 | **v1.2** Expenses & advances, cost centres, period closing | ERPNext / Frappe HR **Expense Claim**, **Employee Advance**, **Cost Center**, **Period Closing Voucher** — added to the workspaces |
 
 ## 1. Install on a separate demo site (live site untouched)
@@ -51,17 +57,35 @@ bench new-site hipersign-demo.yourdomain.com
 bench --site hipersign-demo.yourdomain.com install-app erpnext
 ```
 
-Open the demo site and complete the **setup wizard**: company *Hipersign Demo Trading LLC*, country
+Open the demo site and complete the **ERPNext setup wizard**: company *Hipersign Demo Trading LLC*, country
 *United Arab Emirates*, currency *AED*. Then:
 
 ```bash
 bench --site hipersign-demo.yourdomain.com install-app hipersign_trading
+bench build --app hipersign_trading && bench restart
+```
+
+Installing creates everything the app needs (fields, roles, workflows, workspaces, rules, lists, cheque accounts) and loads **no**
+sample data. Log in as Administrator: the **Set up Hipersign ERP** dialog asks *single company or group* and *which pack*.
+For a demo site, then open **Hipersign Settings → Set-up → Load demo data** and type `DEMO` (it runs in the background and
+sends a notification when done; the site switches to the Enterprise pack so every feature has data). The button is refused on a
+site that already has submitted invoices, unless `hipersign_demo_site` is set in its site config. From the command line:
+
+```bash
 bench --site hipersign-demo.yourdomain.com set-config -p hipersign_demo_site true
 bench --site hipersign-demo.yourdomain.com execute hipersign_trading.demo.load
 bench --site hipersign-demo.yourdomain.com backup --with-files        # keep this as the "clean demo" backup
 ```
 
-The loader refuses to run unless `hipersign_demo_site` is set, so it can never write sample data into a live site.
+The command-line loader refuses to run unless `hipersign_demo_site` is set, so it can never write sample data into a live site.
+
+**Separate sites per country plus a group site:** install the app on each country's site (single company) and on a group site
+(*Group*). On the group site add a **Hipersign Group Member** for each country site with its URL, company name and an API key/secret of a
+user with the Accounts Manager role on that site; **Sync all members** (or the daily job) brings their trial balances in for the
+**Hipersign Group Consolidation** report.
+
+**Uninstall:** `bench --site … uninstall-app hipersign_trading` saves a JSON copy of the app's own records in the site's private
+files, removes the app's custom fields, property setters, workflows and roles, and leaves ERPNext's documents in place.
 
 **Frappe Cloud:** add the GitHub repo as a custom app on your bench group, create a new site, install ERPNext +
 this app, then run the loader from the site's console (`frappe.flags.hs_force_demo = True; from hipersign_trading.demo import load; load()`).
@@ -110,6 +134,18 @@ bench --site hipersign-demo.yourdomain.com export-fixtures --app hipersign_tradi
 ```
 (Custom fields must have **Module = Hipersign Trading** to be exported.)
 
+### Upgrading an existing site from 1.2 to 1.3
+```bash
+cd ~/frappe-bench
+bench update --apps hipersign_trading --no-backup      # or: cd apps/hipersign_trading && git pull
+bench --site hipersign-demo.yourdomain.com migrate      # new doctypes, rules, lists, workspace; set-up marked done
+bench build --app hipersign_trading && bench restart
+bench --site hipersign-demo.yourdomain.com execute hipersign_trading.demo.load   # demo sites only: adds the v1.3 sample data
+```
+An upgraded site keeps working as before: Enterprise pack, every feature on, document level Full, and post-dated cheques still
+post only when they clear (tick *Post cheques when received / issued* in Hipersign Settings → Payments & pricing to change).
+The setup wizard does not appear on upgraded sites.
+
 ### Upgrading an existing demo site from 1.1 to 1.2
 ```bash
 cd ~/frappe-bench
@@ -150,6 +186,15 @@ un-serialised. For the full serial / warranty demo, create a fresh demo site and
   Manager on new orders (through the existing sales order approval). Set it to 0 to switch off.
 - **Approving a VAT return locks the period** with an Accounting Period. Untick *Lock the period* in Hipersign Settings if you lock periods another way.
 
+### New in 1.3 — check before a live install
+- **Document rules** at level *Full* block some steps until the document is attached or an exception is approved — e.g. sales
+  orders from AED 50,000 without the customer's LPO, purchase invoices without the supplier's invoice, journal entries from
+  AED 10,000 without a supporting document, LC *Issued* without the bank's copy, shipment *Cleared* without the bill of entry.
+  Review them in **Hipersign Document Rule** (or set the document level to *Recommended*, which only warns) before going live.
+- **Post-dated cheques** post a journal entry when received / issued on new sites (cheques in hand / issued accounts are created on install).
+- **Bank charges**: a difference above AED 100 or 2% of the invoices, whichever is lower (Hipersign Settings), needs the Accounts Manager.
+- **Price lists** limit the item list on quotations, orders and invoices to items with a price; tick *All items* on the document to override.
+
 ## Requirements
-Frappe/ERPNext v15 or later (field names checked against a current ERPNext instance). WhatsApp uses click-to-chat (wa.me) with an expiring PDF link; a WhatsApp Business API
+Frappe 16 / ERPNext 16 for 1.3 (tested on Frappe 16.53 / ERPNext 16.52, Python 3.14). Frappe HR is optional. WhatsApp uses click-to-chat (wa.me) with an expiring PDF link; a WhatsApp Business API
 provider can be plugged into `hipersign_trading/api/share.py` later.

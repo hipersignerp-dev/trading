@@ -630,3 +630,1365 @@ msgstr "موعد الإقرار والدفع"
 
 msgid "Locked accounting period"
 msgstr "الفترة المحاسبية المقفلة"
+
+msgid "1. How many companies?"
+msgstr "1. كم عدد الشركات؟"
+
+msgid "2. Which pack?"
+msgstr "2. أي باقة؟"
+
+msgid "A rule for {0} on {1} already exists: {2}"
+msgstr "توجد قاعدة لـ {0} على {1} بالفعل: {2}"
+
+msgid "API key"
+msgstr "مفتاح API"
+
+msgid "API secret"
+msgstr "سر API"
+
+msgid "Above the bank-charge limit"
+msgstr "أعلى من حد الرسوم البنكية"
+
+msgid "Above the limit"
+msgstr "أعلى من الحد"
+
+msgid "Account"
+msgstr "الحساب"
+
+msgid "Accounts"
+msgstr "الحسابات"
+
+msgid "Add"
+msgstr "إضافة"
+
+msgid "Add at least one item with a quantity"
+msgstr "أضف صنفاً واحداً على الأقل مع الكمية"
+
+msgid "Amount"
+msgstr "المبلغ"
+
+msgid "Amount field"
+msgstr "حقل المبلغ"
+
+msgid "Amount received"
+msgstr "المبلغ المستلم"
+
+msgid "Applied"
+msgstr "المطبَّق"
+
+msgid "Approve"
+msgstr "اعتماد"
+
+msgid "Approve exception"
+msgstr "اعتماد الاستثناء"
+
+msgid "Approved"
+msgstr "معتمد"
+
+msgid "Approved by role"
+msgstr "يعتمده الدور"
+
+msgid "Approved by the requester"
+msgstr "اعتمده مقدم الطلب"
+
+msgid "Approved by the requester, who holds the approving role"
+msgstr "اعتمده مقدم الطلب لأنه يملك دور الاعتماد"
+
+msgid "Attach"
+msgstr "إرفاق"
+
+msgid "Attach the document below with its type (Documents on the form), or request an exception from the {0}:"
+msgstr "أرفق المستند أدناه مع نوعه (قسم المستندات في النموذج)، أو اطلب استثناءً من {0}:"
+
+msgid "Attachments without a type"
+msgstr "مرفقات بدون نوع"
+
+msgid "Audit"
+msgstr "التدقيق"
+
+msgid "Bank charges deducted from the customer's transfer"
+msgstr "رسوم بنكية مخصومة من تحويل العميل"
+
+msgid "Block"
+msgstr "منع"
+
+msgid "Book the difference as bank charges"
+msgstr "تسجيل الفرق كرسوم بنكية"
+
+msgid "Carry on without the {0} for now. The {1} approves the exception; the document stays due until it is attached."
+msgstr "تابع بدون {0} الآن. يعتمد {1} الاستثناء، ويبقى المستند مطلوباً حتى يُرفق."
+
+msgid "Category"
+msgstr "الفئة"
+
+msgid "Checked"
+msgstr "تم التحقق"
+
+msgid "Choose single company or group"
+msgstr "اختر شركة واحدة أو مجموعة"
+
+msgid "Choose the company on this site, or enter the site URL and the company name on that site."
+msgstr "اختر الشركة على هذا الموقع، أو أدخل رابط الموقع واسم الشركة عليه."
+
+msgid "Choose the {0}"
+msgstr "اختر {0}"
+
+msgid "Closing"
+msgstr "الإقفال"
+
+msgid "Company"
+msgstr "الشركة"
+
+msgid "Company Deadline"
+msgstr "موعد نظامي للشركة"
+
+msgid "Company Document"
+msgstr "مستند الشركة"
+
+msgid "Company Document Type"
+msgstr "نوع مستند الشركة"
+
+msgid "Company compliance"
+msgstr "امتثال الشركة"
+
+msgid "Company licences"
+msgstr "تراخيص الشركة"
+
+msgid "Company licences due or expired"
+msgstr "تراخيص الشركة المستحقة أو المنتهية"
+
+msgid "Company name on that site"
+msgstr "اسم الشركة على ذلك الموقع"
+
+msgid "Company on this site"
+msgstr "الشركة على هذا الموقع"
+
+msgid "Company {0} not found on this site"
+msgstr "الشركة {0} غير موجودة على هذا الموقع"
+
+msgid "Consolidation"
+msgstr "التوحيد"
+
+msgid "Copied {0} lines at today's prices — change the quantities if needed"
+msgstr "تم نسخ {0} سطر بأسعار اليوم — عدّل الكميات عند الحاجة"
+
+msgid "Corporate tax"
+msgstr "ضريبة الشركات"
+
+msgid "Country"
+msgstr "الدولة"
+
+msgid "Create"
+msgstr "إنشاء"
+
+msgid "Create invoice"
+msgstr "إنشاء فاتورة"
+
+msgid "Credit"
+msgstr "دائن"
+
+msgid "Currency"
+msgstr "العملة"
+
+msgid "Current copy"
+msgstr "النسخة الحالية"
+
+msgid "Customer"
+msgstr "العميل"
+
+msgid "Customer PO no."
+msgstr "رقم أمر شراء العميل"
+
+msgid "Customs"
+msgstr "الجمارك"
+
+msgid "Date"
+msgstr "التاريخ"
+
+msgid "Deadline"
+msgstr "الموعد النهائي"
+
+msgid "Deadlines calendar"
+msgstr "تقويم المواعيد النهائية"
+
+msgid "Debit"
+msgstr "مدين"
+
+msgid "Decide"
+msgstr "قرار"
+
+msgid "Decided by"
+msgstr "قرره"
+
+msgid "Decided on"
+msgstr "تاريخ القرار"
+
+msgid "Decision note"
+msgstr "ملاحظة القرار"
+
+msgid "Delivered and not yet invoiced — one click creates and submits the tax invoice."
+msgstr "تم التسليم ولم تُصدر فاتورة بعد — نقرة واحدة تنشئ الفاتورة الضريبية وتعتمدها."
+
+msgid "Demo data"
+msgstr "البيانات التجريبية"
+
+msgid "Demo data is already loading — check back in a few minutes."
+msgstr "البيانات التجريبية قيد التحميل بالفعل — عد بعد بضع دقائق."
+
+msgid "Demo data is loading — check back in a few minutes."
+msgstr "البيانات التجريبية قيد التحميل — عد بعد بضع دقائق."
+
+msgid "Description"
+msgstr "الوصف"
+
+msgid "Detailed"
+msgstr "مفصّل"
+
+msgid "Document"
+msgstr "المستند"
+
+msgid "Document Waiver"
+msgstr "استثناء مستند"
+
+msgid "Document expected by"
+msgstr "المستند متوقع بتاريخ"
+
+msgid "Document needed"
+msgstr "مستند مطلوب"
+
+msgid "Document promised under exception {0} is overdue"
+msgstr "المستند الموعود به ضمن الاستثناء {0} متأخر"
+
+msgid "Document type"
+msgstr "نوع المستند"
+
+msgid "Documents overdue under an exception"
+msgstr "مستندات متأخرة ضمن استثناء"
+
+msgid "Done"
+msgstr "تم"
+
+msgid "Done on"
+msgstr "تم بتاريخ"
+
+msgid "Done{0}"
+msgstr "تم{0}"
+
+msgid "Draft"
+msgstr "مسودة"
+
+msgid "Due"
+msgstr "الاستحقاق"
+
+msgid "Due for renewal"
+msgstr "مستحق التجديد"
+
+msgid "Due in {3} days: {0} — {1} ({2})"
+msgstr "مستحق خلال {3} يوم: {0} — {1} ({2})"
+
+msgid "Due on"
+msgstr "تاريخ الاستحقاق"
+
+msgid "ESR / UBO"
+msgstr "المادة الاقتصادية / المستفيد الحقيقي"
+
+msgid "Eliminations"
+msgstr "الاستبعادات"
+
+msgid "Enter the amount received"
+msgstr "أدخل المبلغ المستلم"
+
+msgid "Enter the status value."
+msgstr "أدخل قيمة الحالة."
+
+msgid "Every delivery has been invoiced."
+msgstr "صدرت فواتير لكل التسليمات."
+
+msgid "Every field"
+msgstr "كل الحقول"
+
+msgid "Exception"
+msgstr "استثناء"
+
+msgid "Exception approved by"
+msgstr "اعتمد الاستثناء"
+
+msgid "Exception approved: {0} for {1} {2}"
+msgstr "تم اعتماد الاستثناء: {0} لـ {1} {2}"
+
+msgid "Exception approved{0}"
+msgstr "تم اعتماد الاستثناء{0}"
+
+msgid "Exception rejected: {0} for {1} {2}"
+msgstr "تم رفض الاستثناء: {0} لـ {1} {2}"
+
+msgid "Exception requested: {0} for {1} {2}"
+msgstr "طلب استثناء: {0} لـ {1} {2}"
+
+msgid "Exception status"
+msgstr "حالة الاستثناء"
+
+msgid "Exception {0} approved — you can carry on"
+msgstr "تم اعتماد الاستثناء {0} — يمكنك المتابعة"
+
+msgid "Exception {0} sent for approval"
+msgstr "أُرسل الاستثناء {0} للاعتماد"
+
+msgid "Exceptions"
+msgstr "الاستثناءات"
+
+msgid "Exceptions waiting for approval"
+msgstr "استثناءات بانتظار الاعتماد"
+
+msgid "Expires"
+msgstr "ينتهي"
+
+msgid "Expires on"
+msgstr "تاريخ الانتهاء"
+
+msgid "Export shipment"
+msgstr "شحنة تصدير"
+
+msgid "External documents"
+msgstr "المستندات الخارجية"
+
+msgid "Failed: {0}"
+msgstr "فشل: {0}"
+
+msgid "Fewest fields — everything else from the defaults"
+msgstr "أقل عدد من الحقول — الباقي من القيم الافتراضية"
+
+msgid "Financial year from"
+msgstr "السنة المالية من"
+
+msgid "Finish set-up"
+msgstr "إنهاء الإعداد"
+
+msgid "Form mode"
+msgstr "وضع النموذج"
+
+msgid "Group Trial Balance"
+msgstr "ميزان مراجعة المجموعة"
+
+msgid "Group Trial Balance Account"
+msgstr "حساب ميزان مراجعة المجموعة"
+
+msgid "Group consolidation"
+msgstr "توحيد المجموعة"
+
+msgid "Group ownership %"
+msgstr "نسبة ملكية المجموعة %"
+
+msgid "Groups and larger traders — everything: LCs and trade finance, company compliance, group consolidation, HR documents, fixed assets, blocking document rules with exceptions."
+msgstr "للمجموعات والتجار الكبار — كل شيء: الاعتمادات المستندية وتمويل التجارة، امتثال الشركة، توحيد المجموعة، مستندات الموارد البشرية، الأصول الثابتة، وقواعد مستندات مانعة مع استثناءات."
+
+msgid "Growing importer or exporter — adds CRM, imports and landed cost, exports, approvals, KYC, advances, cheques, bank reconciliation and currencies. Documents are recommended, nothing blocks."
+msgstr "لمستورد أو مصدّر نامٍ — يضيف إدارة العملاء، الاستيراد والتكلفة الواصلة، التصدير، الاعتمادات، اعرف عميلك، الدفعات المقدمة، الشيكات، التسوية البنكية والعملات. المستندات موصى بها ولا شيء يمنع."
+
+msgid "HS Deadlines Open"
+msgstr "مواعيد نظامية مفتوحة"
+
+msgid "HS Licences Due"
+msgstr "تراخيص مستحقة"
+
+msgid "HS Overdue Exceptions"
+msgstr "استثناءات متأخرة"
+
+msgid "HS Pending Exceptions"
+msgstr "استثناءات معلقة"
+
+msgid "Hipersign Document Rule"
+msgstr "قاعدة مستندات هايبرساين"
+
+msgid "Hipersign Document Type"
+msgstr "نوع مستند هايبرساين"
+
+msgid "Hipersign Documents"
+msgstr "مستندات هايبرساين"
+
+msgid "Hipersign Form Mode"
+msgstr "وضع نموذج هايبرساين"
+
+msgid "Hipersign Group Consolidation"
+msgstr "توحيد مجموعة هايبرساين"
+
+msgid "Hipersign Group Member"
+msgstr "عضو مجموعة هايبرساين"
+
+msgid "Hipersign List Value"
+msgstr "قيمة قائمة هايبرساين"
+
+msgid "In progress"
+msgstr "قيد التنفيذ"
+
+msgid "Included in consolidation"
+msgstr "مشمول في التوحيد"
+
+msgid "Inter-company"
+msgstr "بين الشركات"
+
+msgid "Inter-company balances do not agree by {0} — check the accounts ticked Inter-company"
+msgstr "أرصدة ما بين الشركات غير متطابقة بفارق {0} — راجع الحسابات المعلّمة بين الشركات"
+
+msgid "Invoice"
+msgstr "الفاتورة"
+
+msgid "Invoice settled in full: bank {0} + bank charges {1}"
+msgstr "سُددت الفاتورة بالكامل: البنك {0} + رسوم بنكية {1}"
+
+msgid "Issued on"
+msgstr "تاريخ الإصدار"
+
+msgid "Issuing authority"
+msgstr "جهة الإصدار"
+
+msgid "Item"
+msgstr "الصنف"
+
+msgid "Items"
+msgstr "الأصناف"
+
+msgid "Last sync"
+msgstr "آخر مزامنة"
+
+msgid "Lead"
+msgstr "عميل محتمل"
+
+msgid "Licence"
+msgstr "الترخيص"
+
+msgid "Line"
+msgstr "السطر"
+
+msgid "List"
+msgstr "القائمة"
+
+msgid "Load"
+msgstr "تحميل"
+
+msgid "Load demo data"
+msgstr "تحميل البيانات التجريبية"
+
+msgid "Loading demo data in the background — it takes a few minutes. You will get a notification when it is done."
+msgstr "يجري تحميل البيانات التجريبية في الخلفية — يستغرق ذلك بضع دقائق. ستصلك إشعار عند الانتهاء."
+
+msgid "Lost reason"
+msgstr "سبب الخسارة"
+
+msgid "Main company"
+msgstr "الشركة الرئيسية"
+
+msgid "Mark done"
+msgstr "تحديد كمنجز"
+
+msgid "Member"
+msgstr "العضو"
+
+msgid "Method"
+msgstr "الطريقة"
+
+msgid "Missing"
+msgstr "ناقص"
+
+msgid "Missing Documents"
+msgstr "المستندات الناقصة"
+
+msgid "Missing documents"
+msgstr "المستندات الناقصة"
+
+msgid "Monthly"
+msgstr "شهري"
+
+msgid "More than the customer owes — record the extra as an advance in the Standard form."
+msgstr "أكثر مما على العميل — سجّل الزيادة كدفعة مقدمة في النموذج القياسي."
+
+msgid "Multiple companies (group) — consolidation and inter-company"
+msgstr "عدة شركات (مجموعة) — التوحيد والمعاملات بين الشركات"
+
+msgid "Name"
+msgstr "الاسم"
+
+msgid "New"
+msgstr "جديد"
+
+msgid "New expiry date"
+msgstr "تاريخ الانتهاء الجديد"
+
+msgid "New number (if it changed)"
+msgstr "الرقم الجديد (إن تغيّر)"
+
+msgid "New {0}"
+msgstr "{0} جديد"
+
+msgid "New — {0}"
+msgstr "جديد — {0}"
+
+msgid "Next deadline"
+msgstr "الموعد التالي"
+
+msgid "Next deadline {0} created"
+msgstr "تم إنشاء الموعد التالي {0}"
+
+msgid "No expiry"
+msgstr "بدون انتهاء"
+
+msgid "No item matches — use the Standard form to add a new item"
+msgstr "لا يوجد صنف مطابق — استخدم النموذج القياسي لإضافة صنف جديد"
+
+msgid "None"
+msgstr "لا شيء"
+
+msgid "Not permitted"
+msgstr "غير مسموح"
+
+msgid "Note"
+msgstr "ملاحظة"
+
+msgid "Notes"
+msgstr "ملاحظات"
+
+msgid "Number"
+msgstr "الرقم"
+
+msgid "Off"
+msgstr "إيقاف"
+
+msgid "On file"
+msgstr "موجود"
+
+msgid "On submit"
+msgstr "عند الاعتماد"
+
+msgid "Only a pending request can be approved."
+msgstr "يمكن اعتماد الطلب المعلّق فقط."
+
+msgid "Only a pending request can be rejected."
+msgstr "يمكن رفض الطلب المعلّق فقط."
+
+msgid "Only from amount"
+msgstr "فقط من مبلغ"
+
+msgid "Only returns / credit notes"
+msgstr "المرتجعات / إشعارات الدائن فقط"
+
+msgid "Only the {0} can approve this exception."
+msgstr "فقط {0} يمكنه اعتماد هذا الاستثناء."
+
+msgid "Only the {0} can reject this exception."
+msgstr "فقط {0} يمكنه رفض هذا الاستثناء."
+
+msgid "Open"
+msgstr "مفتوح"
+
+msgid "Open it in Hipersign ERP → Company Compliance."
+msgstr "افتحه في هايبرساين ← امتثال الشركة."
+
+msgid "Open statutory deadlines"
+msgstr "مواعيد نظامية مفتوحة"
+
+msgid "Open {0}"
+msgstr "فتح {0}"
+
+msgid "Opening"
+msgstr "الافتتاحي"
+
+msgid "Opens"
+msgstr "يفتح"
+
+msgid "Optional"
+msgstr "اختياري"
+
+msgid "Other"
+msgstr "أخرى"
+
+msgid "Outstanding"
+msgstr "المستحق"
+
+msgid "Overdue: {0} — {1} (was due {2})"
+msgstr "متأخر: {0} — {1} (كان مستحقاً في {2})"
+
+msgid "Parent / holding company"
+msgstr "الشركة الأم / القابضة"
+
+msgid "Party"
+msgstr "الطرف"
+
+msgid "Payment Entry"
+msgstr "قيد الدفع"
+
+msgid "Payment method"
+msgstr "طريقة الدفع"
+
+msgid "Payment {0} · {1} invoice(s)"
+msgstr "الدفعة {0} · {1} فاتورة"
+
+msgid "Pending"
+msgstr "معلّق"
+
+msgid "Position"
+msgstr "المركز"
+
+msgid "Presentation currency"
+msgstr "عملة العرض"
+
+msgid "Price (from the list)"
+msgstr "السعر (من القائمة)"
+
+msgid "Profit for the year"
+msgstr "ربح السنة"
+
+msgid "Promised by"
+msgstr "موعود به بتاريخ"
+
+msgid "Purchase Order"
+msgstr "أمر الشراء"
+
+msgid "Qty"
+msgstr "الكمية"
+
+msgid "Quantity and item — e.g. 200 cam — then Enter"
+msgstr "الكمية والصنف — مثلاً 200 cam — ثم Enter"
+
+msgid "Quarterly"
+msgstr "ربع سنوي"
+
+msgid "Quick"
+msgstr "سريع"
+
+msgid "Quick entry is not available for {0}"
+msgstr "الإدخال السريع غير متاح لـ {0}"
+
+msgid "Quick invoice"
+msgstr "فاتورة سريعة"
+
+msgid "Quick receipt"
+msgstr "استلام سريع"
+
+msgid "Quick {0}"
+msgstr "{0} سريع"
+
+msgid "Quotation"
+msgstr "عرض السعر"
+
+msgid "Rates to {0} — {1}"
+msgstr "الأسعار إلى {0} — {1}"
+
+msgid "Reason"
+msgstr "السبب"
+
+msgid "Receive payment"
+msgstr "استلام دفعة"
+
+msgid "Record"
+msgstr "تسجيل"
+
+msgid "Record receipt"
+msgstr "تسجيل الاستلام"
+
+msgid "Record renewal"
+msgstr "تسجيل التجديد"
+
+msgid "Record type"
+msgstr "نوع السجل"
+
+msgid "Records"
+msgstr "السجلات"
+
+msgid "Reference"
+msgstr "المرجع"
+
+msgid "Reject exception"
+msgstr "رفض الاستثناء"
+
+msgid "Rejected"
+msgstr "مرفوض"
+
+msgid "Reminder sent to {0}: {1}"
+msgstr "أُرسل تذكير إلى {0}: {1}"
+
+msgid "Renewal"
+msgstr "التجديد"
+
+msgid "Renewal cost"
+msgstr "تكلفة التجديد"
+
+msgid "Renewed"
+msgstr "مجدد"
+
+msgid "Renewed document"
+msgstr "المستند المجدد"
+
+msgid "Renewed — valid until {0} (was {1})"
+msgstr "تم التجديد — صالح حتى {0} (كان {1})"
+
+msgid "Repeat last order — {0} · {1} · {2} lines"
+msgstr "تكرار آخر طلب — {0} · {1} · {2} سطر"
+
+msgid "Repeats"
+msgstr "التكرار"
+
+msgid "Report"
+msgstr "التقرير"
+
+msgid "Request"
+msgstr "الطلب"
+
+msgid "Request exception"
+msgstr "طلب استثناء"
+
+msgid "Requested by"
+msgstr "طلبه"
+
+msgid "Required"
+msgstr "مطلوب"
+
+msgid "Responsible"
+msgstr "المسؤول"
+
+msgid "Result"
+msgstr "النتيجة"
+
+msgid "Role"
+msgstr "الدور"
+
+msgid "Root"
+msgstr "الجذر"
+
+msgid "Row {0}: {1} — only {2} is still owed after cheques already issued ({3}). Reduce the amount."
+msgstr "السطر {0}: {1} — المتبقي {2} فقط بعد الشيكات الصادرة ({3}). خفّض المبلغ."
+
+msgid "Rule"
+msgstr "القاعدة"
+
+msgid "Sales Invoice"
+msgstr "فاتورة المبيعات"
+
+msgid "Sales Invoice {0} · {1}"
+msgstr "فاتورة المبيعات {0} · {1}"
+
+msgid "Sales Order"
+msgstr "أمر البيع"
+
+msgid "Save"
+msgstr "حفظ"
+
+msgid "Save & send on WhatsApp"
+msgstr "حفظ وإرسال عبر واتساب"
+
+msgid "Send"
+msgstr "إرسال"
+
+msgid "Series"
+msgstr "السلسلة"
+
+msgid "Set the bank charges account in Hipersign Settings first."
+msgstr "حدد حساب الرسوم البنكية في إعدادات هايبرساين أولاً."
+
+msgid "Set up Hipersign ERP"
+msgstr "إعداد هايبرساين"
+
+msgid "Set-up"
+msgstr "الإعداد"
+
+msgid "Set-up complete"
+msgstr "اكتمل الإعداد"
+
+msgid "Several items match — pick one"
+msgstr "عدة أصناف مطابقة — اختر واحداً"
+
+msgid "Shipment mode"
+msgstr "طريقة الشحن"
+
+msgid "Show"
+msgstr "عرض"
+
+msgid "Single company"
+msgstr "شركة واحدة"
+
+msgid "Site URL"
+msgstr "رابط الموقع"
+
+msgid "Small local trader, one company — quotations, orders, purchases, stock, delivery, invoices, VAT and accounts. Forms open in Quick mode; no document rules."
+msgstr "تاجر محلي صغير بشركة واحدة — عروض الأسعار، الطلبات، المشتريات، المخزون، التسليم، الفواتير، ضريبة القيمة المضافة والحسابات. النماذج تفتح في الوضع السريع، بدون قواعد مستندات."
+
+msgid "Standard"
+msgstr "قياسي"
+
+msgid "Standard / Detailed form"
+msgstr "النموذج القياسي / المفصّل"
+
+msgid "Start renewal (days before expiry)"
+msgstr "بدء التجديد (أيام قبل الانتهاء)"
+
+msgid "Status"
+msgstr "الحالة"
+
+msgid "Status field"
+msgstr "حقل الحالة"
+
+msgid "Status value"
+msgstr "قيمة الحالة"
+
+msgid "Submit order"
+msgstr "اعتماد الطلب"
+
+msgid "Submitted"
+msgstr "معتمد"
+
+msgid "Submitted to authority"
+msgstr "مقدم للجهة"
+
+msgid "Supplier"
+msgstr "المورد"
+
+msgid "Sync"
+msgstr "مزامنة"
+
+msgid "Sync all members"
+msgstr "مزامنة كل الأعضاء"
+
+msgid "Sync trial balance"
+msgstr "مزامنة ميزان المراجعة"
+
+msgid "Synced on"
+msgstr "تاريخ المزامنة"
+
+msgid "Synced {0} of {1}"
+msgstr "تمت مزامنة {0} من {1}"
+
+msgid "The customer has no open invoices."
+msgstr "لا توجد فواتير مفتوحة على العميل."
+
+msgid "The date the document is expected cannot be in the past."
+msgstr "لا يمكن أن يكون تاريخ توقع المستند في الماضي."
+
+msgid "The difference of {0} is above the limit of {1} for these invoices (Hipersign Settings → Payments & pricing). "
+msgstr "الفرق {0} أعلى من الحد {1} لهذه الفواتير (إعدادات هايبرساين ← المدفوعات والتسعير). "
+
+msgid "The essential fields"
+msgstr "الحقول الأساسية"
+
+msgid "The expiry date is before the issue date."
+msgstr "تاريخ الانتهاء قبل تاريخ الإصدار."
+
+msgid "The item list shows the {0} items in {1}. Tick to pick any item."
+msgstr "قائمة الأصناف تعرض {0} صنفاً في {1}. حدد الخيار لاختيار أي صنف."
+
+msgid "The new expiry date must be after the current one ({0})."
+msgstr "يجب أن يكون تاريخ الانتهاء الجديد بعد الحالي ({0})."
+
+msgid "The site switches to the Enterprise pack (group of companies) so every feature has sample data — you can switch back afterwards."
+msgstr "سينتقل الموقع إلى باقة المؤسسات (مجموعة شركات) لتكون لكل ميزة بيانات تجريبية — يمكنك العودة بعد ذلك."
+
+msgid "This site already has {0} submitted invoices — demo data is only loaded on a new or demo site."
+msgstr "يحتوي هذا الموقع على {0} فاتورة معتمدة — تُحمّل البيانات التجريبية على موقع جديد أو تجريبي فقط."
+
+msgid "Total {0}"
+msgstr "إجمالي {0}"
+
+msgid "Two questions — you can change both later in Hipersign Settings → Setup & features. Nothing is deleted when you switch."
+msgstr "سؤالان — يمكنك تغييرهما لاحقاً في إعدادات هايبرساين ← الإعداد والميزات. لا يُحذف شيء عند التبديل."
+
+msgid "Type DEMO to confirm"
+msgstr "اكتب DEMO للتأكيد"
+
+msgid "Type DEMO to load the demo companies, customers, items and transactions"
+msgstr "اكتب DEMO لتحميل الشركات والعملاء والأصناف والمعاملات التجريبية"
+
+msgid "Unknown form mode"
+msgstr "وضع نموذج غير معروف"
+
+msgid "Unknown pack {0}"
+msgstr "باقة غير معروفة {0}"
+
+msgid "Up to"
+msgstr "حتى"
+
+msgid "Used"
+msgstr "مستخدم"
+
+msgid "Used on"
+msgstr "تاريخ الاستخدام"
+
+msgid "VAT return"
+msgstr "إقرار ضريبة القيمة المضافة"
+
+msgid "Valid"
+msgstr "ساري"
+
+msgid "Value"
+msgstr "القيمة"
+
+msgid "WPS salary file"
+msgstr "ملف رواتب نظام حماية الأجور"
+
+msgid "When"
+msgstr "متى"
+
+msgid "When status changes to"
+msgstr "عند تغيّر الحالة إلى"
+
+msgid "Why"
+msgstr "لماذا"
+
+msgid "With an exception"
+msgstr "مع استثناء"
+
+msgid "Year to date (P&L)"
+msgstr "منذ بداية السنة (الأرباح والخسائر)"
+
+msgid "Yearly"
+msgstr "سنوي"
+
+msgid "You cannot decide your own request."
+msgstr "لا يمكنك البت في طلبك بنفسك."
+
+msgid "Your choice is remembered for next time."
+msgstr "سيُحفظ اختيارك للمرة القادمة."
+
+msgid "before tax — final prices, credit, approvals and documents are checked on save"
+msgstr "قبل الضريبة — يتم التحقق من الأسعار النهائية والائتمان والاعتمادات والمستندات عند الحفظ"
+
+msgid "click one to give it a type"
+msgstr "انقر على أحدها لتحديد نوعه"
+
+msgid "customer"
+msgstr "العميل"
+
+msgid "estimated"
+msgstr "تقديري"
+
+msgid "failed: {0}"
+msgstr "فشل: {0}"
+
+msgid "in stock"
+msgstr "في المخزون"
+
+msgid "line"
+msgstr "سطر"
+
+msgid "lines"
+msgstr "أسطر"
+
+msgid "of which minority (non-controlling) interests in equity"
+msgstr "منها حقوق الأقلية (غير المسيطرة) في حقوق الملكية"
+
+msgid "supplier"
+msgstr "المورد"
+
+msgid "when {0}"
+msgstr "عند {0}"
+
+msgid "your default"
+msgstr "الافتراضي لديك"
+
+msgid "{0} attached — you can carry on"
+msgstr "تم إرفاق {0} — يمكنك المتابعة"
+
+msgid "{0} has no field {1}."
+msgstr "{0} لا يحتوي على الحقل {1}."
+
+msgid "{0} is above the limit of {1} for these invoices. Only the {2} can absorb it — or keep the balance open on the invoice."
+msgstr "{0} أعلى من الحد {1} لهذه الفواتير. فقط {2} يمكنه تحمّله — أو اترك الرصيد مفتوحاً على الفاتورة."
+
+msgid "{0} is already in the {1} list."
+msgstr "{0} موجود بالفعل في قائمة {1}."
+
+msgid "{0} is more than the {1} the customer owes — record the extra as an advance on a full Payment Entry."
+msgstr "{0} أكثر من {1} المستحق على العميل — سجّل الزيادة كدفعة مقدمة في قيد دفع كامل."
+
+msgid "{0} is not submitted — choose “When status changes to” and the status field."
+msgstr "{0} لا يُعتمد — اختر «عند تغيّر الحالة إلى» وحقل الحالة."
+
+msgid "{0} is used on existing documents — deactivate it instead."
+msgstr "{0} مستخدم في مستندات قائمة — قم بتعطيله بدلاً من ذلك."
+
+msgid "{0} is {1}% owned — minority share of net assets {2}, of profit {3}"
+msgstr "{0} مملوكة بنسبة {1}% — حصة الأقلية من صافي الأصول {2} ومن الربح {3}"
+
+msgid "{0} less than the invoices — book it as bank charges to settle them in full, or leave the balance open."
+msgstr "{0} أقل من الفواتير — سجّله كرسوم بنكية لتسويتها بالكامل، أو اترك الرصيد مفتوحاً."
+
+msgid "{0} missing"
+msgstr "{0} ناقص"
+
+msgid "{0} of {1} expires in {2} days ({3}) — start the renewal"
+msgstr "{0} لـ {1} ينتهي خلال {2} يوم ({3}) — ابدأ التجديد"
+
+msgid "{0} of {1} has expired ({2})"
+msgstr "{0} لـ {1} منتهي ({2})"
+
+msgid "{0} pack, {1}. The menus, rules and forms now follow it. Load demo data from Hipersign Settings → Set-up if this is a demo site."
+msgstr "باقة {0}، {1}. القوائم والقواعد والنماذج تتبعها الآن. حمّل البيانات التجريبية من إعدادات هايبرساين ← الإعداد إذا كان هذا موقعاً تجريبياً."
+
+msgid "{0} {1} created"
+msgstr "تم إنشاء {0} {1}"
+
+msgid "{0} {1} saved as a draft — attach the document needed, then submit"
+msgstr "حُفظ {0} {1} كمسودة — أرفق المستند المطلوب ثم اعتمده"
+
+msgid "{0}: latest trial balance is up to {1}"
+msgstr "{0}: آخر ميزان مراجعة حتى {1}"
+
+msgid "{0}: no trial balance synced up to {1}"
+msgstr "{0}: لا يوجد ميزان مراجعة متزامن حتى {1}"
+
+msgid "{0}: {1} accounts up to {2}"
+msgstr "{0}: {1} حساب حتى {2}"
+
+msgid "— attributable to minority (non-controlling) interests"
+msgstr "— العائد لحقوق الأقلية (غير المسيطرة)"
+
+msgid "— attributable to the owners of the group"
+msgstr "— العائد لمالكي المجموعة"
+
+msgid "Hipersign demo data loaded"
+msgstr "تم تحميل بيانات هايبرساين التجريبية"
+
+msgid "Hipersign demo data failed"
+msgstr "فشل تحميل بيانات هايبرساين التجريبية"
+
+msgid "Blocks next step"
+msgstr "يمنع الخطوة التالية"
+
+msgid "Recommended"
+msgstr "موصى به"
+
+msgid "Exception requested"
+msgstr "طُلب استثناء"
+
+msgid "Advance before delivery, collection stages"
+msgstr "دفعة مقدمة قبل التسليم، مراحل التحصيل"
+
+msgid "Advance payment"
+msgstr "دفعة مقدمة"
+
+msgid "Advances & payment schedules"
+msgstr "الدفعات المقدمة وجداول السداد"
+
+msgid "Approval routes — off: documents are approved at once"
+msgstr "مسارات الاعتماد — عند الإيقاف تُعتمد المستندات فوراً"
+
+msgid "Approval workflows"
+msgstr "مسارات الاعتماد"
+
+msgid "Asset register and depreciation"
+msgstr "سجل الأصول والإهلاك"
+
+msgid "Bank advice / transfer copy"
+msgstr "إشعار البنك / نسخة التحويل"
+
+msgid "Bank reconciliation"
+msgstr "التسوية البنكية"
+
+msgid "Bank's LC copy"
+msgstr "نسخة الاعتماد من البنك"
+
+msgid "Bill of entry"
+msgstr "بيان الإدخال الجمركي"
+
+msgid "Bill of lading / AWB"
+msgstr "بوليصة الشحن / بوليصة الشحن الجوي"
+
+msgid "Business registration certificate"
+msgstr "شهادة تسجيل الأعمال"
+
+msgid "Buying"
+msgstr "المشتريات"
+
+msgid "CRM & leads"
+msgstr "إدارة العملاء والفرص"
+
+msgid "Certificate of incorporation"
+msgstr "شهادة التأسيس"
+
+msgid "Certificate of origin"
+msgstr "شهادة المنشأ"
+
+msgid "Chamber of commerce membership"
+msgstr "عضوية غرفة التجارة"
+
+msgid "Cheques in hand and issued, deposit and bounce"
+msgstr "الشيكات بالصندوق والصادرة، الإيداع والارتجاع"
+
+msgid "Civil Defence"
+msgstr "الدفاع المدني"
+
+msgid "Civil defence certificate"
+msgstr "شهادة الدفاع المدني"
+
+msgid "Commercial invoice"
+msgstr "الفاتورة التجارية"
+
+msgid "Commercial registration (CR)"
+msgstr "السجل التجاري"
+
+msgid "Companies House"
+msgstr "سجل الشركات (Companies House)"
+
+msgid "Company licences, deadlines and reminders"
+msgstr "تراخيص الشركة والمواعيد والتذكيرات"
+
+msgid "Confirmation statement"
+msgstr "بيان التأكيد السنوي"
+
+msgid "Controls"
+msgstr "الضوابط"
+
+msgid "Corporate tax registration"
+msgstr "تسجيل ضريبة الشركات"
+
+msgid "Corporate tax return"
+msgstr "إقرار ضريبة الشركات"
+
+msgid "Credit notes need the customer's return request"
+msgstr "إشعارات الدائن تتطلب طلب الإرجاع من العميل"
+
+msgid "Customer KYC documents"
+msgstr "مستندات اعرف عميلك"
+
+msgid "Customer LPO"
+msgstr "أمر شراء العميل"
+
+msgid "Customer RFQ / BOQ"
+msgstr "طلب عرض سعر العميل / جدول الكميات"
+
+msgid "Customer and supplier licences; orders blocked when expired"
+msgstr "تراخيص العملاء والموردين؛ تُمنع الطلبات عند انتهائها"
+
+msgid "Customer portal"
+msgstr "بوابة العملاء"
+
+msgid "Customs clearance needs the bill of entry"
+msgstr "التخليص الجمركي يتطلب بيان الإدخال"
+
+msgid "Customs code"
+msgstr "الرمز الجمركي"
+
+msgid "DGFT"
+msgstr "المديرية العامة للتجارة الخارجية (DGFT)"
+
+msgid "Damage photos"
+msgstr "صور التلف"
+
+msgid "Delivery trips & driver app"
+msgstr "رحلات التسليم وتطبيق السائق"
+
+msgid "Delivery trips and the driver web app"
+msgstr "رحلات التسليم وتطبيق السائق على الويب"
+
+msgid "Department of Economy & Tourism"
+msgstr "دائرة الاقتصاد والسياحة"
+
+msgid "Dubai Chamber"
+msgstr "غرفة دبي"
+
+msgid "Dubai Customs"
+msgstr "جمارك دبي"
+
+msgid "Dubai Land Department"
+msgstr "دائرة الأراضي والأملاك في دبي"
+
+msgid "Emirates ID"
+msgstr "الهوية الإماراتية"
+
+msgid "Employee documents and WPS file"
+msgstr "مستندات الموظفين وملف حماية الأجور"
+
+msgid "Establishment card"
+msgstr "بطاقة المنشأة"
+
+msgid "Exceptions to the KYC block are asked for against this document"
+msgstr "تُطلب استثناءات منع اعرف عميلك على هذا المستند"
+
+msgid "Exceptions to the advance-before-delivery hold are asked for against this document"
+msgstr "تُطلب استثناءات إيقاف الدفعة المقدمة قبل التسليم على هذا المستند"
+
+msgid "Exit / export certificate"
+msgstr "شهادة الخروج / التصدير"
+
+msgid "Export shipments, proof of export for 0% VAT"
+msgstr "شحنات التصدير، إثبات التصدير لضريبة 0%"
+
+msgid "Exports & re-exports"
+msgstr "التصدير وإعادة التصدير"
+
+msgid "Federal Tax Authority"
+msgstr "الهيئة الاتحادية للضرائب"
+
+msgid "Finance"
+msgstr "المالية"
+
+msgid "Fixed assets"
+msgstr "الأصول الثابتة"
+
+msgid "GOSI"
+msgstr "التأمينات الاجتماعية (GOSI)"
+
+msgid "GOSI certificate"
+msgstr "شهادة التأمينات الاجتماعية"
+
+msgid "GST registration"
+msgstr "تسجيل ضريبة السلع والخدمات (GST)"
+
+msgid "GSTN"
+msgstr "شبكة ضريبة السلع والخدمات (GSTN)"
+
+msgid "General Directorate of Residency (GDRFA)"
+msgstr "الإدارة العامة للإقامة وشؤون الأجانب"
+
+msgid "HR documents & WPS"
+msgstr "مستندات الموارد البشرية وحماية الأجور"
+
+msgid "Hong Kong"
+msgstr "هونغ كونغ"
+
+msgid "Import Export Code (IEC)"
+msgstr "رمز الاستيراد والتصدير (IEC)"
+
+msgid "Import shipments, customs, landed cost"
+msgstr "شحنات الاستيراد، الجمارك، التكلفة الواصلة"
+
+msgid "Imports & landed cost"
+msgstr "الاستيراد والتكلفة الواصلة"
+
+msgid "India"
+msgstr "الهند"
+
+msgid "Inland Revenue Department"
+msgstr "دائرة الإيرادات الداخلية"
+
+msgid "Insurance certificate"
+msgstr "شهادة التأمين"
+
+msgid "KYC & licence checks"
+msgstr "اعرف عميلك والتحقق من التراخيص"
+
+msgid "LCs & trade finance"
+msgstr "الاعتمادات المستندية وتمويل التجارة"
+
+msgid "Lead pipeline, follow-ups, lead sources"
+msgstr "مسار الفرص، المتابعات، مصادر الفرص"
+
+msgid "Letters of credit, cash margin, trust receipts"
+msgstr "الاعتمادات المستندية، الهامش النقدي، إيصالات الأمانة"
+
+msgid "Manual entries from AED 10,000 need a supporting document"
+msgstr "القيود اليدوية من 10,000 درهم تتطلب مستنداً داعماً"
+
+msgid "Material requests and supplier quotation comparison"
+msgstr "طلبات المواد ومقارنة عروض الموردين"
+
+msgid "Ministry of Commerce"
+msgstr "وزارة التجارة"
+
+msgid "Month-end revaluation reminder"
+msgstr "تذكير إعادة التقييم في نهاية الشهر"
+
+msgid "Multi-currency & revaluation"
+msgstr "تعدد العملات وإعادة التقييم"
+
+msgid "Multiple warehouses"
+msgstr "مستودعات متعددة"
+
+msgid "Order tracker"
+msgstr "متتبع الطلبات"
+
+msgid "Orders from AED 50,000 need the customer's purchase order"
+msgstr "الطلبات من 50,000 درهم تتطلب أمر شراء العميل"
+
+msgid "Packing list"
+msgstr "قائمة التعبئة"
+
+msgid "Proforma invoice"
+msgstr "الفاتورة المبدئية"
+
+msgid "Proof of export for 0% VAT"
+msgstr "إثبات التصدير لضريبة 0%"
+
+msgid "Purchase requests & RFQs"
+msgstr "طلبات الشراء وطلبات عروض الأسعار"
+
+msgid "Return request"
+msgstr "طلب الإرجاع"
+
+msgid "Sales"
+msgstr "المبيعات"
+
+msgid "Sales order tracker page"
+msgstr "صفحة متتبع أوامر البيع"
+
+msgid "Saudi Arabia"
+msgstr "المملكة العربية السعودية"
+
+msgid "Serial numbers & warranty"
+msgstr "الأرقام التسلسلية والضمان"
+
+msgid "Serial tracking and warranty claims"
+msgstr "تتبع الأرقام التسلسلية ومطالبات الضمان"
+
+msgid "Several companies and countries, consolidation"
+msgstr "عدة شركات ودول، التوحيد"
+
+msgid "Shops & establishment licence"
+msgstr "ترخيص المحلات والمنشآت"
+
+msgid "Signed delivery note"
+msgstr "إشعار التسليم الموقع"
+
+msgid "State labour department"
+msgstr "دائرة العمل في الولاية"
+
+msgid "Statement import and matching"
+msgstr "استيراد كشف الحساب ومطابقته"
+
+msgid "Statement of account and warranty pages for customers"
+msgstr "صفحات كشف الحساب والضمان للعملاء"
+
+msgid "Supplier delivery note"
+msgstr "إشعار تسليم المورد"
+
+msgid "Supplier invoice"
+msgstr "فاتورة المورد"
+
+msgid "Supplier order confirmation"
+msgstr "تأكيد طلب المورد"
+
+msgid "Supporting document"
+msgstr "مستند داعم"
+
+msgid "TRN certificate"
+msgstr "شهادة الرقم الضريبي"
+
+msgid "Tenancy contract (Ejari)"
+msgstr "عقد الإيجار (إيجاري)"
+
+msgid "The bank's issued LC (MT700) before the LC is marked issued"
+msgstr "الاعتماد الصادر من البنك (MT700) قبل تحديد الاعتماد كصادر"
+
+msgid "The supplier's confirmation of price and date"
+msgstr "تأكيد المورد للسعر والتاريخ"
+
+msgid "The supplier's tax invoice must be on file before the bill is booked"
+msgstr "يجب وجود الفاتورة الضريبية للمورد قبل تسجيل الفاتورة"
+
+msgid "Trade licence"
+msgstr "الرخصة التجارية"
+
+msgid "Transfers, reservations and pick lists"
+msgstr "التحويلات والحجوزات وقوائم الالتقاط"
+
+msgid "United Arab Emirates"
+msgstr "الإمارات العربية المتحدة"
+
+msgid "United Kingdom"
+msgstr "المملكة المتحدة"
+
+msgid "VAT registration certificate"
+msgstr "شهادة التسجيل في ضريبة القيمة المضافة"
+
+msgid "ZATCA"
+msgstr "هيئة الزكاة والضريبة والجمارك"
+
+msgid "Zakat & VAT certificate"
+msgstr "شهادة الزكاة وضريبة القيمة المضافة"

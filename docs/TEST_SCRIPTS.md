@@ -46,3 +46,23 @@
 | FX-01 | Finance Manager | Exchange Rate Revaluation (draft, last month end) → Submit → Make journal entries | Unrealised gain/loss on EUR/CNY balances; reversal journal on the 1st |
 | GRP-01 | Finance Manager | Consolidated Financial Statement → company *Hipersign Demo Group* | LLC, FZE and Oman figures with the group total |
 | GRP-02 | Accountant | Sales Invoice to *Hipersign Demo Trading FZE* → Create → Inter-company purchase invoice | Purchase invoice in the FZE's books linked to the sales invoice |
+| SET-01 | Administrator (new site) | Log in → *Set up Hipersign ERP* → Single company, Starter → Finish | Menus for CRM, LCs, HR, assets hidden; approval workflows off; forms open in Quick mode |
+| SET-02 | Administrator | Hipersign Settings → Pack → Enterprise, Group | Everything back; workflows on; nothing was deleted |
+| SET-03 | Administrator (new site) | Hipersign Settings → Set-up → Load demo data → type DEMO | Notification *Hipersign demo data loaded* after a few minutes |
+| FM-01 | Sales Executive | Quotations → **New · Quick** → customer, type `3 cam` + Enter → Save | Quotation saved with list price; opens the form |
+| FM-02 | Sales Executive | Sales Orders → New · Quick → Gulf Trading LLC → *Repeat last order* → Submit order | Lines copied at today's prices; over AED 50,000 without LPO it is kept as a draft with the Documents box showing what is missing |
+| FM-03 | Accountant | Sales Invoices → New · Quick → Create invoice on a delivery | Tax invoice created and submitted from the delivery note |
+| FM-04 | Accountant | Payment Entries → New · Quick → customer, amount → Record receipt | One payment applied to the oldest invoices first |
+| FM-05 | Any | Draft form → **Form mode** → Detailed / Standard | Rare fields shown / hidden; choice remembered |
+| DOC-01 | Sales Executive | Draft sales order ≥ AED 50,000 → Submit | Blocked: *Document needed — Customer LPO* |
+| DOC-02 | Sales Executive | Documents box → Request exception → reason, date → Send | Waiver pending; Sales Manager gets a ToDo |
+| DOC-03 | Sales Manager | Document Waiver → Decide → Approve; Sales Executive submits the order | Order goes on; waiver *Used*; overdue alert if the LPO is not attached by the date |
+| DOC-04 | Accountant | Report **Missing Documents** | Every record missing a required document, with level and exceptions |
+| CMP-01 | Managing Director | Company Document *Establishment card* (expired) → Record renewal | New expiry; status Valid; reminders restart |
+| CMP-02 | Accountant | Company Deadline *VAT return* → Mark done | Next month's deadline created |
+| GRP-03 | Finance Manager | Report **Hipersign Group Consolidation** → Sync all members | Columns per company, eliminations, group total; balance sheet balances; Oman 30% minority shown |
+| PDC-04 | Accountant (new site) | Post Dated Cheque received against an invoice | Journal entry: cheques in hand / customer; invoice outstanding falls at once; clearing moves it to the bank |
+| PDC-05 | Accountant | Supplier invoice with an issued cheque → Payment Entry for the full amount | Blocked: only the remaining amount can be paid |
+| BC-01 | Accountant | Customer paid AED 25 less → Payment Entry → *Book the difference as bank charges* | Invoice settled in full; above the limit only the Accounts Manager can save it |
+| LC-04 | Accountant | Letter of Credit with margin → status Paid (date today) | Draft margin release journal created; a future paid date is refused |
+| PL-01 | Sales Executive | Quotation for a Wholesale customer → item list | Only items in the Wholesale price list; tick *All items* to see the rest |
