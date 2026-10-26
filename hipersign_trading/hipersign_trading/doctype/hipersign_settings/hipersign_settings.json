@@ -1,0 +1,479 @@
+{
+ "doctype": "DocType",
+ "name": "Hipersign Settings",
+ "module": "Hipersign Trading",
+ "custom": 0,
+ "engine": "InnoDB",
+ "owner": "Administrator",
+ "creation": "2026-10-21 14:30:00.000000",
+ "modified": "2026-10-24 12:00:00.000000",
+ "actions": [],
+ "links": [],
+ "states": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1,
+ "field_order": [
+  "company",
+  "sb_approvals",
+  "po_finance_threshold",
+  "so_max_discount",
+  "block_below_landed_cost",
+  "cb_1",
+  "credit_limit_approval",
+  "supplier_payment_threshold",
+  "stock_count_approval",
+  "sb_rules",
+  "block_receipt_before_clearance",
+  "require_boe_to_clear",
+  "require_docs_to_clear",
+  "cb_2",
+  "customs_duty_pct",
+  "target_margin",
+  "landed_cost_expense_account",
+  "sb_vat",
+  "local_tax_template",
+  "export_tax_template",
+  "cb_3",
+  "proof_of_export_days",
+  "proof_alert_days",
+  "sb_send",
+  "whatsapp_mode",
+  "whatsapp_link_expiry_days",
+  "sb_cheques",
+  "cheque_bank_account",
+  "bank_charges_account",
+  "cb_4",
+  "bounce_charge",
+  "pdc_alert_days",
+  "sb_hr",
+  "wps_employer_id",
+  "wps_bank_routing",
+  "cb_5",
+  "doc_expiry_alert_days",
+  "sb_advances",
+  "advance_before_delivery",
+  "collection_stage_1",
+  "collection_stage_2",
+  "cb_adv",
+  "collection_stage_3",
+  "collection_hold_days",
+  "sb_kyc",
+  "kyc_block_orders",
+  "cb_kyc",
+  "kyc_alert_days",
+  "sb_trade_finance",
+  "lc_margin_account",
+  "trust_receipt_account",
+  "cb_tf",
+  "lc_alert_days",
+  "sb_tax",
+  "lock_filed_periods",
+  "vat_due_day",
+  "cb_tax",
+  "revaluation_reminder",
+  "sb_reorder",
+  "reorder_history_days",
+  "reorder_cover_days",
+  "cb_ro",
+  "reorder_safety_factor",
+  "sb_group",
+  "intercompany_markup"
+ ],
+ "fields": [
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "fieldname": "sb_approvals",
+   "fieldtype": "Section Break",
+   "label": "Approval rules"
+  },
+  {
+   "fieldname": "po_finance_threshold",
+   "fieldtype": "Currency",
+   "label": "Purchase order — Finance Manager above",
+   "default": "100000",
+   "description": "Every PO goes to the Purchase Manager; above this value it also goes to the Finance Manager (rule AR1)."
+  },
+  {
+   "fieldname": "so_max_discount",
+   "fieldtype": "Percent",
+   "label": "Sales order — maximum discount without Sales Manager",
+   "default": "10"
+  },
+  {
+   "fieldname": "block_below_landed_cost",
+   "fieldtype": "Check",
+   "label": "Sales order — selling below landed cost needs Sales Manager",
+   "default": "1"
+  },
+  {
+   "fieldname": "cb_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "credit_limit_approval",
+   "fieldtype": "Check",
+   "label": "New or higher credit limits need Finance Manager",
+   "default": "1"
+  },
+  {
+   "fieldname": "supplier_payment_threshold",
+   "fieldtype": "Currency",
+   "label": "Supplier payment — Finance Manager above",
+   "default": "50000"
+  },
+  {
+   "fieldname": "stock_count_approval",
+   "fieldtype": "Check",
+   "label": "Stock count adjustments need Warehouse Manager",
+   "default": "1"
+  },
+  {
+   "fieldname": "sb_rules",
+   "fieldtype": "Section Break",
+   "label": "Import & stock rules"
+  },
+  {
+   "fieldname": "block_receipt_before_clearance",
+   "fieldtype": "Check",
+   "label": "Block goods receipt before customs clearance",
+   "default": "1"
+  },
+  {
+   "fieldname": "require_boe_to_clear",
+   "fieldtype": "Check",
+   "label": "Bill of Entry required to clear",
+   "default": "1"
+  },
+  {
+   "fieldname": "require_docs_to_clear",
+   "fieldtype": "Check",
+   "label": "All import documents required to clear",
+   "default": "1"
+  },
+  {
+   "fieldname": "cb_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "customs_duty_pct",
+   "fieldtype": "Percent",
+   "label": "Customs duty %",
+   "default": "5"
+  },
+  {
+   "fieldname": "target_margin",
+   "fieldtype": "Percent",
+   "label": "Target gross margin %",
+   "default": "20"
+  },
+  {
+   "fieldname": "landed_cost_expense_account",
+   "fieldtype": "Link",
+   "label": "Landed cost — expenses included in valuation",
+   "options": "Account"
+  },
+  {
+   "fieldname": "sb_vat",
+   "fieldtype": "Section Break",
+   "label": "VAT & exports"
+  },
+  {
+   "fieldname": "local_tax_template",
+   "fieldtype": "Link",
+   "label": "Local sales tax template (VAT 5%)",
+   "options": "Sales Taxes and Charges Template"
+  },
+  {
+   "fieldname": "export_tax_template",
+   "fieldtype": "Link",
+   "label": "Export tax template (0% zero-rated)",
+   "options": "Sales Taxes and Charges Template"
+  },
+  {
+   "fieldname": "cb_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "proof_of_export_days",
+   "fieldtype": "Int",
+   "label": "Proof of export required within (days)",
+   "default": "90"
+  },
+  {
+   "fieldname": "proof_alert_days",
+   "fieldtype": "Int",
+   "label": "Alert when proof is missing after (days)",
+   "default": "45"
+  },
+  {
+   "fieldname": "sb_send",
+   "fieldtype": "Section Break",
+   "label": "Sending documents"
+  },
+  {
+   "fieldname": "whatsapp_mode",
+   "fieldtype": "Select",
+   "label": "WhatsApp sending",
+   "options": "Click to chat (wa.me)\nWhatsApp Business API",
+   "default": "Click to chat (wa.me)"
+  },
+  {
+   "fieldname": "whatsapp_link_expiry_days",
+   "fieldtype": "Int",
+   "label": "PDF link valid for (days)",
+   "default": "7"
+  },
+  {
+   "fieldname": "sb_cheques",
+   "fieldtype": "Section Break",
+   "label": "Post-dated cheques"
+  },
+  {
+   "fieldname": "cheque_bank_account",
+   "fieldtype": "Link",
+   "label": "Bank account for cheques",
+   "options": "Account",
+   "description": "Cheques are deposited into / paid from this account"
+  },
+  {
+   "fieldname": "bank_charges_account",
+   "fieldtype": "Link",
+   "label": "Bank charges account",
+   "options": "Account"
+  },
+  {
+   "fieldname": "cb_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "bounce_charge",
+   "fieldtype": "Currency",
+   "label": "Returned cheque charge",
+   "default": "150"
+  },
+  {
+   "fieldname": "pdc_alert_days",
+   "fieldtype": "Int",
+   "label": "Remind before cheque date (days)",
+   "default": "2"
+  },
+  {
+   "fieldname": "sb_hr",
+   "fieldtype": "Section Break",
+   "label": "HR & WPS"
+  },
+  {
+   "fieldname": "wps_employer_id",
+   "fieldtype": "Data",
+   "label": "MOHRE establishment ID",
+   "description": "13 digits — first line of the WPS salary file"
+  },
+  {
+   "fieldname": "wps_bank_routing",
+   "fieldtype": "Data",
+   "label": "Employer bank routing code"
+  },
+  {
+   "fieldname": "cb_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "doc_expiry_alert_days",
+   "fieldtype": "Int",
+   "label": "Warn before employee documents expire (days)",
+   "default": "60"
+  },
+  {
+   "fieldname": "sb_advances",
+   "fieldtype": "Section Break",
+   "label": "Advances & collections",
+   "collapsible": 0
+  },
+  {
+   "fieldname": "advance_before_delivery",
+   "fieldtype": "Check",
+   "label": "Advance before delivery",
+   "default": "1",
+   "description": "Orders on payment terms with an advance cannot be picked or delivered until the advance is received"
+  },
+  {
+   "fieldname": "collection_stage_1",
+   "fieldtype": "Int",
+   "label": "Friendly reminder after (days overdue)",
+   "default": "7"
+  },
+  {
+   "fieldname": "collection_stage_2",
+   "fieldtype": "Int",
+   "label": "Second reminder after (days overdue)",
+   "default": "21"
+  },
+  {
+   "fieldname": "cb_adv",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "collection_stage_3",
+   "fieldtype": "Int",
+   "label": "Final notice after (days overdue)",
+   "default": "45"
+  },
+  {
+   "fieldname": "collection_hold_days",
+   "fieldtype": "Int",
+   "label": "Hold new orders after (days overdue)",
+   "default": "60",
+   "description": "0 = never hold"
+  },
+  {
+   "fieldname": "sb_kyc",
+   "fieldtype": "Section Break",
+   "label": "KYC & compliance"
+  },
+  {
+   "fieldname": "kyc_block_orders",
+   "fieldtype": "Check",
+   "label": "Block sales orders when the trade licence has expired or KYC is blocked",
+   "default": "1",
+   "description": "Drafts and quotations stay allowed"
+  },
+  {
+   "fieldname": "cb_kyc",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "kyc_alert_days",
+   "fieldtype": "Int",
+   "label": "Warn before a trade licence expires (days)",
+   "default": "30"
+  },
+  {
+   "fieldname": "sb_trade_finance",
+   "fieldtype": "Section Break",
+   "label": "Letters of credit & trust receipts"
+  },
+  {
+   "fieldname": "lc_margin_account",
+   "fieldtype": "Link",
+   "label": "LC margin deposit account",
+   "options": "Account"
+  },
+  {
+   "fieldname": "trust_receipt_account",
+   "fieldtype": "Link",
+   "label": "Trust receipt loan account",
+   "options": "Account"
+  },
+  {
+   "fieldname": "cb_tf",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "lc_alert_days",
+   "fieldtype": "Int",
+   "label": "Warn before LC expiry / trust receipt due (days)",
+   "default": "14"
+  },
+  {
+   "fieldname": "sb_tax",
+   "fieldtype": "Section Break",
+   "label": "Tax returns & period end"
+  },
+  {
+   "fieldname": "lock_filed_periods",
+   "fieldtype": "Check",
+   "label": "Lock the period when a VAT return is approved",
+   "default": "1",
+   "description": "Creates an Accounting Period that closes invoices, payments and journals for the VAT period"
+  },
+  {
+   "fieldname": "vat_due_day",
+   "fieldtype": "Int",
+   "label": "VAT return due on day … of the following month",
+   "default": "28"
+  },
+  {
+   "fieldname": "cb_tax",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "revaluation_reminder",
+   "fieldtype": "Check",
+   "label": "Remind the Finance Manager to revalue foreign-currency balances each month",
+   "default": "1"
+  },
+  {
+   "fieldname": "sb_reorder",
+   "fieldtype": "Section Break",
+   "label": "Smart reorder"
+  },
+  {
+   "fieldname": "reorder_history_days",
+   "fieldtype": "Int",
+   "label": "Sales history used (days)",
+   "default": "60"
+  },
+  {
+   "fieldname": "reorder_cover_days",
+   "fieldtype": "Int",
+   "label": "Order enough for (days)",
+   "default": "60"
+  },
+  {
+   "fieldname": "cb_ro",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "reorder_safety_factor",
+   "fieldtype": "Float",
+   "label": "Safety stock (share of lead-time demand)",
+   "default": "0.5"
+  },
+  {
+   "fieldname": "sb_group",
+   "fieldtype": "Section Break",
+   "label": "Group companies"
+  },
+  {
+   "fieldname": "intercompany_markup",
+   "fieldtype": "Percent",
+   "label": "Inter-company price — cost plus %",
+   "default": "8",
+   "description": "Arm's-length basis for transfer pricing; keep it on file for corporate tax"
+  }
+ ],
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "Accounts Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "issingle": 1
+}

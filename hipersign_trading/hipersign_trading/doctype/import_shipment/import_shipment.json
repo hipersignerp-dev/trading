@@ -1,0 +1,326 @@
+{
+ "doctype": "DocType",
+ "name": "Import Shipment",
+ "module": "Hipersign Trading",
+ "custom": 0,
+ "engine": "InnoDB",
+ "owner": "Administrator",
+ "creation": "2026-10-21 14:30:00.000000",
+ "modified": "2026-10-21 14:30:00.000000",
+ "actions": [],
+ "links": [],
+ "states": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1,
+ "field_order": [
+  "naming_series",
+  "company",
+  "status",
+  "mode",
+  "cb_1",
+  "bl_awb",
+  "vessel_flight",
+  "forwarder",
+  "sb_route",
+  "port_of_loading",
+  "port_of_discharge",
+  "cb_2",
+  "etd",
+  "eta",
+  "arrived_on",
+  "cleared_on",
+  "sb_po",
+  "purchase_orders",
+  "goods_value",
+  "sb_customs",
+  "bill_of_entry",
+  "documents",
+  "sb_costs",
+  "charges",
+  "total_charges",
+  "cb_3",
+  "landed_cost_voucher",
+  "sb_notes",
+  "remarks"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "SHP-.YYYY.-.####",
+   "default": "SHP-.YYYY.-.####",
+   "hidden": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1,
+   "remember_last_selected_value": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Booked\nShipped\nIn Transit\nArrived at Port\nUnder Customs Clearance\nCleared\nReceived at Warehouse",
+   "default": "Booked",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "reqd": 1,
+   "bold": 1
+  },
+  {
+   "fieldname": "mode",
+   "fieldtype": "Select",
+   "label": "Mode",
+   "options": "Sea\nAir\nLand",
+   "default": "Sea",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "cb_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "bl_awb",
+   "fieldtype": "Data",
+   "label": "Bill of lading / AWB",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "vessel_flight",
+   "fieldtype": "Data",
+   "label": "Vessel / flight"
+  },
+  {
+   "fieldname": "forwarder",
+   "fieldtype": "Link",
+   "label": "Forwarder",
+   "options": "Supplier"
+  },
+  {
+   "fieldname": "sb_route",
+   "fieldtype": "Section Break",
+   "label": "Route & dates"
+  },
+  {
+   "fieldname": "port_of_loading",
+   "fieldtype": "Data",
+   "label": "Port of loading"
+  },
+  {
+   "fieldname": "port_of_discharge",
+   "fieldtype": "Data",
+   "label": "Port of discharge",
+   "default": "Jebel Ali"
+  },
+  {
+   "fieldname": "cb_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "etd",
+   "fieldtype": "Date",
+   "label": "ETD"
+  },
+  {
+   "fieldname": "eta",
+   "fieldtype": "Date",
+   "label": "ETA",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "arrived_on",
+   "fieldtype": "Date",
+   "label": "Arrived at port on"
+  },
+  {
+   "fieldname": "cleared_on",
+   "fieldtype": "Date",
+   "label": "Cleared on",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sb_po",
+   "fieldtype": "Section Break",
+   "label": "Purchase orders"
+  },
+  {
+   "fieldname": "purchase_orders",
+   "fieldtype": "Table",
+   "label": "Purchase orders",
+   "options": "Import Shipment PO",
+   "reqd": 1
+  },
+  {
+   "fieldname": "goods_value",
+   "fieldtype": "Currency",
+   "label": "Goods value (company currency)",
+   "read_only": 1,
+   "options": "Company:company:default_currency"
+  },
+  {
+   "fieldname": "sb_customs",
+   "fieldtype": "Section Break",
+   "label": "Customs & documents"
+  },
+  {
+   "fieldname": "bill_of_entry",
+   "fieldtype": "Data",
+   "label": "Bill of Entry (BOE) no.",
+   "description": "Dubai Customs declaration number — required to clear"
+  },
+  {
+   "fieldname": "documents",
+   "fieldtype": "Table",
+   "label": "Import documents",
+   "options": "Shipment Document"
+  },
+  {
+   "fieldname": "sb_costs",
+   "fieldtype": "Section Break",
+   "label": "Import charges"
+  },
+  {
+   "fieldname": "charges",
+   "fieldtype": "Table",
+   "label": "Charges",
+   "options": "Shipment Charge"
+  },
+  {
+   "fieldname": "total_charges",
+   "fieldtype": "Currency",
+   "label": "Total charges",
+   "read_only": 1,
+   "options": "Company:company:default_currency"
+  },
+  {
+   "fieldname": "cb_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "landed_cost_voucher",
+   "fieldtype": "Link",
+   "label": "Landed cost voucher",
+   "options": "Landed Cost Voucher",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sb_notes",
+   "fieldtype": "Section Break",
+   "label": "Notes"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Text Editor",
+   "label": "Remarks"
+  }
+ ],
+ "permissions": [
+  {
+   "role": "Purchase Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "Purchase User",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "Logistics Coordinator",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "Stock User",
+   "read": 1,
+   "write": 0,
+   "create": 0,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "Stock Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "Accounts User",
+   "read": 1,
+   "write": 0,
+   "create": 0,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "Accounts Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "autoname": "naming_series:",
+ "naming_rule": "By \"Naming Series\" field",
+ "title_field": "bl_awb",
+ "search_fields": "bl_awb,status",
+ "show_title_field_in_link": 0
+}

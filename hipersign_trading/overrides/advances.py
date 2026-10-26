@@ -1,0 +1,83 @@
+"""Customer advances and payment schedules.
+
+A sales order whose payment terms include a line flagged “Advance” (Payment Term → hs_is_advance) cannot be
+picked or delivered until that advance is received (Payment Entry against the sales order), unless the rule
+is switched off in Hipersign Settings. The order shows Advance required and Advance status.
+Advances are applied to the tax invoice with ERPNext's own “Get advances” / allocate advances automatically.
+"""
+
+import frappe
+from frappe import _
+from frappe.utils import flt
+
+from hipersign_trading.utils import settings
+
+
+def advance_terms():
+	return set(frappe.get_all("Payment Term", filters={"hs_is_advance": 1}, pluck="name")) if frappe.get_meta("Payment Term").has_field("hs_is_advance") else set()
+
+
+def position(so):
+	"""(required, received) in company currency."""
+	adv = advance_terms()
+	required = sum(flt(r.base_payment_amount) or flt(r.payment_amount) * flt(so.conversion_rate or 1) for r in so.get("payment_schedule") or [] if r.payment_term in adv)
+	company_currency = frappe.get_cached_value("Company", so.company, "default_currency")
+	paid = flt(so.get("advance_paid"))
+	received = paid if (so.get("party_account_currency") or company_currency) == company_currency else paid * flt(so.conversion_rate or 1)
+	return flt(required, 2), flt(received, 2)
+
+
+def status_of(required, received):
+	if required <= 0:
+		return "Not required"
+	if received + 0.5 >= required:
+		return "Received"
+	return "Part received" if received > 0 else "Waiting"
+
+
+def set_fields(so):
+	if not so.meta.has_field("hs_advance_status"):
+		return
+	required, received = position(so)
+	so.hs_advance_required = required / flt(so.conversion_rate or 1) if so.conversion_rate else required
+	so.hs_advance_status = status_of(required, received)
+
+
+def refresh(so_name):
+	so = frappe.get_doc("Sales Order", so_name)
+	if not so.meta.has_field("hs_advance_status"):
+		return
+	before = (so.hs_advance_required, so.hs_advance_status)
+	set_fields(so)
+	if before != (so.hs_advance_required, so.hs_advance_status):
+		so.db_set({"hs_advance_required": so.hs_advance_required, "hs_advance_status": so.hs_advance_status}, update_modified=False)
+
+
+def check_hold(sales_orders, what):
+	if not settings().get("advance_before_delivery"):
+		return
+	for name in sorted({s for s in sales_orders if s}):
+		so = frappe.get_doc("Sales Order", name)
+		required, received = position(so)
+		if status_of(required, received) in ("Waiting", "Part received"):
+			frappe.throw(
+				_("{0} is on hold: the advance of {1} for {2} has not been received ({3} received). Record the advance as a Payment Entry against the order first.").format(
+					what, frappe.format_value(required - received, {"fieldtype": "Currency"}), name, frappe.format_value(received, {"fieldtype": "Currency"})),
+				title=_("Advance before delivery"),
+			)
+
+
+def dn_before_submit(doc, method=None):
+	if doc.get("is_return"):
+		return
+	check_hold([i.against_sales_order for i in doc.items], _("Delivery"))
+
+
+def pick_list_before_submit(doc, method=None):
+	check_hold([r.sales_order for r in doc.get("locations") or []], _("Picking"))
+
+
+def payment_entry_changed(doc, method=None):
+	for r in doc.get("references") or []:
+		if r.reference_doctype == "Sales Order" and r.reference_name:
+			refresh(r.reference_name)

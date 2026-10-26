@@ -1,0 +1,18 @@
+{
+ "doctype": "Number Card",
+ "label": "Exports awaiting proof (0% VAT)",
+ "is_public": 1,
+ "is_standard": 1,
+ "show_percentage_stats": 0,
+ "stats_time_interval": "Monthly",
+ "color": null,
+ "type": "Document Type",
+ "document_type": "Export Shipment",
+ "function": "Count",
+ "filters_json": "[[\"Export Shipment\", \"shipped_on\", \"is\", \"set\", false], [\"Export Shipment\", \"proof_of_export_on\", \"is\", \"not set\", false]]",
+ "name": "HS Exports Awaiting Proof",
+ "module": "Hipersign Trading",
+ "owner": "Administrator",
+ "creation": "2026-10-21 14:30:00.000000",
+ "modified": "2026-10-21 14:30:00.000000"
+}

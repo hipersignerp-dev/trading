@@ -1,0 +1,19 @@
+{
+ "doctype": "Number Card",
+ "label": "Lead follow-ups due",
+ "is_public": 1,
+ "is_standard": 1,
+ "show_percentage_stats": 0,
+ "stats_time_interval": "Monthly",
+ "color": null,
+ "type": "Document Type",
+ "document_type": "Lead",
+ "function": "Count",
+ "filters_json": "[[\"Lead\", \"hs_pipeline_stage\", \"not in\", [\"Won\", \"Lost\"], false]]",
+ "name": "HS Follow-ups Due",
+ "module": "Hipersign Trading",
+ "owner": "Administrator",
+ "creation": "2026-10-21 14:30:00.000000",
+ "modified": "2026-10-21 14:30:00.000000",
+ "dynamic_filters_json": "[[\"Lead\", \"hs_next_follow_up\", \"<=\", \"frappe.datetime.get_today()\"]]"
+}

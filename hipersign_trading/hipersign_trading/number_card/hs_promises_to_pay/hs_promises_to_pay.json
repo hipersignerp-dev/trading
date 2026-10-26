@@ -1,0 +1,18 @@
+{
+ "doctype": "Number Card",
+ "label": "Invoices with a promise to pay",
+ "is_public": 1,
+ "is_standard": 1,
+ "show_percentage_stats": 0,
+ "stats_time_interval": "Monthly",
+ "color": null,
+ "type": "Document Type",
+ "document_type": "Sales Invoice",
+ "function": "Count",
+ "filters_json": "[[\"Sales Invoice\", \"docstatus\", \"=\", 1, false], [\"Sales Invoice\", \"outstanding_amount\", \">\", 0, false], [\"Sales Invoice\", \"hs_promise_date\", \"is\", \"set\", false]]",
+ "name": "HS Promises To Pay",
+ "module": "Hipersign Trading",
+ "owner": "Administrator",
+ "creation": "2026-10-24 12:00:00.000000",
+ "modified": "2026-10-24 12:00:00.000000"
+}

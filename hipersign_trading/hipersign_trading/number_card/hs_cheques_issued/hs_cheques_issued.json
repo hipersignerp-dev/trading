@@ -1,0 +1,19 @@
+{
+ "doctype": "Number Card",
+ "label": "Cheques issued, not presented",
+ "is_public": 1,
+ "is_standard": 1,
+ "show_percentage_stats": 0,
+ "stats_time_interval": "Monthly",
+ "color": "#7c3aed",
+ "type": "Document Type",
+ "document_type": "Post Dated Cheque",
+ "function": "Sum",
+ "filters_json": "[[\"Post Dated Cheque\", \"status\", \"=\", \"Issued\", false]]",
+ "name": "HS Cheques Issued",
+ "module": "Hipersign Trading",
+ "owner": "Administrator",
+ "creation": "2026-10-22 18:00:00.000000",
+ "modified": "2026-10-22 18:00:00.000000",
+ "aggregate_function_based_on": "amount"
+}

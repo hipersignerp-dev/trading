@@ -1,0 +1,383 @@
+{
+ "doctype": "Workspace",
+ "label": "Hipersign Warehouse",
+ "title": "Hipersign Warehouse",
+ "public": 1,
+ "is_hidden": 0,
+ "icon": "stock",
+ "indicator_color": "",
+ "sequence_id": 4,
+ "content": "[{\"id\": \"zVZomHFwUb\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Warehouse & delivery — today</b></span>\", \"col\": 12}}, {\"id\": \"bYrEqmSM9w\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"HS Ready To Dispatch\", \"col\": 3}}, {\"id\": \"CZ7Uw9xfog\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"HS Out For Delivery\", \"col\": 3}}, {\"id\": \"oEmvnEN5N1\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"HS Import Shipments Open\", \"col\": 3}}, {\"id\": \"aE6PwZPf1Q\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"HS Open Warranty Claims\", \"col\": 3}}, {\"id\": \"h6yYTWmE4l\", \"type\": \"spacer\", \"data\": {\"col\": 12}}, {\"id\": \"BYOvfZ8UzD\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Quick actions</b></span>\", \"col\": 12}}, {\"id\": \"zV8fUkkibj\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Delivery Note\", \"col\": 3}}, {\"id\": \"L5DZPjN0ME\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Purchase Receipt\", \"col\": 3}}, {\"id\": \"Q7wjJJibaZ\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Serial & Warranty Look-up\", \"col\": 3}}, {\"id\": \"UPgHV7iB3m\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Import Shipment\", \"col\": 3}}, {\"id\": \"03nbqnsGpW\", \"type\": \"spacer\", \"data\": {\"col\": 12}}, {\"id\": \"LuqIA1id6V\", \"type\": \"card\", \"data\": {\"card_name\": \"Stock\", \"col\": 4}}, {\"id\": \"w5DQL05HA0\", \"type\": \"card\", \"data\": {\"card_name\": \"Delivery\", \"col\": 4}}, {\"id\": \"64GiIjHGb3\", \"type\": \"card\", \"data\": {\"card_name\": \"Serials & warranty\", \"col\": 4}}, {\"id\": \"EMyIbPUf9m\", \"type\": \"card\", \"data\": {\"card_name\": \"Purchasing\", \"col\": 4}}, {\"id\": \"YQqw8x3SyR\", \"type\": \"card\", \"data\": {\"card_name\": \"Reservations & picking\", \"col\": 4}}]",
+ "charts": [],
+ "number_cards": [
+  {
+   "number_card_name": "HS Ready To Dispatch",
+   "label": "Ready to dispatch"
+  },
+  {
+   "number_card_name": "HS Out For Delivery",
+   "label": "Out for delivery"
+  },
+  {
+   "number_card_name": "HS Import Shipments Open",
+   "label": "Import shipments open"
+  },
+  {
+   "number_card_name": "HS Open Warranty Claims",
+   "label": "Open warranty claims"
+  }
+ ],
+ "shortcuts": [
+  {
+   "label": "Delivery Note",
+   "type": "DocType",
+   "link_to": "Delivery Note",
+   "color": "Blue",
+   "doc_view": "List",
+   "kanban_board": null,
+   "stats_filter": "[]",
+   "format": ""
+  },
+  {
+   "label": "Purchase Receipt",
+   "type": "DocType",
+   "link_to": "Purchase Receipt",
+   "color": "Green",
+   "doc_view": "List",
+   "kanban_board": null,
+   "stats_filter": "[]",
+   "format": ""
+  },
+  {
+   "label": "Serial & Warranty Look-up",
+   "type": "Page",
+   "link_to": "serial-lookup",
+   "color": "Orange",
+   "doc_view": "",
+   "kanban_board": null,
+   "stats_filter": "[]",
+   "format": ""
+  },
+  {
+   "label": "Import Shipment",
+   "type": "DocType",
+   "link_to": "Import Shipment",
+   "color": "Grey",
+   "doc_view": "List",
+   "kanban_board": null,
+   "stats_filter": "[]",
+   "format": ""
+  }
+ ],
+ "links": [
+  {
+   "type": "Card Break",
+   "label": "Stock",
+   "link_count": 4,
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "link_type": null,
+   "link_to": null,
+   "dependencies": ""
+  },
+  {
+   "type": "Link",
+   "label": "Item",
+   "link_type": "DocType",
+   "link_to": "Item",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Stock Entry",
+   "link_type": "DocType",
+   "link_to": "Stock Entry",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Stock Balance",
+   "link_type": "Report",
+   "link_to": "Stock Balance",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 1,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Stock Reconciliation",
+   "link_type": "DocType",
+   "link_to": "Stock Reconciliation",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Card Break",
+   "label": "Delivery",
+   "link_count": 4,
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "link_type": null,
+   "link_to": null,
+   "dependencies": ""
+  },
+  {
+   "type": "Link",
+   "label": "Delivery Note",
+   "link_type": "DocType",
+   "link_to": "Delivery Note",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Delivery Trip",
+   "link_type": "DocType",
+   "link_to": "Delivery Trip",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Driver",
+   "link_type": "DocType",
+   "link_to": "Driver",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Export Shipment",
+   "link_type": "DocType",
+   "link_to": "Export Shipment",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Card Break",
+   "label": "Serials & warranty",
+   "link_count": 3,
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "link_type": null,
+   "link_to": null,
+   "dependencies": ""
+  },
+  {
+   "type": "Link",
+   "label": "Serial No",
+   "link_type": "DocType",
+   "link_to": "Serial No",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Warranty Claim",
+   "link_type": "DocType",
+   "link_to": "Warranty Claim",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Serial & Warranty Look-up",
+   "link_type": "Page",
+   "link_to": "serial-lookup",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Card Break",
+   "label": "Purchasing",
+   "link_count": 6,
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "link_type": null,
+   "link_to": null,
+   "dependencies": ""
+  },
+  {
+   "type": "Link",
+   "label": "Hipersign Smart Reorder",
+   "link_type": "Report",
+   "link_to": "Hipersign Smart Reorder",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 1,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Material Request",
+   "link_type": "DocType",
+   "link_to": "Material Request",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Request for Quotation",
+   "link_type": "DocType",
+   "link_to": "Request for Quotation",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Supplier Quotation",
+   "link_type": "DocType",
+   "link_to": "Supplier Quotation",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Supplier Quotation Comparison",
+   "link_type": "Report",
+   "link_to": "Supplier Quotation Comparison",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 1,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Purchase Order",
+   "link_type": "DocType",
+   "link_to": "Purchase Order",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Card Break",
+   "label": "Reservations & picking",
+   "link_count": 4,
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "link_type": null,
+   "link_to": null,
+   "dependencies": ""
+  },
+  {
+   "type": "Link",
+   "label": "Stock Reservation Entry",
+   "link_type": "DocType",
+   "link_to": "Stock Reservation Entry",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Pick List",
+   "link_type": "DocType",
+   "link_to": "Pick List",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Putaway Rule",
+   "link_type": "DocType",
+   "link_to": "Putaway Rule",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Stock Projected Qty",
+   "link_type": "Report",
+   "link_to": "Stock Projected Qty",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 1,
+   "dependencies": "",
+   "link_count": 0
+  }
+ ],
+ "roles": [
+  {
+   "role": "Stock User"
+  },
+  {
+   "role": "Stock Manager"
+  },
+  {
+   "role": "Logistics Coordinator"
+  }
+ ],
+ "extends_another_page": 0,
+ "for_user": "",
+ "parent_page": "",
+ "restrict_to_domain": "",
+ "hide_custom": 0,
+ "custom_blocks": [],
+ "quick_lists": [],
+ "name": "Hipersign Warehouse",
+ "module": "Hipersign Trading",
+ "owner": "Administrator",
+ "creation": "2026-10-22 18:00:00.000000",
+ "modified": "2026-10-24 12:00:00.000000"
+}

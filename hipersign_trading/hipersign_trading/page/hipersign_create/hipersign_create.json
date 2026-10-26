@@ -1,0 +1,33 @@
+{
+ "doctype": "Page",
+ "name": "hipersign-create",
+ "page_name": "hipersign-create",
+ "title": "Create New",
+ "module": "Hipersign Trading",
+ "standard": "Yes",
+ "system_page": 0,
+ "icon": "",
+ "roles": [
+  {
+   "role": "Sales User"
+  },
+  {
+   "role": "Purchase User"
+  },
+  {
+   "role": "Stock User"
+  },
+  {
+   "role": "Accounts User"
+  },
+  {
+   "role": "Managing Director"
+  },
+  {
+   "role": "System Manager"
+  }
+ ],
+ "owner": "Administrator",
+ "creation": "2026-10-21 14:30:00",
+ "modified": "2026-10-21 14:30:00"
+}

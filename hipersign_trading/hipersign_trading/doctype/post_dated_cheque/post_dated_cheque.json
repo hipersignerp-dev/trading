@@ -1,0 +1,308 @@
+{
+ "doctype": "DocType",
+ "name": "Post Dated Cheque",
+ "module": "Hipersign Trading",
+ "custom": 0,
+ "engine": "InnoDB",
+ "owner": "Administrator",
+ "creation": "2026-10-22 18:00:00.000000",
+ "modified": "2026-10-22 18:00:00.000000",
+ "autoname": "naming_series:",
+ "naming_rule": "By \"Naming Series\" field",
+ "title_field": "party_name",
+ "show_title_field_in_link": 0,
+ "search_fields": "party_name,cheque_no,status",
+ "sort_field": "cheque_date",
+ "sort_order": "ASC",
+ "track_changes": 1,
+ "actions": [],
+ "links": [],
+ "states": [],
+ "field_order": [
+  "naming_series",
+  "direction",
+  "party_type",
+  "party",
+  "party_name",
+  "company",
+  "cb_1",
+  "status",
+  "cheque_no",
+  "cheque_date",
+  "amount",
+  "sb_bank",
+  "drawn_on",
+  "bank_account",
+  "cb_2",
+  "received_on",
+  "deposited_on",
+  "cleared_on",
+  "bounced_on",
+  "sb_ref",
+  "reference_doctype",
+  "reference_name",
+  "cb_3",
+  "payment_entry",
+  "charges_entry",
+  "bank_charges",
+  "replaced_by",
+  "sb_notes",
+  "remarks"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "PDC-.YYYY.-.####",
+   "default": "PDC-.YYYY.-.####",
+   "hidden": 1
+  },
+  {
+   "fieldname": "direction",
+   "fieldtype": "Select",
+   "label": "Direction",
+   "options": "Received\nIssued",
+   "default": "Received",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "party_type",
+   "fieldtype": "Select",
+   "label": "Party type",
+   "options": "Customer\nSupplier",
+   "default": "Customer",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "party",
+   "fieldtype": "Dynamic Link",
+   "label": "Party",
+   "options": "party_type",
+   "reqd": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "party_name",
+   "fieldtype": "Data",
+   "label": "Party name",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "cb_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "In Hand\nDeposited\nCleared\nBounced\nReplaced\nIssued\nCancelled",
+   "default": "In Hand",
+   "read_only": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "bold": 1
+  },
+  {
+   "fieldname": "cheque_no",
+   "fieldtype": "Data",
+   "label": "Cheque no.",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "cheque_date",
+   "fieldtype": "Date",
+   "label": "Cheque date",
+   "reqd": 1,
+   "in_list_view": 1,
+   "description": "The bank will not accept the cheque before this date"
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "label": "Amount",
+   "reqd": 1,
+   "in_list_view": 1,
+   "bold": 1,
+   "options": "Company:company:default_currency"
+  },
+  {
+   "fieldname": "sb_bank",
+   "fieldtype": "Section Break",
+   "label": "Banks"
+  },
+  {
+   "fieldname": "drawn_on",
+   "fieldtype": "Data",
+   "label": "Drawn on (party's bank)",
+   "depends_on": "eval:doc.direction=='Received'"
+  },
+  {
+   "fieldname": "bank_account",
+   "fieldtype": "Link",
+   "label": "Our bank account",
+   "options": "Account",
+   "description": "Deposited into / paid from. Defaults from Hipersign Settings."
+  },
+  {
+   "fieldname": "cb_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "received_on",
+   "fieldtype": "Date",
+   "label": "Received / issued on",
+   "default": "Today"
+  },
+  {
+   "fieldname": "deposited_on",
+   "fieldtype": "Date",
+   "label": "Deposited on",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cleared_on",
+   "fieldtype": "Date",
+   "label": "Cleared on",
+   "read_only": 1
+  },
+  {
+   "fieldname": "bounced_on",
+   "fieldtype": "Date",
+   "label": "Bounced on",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sb_ref",
+   "fieldtype": "Section Break",
+   "label": "Against"
+  },
+  {
+   "fieldname": "reference_doctype",
+   "fieldtype": "Select",
+   "label": "Document type",
+   "options": "\nSales Invoice\nPurchase Invoice\nSales Order\nPurchase Order"
+  },
+  {
+   "fieldname": "reference_name",
+   "fieldtype": "Dynamic Link",
+   "label": "Document",
+   "options": "reference_doctype"
+  },
+  {
+   "fieldname": "cb_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "payment_entry",
+   "fieldtype": "Link",
+   "label": "Payment entry",
+   "options": "Payment Entry",
+   "read_only": 1
+  },
+  {
+   "fieldname": "charges_entry",
+   "fieldtype": "Link",
+   "label": "Bank charges entry",
+   "options": "Journal Entry",
+   "read_only": 1
+  },
+  {
+   "fieldname": "bank_charges",
+   "fieldtype": "Currency",
+   "label": "Bank charges on return",
+   "read_only": 1,
+   "options": "Company:company:default_currency"
+  },
+  {
+   "fieldname": "replaced_by",
+   "fieldtype": "Link",
+   "label": "Replaced by",
+   "options": "Post Dated Cheque",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sb_notes",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks"
+  }
+ ],
+ "permissions": [
+  {
+   "role": "Accounts User",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "Accounts Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "Sales Manager",
+   "read": 1,
+   "write": 0,
+   "create": 0,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "Managing Director",
+   "read": 1,
+   "write": 0,
+   "create": 0,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  }
+ ]
+}

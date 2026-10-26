@@ -1,0 +1,23 @@
+{
+ "doctype": "Dashboard Chart",
+ "chart_name": "HS Monthly Sales",
+ "is_public": 1,
+ "is_standard": 1,
+ "timeseries": 1,
+ "time_interval": "Monthly",
+ "timespan": "Last Year",
+ "filters_json": "[[\"Sales Invoice\", \"docstatus\", \"=\", 1, false]]",
+ "dynamic_filters_json": "[]",
+ "use_report_chart": 0,
+ "document_type": "Sales Invoice",
+ "based_on": "posting_date",
+ "value_based_on": "base_net_total",
+ "chart_type": "Sum",
+ "type": "Bar",
+ "color": "#2C5BE5",
+ "name": "HS Monthly Sales",
+ "module": "Hipersign Trading",
+ "owner": "Administrator",
+ "creation": "2026-10-21 14:30:00.000000",
+ "modified": "2026-10-21 14:30:00.000000"
+}

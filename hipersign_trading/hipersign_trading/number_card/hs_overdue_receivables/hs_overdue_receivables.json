@@ -1,0 +1,19 @@
+{
+ "doctype": "Number Card",
+ "label": "Overdue receivables",
+ "is_public": 1,
+ "is_standard": 1,
+ "show_percentage_stats": 0,
+ "stats_time_interval": "Monthly",
+ "color": null,
+ "type": "Document Type",
+ "document_type": "Sales Invoice",
+ "function": "Sum",
+ "aggregate_function_based_on": "outstanding_amount",
+ "filters_json": "[[\"Sales Invoice\", \"docstatus\", \"=\", 1, false], [\"Sales Invoice\", \"status\", \"=\", \"Overdue\", false]]",
+ "name": "HS Overdue Receivables",
+ "module": "Hipersign Trading",
+ "owner": "Administrator",
+ "creation": "2026-10-21 14:30:00.000000",
+ "modified": "2026-10-21 14:30:00.000000"
+}

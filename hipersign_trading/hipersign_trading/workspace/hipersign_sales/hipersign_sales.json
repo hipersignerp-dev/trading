@@ -1,0 +1,278 @@
+{
+ "doctype": "Workspace",
+ "label": "Hipersign Sales",
+ "title": "Hipersign Sales",
+ "public": 1,
+ "is_hidden": 0,
+ "icon": "sell",
+ "indicator_color": "",
+ "sequence_id": 3,
+ "content": "[{\"id\": \"4y9ojfljoQ\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Sales — your pipeline and orders</b></span>\", \"col\": 12}}, {\"id\": \"oaF1Llqsaj\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"HS CRM Pipeline\", \"col\": 3}}, {\"id\": \"AIxNKu8iS2\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"HS Follow-ups Due\", \"col\": 3}}, {\"id\": \"G8NPRVdD53\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"HS Open Sales Orders\", \"col\": 3}}, {\"id\": \"X83RZJzzzz\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"HS Overdue Receivables\", \"col\": 3}}, {\"id\": \"thqpvxxGKZ\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"HS Orders Waiting For Advance\", \"col\": 3}}, {\"id\": \"WGlby02BcH\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"HS KYC Expired Or Blocked\", \"col\": 3}}, {\"id\": \"gEOzdmenCk\", \"type\": \"spacer\", \"data\": {\"col\": 12}}, {\"id\": \"hvMdgaKjIg\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Quick actions</b></span>\", \"col\": 12}}, {\"id\": \"8xNbe3nNyj\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Lead Pipeline\", \"col\": 3}}, {\"id\": \"Oq9wMxEhh2\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Quotation\", \"col\": 3}}, {\"id\": \"FDEEtfjgVv\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Sales Order Tracker\", \"col\": 3}}, {\"id\": \"VqE1SkHbn8\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Create New\", \"col\": 3}}, {\"id\": \"8HxjSI6bWH\", \"type\": \"spacer\", \"data\": {\"col\": 12}}, {\"id\": \"tP3fS2qHx6\", \"type\": \"card\", \"data\": {\"card_name\": \"Customers\", \"col\": 4}}, {\"id\": \"kwXoIIXGvO\", \"type\": \"card\", \"data\": {\"card_name\": \"Documents\", \"col\": 4}}, {\"id\": \"oNZYW2mZp0\", \"type\": \"card\", \"data\": {\"card_name\": \"After sales\", \"col\": 4}}, {\"id\": \"boRBcynXMg\", \"type\": \"card\", \"data\": {\"card_name\": \"Advances & KYC\", \"col\": 4}}]",
+ "charts": [],
+ "number_cards": [
+  {
+   "number_card_name": "HS CRM Pipeline",
+   "label": "Pipeline value"
+  },
+  {
+   "number_card_name": "HS Follow-ups Due",
+   "label": "Follow-ups due"
+  },
+  {
+   "number_card_name": "HS Open Sales Orders",
+   "label": "Open sales orders"
+  },
+  {
+   "number_card_name": "HS Overdue Receivables",
+   "label": "Overdue receivables"
+  },
+  {
+   "number_card_name": "HS Orders Waiting For Advance",
+   "label": "Orders waiting for an advance"
+  },
+  {
+   "number_card_name": "HS KYC Expired Or Blocked",
+   "label": "Customers with KYC expired or blocked"
+  }
+ ],
+ "shortcuts": [
+  {
+   "label": "Lead Pipeline",
+   "type": "DocType",
+   "link_to": "Lead",
+   "color": "Orange",
+   "doc_view": "Kanban",
+   "kanban_board": null,
+   "stats_filter": "[]",
+   "format": ""
+  },
+  {
+   "label": "Quotation",
+   "type": "DocType",
+   "link_to": "Quotation",
+   "color": "Blue",
+   "doc_view": "List",
+   "kanban_board": null,
+   "stats_filter": "[]",
+   "format": ""
+  },
+  {
+   "label": "Sales Order Tracker",
+   "type": "Page",
+   "link_to": "sales-order-tracker",
+   "color": "Green",
+   "doc_view": "",
+   "kanban_board": null,
+   "stats_filter": "[]",
+   "format": ""
+  },
+  {
+   "label": "Create New",
+   "type": "Page",
+   "link_to": "hipersign-create",
+   "color": "Grey",
+   "doc_view": "",
+   "kanban_board": null,
+   "stats_filter": "[]",
+   "format": ""
+  }
+ ],
+ "links": [
+  {
+   "type": "Card Break",
+   "label": "Customers",
+   "link_count": 3,
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "link_type": null,
+   "link_to": null,
+   "dependencies": ""
+  },
+  {
+   "type": "Link",
+   "label": "Customer",
+   "link_type": "DocType",
+   "link_to": "Customer",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Lead",
+   "link_type": "DocType",
+   "link_to": "Lead",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Credit Limit Request",
+   "link_type": "DocType",
+   "link_to": "Credit Limit Request",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Card Break",
+   "label": "Documents",
+   "link_count": 3,
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "link_type": null,
+   "link_to": null,
+   "dependencies": ""
+  },
+  {
+   "type": "Link",
+   "label": "Quotation",
+   "link_type": "DocType",
+   "link_to": "Quotation",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Sales Order",
+   "link_type": "DocType",
+   "link_to": "Sales Order",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Sales Invoice",
+   "link_type": "DocType",
+   "link_to": "Sales Invoice",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Card Break",
+   "label": "After sales",
+   "link_count": 2,
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "link_type": null,
+   "link_to": null,
+   "dependencies": ""
+  },
+  {
+   "type": "Link",
+   "label": "Serial & Warranty Look-up",
+   "link_type": "Page",
+   "link_to": "serial-lookup",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Warranty Claim",
+   "link_type": "DocType",
+   "link_to": "Warranty Claim",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Card Break",
+   "label": "Advances & KYC",
+   "link_count": 4,
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "link_type": null,
+   "link_to": null,
+   "dependencies": ""
+  },
+  {
+   "type": "Link",
+   "label": "Payment Entry",
+   "link_type": "DocType",
+   "link_to": "Payment Entry",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Payment Terms Template",
+   "link_type": "DocType",
+   "link_to": "Payment Terms Template",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Customer",
+   "link_type": "DocType",
+   "link_to": "Customer",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Dunning",
+   "link_type": "DocType",
+   "link_to": "Dunning",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  }
+ ],
+ "roles": [
+  {
+   "role": "Sales User"
+  },
+  {
+   "role": "Sales Manager"
+  }
+ ],
+ "extends_another_page": 0,
+ "for_user": "",
+ "parent_page": "",
+ "restrict_to_domain": "",
+ "hide_custom": 0,
+ "custom_blocks": [],
+ "quick_lists": [],
+ "name": "Hipersign Sales",
+ "module": "Hipersign Trading",
+ "owner": "Administrator",
+ "creation": "2026-10-22 18:00:00.000000",
+ "modified": "2026-10-24 12:00:00.000000"
+}

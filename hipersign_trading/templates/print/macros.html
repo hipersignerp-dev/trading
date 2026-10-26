@@ -1,0 +1,50 @@
+{# Hipersign bilingual print building blocks — imported by every Hipersign print format #}
+{% macro styles() %}
+<style>
+.hs-doc{font-family:Inter,Arial,sans-serif;color:#1d2440;font-size:11.5px}
+.hs-head{background:linear-gradient(120deg,#13226b,#3a2c9e);color:#fff;border-radius:6px;padding:16px 18px;display:flex;justify-content:space-between;gap:16px}
+.hs-head img{height:44px;background:#fff;border-radius:6px;padding:4px 8px}
+.hs-head .t{font-size:19px;font-weight:800;text-align:right}.hs-head .ar{font-size:16px;font-weight:700;text-align:right}
+.hs-two{display:flex;gap:20px;margin:14px 0}.hs-two>div{flex:1}
+.hs-h4{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:#4b3cc9;font-weight:700;margin:0 0 4px}
+table.hs-t{width:100%;border-collapse:collapse;margin-top:6px}
+table.hs-t th{background:#f2f4fb;text-align:left;font-size:10.5px;padding:6px;border-bottom:1px solid #d9deef}
+table.hs-t td{padding:6px;border-bottom:1px solid #eceff7;vertical-align:top}
+.n{text-align:right}.ar-sub{color:#5d6b8a;direction:rtl;display:block}
+.hs-tot{display:flex;gap:10px;justify-content:flex-end;margin-top:10px}
+.hs-tot div{border:1px solid #d9deef;border-radius:6px;padding:6px 10px;min-width:120px}
+.hs-tot span{display:block;font-size:10px;color:#5d6b8a}.hs-tot b{font-size:14px}
+.hs-note{font-size:10.5px;color:#5d6b8a;margin-top:10px;white-space:pre-wrap}
+.hs-sign{display:flex;gap:40px;margin-top:28px}.hs-sign div{flex:1;border-top:1px solid #9aa3c0;padding-top:4px;font-size:10.5px}
+</style>
+{% endmacro %}
+
+{% macro header(title_en, title_ar, number, date, company=None) %}
+{% set c = hs_company(company) %}
+<div class="hs-head"><div><img src="{{ c.logo }}"><div style="font-size:10.5px;margin-top:6px;opacity:.9">{{ c.name }}{% if c.address %}<br>{{ c.address }}{% endif %}{% if c.trn %}<br>TRN {{ c.trn }}{% endif %}</div></div>
+<div><div class="t">{{ title_en }}</div><div class="ar">{{ title_ar }}</div><div style="font-size:11px;opacity:.9;margin-top:6px;text-align:right">{{ number }} · {{ frappe.utils.formatdate(date) }}</div>{% if c.name_ar %}<div style="font-size:11px;text-align:right" dir="rtl">{{ c.name_ar }}</div>{% endif %}</div></div>
+{% endmacro %}
+
+{% macro items(doc, show_hs=False, show_disc=True) %}
+<table class="hs-t"><thead><tr><th>#</th><th>Description · الوصف</th>{% if show_hs %}<th>HS code</th><th>Origin</th>{% endif %}<th class="n">Qty · الكمية</th><th>Unit</th><th class="n">Rate · السعر</th>{% if show_disc %}<th class="n">Disc.</th>{% endif %}<th class="n">Amount · المبلغ</th></tr></thead><tbody>
+{% for i in doc.items %}<tr><td>{{ loop.index }}</td><td>{{ i.item_name }}{% set ar = hs_arabic_name(i.item_code) %}{% if ar %}<span class="ar-sub">{{ ar }}</span>{% endif %}</td>
+{% if show_hs %}<td>{{ frappe.db.get_value("Item", i.item_code, "customs_tariff_number") or "—" }}</td><td>{{ frappe.db.get_value("Item", i.item_code, "country_of_origin") or "—" }}</td>{% endif %}
+<td class="n">{{ i.get_formatted("qty") }}</td><td>{{ i.uom }}</td><td class="n">{{ i.get_formatted("rate", doc) }}</td>{% if show_disc %}<td class="n">{{ (i.discount_percentage|round(2) ~ "%") if i.discount_percentage else "—" }}</td>{% endif %}<td class="n">{{ i.get_formatted("amount", doc) }}</td></tr>{% endfor %}
+</tbody></table>
+{% endmacro %}
+
+{% macro totals(doc) %}
+{% set vat = doc.total_taxes_and_charges or 0 %}
+<div class="hs-tot"><div><span>Net · الصافي</span><b>{{ doc.get_formatted("net_total") }}</b></div><div><span>VAT · الضريبة {% if vat == 0 %}(0%){% endif %}</span><b>{{ doc.get_formatted("total_taxes_and_charges") }}</b></div><div><span>Total · الإجمالي</span><b>{{ doc.get_formatted("grand_total") }}</b></div></div>
+{% if doc.currency != doc.company_currency %}<div class="hs-note" style="text-align:right">Exchange rate: 1 {{ doc.currency }} = {{ doc.conversion_rate }} {{ doc.company_currency }} · Total in {{ doc.company_currency }} {{ doc.get_formatted("base_grand_total") }}</div>{% endif %}
+<div class="hs-note" style="text-align:right">{{ doc.in_words }}</div>
+{% endmacro %}
+
+{% macro signs(left, right) %}
+<div class="hs-sign"><div>{{ left }}</div><div>{{ right }}</div></div>
+{% endmacro %}
+
+{% macro bank(doc) %}
+{% set b = hs_default_bank(doc.currency, doc.company) %}
+{% if b and b.iban %}<div class="hs-note">Bank · البنك: {{ b.bank }} · {{ b.account_name }} · IBAN {{ b.iban }}</div>{% endif %}
+{% endmacro %}

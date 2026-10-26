@@ -1,0 +1,22 @@
+{
+ "doctype": "Dashboard Chart",
+ "chart_name": "HS Export Shipments by Status",
+ "is_public": 1,
+ "is_standard": 1,
+ "timeseries": 0,
+ "time_interval": "Monthly",
+ "timespan": "Last Year",
+ "filters_json": "[]",
+ "dynamic_filters_json": "[]",
+ "use_report_chart": 0,
+ "document_type": "Export Shipment",
+ "group_by_based_on": "status",
+ "group_by_type": "Count",
+ "chart_type": "Group By",
+ "type": "Donut",
+ "name": "HS Export Shipments by Status",
+ "module": "Hipersign Trading",
+ "owner": "Administrator",
+ "creation": "2026-10-21 14:30:00.000000",
+ "modified": "2026-10-21 14:30:00.000000"
+}

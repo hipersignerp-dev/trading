@@ -1,0 +1,361 @@
+{
+ "doctype": "DocType",
+ "name": "Tax Return",
+ "module": "Hipersign Trading",
+ "custom": 0,
+ "engine": "InnoDB",
+ "owner": "Administrator",
+ "creation": "2026-10-24 12:00:00.000000",
+ "modified": "2026-10-24 12:00:00.000000",
+ "autoname": "naming_series:",
+ "naming_rule": "By \"Naming Series\" field",
+ "title_field": "title",
+ "show_title_field_in_link": 0,
+ "search_fields": "title,tax_type,status",
+ "sort_field": "period_from",
+ "sort_order": "DESC",
+ "track_changes": 1,
+ "actions": [],
+ "links": [],
+ "states": [],
+ "field_order": [
+  "naming_series",
+  "tax_type",
+  "company",
+  "period_from",
+  "period_to",
+  "cb_1",
+  "status",
+  "due_date",
+  "title",
+  "sb_vat",
+  "standard_rated_sales",
+  "output_vat",
+  "zero_rated_sales",
+  "exempt_sales",
+  "cb_2",
+  "reverse_charge_base",
+  "reverse_charge_vat",
+  "standard_rated_expenses",
+  "input_vat",
+  "net_vat",
+  "vat_lines",
+  "sb_ct",
+  "accounting_profit",
+  "adjustments",
+  "taxable_income",
+  "cb_3",
+  "small_business_relief",
+  "ct_threshold",
+  "tax_payable",
+  "sb_filing",
+  "prepared_by",
+  "approved_by",
+  "approved_on",
+  "accounting_period",
+  "cb_4",
+  "emaratax_reference",
+  "submitted_on",
+  "payment_reference",
+  "paid_on",
+  "notes"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "TAX-.YYYY.-.###",
+   "default": "TAX-.YYYY.-.###",
+   "hidden": 1
+  },
+  {
+   "fieldname": "tax_type",
+   "fieldtype": "Select",
+   "label": "Return",
+   "options": "VAT 201\nCorporate Tax",
+   "default": "VAT 201",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "period_from",
+   "fieldtype": "Date",
+   "label": "Period from",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "period_to",
+   "fieldtype": "Date",
+   "label": "Period to",
+   "reqd": 1
+  },
+  {
+   "fieldname": "cb_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Prepared\nPending Finance Manager\nApproved\nSubmitted\nPaid\nRejected",
+   "default": "Prepared",
+   "read_only": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "due_date",
+   "fieldtype": "Date",
+   "label": "Return & payment due",
+   "read_only": 1
+  },
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "label": "Title",
+   "hidden": 1
+  },
+  {
+   "fieldname": "sb_vat",
+   "fieldtype": "Section Break",
+   "label": "VAT 201 figures",
+   "depends_on": "eval:doc.tax_type=='VAT 201'"
+  },
+  {
+   "fieldname": "standard_rated_sales",
+   "fieldtype": "Currency",
+   "label": "Standard-rated supplies (box 1)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "output_vat",
+   "fieldtype": "Currency",
+   "label": "Output VAT (box 1)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "zero_rated_sales",
+   "fieldtype": "Currency",
+   "label": "Zero-rated supplies (box 4)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "exempt_sales",
+   "fieldtype": "Currency",
+   "label": "Exempt supplies (box 5)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cb_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "reverse_charge_base",
+   "fieldtype": "Currency",
+   "label": "Reverse charge — imports (box 3/6)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "reverse_charge_vat",
+   "fieldtype": "Currency",
+   "label": "Reverse charge VAT",
+   "read_only": 1
+  },
+  {
+   "fieldname": "standard_rated_expenses",
+   "fieldtype": "Currency",
+   "label": "Standard-rated expenses (box 9)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "input_vat",
+   "fieldtype": "Currency",
+   "label": "Recoverable input VAT (box 9/10)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "net_vat",
+   "fieldtype": "Currency",
+   "label": "Net VAT payable / (refundable)",
+   "read_only": 1,
+   "bold": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "vat_lines",
+   "fieldtype": "Long Text",
+   "label": "VAT 201 detail",
+   "read_only": 1,
+   "hidden": 1
+  },
+  {
+   "fieldname": "sb_ct",
+   "fieldtype": "Section Break",
+   "label": "Corporate tax figures",
+   "depends_on": "eval:doc.tax_type=='Corporate Tax'"
+  },
+  {
+   "fieldname": "accounting_profit",
+   "fieldtype": "Currency",
+   "label": "Accounting profit",
+   "read_only": 1
+  },
+  {
+   "fieldname": "adjustments",
+   "fieldtype": "Currency",
+   "label": "Tax adjustments (add-backs less exempt income)"
+  },
+  {
+   "fieldname": "taxable_income",
+   "fieldtype": "Currency",
+   "label": "Taxable income",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cb_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "small_business_relief",
+   "fieldtype": "Check",
+   "label": "Small business relief elected"
+  },
+  {
+   "fieldname": "ct_threshold",
+   "fieldtype": "Currency",
+   "label": "0% band up to",
+   "default": "375000"
+  },
+  {
+   "fieldname": "tax_payable",
+   "fieldtype": "Currency",
+   "label": "Corporate tax payable (9%)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sb_filing",
+   "fieldtype": "Section Break",
+   "label": "Approval & filing"
+  },
+  {
+   "fieldname": "prepared_by",
+   "fieldtype": "Link",
+   "label": "Prepared by",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "approved_by",
+   "fieldtype": "Link",
+   "label": "Approved by",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "approved_on",
+   "fieldtype": "Date",
+   "label": "Approved on",
+   "read_only": 1
+  },
+  {
+   "fieldname": "accounting_period",
+   "fieldtype": "Link",
+   "label": "Locked accounting period",
+   "options": "Accounting Period",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cb_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "emaratax_reference",
+   "fieldtype": "Data",
+   "label": "EmaraTax reference",
+   "read_only": 1
+  },
+  {
+   "fieldname": "submitted_on",
+   "fieldtype": "Date",
+   "label": "Filed on EmaraTax",
+   "read_only": 1
+  },
+  {
+   "fieldname": "payment_reference",
+   "fieldtype": "Data",
+   "label": "Payment reference (GIBAN / receipt)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "paid_on",
+   "fieldtype": "Date",
+   "label": "Paid on",
+   "read_only": 1
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Small Text",
+   "label": "Notes"
+  }
+ ],
+ "permissions": [
+  {
+   "role": "Accounts User",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "Accounts Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "Managing Director",
+   "read": 1,
+   "write": 0,
+   "create": 0,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  }
+ ]
+}

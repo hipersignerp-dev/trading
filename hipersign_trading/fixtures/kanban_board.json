@@ -1,0 +1,71 @@
+[
+ {
+  "doctype": "Kanban Board",
+  "name": "Hipersign Lead Pipeline",
+  "kanban_board_name": "Hipersign Lead Pipeline",
+  "reference_doctype": "Lead",
+  "field_name": "hs_pipeline_stage",
+  "private": 0,
+  "show_labels": 1,
+  "filters": "[]",
+  "fields": "[\"company_name\", \"hs_estimated_value\", \"hs_next_follow_up\", \"lead_owner\"]",
+  "columns": [
+   {
+    "doctype": "Kanban Board Column",
+    "column_name": "New",
+    "status": "Active",
+    "indicator": "Gray",
+    "order": "[]",
+    "idx": 1
+   },
+   {
+    "doctype": "Kanban Board Column",
+    "column_name": "Contacted",
+    "status": "Active",
+    "indicator": "Blue",
+    "order": "[]",
+    "idx": 2
+   },
+   {
+    "doctype": "Kanban Board Column",
+    "column_name": "Qualified",
+    "status": "Active",
+    "indicator": "Purple",
+    "order": "[]",
+    "idx": 3
+   },
+   {
+    "doctype": "Kanban Board Column",
+    "column_name": "Proposal",
+    "status": "Active",
+    "indicator": "Orange",
+    "order": "[]",
+    "idx": 4
+   },
+   {
+    "doctype": "Kanban Board Column",
+    "column_name": "Negotiation",
+    "status": "Active",
+    "indicator": "Yellow",
+    "order": "[]",
+    "idx": 5
+   },
+   {
+    "doctype": "Kanban Board Column",
+    "column_name": "Won",
+    "status": "Active",
+    "indicator": "Green",
+    "order": "[]",
+    "idx": 6
+   },
+   {
+    "doctype": "Kanban Board Column",
+    "column_name": "Lost",
+    "status": "Active",
+    "indicator": "Red",
+    "order": "[]",
+    "idx": 7
+   }
+  ]
+ }
+]

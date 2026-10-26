@@ -1,0 +1,18 @@
+{
+ "doctype": "Number Card",
+ "label": "Orders waiting for an advance",
+ "is_public": 1,
+ "is_standard": 1,
+ "show_percentage_stats": 0,
+ "stats_time_interval": "Monthly",
+ "color": null,
+ "type": "Document Type",
+ "document_type": "Sales Order",
+ "function": "Count",
+ "filters_json": "[[\"Sales Order\", \"docstatus\", \"=\", 1, false], [\"Sales Order\", \"hs_advance_status\", \"in\", [\"Waiting\", \"Part received\"], false], [\"Sales Order\", \"per_delivered\", \"<\", 100, false]]",
+ "name": "HS Orders Waiting For Advance",
+ "module": "Hipersign Trading",
+ "owner": "Administrator",
+ "creation": "2026-10-24 12:00:00.000000",
+ "modified": "2026-10-24 12:00:00.000000"
+}

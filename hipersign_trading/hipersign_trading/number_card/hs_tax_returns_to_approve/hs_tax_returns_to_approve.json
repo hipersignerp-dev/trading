@@ -1,0 +1,18 @@
+{
+ "doctype": "Number Card",
+ "label": "Tax returns to approve",
+ "is_public": 1,
+ "is_standard": 1,
+ "show_percentage_stats": 0,
+ "stats_time_interval": "Monthly",
+ "color": null,
+ "type": "Document Type",
+ "document_type": "Tax Return",
+ "function": "Count",
+ "filters_json": "[[\"Tax Return\", \"status\", \"=\", \"Pending Finance Manager\", false]]",
+ "name": "HS Tax Returns To Approve",
+ "module": "Hipersign Trading",
+ "owner": "Administrator",
+ "creation": "2026-10-24 12:00:00.000000",
+ "modified": "2026-10-24 12:00:00.000000"
+}

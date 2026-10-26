@@ -1,0 +1,536 @@
+{
+ "doctype": "Workspace",
+ "label": "Hipersign Finance",
+ "title": "Hipersign Finance",
+ "public": 1,
+ "is_hidden": 0,
+ "icon": "accounting",
+ "indicator_color": "",
+ "sequence_id": 2,
+ "content": "[{\"id\": \"u8jzPde0Ig\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Finance — what needs you today</b></span>\", \"col\": 12}}, {\"id\": \"xLd6GncfBA\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"HS Cheques To Deposit\", \"col\": 3}}, {\"id\": \"epfJBd0Kh8\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"HS Cheques In Hand\", \"col\": 3}}, {\"id\": \"oOOL8dKLzd\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"HS Overdue Receivables\", \"col\": 3}}, {\"id\": \"ocJ2isAjIh\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"HS Credit Notes To Approve\", \"col\": 3}}, {\"id\": \"KtJ0RlgLKO\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"HS Cheques Issued\", \"col\": 3}}, {\"id\": \"mxgJTeKdNn\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"HS Bounced Cheques\", \"col\": 3}}, {\"id\": \"FRIBXuDL7D\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"HS Net Profit (Month)\", \"col\": 3}}, {\"id\": \"xtpYlSXpfK\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"HS Gross Profit (Month)\", \"col\": 3}}, {\"id\": \"ErQHQwjyax\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"HS Orders Waiting For Advance\", \"col\": 3}}, {\"id\": \"ErPZDS3MoJ\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"HS Tax Returns To Approve\", \"col\": 3}}, {\"id\": \"aQNjCxkv5n\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"HS Open Letters Of Credit\", \"col\": 3}}, {\"id\": \"dK0meGR0vR\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"HS Promises To Pay\", \"col\": 3}}, {\"id\": \"tHF4vUCsMe\", \"type\": \"spacer\", \"data\": {\"col\": 12}}, {\"id\": \"hGAkWvj7FA\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Quick actions</b></span>\", \"col\": 12}}, {\"id\": \"c9QeWJKY40\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Post Dated Cheque\", \"col\": 3}}, {\"id\": \"uvSwMFLZDe\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Bank Reconciliation\", \"col\": 3}}, {\"id\": \"1f8rESQedU\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Payment Entry\", \"col\": 3}}, {\"id\": \"StPKR0CsTy\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Credit Notes\", \"col\": 3}}, {\"id\": \"4Qwb8DwkNh\", \"type\": \"spacer\", \"data\": {\"col\": 12}}, {\"id\": \"FdnXsiVpzz\", \"type\": \"card\", \"data\": {\"card_name\": \"Receivables\", \"col\": 4}}, {\"id\": \"63FfkCzJr4\", \"type\": \"card\", \"data\": {\"card_name\": \"Payables & bank\", \"col\": 4}}, {\"id\": \"i0B3JrTAwR\", \"type\": \"card\", \"data\": {\"card_name\": \"Reports & VAT\", \"col\": 4}}, {\"id\": \"zZ1fb6d06Q\", \"type\": \"card\", \"data\": {\"card_name\": \"Advances & collections\", \"col\": 4}}, {\"id\": \"GofB8ChQBi\", \"type\": \"card\", \"data\": {\"card_name\": \"Trade finance\", \"col\": 4}}, {\"id\": \"Iu4NJkS4dJ\", \"type\": \"card\", \"data\": {\"card_name\": \"Tax & period end\", \"col\": 4}}, {\"id\": \"kG0fzMAQME\", \"type\": \"card\", \"data\": {\"card_name\": \"Group companies\", \"col\": 4}}]",
+ "charts": [],
+ "number_cards": [
+  {
+   "number_card_name": "HS Cheques To Deposit",
+   "label": "Cheques due to deposit"
+  },
+  {
+   "number_card_name": "HS Cheques In Hand",
+   "label": "Cheques in hand"
+  },
+  {
+   "number_card_name": "HS Overdue Receivables",
+   "label": "Overdue receivables"
+  },
+  {
+   "number_card_name": "HS Credit Notes To Approve",
+   "label": "Credit notes to approve"
+  },
+  {
+   "number_card_name": "HS Cheques Issued",
+   "label": "Cheques issued"
+  },
+  {
+   "number_card_name": "HS Bounced Cheques",
+   "label": "Bounced cheques"
+  },
+  {
+   "number_card_name": "HS Net Profit (Month)",
+   "label": "Net profit — this month"
+  },
+  {
+   "number_card_name": "HS Gross Profit (Month)",
+   "label": "Gross profit — this month"
+  },
+  {
+   "number_card_name": "HS Orders Waiting For Advance",
+   "label": "Orders waiting for an advance"
+  },
+  {
+   "number_card_name": "HS Tax Returns To Approve",
+   "label": "Tax returns to approve"
+  },
+  {
+   "number_card_name": "HS Open Letters Of Credit",
+   "label": "Open letters of credit"
+  },
+  {
+   "number_card_name": "HS Promises To Pay",
+   "label": "Invoices with a promise to pay"
+  }
+ ],
+ "shortcuts": [
+  {
+   "label": "Post Dated Cheque",
+   "type": "DocType",
+   "link_to": "Post Dated Cheque",
+   "color": "Blue",
+   "doc_view": "List",
+   "kanban_board": null,
+   "stats_filter": "[]",
+   "format": ""
+  },
+  {
+   "label": "Bank Reconciliation",
+   "type": "DocType",
+   "link_to": "Bank Reconciliation Tool",
+   "color": "Green",
+   "doc_view": "",
+   "kanban_board": null,
+   "stats_filter": "[]",
+   "format": ""
+  },
+  {
+   "label": "Payment Entry",
+   "type": "DocType",
+   "link_to": "Payment Entry",
+   "color": "Grey",
+   "doc_view": "List",
+   "kanban_board": null,
+   "stats_filter": "[]",
+   "format": ""
+  },
+  {
+   "label": "Credit Notes",
+   "type": "DocType",
+   "link_to": "Sales Invoice",
+   "color": "Orange",
+   "doc_view": "List",
+   "kanban_board": null,
+   "stats_filter": "[]",
+   "format": ""
+  }
+ ],
+ "links": [
+  {
+   "type": "Card Break",
+   "label": "Receivables",
+   "link_count": 4,
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "link_type": null,
+   "link_to": null,
+   "dependencies": ""
+  },
+  {
+   "type": "Link",
+   "label": "Sales Invoice",
+   "link_type": "DocType",
+   "link_to": "Sales Invoice",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Accounts Receivable",
+   "link_type": "Report",
+   "link_to": "Accounts Receivable",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 1,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Post Dated Cheque",
+   "link_type": "DocType",
+   "link_to": "Post Dated Cheque",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Credit Limit Request",
+   "link_type": "DocType",
+   "link_to": "Credit Limit Request",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Card Break",
+   "label": "Payables & bank",
+   "link_count": 4,
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "link_type": null,
+   "link_to": null,
+   "dependencies": ""
+  },
+  {
+   "type": "Link",
+   "label": "Purchase Invoice",
+   "link_type": "DocType",
+   "link_to": "Purchase Invoice",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Accounts Payable",
+   "link_type": "Report",
+   "link_to": "Accounts Payable",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 1,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Bank Reconciliation Tool",
+   "link_type": "DocType",
+   "link_to": "Bank Reconciliation Tool",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Bank Statement Import",
+   "link_type": "DocType",
+   "link_to": "Bank Statement Import",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Card Break",
+   "label": "Reports & VAT",
+   "link_count": 4,
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "link_type": null,
+   "link_to": null,
+   "dependencies": ""
+  },
+  {
+   "type": "Link",
+   "label": "Profit and Loss Statement",
+   "link_type": "Report",
+   "link_to": "Profit and Loss Statement",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 1,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "General Ledger",
+   "link_type": "Report",
+   "link_to": "General Ledger",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 1,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "UAE VAT 201",
+   "link_type": "Report",
+   "link_to": "UAE VAT 201",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 1,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Asset",
+   "link_type": "DocType",
+   "link_to": "Asset",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Card Break",
+   "label": "Advances & collections",
+   "link_count": 5,
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "link_type": null,
+   "link_to": null,
+   "dependencies": ""
+  },
+  {
+   "type": "Link",
+   "label": "Payment Entry",
+   "link_type": "DocType",
+   "link_to": "Payment Entry",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Payment Terms Template",
+   "link_type": "DocType",
+   "link_to": "Payment Terms Template",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Dunning",
+   "link_type": "DocType",
+   "link_to": "Dunning",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Dunning Type",
+   "link_type": "DocType",
+   "link_to": "Dunning Type",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Accounts Receivable",
+   "link_type": "Report",
+   "link_to": "Accounts Receivable",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 1,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Card Break",
+   "label": "Trade finance",
+   "link_count": 3,
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "link_type": null,
+   "link_to": null,
+   "dependencies": ""
+  },
+  {
+   "type": "Link",
+   "label": "Letter of Credit",
+   "link_type": "DocType",
+   "link_to": "Letter of Credit",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Bank Guarantee",
+   "link_type": "DocType",
+   "link_to": "Bank Guarantee",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Journal Entry",
+   "link_type": "DocType",
+   "link_to": "Journal Entry",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Card Break",
+   "label": "Tax & period end",
+   "link_count": 6,
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "link_type": null,
+   "link_to": null,
+   "dependencies": ""
+  },
+  {
+   "type": "Link",
+   "label": "Tax Return",
+   "link_type": "DocType",
+   "link_to": "Tax Return",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "UAE VAT 201",
+   "link_type": "Report",
+   "link_to": "UAE VAT 201",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 1,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Exchange Rate Revaluation",
+   "link_type": "DocType",
+   "link_to": "Exchange Rate Revaluation",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Accounting Period",
+   "link_type": "DocType",
+   "link_to": "Accounting Period",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Period Closing Voucher",
+   "link_type": "DocType",
+   "link_to": "Period Closing Voucher",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Cost Center",
+   "link_type": "DocType",
+   "link_to": "Cost Center",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Card Break",
+   "label": "Group companies",
+   "link_count": 4,
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "link_type": null,
+   "link_to": null,
+   "dependencies": ""
+  },
+  {
+   "type": "Link",
+   "label": "Company",
+   "link_type": "DocType",
+   "link_to": "Company",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Consolidated Financial Statement",
+   "link_type": "Report",
+   "link_to": "Consolidated Financial Statement",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 1,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Inter-company customers",
+   "link_type": "DocType",
+   "link_to": "Customer",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Balance Sheet",
+   "link_type": "Report",
+   "link_to": "Balance Sheet",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 1,
+   "dependencies": "",
+   "link_count": 0
+  }
+ ],
+ "roles": [
+  {
+   "role": "Accounts User"
+  },
+  {
+   "role": "Accounts Manager"
+  },
+  {
+   "role": "Managing Director"
+  }
+ ],
+ "extends_another_page": 0,
+ "for_user": "",
+ "parent_page": "",
+ "restrict_to_domain": "",
+ "hide_custom": 0,
+ "custom_blocks": [],
+ "quick_lists": [],
+ "name": "Hipersign Finance",
+ "module": "Hipersign Trading",
+ "owner": "Administrator",
+ "creation": "2026-10-22 18:00:00.000000",
+ "modified": "2026-10-24 12:00:00.000000"
+}

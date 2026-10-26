@@ -1,0 +1,209 @@
+Post Dated Cheque,شيك مؤجل
+Post-dated cheques,الشيكات المؤجلة
+Post-dated cheques in hand,شيكات مؤجلة بالصندوق
+Cheques due to deposit,شيكات مستحقة للإيداع
+"Cheques issued, not presented",شيكات صادرة لم تُقدَّم
+Bounced cheques,شيكات مرتجعة
+Direction,الاتجاه
+Received,مستلم
+Issued,صادر
+In Hand,بالصندوق
+Deposited,مودع
+Cleared,تم التحصيل
+Bounced,مرتجع
+Replaced,مستبدل
+Cancelled,ملغى
+Cheque no.,رقم الشيك
+Cheque date,تاريخ الشيك
+Drawn on (party's bank),مسحوب على (بنك الطرف)
+Our bank account,حسابنا البنكي
+Received / issued on,تاريخ الاستلام / الإصدار
+Deposited on,تاريخ الإيداع
+Cleared on,تاريخ التحصيل
+Bounced on,تاريخ الارتجاع
+Payment entry,قيد الدفع
+Bank charges entry,قيد الرسوم البنكية
+Bank charges on return,رسوم الارتجاع البنكية
+Replaced by,استُبدل بـ
+Deposit,إيداع
+Replacement cheque,شيك بديل
+Cancel cheque,إلغاء الشيك
+Presented & cleared,قُدّم وتم تحصيله
+Return reason,سبب الإرجاع
+Supplier RMA / reference,مرجع المورد للإرجاع
+Damaged in transit,تلف أثناء النقل
+Wrong item supplied,تم توريد صنف خاطئ
+Defective — under warranty,معيب — ضمن الضمان
+Customer cancelled,ألغاه العميل
+Excess quantity,كمية زائدة
+Pricing correction,تصحيح السعر
+Credit note,إشعار دائن
+Debit note,إشعار مدين
+Credit notes to approve,إشعارات دائنة بانتظار الموافقة
+Approval needed,مطلوب موافقة
+Proof of delivery,إثبات التسليم
+Delivery status,حالة التسليم
+Ready to Dispatch,جاهز للإرسال
+Out for Delivery,خرج للتسليم
+Delivered,تم التسليم
+Failed,تعذر التسليم
+Received by,المستلم
+Delivered at,وقت التسليم
+GPS location,الموقع الجغرافي
+Receiver's signature,توقيع المستلم
+Delivery photo,صورة التسليم
+Delivery failed — reason,سبب تعذر التسليم
+Out for delivery,خرج للتسليم
+Ready to dispatch,جاهز للإرسال
+Open driver app,فتح تطبيق السائق
+Hipersign user (driver app login),مستخدم هايبرساين (دخول تطبيق السائق)
+Driver,سائق
+UAE documents & WPS,المستندات الإماراتية ونظام حماية الأجور
+Emirates ID no.,رقم الهوية الإماراتية
+Emirates ID expiry,انتهاء الهوية الإماراتية
+Residence visa expiry,انتهاء الإقامة
+Labour card / MOHRE person ID,بطاقة العمل / الرقم الشخصي
+Labour card expiry,انتهاء بطاقة العمل
+Bank routing code (WPS),رمز توجيه البنك (WPS)
+WPS salary file (SIF),ملف رواتب WPS
+Resolution,المعالجة
+Repair,إصلاح
+Replace,استبدال
+Reject,رفض
+Replacement serial no.,الرقم التسلسلي البديل
+Supplier RMA no.,رقم إرجاع المورد
+Serial & Warranty Look-up,البحث بالرقم التسلسلي والضمان
+Scan or type a serial number,امسح أو اكتب الرقم التسلسلي
+Register warranty claim,تسجيل مطالبة ضمان
+Under warranty,ضمن الضمان
+Warranty expired,انتهى الضمان
+In stock,في المخزون
+Warranty until,الضمان حتى
+Open warranty claims,مطالبات ضمان مفتوحة
+Warranty look-up,البحث عن الضمان
+Statement of account,كشف الحساب
+Warranty,الضمان
+Balance due,الرصيد المستحق
+Overdue,متأخر
+Cheques with us,شيكاتكم لدينا
+Your post-dated cheques with us,شيكاتكم المؤجلة لدينا
+Your warranty claims,مطالبات الضمان الخاصة بكم
+Active,ساري
+Expired,منتهي
+Hipersign Finance,هايبرساين — المالية
+Hipersign Sales,هايبرساين — المبيعات
+Hipersign Warehouse,هايبرساين — المستودع
+Hipersign HR,هايبرساين — الموارد البشرية
+Hipersign Trading,هايبرساين للتجارة
+Finance — what needs you today,المالية — ما يحتاجك اليوم
+Sales — your pipeline and orders,المبيعات — فرصك وطلباتك
+Warehouse & delivery — today,المستودع والتسليم — اليوم
+"People — documents, leave and payroll",الموظفون — المستندات والإجازات والرواتب
+Quick actions,إجراءات سريعة
+Employees,الموظفون
+Visas expiring ≤ 60 days,إقامات تنتهي خلال 60 يوماً
+Import Shipment,شحنة استيراد
+Export Shipment,شحنة تصدير
+Credit Limit Request,طلب حد ائتمان
+Hipersign Settings,إعدادات هايبرساين
+Sales Order Tracker,متابعة أوامر البيع
+Create New,إنشاء جديد
+Bank account for cheques,الحساب البنكي للشيكات
+Bank charges account,حساب الرسوم البنكية
+Returned cheque charge,رسوم الشيك المرتجع
+Remind before cheque date (days),التذكير قبل تاريخ الشيك (أيام)
+MOHRE establishment ID,رقم المنشأة لدى الوزارة
+Employer bank routing code,رمز توجيه بنك صاحب العمل
+Warn before employee documents expire (days),التنبيه قبل انتهاء مستندات الموظف (أيام)
+Returns & warranty,المرتجعات والضمان
+People & assets,الموظفون والأصول
+Receivables,الذمم المدينة
+Payables & bank,الذمم الدائنة والبنك
+Reports & VAT,التقارير والضريبة
+Customers,العملاء
+Documents,المستندات
+After sales,ما بعد البيع
+Stock,المخزون
+Delivery,التسليم
+Serials & warranty,الأرقام التسلسلية والضمان
+People,الموظفون
+Payroll & WPS,الرواتب ونظام حماية الأجور
+Assets,الأصول
+Letter of Credit,خطاب اعتماد
+Letters of credit,خطابات الاعتماد
+Open letters of credit,خطابات اعتماد مفتوحة
+Tax Return,إقرار ضريبي
+Tax returns to approve,إقرارات ضريبية بانتظار الاعتماد
+VAT 201,إقرار ضريبة القيمة المضافة 201
+Corporate Tax,ضريبة الشركات
+Approve & lock,اعتماد وإقفال
+Filed on EmaraTax,مُقدَّم عبر إمارات تاكس
+Send for approval,إرسال للاعتماد
+Return for correction,إعادة للتصحيح
+Refresh figures,تحديث الأرقام
+Record payment,تسجيل الدفع
+Hipersign Smart Reorder,إعادة الطلب الذكية
+Create purchase orders,إنشاء أوامر شراء
+Suggested qty,الكمية المقترحة
+Reorder point,نقطة إعادة الطلب
+Safety stock,مخزون الأمان
+Lead time (days),مدة التوريد (أيام)
+Orders waiting for an advance,طلبات بانتظار الدفعة المقدمة
+Advance required,الدفعة المقدمة المطلوبة
+Advance,الدفعة المقدمة
+Receive advance,استلام دفعة مقدمة
+Advance before delivery,الدفعة المقدمة قبل التسليم
+Waiting,بانتظار
+Part received,مستلمة جزئياً
+Not required,غير مطلوبة
+Advance — to be received before delivery,دفعة مقدمة — تُستلم قبل التسليم
+KYC & compliance,اعرف عميلك والامتثال
+KYC status,حالة اعرف عميلك
+Trade licence no.,رقم الرخصة التجارية
+Trade licence expiry,انتهاء الرخصة التجارية
+Issued by,جهة الإصدار
+Verified,تم التحقق
+Blocked,محظور
+Customers with KYC expired or blocked,عملاء بحالة تحقق منتهية أو محظورة
+KYC notes,ملاحظات التحقق
+Collection,التحصيل
+Collection stage,مرحلة التحصيل
+Last reminder,آخر تذكير
+Promise to pay,وعد بالدفع
+Customer promised to pay on,وعد العميل بالدفع في
+Promised amount,المبلغ الموعود
+Collection notes,ملاحظات التحصيل
+Invoices with a promise to pay,فواتير بوعد دفع
+Friendly reminder,تذكير ودي
+Second reminder,تذكير ثانٍ
+Final notice,إنذار نهائي
+Hold new orders,إيقاف الطلبات الجديدة
+Send reminder on WhatsApp,إرسال تذكير عبر واتساب
+Model / part no.,الطراز / رقم القطعة
+Group,المجموعة
+Owned by the group (%),نسبة ملكية المجموعة (%)
+Minority partner,الشريك الأقلية
+Role in the group,الدور في المجموعة
+Advances & collections,الدفعات المقدمة والتحصيل
+Trade finance,تمويل التجارة
+Tax & period end,الضرائب وإقفال الفترة
+Group companies,شركات المجموعة
+Purchasing,المشتريات
+Reservations & picking,الحجز والانتقاء
+Advances & KYC,الدفعات المقدمة والتحقق
+Expenses & advances,المصروفات والسلف
+Trade finance & compliance,تمويل التجارة والامتثال
+Cash margin,التأمين النقدي
+Trust receipt (bank finance),إيصال أمانة (تمويل بنكي)
+Issued by the bank,صادر من البنك
+Documents presented,تم تقديم المستندات
+Accepted,مقبول
+Paid,مدفوع
+Margin journal entry,قيد التأمين النقدي
+Trust receipt journal entry,قيد إيصال الأمانة
+Expiry date,تاريخ الانتهاء
+LC number,رقم الاعتماد
+Net VAT payable / (refundable),صافي الضريبة المستحقة / (المستردة)
+EmaraTax reference,مرجع إمارات تاكس
+Return & payment due,موعد الإقرار والدفع
+Locked accounting period,الفترة المحاسبية المقفلة

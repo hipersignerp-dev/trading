@@ -1,0 +1,33 @@
+{
+ "doctype": "Page",
+ "name": "sales-order-tracker",
+ "page_name": "sales-order-tracker",
+ "title": "Sales Order Tracker",
+ "module": "Hipersign Trading",
+ "standard": "Yes",
+ "system_page": 0,
+ "icon": "",
+ "roles": [
+  {
+   "role": "Sales User"
+  },
+  {
+   "role": "Sales Manager"
+  },
+  {
+   "role": "Accounts User"
+  },
+  {
+   "role": "Accounts Manager"
+  },
+  {
+   "role": "Managing Director"
+  },
+  {
+   "role": "System Manager"
+  }
+ ],
+ "owner": "Administrator",
+ "creation": "2026-10-21 14:30:00",
+ "modified": "2026-10-21 14:30:00"
+}

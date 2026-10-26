@@ -1,0 +1,18 @@
+{
+ "doctype": "Number Card",
+ "label": "Bounced cheques",
+ "is_public": 1,
+ "is_standard": 1,
+ "show_percentage_stats": 0,
+ "stats_time_interval": "Monthly",
+ "color": "#dc2626",
+ "type": "Document Type",
+ "document_type": "Post Dated Cheque",
+ "function": "Count",
+ "filters_json": "[[\"Post Dated Cheque\", \"status\", \"=\", \"Bounced\", false]]",
+ "name": "HS Bounced Cheques",
+ "module": "Hipersign Trading",
+ "owner": "Administrator",
+ "creation": "2026-10-22 18:00:00.000000",
+ "modified": "2026-10-22 18:00:00.000000"
+}

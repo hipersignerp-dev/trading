@@ -1,0 +1,791 @@
+{
+ "doctype": "Workspace",
+ "label": "Hipersign Trading",
+ "title": "Hipersign Trading",
+ "public": 1,
+ "is_hidden": 0,
+ "icon": "organization",
+ "indicator_color": "",
+ "sequence_id": 1.0,
+ "content": "[{\"id\": \"u8jzPde0Ig\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Hipersign Trading — today</b></span>\", \"col\": 12}}, {\"id\": \"xLd6GncfBA\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"HS Gross Profit (Month)\", \"col\": 3}}, {\"id\": \"epfJBd0Kh8\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"HS Net Profit (Month)\", \"col\": 3}}, {\"id\": \"oOOL8dKLzd\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"HS Open Sales Orders\", \"col\": 3}}, {\"id\": \"ocJ2isAjIh\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"HS Overdue Receivables\", \"col\": 3}}, {\"id\": \"KtJ0RlgLKO\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"HS Import Shipments Open\", \"col\": 3}}, {\"id\": \"mxgJTeKdNn\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"HS Exports Awaiting Proof\", \"col\": 3}}, {\"id\": \"FRIBXuDL7D\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"HS CRM Pipeline\", \"col\": 3}}, {\"id\": \"xtpYlSXpfK\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"HS Follow-ups Due\", \"col\": 3}}, {\"id\": \"FwMOUdGDxn\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"HS Orders Waiting For Advance\", \"col\": 3}}, {\"id\": \"vsDES92Ep9\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"HS Tax Returns To Approve\", \"col\": 3}}, {\"id\": \"tHF4vUCsMe\", \"type\": \"spacer\", \"data\": {\"col\": 12}}, {\"id\": \"hGAkWvj7FA\", \"type\": \"chart\", \"data\": {\"chart_name\": \"HS Monthly Sales\", \"col\": 6}}, {\"id\": \"c9QeWJKY40\", \"type\": \"chart\", \"data\": {\"chart_name\": \"HS Monthly Purchases\", \"col\": 6}}, {\"id\": \"uvSwMFLZDe\", \"type\": \"chart\", \"data\": {\"chart_name\": \"HS Export Shipments by Status\", \"col\": 6}}, {\"id\": \"1f8rESQedU\", \"type\": \"chart\", \"data\": {\"chart_name\": \"HS Leads by Stage\", \"col\": 6}}, {\"id\": \"StPKR0CsTy\", \"type\": \"spacer\", \"data\": {\"col\": 12}}, {\"id\": \"4Qwb8DwkNh\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Quick access</b></span>\", \"col\": 12}}, {\"id\": \"FdnXsiVpzz\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Sales Order Tracker\", \"col\": 3}}, {\"id\": \"63FfkCzJr4\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Create New\", \"col\": 3}}, {\"id\": \"i0B3JrTAwR\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Lead Pipeline\", \"col\": 3}}, {\"id\": \"4y9ojfljoQ\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Quotation\", \"col\": 3}}, {\"id\": \"oaF1Llqsaj\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Sales Order\", \"col\": 3}}, {\"id\": \"AIxNKu8iS2\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Purchase Order\", \"col\": 3}}, {\"id\": \"G8NPRVdD53\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Import Shipment\", \"col\": 3}}, {\"id\": \"X83RZJzzzz\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Export Shipment\", \"col\": 3}}, {\"id\": \"gEOzdmenCk\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Delivery Note\", \"col\": 3}}, {\"id\": \"hvMdgaKjIg\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Sales Invoice\", \"col\": 3}}, {\"id\": \"8xNbe3nNyj\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Credit Limit Request\", \"col\": 3}}, {\"id\": \"Oq9wMxEhh2\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Hipersign Settings\", \"col\": 3}}, {\"id\": \"FDEEtfjgVv\", \"type\": \"spacer\", \"data\": {\"col\": 12}}, {\"id\": \"VqE1SkHbn8\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Lifecycle</b></span>\", \"col\": 12}}, {\"id\": \"8HxjSI6bWH\", \"type\": \"card\", \"data\": {\"card_name\": \"01 Purchasing & Imports\", \"col\": 4}}, {\"id\": \"tP3fS2qHx6\", \"type\": \"card\", \"data\": {\"card_name\": \"Warehouse & Inventory\", \"col\": 4}}, {\"id\": \"kwXoIIXGvO\", \"type\": \"card\", \"data\": {\"card_name\": \"CRM & Sales\", \"col\": 4}}, {\"id\": \"oNZYW2mZp0\", \"type\": \"card\", \"data\": {\"card_name\": \"Dispatch & Export\", \"col\": 4}}, {\"id\": \"zVZomHFwUb\", \"type\": \"card\", \"data\": {\"card_name\": \"Finance & Compliance\", \"col\": 4}}, {\"id\": \"bYrEqmSM9w\", \"type\": \"card\", \"data\": {\"card_name\": \"Setup\", \"col\": 4}}, {\"id\": \"kD7JxlmXVo\", \"type\": \"card\", \"data\": {\"card_name\": \"Trade finance & compliance\", \"col\": 4}}, {\"id\": \"6Ma8r6XZvl\", \"type\": \"card\", \"data\": {\"card_name\": \"Group companies\", \"col\": 4}}]",
+ "charts": [
+  {
+   "chart_name": "HS Monthly Sales",
+   "label": "Monthly sales (net)"
+  },
+  {
+   "chart_name": "HS Monthly Purchases",
+   "label": "Monthly purchases ordered"
+  },
+  {
+   "chart_name": "HS Export Shipments by Status",
+   "label": "Export shipments by status"
+  },
+  {
+   "chart_name": "HS Leads by Stage",
+   "label": "Leads by stage"
+  }
+ ],
+ "number_cards": [
+  {
+   "number_card_name": "HS Gross Profit (Month)",
+   "label": "Gross profit — this month"
+  },
+  {
+   "number_card_name": "HS Net Profit (Month)",
+   "label": "Net profit — this month"
+  },
+  {
+   "number_card_name": "HS Open Sales Orders",
+   "label": "Open sales orders"
+  },
+  {
+   "number_card_name": "HS Overdue Receivables",
+   "label": "Overdue receivables"
+  },
+  {
+   "number_card_name": "HS Import Shipments Open",
+   "label": "Import shipments open"
+  },
+  {
+   "number_card_name": "HS Exports Awaiting Proof",
+   "label": "Exports awaiting proof (0% VAT)"
+  },
+  {
+   "number_card_name": "HS CRM Pipeline",
+   "label": "CRM pipeline value"
+  },
+  {
+   "number_card_name": "HS Follow-ups Due",
+   "label": "Lead follow-ups due"
+  },
+  {
+   "number_card_name": "HS Orders Waiting For Advance",
+   "label": "Orders waiting for an advance"
+  },
+  {
+   "number_card_name": "HS Tax Returns To Approve",
+   "label": "Tax returns to approve"
+  }
+ ],
+ "shortcuts": [
+  {
+   "label": "Sales Order Tracker",
+   "type": "Page",
+   "link_to": "sales-order-tracker",
+   "color": "Blue",
+   "doc_view": "",
+   "kanban_board": null,
+   "stats_filter": "[]",
+   "format": ""
+  },
+  {
+   "label": "Create New",
+   "type": "Page",
+   "link_to": "hipersign-create",
+   "color": "Green",
+   "doc_view": "",
+   "kanban_board": null,
+   "stats_filter": "[]",
+   "format": ""
+  },
+  {
+   "label": "Lead Pipeline",
+   "type": "DocType",
+   "link_to": "Lead",
+   "color": "Orange",
+   "doc_view": "Kanban",
+   "kanban_board": "Hipersign Lead Pipeline",
+   "stats_filter": "[]",
+   "format": ""
+  },
+  {
+   "label": "Quotation",
+   "type": "DocType",
+   "link_to": "Quotation",
+   "color": "Blue",
+   "doc_view": "List",
+   "kanban_board": null,
+   "stats_filter": "[]",
+   "format": ""
+  },
+  {
+   "label": "Sales Order",
+   "type": "DocType",
+   "link_to": "Sales Order",
+   "color": "Blue",
+   "doc_view": "List",
+   "kanban_board": null,
+   "stats_filter": "[]",
+   "format": ""
+  },
+  {
+   "label": "Purchase Order",
+   "type": "DocType",
+   "link_to": "Purchase Order",
+   "color": "Purple",
+   "doc_view": "List",
+   "kanban_board": null,
+   "stats_filter": "[]",
+   "format": ""
+  },
+  {
+   "label": "Import Shipment",
+   "type": "DocType",
+   "link_to": "Import Shipment",
+   "color": "Purple",
+   "doc_view": "List",
+   "kanban_board": null,
+   "stats_filter": "[]",
+   "format": "{} open"
+  },
+  {
+   "label": "Export Shipment",
+   "type": "DocType",
+   "link_to": "Export Shipment",
+   "color": "Cyan",
+   "doc_view": "List",
+   "kanban_board": null,
+   "stats_filter": "[]",
+   "format": "{} open"
+  },
+  {
+   "label": "Delivery Note",
+   "type": "DocType",
+   "link_to": "Delivery Note",
+   "color": "Grey",
+   "doc_view": "List",
+   "kanban_board": null,
+   "stats_filter": "[]",
+   "format": ""
+  },
+  {
+   "label": "Sales Invoice",
+   "type": "DocType",
+   "link_to": "Sales Invoice",
+   "color": "Green",
+   "doc_view": "List",
+   "kanban_board": null,
+   "stats_filter": "[]",
+   "format": ""
+  },
+  {
+   "label": "Credit Limit Request",
+   "type": "DocType",
+   "link_to": "Credit Limit Request",
+   "color": "Red",
+   "doc_view": "List",
+   "kanban_board": null,
+   "stats_filter": "[]",
+   "format": ""
+  },
+  {
+   "label": "Hipersign Settings",
+   "type": "DocType",
+   "link_to": "Hipersign Settings",
+   "color": "Grey",
+   "doc_view": "",
+   "kanban_board": null,
+   "stats_filter": "[]",
+   "format": ""
+  }
+ ],
+ "links": [
+  {
+   "type": "Card Break",
+   "label": "01 Purchasing & Imports",
+   "link_count": 5,
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "link_type": null,
+   "link_to": null,
+   "dependencies": ""
+  },
+  {
+   "type": "Link",
+   "label": "Purchase Order",
+   "link_type": "DocType",
+   "link_to": "Purchase Order",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Supplier",
+   "link_type": "DocType",
+   "link_to": "Supplier",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Import Shipment",
+   "link_type": "DocType",
+   "link_to": "Import Shipment",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Landed Cost Voucher",
+   "link_type": "DocType",
+   "link_to": "Landed Cost Voucher",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Purchase Receipt",
+   "link_type": "DocType",
+   "link_to": "Purchase Receipt",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Card Break",
+   "label": "Warehouse & Inventory",
+   "link_count": 6,
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "link_type": null,
+   "link_to": null,
+   "dependencies": ""
+  },
+  {
+   "type": "Link",
+   "label": "Item",
+   "link_type": "DocType",
+   "link_to": "Item",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Warehouse",
+   "link_type": "DocType",
+   "link_to": "Warehouse",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Stock Entry",
+   "link_type": "DocType",
+   "link_to": "Stock Entry",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Stock Reconciliation",
+   "link_type": "DocType",
+   "link_to": "Stock Reconciliation",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Stock Balance",
+   "link_type": "Report",
+   "link_to": "Stock Balance",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 1,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Stock Ageing",
+   "link_type": "Report",
+   "link_to": "Stock Ageing",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 1,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Card Break",
+   "label": "CRM & Sales",
+   "link_count": 7,
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "link_type": null,
+   "link_to": null,
+   "dependencies": ""
+  },
+  {
+   "type": "Link",
+   "label": "Lead",
+   "link_type": "DocType",
+   "link_to": "Lead",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Opportunity",
+   "link_type": "DocType",
+   "link_to": "Opportunity",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Quotation",
+   "link_type": "DocType",
+   "link_to": "Quotation",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Sales Order",
+   "link_type": "DocType",
+   "link_to": "Sales Order",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Customer",
+   "link_type": "DocType",
+   "link_to": "Customer",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Credit Limit Request",
+   "link_type": "DocType",
+   "link_to": "Credit Limit Request",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Pricing Rule",
+   "link_type": "DocType",
+   "link_to": "Pricing Rule",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Card Break",
+   "label": "Dispatch & Export",
+   "link_count": 6,
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "link_type": null,
+   "link_to": null,
+   "dependencies": ""
+  },
+  {
+   "type": "Link",
+   "label": "Pick List",
+   "link_type": "DocType",
+   "link_to": "Pick List",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Delivery Note",
+   "link_type": "DocType",
+   "link_to": "Delivery Note",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Delivery Trip",
+   "link_type": "DocType",
+   "link_to": "Delivery Trip",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Export Shipment",
+   "link_type": "DocType",
+   "link_to": "Export Shipment",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Driver",
+   "link_type": "DocType",
+   "link_to": "Driver",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Vehicle",
+   "link_type": "DocType",
+   "link_to": "Vehicle",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Card Break",
+   "label": "Finance & Compliance",
+   "link_count": 7,
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "link_type": null,
+   "link_to": null,
+   "dependencies": ""
+  },
+  {
+   "type": "Link",
+   "label": "Sales Invoice",
+   "link_type": "DocType",
+   "link_to": "Sales Invoice",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Payment Entry",
+   "link_type": "DocType",
+   "link_to": "Payment Entry",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Accounts Receivable",
+   "link_type": "Report",
+   "link_to": "Accounts Receivable",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 1,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Accounts Payable",
+   "link_type": "Report",
+   "link_to": "Accounts Payable",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 1,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Gross Profit",
+   "link_type": "Report",
+   "link_to": "Gross Profit",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 1,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Profit and Loss Statement",
+   "link_type": "Report",
+   "link_to": "Profit and Loss Statement",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 1,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Process Statement Of Accounts",
+   "link_type": "DocType",
+   "link_to": "Process Statement Of Accounts",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Card Break",
+   "label": "Setup",
+   "link_count": 7,
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "link_type": null,
+   "link_to": null,
+   "dependencies": ""
+  },
+  {
+   "type": "Link",
+   "label": "Hipersign Settings",
+   "link_type": "DocType",
+   "link_to": "Hipersign Settings",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Payment Terms Template",
+   "link_type": "DocType",
+   "link_to": "Payment Terms Template",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Bank Account",
+   "link_type": "DocType",
+   "link_to": "Bank Account",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Currency Exchange",
+   "link_type": "DocType",
+   "link_to": "Currency Exchange",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Sales Taxes and Charges Template",
+   "link_type": "DocType",
+   "link_to": "Sales Taxes and Charges Template",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Workflow",
+   "link_type": "DocType",
+   "link_to": "Workflow",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Print Format",
+   "link_type": "DocType",
+   "link_to": "Print Format",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Card Break",
+   "label": "Trade finance & compliance",
+   "link_count": 5,
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "link_type": null,
+   "link_to": null,
+   "dependencies": ""
+  },
+  {
+   "type": "Link",
+   "label": "Letter of Credit",
+   "link_type": "DocType",
+   "link_to": "Letter of Credit",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Bank Guarantee",
+   "link_type": "DocType",
+   "link_to": "Bank Guarantee",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Tax Return",
+   "link_type": "DocType",
+   "link_to": "Tax Return",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Exchange Rate Revaluation",
+   "link_type": "DocType",
+   "link_to": "Exchange Rate Revaluation",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Hipersign Smart Reorder",
+   "link_type": "Report",
+   "link_to": "Hipersign Smart Reorder",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 1,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Card Break",
+   "label": "Group companies",
+   "link_count": 2,
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "link_type": null,
+   "link_to": null,
+   "dependencies": ""
+  },
+  {
+   "type": "Link",
+   "label": "Company",
+   "link_type": "DocType",
+   "link_to": "Company",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Consolidated Financial Statement",
+   "link_type": "Report",
+   "link_to": "Consolidated Financial Statement",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 1,
+   "dependencies": "",
+   "link_count": 0
+  }
+ ],
+ "roles": [],
+ "extends_another_page": 0,
+ "for_user": "",
+ "parent_page": "",
+ "restrict_to_domain": "",
+ "hide_custom": 0,
+ "custom_blocks": [],
+ "quick_lists": [],
+ "name": "Hipersign Trading",
+ "module": "Hipersign Trading",
+ "owner": "Administrator",
+ "creation": "2026-10-21 14:30:00.000000",
+ "modified": "2026-10-24 12:00:00.000000"
+}

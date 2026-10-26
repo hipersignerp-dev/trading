@@ -1,0 +1,435 @@
+{
+ "doctype": "DocType",
+ "name": "Export Shipment",
+ "module": "Hipersign Trading",
+ "custom": 0,
+ "engine": "InnoDB",
+ "owner": "Administrator",
+ "creation": "2026-10-21 14:30:00.000000",
+ "modified": "2026-10-21 14:30:00.000000",
+ "actions": [],
+ "links": [],
+ "states": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1,
+ "field_order": [
+  "naming_series",
+  "company",
+  "sales_order",
+  "customer",
+  "customer_name",
+  "currency",
+  "cb_1",
+  "status",
+  "mode",
+  "incoterm",
+  "named_place",
+  "forwarder",
+  "sb_route",
+  "port_of_loading",
+  "destination",
+  "cb_2",
+  "etd",
+  "eta",
+  "shipped_on",
+  "delivered_on",
+  "sb_docs",
+  "declaration_no",
+  "coo_no",
+  "bl_awb_cmr",
+  "cb_3",
+  "proof_due_on",
+  "proof_of_export_on",
+  "documents",
+  "sb_links",
+  "delivery_note",
+  "sales_invoice",
+  "cb_4",
+  "re_export_of",
+  "duty_refund_estimate",
+  "duty_refund_status",
+  "sb_costs",
+  "charges",
+  "total_charges",
+  "cb_5",
+  "net_sales",
+  "cost_of_goods",
+  "gross_profit",
+  "margin_pct"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "EXP-.YYYY.-.####",
+   "default": "EXP-.YYYY.-.####",
+   "hidden": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1,
+   "remember_last_selected_value": 1
+  },
+  {
+   "fieldname": "sales_order",
+   "fieldtype": "Link",
+   "label": "Export sales order",
+   "options": "Sales Order",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer",
+   "fetch_from": "sales_order.customer",
+   "read_only": 1
+  },
+  {
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "label": "Customer name",
+   "fetch_from": "sales_order.customer_name",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "currency",
+   "fieldtype": "Link",
+   "label": "Currency",
+   "options": "Currency",
+   "fetch_from": "sales_order.currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cb_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Booked\nPacked\nExport Declaration\nCustoms Cleared\nShipped\nDelivered\nDocuments Complete",
+   "default": "Booked",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "bold": 1
+  },
+  {
+   "fieldname": "mode",
+   "fieldtype": "Select",
+   "label": "Mode",
+   "options": "Sea\nAir\nLand",
+   "default": "Sea"
+  },
+  {
+   "fieldname": "incoterm",
+   "fieldtype": "Link",
+   "label": "Incoterm",
+   "options": "Incoterm",
+   "fetch_from": "sales_order.incoterm",
+   "fetch_if_empty": 1
+  },
+  {
+   "fieldname": "named_place",
+   "fieldtype": "Data",
+   "label": "Named place",
+   "fetch_from": "sales_order.named_place",
+   "fetch_if_empty": 1
+  },
+  {
+   "fieldname": "forwarder",
+   "fieldtype": "Link",
+   "label": "Forwarder / transporter",
+   "options": "Supplier"
+  },
+  {
+   "fieldname": "sb_route",
+   "fieldtype": "Section Break",
+   "label": "Route & dates"
+  },
+  {
+   "fieldname": "port_of_loading",
+   "fieldtype": "Data",
+   "label": "Port / border of loading",
+   "description": "e.g. Jebel Ali Port, DXB Cargo, Hatta border"
+  },
+  {
+   "fieldname": "destination",
+   "fieldtype": "Data",
+   "label": "Destination",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "cb_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "etd",
+   "fieldtype": "Date",
+   "label": "ETD"
+  },
+  {
+   "fieldname": "eta",
+   "fieldtype": "Date",
+   "label": "ETA"
+  },
+  {
+   "fieldname": "shipped_on",
+   "fieldtype": "Date",
+   "label": "Shipped on",
+   "read_only": 1
+  },
+  {
+   "fieldname": "delivered_on",
+   "fieldtype": "Date",
+   "label": "Delivered on"
+  },
+  {
+   "fieldname": "sb_docs",
+   "fieldtype": "Section Break",
+   "label": "Customs & documents"
+  },
+  {
+   "fieldname": "declaration_no",
+   "fieldtype": "Data",
+   "label": "Export declaration no."
+  },
+  {
+   "fieldname": "coo_no",
+   "fieldtype": "Data",
+   "label": "Certificate of origin no."
+  },
+  {
+   "fieldname": "bl_awb_cmr",
+   "fieldtype": "Data",
+   "label": "Bill of lading / AWB / CMR no."
+  },
+  {
+   "fieldname": "cb_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "proof_due_on",
+   "fieldtype": "Date",
+   "label": "Proof of export due by",
+   "read_only": 1
+  },
+  {
+   "fieldname": "proof_of_export_on",
+   "fieldtype": "Date",
+   "label": "Proof of export on file",
+   "read_only": 1
+  },
+  {
+   "fieldname": "documents",
+   "fieldtype": "Table",
+   "label": "Export documents",
+   "options": "Shipment Document"
+  },
+  {
+   "fieldname": "sb_links",
+   "fieldtype": "Section Break",
+   "label": "Stock & invoice"
+  },
+  {
+   "fieldname": "delivery_note",
+   "fieldtype": "Link",
+   "label": "Delivery note",
+   "options": "Delivery Note",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sales_invoice",
+   "fieldtype": "Link",
+   "label": "Export invoice (0% VAT)",
+   "options": "Sales Invoice",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cb_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "re_export_of",
+   "fieldtype": "Link",
+   "label": "Re-export of import shipment",
+   "options": "Import Shipment",
+   "description": "Link the import to claim back customs duty"
+  },
+  {
+   "fieldname": "duty_refund_estimate",
+   "fieldtype": "Currency",
+   "label": "Duty refund estimate",
+   "read_only": 1,
+   "options": "Company:company:default_currency"
+  },
+  {
+   "fieldname": "duty_refund_status",
+   "fieldtype": "Select",
+   "label": "Duty refund claim",
+   "options": "Not claimed\nClaim prepared\nSubmitted\nRefunded",
+   "default": "Not claimed"
+  },
+  {
+   "fieldname": "sb_costs",
+   "fieldtype": "Section Break",
+   "label": "Export charges & margin"
+  },
+  {
+   "fieldname": "charges",
+   "fieldtype": "Table",
+   "label": "Charges",
+   "options": "Shipment Charge"
+  },
+  {
+   "fieldname": "total_charges",
+   "fieldtype": "Currency",
+   "label": "Total charges",
+   "read_only": 1,
+   "options": "Company:company:default_currency"
+  },
+  {
+   "fieldname": "cb_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "net_sales",
+   "fieldtype": "Currency",
+   "label": "Sales (net, company currency)",
+   "read_only": 1,
+   "options": "Company:company:default_currency"
+  },
+  {
+   "fieldname": "cost_of_goods",
+   "fieldtype": "Currency",
+   "label": "Landed cost of goods",
+   "read_only": 1,
+   "options": "Company:company:default_currency"
+  },
+  {
+   "fieldname": "gross_profit",
+   "fieldtype": "Currency",
+   "label": "Gross profit",
+   "read_only": 1,
+   "options": "Company:company:default_currency",
+   "bold": 1
+  },
+  {
+   "fieldname": "margin_pct",
+   "fieldtype": "Percent",
+   "label": "Margin %",
+   "read_only": 1
+  }
+ ],
+ "permissions": [
+  {
+   "role": "Sales Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "Sales User",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "Logistics Coordinator",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "Stock User",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "Stock Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "Accounts User",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "Accounts Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "autoname": "naming_series:",
+ "naming_rule": "By \"Naming Series\" field",
+ "title_field": "customer_name",
+ "search_fields": "customer_name,bl_awb_cmr,status"
+}

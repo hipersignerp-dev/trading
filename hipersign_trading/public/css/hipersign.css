@@ -1,0 +1,31 @@
+/* Hipersign ERP — brand layer on top of the standard desk */
+:root { --hs-navy: #13226b; --hs-violet: #4b3cc9; }
+.navbar .navbar-brand img, .navbar-home img { max-height: 30px; }
+.desk-sidebar .standard-sidebar-item.selected, .sidebar-item-container .selected { border-left: 3px solid var(--hs-violet); }
+
+/* Sales Order Tracker */
+.hs-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; margin-bottom: 14px; }
+.hs-kpi { border: 1px solid var(--border-color); border-radius: 10px; padding: 10px 12px; background: var(--card-bg); }
+.hs-kpi span { display: block; font-size: 12px; color: var(--text-muted); } .hs-kpi b { font-size: 18px; }
+.hs-kpi.green b { color: var(--green-600); } .hs-kpi.red b { color: var(--red-600); }
+.hs-row { border: 1px solid var(--border-color); border-radius: 10px; padding: 12px; margin-bottom: 10px; background: var(--card-bg); }
+.hs-row-h { display: flex; gap: 12px; flex-wrap: wrap; justify-content: space-between; align-items: center; }
+.hs-money { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; font-size: 12px; color: var(--text-muted); }
+.hs-money b { color: var(--text-color); }
+.hs-actions { display: flex; gap: 6px; align-items: center; } .hs-actions select { width: 120px; }
+.hs-wa { color: #1a9a55 !important; font-weight: 700; }
+.hs-paybar { height: 4px; background: var(--gray-200); border-radius: 4px; margin: 10px 0; overflow: hidden; }
+.hs-paybar i { display: block; height: 100%; background: var(--green-500); }
+.hs-stages { display: grid; grid-template-columns: repeat(7, minmax(80px, 1fr)); gap: 6px; overflow-x: auto; }
+.hs-stage { border-radius: 8px; padding: 6px 8px; background: var(--gray-100); cursor: default; display: flex; flex-direction: column; gap: 2px; font-size: 12px; }
+.hs-stage i { width: 8px; height: 8px; border-radius: 50%; background: var(--gray-400); }
+.hs-stage small { color: var(--text-muted); font-size: 11px; }
+.hs-stage.done { background: var(--green-50); } .hs-stage.done i { background: var(--green-500); }
+.hs-stage.cur { background: var(--blue-50); } .hs-stage.cur i { background: var(--blue-500); }
+.hs-stage.warn { background: var(--red-50); } .hs-stage.warn i { background: var(--red-500); }
+
+/* Create New */
+.hs-group h5 { margin: 18px 0 8px; color: var(--text-muted); text-transform: uppercase; font-size: 11px; letter-spacing: .06em; }
+.hs-tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 10px; }
+.hs-tile { display: flex; align-items: center; gap: 10px; padding: 14px; border: 1px solid var(--border-color); border-radius: 10px; background: var(--card-bg); text-align: left; }
+.hs-tile:hover { border-color: var(--hs-violet); box-shadow: 0 0 0 3px rgba(75, 60, 201, .12); }

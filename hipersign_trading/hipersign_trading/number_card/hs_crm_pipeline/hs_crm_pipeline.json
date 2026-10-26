@@ -1,0 +1,19 @@
+{
+ "doctype": "Number Card",
+ "label": "CRM pipeline value",
+ "is_public": 1,
+ "is_standard": 1,
+ "show_percentage_stats": 0,
+ "stats_time_interval": "Monthly",
+ "color": null,
+ "type": "Document Type",
+ "document_type": "Lead",
+ "function": "Sum",
+ "aggregate_function_based_on": "hs_estimated_value",
+ "filters_json": "[[\"Lead\", \"hs_pipeline_stage\", \"not in\", [\"Won\", \"Lost\"], false], [\"Lead\", \"status\", \"not in\", [\"Converted\", \"Do Not Contact\"], false]]",
+ "name": "HS CRM Pipeline",
+ "module": "Hipersign Trading",
+ "owner": "Administrator",
+ "creation": "2026-10-21 14:30:00.000000",
+ "modified": "2026-10-21 14:30:00.000000"
+}

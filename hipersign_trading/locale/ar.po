@@ -1,0 +1,632 @@
+# Arabic translations for Hipersign Trading
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: ar\n"
+
+msgid "Post Dated Cheque"
+msgstr "شيك مؤجل"
+
+msgid "Post-dated cheques"
+msgstr "الشيكات المؤجلة"
+
+msgid "Post-dated cheques in hand"
+msgstr "شيكات مؤجلة بالصندوق"
+
+msgid "Cheques due to deposit"
+msgstr "شيكات مستحقة للإيداع"
+
+msgid "Cheques issued, not presented"
+msgstr "شيكات صادرة لم تُقدَّم"
+
+msgid "Bounced cheques"
+msgstr "شيكات مرتجعة"
+
+msgid "Direction"
+msgstr "الاتجاه"
+
+msgid "Received"
+msgstr "مستلم"
+
+msgid "Issued"
+msgstr "صادر"
+
+msgid "In Hand"
+msgstr "بالصندوق"
+
+msgid "Deposited"
+msgstr "مودع"
+
+msgid "Cleared"
+msgstr "تم التحصيل"
+
+msgid "Bounced"
+msgstr "مرتجع"
+
+msgid "Replaced"
+msgstr "مستبدل"
+
+msgid "Cancelled"
+msgstr "ملغى"
+
+msgid "Cheque no."
+msgstr "رقم الشيك"
+
+msgid "Cheque date"
+msgstr "تاريخ الشيك"
+
+msgid "Drawn on (party's bank)"
+msgstr "مسحوب على (بنك الطرف)"
+
+msgid "Our bank account"
+msgstr "حسابنا البنكي"
+
+msgid "Received / issued on"
+msgstr "تاريخ الاستلام / الإصدار"
+
+msgid "Deposited on"
+msgstr "تاريخ الإيداع"
+
+msgid "Cleared on"
+msgstr "تاريخ التحصيل"
+
+msgid "Bounced on"
+msgstr "تاريخ الارتجاع"
+
+msgid "Payment entry"
+msgstr "قيد الدفع"
+
+msgid "Bank charges entry"
+msgstr "قيد الرسوم البنكية"
+
+msgid "Bank charges on return"
+msgstr "رسوم الارتجاع البنكية"
+
+msgid "Replaced by"
+msgstr "استُبدل بـ"
+
+msgid "Deposit"
+msgstr "إيداع"
+
+msgid "Replacement cheque"
+msgstr "شيك بديل"
+
+msgid "Cancel cheque"
+msgstr "إلغاء الشيك"
+
+msgid "Presented & cleared"
+msgstr "قُدّم وتم تحصيله"
+
+msgid "Return reason"
+msgstr "سبب الإرجاع"
+
+msgid "Supplier RMA / reference"
+msgstr "مرجع المورد للإرجاع"
+
+msgid "Damaged in transit"
+msgstr "تلف أثناء النقل"
+
+msgid "Wrong item supplied"
+msgstr "تم توريد صنف خاطئ"
+
+msgid "Defective — under warranty"
+msgstr "معيب — ضمن الضمان"
+
+msgid "Customer cancelled"
+msgstr "ألغاه العميل"
+
+msgid "Excess quantity"
+msgstr "كمية زائدة"
+
+msgid "Pricing correction"
+msgstr "تصحيح السعر"
+
+msgid "Credit note"
+msgstr "إشعار دائن"
+
+msgid "Debit note"
+msgstr "إشعار مدين"
+
+msgid "Credit notes to approve"
+msgstr "إشعارات دائنة بانتظار الموافقة"
+
+msgid "Approval needed"
+msgstr "مطلوب موافقة"
+
+msgid "Proof of delivery"
+msgstr "إثبات التسليم"
+
+msgid "Delivery status"
+msgstr "حالة التسليم"
+
+msgid "Ready to Dispatch"
+msgstr "جاهز للإرسال"
+
+msgid "Out for Delivery"
+msgstr "خرج للتسليم"
+
+msgid "Delivered"
+msgstr "تم التسليم"
+
+msgid "Failed"
+msgstr "تعذر التسليم"
+
+msgid "Received by"
+msgstr "المستلم"
+
+msgid "Delivered at"
+msgstr "وقت التسليم"
+
+msgid "GPS location"
+msgstr "الموقع الجغرافي"
+
+msgid "Receiver's signature"
+msgstr "توقيع المستلم"
+
+msgid "Delivery photo"
+msgstr "صورة التسليم"
+
+msgid "Delivery failed — reason"
+msgstr "سبب تعذر التسليم"
+
+msgid "Out for delivery"
+msgstr "خرج للتسليم"
+
+msgid "Ready to dispatch"
+msgstr "جاهز للإرسال"
+
+msgid "Open driver app"
+msgstr "فتح تطبيق السائق"
+
+msgid "Hipersign user (driver app login)"
+msgstr "مستخدم هايبرساين (دخول تطبيق السائق)"
+
+msgid "Driver"
+msgstr "سائق"
+
+msgid "UAE documents & WPS"
+msgstr "المستندات الإماراتية ونظام حماية الأجور"
+
+msgid "Emirates ID no."
+msgstr "رقم الهوية الإماراتية"
+
+msgid "Emirates ID expiry"
+msgstr "انتهاء الهوية الإماراتية"
+
+msgid "Residence visa expiry"
+msgstr "انتهاء الإقامة"
+
+msgid "Labour card / MOHRE person ID"
+msgstr "بطاقة العمل / الرقم الشخصي"
+
+msgid "Labour card expiry"
+msgstr "انتهاء بطاقة العمل"
+
+msgid "Bank routing code (WPS)"
+msgstr "رمز توجيه البنك (WPS)"
+
+msgid "WPS salary file (SIF)"
+msgstr "ملف رواتب WPS"
+
+msgid "Resolution"
+msgstr "المعالجة"
+
+msgid "Repair"
+msgstr "إصلاح"
+
+msgid "Replace"
+msgstr "استبدال"
+
+msgid "Reject"
+msgstr "رفض"
+
+msgid "Replacement serial no."
+msgstr "الرقم التسلسلي البديل"
+
+msgid "Supplier RMA no."
+msgstr "رقم إرجاع المورد"
+
+msgid "Serial & Warranty Look-up"
+msgstr "البحث بالرقم التسلسلي والضمان"
+
+msgid "Scan or type a serial number"
+msgstr "امسح أو اكتب الرقم التسلسلي"
+
+msgid "Register warranty claim"
+msgstr "تسجيل مطالبة ضمان"
+
+msgid "Under warranty"
+msgstr "ضمن الضمان"
+
+msgid "Warranty expired"
+msgstr "انتهى الضمان"
+
+msgid "In stock"
+msgstr "في المخزون"
+
+msgid "Warranty until"
+msgstr "الضمان حتى"
+
+msgid "Open warranty claims"
+msgstr "مطالبات ضمان مفتوحة"
+
+msgid "Warranty look-up"
+msgstr "البحث عن الضمان"
+
+msgid "Statement of account"
+msgstr "كشف الحساب"
+
+msgid "Warranty"
+msgstr "الضمان"
+
+msgid "Balance due"
+msgstr "الرصيد المستحق"
+
+msgid "Overdue"
+msgstr "متأخر"
+
+msgid "Cheques with us"
+msgstr "شيكاتكم لدينا"
+
+msgid "Your post-dated cheques with us"
+msgstr "شيكاتكم المؤجلة لدينا"
+
+msgid "Your warranty claims"
+msgstr "مطالبات الضمان الخاصة بكم"
+
+msgid "Active"
+msgstr "ساري"
+
+msgid "Expired"
+msgstr "منتهي"
+
+msgid "Hipersign Finance"
+msgstr "هايبرساين — المالية"
+
+msgid "Hipersign Sales"
+msgstr "هايبرساين — المبيعات"
+
+msgid "Hipersign Warehouse"
+msgstr "هايبرساين — المستودع"
+
+msgid "Hipersign HR"
+msgstr "هايبرساين — الموارد البشرية"
+
+msgid "Hipersign Trading"
+msgstr "هايبرساين للتجارة"
+
+msgid "Finance — what needs you today"
+msgstr "المالية — ما يحتاجك اليوم"
+
+msgid "Sales — your pipeline and orders"
+msgstr "المبيعات — فرصك وطلباتك"
+
+msgid "Warehouse & delivery — today"
+msgstr "المستودع والتسليم — اليوم"
+
+msgid "People — documents, leave and payroll"
+msgstr "الموظفون — المستندات والإجازات والرواتب"
+
+msgid "Quick actions"
+msgstr "إجراءات سريعة"
+
+msgid "Employees"
+msgstr "الموظفون"
+
+msgid "Visas expiring ≤ 60 days"
+msgstr "إقامات تنتهي خلال 60 يوماً"
+
+msgid "Import Shipment"
+msgstr "شحنة استيراد"
+
+msgid "Export Shipment"
+msgstr "شحنة تصدير"
+
+msgid "Credit Limit Request"
+msgstr "طلب حد ائتمان"
+
+msgid "Hipersign Settings"
+msgstr "إعدادات هايبرساين"
+
+msgid "Sales Order Tracker"
+msgstr "متابعة أوامر البيع"
+
+msgid "Create New"
+msgstr "إنشاء جديد"
+
+msgid "Bank account for cheques"
+msgstr "الحساب البنكي للشيكات"
+
+msgid "Bank charges account"
+msgstr "حساب الرسوم البنكية"
+
+msgid "Returned cheque charge"
+msgstr "رسوم الشيك المرتجع"
+
+msgid "Remind before cheque date (days)"
+msgstr "التذكير قبل تاريخ الشيك (أيام)"
+
+msgid "MOHRE establishment ID"
+msgstr "رقم المنشأة لدى الوزارة"
+
+msgid "Employer bank routing code"
+msgstr "رمز توجيه بنك صاحب العمل"
+
+msgid "Warn before employee documents expire (days)"
+msgstr "التنبيه قبل انتهاء مستندات الموظف (أيام)"
+
+msgid "Returns & warranty"
+msgstr "المرتجعات والضمان"
+
+msgid "People & assets"
+msgstr "الموظفون والأصول"
+
+msgid "Receivables"
+msgstr "الذمم المدينة"
+
+msgid "Payables & bank"
+msgstr "الذمم الدائنة والبنك"
+
+msgid "Reports & VAT"
+msgstr "التقارير والضريبة"
+
+msgid "Customers"
+msgstr "العملاء"
+
+msgid "Documents"
+msgstr "المستندات"
+
+msgid "After sales"
+msgstr "ما بعد البيع"
+
+msgid "Stock"
+msgstr "المخزون"
+
+msgid "Delivery"
+msgstr "التسليم"
+
+msgid "Serials & warranty"
+msgstr "الأرقام التسلسلية والضمان"
+
+msgid "People"
+msgstr "الموظفون"
+
+msgid "Payroll & WPS"
+msgstr "الرواتب ونظام حماية الأجور"
+
+msgid "Assets"
+msgstr "الأصول"
+
+msgid "Letter of Credit"
+msgstr "خطاب اعتماد"
+
+msgid "Letters of credit"
+msgstr "خطابات الاعتماد"
+
+msgid "Open letters of credit"
+msgstr "خطابات اعتماد مفتوحة"
+
+msgid "Tax Return"
+msgstr "إقرار ضريبي"
+
+msgid "Tax returns to approve"
+msgstr "إقرارات ضريبية بانتظار الاعتماد"
+
+msgid "VAT 201"
+msgstr "إقرار ضريبة القيمة المضافة 201"
+
+msgid "Corporate Tax"
+msgstr "ضريبة الشركات"
+
+msgid "Approve & lock"
+msgstr "اعتماد وإقفال"
+
+msgid "Filed on EmaraTax"
+msgstr "مُقدَّم عبر إمارات تاكس"
+
+msgid "Send for approval"
+msgstr "إرسال للاعتماد"
+
+msgid "Return for correction"
+msgstr "إعادة للتصحيح"
+
+msgid "Refresh figures"
+msgstr "تحديث الأرقام"
+
+msgid "Record payment"
+msgstr "تسجيل الدفع"
+
+msgid "Hipersign Smart Reorder"
+msgstr "إعادة الطلب الذكية"
+
+msgid "Create purchase orders"
+msgstr "إنشاء أوامر شراء"
+
+msgid "Suggested qty"
+msgstr "الكمية المقترحة"
+
+msgid "Reorder point"
+msgstr "نقطة إعادة الطلب"
+
+msgid "Safety stock"
+msgstr "مخزون الأمان"
+
+msgid "Lead time (days)"
+msgstr "مدة التوريد (أيام)"
+
+msgid "Orders waiting for an advance"
+msgstr "طلبات بانتظار الدفعة المقدمة"
+
+msgid "Advance required"
+msgstr "الدفعة المقدمة المطلوبة"
+
+msgid "Advance"
+msgstr "الدفعة المقدمة"
+
+msgid "Receive advance"
+msgstr "استلام دفعة مقدمة"
+
+msgid "Advance before delivery"
+msgstr "الدفعة المقدمة قبل التسليم"
+
+msgid "Waiting"
+msgstr "بانتظار"
+
+msgid "Part received"
+msgstr "مستلمة جزئياً"
+
+msgid "Not required"
+msgstr "غير مطلوبة"
+
+msgid "Advance — to be received before delivery"
+msgstr "دفعة مقدمة — تُستلم قبل التسليم"
+
+msgid "KYC & compliance"
+msgstr "اعرف عميلك والامتثال"
+
+msgid "KYC status"
+msgstr "حالة اعرف عميلك"
+
+msgid "Trade licence no."
+msgstr "رقم الرخصة التجارية"
+
+msgid "Trade licence expiry"
+msgstr "انتهاء الرخصة التجارية"
+
+msgid "Issued by"
+msgstr "جهة الإصدار"
+
+msgid "Verified"
+msgstr "تم التحقق"
+
+msgid "Blocked"
+msgstr "محظور"
+
+msgid "Customers with KYC expired or blocked"
+msgstr "عملاء بحالة تحقق منتهية أو محظورة"
+
+msgid "KYC notes"
+msgstr "ملاحظات التحقق"
+
+msgid "Collection"
+msgstr "التحصيل"
+
+msgid "Collection stage"
+msgstr "مرحلة التحصيل"
+
+msgid "Last reminder"
+msgstr "آخر تذكير"
+
+msgid "Promise to pay"
+msgstr "وعد بالدفع"
+
+msgid "Customer promised to pay on"
+msgstr "وعد العميل بالدفع في"
+
+msgid "Promised amount"
+msgstr "المبلغ الموعود"
+
+msgid "Collection notes"
+msgstr "ملاحظات التحصيل"
+
+msgid "Invoices with a promise to pay"
+msgstr "فواتير بوعد دفع"
+
+msgid "Friendly reminder"
+msgstr "تذكير ودي"
+
+msgid "Second reminder"
+msgstr "تذكير ثانٍ"
+
+msgid "Final notice"
+msgstr "إنذار نهائي"
+
+msgid "Hold new orders"
+msgstr "إيقاف الطلبات الجديدة"
+
+msgid "Send reminder on WhatsApp"
+msgstr "إرسال تذكير عبر واتساب"
+
+msgid "Model / part no."
+msgstr "الطراز / رقم القطعة"
+
+msgid "Group"
+msgstr "المجموعة"
+
+msgid "Owned by the group (%)"
+msgstr "نسبة ملكية المجموعة (%)"
+
+msgid "Minority partner"
+msgstr "الشريك الأقلية"
+
+msgid "Role in the group"
+msgstr "الدور في المجموعة"
+
+msgid "Advances & collections"
+msgstr "الدفعات المقدمة والتحصيل"
+
+msgid "Trade finance"
+msgstr "تمويل التجارة"
+
+msgid "Tax & period end"
+msgstr "الضرائب وإقفال الفترة"
+
+msgid "Group companies"
+msgstr "شركات المجموعة"
+
+msgid "Purchasing"
+msgstr "المشتريات"
+
+msgid "Reservations & picking"
+msgstr "الحجز والانتقاء"
+
+msgid "Advances & KYC"
+msgstr "الدفعات المقدمة والتحقق"
+
+msgid "Expenses & advances"
+msgstr "المصروفات والسلف"
+
+msgid "Trade finance & compliance"
+msgstr "تمويل التجارة والامتثال"
+
+msgid "Cash margin"
+msgstr "التأمين النقدي"
+
+msgid "Trust receipt (bank finance)"
+msgstr "إيصال أمانة (تمويل بنكي)"
+
+msgid "Issued by the bank"
+msgstr "صادر من البنك"
+
+msgid "Documents presented"
+msgstr "تم تقديم المستندات"
+
+msgid "Accepted"
+msgstr "مقبول"
+
+msgid "Paid"
+msgstr "مدفوع"
+
+msgid "Margin journal entry"
+msgstr "قيد التأمين النقدي"
+
+msgid "Trust receipt journal entry"
+msgstr "قيد إيصال الأمانة"
+
+msgid "Expiry date"
+msgstr "تاريخ الانتهاء"
+
+msgid "LC number"
+msgstr "رقم الاعتماد"
+
+msgid "Net VAT payable / (refundable)"
+msgstr "صافي الضريبة المستحقة / (المستردة)"
+
+msgid "EmaraTax reference"
+msgstr "مرجع إمارات تاكس"
+
+msgid "Return & payment due"
+msgstr "موعد الإقرار والدفع"
+
+msgid "Locked accounting period"
+msgstr "الفترة المحاسبية المقفلة"

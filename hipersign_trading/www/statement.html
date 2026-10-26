@@ -1,0 +1,25 @@
+{% extends "templates/web.html" %}
+{% block title %}{{ _("Statement of account") }}{% endblock %}
+{% block header %}<h3>{{ _("Statement of account") }} — {{ customer.customer_name }}</h3>{% endblock %}
+{% block page_content %}
+<div class="row" style="margin-bottom:16px">
+	<div class="col-sm-4"><div class="card p-3"><small class="text-muted">{{ _("Balance due") }}</small><h4>{{ frappe.format(balance, {"fieldtype": "Currency", "options": currency}) }}</h4></div></div>
+	<div class="col-sm-4"><div class="card p-3"><small class="text-muted">{{ _("Overdue") }}</small><h4 class="{{ 'text-danger' if overdue else '' }}">{{ frappe.format(overdue, {"fieldtype": "Currency", "options": currency}) }}</h4></div></div>
+	<div class="col-sm-4"><div class="card p-3"><small class="text-muted">{{ _("Cheques with us") }}</small><h4>{{ pdcs|length }}</h4></div></div>
+</div>
+<table class="table table-sm">
+	<thead><tr><th>{{ _("Date") }}</th><th>{{ _("Reference") }}</th><th>{{ _("Description") }}</th><th class="text-right">{{ _("Debit") }}</th><th class="text-right">{{ _("Credit") }}</th><th class="text-right">{{ _("Balance") }}</th></tr></thead>
+	<tbody>{% for r in rows %}<tr>
+		<td>{{ frappe.format(r.date, {"fieldtype": "Date"}) }}</td>
+		<td>{% if r.doctype %}<a href="/printview?doctype={{ r.doctype }}&name={{ r.ref }}&format=Hipersign%20Tax%20Invoice" target="_blank">{{ r.ref }}</a>{% else %}{{ r.ref }}{% endif %}</td>
+		<td>{{ r.desc }}</td>
+		<td class="text-right">{{ frappe.format(r.debit, {"fieldtype": "Currency", "options": currency}) if r.debit else "" }}</td>
+		<td class="text-right">{{ frappe.format(r.credit, {"fieldtype": "Currency", "options": currency}) if r.credit else "" }}</td>
+		<td class="text-right"><b>{{ frappe.format(r.balance, {"fieldtype": "Currency", "options": currency}) }}</b></td>
+	</tr>{% else %}<tr><td colspan="6" class="text-muted">{{ _("No transactions yet.") }}</td></tr>{% endfor %}</tbody>
+</table>
+{% if pdcs %}<h5 style="margin-top:20px">{{ _("Your post-dated cheques with us") }}</h5>
+<table class="table table-sm"><thead><tr><th>{{ _("Cheque") }}</th><th>{{ _("Cheque date") }}</th><th class="text-right">{{ _("Amount") }}</th><th>{{ _("Status") }}</th></tr></thead>
+<tbody>{% for p in pdcs %}<tr><td>{{ p.cheque_no }}</td><td>{{ frappe.format(p.cheque_date, {"fieldtype": "Date"}) }}</td><td class="text-right">{{ frappe.format(p.amount, {"fieldtype": "Currency", "options": currency}) }}</td><td>{{ _(p.status) }}</td></tr>{% endfor %}</tbody></table>{% endif %}
+<p class="text-muted small">{{ _("Questions about your account? Reply to any invoice email or call your account manager.") }}</p>
+{% endblock %}

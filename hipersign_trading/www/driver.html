@@ -1,0 +1,76 @@
+{% extends "templates/web.html" %}
+{% block title %}Hipersign Driver{% endblock %}
+{% block style %}
+<style>
+.hd{max-width:520px;margin:0 auto;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:#13235b}
+.hd-bar{background:linear-gradient(135deg,#13235b,#2443b8);color:#fff;padding:16px;border-radius:0 0 18px 18px;display:flex;gap:10px;align-items:center}
+.hd-bar b{font-size:17px}.hd-bar small{opacity:.8;display:block}.hd-body{padding:12px;display:flex;flex-direction:column;gap:10px}
+.hd-card{background:#fff;border:1px solid #e3e8f2;border-radius:14px;padding:12px}.hd-card p{margin:4px 0;color:#5d6b8a;font-size:13px}
+.hd-stop{display:flex;gap:10px;align-items:center;width:100%;text-align:left;background:#fff;border:1px solid #e3e8f2;border-radius:14px;padding:12px}
+.hd-n{width:28px;height:28px;border-radius:50%;background:#2563eb;color:#fff;display:grid;place-items:center;font-weight:700;flex:none}
+.hd-btn{display:block;width:100%;padding:13px;border-radius:12px;border:1px solid #d5dcea;background:#fff;font-weight:600;font-size:15px;margin-top:6px}
+.hd-btn.p{background:#2563eb;color:#fff;border-color:#2563eb}.hd-btn.g{background:#16a34a;color:#fff;border-color:#16a34a}
+.hd-chk{display:flex;gap:10px;padding:8px 0;border-top:1px solid #eef1f7;font-size:14px}.hd-chk input{width:22px;height:22px}
+#sig{width:100%;height:150px;border:1.5px dashed #c9d1e3;border-radius:10px;touch-action:none;background:#fff}
+.hd-in{width:100%;padding:11px;border:1px solid #d5dcea;border-radius:10px;font-size:15px}.hd-photo{width:100%;border-radius:10px;margin-top:6px}
+.hd-badge{font-size:11px;padding:2px 8px;border-radius:10px;background:#e8efff;color:#2443b8;margin-left:auto}.hd-muted{color:#5d6b8a;font-size:12px}
+</style>
+{% endblock %}
+{% block page_content %}
+<div class="hd" id="hd"><div class="hd-bar"><b>Hipersign Driver</b></div><div class="hd-body"><p class="hd-muted">Loading…</p></div></div>
+<script>
+(() => {
+	const root = document.getElementById("hd");
+	let data = null, stop = null, sig = null, photo = null, gps = "";
+	const esc = (s) => String(s == null ? "" : s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+	const call = (method, args) => frappe.call({ method: "hipersign_trading.api.driver." + method, args: args || {} });
+	if (navigator.geolocation) navigator.geolocation.getCurrentPosition((p) => (gps = p.coords.latitude.toFixed(5) + ", " + p.coords.longitude.toFixed(5)), () => {});
+	const load = () => call("my_stops").then((r) => { data = r.message; render(); });
+	function render() {
+		if (stop) return renderStop();
+		root.innerHTML = `<div class="hd-bar"><div><b>${esc(data.driver)}</b><small>${frappe.datetime.str_to_user(frappe.datetime.get_today())}</small></div><a href="/?cmd=web_logout" style="margin-left:auto;color:#fff;font-size:13px">Log out</a></div>
+		<div class="hd-body"><div class="hd-card"><b>${data.stops.length}</b> to deliver · <b>${data.done.length}</b> delivered today</div>
+		${data.stops.map((s, i) => `<button class="hd-stop" data-i="${i}"><span class="hd-n">${i + 1}</span><div><b>${esc(s.customer_name)}</b><p class="hd-muted">${esc(s.name)} · ${s.items.length} item(s)</p></div><span class="hd-badge">${esc(s.hs_delivery_status === "Out for Delivery" ? "On trip" : "Load")}</span></button>`).join("") || '<div class="hd-card">No stops — all deliveries are done.</div>'}
+		${data.done.map((d) => `<div class="hd-card">✓ <b>${esc(d.customer_name)}</b><p>${esc(d.name)} · signed by ${esc(d.hs_received_by)}</p></div>`).join("")}</div>`;
+		root.querySelectorAll(".hd-stop").forEach((b) => (b.onclick = () => { stop = data.stops[+b.dataset.i]; sig = photo = null; render(); }));
+	}
+	function renderStop() {
+		const s = stop, onTrip = s.hs_delivery_status === "Out for Delivery";
+		const addr = (s.address_display || "").replace(/<br>/g, ", ");
+		root.innerHTML = `<div class="hd-bar"><button id="back" style="background:rgba(255,255,255,.15);border:0;color:#fff;border-radius:10px;width:34px;height:34px">‹</button><b>${esc(s.name)}</b></div><div class="hd-body">
+		<div class="hd-card"><b>${esc(s.customer_name)}</b><p>${esc(addr)}</p>${s.contact_mobile ? `<a class="hd-btn" href="tel:${esc(s.contact_mobile)}">Call ${esc(s.contact_display || "")}</a>` : ""}<a class="hd-btn" target="_blank" href="https://maps.google.com/?q=${encodeURIComponent(addr)}">Navigate</a></div>
+		<div class="hd-card"><b>Check items</b>${s.items.map((it, k) => `<label class="hd-chk"><input type="checkbox" class="ck"> ${esc(it.qty)} ${esc(it.uom)} × ${esc(it.item_name)}</label>`).join("")}</div>
+		${!onTrip ? `<button class="hd-btn p" id="start">Start trip</button>` : `
+		<div class="hd-card"><b>Received by</b><input class="hd-in" id="rcv" value="${esc(s.contact_display || "")}"></div>
+		<div class="hd-card"><b>Signature</b> <a href="#" id="clr" style="float:right">Clear</a><canvas id="sig" width="600" height="300"></canvas></div>
+		<div class="hd-card"><b>Photo of delivered goods</b>${photo ? `<img class="hd-photo" src="${photo}">` : ""}<label class="hd-btn">${photo ? "Retake" : "Take photo"}<input type="file" accept="image/*" capture="environment" id="ph" hidden></label></div>
+		<p class="hd-muted" style="text-align:center">GPS ${esc(gps || "—")}</p>
+		<button class="hd-btn g" id="done">Confirm delivery</button><button class="hd-btn" id="fail">Could not deliver</button>`}</div>`;
+		root.querySelector("#back").onclick = () => { stop = null; load(); };
+		const st = root.querySelector("#start"); if (st) st.onclick = () => call("start_trip", { dn: s.name }).then(() => { s.hs_delivery_status = "Out for Delivery"; render(); });
+		const cv = root.querySelector("#sig");
+		if (cv) {
+			const x = cv.getContext("2d"); x.lineWidth = 3; x.lineCap = "round"; let dn = false;
+			const pt = (e) => { const r = cv.getBoundingClientRect(); return [(e.clientX - r.left) * cv.width / r.width, (e.clientY - r.top) * cv.height / r.height]; };
+			cv.onpointerdown = (e) => { dn = true; cv.setPointerCapture(e.pointerId); x.beginPath(); x.moveTo(...pt(e)); };
+			cv.onpointermove = (e) => { if (dn) { x.lineTo(...pt(e)); x.stroke(); } };
+			cv.onpointerup = () => { dn = false; sig = cv.toDataURL("image/png"); };
+			root.querySelector("#clr").onclick = (e) => { e.preventDefault(); x.clearRect(0, 0, cv.width, cv.height); sig = null; };
+			root.querySelector("#ph").onchange = (e) => {
+				const f = e.target.files[0]; if (!f) return; const rd = new FileReader();
+				rd.onload = () => { const im = new Image(); im.onload = () => { const c = document.createElement("canvas"), k = Math.min(1, 1200 / Math.max(im.width, im.height)); c.width = im.width * k; c.height = im.height * k; c.getContext("2d").drawImage(im, 0, 0, c.width, c.height); photo = c.toDataURL("image/jpeg", 0.75); const keep = sig; renderStop(); sig = keep; }; im.src = rd.result; };
+				rd.readAsDataURL(f);
+			};
+			root.querySelector("#done").onclick = () => {
+				if ([...root.querySelectorAll(".ck")].some((c) => !c.checked)) return frappe.msgprint("Tick every item first.");
+				if (!sig) return frappe.msgprint("The receiver must sign.");
+				call("confirm_delivery", { dn: s.name, received_by: root.querySelector("#rcv").value, signature: sig, photo, gps }).then(() => { frappe.show_alert({ message: "Delivered", indicator: "green" }); stop = null; load(); });
+			};
+			root.querySelector("#fail").onclick = () => frappe.prompt({ fieldname: "reason", fieldtype: "Select", label: "Reason", options: ["Site closed", "Customer not available", "Wrong address", "Customer refused — damaged", "Access not permitted"].join("\n"), reqd: 1 },
+				(v) => call("report_failure", { dn: s.name, reason: v.reason }).then(() => { stop = null; load(); }));
+		}
+	}
+	frappe.ready ? frappe.ready(load) : document.addEventListener("DOMContentLoaded", load);
+})();
+</script>
+{% endblock %}

@@ -1,0 +1,273 @@
+{
+ "doctype": "Workspace",
+ "label": "Hipersign HR",
+ "title": "Hipersign HR",
+ "public": 1,
+ "is_hidden": 0,
+ "icon": "hr",
+ "indicator_color": "",
+ "sequence_id": 5,
+ "content": "[{\"id\": \"CXlMaXZjlj\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>People — documents, leave and payroll</b></span>\", \"col\": 12}}, {\"id\": \"ENUhJduRHH\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"HS Active Employees\", \"col\": 3}}, {\"id\": \"JEYXg4Jdpm\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"HS Visas Expiring\", \"col\": 3}}, {\"id\": \"rcXgGCJbW5\", \"type\": \"spacer\", \"data\": {\"col\": 12}}, {\"id\": \"6eCuNGMGmS\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Quick actions</b></span>\", \"col\": 12}}, {\"id\": \"rCGIZEG8pS\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Employee\", \"col\": 3}}, {\"id\": \"H4487q7J58\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Leave Application\", \"col\": 3}}, {\"id\": \"m1CiAhzCue\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Payroll Entry\", \"col\": 3}}, {\"id\": \"QpBenQtYh5\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Asset\", \"col\": 3}}, {\"id\": \"Xj8TPQxjq4\", \"type\": \"spacer\", \"data\": {\"col\": 12}}, {\"id\": \"i9DoV8gz4F\", \"type\": \"card\", \"data\": {\"card_name\": \"People\", \"col\": 4}}, {\"id\": \"kQ1okTBGzv\", \"type\": \"card\", \"data\": {\"card_name\": \"Payroll & WPS\", \"col\": 4}}, {\"id\": \"AmwufUxbvJ\", \"type\": \"card\", \"data\": {\"card_name\": \"Assets\", \"col\": 4}}, {\"id\": \"WJoleSrcBr\", \"type\": \"card\", \"data\": {\"card_name\": \"Expenses & advances\", \"col\": 4}}]",
+ "charts": [],
+ "number_cards": [
+  {
+   "number_card_name": "HS Active Employees",
+   "label": "Employees"
+  },
+  {
+   "number_card_name": "HS Visas Expiring",
+   "label": "Visas expiring ≤ 60 days"
+  }
+ ],
+ "shortcuts": [
+  {
+   "label": "Employee",
+   "type": "DocType",
+   "link_to": "Employee",
+   "color": "Blue",
+   "doc_view": "List",
+   "kanban_board": null,
+   "stats_filter": "[]",
+   "format": ""
+  },
+  {
+   "label": "Leave Application",
+   "type": "DocType",
+   "link_to": "Leave Application",
+   "color": "Green",
+   "doc_view": "List",
+   "kanban_board": null,
+   "stats_filter": "[]",
+   "format": ""
+  },
+  {
+   "label": "Payroll Entry",
+   "type": "DocType",
+   "link_to": "Payroll Entry",
+   "color": "Orange",
+   "doc_view": "List",
+   "kanban_board": null,
+   "stats_filter": "[]",
+   "format": ""
+  },
+  {
+   "label": "Asset",
+   "type": "DocType",
+   "link_to": "Asset",
+   "color": "Grey",
+   "doc_view": "List",
+   "kanban_board": null,
+   "stats_filter": "[]",
+   "format": ""
+  }
+ ],
+ "links": [
+  {
+   "type": "Card Break",
+   "label": "People",
+   "link_count": 3,
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "link_type": null,
+   "link_to": null,
+   "dependencies": ""
+  },
+  {
+   "type": "Link",
+   "label": "Employee",
+   "link_type": "DocType",
+   "link_to": "Employee",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Leave Application",
+   "link_type": "DocType",
+   "link_to": "Leave Application",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Attendance",
+   "link_type": "DocType",
+   "link_to": "Attendance",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Card Break",
+   "label": "Payroll & WPS",
+   "link_count": 4,
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "link_type": null,
+   "link_to": null,
+   "dependencies": ""
+  },
+  {
+   "type": "Link",
+   "label": "Salary Structure",
+   "link_type": "DocType",
+   "link_to": "Salary Structure",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Payroll Entry",
+   "link_type": "DocType",
+   "link_to": "Payroll Entry",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Salary Slip",
+   "link_type": "DocType",
+   "link_to": "Salary Slip",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Gratuity",
+   "link_type": "DocType",
+   "link_to": "Gratuity",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Card Break",
+   "label": "Assets",
+   "link_count": 3,
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "link_type": null,
+   "link_to": null,
+   "dependencies": ""
+  },
+  {
+   "type": "Link",
+   "label": "Asset",
+   "link_type": "DocType",
+   "link_to": "Asset",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Asset Maintenance",
+   "link_type": "DocType",
+   "link_to": "Asset Maintenance",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Asset Movement",
+   "link_type": "DocType",
+   "link_to": "Asset Movement",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Card Break",
+   "label": "Expenses & advances",
+   "link_count": 3,
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "link_type": null,
+   "link_to": null,
+   "dependencies": ""
+  },
+  {
+   "type": "Link",
+   "label": "Expense Claim",
+   "link_type": "DocType",
+   "link_to": "Expense Claim",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Employee Advance",
+   "link_type": "DocType",
+   "link_to": "Employee Advance",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  },
+  {
+   "type": "Link",
+   "label": "Expense Claim Type",
+   "link_type": "DocType",
+   "link_to": "Expense Claim Type",
+   "hidden": 0,
+   "onboard": 0,
+   "is_query_report": 0,
+   "dependencies": "",
+   "link_count": 0
+  }
+ ],
+ "roles": [
+  {
+   "role": "HR User"
+  },
+  {
+   "role": "HR Manager"
+  }
+ ],
+ "extends_another_page": 0,
+ "for_user": "",
+ "parent_page": "",
+ "restrict_to_domain": "",
+ "hide_custom": 0,
+ "custom_blocks": [],
+ "quick_lists": [],
+ "name": "Hipersign HR",
+ "module": "Hipersign Trading",
+ "owner": "Administrator",
+ "creation": "2026-10-22 18:00:00.000000",
+ "modified": "2026-10-24 12:00:00.000000"
+}

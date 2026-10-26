@@ -1,0 +1,19 @@
+{
+ "doctype": "Number Card",
+ "label": "Post-dated cheques in hand",
+ "is_public": 1,
+ "is_standard": 1,
+ "show_percentage_stats": 0,
+ "stats_time_interval": "Monthly",
+ "color": "#2563eb",
+ "type": "Document Type",
+ "document_type": "Post Dated Cheque",
+ "function": "Sum",
+ "filters_json": "[[\"Post Dated Cheque\", \"status\", \"=\", \"In Hand\", false], [\"Post Dated Cheque\", \"direction\", \"=\", \"Received\", false]]",
+ "name": "HS Cheques In Hand",
+ "module": "Hipersign Trading",
+ "owner": "Administrator",
+ "creation": "2026-10-22 18:00:00.000000",
+ "modified": "2026-10-22 18:00:00.000000",
+ "aggregate_function_based_on": "amount"
+}

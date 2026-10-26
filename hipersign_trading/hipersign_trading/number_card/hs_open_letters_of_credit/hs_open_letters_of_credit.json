@@ -1,0 +1,19 @@
+{
+ "doctype": "Number Card",
+ "label": "Open letters of credit",
+ "is_public": 1,
+ "is_standard": 1,
+ "show_percentage_stats": 0,
+ "stats_time_interval": "Monthly",
+ "color": null,
+ "type": "Document Type",
+ "document_type": "Letter of Credit",
+ "function": "Sum",
+ "filters_json": "[[\"Letter of Credit\", \"status\", \"in\", [\"Applied\", \"Issued\", \"Documents Presented\", \"Accepted\"], false]]",
+ "name": "HS Open Letters Of Credit",
+ "module": "Hipersign Trading",
+ "owner": "Administrator",
+ "creation": "2026-10-24 12:00:00.000000",
+ "modified": "2026-10-24 12:00:00.000000",
+ "aggregate_function_based_on": "base_amount"
+}

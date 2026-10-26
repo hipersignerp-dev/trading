@@ -1,0 +1,48 @@
+# Test scripts on the demo site (mirrors the prototype Test Centre)
+
+| ID | Log in as | Steps | Expected |
+|---|---|---|---|
+| PUR-01 | Buyer | New Purchase Order for Global Supplies (USD) above AED 100,000 → Submit for Approval | Goes to Purchase Manager, then Finance Manager |
+| IMP-01 | Logistics | Open the shipment *Under Customs Clearance* → Move to Cleared | Blocked until Bill of Entry and all documents are on file |
+| IMP-02 | Storekeeper | Try a Purchase Receipt for the PO of a shipment not yet cleared | Blocked: "Goods can be received only after customs clearance" |
+| LC-01 | Accountant | Cleared shipment → Landed cost voucher → Submit | Charges spread over received items; valuation rises |
+| SAL-01 | Sales Executive | Sales Order for Al Noor at list rate → Submit | Approved directly (Contractor −5%) |
+| SAL-02 | Sales Executive | Sales Order with a 15% discount → Submit for Approval | Pending Sales Manager |
+| SAL-03 | Finance Manager | Approve the Elite Systems order | Credit check explained in *Approval reason*; order released |
+| CRD-01 | Sales Executive | Raise a customer credit limit | Limit stays; Credit Limit Request pending Finance Manager |
+| QTN-01 | Sales Executive | Quotation with items, a service and printed terms → Send → WhatsApp | Bilingual quotation; wa.me opens with an expiring PDF link |
+| TRK-01 | Sales Manager | Sales Order Tracker → hover each stage → Reports → Statement of Account | Stage popups and party ledger |
+| CRM-01 | Sales Executive | Lead → Log activity, move stage on Hipersign Lead Pipeline board | Stage, probability and next follow-up saved; ToDo created when due |
+| EXP-01 | Sales Executive | Export Sales Order for Muscat Integrated Systems | Zero-rated export tax template; Proforma print |
+| EXP-02 | Logistics | Export Shipment → Pack → export invoice → declaration → Shipped | Steps blocked until invoice, declaration, BL/CMR and CoO exist |
+| EXP-03 | Accountant | Kenya shipment → tick LC documents → Documents Complete | Proof of export recorded; daily alert stops |
+| DSH-01 | Managing Director | Hipersign Trading workspace | Gross and net profit cards, sales/purchases charts |
+| HOME-01 | Accountant, Sales Manager, Warehouse Manager | Log in | Each lands on their own workspace with their own cards |
+| RET-01 | Sales Executive | Sales Invoice → Create → Return / Credit Note, pick a reason → Submit | Blocked: "must be approved by the Sales Manager" |
+| RET-02 | Sales Manager | Submit the pending Al Noor credit note → Print (Hipersign Tax Invoice) | Prints as **TAX CREDIT NOTE** with the original invoice and reason; outstanding falls |
+| PDC-01 | Accountant | Post Dated Cheque 000418 (date reached) → Deposit → Cleared | Payment Entry (mode Cheque) created; Horizon's invoice outstanding falls |
+| PDC-02 | Accountant | Cheque 553019 (deposited) → Bounced | Bank charges journal posted; customer's *Bounced cheques* +1; invoice stays open |
+| PDC-03 | Accountant | Bounced cheque → Replacement cheque | New cheque in hand; old one marked Replaced |
+| SER-01 | Warehouse Manager | Serial & Warranty Look-up → scan an ACR-… serial | Customer, delivery note and warranty end date shown |
+| SER-02 | Warehouse Manager | Look-up → Register warranty claim → Resolution Replace + replacement serial | Claim saved with warranty status filled in |
+| DRV-01 | Driver (phone) | `/driver` → open stop → tick items → sign → photo → Confirm | Delivery Note shows Delivered, receiver, signature, photo, GPS; print shows the signature |
+| PRT-01 | Customer (portal user) | `/me` → Statement of account, Warranty, Invoices | Own ledger with cheques; own serialised units with warranty |
+| HR-01 | HR Manager | Employee → UAE documents → set visa expiry in 30 days; run `bench execute hipersign_trading.tasks.employee_document_alerts` | ToDo for HR Manager |
+| WPS-01 | HR Manager | Submitted Payroll Entry → Hipersign → WPS salary file (SIF) | .SIF file with EDR lines per employee and the SCR total line |
+| BNK-01 | Accountant | Bank Statement Import → Bank Reconciliation Tool | Statement lines matched to payments |
+| MST-07 | Sales Manager | Open item ITM-002, customer Al Noor LLC, supplier EuroSafe | Brand/model, Carton = 100 Nos, weight, minimum order, default supplier; territory, sales person, website; supplier lead time |
+| ADV-01 | Warehouse Manager | Al Noor order **ANL/PO/7802** (50% advance terms) → Create → Delivery Note / Pick List → Submit | Blocked: "Advance before delivery … has not been received" |
+| ADV-02 | Accountant | Same order → Create → Receive advance → Submit the Payment Entry; try the delivery again | Advance status *Received*; delivery allowed; on the invoice *Get advances* applies it |
+| ADV-03 | Finance Manager | Future Build order **FB/PO/0951** | Advance status *Received*; stock reserved; draft Pick List ready |
+| COL-01 | Accountant | Gulf Projects invoice → Collection → Promise to pay; run `bench execute hipersign_trading.tasks.collection_reminders` | Promised invoices are skipped; other overdue invoices get their stage and a ToDo |
+| COL-02 | Sales Executive | New Sales Order for a customer with an invoice more than 60 days overdue | *Approval needed: … collections hold* → goes to the Finance Manager |
+| KYC-01 | Sales Manager | Approve the pending Gulf Projects order (GP-2026-344) | Blocked: trade licence expired / KYC blocked; drafts and quotations still allowed |
+| KYC-02 | Sales Manager | Customer Gulf Projects → KYC: new expiry date next year, status Verified → approve the order again | Order confirmed |
+| PUR-02 | Buyer | Request for Quotation from *Ceiling speakers restock* → Supplier Quotation Comparison | Both supplier offers side by side in AED with lead times |
+| RO-01 | Buyer | Report **Hipersign Smart Reorder** → Create purchase orders | Suggestions rounded to cartons, not below minimum order, grouped by default supplier into draft POs |
+| LC-02 | Accountant | Letter of Credit MSQ-ILC-26-1107 (accepted, usance 90) | Maturity date and trust receipt due/interest shown; Create → Trust receipt journal entry (draft) |
+| LC-03 | Purchase Manager | Letter of Credit ENBD-ILC-26-0418 | Expiry warning on the form; ToDo from `letter_of_credit_alerts` |
+| VAT-01 | Finance Manager | Tax Return for last month (Pending Finance Manager) → Approve & lock → Filed on EmaraTax (reference) → Record payment | Status Approved → Submitted → Paid; an Accounting Period now refuses invoices dated in that month |
+| FX-01 | Finance Manager | Exchange Rate Revaluation (draft, last month end) → Submit → Make journal entries | Unrealised gain/loss on EUR/CNY balances; reversal journal on the 1st |
+| GRP-01 | Finance Manager | Consolidated Financial Statement → company *Hipersign Demo Group* | LLC, FZE and Oman figures with the group total |
+| GRP-02 | Accountant | Sales Invoice to *Hipersign Demo Trading FZE* → Create → Inter-company purchase invoice | Purchase invoice in the FZE's books linked to the sales invoice |

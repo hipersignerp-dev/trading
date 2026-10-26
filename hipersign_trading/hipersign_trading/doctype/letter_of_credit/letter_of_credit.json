@@ -1,0 +1,451 @@
+{
+ "doctype": "DocType",
+ "name": "Letter of Credit",
+ "module": "Hipersign Trading",
+ "custom": 0,
+ "engine": "InnoDB",
+ "owner": "Administrator",
+ "creation": "2026-10-24 12:00:00.000000",
+ "modified": "2026-10-24 12:00:00.000000",
+ "autoname": "naming_series:",
+ "naming_rule": "By \"Naming Series\" field",
+ "title_field": "party_name",
+ "show_title_field_in_link": 0,
+ "search_fields": "party_name,lc_number,status",
+ "sort_field": "expiry_date",
+ "sort_order": "DESC",
+ "track_changes": 1,
+ "actions": [],
+ "links": [],
+ "states": [],
+ "field_order": [
+  "naming_series",
+  "lc_type",
+  "supplier",
+  "customer",
+  "party_name",
+  "purchase_order",
+  "sales_order",
+  "import_shipment",
+  "cb_1",
+  "status",
+  "company",
+  "issuing_bank",
+  "lc_number",
+  "sb_amount",
+  "currency",
+  "amount",
+  "tolerance_pct",
+  "exchange_rate",
+  "cb_2",
+  "base_amount",
+  "margin_pct",
+  "margin_amount",
+  "charges",
+  "sb_dates",
+  "issue_date",
+  "latest_shipment_date",
+  "expiry_date",
+  "cb_3",
+  "tenor",
+  "documents_presented_on",
+  "discrepancies",
+  "accepted_on",
+  "maturity_date",
+  "paid_on",
+  "sb_tr",
+  "trust_receipt",
+  "tr_amount",
+  "tr_start",
+  "tr_days",
+  "cb_4",
+  "tr_rate",
+  "tr_due",
+  "tr_interest",
+  "tr_repaid_on",
+  "sb_entries",
+  "margin_entry",
+  "tr_entry",
+  "cb_5",
+  "remarks"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "LC-.YYYY.-.####",
+   "default": "LC-.YYYY.-.####",
+   "hidden": 1
+  },
+  {
+   "fieldname": "lc_type",
+   "fieldtype": "Select",
+   "label": "LC type",
+   "options": "Import\nExport",
+   "default": "Import",
+   "reqd": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "supplier",
+   "fieldtype": "Link",
+   "label": "Supplier (beneficiary)",
+   "options": "Supplier",
+   "depends_on": "eval:doc.lc_type=='Import'",
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer (applicant)",
+   "options": "Customer",
+   "depends_on": "eval:doc.lc_type=='Export'"
+  },
+  {
+   "fieldname": "party_name",
+   "fieldtype": "Data",
+   "label": "Party",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "purchase_order",
+   "fieldtype": "Link",
+   "label": "Purchase order",
+   "options": "Purchase Order",
+   "depends_on": "eval:doc.lc_type=='Import'"
+  },
+  {
+   "fieldname": "sales_order",
+   "fieldtype": "Link",
+   "label": "Sales order",
+   "options": "Sales Order",
+   "depends_on": "eval:doc.lc_type=='Export'"
+  },
+  {
+   "fieldname": "import_shipment",
+   "fieldtype": "Link",
+   "label": "Import shipment",
+   "options": "Import Shipment",
+   "depends_on": "eval:doc.lc_type=='Import'"
+  },
+  {
+   "fieldname": "cb_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Applied\nIssued\nDocuments Presented\nAccepted\nPaid\nExpired\nCancelled",
+   "default": "Applied",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "issuing_bank",
+   "fieldtype": "Link",
+   "label": "Issuing / advising bank",
+   "options": "Bank",
+   "reqd": 1
+  },
+  {
+   "fieldname": "lc_number",
+   "fieldtype": "Data",
+   "label": "LC number",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "sb_amount",
+   "fieldtype": "Section Break",
+   "label": "Amount"
+  },
+  {
+   "fieldname": "currency",
+   "fieldtype": "Link",
+   "label": "Currency",
+   "options": "Currency",
+   "reqd": 1,
+   "default": "USD"
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "label": "LC amount",
+   "options": "currency",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "tolerance_pct",
+   "fieldtype": "Percent",
+   "label": "Tolerance ±%",
+   "default": "5"
+  },
+  {
+   "fieldname": "exchange_rate",
+   "fieldtype": "Float",
+   "label": "Exchange rate to company currency",
+   "default": "1",
+   "precision": "6"
+  },
+  {
+   "fieldname": "cb_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "base_amount",
+   "fieldtype": "Currency",
+   "label": "LC amount (company currency)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "margin_pct",
+   "fieldtype": "Percent",
+   "label": "Cash margin %",
+   "default": "10"
+  },
+  {
+   "fieldname": "margin_amount",
+   "fieldtype": "Currency",
+   "label": "Cash margin",
+   "read_only": 1
+  },
+  {
+   "fieldname": "charges",
+   "fieldtype": "Currency",
+   "label": "Bank charges & commission"
+  },
+  {
+   "fieldname": "sb_dates",
+   "fieldtype": "Section Break",
+   "label": "Dates & tenor"
+  },
+  {
+   "fieldname": "issue_date",
+   "fieldtype": "Date",
+   "label": "Issue date"
+  },
+  {
+   "fieldname": "latest_shipment_date",
+   "fieldtype": "Date",
+   "label": "Latest shipment date"
+  },
+  {
+   "fieldname": "expiry_date",
+   "fieldtype": "Date",
+   "label": "Expiry date",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "cb_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "tenor",
+   "fieldtype": "Select",
+   "label": "Tenor",
+   "options": "At sight\nUsance 30 days\nUsance 60 days\nUsance 90 days\nUsance 120 days\nUsance 180 days",
+   "default": "At sight"
+  },
+  {
+   "fieldname": "documents_presented_on",
+   "fieldtype": "Date",
+   "label": "Documents presented on"
+  },
+  {
+   "fieldname": "discrepancies",
+   "fieldtype": "Small Text",
+   "label": "Discrepancies"
+  },
+  {
+   "fieldname": "accepted_on",
+   "fieldtype": "Date",
+   "label": "Accepted on"
+  },
+  {
+   "fieldname": "maturity_date",
+   "fieldtype": "Date",
+   "label": "Maturity (payment) date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "paid_on",
+   "fieldtype": "Date",
+   "label": "Paid on"
+  },
+  {
+   "fieldname": "sb_tr",
+   "fieldtype": "Section Break",
+   "label": "Trust receipt (bank finance)",
+   "collapsible": 1
+  },
+  {
+   "fieldname": "trust_receipt",
+   "fieldtype": "Check",
+   "label": "Settled by a trust receipt loan"
+  },
+  {
+   "fieldname": "tr_amount",
+   "fieldtype": "Currency",
+   "label": "Trust receipt amount",
+   "depends_on": "trust_receipt"
+  },
+  {
+   "fieldname": "tr_start",
+   "fieldtype": "Date",
+   "label": "Loan start",
+   "depends_on": "trust_receipt"
+  },
+  {
+   "fieldname": "tr_days",
+   "fieldtype": "Int",
+   "label": "Loan period (days)",
+   "default": "90",
+   "depends_on": "trust_receipt"
+  },
+  {
+   "fieldname": "cb_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "tr_rate",
+   "fieldtype": "Percent",
+   "label": "Interest % a year",
+   "default": "7",
+   "depends_on": "trust_receipt"
+  },
+  {
+   "fieldname": "tr_due",
+   "fieldtype": "Date",
+   "label": "Loan due",
+   "read_only": 1,
+   "depends_on": "trust_receipt"
+  },
+  {
+   "fieldname": "tr_interest",
+   "fieldtype": "Currency",
+   "label": "Interest to maturity",
+   "read_only": 1,
+   "depends_on": "trust_receipt"
+  },
+  {
+   "fieldname": "tr_repaid_on",
+   "fieldtype": "Date",
+   "label": "Repaid on",
+   "depends_on": "trust_receipt"
+  },
+  {
+   "fieldname": "sb_entries",
+   "fieldtype": "Section Break",
+   "label": "Accounting",
+   "collapsible": 1
+  },
+  {
+   "fieldname": "margin_entry",
+   "fieldtype": "Link",
+   "label": "Margin journal entry",
+   "options": "Journal Entry",
+   "read_only": 1
+  },
+  {
+   "fieldname": "tr_entry",
+   "fieldtype": "Link",
+   "label": "Trust receipt journal entry",
+   "options": "Journal Entry",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cb_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks"
+  }
+ ],
+ "permissions": [
+  {
+   "role": "Accounts User",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "Accounts Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "Purchase Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "Managing Director",
+   "read": 1,
+   "write": 0,
+   "create": 0,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "Logistics Coordinator",
+   "read": 1,
+   "write": 0,
+   "create": 0,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  }
+ ]
+}

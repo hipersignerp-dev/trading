@@ -1,0 +1,18 @@
+{
+ "doctype": "Number Card",
+ "label": "Credit notes to approve",
+ "is_public": 1,
+ "is_standard": 1,
+ "show_percentage_stats": 0,
+ "stats_time_interval": "Monthly",
+ "color": "#7c3aed",
+ "type": "Document Type",
+ "document_type": "Sales Invoice",
+ "function": "Count",
+ "filters_json": "[[\"Sales Invoice\", \"docstatus\", \"=\", 0, false], [\"Sales Invoice\", \"is_return\", \"=\", 1, false]]",
+ "name": "HS Credit Notes To Approve",
+ "module": "Hipersign Trading",
+ "owner": "Administrator",
+ "creation": "2026-10-22 18:00:00.000000",
+ "modified": "2026-10-22 18:00:00.000000"
+}

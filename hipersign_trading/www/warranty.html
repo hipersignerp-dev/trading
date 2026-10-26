@@ -1,0 +1,18 @@
+{% extends "templates/web.html" %}
+{% block title %}{{ _("Warranty") }}{% endblock %}
+{% block header %}<h3>{{ _("Warranty") }} — {{ customer.customer_name }}</h3>{% endblock %}
+{% block page_content %}
+<p class="text-muted">{{ _("Products with serial numbers delivered to you, and how long each is covered. To report a fault, email us the serial number or reply to the delivery note.") }}</p>
+<table class="table table-sm">
+	<thead><tr><th>{{ _("Item") }}</th><th>{{ _("Serial number") }}</th><th>{{ _("Delivered") }}</th><th>{{ _("Warranty until") }}</th><th></th></tr></thead>
+	<tbody>{% for u in units %}<tr>
+		<td>{{ u.item_name }}</td><td><code>{{ u.serial_no }}</code></td>
+		<td>{{ frappe.format(u.delivered, {"fieldtype": "Date"}) }} · {{ u.voucher_no }}</td>
+		<td>{{ frappe.format(u.warranty_until, {"fieldtype": "Date"}) if u.warranty_until else "—" }}</td>
+		<td>{% if u.active %}<span class="indicator-pill green">{{ _("Active") }}</span>{% else %}<span class="indicator-pill red">{{ _("Expired") }}</span>{% endif %}</td>
+	</tr>{% else %}<tr><td colspan="5" class="text-muted">{{ _("No serialised products yet.") }}</td></tr>{% endfor %}</tbody>
+</table>
+{% if claims %}<h5 style="margin-top:20px">{{ _("Your warranty claims") }}</h5>
+<table class="table table-sm"><thead><tr><th>{{ _("Claim") }}</th><th>{{ _("Serial number") }}</th><th>{{ _("Date") }}</th><th>{{ _("Status") }}</th></tr></thead>
+<tbody>{% for c in claims %}<tr><td>{{ c.name }}</td><td><code>{{ c.serial_no }}</code></td><td>{{ frappe.format(c.complaint_date, {"fieldtype": "Date"}) }}</td><td>{{ _(c.status) }}</td></tr>{% endfor %}</tbody></table>{% endif %}
+{% endblock %}

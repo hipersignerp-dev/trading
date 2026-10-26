@@ -1,0 +1,26 @@
+[
+ {
+  "doctype": "Property Setter",
+  "name": "Item-customs_tariff_number-label",
+  "doc_type": "Item",
+  "doctype_or_field": "DocField",
+  "field_name": "customs_tariff_number",
+  "property": "label",
+  "value": "HS code",
+  "property_type": "Data",
+  "module": "Hipersign Trading",
+  "is_system_generated": 0
+ },
+ {
+  "doctype": "Property Setter",
+  "name": "Item-country_of_origin-in_standard_filter",
+  "doc_type": "Item",
+  "doctype_or_field": "DocField",
+  "field_name": "country_of_origin",
+  "property": "in_standard_filter",
+  "value": "1",
+  "property_type": "Check",
+  "module": "Hipersign Trading",
+  "is_system_generated": 0
+ }
+]

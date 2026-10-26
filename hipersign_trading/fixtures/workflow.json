@@ -1,0 +1,591 @@
+[
+ {
+  "doctype": "Workflow",
+  "name": "Hipersign Purchase Order Approval",
+  "workflow_name": "Hipersign Purchase Order Approval",
+  "document_type": "Purchase Order",
+  "is_active": 1,
+  "override_status": 0,
+  "send_email_alert": 0,
+  "workflow_state_field": "workflow_state",
+  "states": [
+   {
+    "doctype": "Workflow Document State",
+    "state": "Draft",
+    "doc_status": "0",
+    "allow_edit": "Purchase User",
+    "idx": 1
+   },
+   {
+    "doctype": "Workflow Document State",
+    "state": "Pending Purchase Manager",
+    "doc_status": "0",
+    "allow_edit": "Purchase Manager",
+    "idx": 2
+   },
+   {
+    "doctype": "Workflow Document State",
+    "state": "Pending Finance Manager",
+    "doc_status": "0",
+    "allow_edit": "Accounts Manager",
+    "idx": 3
+   },
+   {
+    "doctype": "Workflow Document State",
+    "state": "Approved",
+    "doc_status": "1",
+    "allow_edit": "Purchase Manager",
+    "idx": 4
+   },
+   {
+    "doctype": "Workflow Document State",
+    "state": "Rejected",
+    "doc_status": "0",
+    "allow_edit": "Purchase Manager",
+    "idx": 5
+   },
+   {
+    "doctype": "Workflow Document State",
+    "state": "Cancelled",
+    "doc_status": "2",
+    "allow_edit": "Purchase Manager",
+    "idx": 6
+   }
+  ],
+  "transitions": [
+   {
+    "doctype": "Workflow Transition",
+    "state": "Draft",
+    "action": "Submit for Approval",
+    "next_state": "Pending Purchase Manager",
+    "allowed": "Purchase User",
+    "allow_self_approval": 1,
+    "condition": null,
+    "idx": 1
+   },
+   {
+    "doctype": "Workflow Transition",
+    "state": "Pending Purchase Manager",
+    "action": "Approve",
+    "next_state": "Pending Finance Manager",
+    "allowed": "Purchase Manager",
+    "allow_self_approval": 1,
+    "condition": "doc.base_grand_total > frappe.db.get_single_value(\"Hipersign Settings\", \"po_finance_threshold\")",
+    "idx": 2
+   },
+   {
+    "doctype": "Workflow Transition",
+    "state": "Pending Purchase Manager",
+    "action": "Approve",
+    "next_state": "Approved",
+    "allowed": "Purchase Manager",
+    "allow_self_approval": 1,
+    "condition": "doc.base_grand_total <= frappe.db.get_single_value(\"Hipersign Settings\", \"po_finance_threshold\")",
+    "idx": 3
+   },
+   {
+    "doctype": "Workflow Transition",
+    "state": "Pending Purchase Manager",
+    "action": "Reject",
+    "next_state": "Rejected",
+    "allowed": "Purchase Manager",
+    "allow_self_approval": 1,
+    "condition": null,
+    "idx": 4
+   },
+   {
+    "doctype": "Workflow Transition",
+    "state": "Pending Finance Manager",
+    "action": "Approve",
+    "next_state": "Approved",
+    "allowed": "Accounts Manager",
+    "allow_self_approval": 1,
+    "condition": null,
+    "idx": 5
+   },
+   {
+    "doctype": "Workflow Transition",
+    "state": "Pending Finance Manager",
+    "action": "Reject",
+    "next_state": "Rejected",
+    "allowed": "Accounts Manager",
+    "allow_self_approval": 1,
+    "condition": null,
+    "idx": 6
+   },
+   {
+    "doctype": "Workflow Transition",
+    "state": "Rejected",
+    "action": "Submit for Approval",
+    "next_state": "Pending Purchase Manager",
+    "allowed": "Purchase User",
+    "allow_self_approval": 1,
+    "condition": null,
+    "idx": 7
+   },
+   {
+    "doctype": "Workflow Transition",
+    "state": "Approved",
+    "action": "Cancel",
+    "next_state": "Cancelled",
+    "allowed": "Purchase Manager",
+    "allow_self_approval": 1,
+    "condition": null,
+    "idx": 8
+   }
+  ]
+ },
+ {
+  "doctype": "Workflow",
+  "name": "Hipersign Sales Order Approval",
+  "workflow_name": "Hipersign Sales Order Approval",
+  "document_type": "Sales Order",
+  "is_active": 1,
+  "override_status": 0,
+  "send_email_alert": 0,
+  "workflow_state_field": "workflow_state",
+  "states": [
+   {
+    "doctype": "Workflow Document State",
+    "state": "Draft",
+    "doc_status": "0",
+    "allow_edit": "Sales User",
+    "idx": 1
+   },
+   {
+    "doctype": "Workflow Document State",
+    "state": "Pending Sales Manager",
+    "doc_status": "0",
+    "allow_edit": "Sales Manager",
+    "idx": 2
+   },
+   {
+    "doctype": "Workflow Document State",
+    "state": "Pending Finance Manager",
+    "doc_status": "0",
+    "allow_edit": "Accounts Manager",
+    "idx": 3
+   },
+   {
+    "doctype": "Workflow Document State",
+    "state": "Approved",
+    "doc_status": "1",
+    "allow_edit": "Sales User",
+    "idx": 4
+   },
+   {
+    "doctype": "Workflow Document State",
+    "state": "Rejected",
+    "doc_status": "0",
+    "allow_edit": "Sales Manager",
+    "idx": 5
+   },
+   {
+    "doctype": "Workflow Document State",
+    "state": "Cancelled",
+    "doc_status": "2",
+    "allow_edit": "Sales Manager",
+    "idx": 6
+   }
+  ],
+  "transitions": [
+   {
+    "doctype": "Workflow Transition",
+    "state": "Draft",
+    "action": "Submit for Approval",
+    "next_state": "Pending Sales Manager",
+    "allowed": "Sales User",
+    "allow_self_approval": 1,
+    "condition": "doc.hs_needs_sales_manager",
+    "idx": 1
+   },
+   {
+    "doctype": "Workflow Transition",
+    "state": "Draft",
+    "action": "Submit for Approval",
+    "next_state": "Pending Finance Manager",
+    "allowed": "Sales User",
+    "allow_self_approval": 1,
+    "condition": "not doc.hs_needs_sales_manager and doc.hs_needs_finance",
+    "idx": 2
+   },
+   {
+    "doctype": "Workflow Transition",
+    "state": "Draft",
+    "action": "Submit",
+    "next_state": "Approved",
+    "allowed": "Sales User",
+    "allow_self_approval": 1,
+    "condition": "not doc.hs_needs_sales_manager and not doc.hs_needs_finance",
+    "idx": 3
+   },
+   {
+    "doctype": "Workflow Transition",
+    "state": "Pending Sales Manager",
+    "action": "Approve",
+    "next_state": "Pending Finance Manager",
+    "allowed": "Sales Manager",
+    "allow_self_approval": 1,
+    "condition": "doc.hs_needs_finance",
+    "idx": 4
+   },
+   {
+    "doctype": "Workflow Transition",
+    "state": "Pending Sales Manager",
+    "action": "Approve",
+    "next_state": "Approved",
+    "allowed": "Sales Manager",
+    "allow_self_approval": 1,
+    "condition": "not doc.hs_needs_finance",
+    "idx": 5
+   },
+   {
+    "doctype": "Workflow Transition",
+    "state": "Pending Sales Manager",
+    "action": "Reject",
+    "next_state": "Rejected",
+    "allowed": "Sales Manager",
+    "allow_self_approval": 1,
+    "condition": null,
+    "idx": 6
+   },
+   {
+    "doctype": "Workflow Transition",
+    "state": "Pending Finance Manager",
+    "action": "Approve",
+    "next_state": "Approved",
+    "allowed": "Accounts Manager",
+    "allow_self_approval": 1,
+    "condition": null,
+    "idx": 7
+   },
+   {
+    "doctype": "Workflow Transition",
+    "state": "Pending Finance Manager",
+    "action": "Reject",
+    "next_state": "Rejected",
+    "allowed": "Accounts Manager",
+    "allow_self_approval": 1,
+    "condition": null,
+    "idx": 8
+   },
+   {
+    "doctype": "Workflow Transition",
+    "state": "Rejected",
+    "action": "Submit for Approval",
+    "next_state": "Pending Sales Manager",
+    "allowed": "Sales User",
+    "allow_self_approval": 1,
+    "condition": "doc.hs_needs_sales_manager",
+    "idx": 9
+   },
+   {
+    "doctype": "Workflow Transition",
+    "state": "Rejected",
+    "action": "Submit for Approval",
+    "next_state": "Pending Finance Manager",
+    "allowed": "Sales User",
+    "allow_self_approval": 1,
+    "condition": "not doc.hs_needs_sales_manager",
+    "idx": 10
+   },
+   {
+    "doctype": "Workflow Transition",
+    "state": "Approved",
+    "action": "Cancel",
+    "next_state": "Cancelled",
+    "allowed": "Sales Manager",
+    "allow_self_approval": 1,
+    "condition": null,
+    "idx": 11
+   }
+  ]
+ },
+ {
+  "doctype": "Workflow",
+  "name": "Hipersign Supplier Payment Approval",
+  "workflow_name": "Hipersign Supplier Payment Approval",
+  "document_type": "Payment Entry",
+  "is_active": 1,
+  "override_status": 0,
+  "send_email_alert": 0,
+  "workflow_state_field": "workflow_state",
+  "states": [
+   {
+    "doctype": "Workflow Document State",
+    "state": "Draft",
+    "doc_status": "0",
+    "allow_edit": "Accounts User",
+    "idx": 1
+   },
+   {
+    "doctype": "Workflow Document State",
+    "state": "Pending Finance Manager",
+    "doc_status": "0",
+    "allow_edit": "Accounts Manager",
+    "idx": 2
+   },
+   {
+    "doctype": "Workflow Document State",
+    "state": "Paid",
+    "doc_status": "1",
+    "allow_edit": "Accounts User",
+    "idx": 3
+   },
+   {
+    "doctype": "Workflow Document State",
+    "state": "Rejected",
+    "doc_status": "0",
+    "allow_edit": "Accounts Manager",
+    "idx": 4
+   },
+   {
+    "doctype": "Workflow Document State",
+    "state": "Cancelled",
+    "doc_status": "2",
+    "allow_edit": "Accounts Manager",
+    "idx": 5
+   }
+  ],
+  "transitions": [
+   {
+    "doctype": "Workflow Transition",
+    "state": "Draft",
+    "action": "Submit for Approval",
+    "next_state": "Pending Finance Manager",
+    "allowed": "Accounts User",
+    "allow_self_approval": 1,
+    "condition": "doc.payment_type == \"Pay\" and doc.base_paid_amount > frappe.db.get_single_value(\"Hipersign Settings\", \"supplier_payment_threshold\")",
+    "idx": 1
+   },
+   {
+    "doctype": "Workflow Transition",
+    "state": "Draft",
+    "action": "Submit",
+    "next_state": "Paid",
+    "allowed": "Accounts User",
+    "allow_self_approval": 1,
+    "condition": "doc.payment_type != \"Pay\" or doc.base_paid_amount <= frappe.db.get_single_value(\"Hipersign Settings\", \"supplier_payment_threshold\")",
+    "idx": 2
+   },
+   {
+    "doctype": "Workflow Transition",
+    "state": "Pending Finance Manager",
+    "action": "Approve",
+    "next_state": "Paid",
+    "allowed": "Accounts Manager",
+    "allow_self_approval": 1,
+    "condition": null,
+    "idx": 3
+   },
+   {
+    "doctype": "Workflow Transition",
+    "state": "Pending Finance Manager",
+    "action": "Reject",
+    "next_state": "Rejected",
+    "allowed": "Accounts Manager",
+    "allow_self_approval": 1,
+    "condition": null,
+    "idx": 4
+   },
+   {
+    "doctype": "Workflow Transition",
+    "state": "Paid",
+    "action": "Cancel",
+    "next_state": "Cancelled",
+    "allowed": "Accounts Manager",
+    "allow_self_approval": 1,
+    "condition": null,
+    "idx": 5
+   }
+  ]
+ },
+ {
+  "doctype": "Workflow",
+  "name": "Hipersign Stock Count Approval",
+  "workflow_name": "Hipersign Stock Count Approval",
+  "document_type": "Stock Reconciliation",
+  "is_active": 1,
+  "override_status": 0,
+  "send_email_alert": 0,
+  "workflow_state_field": "workflow_state",
+  "states": [
+   {
+    "doctype": "Workflow Document State",
+    "state": "Draft",
+    "doc_status": "0",
+    "allow_edit": "Stock User",
+    "idx": 1
+   },
+   {
+    "doctype": "Workflow Document State",
+    "state": "Pending Warehouse Manager",
+    "doc_status": "0",
+    "allow_edit": "Stock Manager",
+    "idx": 2
+   },
+   {
+    "doctype": "Workflow Document State",
+    "state": "Approved",
+    "doc_status": "1",
+    "allow_edit": "Stock Manager",
+    "idx": 3
+   },
+   {
+    "doctype": "Workflow Document State",
+    "state": "Rejected",
+    "doc_status": "0",
+    "allow_edit": "Stock Manager",
+    "idx": 4
+   },
+   {
+    "doctype": "Workflow Document State",
+    "state": "Cancelled",
+    "doc_status": "2",
+    "allow_edit": "Stock Manager",
+    "idx": 5
+   }
+  ],
+  "transitions": [
+   {
+    "doctype": "Workflow Transition",
+    "state": "Draft",
+    "action": "Submit for Approval",
+    "next_state": "Pending Warehouse Manager",
+    "allowed": "Stock User",
+    "allow_self_approval": 1,
+    "condition": "frappe.db.get_single_value(\"Hipersign Settings\", \"stock_count_approval\")",
+    "idx": 1
+   },
+   {
+    "doctype": "Workflow Transition",
+    "state": "Draft",
+    "action": "Submit",
+    "next_state": "Approved",
+    "allowed": "Stock Manager",
+    "allow_self_approval": 1,
+    "condition": "not frappe.db.get_single_value(\"Hipersign Settings\", \"stock_count_approval\")",
+    "idx": 2
+   },
+   {
+    "doctype": "Workflow Transition",
+    "state": "Pending Warehouse Manager",
+    "action": "Approve",
+    "next_state": "Approved",
+    "allowed": "Stock Manager",
+    "allow_self_approval": 1,
+    "condition": null,
+    "idx": 3
+   },
+   {
+    "doctype": "Workflow Transition",
+    "state": "Pending Warehouse Manager",
+    "action": "Reject",
+    "next_state": "Rejected",
+    "allowed": "Stock Manager",
+    "allow_self_approval": 1,
+    "condition": null,
+    "idx": 4
+   },
+   {
+    "doctype": "Workflow Transition",
+    "state": "Approved",
+    "action": "Cancel",
+    "next_state": "Cancelled",
+    "allowed": "Stock Manager",
+    "allow_self_approval": 1,
+    "condition": null,
+    "idx": 5
+   }
+  ]
+ },
+ {
+  "doctype": "Workflow",
+  "name": "Hipersign Credit Limit Approval",
+  "workflow_name": "Hipersign Credit Limit Approval",
+  "document_type": "Credit Limit Request",
+  "is_active": 1,
+  "override_status": 0,
+  "send_email_alert": 0,
+  "workflow_state_field": "workflow_state",
+  "states": [
+   {
+    "doctype": "Workflow Document State",
+    "state": "Draft",
+    "doc_status": "0",
+    "allow_edit": "Sales User",
+    "idx": 1
+   },
+   {
+    "doctype": "Workflow Document State",
+    "state": "Pending Finance Manager",
+    "doc_status": "0",
+    "allow_edit": "Accounts Manager",
+    "idx": 2
+   },
+   {
+    "doctype": "Workflow Document State",
+    "state": "Approved",
+    "doc_status": "1",
+    "allow_edit": "Accounts Manager",
+    "idx": 3
+   },
+   {
+    "doctype": "Workflow Document State",
+    "state": "Rejected",
+    "doc_status": "0",
+    "allow_edit": "Accounts Manager",
+    "idx": 4
+   },
+   {
+    "doctype": "Workflow Document State",
+    "state": "Cancelled",
+    "doc_status": "2",
+    "allow_edit": "Accounts Manager",
+    "idx": 5
+   }
+  ],
+  "transitions": [
+   {
+    "doctype": "Workflow Transition",
+    "state": "Draft",
+    "action": "Submit for Approval",
+    "next_state": "Pending Finance Manager",
+    "allowed": "Sales User",
+    "allow_self_approval": 1,
+    "condition": null,
+    "idx": 1
+   },
+   {
+    "doctype": "Workflow Transition",
+    "state": "Pending Finance Manager",
+    "action": "Approve",
+    "next_state": "Approved",
+    "allowed": "Accounts Manager",
+    "allow_self_approval": 1,
+    "condition": null,
+    "idx": 2
+   },
+   {
+    "doctype": "Workflow Transition",
+    "state": "Pending Finance Manager",
+    "action": "Reject",
+    "next_state": "Rejected",
+    "allowed": "Accounts Manager",
+    "allow_self_approval": 1,
+    "condition": null,
+    "idx": 3
+   },
+   {
+    "doctype": "Workflow Transition",
+    "state": "Approved",
+    "action": "Cancel",
+    "next_state": "Cancelled",
+    "allowed": "Accounts Manager",
+    "allow_self_approval": 1,
+    "condition": null,
+    "idx": 4
+   }
+  ]
+ }
+]
