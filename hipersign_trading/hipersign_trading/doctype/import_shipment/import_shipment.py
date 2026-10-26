@@ -40,14 +40,15 @@ class ImportShipment(Document):
 		pos = [r.purchase_order for r in self.purchase_orders]
 		if not pos:
 			return []
-		return [
-			r.parent
-			for r in frappe.get_all(
-				"Purchase Receipt Item",
-				filters={"purchase_order": ["in", pos], "docstatus": 1},
-				fields=["distinct parent as parent"],
+		return sorted(
+			set(
+				frappe.get_all(
+					"Purchase Receipt Item",
+					filters={"purchase_order": ["in", pos], "docstatus": 1},
+					pluck="parent",
+				)
 			)
-		]
+		)
 
 	def all_pos_received(self):
 		return all(
@@ -65,9 +66,13 @@ class ImportShipment(Document):
 			frappe.throw(_("Receive the goods first — no submitted purchase receipt is linked to this shipment."))
 		if not self.charges:
 			frappe.throw(_("Add the import charges first."))
-		account = settings().landed_cost_expense_account or frappe.get_cached_value(
-			"Company", self.company, "expenses_included_in_valuation"
+		account = (
+			settings().landed_cost_expense_account
+			or frappe.get_cached_value("Company", self.company, "expenses_included_in_valuation")
+			or frappe.db.get_value("Account", {"company": self.company, "is_group": 0, "account_type": "Expenses Included In Valuation"})
 		)
+		if not account:
+			frappe.throw(_("Set the landed cost account in Hipersign Settings (or “Expenses Included In Valuation” on the company)."))
 		lcv = frappe.new_doc("Landed Cost Voucher")
 		lcv.company = self.company
 		lcv.distribute_charges_based_on = "Amount"

@@ -43,7 +43,7 @@ PAYMENT_TERMS = [
 	("Net 60 days", [("Net 60", 100, 60)]),
 	("Net 90 days", [("Net 90", 100, 90)]),
 	("30% advance, balance net 30", [("Advance 30%", 30, 0), ("Balance net 30", 70, 30)]),
-	("50% advance, 50% on delivery", [("Advance 50%", 50, 0), ("On delivery 50%", 50, 0)]),
+	("50% advance, 50% on delivery", [("Advance 50%", 50, 0), ("On delivery 50%", 50, 7)]),
 ]
 
 CUSTOMERS = [

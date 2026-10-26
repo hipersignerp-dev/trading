@@ -65,7 +65,7 @@ class HipersignTracker {
 			.join("");
 		return `<div class="hs-row">
 			<div class="hs-row-h">
-				<div><a href="/app/sales-order/${o.name}"><b>${o.name}</b></a> ${o.export ? `<span class="indicator-pill blue">${__("Export")}</span>` : ""}
+				<div><a href="${frappe.utils.get_form_link("Sales Order", o.name)}"><b>${o.name}</b></a> ${o.export ? `<span class="indicator-pill blue">${__("Export")}</span>` : ""}
 					<div class="text-muted small">${frappe.utils.escape_html(o.customer_name)} · PO ${frappe.utils.escape_html(o.po_no || "—")} · ${frappe.datetime.str_to_user(o.date)} → ${frappe.datetime.str_to_user(o.delivery_date)}</div></div>
 				<div class="hs-money"><span>${__("Value")} <b>${this.money(o.value, o.currency)}</b></span><span>${__("Paid")} <b class="text-success">${this.money(o.paid, o.currency)}</b></span><span>${__("Remaining")} <b>${this.money(o.remaining, o.currency)}</b></span><span class="indicator-pill ${o.bucket === "Overdue" ? "red" : o.bucket === "Completed" ? "green" : "orange"}">${__(o.bucket)}</span></div>
 				<div class="hs-actions">

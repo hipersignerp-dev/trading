@@ -21,7 +21,7 @@ frappe.query_reports["Hipersign Smart Reorder"] = {
 			frappe.confirm(__("Create draft purchase orders for {0} items from {1} suppliers?", [rows.length, new Set(rows.map((r) => r.supplier)).size]), () => {
 				frappe.call({ method: "hipersign_trading.hipersign_trading.report.hipersign_smart_reorder.hipersign_smart_reorder.make_purchase_orders",
 					args: { items: rows, company: report.get_filter_value("company") }, freeze: true }).then((r) => {
-					frappe.msgprint(__("Draft purchase orders created: {0}", [(r.message || []).map((n) => `<a href="/app/purchase-order/${n}">${n}</a>`).join(", ")]));
+					frappe.msgprint(__("Draft purchase orders created: {0}", [(r.message || []).map((n) => `<a href="${frappe.utils.get_form_link("Purchase Order", n)}">${n}</a>`).join(", ")]));
 				});
 			});
 		});

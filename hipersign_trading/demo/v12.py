@@ -271,7 +271,7 @@ def v12_revaluation(c):
 		frappe.db.set_value("Company", c.company, "unrealized_exchange_gain_loss_account", co.exchange_gain_loss_account)
 	if frappe.db.exists("Exchange Rate Revaluation", {"company": c.company, "posting_date": month_end}):
 		return
-	err = frappe.get_doc({"doctype": "Exchange Rate Revaluation", "company": c.company, "posting_date": month_end})
+	err = frappe.get_doc({"doctype": "Exchange Rate Revaluation", "company": c.company, "posting_date": month_end, "rounding_loss_allowance": 0.05})
 	try:
 		rows = err.get_accounts_data() or []
 	except frappe.ValidationError:

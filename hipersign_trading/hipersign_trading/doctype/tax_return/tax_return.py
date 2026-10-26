@@ -37,8 +37,17 @@ class TaxReturn(Document):
 				self.fetch_vat()
 			else:
 				self.fetch_corporate_tax()
-		elif self.has_value_changed("adjustments") or self.has_value_changed("small_business_relief"):
+		elif self.figures_changed():
 			frappe.throw(_("Figures are frozen once the return is sent for approval."))
+
+	def figures_changed(self):
+		"""Adjustments or relief edited after the return left Prepared (compares values, not row objects)."""
+		prev = self.get_doc_before_save()
+		if not prev:
+			return False
+		rows = lambda d: [tuple((k, str(r.get(k))) for k in sorted(r.as_dict(no_default_fields=True)) if k not in ("name", "idx", "modified", "creation"))
+			for r in d.get("adjustments") or []]
+		return rows(prev) != rows(self) or bool(prev.get("small_business_relief")) != bool(self.get("small_business_relief"))
 
 	# ---------------------------------------------------------------- figures
 	def fetch_vat(self):

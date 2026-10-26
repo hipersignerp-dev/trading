@@ -130,6 +130,10 @@ def backdate(doc, date):
 
 # ------------------------------------------------------------------ masters
 def taxes_and_settings(c):
+	# ERPNext v16: serial / batch numbers are off by default; export customers invoice in USD on the AED receivable
+	for dt, field in (("Stock Settings", "enable_serial_and_batch_no_for_item"), ("Accounts Settings", "allow_multi_currency_invoices_against_single_party_account")):
+		if frappe.get_meta(dt).has_field(field):
+			frappe.db.set_single_value(dt, field, 1)
 	parent = frappe.db.get_value("Account", {"company": c.company, "account_name": "Duties and Taxes", "is_group": 1}) or frappe.db.get_value(
 		"Account", {"company": c.company, "root_type": "Liability", "is_group": 1}, order_by="lft desc"
 	)
@@ -502,7 +506,7 @@ def make_so(c, customer, lines, days_ago, po_no, submit=True, deliver=None, invo
 				pe = get_payment_entry("Sales Invoice", si.name)
 				pe.posting_date = c.d(-pay[0])
 				pe.reference_no, pe.reference_date = f"TT-{si.name[-4:]}", c.d(-pay[0])
-				amt = flt(si.grand_total * pay[1], 2)
+				amt = flt(min(flt(si.outstanding_amount), flt(si.grand_total) * pay[1]), 2)
 				pe.paid_amount = pe.received_amount = amt
 				pe.references[0].allocated_amount = amt
 				pe.insert()

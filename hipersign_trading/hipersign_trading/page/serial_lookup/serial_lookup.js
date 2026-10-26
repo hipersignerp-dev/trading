@@ -13,9 +13,9 @@ frappe.pages["serial-lookup"].on_page_load = function (wrapper) {
 				<table class="table table-sm">${row(__("Item"), frappe.utils.escape_html(r.item_name))}${row(__("Received"), r.received ? frappe.datetime.str_to_user(r.received.date) + " · " + r.received.voucher_no : "")}
 				${row(__("Warehouse"), r.warehouse)}${row(__("Warranty"), r.warranty_days ? __("{0} days from delivery", [r.warranty_days]) : "")}</table></div></div>
 				<div class="col-md-6"><div class="frappe-card p-3"><h5>${__("Customer")}</h5><table class="table table-sm">${row(__("Customer"), dl ? frappe.utils.escape_html(dl.customer) : __("In our stock"))}
-				${row(__("Delivered"), dl ? `${frappe.datetime.str_to_user(dl.date)} · <a href="/app/${frappe.router.slug(dl.voucher_type)}/${dl.voucher_no}">${dl.voucher_no}</a>` : "")}
+				${row(__("Delivered"), dl ? `${frappe.datetime.str_to_user(dl.date)} · <a href="${frappe.utils.get_form_link(dl.voucher_type, dl.voucher_no)}">${dl.voucher_no}</a>` : "")}
 				${row(__("Warranty until"), r.warranty_until ? frappe.datetime.str_to_user(r.warranty_until) : "")}
-				${row(__("Claims"), (r.claims || []).map((c) => `<a href="/app/warranty-claim/${c.name}">${c.name}</a> · ${__(c.status)}`).join("<br>"))}</table>
+				${row(__("Claims"), (r.claims || []).map((c) => `<a href="${frappe.utils.get_form_link("Warranty Claim", c.name)}">${c.name}</a> · ${__(c.status)}`).join("<br>"))}</table>
 				${dl ? `<button class="btn btn-primary btn-sm hs-claim">${__("Register warranty claim")}</button>` : ""}</div></div></div>`);
 			out.find(".hs-claim").on("click", () => frappe.new_doc("Warranty Claim", { serial_no: r.serial_no, customer: dl.customer, item_code: r.item_code, complaint_date: frappe.datetime.get_today() }));
 		});
