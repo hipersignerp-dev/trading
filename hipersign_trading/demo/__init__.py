@@ -410,10 +410,25 @@ def demo_users(c):
 
 
 # ------------------------------------------------------------------ transactions
+def opening_account(c):
+	"""The balance-sheet account opening stock is booked against (charts without “Temporary Opening” get one)."""
+	acc = frappe.db.get_value("Account", {"company": c.company, "account_name": "Temporary Opening", "is_group": 0}) or frappe.db.get_value(
+		"Account", {"company": c.company, "account_type": "Temporary", "is_group": 0, "root_type": ["in", ["Asset", "Liability"]]})
+	if acc:
+		return acc
+	parent = frappe.db.get_value("Account", {"company": c.company, "account_type": "Temporary", "is_group": 1}) or frappe.db.get_value(
+		"Account", {"company": c.company, "root_type": "Asset", "is_group": 1, "account_name": ["like", "%Current Assets%"]}) or frappe.db.get_value(
+		"Account", {"company": c.company, "root_type": "Asset", "is_group": 1}, order_by="lft asc")
+	a = frappe.get_doc({"doctype": "Account", "account_name": "Temporary Opening", "company": c.company, "parent_account": parent,
+		"account_type": "Temporary", "root_type": frappe.db.get_value("Account", parent, "root_type"), "report_type": "Balance Sheet"})
+	a.flags.ignore_root_company_validation = True
+	return a.insert(ignore_permissions=True).name
+
+
 def opening_stock(c):
 	if frappe.db.exists("Stock Reconciliation", {"company": c.company, "purpose": "Opening Stock", "docstatus": 1}):
 		return
-	temp = frappe.db.get_value("Account", {"company": c.company, "account_name": "Temporary Opening"})
+	temp = opening_account(c)
 	sr = frappe.get_doc({"doctype": "Stock Reconciliation", "company": c.company, "purpose": "Opening Stock", "expense_account": temp,
 		"items": [{"item_code": code, "warehouse": c.wh(wh), "qty": q, "valuation_rate": cost} for code, _n, _a, _g, _u, _h, _o, _r, _s, cost, wh, q in D.ITEMS
 			if not frappe.db.get_value("Item", code, "has_serial_no")]})
@@ -427,7 +442,7 @@ def opening_stock_serialised(c):
 	codes = [x for x in D.ITEMS if frappe.db.get_value("Item", x[0], "has_serial_no")]
 	if not codes or frappe.db.exists("Stock Entry", {"remarks": "Hipersign opening stock — serialised items", "docstatus": 1}):
 		return
-	temp = frappe.db.get_value("Account", {"company": c.company, "account_name": "Temporary Opening"})
+	temp = opening_account(c)
 	se = frappe.get_doc({"doctype": "Stock Entry", "stock_entry_type": "Material Receipt", "company": c.company,
 		"remarks": "Hipersign opening stock — serialised items",
 		"items": [{"item_code": code, "t_warehouse": c.wh(wh), "qty": q, "basic_rate": cost, "expense_account": temp, "allow_zero_valuation_rate": 0}

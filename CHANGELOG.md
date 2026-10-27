@@ -3,7 +3,8 @@
 ## 1.3.1 — 27 Oct 2026
 **Demo data loader:** works on sites with India Compliance installed (items get an HSN/SAC code from their HS code), and can be
 run again after a partly failed load — the second run fills in what is missing (KYC blocks and stock reservations made by the
-first run no longer stop the history being created).
+first run no longer stop the history being created). Charts of accounts without a *Temporary Opening* account (e.g. ERPNext's
+UAE chart) get one for the opening stock.
 
 ## 1.3.0 — 26 Oct 2026
 Built and tested on **Frappe 16 / ERPNext 16**. Brings the app in line with the prototype's set-up, document and form-mode work.
