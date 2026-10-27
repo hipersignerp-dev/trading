@@ -227,6 +227,13 @@ def banks(c):
 		if default:
 			c.bank_gl = gl
 			frappe.db.set_single_value("Hipersign Settings", "cheque_bank_account", gl)
+			# ERPNext's UAE chart makes a credit-card account the company bank and "Trade in Opening Fees" the
+			# receivable: the demo company banks with Emirates NBD and invoices customers on Trade Receivable
+			frappe.db.set_value("Company", c.company, "default_bank_account", gl)
+			rec = frappe.db.get_value("Account", {"company": c.company, "account_name": "Trade Receivable", "is_group": 0, "account_type": "Receivable"})
+			if rec and "Opening" in (frappe.get_cached_value("Company", c.company, "default_receivable_account") or ""):
+				frappe.db.set_value("Company", c.company, "default_receivable_account", rec)
+			frappe.clear_document_cache("Company", c.company)
 
 
 def item_groups_and_uoms(c):

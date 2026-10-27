@@ -6,7 +6,7 @@
  "engine": "InnoDB",
  "owner": "Administrator",
  "creation": "2026-10-21 14:30:00.000000",
- "modified": "2026-10-26 09:00:00.000000",
+ "modified": "2026-10-27 12:00:00.000000",
  "actions": [],
  "links": [],
  "states": [],
@@ -121,6 +121,16 @@
   "feat_hr",
   "cb_feat_assets",
   "feat_assets",
+  "tab_look",
+  "sb_look",
+  "desk_theme",
+  "sb_menus",
+  "only_hipersign_tiles",
+  "cb_menus",
+  "open_home_after_login",
+  "keep_hipersign_sidebar",
+  "hide_getting_started",
+  "hs_hidden_icons",
   "tab_forms",
   "sb_forms",
   "form_modes",
@@ -164,20 +174,20 @@
   {
    "fieldname": "po_finance_threshold",
    "fieldtype": "Currency",
-   "label": "Purchase order — Finance Manager above",
+   "label": "Purchase order \u2014 Finance Manager above",
    "default": "100000",
    "description": "Every PO goes to the Purchase Manager; above this value it also goes to the Finance Manager (rule AR1)."
   },
   {
    "fieldname": "so_max_discount",
    "fieldtype": "Percent",
-   "label": "Sales order — maximum discount without Sales Manager",
+   "label": "Sales order \u2014 maximum discount without Sales Manager",
    "default": "10"
   },
   {
    "fieldname": "block_below_landed_cost",
    "fieldtype": "Check",
-   "label": "Sales order — selling below landed cost needs Sales Manager",
+   "label": "Sales order \u2014 selling below landed cost needs Sales Manager",
    "default": "1"
   },
   {
@@ -193,7 +203,7 @@
   {
    "fieldname": "supplier_payment_threshold",
    "fieldtype": "Currency",
-   "label": "Supplier payment — Finance Manager above",
+   "label": "Supplier payment \u2014 Finance Manager above",
    "default": "50000"
   },
   {
@@ -244,7 +254,7 @@
   {
    "fieldname": "landed_cost_expense_account",
    "fieldtype": "Link",
-   "label": "Landed cost — expenses included in valuation",
+   "label": "Landed cost \u2014 expenses included in valuation",
    "options": "Account"
   },
   {
@@ -341,7 +351,7 @@
    "fieldname": "wps_employer_id",
    "fieldtype": "Data",
    "label": "MOHRE establishment ID",
-   "description": "13 digits — first line of the WPS salary file"
+   "description": "13 digits \u2014 first line of the WPS salary file"
   },
   {
    "fieldname": "wps_bank_routing",
@@ -464,7 +474,7 @@
   {
    "fieldname": "vat_due_day",
    "fieldtype": "Int",
-   "label": "VAT return due on day … of the following month",
+   "label": "VAT return due on day \u2026 of the following month",
    "default": "28"
   },
   {
@@ -512,7 +522,7 @@
   {
    "fieldname": "intercompany_markup",
    "fieldtype": "Percent",
-   "label": "Inter-company price — cost plus %",
+   "label": "Inter-company price \u2014 cost plus %",
    "default": "8",
    "description": "Arm's-length basis for transfer pricing; keep it on file for corporate tax"
   },
@@ -631,7 +641,7 @@
    "fieldtype": "Check",
    "label": "LCs & trade finance",
    "default": "1",
-   "description": "Letters of credit, cash margin, trust receipts — needs Imports & landed cost"
+   "description": "Letters of credit, cash margin, trust receipts \u2014 needs Imports & landed cost"
   },
   {
    "fieldname": "sb_feat_stock",
@@ -717,7 +727,7 @@
    "fieldtype": "Check",
    "label": "Approval workflows",
    "default": "1",
-   "description": "Approval routes — off: documents are approved at once"
+   "description": "Approval routes \u2014 off: documents are approved at once"
   },
   {
    "fieldname": "feat_kyc",
@@ -809,7 +819,7 @@
   {
    "fieldname": "sp_auto_pct",
    "fieldtype": "Percent",
-   "label": "…and up to % of the invoice",
+   "label": "\u2026and up to % of the invoice",
    "default": "2",
    "description": "The lower of the two applies"
   },
@@ -868,7 +878,7 @@
    "fieldtype": "Check",
    "label": "Offer only the items in the selected price list",
    "default": "1",
-   "description": "On quotations, orders and invoices; tick “All items” on the document to pick something outside the list"
+   "description": "On quotations, orders and invoices; tick \u201cAll items\u201d on the document to pick something outside the list"
   },
   {
    "fieldname": "tab_compliance",
@@ -925,6 +935,68 @@
    "fieldtype": "Check",
    "label": "Sync member trial balances every night",
    "default": "1"
+  },
+  {
+   "fieldname": "tab_look",
+   "fieldtype": "Tab Break",
+   "label": "Look & menus"
+  },
+  {
+   "fieldname": "sb_look",
+   "fieldtype": "Section Break",
+   "label": "Look",
+   "description": "The colours, fonts and cards of the Hipersign prototype on every ERPNext screen. Users can still pick light or dark from their avatar menu."
+  },
+  {
+   "fieldname": "desk_theme",
+   "fieldtype": "Select",
+   "label": "Desk theme",
+   "options": "Hipersign\nERPNext standard",
+   "default": "Hipersign"
+  },
+  {
+   "fieldname": "sb_menus",
+   "fieldtype": "Section Break",
+   "label": "Menus",
+   "description": "The prototype's menu \u2014 Overview, Sales, Purchasing, Inventory & Delivery, Finance & Tax, People & Assets, Admin \u2014 as one sidebar that stays on screen. Menu entries of switched-off features are left out."
+  },
+  {
+   "fieldname": "only_hipersign_tiles",
+   "fieldtype": "Check",
+   "label": "Show only Hipersign ERP on the desktop",
+   "default": "1",
+   "description": "Hides the other app tiles (Selling, Buying, Manufacturing, GST India\u2026). Switching it off shows them again."
+  },
+  {
+   "fieldname": "cb_menus",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "open_home_after_login",
+   "fieldtype": "Check",
+   "label": "Open Hipersign Home after login",
+   "default": "1",
+   "description": "Instead of the desktop of tiles."
+  },
+  {
+   "fieldname": "keep_hipersign_sidebar",
+   "fieldtype": "Check",
+   "label": "Keep the Hipersign menu on every screen it lists",
+   "default": "1"
+  },
+  {
+   "fieldname": "hs_hidden_icons",
+   "fieldtype": "Long Text",
+   "label": "Desktop tiles hidden by Hipersign",
+   "hidden": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "hide_getting_started",
+   "fieldtype": "Check",
+   "label": "Hide ERPNext's \u201cGetting Started\u201d panels",
+   "default": "1",
+   "description": "The prototype has none; Hipersign's own set-up wizard and demo data take their place."
   }
  ],
  "permissions": [

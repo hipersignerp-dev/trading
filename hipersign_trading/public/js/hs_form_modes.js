@@ -71,7 +71,14 @@ $(document).on("page-change", () => setTimeout(hipersign.fm.hook_list, 400));
 hipersign.fm.hook_list = function () {
 	const lv = window.cur_list;
 	if (!lv || !lv.doctype || !hipersign.fm.COVERED.includes(lv.doctype) || lv.__hs_fm) return;
-	if (frappe.get_route()[0] !== "List") return;
+	if ((frappe.get_route() || [])[0] !== "List") return;
+	if (!lv.page || typeof lv.page.set_primary_action !== "function") {
+		// the list is still being built (first page load): try again in a moment
+		hipersign.fm._tries = (hipersign.fm._tries || 0) + 1;
+		if (hipersign.fm._tries < 20) setTimeout(hipersign.fm.hook_list, 250);
+		return;
+	}
+	hipersign.fm._tries = 0;
 	lv.__hs_fm = true;
 	const dt = lv.doctype;
 	if (!frappe.model.can_create(dt)) return;

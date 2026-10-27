@@ -4,7 +4,7 @@ app_publisher = "Hipersign"
 app_description = "Trading, Distribution & Import/Export ERP built on ERPNext"
 app_email = "sales@hipersignerp.com"
 app_license = "Proprietary"
-app_version = "1.3.1"
+app_version = "1.4.0"
 
 required_apps = ["erpnext"]
 
@@ -20,7 +20,7 @@ add_to_apps_screen = [
 	}
 ]
 
-app_include_css = "/assets/hipersign_trading/css/hipersign.css"
+app_include_css = ["/assets/hipersign_trading/css/hipersign.css", "/assets/hipersign_trading/css/hipersign_theme.css"]
 app_include_js = [
 	"/assets/hipersign_trading/js/hipersign.js",
 	"/assets/hipersign_trading/js/doc_send.js",
@@ -31,6 +31,7 @@ app_include_js = [
 	"/assets/hipersign_trading/js/hs_docs.js",
 	"/assets/hipersign_trading/js/hs_form_modes.js",
 	"/assets/hipersign_trading/js/hs_money.js",
+	"/assets/hipersign_trading/js/hs_nav.js",
 ]
 
 website_context = {

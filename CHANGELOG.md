@@ -1,5 +1,23 @@
 # Changelog
 
+## 1.4.0 — 27 Oct 2026 — the prototype's look and menu
+Built and tested on **Frappe 16.29 / ERPNext 16.30** (the versions on the Hipersign servers) with ERPNext's UAE chart of accounts.
+
+**Hipersign theme:** the prototype's colours, fonts (Plus Jakarta Sans, Lexend, IBM Plex Sans Arabic — bundled, no outside
+calls), navy menu, white cards on a soft background, blue buttons and tinted status pills on every ERPNext screen, in light and
+dark mode and right-to-left Arabic. Hipersign Settings → *Look & menus* → Desk theme switches it off.
+**The prototype's menu:** one sidebar, *Hipersign ERP*, with the prototype's groups — Overview, Sales, Purchasing, Inventory &
+Delivery, Finance & Tax, People & Assets, Admin — and the logo on top. It stays on screen on every page it lists; entries of
+switched-off features are left out; groups a user has nothing to open in are hidden.
+**Desktop:** one *Hipersign ERP* tile; the other app tiles (Selling, Buying, Manufacturing, GST India…) are hidden and come back
+when the option is switched off or the app is uninstalled. Users land on Hipersign Home after login, and ERPNext's
+“Getting Started” panels are switched off (both optional).
+**Demo data:** on ERPNext's UAE chart the demo company now banks with Emirates NBD and invoices on *Trade Receivable* (the chart
+sets a credit-card account as the bank and “Trade in Opening Fees” as the receivable).
+**Fix:** the Quick / Standard / Detailed *New* button waits for the list to finish loading on Frappe 16.29.
+**Note:** later Frappe 16 releases replace the sidebar system (per-module “Sidebar” documents). There the theme still applies but
+the menu is left to Frappe; the menu will be moved to the new system in a later version.
+
 ## 1.3.1 — 27 Oct 2026
 **Demo data loader:** works on sites with India Compliance installed (items get an HSN/SAC code from their HS code), and can be
 run again after a partly failed load — the second run fills in what is missing (KYC blocks and stock reservations made by the

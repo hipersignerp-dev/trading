@@ -40,6 +40,7 @@ without touching any other site on the same server.
 | **v1.2** VAT & corporate tax filing | DocType **Tax Return** (VAT 201 / Corporate Tax): figures from ERPNext's UAE VAT 201 → Finance Manager **approves and locks the period** (an ERPNext Accounting Period closes invoices, payments and journals) → filed by hand on **EmaraTax** with the reference → paid. Due-date reminders |
 | **v1.2** Currency revaluation | ERPNext **Exchange Rate Revaluation** (month-end unrealised gain/loss, reversed next month) and realised gain/loss on Payment Entries; a monthly reminder to the Finance Manager |
 | **v1.2** Group companies | Group company *Hipersign Demo Group* with the LLC, an FZE and a 70%-owned Oman company (ownership %, minority partner and licence on Company); inter-company customer/supplier (*Represents Company*), an inter-company invoice mirrored as a purchase invoice, and ERPNext's **Consolidated Financial Statement** |
+| **v1.4** Look & menus | The prototype's theme (colours, fonts, navy menu, cards; light, dark, Arabic) and its menu as one *Hipersign ERP* sidebar; one desktop tile, Home after login — Hipersign Settings → **Look & menus** |
 | **v1.3** Set-up & packs | First-login wizard: single company or group, Starter / Standard / Enterprise; 21 feature switches in **Hipersign Settings → Setup & features** hide menus and switch workflows off without deleting anything; **Load demo data** button |
 | **v1.3** Quick / Standard / Detailed forms | **New · Quick** on the lists; Quick dialogs for quotation, sales order, purchase order, quick invoice, receive payment; Standard hides the rarely used fields; **Form mode** button on each draft; choices remembered per user, defaults per role |
 | **v1.3** Documents & exceptions | Typed attachments, **Hipersign Document Rule**, Documents box on forms, **Document Waiver**, report **Missing Documents**, workspace **Hipersign Documents** |
@@ -134,6 +135,11 @@ bench --site hipersign-demo.yourdomain.com export-fixtures --app hipersign_tradi
 ```
 (Custom fields must have **Module = Hipersign Trading** to be exported.)
 
+### Upgrading an existing site from 1.3 to 1.4
+`bench migrate` (or deploy on Frappe Cloud / Press and update the site). Patch `v1_4.look_and_menus` switches the Hipersign theme,
+the Hipersign ERP menu and desktop on; change any of it in Hipersign Settings → *Look & menus*. Users may need to reload the page
+once (Ctrl/Cmd + Shift + R) to pick up the new look.
+
 ### Upgrading an existing site from 1.2 to 1.3
 ```bash
 cd ~/frappe-bench
@@ -196,5 +202,7 @@ un-serialised. For the full serial / warranty demo, create a fresh demo site and
 - **Price lists** limit the item list on quotations, orders and invoices to items with a price; tick *All items* on the document to override.
 
 ## Requirements
-Frappe 16 / ERPNext 16 for 1.3 (tested on Frappe 16.53 / ERPNext 16.52, Python 3.14). Frappe HR is optional. WhatsApp uses click-to-chat (wa.me) with an expiring PDF link; a WhatsApp Business API
+Frappe 16 / ERPNext 16. 1.4 is tested on Frappe 16.29 / ERPNext 16.30 (the Hipersign servers) and on Frappe 16.53 / ERPNext 16.52,
+Python 3.14. On Frappe releases after the sidebar rework (16.4x+) the theme works but the Hipersign menu is not created yet.
+Frappe HR is optional. WhatsApp uses click-to-chat (wa.me) with an expiring PDF link; a WhatsApp Business API
 provider can be plugged into `hipersign_trading/api/share.py` later.

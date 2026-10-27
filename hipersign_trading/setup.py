@@ -119,6 +119,10 @@ def before_uninstall():
 	for dt in ("Custom Field", "Property Setter"):
 		for n in frappe.get_all(dt, filters={"module": MODULE}, pluck="name"):
 			frappe.delete_doc(dt, n, ignore_permissions=True, force=True)
+	# the desktop tiles we hid come back; our menu and tile go
+	from hipersign_trading import navigation
+
+	navigation.remove()
 	for wf in frappe.get_all("Workflow", filters={"name": ["like", "Hipersign %"]}, pluck="name"):
 		frappe.delete_doc("Workflow", wf, ignore_permissions=True, force=True)
 	for kb in frappe.get_all("Kanban Board", filters={"name": "Hipersign Lead Pipeline"}, pluck="name"):

@@ -140,6 +140,10 @@ def apply_effects(s=None):
 		for row in frappe.get_all("Workspace Link", filters={"parent": ws, "parenttype": "Workspace", "type": "Link"}, fields=["name", "link_to"]):
 			frappe.db.set_value("Workspace Link", row.name, "hidden", 1 if row.link_to in off_targets else 0, update_modified=False)
 	frappe.db.set_single_value(SETTINGS, "hs_hidden_by_features", json.dumps(sorted(hide_now)))
+	# v1.4: the prototype's menu follows the switches, and the desktop shows only Hipersign when asked
+	from hipersign_trading import navigation
+
+	navigation.apply(frappe.get_doc(SETTINGS))
 	frappe.clear_cache()
 
 

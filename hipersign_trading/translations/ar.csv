@@ -661,3 +661,78 @@ United Kingdom,المملكة المتحدة
 VAT registration certificate,شهادة التسجيل في ضريبة القيمة المضافة
 ZATCA,هيئة الزكاة والضريبة والجمارك
 Zakat & VAT certificate,شهادة الزكاة وضريبة القيمة المضافة
+Admin,الإدارة
+Approval Workflows,مسارات الاعتماد
+Approvals,الموافقات
+Balance Sheet,الميزانية العمومية
+Bank Guarantees,الضمانات البنكية
+Bank Reconciliation,التسوية البنكية
+CRM & Leads,العملاء المحتملون
+Company Licences,تراخيص الشركة
+Currency Revaluation,إعادة تقييم العملات
+Customer Portal,بوابة العملاء
+Data Migration,ترحيل البيانات
+Delivery Trips,رحلات التسليم
+Desk theme,مظهر الواجهة
+Dispatch & Delivery,الإرسال والتسليم
+Document Rules,قواعد المستندات
+Driver App,تطبيق السائق
+ERPNext standard,ERPNext القياسي
+Editable Lists,القوائم القابلة للتعديل
+Exports & Re-exports,التصدير وإعادة التصدير
+Finance & Tax,المالية والضرائب
+Fixed Assets,الأصول الثابتة
+General Ledger,دفتر الأستاذ العام
+Goods Receiving,استلام البضائع
+Group Companies,شركات المجموعة
+Group Members,أعضاء المجموعة
+HR & Payroll,الموارد البشرية والرواتب
+Hide ERPNext's “Getting Started” panels,إخفاء لوحات «البدء» في ERPNext
+"Hides the other app tiles (Selling, Buying, Manufacturing, GST India…). Switching it off shows them again.",يخفي مربعات التطبيقات الأخرى (المبيعات، المشتريات، التصنيع، ضريبة الهند…). إيقافه يعيد إظهارها.
+Hipersign,هايبرساين
+Home,الرئيسية
+Imports & Shipments,الاستيراد والشحنات
+Insights & Alerts,التنبيهات والرؤى
+Instead of the desktop of tiles.,بدلاً من سطح المكتب ذي المربعات.
+Inventory & Delivery,المخزون والتسليم
+Journal Entries,القيود اليومية
+KYC & Compliance,التحقق من العملاء والامتثال
+Keep the Hipersign menu on every screen it lists,إبقاء قائمة هايبرساين ظاهرة في كل شاشة تضمها
+LCs & Guarantees,الاعتمادات والضمانات
+Landed Cost & Margin,التكلفة الواصلة والهامش
+Look,المظهر
+Look & menus,المظهر والقوائم
+Menus,القوائم
+Messages,الرسائل
+Open Hipersign Home after login,فتح الصفحة الرئيسية لهايبرساين بعد تسجيل الدخول
+Order Tracker,متابعة الطلبات
+Overview,نظرة عامة
+Payments,المدفوعات
+People & Assets,الموظفون والأصول
+Pick Lists,قوائم الالتقاط
+Post-dated Cheques,الشيكات المؤجلة
+Profit and Loss,الأرباح والخسائر
+Purchase Invoices,فواتير الشراء
+Purchase Orders,أوامر الشراء
+Purchase Requests,طلبات الشراء
+Quotations,عروض الأسعار
+Sales Invoices,فواتير المبيعات
+Sales Orders,أوامر البيع
+Serial & Warranty,الأرقام التسلسلية والضمان
+Show only Hipersign ERP on the desktop,إظهار هايبرساين فقط على سطح المكتب
+Smart Reorder,إعادة الطلب الذكية
+Stock Balance,رصيد المخزون
+Stock Count,جرد المخزون
+Stock Transfers,تحويلات المخزون
+Supplier Quotations,عروض الموردين
+Suppliers,الموردون
+System Settings,إعدادات النظام
+"The colours, fonts and cards of the Hipersign prototype on every ERPNext screen. Users can still pick light or dark from their avatar menu.",ألوان وخطوط وبطاقات نموذج هايبرساين على كل شاشات ERPNext. يمكن للمستخدمين اختيار الوضع الفاتح أو الداكن من قائمة صورتهم.
+The prototype has none; Hipersign's own set-up wizard and demo data take their place.,لا يحتويها النموذج؛ يحل محلها معالج إعداد هايبرساين والبيانات التجريبية.
+"The prototype's menu — Overview, Sales, Purchasing, Inventory & Delivery, Finance & Tax, People & Assets, Admin — as one sidebar that stays on screen. Menu entries of switched-off features are left out.",قائمة النموذج — نظرة عامة، المبيعات، المشتريات، المخزون والتسليم، المالية والضرائب، الموظفون والأصول، الإدارة — في شريط جانبي واحد يبقى ظاهراً. تُستبعد عناصر الميزات المتوقفة.
+Users,المستخدمون
+VAT & Corporate Tax,ضريبة القيمة المضافة وضريبة الشركات
+Warehouse & Stock,المستودع والمخزون
+Warranty Claims,مطالبات الضمان
+Hipersign ERP,هايبرساين ERP
+Demo data switched this site to the Enterprise pack,حوّلت البيانات التجريبية هذا الموقع إلى باقة المؤسسات

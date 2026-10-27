@@ -1992,3 +1992,228 @@ msgstr "هيئة الزكاة والضريبة والجمارك"
 
 msgid "Zakat & VAT certificate"
 msgstr "شهادة الزكاة وضريبة القيمة المضافة"
+
+msgid "Admin"
+msgstr "الإدارة"
+
+msgid "Approval Workflows"
+msgstr "مسارات الاعتماد"
+
+msgid "Approvals"
+msgstr "الموافقات"
+
+msgid "Balance Sheet"
+msgstr "الميزانية العمومية"
+
+msgid "Bank Guarantees"
+msgstr "الضمانات البنكية"
+
+msgid "Bank Reconciliation"
+msgstr "التسوية البنكية"
+
+msgid "CRM & Leads"
+msgstr "العملاء المحتملون"
+
+msgid "Company Licences"
+msgstr "تراخيص الشركة"
+
+msgid "Currency Revaluation"
+msgstr "إعادة تقييم العملات"
+
+msgid "Customer Portal"
+msgstr "بوابة العملاء"
+
+msgid "Data Migration"
+msgstr "ترحيل البيانات"
+
+msgid "Delivery Trips"
+msgstr "رحلات التسليم"
+
+msgid "Desk theme"
+msgstr "مظهر الواجهة"
+
+msgid "Dispatch & Delivery"
+msgstr "الإرسال والتسليم"
+
+msgid "Document Rules"
+msgstr "قواعد المستندات"
+
+msgid "Driver App"
+msgstr "تطبيق السائق"
+
+msgid "ERPNext standard"
+msgstr "ERPNext القياسي"
+
+msgid "Editable Lists"
+msgstr "القوائم القابلة للتعديل"
+
+msgid "Exports & Re-exports"
+msgstr "التصدير وإعادة التصدير"
+
+msgid "Finance & Tax"
+msgstr "المالية والضرائب"
+
+msgid "Fixed Assets"
+msgstr "الأصول الثابتة"
+
+msgid "General Ledger"
+msgstr "دفتر الأستاذ العام"
+
+msgid "Goods Receiving"
+msgstr "استلام البضائع"
+
+msgid "Group Companies"
+msgstr "شركات المجموعة"
+
+msgid "Group Members"
+msgstr "أعضاء المجموعة"
+
+msgid "HR & Payroll"
+msgstr "الموارد البشرية والرواتب"
+
+msgid "Hide ERPNext's “Getting Started” panels"
+msgstr "إخفاء لوحات «البدء» في ERPNext"
+
+msgid "Hides the other app tiles (Selling, Buying, Manufacturing, GST India…). Switching it off shows them again."
+msgstr "يخفي مربعات التطبيقات الأخرى (المبيعات، المشتريات، التصنيع، ضريبة الهند…). إيقافه يعيد إظهارها."
+
+msgid "Hipersign"
+msgstr "هايبرساين"
+
+msgid "Home"
+msgstr "الرئيسية"
+
+msgid "Imports & Shipments"
+msgstr "الاستيراد والشحنات"
+
+msgid "Insights & Alerts"
+msgstr "التنبيهات والرؤى"
+
+msgid "Instead of the desktop of tiles."
+msgstr "بدلاً من سطح المكتب ذي المربعات."
+
+msgid "Inventory & Delivery"
+msgstr "المخزون والتسليم"
+
+msgid "Journal Entries"
+msgstr "القيود اليومية"
+
+msgid "KYC & Compliance"
+msgstr "التحقق من العملاء والامتثال"
+
+msgid "Keep the Hipersign menu on every screen it lists"
+msgstr "إبقاء قائمة هايبرساين ظاهرة في كل شاشة تضمها"
+
+msgid "LCs & Guarantees"
+msgstr "الاعتمادات والضمانات"
+
+msgid "Landed Cost & Margin"
+msgstr "التكلفة الواصلة والهامش"
+
+msgid "Look"
+msgstr "المظهر"
+
+msgid "Look & menus"
+msgstr "المظهر والقوائم"
+
+msgid "Menus"
+msgstr "القوائم"
+
+msgid "Messages"
+msgstr "الرسائل"
+
+msgid "Open Hipersign Home after login"
+msgstr "فتح الصفحة الرئيسية لهايبرساين بعد تسجيل الدخول"
+
+msgid "Order Tracker"
+msgstr "متابعة الطلبات"
+
+msgid "Overview"
+msgstr "نظرة عامة"
+
+msgid "Payments"
+msgstr "المدفوعات"
+
+msgid "People & Assets"
+msgstr "الموظفون والأصول"
+
+msgid "Pick Lists"
+msgstr "قوائم الالتقاط"
+
+msgid "Post-dated Cheques"
+msgstr "الشيكات المؤجلة"
+
+msgid "Profit and Loss"
+msgstr "الأرباح والخسائر"
+
+msgid "Purchase Invoices"
+msgstr "فواتير الشراء"
+
+msgid "Purchase Orders"
+msgstr "أوامر الشراء"
+
+msgid "Purchase Requests"
+msgstr "طلبات الشراء"
+
+msgid "Quotations"
+msgstr "عروض الأسعار"
+
+msgid "Sales Invoices"
+msgstr "فواتير المبيعات"
+
+msgid "Sales Orders"
+msgstr "أوامر البيع"
+
+msgid "Serial & Warranty"
+msgstr "الأرقام التسلسلية والضمان"
+
+msgid "Show only Hipersign ERP on the desktop"
+msgstr "إظهار هايبرساين فقط على سطح المكتب"
+
+msgid "Smart Reorder"
+msgstr "إعادة الطلب الذكية"
+
+msgid "Stock Balance"
+msgstr "رصيد المخزون"
+
+msgid "Stock Count"
+msgstr "جرد المخزون"
+
+msgid "Stock Transfers"
+msgstr "تحويلات المخزون"
+
+msgid "Supplier Quotations"
+msgstr "عروض الموردين"
+
+msgid "Suppliers"
+msgstr "الموردون"
+
+msgid "System Settings"
+msgstr "إعدادات النظام"
+
+msgid "The colours, fonts and cards of the Hipersign prototype on every ERPNext screen. Users can still pick light or dark from their avatar menu."
+msgstr "ألوان وخطوط وبطاقات نموذج هايبرساين على كل شاشات ERPNext. يمكن للمستخدمين اختيار الوضع الفاتح أو الداكن من قائمة صورتهم."
+
+msgid "The prototype has none; Hipersign's own set-up wizard and demo data take their place."
+msgstr "لا يحتويها النموذج؛ يحل محلها معالج إعداد هايبرساين والبيانات التجريبية."
+
+msgid "The prototype's menu — Overview, Sales, Purchasing, Inventory & Delivery, Finance & Tax, People & Assets, Admin — as one sidebar that stays on screen. Menu entries of switched-off features are left out."
+msgstr "قائمة النموذج — نظرة عامة، المبيعات، المشتريات، المخزون والتسليم، المالية والضرائب، الموظفون والأصول، الإدارة — في شريط جانبي واحد يبقى ظاهراً. تُستبعد عناصر الميزات المتوقفة."
+
+msgid "Users"
+msgstr "المستخدمون"
+
+msgid "VAT & Corporate Tax"
+msgstr "ضريبة القيمة المضافة وضريبة الشركات"
+
+msgid "Warehouse & Stock"
+msgstr "المستودع والمخزون"
+
+msgid "Warranty Claims"
+msgstr "مطالبات الضمان"
+
+msgid "Hipersign ERP"
+msgstr "هايبرساين ERP"
+
+msgid "Demo data switched this site to the Enterprise pack"
+msgstr "حوّلت البيانات التجريبية هذا الموقع إلى باقة المؤسسات"

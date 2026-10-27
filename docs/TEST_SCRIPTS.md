@@ -66,3 +66,9 @@
 | BC-01 | Accountant | Customer paid AED 25 less → Payment Entry → *Book the difference as bank charges* | Invoice settled in full; above the limit only the Accounts Manager can save it |
 | LC-04 | Accountant | Letter of Credit with margin → status Paid (date today) | Draft margin release journal created; a future paid date is refused |
 | PL-01 | Sales Executive | Quotation for a Wholesale customer → item list | Only items in the Wholesale price list; tick *All items* to see the rest |
+| LOOK-01 | Any user | Log in | Lands on Hipersign Home; navy Hipersign menu with the logo; prototype fonts and colours |
+| LOOK-02 | Any user | Avatar menu → Toggle theme → Dark | Dark navy look as in the prototype's dark mode |
+| LOOK-03 | Sales Executive (Arabic) | Language Arabic → Sales Orders | Right-to-left; menu on the right; Arabic menu labels |
+| NAV-01 | Administrator | Open Sales Orders, then General Ledger, then Hipersign Settings | The Hipersign menu stays; the current page is highlighted |
+| NAV-02 | Administrator | Desktop (logo → Desktop) | Only the Hipersign ERP tile; Hipersign Settings → Look & menus → untick *Show only Hipersign ERP* → the other tiles return |
+| NAV-03 | Administrator | Hipersign Settings → Pack → Starter | LCs, imports, CRM disappear from the menu; Enterprise brings them back |
