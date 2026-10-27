@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.5.1 — 27 Oct 2026 — the prototype's company on the demo
+**Company name in Arabic** field on Company (printed on the bilingual tax invoice and quotation). The demo loader gives the demo
+company the prototype's details when they are empty: TRN 100384927150003, *هايبرساين ديمو للتجارة ذ.م.م*, Office 1204, Al Quoz
+Business Tower, Dubai. A new demo site set up as *Hipersign Demo Trading LLC* (abbreviation HDT) matches the prototype throughout.
+
 ## 1.5.0 — 27 Oct 2026 — the prototype's screens
 Built and tested on **Frappe 16.29 / ERPNext 16.30**. The screens of the prototype that ERPNext has no counterpart for, as desk
 pages in the Hipersign menu. Every figure is computed from the live records and opens the records behind it.

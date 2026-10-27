@@ -1301,5 +1301,19 @@
   "is_system_generated": 0,
   "label": "Supplier delivery note date",
   "insert_after": "supplier_delivery_note"
+ },
+ {
+  "doctype": "Custom Field",
+  "dt": "Company",
+  "module": "Hipersign Trading",
+  "name": "Company-company_name_in_arabic",
+  "fieldname": "company_name_in_arabic",
+  "label": "Company Name in Arabic",
+  "fieldtype": "Data",
+  "insert_after": "company_name",
+  "translatable": 0,
+  "print_hide": 0,
+  "reqd": 0,
+  "modified": "2026-10-27 13:00:00"
  }
 ]

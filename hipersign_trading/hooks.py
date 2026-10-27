@@ -4,7 +4,7 @@ app_publisher = "Hipersign"
 app_description = "Trading, Distribution & Import/Export ERP built on ERPNext"
 app_email = "sales@hipersignerp.com"
 app_license = "Proprietary"
-app_version = "1.5.0"
+app_version = "1.5.1"
 
 required_apps = ["erpnext"]
 
