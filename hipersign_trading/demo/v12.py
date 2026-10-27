@@ -197,8 +197,13 @@ def v12_reservations(c):
 	if not frappe.db.exists("Pick List Item", {"sales_order": so_name}):
 		from erpnext.selling.doctype.sales_order.sales_order import create_pick_list
 
-		pl = create_pick_list(so_name)
-		pl.insert()
+		try:
+			pl = create_pick_list(so_name)
+			pl.insert()
+		except frappe.ValidationError:
+			# ERPNext 16 refuses a pick list while stock is reserved for the order — the reservation is the demo
+			frappe.clear_last_message()
+			frappe.local.message_log = []
 
 
 # ------------------------------------------------------------------ letters of credit & bank guarantees

@@ -35,7 +35,7 @@ def kyc_problem(customer):
 
 
 def sales_order_before_submit(doc, method=None):
-	if not feature_on("kyc"):
+	if not feature_on("kyc") or frappe.flags.hs_demo_loading:
 		return
 	if not frappe.get_meta("Customer").has_field("hs_kyc_status") or not settings().get("kyc_block_orders"):
 		return

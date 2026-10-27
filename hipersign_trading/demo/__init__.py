@@ -59,6 +59,7 @@ def load():
 	frappe.flags.hs_apply_credit_limit = True
 	frappe.flags.mute_emails = True
 	frappe.flags.hs_skip_doc_rules = True  # documents are attached in v13_documents; history is not blocked
+	frappe.flags.hs_demo_loading = True  # history is created in any order: a re-run must not trip over today's KYC blocks
 	paused = pause_workflows()
 	try:
 		for step in (
@@ -81,6 +82,7 @@ def load():
 		resume_workflows(paused)
 		frappe.flags.hs_apply_credit_limit = False
 		frappe.flags.hs_skip_doc_rules = False
+		frappe.flags.hs_demo_loading = False
 	run(set_pending_states, ctx)
 	frappe.db.commit()
 	print("\n".join(LOG))
@@ -254,14 +256,30 @@ def items(c):
 				"item_defaults": [{"company": c.company, "default_warehouse": c.wh(wh)}],
 				**serial_fields(code),
 				"reorder_levels": [{"warehouse": c.wh(wh), "warehouse_reorder_level": reorder, "warehouse_reorder_qty": reorder, "material_request_type": "Purchase"}],
+				**hsn_fields(hs, name),
 			}).insert()
 		price(code, selling, sell)
 		price(code, buying, cost)
 	for code, name, ar, uom, sell, cost in D.SERVICES:
 		if not frappe.db.exists("Item", code):
 			frappe.get_doc({"doctype": "Item", "item_code": code, "item_name": name, "description": name, "item_group": "Services",
-				"stock_uom": uom, "is_stock_item": 0, "valuation_rate": cost, "hs_item_name_ar": ar}).insert()
+				"stock_uom": uom, "is_stock_item": 0, "valuation_rate": cost, "hs_item_name_ar": ar, **hsn_fields("998719", "Other support services")}).insert()
 		price(code, selling, sell)
+
+
+def hsn_fields(code, description):
+	"""Sites with India Compliance installed require an HSN/SAC code on every item: use the item's HS code."""
+	if not frappe.get_meta("Item").has_field("gst_hsn_code") or not frappe.db.table_exists("GST HSN Code"):
+		return {}
+	code = "".join(ch for ch in str(code) if ch.isdigit())[:8]
+	if len(code) < 6:
+		return {}
+	try:
+		if not frappe.db.exists("GST HSN Code", code):
+			frappe.get_doc({"doctype": "GST HSN Code", "hsn_code": code, "description": description}).insert(ignore_permissions=True)
+	except Exception:
+		return {}  # the item is still created when the site does not insist on HSN codes
+	return {"gst_hsn_code": code}
 
 
 def serials_on():
