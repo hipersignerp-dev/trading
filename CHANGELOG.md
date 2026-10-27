@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.5.2 — 27 Oct 2026 — closer to the prototype's look
+Theme additions (Hipersign desk theme only): 24 px page margin on the Hipersign pages and the Order Tracker; workspaces use the full
+width instead of a 900 px centred column; page title 21 px / 800; menu group headings 11 px bold, a light-blue bar beside the active
+item; Approve green and Reject outlined red on Hipersign pages; document numbers in blue; list rows without likes, comment counts and
+modified time; number-card values in dark ink with the menu on hover; kanban columns and cards as in the prototype; the Order
+Tracker's stages as a numbered stepper.
+
 ## 1.5.1 — 27 Oct 2026 — the prototype's company on the demo
 **Company name in Arabic** field on Company (printed on the bilingual tax invoice and quotation). The demo loader gives the demo
 company the prototype's details when they are empty: TRN 100384927150003, *هايبرساين ديمو للتجارة ذ.م.م*, Office 1204, Al Quoz
