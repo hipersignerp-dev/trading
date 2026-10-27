@@ -416,3 +416,94 @@ html.hs-theme .desktop-icon .icon-title, html.hs-theme .desktop-container .icon-
 .hsx-thread-f .control-label, .hsx-thread-f .comment-input-header, .hsx-thread-f .comment-avatar, .hsx-thread-f .avatar { display: none; }
 .hsx-thread-f .ql-editor { min-height: 64px; }
 .hsx-thread-f .comment-input-container, .hsx-thread-f .frappe-control { margin: 0; }
+
+/* ================================================================ v1.6 — closer to the prototype (append to hipersign_theme.css) */
+
+/* 1. Page gutter and width: the prototype's .content padding (18px 24px 40px), full width */
+html.hs-theme .page-head .container,
+html.hs-theme .page-body.container,
+html.hs-theme .page-container .container { max-width: none !important; }
+html.hs-theme .page-head .container { padding-left: 24px; padding-right: 24px; }
+html.hs-theme .hsx-wrap { padding: 18px 24px 40px; }
+html.hs-theme .page-body.container > .page-wrapper > .page-content > .layout-main > .layout-main-section-wrapper,
+html.hs-theme .layout-main-section-wrapper { padding-left: 24px; padding-right: 24px; }
+html.hs-theme .hs-tracker { padding: 18px 24px 40px; }
+/* workspaces: Frappe caps .layout-main at 900px and centres it; the prototype uses the full width */
+html.hs-theme .layout-main { max-width: none !important; margin-left: 0 !important; margin-right: 0 !important; }
+html.hs-theme .layout-main-section { padding-left: 0; }
+
+/* 2. Top bar and page title: white sticky bar, title like the prototype's h1 (21px / 800) */
+html.hs-theme .page-head { min-height: 60px; box-shadow: none; }
+html.hs-theme .page-head .page-title .title-text,
+html.hs-theme .page-head .navbar-breadcrumbs li:last-child a,
+html.hs-theme .page-head .navbar-breadcrumbs li:last-child { font-size: 21px; font-weight: 800; letter-spacing: -.01em; color: var(--hs-ink); }
+html.hs-theme .page-head .navbar-breadcrumbs li:not(:last-child),
+html.hs-theme .page-head .navbar-breadcrumbs li:not(:last-child) a { font-size: 12.5px; color: var(--hs-muted); font-weight: 500; }
+html.hs-theme .hsx-desc { font-size: 13px; color: var(--hs-muted); max-width: 70ch; }
+
+/* 3. Menu: group headings, active accent bar, item rhythm */
+html.hs-theme .body-sidebar .section-item > .standard-sidebar-item .sidebar-item-label,
+html.hs-theme .body-sidebar .sidebar-item-container.section-item > .standard-sidebar-item .sidebar-item-label {
+	font-size: 11px !important; font-weight: 700; letter-spacing: .08em; color: #a9b6dc !important;
+}
+html.hs-theme .body-sidebar .section-item > .standard-sidebar-item { margin-top: 10px; }
+html.hs-theme .body-sidebar .standard-sidebar-item { position: relative; min-height: 34px; padding-top: 0; padding-bottom: 0; }
+html.hs-theme .body-sidebar .standard-sidebar-item .item-anchor { gap: 11px; padding: 7px 10px; }
+html.hs-theme .body-sidebar .standard-sidebar-item.active-sidebar::before {
+	content: ""; position: absolute; left: -8px; top: 8px; bottom: 8px; width: 3px; border-radius: 0 3px 3px 0; background: #8fb0ff;
+}
+html.hs-theme .body-sidebar .standard-sidebar-item.active-sidebar .sidebar-item-label { font-weight: 600; }
+
+/* 4. Buttons on the prototype screens: Approve green with a tick, Reject outlined red, small size 28px */
+html.hs-theme .hsx-wrap .btn { height: 28px; padding: 0 10px; font-size: 12px; border-radius: 7px; display: inline-flex; align-items: center; gap: 6px; }
+html.hs-theme .hsx-wrap .btn-primary[data-a="Approve"] { background: var(--hs-green) !important; border-color: var(--hs-green) !important; }
+html.hs-theme .hsx-wrap .btn-danger { background: var(--hs-surface) !important; color: var(--hs-red) !important; border: 1px solid color-mix(in srgb, var(--hs-red) 35%, var(--hs-line)) !important; }
+html.hs-theme .hsx-wrap .btn-danger:hover { background: var(--hs-red-bg) !important; }
+
+/* 5. Tables: document numbers as blue links / mono chips, as in the prototype */
+html.hs-theme .hsx-t a, html.hs-theme .hsx-t td a b { color: var(--hs-blue); font-weight: 600; }
+html.hs-theme .hsx-t .docno, html.hs-theme .list-row .list-row-col .list-id {
+	font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11.5px; background: var(--hs-surface-2);
+	border: 1px solid var(--hs-line); border-radius: 6px; padding: 1px 6px; color: var(--hs-ink-2);
+}
+
+/* 6. List views: quieter rows (no likes / comment counts / modified time), prototype header */
+html.hs-theme .list-row-activity .comment-count,
+html.hs-theme .list-row-activity .list-row-like,
+html.hs-theme .list-row-head .list-row-activity .liked-by-filter,
+html.hs-theme .list-row-activity .modified { display: none !important; }
+html.hs-theme .list-row-head { font-size: 12px; text-transform: none; }
+html.hs-theme .list-row { min-height: 48px; }
+html.hs-theme .frappe-list .result { border-radius: 10px; }
+
+/* 7. Number cards: value in ink like the prototype KPI tiles; the card colour stays on the top bar only */
+html.hs-theme .number-widget-box .widget-content .number { color: var(--hs-ink) !important; font-size: 21px; }
+html.hs-theme .number-widget-box .widget-head .widget-control .dropdown-btn { opacity: 0; }
+html.hs-theme .number-widget-box:hover .widget-head .widget-control .dropdown-btn { opacity: 1; }
+html.hs-theme .number-widget-box .widget-title { font-size: 12.5px; color: var(--hs-muted); font-weight: 500; }
+
+/* 8. Kanban (CRM pipeline): white columns, prototype cards */
+html.hs-theme .kanban .kanban-column { background: var(--hs-surface-2) !important; border: 1px solid var(--hs-line); border-radius: 10px; }
+html.hs-theme .kanban .kanban-card { background: var(--hs-surface); border: 1px solid var(--hs-line); border-radius: 10px; box-shadow: var(--hs-shadow); }
+html.hs-theme .kanban .kanban-card-title { color: var(--hs-ink); font-weight: 700; font-size: 13.5px; }
+html.hs-theme .kanban .kanban-card-doc { color: var(--hs-muted); font-size: 12.5px; }
+html.hs-theme .kanban .kanban-column-title .indicator-pill,
+html.hs-theme .kanban .kanban-title-area { font-weight: 600; }
+
+/* 9. Order Tracker: the prototype's numbered stepper */
+html.hs-theme .hs-kpis .hs-kpi { border-radius: 10px; box-shadow: var(--hs-shadow); border: 1px solid var(--hs-line); position: relative; overflow: hidden; }
+html.hs-theme .hs-kpis .hs-kpi::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 3px; background: var(--hs-blue); }
+html.hs-theme .hs-stages { display: flex !important; gap: 0 !important; counter-reset: hsstage; padding: 14px 8px 6px; background: none !important; }
+html.hs-theme .hs-stage { flex: 1; position: relative; text-align: center; background: none !important; border: 0 !important; padding: 30px 4px 4px !important; counter-increment: hsstage; align-items: center; }
+html.hs-theme .hs-stage::before { content: counter(hsstage); position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 22px; height: 22px; border-radius: 50%;
+	background: #8b95ad; color: #fff; font-size: 11.5px; font-weight: 700; display: grid; place-items: center; z-index: 1; }
+html.hs-theme .hs-stage::after { content: ""; position: absolute; top: 10px; left: -50%; right: 50%; height: 2px; background: var(--hs-line); }
+html.hs-theme .hs-stage:first-child::after { display: none; }
+html.hs-theme .hs-stage.done::before { content: "✓"; background: var(--hs-green); }
+html.hs-theme .hs-stage.done::after { background: var(--hs-green); }
+html.hs-theme .hs-stage.cur::before { background: var(--hs-blue); }
+html.hs-theme .hs-stage.warn::before { background: var(--hs-red); }
+html.hs-theme .hs-stage > i { display: none; }
+html.hs-theme .hs-stage small { display: inline-block; margin-top: 3px; padding: 1px 8px; border-radius: 999px; background: var(--hs-surface-2); color: var(--hs-muted); }
+html.hs-theme .hs-stage.done small { background: var(--hs-green-bg); color: var(--hs-green); }
+html.hs-theme .hs-stage.done { color: var(--hs-green); font-weight: 600; }
