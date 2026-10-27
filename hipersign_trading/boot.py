@@ -23,6 +23,7 @@ def boot_session(bootinfo):
 		info["open_home"] = bool(s.get("open_home_after_login"))
 		info["sidebar"] = "Hipersign ERP"
 		info["home_workspace"] = "Hipersign Trading"
+		info["home_page"] = "hipersign-home" if frappe.db.exists("Page", "hipersign-home") and frappe.get_cached_doc("Page", "hipersign-home").is_permitted() else None
 		bootinfo.hipersign = info
 	except Exception:
 		frappe.log_error(title="Hipersign boot info")

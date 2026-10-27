@@ -1,0 +1,349 @@
+{
+ "categories": [
+  [
+   "msg",
+   "Messaging & social media",
+   "msg"
+  ],
+  [
+   "track",
+   "Tracking & field work",
+   "pin"
+  ],
+  [
+   "more",
+   "Payments, compliance & more",
+   "spark"
+  ]
+ ],
+ "addons": [
+  {
+   "id": "wa_click",
+   "cat": "msg",
+   "name": "WhatsApp click-to-chat",
+   "desc": "WhatsApp buttons on quotations, orders and invoices that open WhatsApp with the message and PDF link ready.",
+   "lo": 2,
+   "hi": 3,
+   "fees": "None — sent from the user’s own phone (not tracked)."
+  },
+  {
+   "id": "wa_api",
+   "cat": "msg",
+   "name": "WhatsApp Business integration",
+   "desc": "Shared WhatsApp inbox inside the ERP, linked to customers and orders; approved templates; opt-in tracking; unknown numbers become CRM leads.",
+   "lo": 12,
+   "hi": 16,
+   "fees": "Meta per-message fees · WhatsApp Business account · template approval by Meta."
+  },
+  {
+   "id": "wa_auto",
+   "cat": "msg",
+   "name": "Automatic WhatsApp alerts",
+   "desc": "Order confirmed, out for delivery, invoice due and payment received — sent automatically.",
+   "lo": 4,
+   "hi": 6,
+   "fees": "Meta per-message fees.",
+   "deps": [
+    "wa_api"
+   ]
+  },
+  {
+   "id": "fb_leads",
+   "cat": "msg",
+   "name": "Facebook Lead Ads → CRM",
+   "desc": "Leads from Facebook ad forms appear instantly in CRM with source and campaign, assigned to a salesperson.",
+   "lo": 4,
+   "hi": 6,
+   "fees": "Meta Business account · Meta app review."
+  },
+  {
+   "id": "fb_msg",
+   "cat": "msg",
+   "name": "Facebook Messenger inbox",
+   "desc": "Facebook page messages answered from the ERP and linked to the lead or customer.",
+   "lo": 8,
+   "hi": 10,
+   "fees": "Meta app review."
+  },
+  {
+   "id": "ig_dm",
+   "cat": "msg",
+   "name": "Instagram DMs → inbox & CRM",
+   "desc": "Instagram business messages in the same inbox; new enquiries become leads.",
+   "lo": 6,
+   "hi": 8,
+   "alt": {
+    "if": "fb_msg",
+    "lo": 4,
+    "hi": 5
+   },
+   "fees": "Instagram Professional account linked to the Facebook page."
+  },
+  {
+   "id": "ig_leads",
+   "cat": "msg",
+   "name": "Instagram Lead Ads → CRM",
+   "desc": "Instagram ad-form leads into CRM with campaign source.",
+   "lo": 4,
+   "hi": 6,
+   "alt": {
+    "if": "fb_leads",
+    "lo": 2,
+    "hi": 3
+   },
+   "fees": "Same Meta setup as Facebook."
+  },
+  {
+   "id": "snap_leads",
+   "cat": "msg",
+   "name": "Snapchat Lead Ads → CRM",
+   "desc": "Leads from Snapchat lead-generation ads into CRM with campaign source. (Snapchat offers no business-chat connection for software — ad leads only.)",
+   "lo": 6,
+   "hi": 8,
+   "fees": "Snap Business account."
+  },
+  {
+   "id": "tt_leads",
+   "cat": "msg",
+   "name": "TikTok Lead Ads → CRM",
+   "desc": "TikTok ad-form leads into CRM.",
+   "lo": 6,
+   "hi": 8,
+   "fees": "TikTok For Business account."
+  },
+  {
+   "id": "li_leads",
+   "cat": "msg",
+   "name": "LinkedIn Lead Gen Forms → CRM",
+   "desc": "B2B leads from LinkedIn ads into CRM.",
+   "lo": 6,
+   "hi": 8,
+   "fees": "LinkedIn Campaign Manager · LinkedIn approval."
+  },
+  {
+   "id": "web_forms",
+   "cat": "msg",
+   "name": "Website & Google Ads forms → CRM",
+   "desc": "Website contact and quote forms create leads automatically.",
+   "lo": 3,
+   "hi": 5,
+   "fees": "None."
+  },
+  {
+   "id": "email",
+   "cat": "msg",
+   "name": "Email inbox (Microsoft 365 / Gmail)",
+   "desc": "Shared mailboxes connected; emails filed on the right customer or order; replies tracked.",
+   "lo": 6,
+   "hi": 8,
+   "fees": "Existing Microsoft 365 / Google Workspace licences."
+  },
+  {
+   "id": "sms",
+   "cat": "msg",
+   "name": "SMS notifications",
+   "desc": "Delivery and payment SMS through a UAE SMS provider.",
+   "lo": 4,
+   "hi": 6,
+   "fees": "SMS credits · sender ID registration."
+  },
+  {
+   "id": "phone",
+   "cat": "msg",
+   "name": "Telephone integration",
+   "desc": "Click-to-call from the ERP, calls logged on the customer, missed-call follow-ups.",
+   "lo": 8,
+   "hi": 12,
+   "fees": "Cloud phone system subscription."
+  },
+  {
+   "id": "gps_veh",
+   "cat": "track",
+   "name": "Vehicle GPS tracking",
+   "desc": "Live map of delivery vehicles and trip history from the GPS devices already in the vans, shown against delivery notes.",
+   "lo": 12,
+   "hi": 20,
+   "fees": "GPS device & tracking subscription · provider must allow data access (most do)."
+  },
+  {
+   "id": "gps_phone",
+   "cat": "track",
+   "name": "Driver phone tracking (no hardware)",
+   "desc": "The driver app shares the phone’s location during a trip; the dispatcher sees live positions.",
+   "lo": 10,
+   "hi": 14,
+   "fees": "Google Maps usage · driver’s mobile data."
+  },
+  {
+   "id": "eta_link",
+   "cat": "track",
+   "name": "Live delivery link for customers",
+   "desc": "The customer receives a link showing “driver on the way” and the estimated arrival time.",
+   "lo": 6,
+   "hi": 8,
+   "fees": "Maps usage.",
+   "depsAny": [
+    "gps_veh",
+    "gps_phone"
+   ]
+  },
+  {
+   "id": "geo_pod",
+   "cat": "track",
+   "name": "Automatic arrival & proof of delivery",
+   "desc": "Arrival and departure at the customer site recorded by location; time-stamped on the delivery note.",
+   "lo": 4,
+   "hi": 6,
+   "fees": "—",
+   "depsAny": [
+    "gps_veh",
+    "gps_phone"
+   ]
+  },
+  {
+   "id": "field_staff",
+   "cat": "track",
+   "name": "Field staff tracking",
+   "desc": "Sales staff, technicians and collectors check in/out with GPS and photo; visit logs against customers and leads; daily route history; linked to attendance.",
+   "lo": 12,
+   "hi": 16,
+   "fees": "Maps usage · staff use the mobile app."
+  },
+  {
+   "id": "field_service",
+   "cat": "track",
+   "name": "Field service jobs",
+   "desc": "Technician job cards for installation and maintenance-contract visits: checklist, photos, customer signature, spare parts used.",
+   "lo": 15,
+   "hi": 20,
+   "fees": "—"
+  },
+  {
+   "id": "routes",
+   "cat": "track",
+   "name": "Route planning",
+   "desc": "Best order of deliveries or visits for the day.",
+   "lo": 8,
+   "hi": 12,
+   "fees": "Google Maps routing fees."
+  },
+  {
+   "id": "fuel",
+   "cat": "track",
+   "name": "Fuel & mileage log",
+   "desc": "Fuel entries, odometer readings and cost per km for each vehicle.",
+   "lo": 4,
+   "hi": 6,
+   "fees": "—"
+  },
+  {
+   "id": "paylink",
+   "cat": "more",
+   "name": "Online payment links",
+   "desc": "“Pay now” link on invoices; the payment is recorded automatically.",
+   "lo": 6,
+   "hi": 8,
+   "fees": "Payment gateway fees (Network International, Telr, Stripe…)."
+  },
+  {
+   "id": "einv",
+   "cat": "more",
+   "name": "UAE e-invoicing connection",
+   "desc": "Invoices sent through an accredited e-invoicing provider in the national format.",
+   "lo": 15,
+   "hi": 25,
+   "fees": "Provider subscription · mandatory in phases from 2027."
+  },
+  {
+   "id": "bankfeed",
+   "cat": "more",
+   "name": "Bank feed",
+   "desc": "Bank statements imported automatically for reconciliation.",
+   "lo": 8,
+   "hi": 12,
+   "fees": "Bank / open-banking provider fees."
+  },
+  {
+   "id": "ecom",
+   "cat": "more",
+   "name": "E-commerce sync (per platform)",
+   "desc": "Products, stock, orders and payments synced with Shopify, WooCommerce, Amazon.ae or Noon.",
+   "lo": 12,
+   "hi": 20,
+   "fees": "Store or marketplace seller account."
+  },
+  {
+   "id": "barcode",
+   "cat": "more",
+   "name": "Barcode labels & scanners",
+   "desc": "Item and serial labels, handheld scanning for receiving and picking.",
+   "lo": 4,
+   "hi": 6,
+   "fees": "Label printer and scanners."
+  },
+  {
+   "id": "biometric",
+   "cat": "more",
+   "name": "Biometric attendance",
+   "desc": "Fingerprint or face devices feeding attendance and payroll.",
+   "lo": 4,
+   "hi": 6,
+   "fees": "Supported device (e.g. ZKTeco)."
+  },
+  {
+   "id": "bi",
+   "cat": "more",
+   "name": "Management reports (Power BI / Looker)",
+   "desc": "Live dashboards on ERP data.",
+   "lo": 4,
+   "hi": 6,
+   "fees": "Power BI / Looker licence."
+  },
+  {
+   "id": "ai_quote",
+   "cat": "more",
+   "name": "AI order assistant",
+   "desc": "Reads customer emails and WhatsApp enquiries, picks out items and quantities, checks stock and price, and drafts the quotation for review.",
+   "lo": 12,
+   "hi": 18,
+   "fees": "AI usage fees."
+  },
+  {
+   "id": "bill_scan",
+   "cat": "more",
+   "name": "Supplier bill scanning",
+   "desc": "PDF or photo bills read into purchase invoices, with duplicate, TRN, VAT and PO / goods-receipt checks.",
+   "lo": 10,
+   "hi": 14,
+   "fees": "Document-AI usage fees."
+  },
+  {
+   "id": "ai",
+   "cat": "more",
+   "name": "AI assistant",
+   "desc": "Ask questions in plain English or Arabic (“overdue invoices for Al Noor”) and draft replies.",
+   "lo": 12,
+   "hi": 20,
+   "fees": "AI usage fees."
+  },
+  {
+   "id": "app",
+   "cat": "more",
+   "name": "Branded customer app",
+   "desc": "Customer portal as an installable app with order tracking and statements.",
+   "lo": 15,
+   "hi": 20,
+   "fees": "App store fees if published."
+  },
+  {
+   "id": "arabic",
+   "cat": "more",
+   "name": "Full Arabic interface",
+   "desc": "Every screen and print format in Arabic.",
+   "lo": 8,
+   "hi": 12,
+   "fees": "—"
+  }
+ ],
+ "default_rate": 100
+}

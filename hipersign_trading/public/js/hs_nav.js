@@ -95,7 +95,10 @@ hipersign.nav.go_home = function () {
 	sessionStorage.setItem("hs_home_opened", "1");
 	const route = frappe.get_route() || [];
 	const on_desktop = !route.length || !route[0] || ["desktop", "home", "apps"].includes((route[0] || "").toLowerCase());
-	if (on_desktop && frappe.workspaces && frappe.workspaces[frappe.router.slug(info.home_workspace || "Hipersign Trading")]) {
+	if (!on_desktop) return;
+	// v1.5: the prototype's Home page; the workspace when the page is not there (or not allowed for the user)
+	if (info.home_page) frappe.set_route(info.home_page);
+	else if (frappe.workspaces && frappe.workspaces[frappe.router.slug(info.home_workspace || "Hipersign Trading")]) {
 		frappe.set_route(frappe.router.slug(info.home_workspace || "Hipersign Trading"));
 	}
 };

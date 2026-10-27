@@ -1,5 +1,28 @@
 # Changelog
 
+## 1.5.0 — 27 Oct 2026 — the prototype's screens
+Built and tested on **Frappe 16.29 / ERPNext 16.30**. The screens of the prototype that ERPNext has no counterpart for, as desk
+pages in the Hipersign menu. Every figure is computed from the live records and opens the records behind it.
+
+**Hipersign Home** (users land here after login): the group block with each company translated to the group currency, the
+connected trading lifecycle (7 stages), work for today, management priority actions, the KPI cards, profit for the period and
+monthly sales vs purchases — this month, last month or year to date, for all companies or one. Each user sees only the figures
+for records they may open; the group block and P&L are for finance roles.
+**Approvals:** every document waiting for a decision — workflow documents, document exceptions, VAT/CT returns, leave and
+expense claims — with the rule that routed it and who must act. Approve / Reject here moves the source document exactly as its
+own form would (KYC, credit and other rules still apply).
+**Insights & Alerts:** 13 deterministic rules (customs documents, stock, slow-moving stock, receivables, cheques, VAT, margin,
+employee and company documents, LCs, guarantees, KYC, exceptions) with evidence, consequence and recommended action; Mark
+actioned / Dismiss sticks until the situation changes. No AI model is involved.
+**Messages:** one inbox for the comments, @mentions, emails and WhatsApp sends kept on orders, shipments, invoices and leads;
+replying adds a comment to the record and notifies anyone mentioned.
+**Trade Journey:** one purchase order followed through shipment, receipt, landed cost, the sales that used the stock, delivery
+and payment. **Landed Cost & Margin:** each shipment's charges by type, the landed cost stack, item margins after landed cost
+and a price helper. **Test Centre:** the demo test scripts with Pass / Fail / Blocked and notes kept on the site.
+**Add-ons & Pricing:** the prototype's add-on catalogue with hours, dependencies, rate, contingency and a printable estimate.
+**Also:** amounts on the new screens are written AED 1,234.50 as in the prototype; the Hipersign menu and desktop tile are
+rebuilt after every migrate (Frappe removed the tile as an orphan during migrate); the demo loader adds sample conversations.
+
 ## 1.4.0 — 27 Oct 2026 — the prototype's look and menu
 Built and tested on **Frappe 16.29 / ERPNext 16.30** (the versions on the Hipersign servers) with ERPNext's UAE chart of accounts.
 

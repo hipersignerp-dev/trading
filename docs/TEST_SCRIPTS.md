@@ -72,3 +72,14 @@
 | NAV-01 | Administrator | Open Sales Orders, then General Ledger, then Hipersign Settings | The Hipersign menu stays; the current page is highlighted |
 | NAV-02 | Administrator | Desktop (logo → Desktop) | Only the Hipersign ERP tile; Hipersign Settings → Look & menus → untick *Show only Hipersign ERP* → the other tiles return |
 | NAV-03 | Administrator | Hipersign Settings → Pack → Starter | LCs, imports, CRM disappear from the menu; Enterprise brings them back |
+| HOM-01 | Managing Director | Hipersign Home → This month / Last month / Year to date; click a lifecycle stage and a KPI card | Group block, 7-stage lifecycle, work for today, priority alerts, KPI cards, P&L and the 12-month chart; every figure opens its records |
+| HOM-02 | Sales Executive | Log in → Hipersign Home | Only the figures the user can open (no group block, P&L or purchase figures) |
+| APR-01 | Sales Manager | Approvals → Only items I can approve → Approve the 15% discount order | The order moves to its next workflow state, exactly as from the form; KYC and credit rules still apply |
+| APR-02 | Finance Manager | Approvals → VAT return → Approve | Return approved and locked; it leaves the queue |
+| ALR-01 | Managing Director | Insights & Alerts → open the customs-documents alert → Mark actioned with a note | Alert moves to Actioned with the note; it stays actioned until the situation changes |
+| ALR-02 | Warehouse Manager | Insights & Alerts | Only alerts on records the user may open (stock, slow-moving, shipments) |
+| MSG-01 | Logistics | Messages → the shipment under customs clearance → reply with @Omar Haddad | Comment added on the shipment; Omar gets a mention notification; the thread shows on the shipment form too |
+| TJ-01 | Purchase Manager | Trade Journey → pick the received import PO | Seven stages from supplier order to customer payment, each linked to its documents |
+| LCM-01 | Finance Manager | Landed Cost & Margin → pick a shipment; Price helper → item, 25% | Goods + freight + duty + insurance = landed cost per unit; lowest price for the margin and the list-price margin |
+| TST-01 | Any user | Test Centre → mark a test Pass with a note | Result, note, who and when kept on the site for everyone |
+| ADD-01 | Sales Executive | Add-ons & Pricing → tick Automatic WhatsApp alerts → Print / PDF estimate | WhatsApp Business integration added automatically; hours, cost and third-party fees on a printable estimate |

@@ -32,3 +32,26 @@ def valuation_rate(item_code, warehouse=None):
 def has_any_role(*roles):
 	user_roles = set(frappe.get_roles())
 	return bool(user_roles.intersection(roles)) or "System Manager" in user_roles
+
+
+def money(v, currency=None, precision=2):
+	"""An amount the way the prototype writes it: currency code first (AED 1,234.50), never the local symbol."""
+	from frappe.utils import flt, fmt_money
+
+	currency = currency or frappe.db.get_default("currency") or "AED"
+	return f"{currency} {fmt_money(flt(v), precision=precision)}"
+
+
+def can_read(doctype, name=None):
+	"""Read permission without the "does not have doctype access" pop-ups Frappe queues even when asked not to."""
+	import frappe.permissions
+
+	log = getattr(frappe.local, "message_log", None)
+	n = len(log) if log is not None else 0
+	try:
+		return frappe.permissions.has_permission(doctype, "read", name, print_logs=False)
+	except Exception:
+		return False
+	finally:
+		if log is not None:
+			del frappe.local.message_log[n:]

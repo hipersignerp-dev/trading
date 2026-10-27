@@ -25,10 +25,11 @@ LOGO = "/assets/hipersign_trading/images/hipersign-logo.png"
 # (group label, icon, [(label, link_type, link_to, icon, feature or None, extra)])
 NAV = [
 	("Overview", "house", [
-		("Home", "Workspace", "Hipersign Trading", "house", None, {}),
-		("Approvals", "DocType", "Workflow Action", "inbox", "approvals", {"filters": [["Workflow Action", "status", "=", "Open"]]}),
-		("Insights & Alerts", "DocType", "ToDo", "sparkles", None, {"filters": [["ToDo", "status", "=", "Open"]]}),
-		("Messages", "DocType", "Communication", "message-square", None, {}),
+		("Home", "Page", "hipersign-home", "house", None, {}),
+		("Approvals", "Page", "hipersign-approvals", "inbox", None, {}),
+		("Insights & Alerts", "Page", "hipersign-alerts", "sparkles", None, {}),
+		("Messages", "Page", "hipersign-messages", "message-square", None, {}),
+		("Trade Journey", "Page", "hipersign-journey", "workflow", None, {}),
 		("Create New", "Page", "hipersign-create", "circle-plus", None, {}),
 	]),
 	("Sales", "tag", [
@@ -47,7 +48,7 @@ NAV = [
 		("Purchase Orders", "DocType", "Purchase Order", "shopping-cart", None, {}),
 		("Imports & Shipments", "DocType", "Import Shipment", "ship", "imports", {}),
 		("Goods Receiving", "DocType", "Purchase Receipt", "scan-line", None, {}),
-		("Landed Cost & Margin", "DocType", "Landed Cost Voucher", "layers", "imports", {}),
+		("Landed Cost & Margin", "Page", "hipersign-landed", "layers", "imports", {}),
 		("Purchase Invoices", "DocType", "Purchase Invoice", "file-input", None, {}),
 		("Suppliers", "DocType", "Supplier", "factory", None, {}),
 		("Smart Reorder", "Report", "Hipersign Smart Reorder", "refresh-cw", None, {}),
@@ -97,6 +98,8 @@ NAV = [
 		("Data Migration", "DocType", "Data Import", "upload", None, {}),
 		("Users", "DocType", "User", "user-cog", None, {}),
 		("System Settings", "DocType", "System Settings", "settings", None, {}),
+		("Test Centre", "Page", "hipersign-tests", "flask-conical", None, {}),
+		("Add-ons & Pricing", "Page", "hipersign-addons", "puzzle", None, {}),
 	]),
 ]
 

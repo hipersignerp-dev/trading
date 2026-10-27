@@ -1,0 +1,42 @@
+{
+ "doctype": "Page",
+ "name": "hipersign-journey",
+ "page_name": "hipersign-journey",
+ "title": "Trade Journey",
+ "module": "Hipersign Trading",
+ "standard": "Yes",
+ "system_page": 0,
+ "icon": "",
+ "roles": [
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "Managing Director"
+  },
+  {
+   "role": "Purchase User"
+  },
+  {
+   "role": "Purchase Manager"
+  },
+  {
+   "role": "Stock User"
+  },
+  {
+   "role": "Stock Manager"
+  },
+  {
+   "role": "Sales Manager"
+  },
+  {
+   "role": "Accounts User"
+  },
+  {
+   "role": "Accounts Manager"
+  }
+ ],
+ "owner": "Administrator",
+ "creation": "2026-10-27 10:00:00",
+ "modified": "2026-10-27 10:00:00"
+}

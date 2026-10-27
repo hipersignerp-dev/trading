@@ -32,6 +32,10 @@ def after_migrate():
 	ensure_settings()
 	ensure_cheque_mode()
 	v13_defaults(new_site=False)
+	# the menu follows the app's code: rebuild the Hipersign sidebar on every migrate (v1.5 added its pages)
+	from hipersign_trading import navigation
+
+	navigation.apply()
 
 
 def v13_defaults(new_site):
