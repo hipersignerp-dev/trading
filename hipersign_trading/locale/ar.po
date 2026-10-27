@@ -2217,3 +2217,1383 @@ msgstr "هايبرساين ERP"
 
 msgid "Demo data switched this site to the Enterprise pack"
 msgstr "حوّلت البيانات التجريبية هذا الموقع إلى باقة المؤسسات"
+
+msgid "Hipersign Home"
+msgstr "الرئيسية"
+
+msgid "One view of purchasing, imports, stock, sales and finance — every number below opens the records behind it."
+msgstr "عرض واحد للمشتريات والاستيراد والمخزون والمبيعات والمالية — كل رقم يفتح السجلات التي خلفه."
+
+msgid "This month"
+msgstr "هذا الشهر"
+
+msgid "Last month"
+msgstr "الشهر الماضي"
+
+msgid "Year to date"
+msgstr "منذ بداية السنة"
+
+msgid "All companies"
+msgstr "كل الشركات"
+
+msgid "Group revenue (YTD)"
+msgstr "إيرادات المجموعة (منذ بداية السنة)"
+
+msgid "after intercompany {0}"
+msgstr "بعد استبعاد المعاملات بين الشركات {0}"
+
+msgid "Group profit (YTD)"
+msgstr "ربح المجموعة (منذ بداية السنة)"
+
+msgid "Group cash & bank"
+msgstr "نقد وبنوك المجموعة"
+
+msgid "Group receivables"
+msgstr "ذمم المجموعة المدينة"
+
+msgid "Revenue (local)"
+msgstr "الإيرادات (بالعملة المحلية)"
+
+msgid "Revenue ({0})"
+msgstr "الإيرادات ({0})"
+
+msgid "Gross margin"
+msgstr "هامش الربح الإجمالي"
+
+msgid "Profit ({0})"
+msgstr "الربح ({0})"
+
+msgid "Cash ({0})"
+msgstr "النقد ({0})"
+
+msgid "Year to date · translated to {0} at average rates (cash at closing rate)"
+msgstr "منذ بداية السنة · محوّلة إلى {0} بمتوسط الأسعار (النقد بسعر الإقفال)"
+
+msgid "The connected trading lifecycle"
+msgstr "دورة التجارة المترابطة"
+
+msgid "From international purchase to customer delivery — click a stage"
+msgstr "من الشراء الدولي حتى التسليم للعميل — اضغط على أي مرحلة"
+
+msgid "Trade Journey"
+msgstr "رحلة التجارة"
+
+msgid "Nothing waiting for you today."
+msgstr "لا شيء بانتظارك اليوم."
+
+msgid "Work for today"
+msgstr "مهام اليوم"
+
+msgid "No open alerts."
+msgstr "لا توجد تنبيهات مفتوحة."
+
+msgid "Management priority actions"
+msgstr "إجراءات ذات أولوية للإدارة"
+
+msgid "{0} open"
+msgstr "{0} مفتوحة"
+
+msgid "All insights"
+msgstr "كل المؤشرات"
+
+msgid "Profit — {0}"
+msgstr "الربح — {0}"
+
+msgid "Revenue (net sales)"
+msgstr "الإيرادات (صافي المبيعات)"
+
+msgid "Cost of goods sold (landed)"
+msgstr "تكلفة البضاعة المباعة (الواصلة)"
+
+msgid "Gross profit"
+msgstr "إجمالي الربح"
+
+msgid "Operating expenses incl. depreciation"
+msgstr "المصروفات التشغيلية شاملة الإهلاك"
+
+msgid "Net profit before tax"
+msgstr "صافي الربح قبل الضريبة"
+
+msgid "Profit & loss"
+msgstr "الأرباح والخسائر"
+
+msgid "Monthly sales vs purchases"
+msgstr "المبيعات مقابل المشتريات شهرياً"
+
+msgid "Last 12 months · net"
+msgstr "آخر 12 شهراً · صافي"
+
+msgid "Purchases"
+msgstr "المشتريات"
+
+msgid "Every document waiting for a decision, the rule that routed it and who must act. Approving here moves the source document to its next state."
+msgstr "كل مستند بانتظار قرار، والقاعدة التي وجّهته، ومن عليه اتخاذ الإجراء. الاعتماد هنا ينقل المستند الأصلي إلى حالته التالية."
+
+msgid "All document types"
+msgstr "كل أنواع المستندات"
+
+msgid "All approvers"
+msgstr "كل المعتمدين"
+
+msgid "Only items I can approve"
+msgstr "فقط ما يمكنني اعتماده"
+
+msgid "Refresh"
+msgstr "تحديث"
+
+msgid "Awaiting decision"
+msgstr "بانتظار القرار"
+
+msgid "Waiting on you"
+msgstr "بانتظارك"
+
+msgid "Value pending"
+msgstr "القيمة المعلقة"
+
+msgid "Oldest item"
+msgstr "أقدم عنصر"
+
+msgid "{0} days"
+msgstr "{0} يوم"
+
+msgid "Type"
+msgstr "النوع"
+
+msgid "Waiting for"
+msgstr "بانتظار"
+
+msgid "by {0} · {1} · {2} days"
+msgstr "بواسطة {0} · {1} · {2} يوم"
+
+msgid "Not your step"
+msgstr "ليست خطوتك"
+
+msgid "Nothing is waiting for you."
+msgstr "لا شيء بانتظارك."
+
+msgid "All caught up — nothing is waiting for approval."
+msgstr "تم إنجاز كل شيء — لا شيء بانتظار الاعتماد."
+
+msgid "Approval queue"
+msgstr "قائمة الاعتمادات"
+
+msgid "{0} shown"
+msgstr "{0} معروضة"
+
+msgid "Routing rules in force"
+msgstr "قواعد التوجيه السارية"
+
+msgid "Thresholds, approvers and the rule that routes each document are kept in Hipersign Settings and the workflows."
+msgstr "الحدود والمعتمدون والقاعدة التي توجّه كل مستند محفوظة في إعدادات هايبرساين وسير العمل."
+
+msgid "Workflows"
+msgstr "سير العمل"
+
+msgid "Note (optional)"
+msgstr "ملاحظة (اختياري)"
+
+msgid "Early warnings from shipments, stock, margins, credit and receivables. Each shows its evidence, the rule and a recommended action."
+msgstr "تنبيهات مبكرة من الشحنات والمخزون والهوامش والائتمان والذمم المدينة. يعرض كل تنبيه دليله والقاعدة وإجراءً موصى به."
+
+msgid "Deterministic rules — no AI model connected"
+msgstr "قواعد ثابتة — لا يوجد نموذج ذكاء اصطناعي متصل"
+
+msgid "Consequence"
+msgstr "الأثر"
+
+msgid "Mark actioned"
+msgstr "تمت المعالجة"
+
+msgid "Dismiss"
+msgstr "تجاهل"
+
+msgid "Reopen"
+msgstr "إعادة فتح"
+
+msgid "Open source"
+msgstr "فتح المصدر"
+
+msgid "Open alerts"
+msgstr "التنبيهات المفتوحة"
+
+msgid "High severity"
+msgstr "خطورة عالية"
+
+msgid "Actioned"
+msgstr "تمت معالجتها"
+
+msgid "Rules monitored"
+msgstr "القواعد المراقبة"
+
+msgid "Dismissed"
+msgstr "متجاهلة"
+
+msgid "All"
+msgstr "الكل"
+
+msgid "All categories"
+msgstr "كل الفئات"
+
+msgid "No alerts in this view"
+msgstr "لا توجد تنبيهات في هذا العرض"
+
+msgid "Change the filter to see others."
+msgstr "غيّر عامل التصفية لرؤية غيرها."
+
+msgid "Open by category"
+msgstr "المفتوحة حسب الفئة"
+
+msgid "How alerts work"
+msgstr "كيف تعمل التنبيهات"
+
+msgid "Rules run on the live records each time you open this page."
+msgstr "تُطبّق القواعد على السجلات الحية في كل مرة تفتح فيها هذه الصفحة."
+
+msgid "Marking an alert actioned or dismissed sticks until the situation changes."
+msgstr "وضع علامة معالجة أو تجاهل على التنبيه يبقى حتى يتغير الوضع."
+
+msgid "You see the alerts for records you are allowed to open."
+msgstr "ترى التنبيهات الخاصة بالسجلات المسموح لك بفتحها."
+
+msgid "Thresholds (stock, margin, reminder days) are set in Hipersign Settings."
+msgstr "الحدود (المخزون، الهامش، أيام التذكير) تُضبط في إعدادات هايبرساين."
+
+msgid "What was done? (optional)"
+msgstr "ما الذي تم؟ (اختياري)"
+
+msgid "Comments, @mentions, emails and WhatsApp sends kept on each record — in one inbox. Writing here adds a comment to the record, as on the form."
+msgstr "التعليقات والإشارات @ ورسائل البريد ورسائل WhatsApp المحفوظة على كل سجل — في صندوق وارد واحد. الكتابة هنا تضيف تعليقاً على السجل كما في النموذج."
+
+msgid "Mentions"
+msgstr "الإشارات"
+
+msgid "I'm in"
+msgstr "أشارك فيها"
+
+msgid "Email"
+msgstr "بريد إلكتروني"
+
+msgid "All records"
+msgstr "كل السجلات"
+
+msgid "Comment"
+msgstr "تعليق"
+
+msgid "No conversations in the last 60 days."
+msgstr "لا توجد محادثات في آخر 60 يوماً."
+
+msgid "No messages yet — write the first one."
+msgstr "لا توجد رسائل بعد — اكتب أول رسالة."
+
+msgid "Open record"
+msgstr "فتح السجل"
+
+msgid "Type @ to mention a colleague — they get a notification."
+msgstr "اكتب @ للإشارة إلى زميل — سيصله إشعار."
+
+msgid "Write a message…"
+msgstr "اكتب رسالة…"
+
+msgid "Loading…"
+msgstr "جارٍ التحميل…"
+
+msgid "Pick a conversation."
+msgstr "اختر محادثة."
+
+msgid "One purchase followed end to end: supplier order, shipment, receipt, landed cost, the sales that used the stock, delivery and payment."
+msgstr "عملية شراء واحدة من البداية إلى النهاية: أمر المورد، الشحنة، الاستلام، التكلفة الواصلة، المبيعات التي استخدمت المخزون، التسليم والدفع."
+
+msgid "Journey of {0}"
+msgstr "رحلة {0}"
+
+msgid "{0} of {1} stages complete"
+msgstr "اكتملت {0} من {1} مراحل"
+
+msgid "Open purchase order"
+msgstr "فتح أمر الشراء"
+
+msgid "No purchase orders yet."
+msgstr "لا توجد أوامر شراء بعد."
+
+msgid "Freight, insurance, duty, clearing and handling spread onto the goods — the real cost of every unit, and the margin it earns against the price."
+msgstr "الشحن والتأمين والرسوم الجمركية والتخليص والمناولة موزعة على البضائع — التكلفة الحقيقية لكل وحدة والهامش الذي تحققه مقابل السعر."
+
+msgid "Landed cost vouchers"
+msgstr "قسائم التكلفة الواصلة"
+
+msgid "No import shipments yet."
+msgstr "لا توجد شحنات استيراد بعد."
+
+msgid "Landed unit cost"
+msgstr "تكلفة الوحدة الواصلة"
+
+msgid "Goods"
+msgstr "البضائع"
+
+msgid "Freight"
+msgstr "الشحن"
+
+msgid "Duty & clearing"
+msgstr "الجمارك والتخليص"
+
+msgid "Insurance & handling"
+msgstr "التأمين والمناولة"
+
+msgid "Landed cost"
+msgstr "التكلفة الواصلة"
+
+msgid "Import charges this month"
+msgstr "رسوم الاستيراد هذا الشهر"
+
+msgid "Average landed uplift"
+msgstr "متوسط زيادة التكلفة الواصلة"
+
+msgid "charges ÷ goods value"
+msgstr "الرسوم ÷ قيمة البضائع"
+
+msgid "{0} · target {1}%"
+msgstr "{0} · المستهدف {1}%"
+
+msgid "Items below target margin"
+msgstr "أصناف دون الهامش المستهدف"
+
+msgid "sold in the last 60 days"
+msgstr "مباعة في آخر 60 يوماً"
+
+msgid "Charges not yet in stock cost"
+msgstr "رسوم لم تُضف بعد إلى تكلفة المخزون"
+
+msgid "received shipments without a landed cost voucher"
+msgstr "شحنات مستلمة بدون قسيمة تكلفة واصلة"
+
+msgid "Shipment"
+msgstr "الشحنة"
+
+msgid "Insurance"
+msgstr "التأمين"
+
+msgid "Duty"
+msgstr "الرسوم الجمركية"
+
+msgid "Clearing"
+msgstr "التخليص"
+
+msgid "Handling & other"
+msgstr "المناولة وأخرى"
+
+msgid "Uplift"
+msgstr "الزيادة"
+
+msgid "In stock cost"
+msgstr "في تكلفة المخزون"
+
+msgid "Not yet"
+msgstr "ليس بعد"
+
+msgid "List price"
+msgstr "سعر القائمة"
+
+msgid "Average sold"
+msgstr "متوسط سعر البيع"
+
+msgid "Qty sold (60 days)"
+msgstr "الكمية المباعة (60 يوماً)"
+
+msgid "Margin"
+msgstr "الهامش"
+
+msgid "(list)"
+msgstr "(القائمة)"
+
+msgid "No stock items."
+msgstr "لا توجد أصناف مخزنية."
+
+msgid "Landed cost of a shipment"
+msgstr "التكلفة الواصلة لشحنة"
+
+msgid "Price helper"
+msgstr "مساعد التسعير"
+
+msgid "Target margin %"
+msgstr "الهامش المستهدف %"
+
+msgid "Pick an item to see the lowest price that keeps the margin."
+msgstr "اختر صنفاً لمعرفة أقل سعر يحافظ على الهامش."
+
+msgid "Shipments and their charges"
+msgstr "الشحنات ورسومها"
+
+msgid "Item margins after landed cost"
+msgstr "هوامش الأصناف بعد التكلفة الواصلة"
+
+msgid "lowest first · from sales in the last 60 days, otherwise the list price"
+msgstr "الأقل أولاً · من مبيعات آخر 60 يوماً، وإلا فسعر القائمة"
+
+msgid "Landed cost {0} → sell at <b>{1}</b> or more to keep {2}% margin."
+msgstr "التكلفة الواصلة {0} ← بِع بسعر <b>{1}</b> أو أكثر للحفاظ على هامش {2}%."
+
+msgid "Current list price {0} gives {1}% margin."
+msgstr "سعر القائمة الحالي {0} يحقق هامش {1}%."
+
+msgid "No list price yet."
+msgstr "لا يوجد سعر قائمة بعد."
+
+msgid "Test Centre"
+msgstr "مركز الاختبار"
+
+msgid "Walk through each test script on the demo data: open the screen, do the steps, compare with the expected result and record Pass, Fail or Blocked."
+msgstr "نفّذ كل سيناريو اختبار على البيانات التجريبية: افتح الشاشة، نفّذ الخطوات، قارن بالنتيجة المتوقعة وسجّل ناجح أو فاشل أو متوقف."
+
+msgid "All sections"
+msgstr "كل الأقسام"
+
+msgid "All results"
+msgstr "كل النتائج"
+
+msgid "Clear all results"
+msgstr "مسح كل النتائج"
+
+msgid "Clear every recorded result?"
+msgstr "مسح كل النتائج المسجلة؟"
+
+msgid "Tests"
+msgstr "الاختبارات"
+
+msgid "{0} sections"
+msgstr "{0} أقسام"
+
+msgid "Run"
+msgstr "تشغيل"
+
+msgid "Passed"
+msgstr "ناجح"
+
+msgid "ID"
+msgstr "المعرّف"
+
+msgid "Steps"
+msgstr "الخطوات"
+
+msgid "Expected"
+msgstr "المتوقع"
+
+msgid "Start"
+msgstr "ابدأ"
+
+msgid "No tests match."
+msgstr "لا توجد اختبارات مطابقة."
+
+msgid "Note saved"
+msgstr "تم حفظ الملاحظة"
+
+msgid "Add-ons & Pricing"
+msgstr "الإضافات والأسعار"
+
+msgid "Optional extras for messaging, tracking, payments and compliance. Tick what the client wants — hours and cost add up, needed add-ons are included automatically."
+msgstr "إضافات اختيارية للمراسلة والتتبع والمدفوعات والامتثال. حدّد ما يريده العميل — تُجمع الساعات والتكلفة، وتُضاف الإضافات اللازمة تلقائياً."
+
+msgid "Also added: {0} (needed)"
+msgstr "أُضيف أيضاً: {0} (مطلوب)"
+
+msgid "Also removed: {0} (needs {1})"
+msgstr "أُزيل أيضاً: {0} (يتطلب {1})"
+
+msgid "one of: {0}"
+msgstr "أحد: {0}"
+
+msgid "or"
+msgstr "أو"
+
+msgid "combined"
+msgstr "مجتمعة"
+
+msgid "Needs {0} — added automatically when you tick this"
+msgstr "يتطلب {0} — يُضاف تلقائياً عند تحديد هذا الخيار"
+
+msgid "Remove"
+msgstr "إزالة"
+
+msgid "Development time"
+msgstr "وقت التطوير"
+
+msgid "hours"
+msgstr "ساعات"
+
+msgid "about 1 week at 30 h a week"
+msgstr "حوالي أسبوع واحد بمعدل 30 ساعة أسبوعياً"
+
+msgid "about {0} weeks at 30 h a week"
+msgstr "حوالي {0} أسابيع بمعدل 30 ساعة أسبوعياً"
+
+msgid "about {0}–{1} weeks at 30 h a week"
+msgstr "حوالي {0}–{1} أسابيع بمعدل 30 ساعة أسبوعياً"
+
+msgid "Estimated cost (excl. VAT)"
+msgstr "التكلفة التقديرية (غير شاملة VAT)"
+
+msgid "at {0} per hour"
+msgstr "بسعر {0} للساعة"
+
+msgid "incl. {0}% contingency"
+msgstr "شاملة {0}% احتياطي"
+
+msgid "Print / PDF estimate"
+msgstr "طباعة / تقدير PDF"
+
+msgid "Clear"
+msgstr "مسح"
+
+msgid "Third-party fees (Meta, SMS, maps, GPS subscriptions, gateways) are paid by the client directly to the provider and are not included."
+msgstr "رسوم الأطراف الثالثة (Meta، الرسائل النصية، الخرائط، اشتراكات GPS، بوابات الدفع) يدفعها العميل مباشرة للمزوّد وغير مشمولة."
+
+msgid "Nothing selected yet"
+msgstr "لم يتم اختيار شيء بعد"
+
+msgid "Tick the add-ons the client is interested in — hours and cost add up here."
+msgstr "حدّد الإضافات التي يهتم بها العميل — تُجمع الساعات والتكلفة هنا."
+
+msgid "Hourly rate (AED)"
+msgstr "سعر الساعة (AED)"
+
+msgid "Contingency"
+msgstr "الاحتياطي"
+
+msgid "Client name (for the estimate)"
+msgstr "اسم العميل (للتقدير)"
+
+msgid "e.g. Al Noor LLC"
+msgstr "مثال: Al Noor LLC"
+
+msgid "Only the Administrator or Managing Director can change the rate."
+msgstr "فقط المسؤول أو المدير العام يمكنه تغيير السعر."
+
+msgid "Search add-ons"
+msgstr "بحث في الإضافات"
+
+msgid "No add-ons match."
+msgstr "لا توجد إضافات مطابقة."
+
+msgid "Your selection"
+msgstr "اختيارك"
+
+msgid "Pricing settings"
+msgstr "إعدادات التسعير"
+
+msgid "Allow pop-ups to print the estimate."
+msgstr "اسمح بالنوافذ المنبثقة لطباعة التقدير."
+
+msgid "Add-on estimate"
+msgstr "تقدير الإضافات"
+
+msgid "Prepared for"
+msgstr "مُعدّ لـ"
+
+msgid "Valid for"
+msgstr "صالح لمدة"
+
+msgid "30 days"
+msgstr "30 يوماً"
+
+msgid "Add-on"
+msgstr "الإضافة"
+
+msgid "Estimated cost (AED, excl. VAT)"
+msgstr "التكلفة التقديرية (AED، غير شاملة VAT)"
+
+msgid "Total"
+msgstr "الإجمالي"
+
+msgid "{0} to date"
+msgstr "{0} حتى تاريخه"
+
+msgid "Synced {0}"
+msgstr "تمت المزامنة {0}"
+
+msgid "Supplier purchasing"
+msgstr "المشتريات من الموردين"
+
+msgid "{0} open POs"
+msgstr "{0} أوامر شراء مفتوحة"
+
+msgid "Import & shipment"
+msgstr "الاستيراد والشحن"
+
+msgid "{0} shipments open"
+msgstr "{0} شحنات مفتوحة"
+
+msgid "{0} at port / customs"
+msgstr "{0} في الميناء / الجمارك"
+
+msgid "Goods receiving"
+msgstr "استلام البضائع"
+
+msgid "{0} ready to receive"
+msgstr "{0} جاهزة للاستلام"
+
+msgid "{0} receipts this month"
+msgstr "{0} استلامات هذا الشهر"
+
+msgid "Warehouse & inventory"
+msgstr "المستودعات والمخزون"
+
+msgid "{0} items low / out"
+msgstr "{0} أصناف منخفضة / نافدة"
+
+msgid "Sales & orders"
+msgstr "المبيعات والطلبات"
+
+msgid "{0} orders to deliver"
+msgstr "{0} طلبات للتسليم"
+
+msgid "Dispatch & delivery"
+msgstr "الإرسال والتسليم"
+
+msgid "{0} notes not delivered"
+msgstr "{0} إشعارات تسليم لم تُسلَّم"
+
+msgid "{0} out for delivery"
+msgstr "{0} قيد التوصيل"
+
+msgid "Finance & visibility"
+msgstr "المالية والرقابة"
+
+msgid "receivable"
+msgstr "مستحق القبض"
+
+msgid "{0} overdue"
+msgstr "{0} متأخرة"
+
+msgid "Total sales (net)"
+msgstr "إجمالي المبيعات (صافي)"
+
+msgid "{0} · {1} invoices"
+msgstr "{0} · {1} فواتير"
+
+msgid "Total purchases"
+msgstr "إجمالي المشتريات"
+
+msgid "{0} · orders placed"
+msgstr "{0} · طلبات مسجلة"
+
+msgid "{0}% margin after landed cost · target {1}%"
+msgstr "هامش {0}% بعد التكلفة الواصلة · المستهدف {1}%"
+
+msgid "Net profit (before tax)"
+msgstr "صافي الربح (قبل الضريبة)"
+
+msgid "{0}% net margin · after {1} expenses"
+msgstr "صافي هامش {0}% · بعد مصروفات {1}"
+
+msgid "Stock value"
+msgstr "قيمة المخزون"
+
+msgid "Valued at landed cost"
+msgstr "مقيّم بالتكلفة الواصلة"
+
+msgid "Outstanding receivables"
+msgstr "الذمم المدينة القائمة"
+
+msgid "{0} open invoices"
+msgstr "{0} فواتير مفتوحة"
+
+msgid "Overdue receivables"
+msgstr "الذمم المدينة المتأخرة"
+
+msgid "{0} past due"
+msgstr "{0} متجاوزة الاستحقاق"
+
+msgid "Payables due ≤ 30 days"
+msgstr "مستحقات الموردين خلال 30 يوماً"
+
+msgid "Suppliers & service providers"
+msgstr "الموردون ومقدمو الخدمات"
+
+msgid "Cash & bank"
+msgstr "النقد والبنك"
+
+msgid "After receipts, payments, salaries & expenses"
+msgstr "بعد المقبوضات والمدفوعات والرواتب والمصروفات"
+
+msgid "{0} to deposit this week · {1} bounced"
+msgstr "{0} للإيداع هذا الأسبوع · {1} مرتجعة"
+
+msgid "Shipments in transit"
+msgstr "شحنات في الطريق"
+
+msgid "{0} at port / customs / cleared"
+msgstr "{0} في الميناء / الجمارك / مخلّصة"
+
+msgid "Export shipments"
+msgstr "شحنات التصدير"
+
+msgid "{0} awaiting proof of export (0% VAT)"
+msgstr "{0} بانتظار إثبات التصدير (VAT 0%)"
+
+msgid "Sales pipeline (CRM)"
+msgstr "فرص البيع"
+
+msgid "{0} open leads · {1} follow-ups due"
+msgstr "{0} عملاء محتملون مفتوحون · {1} متابعات مستحقة"
+
+msgid "Open sales orders"
+msgstr "أوامر بيع مفتوحة"
+
+msgid "{0} orders incl. VAT"
+msgstr "{0} طلبات شاملة VAT"
+
+msgid "Pending approvals"
+msgstr "موافقات معلقة"
+
+msgid "POs, orders, payments, stock, exceptions"
+msgstr "أوامر الشراء، الطلبات، المدفوعات، المخزون، الاستثناءات"
+
+msgid "open to-dos for you"
+msgstr "مهام مفتوحة لك"
+
+msgid "approvals waiting for you"
+msgstr "موافقات بانتظارك"
+
+msgid "unread notifications"
+msgstr "إشعارات غير مقروءة"
+
+msgid "lead follow-ups due"
+msgstr "متابعات عملاء مستحقة"
+
+msgid "cheques ready to deposit"
+msgstr "شيكات جاهزة للإيداع"
+
+msgid "deliveries to invoice"
+msgstr "تسليمات بانتظار الفوترة"
+
+msgid "bank lines to reconcile"
+msgstr "قيود بنكية للمطابقة"
+
+msgid "shipments to receive"
+msgstr "شحنات للاستلام"
+
+msgid "open warranty claims"
+msgstr "مطالبات ضمان مفتوحة"
+
+msgid "leave requests"
+msgstr "طلبات إجازة"
+
+msgid "compliance to-dos"
+msgstr "مهام امتثال"
+
+msgid "Workflow {0} — {1}"
+msgstr "سير العمل {0} — {1}"
+
+msgid "Document exception"
+msgstr "استثناء مستند"
+
+msgid "{0} for {1} {2}"
+msgstr "{0} لـ {1} {2}"
+
+msgid "Approve & lock before filing on EmaraTax · due {0}"
+msgstr "اعتمد وأقفل قبل التقديم على EmaraTax · الاستحقاق {0}"
+
+msgid "Leave Application"
+msgstr "طلب إجازة"
+
+msgid "{0} · {1} · {2} days from {3}"
+msgstr "{0} · {1} · {2} يوم من {3}"
+
+msgid "Expense Claim"
+msgstr "مطالبة مصروفات"
+
+msgid "Unknown approval"
+msgstr "اعتماد غير معروف"
+
+msgid "to {0}"
+msgstr "إلى {0}"
+
+msgid "received"
+msgstr "مستلم"
+
+msgid "Write a message first"
+msgstr "اكتب رسالة أولاً"
+
+msgid "Purchase order"
+msgstr "أمر الشراء"
+
+msgid "Incoterm"
+msgstr "شرط التسليم (Incoterm)"
+
+msgid "Mode"
+msgstr "الطريقة"
+
+msgid "Bill of Entry"
+msgstr "بيان الاستيراد"
+
+msgid "{0} of {1}"
+msgstr "{0} من {1}"
+
+msgid "Local purchase"
+msgstr "شراء محلي"
+
+msgid "No import shipment — a local supplier."
+msgstr "لا توجد شحنة استيراد — مورد محلي."
+
+msgid "Partly received"
+msgstr "مستلم جزئياً"
+
+msgid "Awaiting"
+msgstr "بالانتظار"
+
+msgid "Receipt"
+msgstr "الإيصال"
+
+msgid "No receipt yet."
+msgstr "لا يوجد استلام بعد."
+
+msgid "Not applied"
+msgstr "غير مطبّق"
+
+msgid "Freight, insurance, duty, clearing, handling"
+msgstr "الشحن، التأمين، الرسوم الجمركية، التخليص، المناولة"
+
+msgid "Landed uplift"
+msgstr "زيادة التكلفة الواصلة"
+
+msgid "Landed unit cost — {0}"
+msgstr "تكلفة الوحدة الواصلة — {0}"
+
+msgid "Landed cost voucher"
+msgstr "قسيمة التكلفة الواصلة"
+
+msgid "Sales orders using this stock"
+msgstr "أوامر البيع التي تستخدم هذا المخزون"
+
+msgid "{0} orders"
+msgstr "{0} طلبات"
+
+msgid "No sales after receipt yet."
+msgstr "لا توجد مبيعات بعد الاستلام."
+
+msgid "delivered"
+msgstr "مُسلَّم"
+
+msgid "Nothing dispatched yet."
+msgstr "لم يُرسل شيء بعد."
+
+msgid "Invoice & payment"
+msgstr "الفاتورة والدفع"
+
+msgid "{0} invoices"
+msgstr "{0} فواتير"
+
+msgid "paid"
+msgstr "مدفوع"
+
+msgid "Not invoiced yet."
+msgstr "لم تصدر فاتورة بعد."
+
+msgid "{0} is missing {1}"
+msgstr "{0} ينقصه {1}"
+
+msgid "Goods are at port — each day without clearance adds demurrage and storage."
+msgstr "البضائع في الميناء — كل يوم بدون تخليص يضيف رسوم تأخير وتخزين."
+
+msgid "Chase the supplier for the original document and send it to the customs broker."
+msgstr "تابع مع المورد للحصول على المستند الأصلي وأرسله إلى المخلّص الجمركي."
+
+msgid "{0} — {1} overdue {2} days"
+msgstr "{0} — {1} متأخرة {2} يوم"
+
+msgid "Cash collection is behind plan."
+msgstr "التحصيل النقدي متأخر عن الخطة."
+
+msgid "Call the customer and hold new orders until paid."
+msgstr "اتصل بالعميل وأوقف الطلبات الجديدة حتى السداد."
+
+msgid "Cheque {0} from {1} bounced"
+msgstr "الشيك {0} من {1} مرتجع"
+
+msgid "The invoice is unpaid again and the customer's credit risk has increased."
+msgstr "الفاتورة غير مدفوعة مجدداً وارتفعت مخاطر ائتمان العميل."
+
+msgid "Collect a replacement cheque or transfer and hold new orders until settled."
+msgstr "احصل على شيك بديل أو تحويل وأوقف الطلبات الجديدة حتى التسوية."
+
+msgid "Cheque {0} from {1} is ready to deposit"
+msgstr "الشيك {0} من {1} جاهز للإيداع"
+
+msgid "A cheque deposited late delays cash and may go stale after six months."
+msgstr "إيداع الشيك متأخراً يؤخر النقد وقد يصبح الشيك متقادماً بعد ستة أشهر."
+
+msgid "Deposit it at the bank and mark it Deposited."
+msgstr "أودعه في البنك وضع عليه حالة مودَع."
+
+msgid "{0} is {1} in {2}"
+msgstr "{0} {1} في {2}"
+
+msgid "out of stock"
+msgstr "نافد من المخزون"
+
+msgid "below reorder level"
+msgstr "دون مستوى إعادة الطلب"
+
+msgid "Projected"
+msgstr "المتوقع"
+
+msgid "Reorder level"
+msgstr "مستوى إعادة الطلب"
+
+msgid "Orders for this item will wait for stock."
+msgstr "طلبات هذا الصنف ستنتظر توفر المخزون."
+
+msgid "Raise a purchase order — Smart Reorder suggests quantities by supplier."
+msgstr "أنشئ أمر شراء — إعادة الطلب الذكية تقترح الكميات حسب المورد."
+
+msgid "{0} has not moved for 90 days in {1}"
+msgstr "{0} لم يتحرك منذ 90 يوماً في {1}"
+
+msgid "Quantity"
+msgstr "الكمية"
+
+msgid "Cash is tied up in stock that is not selling."
+msgstr "النقد محتجز في مخزون لا يُباع."
+
+msgid "Offer it in the next promotion or move it to a branch that sells it."
+msgstr "اعرضه في العرض الترويجي القادم أو انقله إلى فرع يبيعه."
+
+msgid "{0} sold at {1}% margin — target {2}%"
+msgstr "{0} بيع بهامش {1}% — المستهدف {2}%"
+
+msgid "Sales (60 days)"
+msgstr "المبيعات (60 يوماً)"
+
+msgid "Profit is lower than planned on this item."
+msgstr "الربح على هذا الصنف أقل من المخطط."
+
+msgid "Check discounts given and the landed cost; raise the list price if needed."
+msgstr "راجع الخصومات الممنوحة والتكلفة الواصلة، وارفع سعر القائمة إذا لزم."
+
+msgid "{0} is due on {1}"
+msgstr "{0} مستحق في {1}"
+
+msgid "Return"
+msgstr "إرجاع"
+
+msgid "A late return or payment brings FTA penalties."
+msgstr "التأخر في الإقرار أو الدفع يترتب عليه غرامات من الهيئة الاتحادية للضرائب."
+
+msgid "Approve the return and file it on EmaraTax."
+msgstr "اعتمد الإقرار وقدّمه على EmaraTax."
+
+msgid "residence visa"
+msgstr "تأشيرة الإقامة"
+
+msgid "labour card"
+msgstr "بطاقة العمل"
+
+msgid "{0}'s {1} expires in {2} days"
+msgstr "{1} الخاصة بـ {0} تنتهي خلال {2} يوم"
+
+msgid "{0}'s {1} expired {2} days ago"
+msgstr "{1} الخاصة بـ {0} انتهت منذ {2} يوم"
+
+msgid "Employee"
+msgstr "الموظف"
+
+msgid "Expiry"
+msgstr "الانتهاء"
+
+msgid "An expired visa, Emirates ID or labour card can lead to fines and blocks WPS salary payments."
+msgstr "انتهاء التأشيرة أو الهوية الإماراتية أو بطاقة العمل قد يؤدي إلى غرامات ويوقف صرف الرواتب عبر WPS."
+
+msgid "Start the renewal with the PRO now."
+msgstr "ابدأ التجديد مع مندوب العلاقات العامة الآن."
+
+msgid "{0} expires {1} — {2}"
+msgstr "{0} ينتهي {1} — {2}"
+
+msgid "documents not yet presented"
+msgstr "مستندات لم تُقدَّم بعد"
+
+msgid "After expiry the bank will not pay under the LC."
+msgstr "بعد الانتهاء لن يدفع البنك بموجب خطاب الاعتماد."
+
+msgid "Present the documents or ask the bank for an amendment."
+msgstr "قدّم المستندات أو اطلب من البنك تعديلاً."
+
+msgid "Guarantee {0} for {1} ends {2}"
+msgstr "الضمان {0} لـ {1} ينتهي {2}"
+
+msgid "Ends"
+msgstr "ينتهي"
+
+msgid "The beneficiary may call the guarantee or the bank keeps charging commission."
+msgstr "قد يطالب المستفيد بالضمان أو يستمر البنك في احتساب العمولة."
+
+msgid "Ask the beneficiary to release it or extend it with the bank."
+msgstr "اطلب من المستفيد الإفراج عنه أو مدّده مع البنك."
+
+msgid "{0} — {1} expired {2} days ago"
+msgstr "{0} — {1} انتهى منذ {2} يوم"
+
+msgid "{0} — {1} expires in {2} days"
+msgstr "{0} — {1} ينتهي خلال {2} يوم"
+
+msgid "Trading with an expired licence brings fines and can block customs and bank services."
+msgstr "التداول برخصة منتهية يترتب عليه غرامات وقد يوقف خدمات الجمارك والبنوك."
+
+msgid "Start or finish the renewal and record the new expiry date."
+msgstr "ابدأ التجديد أو أكمله وسجّل تاريخ الانتهاء الجديد."
+
+msgid "{0} due {1}"
+msgstr "{0} مستحق {1}"
+
+msgid "{0} overdue since {1}"
+msgstr "{0} متأخر منذ {1}"
+
+msgid "A missed statutory deadline brings penalties."
+msgstr "تفويت موعد نظامي يترتب عليه غرامات."
+
+msgid "Complete it and mark it done."
+msgstr "أكمله وضع عليه علامة منجز."
+
+msgid "{0} — trade licence expired on {1}"
+msgstr "{0} — انتهت الرخصة التجارية في {1}"
+
+msgid "{0} — KYC blocked"
+msgstr "{0} — اعرف عميلك محظور"
+
+msgid "Licence expiry"
+msgstr "انتهاء الرخصة"
+
+msgid "New orders for this customer cannot be confirmed."
+msgstr "لا يمكن تأكيد طلبات جديدة لهذا العميل."
+
+msgid "Ask the customer for the renewed licence and update KYC."
+msgstr "اطلب من العميل الرخصة المجددة وحدّث اعرف عميلك."
+
+msgid "{0} for {1} {2} — {3}"
+msgstr "{0} لـ {1} {2} — {3}"
+
+msgid "overdue"
+msgstr "متأخر"
+
+msgid "waiting for the {0}"
+msgstr "بانتظار {0}"
+
+msgid "Document due"
+msgstr "مستند مستحق"
+
+msgid "The record went ahead without its document."
+msgstr "تم السير في السجل بدون مستنده."
+
+msgid "The record is waiting for the exception to be decided."
+msgstr "السجل بانتظار البت في الاستثناء."
+
+msgid "Attach the document to the record."
+msgstr "أرفق المستند بالسجل."
+
+msgid "Approve or reject the exception."
+msgstr "اعتمد الاستثناء أو ارفضه."
+
+msgid "Unknown status"
+msgstr "حالة غير معروفة"
+
+msgid "Unknown result"
+msgstr "نتيجة غير معروفة"
+
+msgid "Messaging & social media"
+msgstr "المراسلة ووسائل التواصل الاجتماعي"
+
+msgid "Tracking & field work"
+msgstr "التتبع والعمل الميداني"
+
+msgid "Payments, compliance & more"
+msgstr "المدفوعات والامتثال والمزيد"
+
+msgid "WhatsApp click-to-chat"
+msgstr "WhatsApp بنقرة للمحادثة"
+
+msgid "WhatsApp buttons on quotations, orders and invoices that open WhatsApp with the message and PDF link ready."
+msgstr "أزرار WhatsApp على عروض الأسعار والطلبات والفواتير تفتح WhatsApp والرسالة ورابط PDF جاهزان."
+
+msgid "None — sent from the user’s own phone (not tracked)."
+msgstr "لا شيء — تُرسل من هاتف المستخدم الخاص (غير متتبعة)."
+
+msgid "WhatsApp Business integration"
+msgstr "تكامل WhatsApp Business"
+
+msgid "Shared WhatsApp inbox inside the ERP, linked to customers and orders; approved templates; opt-in tracking; unknown numbers become CRM leads."
+msgstr "صندوق وارد WhatsApp مشترك داخل النظام مرتبط بالعملاء والطلبات؛ قوالب معتمدة؛ تتبع الموافقة؛ الأرقام غير المعروفة تصبح عملاء محتملين في CRM."
+
+msgid "Meta per-message fees · WhatsApp Business account · template approval by Meta."
+msgstr "رسوم Meta لكل رسالة · حساب WhatsApp Business · اعتماد القوالب من Meta."
+
+msgid "Automatic WhatsApp alerts"
+msgstr "تنبيهات WhatsApp التلقائية"
+
+msgid "Order confirmed, out for delivery, invoice due and payment received — sent automatically."
+msgstr "تأكيد الطلب، قيد التوصيل، استحقاق الفاتورة واستلام الدفعة — تُرسل تلقائياً."
+
+msgid "Meta per-message fees."
+msgstr "رسوم Meta لكل رسالة."
+
+msgid "Facebook Lead Ads → CRM"
+msgstr "إعلانات Facebook للعملاء المحتملين ← CRM"
+
+msgid "Leads from Facebook ad forms appear instantly in CRM with source and campaign, assigned to a salesperson."
+msgstr "العملاء المحتملون من نماذج إعلانات Facebook يظهرون فوراً في CRM مع المصدر والحملة، ويُسندون إلى مندوب مبيعات."
+
+msgid "Meta Business account · Meta app review."
+msgstr "حساب Meta Business · مراجعة تطبيق Meta."
+
+msgid "Facebook Messenger inbox"
+msgstr "صندوق وارد Facebook Messenger"
+
+msgid "Facebook page messages answered from the ERP and linked to the lead or customer."
+msgstr "الرد على رسائل صفحة Facebook من النظام وربطها بالعميل المحتمل أو العميل."
+
+msgid "Meta app review."
+msgstr "مراجعة تطبيق Meta."
+
+msgid "Instagram DMs → inbox & CRM"
+msgstr "رسائل Instagram ← صندوق الوارد و CRM"
+
+msgid "Instagram business messages in the same inbox; new enquiries become leads."
+msgstr "رسائل Instagram التجارية في نفس صندوق الوارد؛ الاستفسارات الجديدة تصبح عملاء محتملين."
+
+msgid "Instagram Professional account linked to the Facebook page."
+msgstr "حساب Instagram احترافي مرتبط بصفحة Facebook."
+
+msgid "Instagram Lead Ads → CRM"
+msgstr "إعلانات Instagram للعملاء المحتملين ← CRM"
+
+msgid "Instagram ad-form leads into CRM with campaign source."
+msgstr "العملاء المحتملون من نماذج إعلانات Instagram إلى CRM مع مصدر الحملة."
+
+msgid "Same Meta setup as Facebook."
+msgstr "نفس إعداد Meta الخاص بـ Facebook."
+
+msgid "Snapchat Lead Ads → CRM"
+msgstr "إعلانات Snapchat للعملاء المحتملين ← CRM"
+
+msgid "Leads from Snapchat lead-generation ads into CRM with campaign source. (Snapchat offers no business-chat connection for software — ad leads only.)"
+msgstr "العملاء المحتملون من إعلانات Snapchat لتوليد العملاء إلى CRM مع مصدر الحملة. (لا يوفر Snapchat ربطاً للمحادثات التجارية مع البرامج — إعلانات العملاء المحتملين فقط.)"
+
+msgid "Snap Business account."
+msgstr "حساب Snap Business."
+
+msgid "TikTok Lead Ads → CRM"
+msgstr "إعلانات TikTok للعملاء المحتملين ← CRM"
+
+msgid "TikTok ad-form leads into CRM."
+msgstr "العملاء المحتملون من نماذج إعلانات TikTok إلى CRM."
+
+msgid "TikTok For Business account."
+msgstr "حساب TikTok For Business."
+
+msgid "LinkedIn Lead Gen Forms → CRM"
+msgstr "نماذج LinkedIn Lead Gen ← CRM"
+
+msgid "B2B leads from LinkedIn ads into CRM."
+msgstr "عملاء محتملون B2B من إعلانات LinkedIn إلى CRM."
+
+msgid "LinkedIn Campaign Manager · LinkedIn approval."
+msgstr "LinkedIn Campaign Manager · موافقة LinkedIn."
+
+msgid "Website & Google Ads forms → CRM"
+msgstr "نماذج الموقع و Google Ads ← CRM"
+
+msgid "Website contact and quote forms create leads automatically."
+msgstr "نماذج التواصل وطلب عروض الأسعار في الموقع تنشئ عملاء محتملين تلقائياً."
+
+msgid "None."
+msgstr "لا شيء."
+
+msgid "Email inbox (Microsoft 365 / Gmail)"
+msgstr "صندوق البريد (Microsoft 365 / Gmail)"
+
+msgid "Shared mailboxes connected; emails filed on the right customer or order; replies tracked."
+msgstr "صناديق بريد مشتركة متصلة؛ الرسائل تُحفظ على العميل أو الطلب الصحيح؛ الردود متتبعة."
+
+msgid "Existing Microsoft 365 / Google Workspace licences."
+msgstr "تراخيص Microsoft 365 / Google Workspace الحالية."
+
+msgid "SMS notifications"
+msgstr "إشعارات الرسائل النصية"
+
+msgid "Delivery and payment SMS through a UAE SMS provider."
+msgstr "رسائل نصية للتسليم والدفع عبر مزوّد رسائل نصية في الإمارات."
+
+msgid "SMS credits · sender ID registration."
+msgstr "رصيد الرسائل النصية · تسجيل اسم المرسل."
+
+msgid "Telephone integration"
+msgstr "تكامل الهاتف"
+
+msgid "Click-to-call from the ERP, calls logged on the customer, missed-call follow-ups."
+msgstr "الاتصال بنقرة من النظام، تسجيل المكالمات على العميل، متابعة المكالمات الفائتة."
+
+msgid "Cloud phone system subscription."
+msgstr "اشتراك نظام هاتف سحابي."
+
+msgid "Vehicle GPS tracking"
+msgstr "تتبع المركبات بـ GPS"
+
+msgid "Live map of delivery vehicles and trip history from the GPS devices already in the vans, shown against delivery notes."
+msgstr "خريطة حية لمركبات التوصيل وسجل الرحلات من أجهزة GPS الموجودة في المركبات، معروضة مقابل إشعارات التسليم."
+
+msgid "GPS device & tracking subscription · provider must allow data access (most do)."
+msgstr "اشتراك جهاز وتتبع GPS · يجب أن يسمح المزوّد بالوصول إلى البيانات (معظمهم يسمح)."
+
+msgid "Driver phone tracking (no hardware)"
+msgstr "تتبع هاتف السائق (بدون أجهزة)"
+
+msgid "The driver app shares the phone’s location during a trip; the dispatcher sees live positions."
+msgstr "تطبيق السائق يشارك موقع الهاتف أثناء الرحلة؛ ويرى المُرسِل المواقع الحية."
+
+msgid "Google Maps usage · driver’s mobile data."
+msgstr "استخدام Google Maps · بيانات الجوال للسائق."
+
+msgid "Live delivery link for customers"
+msgstr "رابط تتبع التوصيل للعملاء"
+
+msgid "The customer receives a link showing “driver on the way” and the estimated arrival time."
+msgstr "يتلقى العميل رابطاً يعرض “السائق في الطريق” ووقت الوصول المتوقع."
+
+msgid "Maps usage."
+msgstr "استخدام الخرائط."
+
+msgid "Automatic arrival & proof of delivery"
+msgstr "تسجيل الوصول وإثبات التسليم تلقائياً"
+
+msgid "Arrival and departure at the customer site recorded by location; time-stamped on the delivery note."
+msgstr "تسجيل الوصول والمغادرة في موقع العميل حسب الموقع الجغرافي؛ مع ختم زمني على إشعار التسليم."
+
+msgid "Field staff tracking"
+msgstr "تتبع الموظفين الميدانيين"
+
+msgid "Sales staff, technicians and collectors check in/out with GPS and photo; visit logs against customers and leads; daily route history; linked to attendance."
+msgstr "مندوبو المبيعات والفنيون والمحصّلون يسجلون الحضور والانصراف بـ GPS وصورة؛ سجلات الزيارات مقابل العملاء والعملاء المحتملين؛ سجل المسار اليومي؛ مرتبط بالحضور."
+
+msgid "Maps usage · staff use the mobile app."
+msgstr "استخدام الخرائط · الموظفون يستخدمون تطبيق الجوال."
+
+msgid "Field service jobs"
+msgstr "أعمال الخدمة الميدانية"
+
+msgid "Technician job cards for installation and maintenance-contract visits: checklist, photos, customer signature, spare parts used."
+msgstr "بطاقات عمل الفنيين لزيارات التركيب وعقود الصيانة: قائمة تحقق، صور، توقيع العميل، قطع الغيار المستخدمة."
+
+msgid "Route planning"
+msgstr "تخطيط المسار"
+
+msgid "Best order of deliveries or visits for the day."
+msgstr "أفضل ترتيب للتوصيلات أو الزيارات خلال اليوم."
+
+msgid "Google Maps routing fees."
+msgstr "رسوم توجيه Google Maps."
+
+msgid "Fuel & mileage log"
+msgstr "سجل الوقود والمسافات"
+
+msgid "Fuel entries, odometer readings and cost per km for each vehicle."
+msgstr "إدخالات الوقود وقراءات العدّاد والتكلفة لكل كم لكل مركبة."
+
+msgid "Online payment links"
+msgstr "روابط الدفع الإلكتروني"
+
+msgid "“Pay now” link on invoices; the payment is recorded automatically."
+msgstr "رابط “ادفع الآن” على الفواتير؛ تُسجّل الدفعة تلقائياً."
+
+msgid "Payment gateway fees (Network International, Telr, Stripe…)."
+msgstr "رسوم بوابة الدفع (Network International، Telr، Stripe…)."
+
+msgid "UAE e-invoicing connection"
+msgstr "ربط الفوترة الإلكترونية في الإمارات"
+
+msgid "Invoices sent through an accredited e-invoicing provider in the national format."
+msgstr "إرسال الفواتير عبر مزوّد فوترة إلكترونية معتمد بالصيغة الوطنية."
+
+msgid "Provider subscription · mandatory in phases from 2027."
+msgstr "اشتراك المزوّد · إلزامي على مراحل بدءاً من 2027."
+
+msgid "Bank feed"
+msgstr "ربط كشوف البنك"
+
+msgid "Bank statements imported automatically for reconciliation."
+msgstr "استيراد كشوف الحساب البنكية تلقائياً للتسوية."
+
+msgid "Bank / open-banking provider fees."
+msgstr "رسوم البنك / مزوّد الخدمات المصرفية المفتوحة."
+
+msgid "E-commerce sync (per platform)"
+msgstr "مزامنة التجارة الإلكترونية (لكل منصة)"
+
+msgid "Products, stock, orders and payments synced with Shopify, WooCommerce, Amazon.ae or Noon."
+msgstr "مزامنة المنتجات والمخزون والطلبات والمدفوعات مع Shopify أو WooCommerce أو Amazon.ae أو Noon."
+
+msgid "Store or marketplace seller account."
+msgstr "حساب بائع في المتجر أو السوق الإلكتروني."
+
+msgid "Barcode labels & scanners"
+msgstr "ملصقات الباركود والماسحات"
+
+msgid "Item and serial labels, handheld scanning for receiving and picking."
+msgstr "ملصقات الأصناف والأرقام التسلسلية، ومسح يدوي للاستلام والانتقاء."
+
+msgid "Label printer and scanners."
+msgstr "طابعة ملصقات وماسحات."
+
+msgid "Biometric attendance"
+msgstr "الحضور بالبصمة"
+
+msgid "Fingerprint or face devices feeding attendance and payroll."
+msgstr "أجهزة البصمة أو التعرف على الوجه تغذي الحضور والرواتب."
+
+msgid "Supported device (e.g. ZKTeco)."
+msgstr "جهاز مدعوم (مثل ZKTeco)."
+
+msgid "Management reports (Power BI / Looker)"
+msgstr "تقارير الإدارة (Power BI / Looker)"
+
+msgid "Live dashboards on ERP data."
+msgstr "لوحات معلومات حية على بيانات النظام."
+
+msgid "Power BI / Looker licence."
+msgstr "ترخيص Power BI / Looker."
+
+msgid "AI order assistant"
+msgstr "مساعد الطلبات بالذكاء الاصطناعي"
+
+msgid "Reads customer emails and WhatsApp enquiries, picks out items and quantities, checks stock and price, and drafts the quotation for review."
+msgstr "يقرأ رسائل العملاء واستفسارات WhatsApp، ويستخرج الأصناف والكميات، ويتحقق من المخزون والسعر، ويُعدّ مسودة عرض السعر للمراجعة."
+
+msgid "AI usage fees."
+msgstr "رسوم استخدام الذكاء الاصطناعي."
+
+msgid "Supplier bill scanning"
+msgstr "مسح فواتير الموردين"
+
+msgid "PDF or photo bills read into purchase invoices, with duplicate, TRN, VAT and PO / goods-receipt checks."
+msgstr "قراءة فواتير PDF أو الصور إلى فواتير شراء، مع التحقق من التكرار والرقم الضريبي وVAT وأمر الشراء / إيصال الاستلام."
+
+msgid "Document-AI usage fees."
+msgstr "رسوم استخدام الذكاء الاصطناعي للمستندات."
+
+msgid "AI assistant"
+msgstr "المساعد الذكي"
+
+msgid "Ask questions in plain English or Arabic (“overdue invoices for Al Noor”) and draft replies."
+msgstr "اطرح أسئلتك بالعربية أو الإنجليزية (“الفواتير المتأخرة لـ Al Noor”) واكتب مسودات الردود."
+
+msgid "Branded customer app"
+msgstr "تطبيق عملاء بعلامتك التجارية"
+
+msgid "Customer portal as an installable app with order tracking and statements."
+msgstr "بوابة العملاء كتطبيق قابل للتثبيت مع تتبع الطلبات وكشوف الحساب."
+
+msgid "App store fees if published."
+msgstr "رسوم متجر التطبيقات في حال النشر."
+
+msgid "Full Arabic interface"
+msgstr "واجهة عربية كاملة"
+
+msgid "Every screen and print format in Arabic."
+msgstr "كل الشاشات ونماذج الطباعة باللغة العربية."
