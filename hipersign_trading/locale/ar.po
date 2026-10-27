@@ -3597,3 +3597,45 @@ msgstr "واجهة عربية كاملة"
 
 msgid "Every screen and print format in Arabic."
 msgstr "كل الشاشات ونماذج الطباعة باللغة العربية."
+
+msgid "Customs documents"
+msgstr "مستندات الجمارك"
+
+msgid "Slow-moving stock"
+msgstr "مخزون بطيء الحركة"
+
+msgid "Cheques"
+msgstr "الشيكات"
+
+msgid "VAT"
+msgstr "ضريبة القيمة المضافة"
+
+msgid "Employee documents"
+msgstr "مستندات الموظفين"
+
+msgid "Bank guarantees"
+msgstr "الضمانات البنكية"
+
+msgid "KYC & licences"
+msgstr "اعرف عميلك والتراخيص"
+
+msgid "Document exceptions"
+msgstr "استثناءات المستندات"
+
+msgid "High"
+msgstr "عالية"
+
+msgid "Medium"
+msgstr "متوسطة"
+
+msgid "Low"
+msgstr "منخفضة"
+
+msgid "Pass"
+msgstr "نجح"
+
+msgid "Fail"
+msgstr "فشل"
+
+msgid "Not run"
+msgstr "لم يُنفَّذ"
