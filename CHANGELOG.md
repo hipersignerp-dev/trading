@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.5.3 — 28 Oct 2026 — new looks reach every browser
+The app's stylesheets and scripts are now loaded with the app version in their address (`…/hipersign_theme.css?v=1.5.3`). They are
+served as "immutable" for a year and the site's service worker caches them, so until now a browser that had opened the site kept the
+old look and old scripts after an update. `app_version` in hooks follows `__version__`.
+
 ## 1.5.2 — 27 Oct 2026 — closer to the prototype's look
 Theme additions (Hipersign desk theme only): 24 px page margin on the Hipersign pages and the Order Tracker; workspaces use the full
 width instead of a 900 px centred column; page title 21 px / 800; menu group headings 11 px bold, a light-blue bar beside the active
