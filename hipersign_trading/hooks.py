@@ -36,6 +36,7 @@ app_include_js = [
 	"/assets/hipersign_trading/js/hs_money.js" + _v,
 	"/assets/hipersign_trading/js/hs_nav.js" + _v,
 	"/assets/hipersign_trading/js/hs_ui.js" + _v,
+	"/assets/hipersign_trading/js/hs_topbar.js" + _v,
 ]
 
 website_context = {
