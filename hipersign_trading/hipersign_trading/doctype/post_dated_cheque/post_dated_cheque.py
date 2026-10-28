@@ -76,6 +76,7 @@ class PostDatedCheque(Document):
 		je = frappe.get_doc({"doctype": "Journal Entry", "voucher_type": voucher_type, "company": self.company, "posting_date": date,
 			"cheque_no": self.cheque_no, "cheque_date": self.cheque_date, "user_remark": remark, "accounts": rows})
 		je.flags.ignore_permissions = True
+		je.flags.hs_system_entry = True
 		je.insert()
 		je.submit()
 		return je.name
@@ -168,6 +169,7 @@ class PostDatedCheque(Document):
 					],
 				}
 			)
+			je.flags.hs_system_entry = True
 			je.insert()
 			je.submit()
 			self.charges_entry, self.bank_charges = je.name, charge
