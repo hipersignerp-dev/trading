@@ -478,8 +478,9 @@ html.hs-theme .frappe-list .result { border-radius: 10px; }
 
 /* 7. Number cards: value in ink like the prototype KPI tiles; the card colour stays on the top bar only */
 html.hs-theme .number-widget-box .widget-content .number { color: var(--hs-ink) !important; font-size: 21px; }
-html.hs-theme .number-widget-box .widget-head .widget-control .dropdown-btn { opacity: 0; }
-html.hs-theme .number-widget-box:hover .widget-head .widget-control .dropdown-btn { opacity: 1; }
+html.hs-theme .number-widget-box .widget-control .card-actions > a { opacity: 0; transition: opacity .15s; }
+html.hs-theme .number-widget-box:hover .widget-control .card-actions > a,
+html.hs-theme .number-widget-box .widget-control .card-actions.show > a { opacity: 1; }
 html.hs-theme .number-widget-box .widget-title { font-size: 12.5px; color: var(--hs-muted); font-weight: 500; }
 
 /* 8. Kanban (CRM pipeline): white columns, prototype cards */
@@ -507,3 +508,42 @@ html.hs-theme .hs-stage > i { display: none; }
 html.hs-theme .hs-stage small { display: inline-block; margin-top: 3px; padding: 1px 8px; border-radius: 999px; background: var(--hs-surface-2); color: var(--hs-muted); }
 html.hs-theme .hs-stage.done small { background: var(--hs-green-bg); color: var(--hs-green); }
 html.hs-theme .hs-stage.done { color: var(--hs-green); font-weight: 600; }
+
+/* ================================================================ v1.5.4 — the prototype's top bar (hs_topbar.js) */
+html.hs-theme .main-section > header.hs-topbar-host { position: sticky; top: 0; z-index: 9; }
+html.hs-theme .hs-topbar { display: flex; align-items: center; gap: 12px; height: 60px; padding: 0 24px; background: var(--hs-surface); border-bottom: 1px solid var(--hs-line); }
+html.hs-theme .hs-tb-sp { flex: 1; }
+html.hs-theme .hs-tb-search { flex: 0 1 440px; min-width: 200px; height: 36px; display: flex; align-items: center; gap: 9px; padding: 0 10px 0 12px;
+	border: 1px solid var(--hs-line); background: var(--hs-surface-2); border-radius: 9px; color: var(--hs-faint); font-size: 13px; text-align: start; cursor: text; }
+html.hs-theme .hs-tb-search span { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+html.hs-theme .hs-tb-search svg { color: var(--hs-faint); flex: none; }
+html.hs-theme .hs-tb-search kbd { font: 600 11px var(--hs-font); color: var(--hs-faint); background: var(--hs-surface); border: 1px solid var(--hs-line); border-radius: 5px; padding: 1px 6px; box-shadow: none; }
+html.hs-theme .hs-tb-search:hover { border-color: #cbd4e6; }
+html.hs-theme .hs-tb-company { height: 36px; max-width: 240px; padding: 0 30px 0 11px; border: 1px solid var(--hs-line); border-radius: 9px; background-color: var(--hs-surface);
+	color: var(--hs-ink); font-size: 13px; cursor: pointer; text-overflow: ellipsis; }
+html.hs-theme .hs-topbar .hs-tb-new.btn { height: 36px; padding: 0 14px; border-radius: 9px; display: inline-flex; align-items: center; gap: 6px; font-size: 13px; }
+html.hs-theme .hs-topbar .hs-tb-new svg { stroke: #fff; }
+html.hs-theme .hs-tb-icon { position: relative; width: 36px; height: 36px; flex: none; display: grid; place-items: center; border: 1px solid var(--hs-line); border-radius: 9px;
+	background: var(--hs-surface); color: var(--hs-ink-2); font-weight: 700; font-size: 15px; font-family: "IBM Plex Sans Arabic", var(--hs-font); cursor: pointer; }
+html.hs-theme .hs-tb-icon:hover, html.hs-theme .hs-tb-userbtn:hover { background: var(--hs-surface-2); }
+html.hs-theme .hs-tb-dot { position: absolute; top: -5px; right: -5px; min-width: 18px; height: 18px; padding: 0 4px; border-radius: 9px; border: 2px solid var(--hs-surface);
+	background: var(--hs-red); color: #fff; font: 700 10px/14px var(--hs-font); text-align: center; }
+html.hs-theme .hs-tb-userbtn { display: flex; align-items: center; gap: 9px; border: 0; background: none; padding: 3px 4px; border-radius: 9px; color: var(--hs-muted); cursor: pointer; }
+html.hs-theme .hs-tb-userbtn .avatar { width: 32px; height: 32px; }
+html.hs-theme .hs-tb-ut { text-align: start; line-height: 1.2; }
+html.hs-theme .hs-tb-ut b { display: block; font-size: 13px; color: var(--hs-ink); }
+html.hs-theme .hs-tb-ut span { font-size: 11.5px; color: var(--hs-muted); }
+html.hs-theme.hs-topbar-on .page-head { top: 60px !important; }
+/* the menu's own Search and Notification rows: the top bar opens them now */
+html.hs-theme.hs-topbar-on .body-sidebar .navbar-search-bar,
+html.hs-theme.hs-topbar-on .body-sidebar .sidebar-notification { display: none !important; }
+html.hs-theme.hs-topbar-on .dropdown-notifications { position: fixed !important; top: 64px !important; right: 16px !important; left: auto !important; width: 360px; z-index: 1050; }
+html.hs-theme.hs-topbar-on .body-sidebar .standard-items-sections .dropdown-notifications .notifications-list {
+	left: 0 !important; right: auto !important; border: 1px solid var(--hs-line); border-radius: 10px; box-shadow: var(--hs-shadow-lg); }
+html.hs-theme.hs-topbar-on[dir="rtl"] .dropdown-notifications { right: auto !important; left: 16px !important; }
+@media (max-width: 767px) {
+	html.hs-theme .hs-topbar { padding: 0 12px; gap: 8px; }
+	html.hs-theme .hs-tb-search { flex: 0 0 36px; min-width: 36px; padding: 0; justify-content: center; }
+	html.hs-theme .hs-tb-search span, html.hs-theme .hs-tb-search kbd, html.hs-theme .hs-tb-company, html.hs-theme .hs-tb-ut,
+	html.hs-theme .hs-tb-new span, html.hs-theme .hs-tb-userbtn > svg { display: none; }
+}
