@@ -1,4 +1,4 @@
-// Hipersign ERP v1.5.4 — the prototype's top bar above every desk page: search, company, + New, Arabic / English,
+// Hipersign ERP v1.5.4 (1.5.5: hidden on the app launcher) — the prototype's top bar above every desk page: search, company, + New, Arabic / English,
 // notifications with an unread count, and the user menu. Only with the Hipersign desk theme (html.hs-theme).
 // Search and notifications open Frappe's own search dialog and notification panel, so nothing is duplicated.
 frappe.provide("hipersign.topbar");
@@ -17,10 +17,23 @@ hipersign.topbar.role = function () {
 	return hit ? __(hit[1]) : "";
 };
 
+// the app launcher (/desk) has its own header and no menu: no top bar there
+hipersign.topbar.hidden_here = function () {
+	const r = frappe.get_route_str ? frappe.get_route_str() : "";
+	return !r || r === "desktop" || r === "desk";
+};
+
+hipersign.topbar.sync = function () {
+	const hide = hipersign.topbar.hidden_here();
+	$(".main-section > header.hs-topbar-host").toggle(!hide);
+	document.documentElement.classList.toggle("hs-topbar-on", !hide && !!$(".hs-topbar").length);
+};
+
 hipersign.topbar.render = function () {
 	if (!document.documentElement.classList.contains("hs-theme") || frappe.session.user === "Guest") return;
 	const $host = $(".main-section > header").first();
-	if (!$host.length || $host.find(".hs-topbar").length) return;
+	if (!$host.length) return;
+	if ($host.find(".hs-topbar").length) return hipersign.topbar.sync();
 	const esc = (s) => frappe.utils.escape_html(s || "");
 	const icon = (n) => frappe.utils.icon(n, "sm");
 	const name = frappe.user.full_name ? frappe.user.full_name() : frappe.session.user;
@@ -46,7 +59,7 @@ hipersign.topbar.render = function () {
 				</div>
 			</div>
 		</div>`);
-	document.documentElement.classList.add("hs-topbar-on");
+	hipersign.topbar.sync();
 	hipersign.topbar.refresh(true);
 };
 
