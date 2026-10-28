@@ -78,6 +78,7 @@ def v13_documents(c):
 
 def v13_compliance(c):
 	md, fin, hr = user_email("md"), user_email("fin"), user_email("hr")
+	trn = frappe.get_cached_value("Company", c.company, "tax_id") or "100384927150003"
 	cos = [c.company] + [x for x in frappe.get_all("Company", pluck="name") if x != c.company]
 	plan = [
 		# document type, days to expiry (None = no expiry), responsible, number, renewal status
@@ -87,8 +88,8 @@ def v13_compliance(c):
 		("Civil defence certificate", 9, md, "CD-DXB-72215", "Submitted to authority"),
 		("Tenancy contract (Ejari)", 75, fin, "EJ-2025-0918821", ""),
 		("Customs code", 300, fin, "AE-1188034", ""),
-		("VAT registration certificate", None, fin, "100512837400003", ""),
-		("Corporate tax registration", None, fin, "CT-100512837400003", ""),
+		("VAT registration certificate", None, fin, trn, ""),
+		("Corporate tax registration", None, fin, f"CT-{trn}", ""),
 	]
 	for typ, days_, who, no, ren in plan:
 		if frappe.db.exists("Company Document", {"company": c.company, "document_type": typ}):
@@ -172,7 +173,7 @@ def v13_price_lists(c):
 	if not frappe.db.exists("Price List", "Wholesale"):
 		frappe.get_doc({"doctype": "Price List", "price_list_name": "Wholesale", "currency": "AED", "selling": 1, "enabled": 1}).insert(ignore_permissions=True)
 	if not frappe.db.count("Item Price", {"price_list": "Wholesale"}):
-		for ip in frappe.get_all("Item Price", filters={"price_list": std}, fields=["item_code", "price_list_rate"], order_by="item_code asc")[:11]:
+		for ip in frappe.get_all("Item Price", filters={"price_list": std}, fields=["item_code", "price_list_rate"], order_by="item_code asc"):
 			frappe.get_doc({"doctype": "Item Price", "price_list": "Wholesale", "item_code": ip.item_code, "price_list_rate": flt(ip.price_list_rate * 0.9, 2)}).insert(ignore_permissions=True)
 	for cust in frappe.get_all("Customer", filters={"customer_group": "Wholesale", "is_internal_customer": 0}, pluck="name"):
 		frappe.db.set_value("Customer", cust, "default_price_list", "Wholesale")
