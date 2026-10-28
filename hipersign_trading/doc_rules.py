@@ -113,8 +113,40 @@ def checklist(doc):
 	return out
 
 
+APP_JOURNAL_LINKS = {
+	"Letter of Credit": ("margin_entry", "tr_entry", "margin_release_entry"),
+	"Post Dated Cheque": ("receipt_entry", "clearing_entry", "reversal_entry", "charges_entry"),
+}
+
+
+def _app_journal(doc):
+	"""A journal entry an LC or a post-dated cheque made (it may be submitted later, from the journal's own form)."""
+	if doc.doctype != "Journal Entry" or doc.is_new():
+		return False
+	for dt, fields in APP_JOURNAL_LINKS.items():
+		if not frappe.db.table_exists(dt):
+			continue
+		for f in fields:
+			if frappe.db.exists(dt, {f: doc.name}):
+				return True
+	return False
+
+
+def _app_journal_names():
+	names = set()
+	for dt, fields in APP_JOURNAL_LINKS.items():
+		if not frappe.db.table_exists(dt):
+			continue
+		for row in frappe.get_all(dt, fields=list(fields)):
+			names.update(v for v in row.values() if v)
+	return names
+
+
 def _gate(doc, rules):
 	if frappe.flags.in_install or frappe.flags.in_migrate or frappe.flags.in_patch or frappe.flags.hs_skip_doc_rules or frappe.flags.in_import:
+		return
+	# journals the app posts itself (cheques, LC margins and trust receipts) have their own record as the supporting document
+	if doc.flags.get("hs_system_entry") or _app_journal(doc):
 		return
 	missing = []
 	for r in rules:
@@ -226,7 +258,10 @@ def missing_rows(doctype=None, document_type=None, limit=2000):
 		since = add_days(today(), -120)
 		date_field = "posting_date" if meta.has_field("posting_date") else "transaction_date" if meta.has_field("transaction_date") else "creation"
 		filters[date_field] = [">=", since]
+		app_journals = _app_journal_names() if dt == "Journal Entry" else set()
 		for d in frappe.get_all(dt, filters=filters, fields=fields, limit=limit, order_by="creation desc"):
+			if d.name in app_journals:
+				continue
 			for r in rules:
 				if not applies(r, d):
 					continue
