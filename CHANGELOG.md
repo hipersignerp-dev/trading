@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.5.4 — 28 Oct 2026 — the prototype's top bar; demo data fixes
+**Top bar** (Hipersign desk theme): search (Frappe's own search, Ctrl+K), the user's company for new documents, **+ New** (Create New),
+the ع / EN language switch, notifications with an unread count, and the user menu (My Settings, Toggle Theme, Log out). The menu's
+Search and Notification rows are hidden while the top bar is on. The "…" menus on number cards show on hover only.
+**Document rules:** journals the app makes itself (post-dated cheques, LC margins and trust receipts) no longer need a supporting
+document — recording a received cheque of AED 10,000+ was refused — and they are left out of the Missing Documents report.
+**Demo loader:** the purchase request is in pieces, not cartons; serialised opening stock lands on the opening account; the stock
+reservation stays and the draft pick list goes on another order; an invoice 72 days overdue (Horizon Trading, collections hold) and one
+25 days overdue (Elite Systems); an open EUR supplier invoice so the month-end revaluation has something to revalue; the lead's
+quotation has prices and VAT; customer and supplier cheques are created independently; the company's own TRN on its registration
+documents; every item on the Wholesale price list; shipment arrival and clearance dates follow the ETA.
+
 ## 1.5.3 — 28 Oct 2026 — new looks reach every browser
 The app's stylesheets and scripts are now loaded with the app version in their address (`…/hipersign_theme.css?v=1.5.3`). They are
 served as "immutable" for a year and the site's service worker caches them, so until now a browser that had opened the site kept the
