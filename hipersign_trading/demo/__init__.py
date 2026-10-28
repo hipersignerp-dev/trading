@@ -458,9 +458,29 @@ def opening_stock_serialised(c):
 		"remarks": "Hipersign opening stock — serialised items",
 		"items": [{"item_code": code, "t_warehouse": c.wh(wh), "qty": q, "basic_rate": cost, "expense_account": temp, "allow_zero_valuation_rate": 0}
 			for code, _n, _a, _g, _u, _h, _o, _r, _s, cost, wh, q in codes]})
+	if se.meta.has_field("is_opening"):
+		se.is_opening = "Yes"
 	backdate(se, c.d(-150))
 	se.insert()
 	se.submit()
+	_opening_reclass(c, se, temp)
+
+
+def _opening_reclass(c, se, temp):
+	"""Some ERPNext versions post a stock entry's receipt to Stock Adjustment whatever the row says: move it to the opening account."""
+	adj = frappe.get_cached_value("Company", c.company, "stock_adjustment_account")
+	if not adj or adj == temp:
+		return
+	amt = flt(frappe.db.sql("select sum(credit) - sum(debit) from `tabGL Entry` where voucher_no=%s and account=%s and is_cancelled=0", (se.name, adj))[0][0])
+	if abs(amt) < 0.01:
+		return
+	je = frappe.get_doc({"doctype": "Journal Entry", "voucher_type": "Journal Entry", "company": c.company, "posting_date": se.posting_date,
+		"user_remark": f"Opening stock of serialised items ({se.name}) moved from Stock Adjustment to {temp}",
+		"accounts": [{"account": adj, "debit_in_account_currency": amt if amt > 0 else 0, "credit_in_account_currency": -amt if amt < 0 else 0},
+			{"account": temp, "credit_in_account_currency": amt if amt > 0 else 0, "debit_in_account_currency": -amt if amt < 0 else 0}]})
+	je.flags.hs_system_entry = True
+	je.insert()
+	je.submit()
 
 
 def make_po(c, supplier, lines, days_ago, incoterm=None, place=None, submit=True):
@@ -494,6 +514,13 @@ def make_shipment(c, po, status, days_ago, bl, boe=None, docs_ok=True, eta_in=0)
 		("Insurance", "Emirates Cargo Insurance", 900), ("Clearing Charges", "Al Bahar Customs Clearing", 750), ("Handling", "Swift Port Handling", 480)]:
 		shp.append("charges", {"charge_type": typ, "provider": sup_, "amount": amt, "date": c.d(-days_ago + 20)})
 	shp.status = status
+	from hipersign_trading.constants import IMPORT_STATUSES
+
+	idx = IMPORT_STATUSES.index(status) if status in IMPORT_STATUSES else -1
+	if idx >= IMPORT_STATUSES.index("Arrived at Port"):
+		shp.arrived_on = c.d(eta_in)
+	if idx >= IMPORT_STATUSES.index("Cleared"):
+		shp.cleared_on = c.d(eta_in + 1)
 	shp.save()
 	return shp
 
@@ -600,10 +627,19 @@ def quotations(c):
 		q.submit()
 	lead = frappe.db.get_value("Lead", {"company_name": "Palm Crest Facilities"})
 	if lead:
-		q = frappe.get_doc({"doctype": "Quotation", "quotation_to": "Lead", "party_name": lead, "company": c.company,
-			"selling_price_list": c.selling_pl, "valid_till": c.d(12), "hs_subject": "Access control — 3 residential towers",
-			"items": [{"item_code": "ITM-011", "qty": 180}, {"item_code": "SRV-001", "qty": 60}], "taxes_and_charges": c.get("local_tax")})
+		lines = []
+		for it, qty in (("ITM-011", 180), ("SRV-001", 60)):
+			rate = flt(frappe.db.get_value("Item Price", {"item_code": it, "price_list": c.selling_pl}, "price_list_rate"))
+			lines.append({"item_code": it, "qty": qty, "rate": rate, "price_list_rate": rate})
+		q = frappe.get_doc({"doctype": "Quotation", "quotation_to": "Lead", "party_name": lead, "company": c.company, "currency": "AED", "conversion_rate": 1,
+			"selling_price_list": c.selling_pl, "price_list_currency": "AED", "plc_conversion_rate": 1, "ignore_pricing_rule": 1,
+			"valid_till": c.d(12), "hs_subject": "Access control — 3 residential towers", "items": lines,
+			"taxes_and_charges": c.get("local_tax") or frappe.db.get_single_value("Hipersign Settings", "local_tax_template")})
 		backdate(q, c.d(-2))
+		q.set_missing_values()
+		q.set("taxes", [])
+		if q.taxes_and_charges:
+			q.append_taxes_from_master()
 		q.insert()
 
 
@@ -711,8 +747,6 @@ def returns_and_credit_notes(c):
 
 
 def post_dated_cheques(c):
-	if frappe.db.exists("Post Dated Cheque", {"cheque_no": "000418"}):
-		return
 	bank = c.get("bank_gl") or frappe.db.get_single_value("Hipersign Settings", "cheque_bank_account")
 	rows = [
 		("Horizon Trading", "HT-5520", "000418", "Emirates NBD", 0.5, -2, "deposit"),
@@ -721,6 +755,8 @@ def post_dated_cheques(c):
 		("Gulf Projects", "GP-2026-311", "553019", "Mashreq", 0.4, -1, "deposited"),
 	]
 	for customer, po_no, no, drawn, frac, days_, action in rows:
+		if frappe.db.exists("Post Dated Cheque", {"cheque_no": no, "party": customer, "status": ["!=", "Cancelled"]}):
+			continue
 		si = invoice_of(customer, po_no)
 		if not si:
 			continue
@@ -738,7 +774,7 @@ def post_dated_cheques(c):
 			p.deposit()
 	# a cheque issued to a local supplier against its invoice
 	pr = frappe.db.get_value("Purchase Receipt", {"supplier": "Gulf Electrical Trading LLC", "docstatus": 1})
-	if pr:
+	if pr and not frappe.db.exists("Purchase Invoice", {"supplier": "Gulf Electrical Trading LLC", "bill_no": "GET/INV/20419", "docstatus": ["<", 2]}):
 		from erpnext.stock.doctype.purchase_receipt.purchase_receipt import make_purchase_invoice
 
 		pi = make_purchase_invoice(pr)
