@@ -132,7 +132,14 @@ def v12_collections(c):
 				d.append("dunning_letter_text", {"language": "en", "is_default_language": 1, "body_text": text,
 					"closing_text": "If you have already paid, please ignore this reminder and send us the payment reference."})
 			d.insert()
-	inv = _demo().invoice_of("Gulf Projects", "GP-2026-311")
+	d = _demo()
+	for customer, lines, ago, po_no in (
+		("Horizon Trading", [("ITM-009", 400)], 135, "HT-5101"),  # Net 60, invoiced 132 days ago: ~72 days overdue, new orders on hold
+		("Elite Systems", [("ITM-010", 200)], 57, "ES-0388"),  # Net 30, invoiced 55 days ago: ~25 days overdue, second reminder
+	):
+		if not frappe.db.exists("Sales Order", {"po_no": po_no}):
+			d.make_so(c, customer, lines, ago, po_no, deliver=ago - 3, invoice=ago - 3)
+	inv = d.invoice_of("Gulf Projects", "GP-2026-311")
 	if inv and not frappe.db.get_value("Sales Invoice", inv, "hs_promise_date"):
 		out = flt(frappe.db.get_value("Sales Invoice", inv, "outstanding_amount"))
 		frappe.db.set_value("Sales Invoice", inv, {"hs_promise_date": c.d(5), "hs_promise_amount": round(out / 2, -2),
@@ -148,8 +155,8 @@ def v12_purchasing(c):
 		return
 	mr = frappe.get_doc({"doctype": "Material Request", "material_request_type": "Purchase", "company": c.company, "title": "Ceiling speakers restock",
 		"transaction_date": c.d(-6), "schedule_date": c.d(40),
-		"items": [{"item_code": "ITM-006", "qty": 2000, "schedule_date": c.d(40), "warehouse": c.wh("Main Warehouse")},
-			{"item_code": "ITM-002", "qty": 1000, "schedule_date": c.d(40), "warehouse": c.wh("Main Warehouse")}]})
+		"items": [{"item_code": it, "qty": q, "uom": frappe.db.get_value("Item", it, "stock_uom"), "conversion_factor": 1,
+			"schedule_date": c.d(40), "warehouse": c.wh("Main Warehouse")} for it, q in (("ITM-006", 2000), ("ITM-002", 1000))]})
 	mr.insert()
 	mr.submit()
 	from erpnext.stock.doctype.material_request.material_request import make_request_for_quotation
@@ -194,14 +201,17 @@ def v12_reservations(c):
 				i.db_set("warehouse", frappe.db.get_value("Item Default", {"parent": i.item_code, "company": c.company}, "default_warehouse"))
 		so.reload()
 		so.create_stock_reservation_entries()
-	if not frappe.db.exists("Pick List Item", {"sales_order": so_name}):
+	# ERPNext 16 refuses a pick list for an order with reserved stock: the draft pick list goes on another open order,
+	# in its own savepoint so a refusal never takes the reservation with it
+	pl_so = frappe.db.get_value("Sales Order", {"po_no": "FB/PO/0932", "docstatus": 1})
+	if pl_so and not frappe.db.exists("Pick List Item", {"sales_order": pl_so}):
 		from erpnext.selling.doctype.sales_order.sales_order import create_pick_list
 
+		frappe.db.savepoint("hs_pick_list")
 		try:
-			pl = create_pick_list(so_name)
-			pl.insert()
-		except frappe.ValidationError:
-			# ERPNext 16 refuses a pick list while stock is reserved for the order — the reservation is the demo
+			create_pick_list(pl_so).insert()
+		except Exception:
+			frappe.db.rollback(save_point="hs_pick_list")
 			frappe.clear_last_message()
 			frappe.local.message_log = []
 
@@ -271,6 +281,7 @@ def v12_revaluation(c):
 		if not frappe.db.exists("Currency Exchange", {"from_currency": cur, "to_currency": "AED", "date": today()}):
 			frappe.get_doc({"doctype": "Currency Exchange", "date": today(), "from_currency": cur, "to_currency": "AED", "exchange_rate": rate,
 				"for_buying": 1, "for_selling": 1}).insert()
+	_eur_payable(c, month_end)
 	co = frappe.get_doc("Company", c.company)
 	if not co.get("unrealized_exchange_gain_loss_account") and co.get("exchange_gain_loss_account"):
 		frappe.db.set_value("Company", c.company, "unrealized_exchange_gain_loss_account", co.exchange_gain_loss_account)
@@ -285,6 +296,32 @@ def v12_revaluation(c):
 	if rows:
 		err.set("accounts", rows)
 		err.insert()  # left as a draft for the Finance Manager to review and submit (test FX-01)
+
+
+def _eur_payable(c, month_end):
+	"""EuroSafe bills commissioning support in EUR on a EUR payable account, unpaid at month end (test FX-01)."""
+	sup = "EuroSafe Systems GmbH"
+	if not frappe.db.exists("Supplier", sup) or frappe.db.exists("Purchase Invoice", {"supplier": sup, "bill_no": "ES-INV-26-0907"}):
+		return
+	acc = frappe.db.get_value("Account", {"company": c.company, "account_type": "Payable", "account_currency": "EUR", "is_group": 0})
+	if not acc:
+		parent = frappe.db.get_value("Account", {"company": c.company, "account_type": "Payable", "is_group": 1}, order_by="lft asc")
+		acc = frappe.get_doc({"doctype": "Account", "account_name": "Creditors EUR", "parent_account": parent, "company": c.company,
+			"account_type": "Payable", "account_currency": "EUR", "root_type": "Liability"}).insert().name
+	s = frappe.get_doc("Supplier", sup)
+	if not any(r.company == c.company for r in s.get("accounts", [])):
+		s.append("accounts", {"company": c.company, "account": acc})
+		s.save()
+	expense = frappe.get_cached_value("Company", c.company, "default_expense_account") or frappe.db.get_value(
+		"Account", {"company": c.company, "root_type": "Expense", "is_group": 0, "account_type": ["in", ["", "Expense Account"]]}, order_by="lft asc")
+	pi = frappe.get_doc({"doctype": "Purchase Invoice", "supplier": sup, "company": c.company, "currency": "EUR", "conversion_rate": D.FX["EUR"],
+		"credit_to": acc, "bill_no": "ES-INV-26-0907", "bill_date": add_days(month_end, -20), "update_stock": 0,
+		"items": [{"item_name": "Remote commissioning support — fire alarm panels", "description": "Remote commissioning support — fire alarm panels",
+			"qty": 1, "uom": "Nos", "rate": 1800, "expense_account": expense}]})
+	pi.posting_date, pi.set_posting_time, pi.due_date = add_days(month_end, -20), 1, add_days(month_end, 25)
+	pi.set("payment_schedule", [])
+	pi.insert()
+	pi.submit()
 
 
 # ------------------------------------------------------------------ group companies & inter-company
