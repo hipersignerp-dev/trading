@@ -4,7 +4,10 @@ app_publisher = "Hipersign"
 app_description = "Trading, Distribution & Import/Export ERP built on ERPNext"
 app_email = "sales@hipersignerp.com"
 app_license = "Proprietary"
-app_version = "1.5.1"
+from hipersign_trading import __version__ as app_version
+
+# every release gets new asset addresses: the files are served "immutable" for a year and the site's service worker caches them
+_v = f"?v={app_version}"
 
 required_apps = ["erpnext"]
 
@@ -20,19 +23,19 @@ add_to_apps_screen = [
 	}
 ]
 
-app_include_css = ["/assets/hipersign_trading/css/hipersign.css", "/assets/hipersign_trading/css/hipersign_theme.css"]
+app_include_css = ["/assets/hipersign_trading/css/hipersign.css" + _v, "/assets/hipersign_trading/css/hipersign_theme.css" + _v]
 app_include_js = [
-	"/assets/hipersign_trading/js/hipersign.js",
-	"/assets/hipersign_trading/js/doc_send.js",
-	"/assets/hipersign_trading/js/trading_forms.js",
-	"/assets/hipersign_trading/js/returns_forms.js",
-	"/assets/hipersign_trading/js/hr_forms.js",
-	"/assets/hipersign_trading/js/hs_setup.js",
-	"/assets/hipersign_trading/js/hs_docs.js",
-	"/assets/hipersign_trading/js/hs_form_modes.js",
-	"/assets/hipersign_trading/js/hs_money.js",
-	"/assets/hipersign_trading/js/hs_nav.js",
-	"/assets/hipersign_trading/js/hs_ui.js",
+	"/assets/hipersign_trading/js/hipersign.js" + _v,
+	"/assets/hipersign_trading/js/doc_send.js" + _v,
+	"/assets/hipersign_trading/js/trading_forms.js" + _v,
+	"/assets/hipersign_trading/js/returns_forms.js" + _v,
+	"/assets/hipersign_trading/js/hr_forms.js" + _v,
+	"/assets/hipersign_trading/js/hs_setup.js" + _v,
+	"/assets/hipersign_trading/js/hs_docs.js" + _v,
+	"/assets/hipersign_trading/js/hs_form_modes.js" + _v,
+	"/assets/hipersign_trading/js/hs_money.js" + _v,
+	"/assets/hipersign_trading/js/hs_nav.js" + _v,
+	"/assets/hipersign_trading/js/hs_ui.js" + _v,
 ]
 
 website_context = {
