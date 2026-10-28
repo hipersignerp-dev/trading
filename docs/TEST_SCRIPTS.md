@@ -33,9 +33,9 @@
 | MST-07 | Sales Manager | Open item ITM-002, customer Al Noor LLC, supplier EuroSafe | Brand/model, Carton = 100 Nos, weight, minimum order, default supplier; territory, sales person, website; supplier lead time |
 | ADV-01 | Warehouse Manager | Al Noor order **ANL/PO/7802** (50% advance terms) → Create → Delivery Note / Pick List → Submit | Blocked: "Advance before delivery … has not been received" |
 | ADV-02 | Accountant | Same order → Create → Receive advance → Submit the Payment Entry; try the delivery again | Advance status *Received*; delivery allowed; on the invoice *Get advances* applies it |
-| ADV-03 | Finance Manager | Future Build order **FB/PO/0951** | Advance status *Received*; stock reserved; draft Pick List ready |
+| ADV-03 | Finance Manager | Future Build order **FB/PO/0951**; then order **FB/PO/0932** | FB/PO/0951: advance *Received*, stock reserved. FB/PO/0932: a draft Pick List (ERPNext 16 allows no pick list while stock is reserved) |
 | COL-01 | Accountant | Gulf Projects invoice → Collection → Promise to pay; run `bench execute hipersign_trading.tasks.collection_reminders` | Promised invoices are skipped; other overdue invoices get their stage and a ToDo |
-| COL-02 | Sales Executive | New Sales Order for a customer with an invoice more than 60 days overdue | *Approval needed: … collections hold* → goes to the Finance Manager |
+| COL-02 | Sales Executive | New Sales Order for **Horizon Trading** (invoice for HT-5101 is more than 60 days overdue) | *Approval needed: … collections hold* → goes to the Finance Manager |
 | KYC-01 | Sales Manager | Approve the pending Gulf Projects order (GP-2026-344) | Blocked: trade licence expired / KYC blocked; drafts and quotations still allowed |
 | KYC-02 | Sales Manager | Customer Gulf Projects → KYC: new expiry date next year, status Verified → approve the order again | Order confirmed |
 | PUR-02 | Buyer | Request for Quotation from *Ceiling speakers restock* → Supplier Quotation Comparison | Both supplier offers side by side in AED with lead times |
