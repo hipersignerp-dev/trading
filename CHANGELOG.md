@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.5.5 — 28 Oct 2026 — top bar off the app launcher
+The top bar no longer shows on the app launcher (/desk), which has its own header.
+
 ## 1.5.4 — 28 Oct 2026 — the prototype's top bar; demo data fixes
 **Top bar** (Hipersign desk theme): search (Frappe's own search, Ctrl+K), the user's company for new documents, **+ New** (Create New),
 the ع / EN language switch, notifications with an unread count, and the user menu (My Settings, Toggle Theme, Log out). The menu's
