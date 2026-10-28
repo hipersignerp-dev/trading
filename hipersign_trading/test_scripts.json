@@ -333,8 +333,8 @@
   "id": "ADV-03",
   "section": "Advances",
   "role": "Finance Manager",
-  "steps": "Future Build order **FB/PO/0951**",
-  "expected": "Advance status *Received*; stock reserved; draft Pick List ready",
+  "steps": "Future Build order **FB/PO/0951**; then order **FB/PO/0932**",
+  "expected": "FB/PO/0951: advance *Received*, stock reserved. FB/PO/0932: a draft Pick List (ERPNext 16 allows no pick list while stock is reserved)",
   "route": [
    "List",
    "Sales Order"
@@ -355,7 +355,7 @@
   "id": "COL-02",
   "section": "Collections",
   "role": "Sales Executive",
-  "steps": "New Sales Order for a customer with an invoice more than 60 days overdue",
+  "steps": "New Sales Order for **Horizon Trading** (invoice for HT-5101 is more than 60 days overdue)",
   "expected": "*Approval needed: … collections hold* → goes to the Finance Manager",
   "route": [
    "List",
