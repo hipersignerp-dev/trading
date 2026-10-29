@@ -16,6 +16,9 @@ frappe.ui.form.on("Sales Order", {
 });
 
 frappe.ui.form.on("Lead", {
+	setup(frm) {
+		frm.set_query("lead_owner", () => ({ query: "hipersign_trading.api.crm.sales_users" }));
+	},
 	refresh(frm) {
 		if (frm.is_new()) return;
 		frm.add_custom_button(__("WhatsApp"), () => hipersign.send_whatsapp("Lead", frm.doc.name), __("Contact"));
@@ -31,12 +34,11 @@ frappe.ui.form.on("Lead", {
 				],
 				primary_action_label: __("Save"),
 				primary_action(v) {
-					frappe.xcall("frappe.desk.form.utils.add_comment", {
-						reference_doctype: "Lead", reference_name: frm.doc.name, content: `<b>${v.type}</b> — ${frappe.utils.escape_html(v.text)}`,
-						comment_email: frappe.session.user, comment_by: frappe.session.user_fullname,
+					// v1.5.6 (CRM-01): one server call saves the note, stage, next follow-up and next action together
+					frappe.xcall("hipersign_trading.api.crm.log_activity", {
+						lead: frm.doc.name, activity: v.type, text: v.text, stage: v.stage, next_follow_up: v.next, next_action: v.next_action,
 					}).then(() => {
-						frm.set_value({ hs_pipeline_stage: v.stage, hs_next_follow_up: v.next, hs_next_action: v.next_action });
-						frm.save();
+						frm.reload_doc();
 						d.hide();
 					});
 				},
@@ -60,7 +62,7 @@ frappe.ui.form.on("Sales Order", {
 			frm.dashboard.add_comment(__("Advance of {0} not fully received — picking and delivery are on hold until it is.",
 				[format_currency(frm.doc.hs_advance_required, frm.doc.currency)]), "orange", true);
 			frm.add_custom_button(__("Receive advance"), () => {
-				frappe.call({ method: "erpnext.accounts.doctype.payment_entry.payment_entry.get_payment_entry", args: { dt: "Sales Order", dn: frm.doc.name } })
+				frappe.call({ method: "hipersign_trading.overrides.advances.advance_payment_entry", args: { sales_order: frm.doc.name } })
 					.then((r) => { const doc = frappe.model.sync(r.message)[0]; frappe.set_route("Form", doc.doctype, doc.name); });
 			}, __("Create"));
 		} else if (frm.doc.docstatus === 1 && st === "Received") {
@@ -91,3 +93,33 @@ frappe.ui.form.on("Customer", {
 		if (frm.doc.is_internal_customer) frm.dashboard.add_comment(__("Group company — invoices to this customer can be mirrored as a purchase invoice in {0}.", [frm.doc.represents_company || ""]), "blue", true);
 	},
 });
+
+// ---------------------------------------------------------------- v1.5.6: ERPNext's Stock Reservation dialog offers only the
+// order's own company's warehouses (it used to list every company's)
+$(document).on("shown.bs.modal", ".modal", () => {
+	const d = window.cur_dialog, frm = window.cur_frm;
+	if (!d || d.__hs_wh || !frm || frm.doctype !== "Sales Order" || !d.fields_dict || !d.fields_dict.set_warehouse || !d.fields_dict.items) return;
+	d.__hs_wh = true;
+	const q = () => ({ filters: [["Warehouse", "is_group", "!=", 1], ["Warehouse", "company", "=", frm.doc.company]] });
+	d.fields_dict.set_warehouse.get_query = q;
+	d.fields_dict.set_warehouse.df.get_query = q;
+	const wh = (d.fields_dict.items.df.fields || []).find((f) => f.fieldname === "warehouse");
+	if (wh) wh.get_query = q;
+	if (d.fields_dict.items.grid) d.fields_dict.items.grid.refresh();
+});
+
+// ---------------------------------------------------------------- v1.5.6: trading-only Create menus
+// ERPNext offers manufacturing, project and maintenance documents from sales and buying forms; a trading company does
+// not use them, so they are taken out of the Create menu (they stay available from their own lists).
+hipersign.TRIM_CREATE = ["Work Order", "Production Plan", "Project", "Request for Raw Materials", "Subscription", "Maintenance Visit",
+	"Maintenance Schedule", "Subcontracting Order", "Subcontracting Inward Order", "Installation Note", "Quality Inspection", "Blanket Order"];
+hipersign.trim_create = function (frm) {
+	const run = () => hipersign.TRIM_CREATE.forEach((l) => {
+		try { frm.remove_custom_button(__(l), __("Create")); } catch (e) { /* not on this form */ }
+	});
+	run();
+	setTimeout(run, 300);
+	setTimeout(run, 1200);
+};
+["Quotation", "Sales Order", "Delivery Note", "Sales Invoice", "Purchase Order", "Purchase Receipt", "Purchase Invoice", "Material Request", "Supplier Quotation"]
+	.forEach((dt) => frappe.ui.form.on(dt, { refresh: hipersign.trim_create }));

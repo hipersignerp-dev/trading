@@ -78,9 +78,11 @@ def load():
 			run(step, ctx)
 		for step in v13.STEPS:
 			run(step, ctx)
-		from hipersign_trading.demo import v15
+		from hipersign_trading.demo import v15, v156
 
 		for step in v15.STEPS:
+			run(step, ctx)
+		for step in v156.STEPS:
 			run(step, ctx)
 	finally:
 		resume_workflows(paused)
@@ -414,6 +416,12 @@ def demo_users(c):
 			frappe.get_doc({"doctype": "User", "email": email, "first_name": first, "last_name": last, "send_welcome_email": 0,
 				"user_type": "Website User" if roles == ["Driver"] else "System User",
 				"roles": [{"role": r} for r in roles if frappe.db.exists("Role", r)]}).insert(ignore_permissions=True)
+		else:
+			# v1.5.6: users from an earlier load get roles added since (e.g. Purchase Master Manager to add suppliers)
+			have = set(frappe.get_roles(email))
+			missing = [r for r in roles if r not in have and frappe.db.exists("Role", r)]
+			if missing and frappe.db.get_value("User", email, "user_type") == "System User":
+				frappe.get_doc("User", email).add_roles(*missing)
 	# Leads created before the users existed get their owners now.
 	for company, *_rest in D.LEADS:
 		owner = _rest[8]
@@ -854,9 +862,10 @@ def portal_user(c):
 
 
 def home_workspaces(c):
-	if not frappe.get_meta("User").has_field("default_workspace"):
-		return
-	for key, ws in D.DEFAULT_WORKSPACE.items():
+	"""v1.5.6: every user opens Hipersign Home (the Hipersign menu leads everywhere else). The old per-role workspaces
+	sent some users to a workspace their role cannot open (a buyer to Hipersign Warehouse: "Not permitted")."""
+	return
+	for key, ws in D.DEFAULT_WORKSPACE.items():  # noqa: unreachable — kept for reference
 		email = user_email(key)
 		if frappe.db.exists("User", email) and frappe.db.exists("Workspace", ws):
 			frappe.db.set_value("User", email, "default_workspace", ws)

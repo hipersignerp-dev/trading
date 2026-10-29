@@ -1,6 +1,6 @@
 Post Dated Cheque,شيك مؤجل
 Post-dated cheques,الشيكات المؤجلة
-Post-dated cheques in hand,شيكات مؤجلة بالصندوق
+Post-dated cheques in hand,شيكات آجلة بالصندوق
 Cheques due to deposit,شيكات مستحقة للإيداع
 "Cheques issued, not presented",شيكات صادرة لم تُقدَّم
 Bounced cheques,شيكات مرتجعة
@@ -10,7 +10,7 @@ Issued,صادر
 In Hand,بالصندوق
 Deposited,مودع
 Cleared,تم التحصيل
-Bounced,مرتجع
+Bounced,مرتجعة
 Replaced,مستبدل
 Cancelled,ملغى
 Cheque no.,رقم الشيك
@@ -222,7 +222,7 @@ Amount,المبلغ
 Amount field,حقل المبلغ
 Amount received,المبلغ المستلم
 Applied,المطبَّق
-Approve,اعتماد
+Approve,موافقة
 Approve exception,اعتماد الاستثناء
 Approved,معتمد
 Approved by role,يعتمده الدور
@@ -419,12 +419,12 @@ Quick entry is not available for {0},الإدخال السريع غير متاح
 Quick invoice,فاتورة سريعة
 Quick receipt,استلام سريع
 Quick {0},{0} سريع
-Quotation,عرض السعر
+Quotation,عرض سعر
 Rates to {0} — {1},الأسعار إلى {0} — {1}
 Reason,السبب
 Receive payment,استلام دفعة
 Record,تسجيل
-Record receipt,تسجيل الاستلام
+Record receipt,تسجيل الإيصال
 Record renewal,تسجيل التجديد
 Record type,نوع السجل
 Records,السجلات
@@ -1199,7 +1199,7 @@ Every screen and print format in Arabic.,كل الشاشات ونماذج الط
 Customs documents,مستندات الجمارك
 Slow-moving stock,مخزون بطيء الحركة
 Cheques,الشيكات
-VAT,ضريبة القيمة المضافة
+VAT,الضريبة
 Employee documents,مستندات الموظفين
 Bank guarantees,الضمانات البنكية
 KYC & licences,اعرف عميلك والتراخيص
@@ -1210,3 +1210,293 @@ Low,منخفضة
 Pass,نجح
 Fail,فشل
 Not run,لم يُنفَّذ
+Sales order,أمر البيع
+Customer group,مجموعة العملاء
+Purchasing & imports,المشتريات والاستيراد
+Service provider,مزود خدمة
+Import shipment,شحنة استيراد
+Letter of credit,اعتماد مستندي
+Bank guarantee,ضمان بنكي
+Exports,الصادرات
+Export order,أمر تصدير
+"Products, services & stock",المنتجات والخدمات والمخزون
+Purchase request,طلب شراء
+Stock item,صنف مخزني
+Stock transfer,تحويل مخزون
+Stock count,جرد المخزون
+Serial number look-up,البحث برقم التسلسل
+Warranty claim,مطالبة ضمان
+Supplier bills,فواتير الموردين
+Supplier bill,فاتورة مورد
+Journal entry,قيد يومية
+Cheque received (PDC),شيك مستلم (مؤجل)
+Cheque issued (PDC),شيك صادر (مؤجل)
+Credit note (sales return),إشعار دائن (مرتجع مبيعات)
+Debit note (purchase return),إشعار مدين (مرتجع مشتريات)
+Driver & vehicle,السائق والمركبة
+Delivery trip,رحلة توصيل
+Bank account,حساب بنكي
+Payment terms,شروط الدفع
+Credit limit request,طلب حد ائتماني
+Expense claim,مطالبة مصروفات
+Employee advance,سلفة موظف
+Leave request,طلب إجازة
+Fixed asset,أصل ثابت
+Administration,الإدارة
+"Search items, orders, customers, shipments…",ابحث عن الأصناف والطلبات والعملاء والشحنات…
+Whole group · {0} companies,المجموعة كاملة · {0} شركات
+{0} · {1} companies,{0} · {1} شركات
+Whole group,المجموعة كاملة
+companies,شركات
+Working in {0},العمل في {0}
+Showing {0} · new documents use {1},عرض {0} · المستندات الجديدة تستخدم {1}
+No records match {0},لا توجد سجلات تطابق {0}
+Search everywhere for “{0}”,ابحث في كل مكان عن «{0}»
+Form mode — click to change,وضع النموذج — انقر للتغيير
+Create new,إنشاء جديد
+{0} now opens in {1},يفتح {0} الآن في وضع {1}
+{0} new,{0} جديد
+{0} more,{0} أخرى
+Open the full list,فتح القائمة كاملة
+You're all caught up.,لا يوجد جديد.
+Mark all read,تحديد الكل كمقروء
+Back to {0},العودة إلى {0}
+Switch user,تبديل المستخدم
+Add user,إضافة مستخدم
+Manage users,إدارة المستخدمين
+Leave presentation mode,إنهاء وضع العرض
+Presentation mode,وضع العرض
+My settings,إعداداتي
+Toggle theme,تبديل المظهر
+View-only demo — look around freely; nothing you do here is saved.,عرض تجريبي للاطلاع فقط — تصفّح بحرية؛ لا يُحفظ أي شيء تفعله هنا.
+Book a demo,احجز عرضاً
+DEMO,تجريبي
+Demonstration environment,بيئة العرض التجريبي
+Pack,الباقة
+Change pack,تغيير الباقة
+Book a free demo,احجز عرضًا تجريبيًا مجانيًا
+"See Hipersign ERP running your trading business — purchasing, imports, stock, sales, exports, finance, HR and assets — with your own data in a free, personalised demo.",شاهد Hipersign ERP يدير أعمالك التجارية — المشتريات والاستيراد والمخزون والمبيعات والتصدير والمالية والموارد البشرية والأصول — ببياناتك في عرض تجريبي مجاني مخصص لك.
+Your name,اسمك
+Mobile / WhatsApp,الجوال / واتساب
+Interested in,مهتم بـ
+Preferred time,الوقت المفضل
+Send on WhatsApp,إرسال عبر واتساب
+Send by email,إرسال بالبريد الإلكتروني
+WhatsApp opened with your request — press send there,تم فتح واتساب مع طلبك — اضغط إرسال هناك
+Email opened with your request — press send there,تم فتح البريد مع طلبك — اضغط إرسال هناك
+New lead,عميل محتمل جديد
+"Company, contact and what they are interested in",الشركة وجهة الاتصال وما يهتمون به
+Company / client,الشركة / العميل
+Contact person,الشخص المسؤول
+Emirate,الإمارة
+Estimated value (AED),القيمة التقديرية (درهم)
+Expected close,الإغلاق المتوقع
+Stage,المرحلة
+Next follow-up,المتابعة التالية
+Next action,الإجراء التالي
+New customer,عميل جديد
+"Customer master — pricing group, terms and credit",بيانات العميل — مجموعة التسعير والشروط والائتمان
+Company / client name,اسم الشركة / العميل
+Decides the selling rate,تحدد سعر البيع
+Market,السوق
+Emirate / city (UAE),الإمارة / المدينة (الإمارات)
+Country (city) — export,الدولة (المدينة) — تصدير
+Invoice currency,عملة الفاتورة
+TRN,الرقم الضريبي
+15 digits — needed before the first tax invoice,15 رقمًا — مطلوب قبل أول فاتورة ضريبية
+Credit limit (AED),الحد الائتماني (درهم)
+New or higher limits go to the Finance Manager for approval,الحدود الجديدة أو الأعلى تُرسل إلى المدير المالي للموافقة
+Lead source,مصدر العميل المحتمل
+New supplier,مورد جديد
+Supplier register,سجل الموردين
+Supplier name,اسم المورد
+Supplier type,نوع المورد
+Goods suppliers appear on purchase orders; the rest are import service providers,موردو البضائع يظهرون في أوامر الشراء؛ والباقون مزودو خدمات استيراد
+Country (city),الدولة (المدينة)
+Order currency,عملة الطلب
+Default incoterm,شرط التسليم الافتراضي
+Phone / WhatsApp,الهاتف / واتساب
+TRN (UAE suppliers),الرقم الضريبي (موردو الإمارات)
+15 digits — optional,15 رقمًا — اختياري
+Supplier bank,بنك المورد
+Supplier bank IBAN,رقم الآيبان لبنك المورد
+Optional — for payments,اختياري — للمدفوعات
+New item,صنف جديد
+"Item master — pricing, HS code and barcode",بيانات الصنف — التسعير ورمز النظام المنسق والباركود
+Item name (English),اسم الصنف (إنجليزي)
+Item name (Arabic),اسم الصنف (عربي)
+Shown on bilingual documents,يظهر في المستندات ثنائية اللغة
+HS code,رمز النظام المنسق
+Used for customs and duty,يُستخدم للجمارك والرسوم
+Country of origin,بلد المنشأ
+Standard cost (AED),التكلفة القياسية (درهم)
+Standard selling price (AED),سعر البيع القياسي (درهم)
+Kept in stock,يُحفظ في المخزون
+"Untick for a service (installation, freight, labour…)",ألغِ التحديد للخدمات (تركيب، شحن، عمالة…)
+Default warehouse,المستودع الافتراضي
+New warehouse,مستودع جديد
+Stock location,موقع المخزون
+Warehouse name,اسم المستودع
+Location / address,الموقع / العنوان
+Capacity (pallet positions),السعة (مواقع المنصات)
+Warehouse in-charge,مسؤول المستودع
+New driver & vehicle,سائق ومركبة جديدان
+Delivery driver and the vehicle they drive,سائق التوصيل والمركبة التي يقودها
+Driver name,اسم السائق
+Vehicle plate,لوحة المركبة
+Vehicle type,نوع المركبة
+New employee,موظف جديد
+Employee master — salary for WPS and UAE document expiries,بيانات الموظف — الراتب لنظام حماية الأجور وانتهاء الوثائق
+Full name,الاسم الكامل
+Joining date,تاريخ الالتحاق
+Date of birth,تاريخ الميلاد
+Basic salary (AED),الراتب الأساسي (درهم)
+Housing allowance,بدل السكن
+Transport allowance,بدل المواصلات
+Other allowance,بدلات أخرى
+Salary account IBAN (WPS),آيبان حساب الراتب (حماية الأجور)
+Document expiries,انتهاء الوثائق
+Passport expiry,انتهاء جواز السفر
+New fixed asset,أصل ثابت جديد
+"Asset register — cost, custodian and renewals",سجل الأصول — التكلفة والعهدة والتجديدات
+Asset name,اسم الأصل
+Purchase date,تاريخ الشراء
+"Cost (AED, excl. VAT)",التكلفة (درهم، دون ضريبة القيمة المضافة)
+Residual value (AED),القيمة المتبقية (درهم)
+Useful life (months),العمر الإنتاجي (أشهر)
+Vehicles and renewals,المركبات والتجديدات
+Plate no. (vehicles),رقم اللوحة (للمركبات)
+Registration (Mulkiya) expiry,انتهاء الملكية
+Insurance expiry,انتهاء التأمين
+Next service,الصيانة التالية
+New contact,جهة اتصال جديدة
+A person at a customer or supplier,شخص لدى عميل أو مورد
+Contact name,اسم جهة الاتصال
+"e.g. Purchasing, Accounts, Site engineer",مثلًا: المشتريات، الحسابات، مهندس الموقع
+Receives reports & statements,يستلم التقارير وكشوف الحساب
+Primary contact,جهة الاتصال الرئيسية
+New address,عنوان جديد
+"Billing, delivery or site address",عنوان الفوترة أو التسليم أو الموقع
+Address name,اسم العنوان
+"e.g. JLT site, Main office",مثلًا: موقع أبراج بحيرات جميرا، المكتب الرئيسي
+Site contact & phone,مسؤول الموقع والهاتف
+Map pin / landmark,موقع الخريطة / معلم قريب
+New customer group,مجموعة عملاء جديدة
+"Pricing group — discount, terms and credit",مجموعة التسعير — الخصم والشروط والائتمان
+Group name,اسم المجموعة
+Discount on Standard Selling (%),الخصم على سعر البيع القياسي (%)
+Default payment terms,شروط الدفع الافتراضية
+Default credit limit (AED),الحد الائتماني الافتراضي (درهم)
+New payment terms,شروط دفع جديدة
+Advance and balance,الدفعة المقدمة والرصيد
+Template name,اسم القالب
+"e.g. 30% advance, balance 60 days",مثلًا: 30% مقدمًا، والباقي خلال 60 يومًا
+Advance (%),الدفعة المقدمة (%)
+Balance due in (days),استحقاق الرصيد خلال (أيام)
+Counted from,يُحتسب من
+New bank account,حساب بنكي جديد
+Company bank account — shown on invoices,حساب الشركة البنكي — يظهر في الفواتير
+Account name,اسم الحساب
+SWIFT / BIC,رمز السويفت
+Default account for invoices,الحساب الافتراضي للفواتير
+New service,خدمة جديدة
+{0} {1} saved,تم حفظ {0} {1}
+Lists,القوائم
+See it run your business,شاهده يدير أعمالك
+credit note,إشعار دائن
+Nothing you can create here — ask your administrator for access.,لا يوجد ما يمكنك إنشاؤه هنا — اطلب الصلاحية من مسؤول النظام.
+Open in {0} and remember it,افتح في وضع {0} وتذكّر الاختيار
+Opens a page,يفتح صفحة
+Opens in {0},يفتح في وضع {0}
+Opens the form,يفتح النموذج
+Scan a barcode or type a serial number,امسح الباركود أو اكتب رقم التسلسل
+"You will see the item, when it was received, which customer bought it and when it was delivered, whether the warranty still covers it, and any claims — and you can register a new claim from here.",سترى الصنف، ومتى تم استلامه، وأي عميل اشتراه ومتى سُلِّم، وهل لا يزال مشمولًا بالضمان، وأي مطالبات — ويمكنك تسجيل مطالبة جديدة من هنا.
+{0} days from delivery,{0} يومًا من التسليم
+In our stock,في مخزوننا
+Preview,معاينة
+showing exactly what {0} sees in the customer portal.,يعرض تمامًا ما يراه {0} في بوابة العملاء.
+Back to the ERP,العودة إلى النظام
+Statement,كشف الحساب
+Goods supplier,مورد بضائع
+Freight & Shipping,الشحن والنقل
+Customs broker,مخلّص جمركي
+Handling,المناولة
+Other services,خدمات أخرى
+Abu Dhabi,أبوظبي
+Dubai,دبي
+Sharjah,الشارقة
+Ajman,عجمان
+Umm Al Quwain,أم القيوين
+Ras Al Khaimah,رأس الخيمة
+Fujairah,الفجيرة
+Delivery period,مدة التسليم
+Warranty (months),الضمان (أشهر)
+Usual Incoterm,شرط التسليم المعتاد
+Receives statements & reports,يستلم كشوف الحساب والتقارير
+Salary (WPS),الراتب (حماية الأجور)
+Vehicle & service,المركبة والصيانة
+Plate no.,رقم اللوحة
+Fill in {0},أدخل {0}
+Missing information,معلومات ناقصة
+TRN must be 15 digits,يجب أن يتكون الرقم الضريبي من 15 رقمًا
+Check the email address,تحقق من عنوان البريد الإلكتروني
+Enter a valid mobile / WhatsApp number,أدخل رقم جوال / واتساب صحيحًا
+Enter the country for an export customer,أدخل الدولة لعميل التصدير
+{0} is already a customer,{0} عميل مسجل بالفعل
+{0} is already in the supplier register,{0} مسجل بالفعل في سجل الموردين
+Enter the standard cost and the standard selling price,أدخل التكلفة القياسية وسعر البيع القياسي
+Enter the basic salary,أدخل الراتب الأساسي
+Enter the cost,أدخل التكلفة
+Quotations & Orders,عروض الأسعار والطلبات
+VAT & E-invoicing,الضريبة والفوترة الإلكترونية
+Group & Countries,المجموعة والدول
+Company Compliance,امتثال الشركة
+Workflows & Settings,سير العمل والإعدادات
+Document Centre,مركز المستندات
+Export Shipments,شحنات التصدير
+Import Shipments,شحنات الاستيراد
+Landed Cost Vouchers,قسائم تكلفة الوصول
+Purchase Receipts,إيصالات الشراء
+Letters of Credit,الاعتمادات المستندية
+Tax Returns,الإقرارات الضريبية
+Group Consolidation,توحيد المجموعة
+Company Documents,مستندات الشركة
+Company Deadlines,مواعيد الشركة النهائية
+Document Waivers,إعفاءات المستندات
+Add-ons,الإضافات
+high,عالية
+Managing Director,المدير العام
+Administrator,مدير النظام
+Accountant,محاسب
+Finance Manager,المدير المالي
+Sales Manager,مدير المبيعات
+Sales Executive,مندوب مبيعات
+Purchase Manager,مدير المشتريات
+Buyer,مسؤول مشتريات
+Warehouse Manager,مدير المستودع
+Storekeeper,أمين مخزن
+Logistics Coordinator,منسق الخدمات اللوجستية
+HR Manager,مدير الموارد البشرية
+Print,طباعة
+Invoice date,تاريخ الفاتورة
+Balance,الرصيد
+To deliver,للتسليم
+Take photo,التقاط صورة
+Direct,مباشرة
+Accounting,المحاسبة
+Attendance,الحضور
+Leave,الإجازات
+Warehouse,المستودع
+Asset,الأصل
+Delivery note,إشعار التسليم
+Available,المتاح
+Price,السعر
+Owner,المسؤول
+Cheque,الشيك
+Claim,المطالبة
+Notifications,الإشعارات
+Cancel,إلغاء
+Submit,إرسال
+WhatsApp,واتساب
+Approval,الموافقة
+Pay,دفع

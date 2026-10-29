@@ -2,6 +2,7 @@
 {% block title %}{{ _("Warranty") }}{% endblock %}
 {% block header %}<h3>{{ _("Warranty") }} — {{ customer.customer_name }}</h3>{% endblock %}
 {% block page_content %}
+{% include "templates/includes/hs_portal_preview.html" %}
 <p class="text-muted">{{ _("Products with serial numbers delivered to you, and how long each is covered. To report a fault, email us the serial number or reply to the delivery note.") }}</p>
 <table class="table table-sm">
 	<thead><tr><th>{{ _("Item") }}</th><th>{{ _("Serial number") }}</th><th>{{ _("Delivered") }}</th><th>{{ _("Warranty until") }}</th><th></th></tr></thead>

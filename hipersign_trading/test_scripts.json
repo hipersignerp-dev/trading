@@ -861,5 +861,214 @@
   "route": [
    "hipersign-addons"
   ]
+ },
+ {
+  "id": "NEW-01",
+  "section": "Top bar",
+  "role": "Any",
+  "steps": "Click **+ New** in the top bar",
+  "expected": "A Create new panel drops down under the button (13 groups as in the prototype) with a Quick / Standard / Detailed chip on documents that have form modes; All → opens the full Create New page; the side menu has no Create New entry",
+  "route": [
+   "hipersign-home"
+  ]
+ },
+ {
+  "id": "SRCH-01",
+  "section": "Top bar",
+  "role": "Any",
+  "steps": "Type in the top bar search: `so`, then `Al Noor`, then a sales order number, then `HDMI`, then a serial number",
+  "expected": "Results drop down as you type, labelled by type (Customer, Item, Sales order, Invoice, Shipment, Serial …) as number — name; clicking opens the record; only records the user may see, in the selected company; last row Search everywhere",
+  "route": [
+   "hipersign-home"
+  ]
+ },
+ {
+  "id": "TOP-01",
+  "section": "Top bar",
+  "role": "Administrator",
+  "steps": "Top bar: choose a company in the scope drop-down, then Last month in the period drop-down; open Home, then New → Sales order",
+  "expected": "One scope and one period drop-down in the top bar; Home has no buttons or company drop-down of its own and follows both; the new order uses the chosen company",
+  "route": [
+   "hipersign-home"
+  ]
+ },
+ {
+  "id": "NAV-04",
+  "section": "Navigation",
+  "role": "Any",
+  "steps": "Click ☰ at the left of the top bar; reload; click it again; narrow the window below 900 px and click it",
+  "expected": "Desktop: menu shrinks to an icon rail with tooltips and unread dots, stays after reload, restores on the second click. Narrow: menu slides in over the page with a backdrop",
+  "route": [
+   "hipersign-home"
+  ]
+ },
+ {
+  "id": "NAV-05",
+  "section": "Navigation",
+  "role": "Administrator",
+  "steps": "Look at the side menu; open each section; click Quotations & Orders, then its Sales Orders sub-item; reload",
+  "expected": "Top level = the prototype's 34 entries in its order and names (Overview: Home, Messages, Approvals, Insights & Alerts, Trade Journey; Accounting and Corporate Tax as their own entries); each module shows its list sub-items; no Create New or Add Sidebar Item; count badges on Messages, Approvals, Insights & Alerts and CRM; open sections remembered after reload",
+  "route": [
+   "hipersign-home"
+  ]
+ },
+ {
+  "id": "BELL-01",
+  "section": "Top bar",
+  "role": "Administrator",
+  "steps": "Click the bell",
+  "expected": "Grouped panel: approvals, lead follow-ups, high alerts, email review, each with a count; Mark all read; Open the full list; no CRM-app sample tasks",
+  "route": [
+   "hipersign-home"
+  ]
+ },
+ {
+  "id": "USR-01",
+  "section": "Top bar",
+  "role": "Administrator (demo site)",
+  "steps": "Avatar menu → View as → Sales Executive; then back to Administrator",
+  "expected": "The desk reloads as the Sales Executive with that user's menu, Home and approvals; the switch is logged; going back restores Administrator",
+  "route": [
+   "hipersign-home"
+  ]
+ },
+ {
+  "id": "MSG-02",
+  "section": "Messages",
+  "role": "Logistics",
+  "steps": "Messages → open a thread → type `@Om` → pick Omar Haddad → Send",
+  "expected": "A people list opens above the box (readable in dark mode); the mention is inserted; Omar gets a Mention notification; only one Send button",
+  "route": [
+   "hipersign-messages"
+  ]
+ },
+ {
+  "id": "MSG-03",
+  "section": "Messages",
+  "role": "Any",
+  "steps": "Messages → New message on a record → pick SHP-… → write → Send",
+  "expected": "A thread is started on the shipment and appears in the inbox and on the shipment's form",
+  "route": [
+   "hipersign-messages"
+  ]
+ },
+ {
+  "id": "SET-04",
+  "section": "Set-up",
+  "role": "Administrator",
+  "steps": "Hipersign Settings → Setup & features → Feature pack → Starter → Save (site with several companies)",
+  "expected": "Confirmation, then every switch set to Starter; the field stays Starter (Group kept on separately); banner shows Pack: Starter · Group",
+  "route": [
+   "Form",
+   "Hipersign Settings"
+  ]
+ },
+ {
+  "id": "SET-05",
+  "section": "Set-up",
+  "role": "Administrator",
+  "steps": "With Starter on, open Home, the New panel, Insights & Alerts and a new Sales Order; then switch back to Enterprise",
+  "expected": "Starter: no LC, import, export, CRM, HR or KYC on Home, in the New panel, in the menu or in alerts; forms open in Quick. Enterprise brings everything back and forms open Detailed",
+  "route": [
+   "hipersign-home"
+  ]
+ },
+ {
+  "id": "QC-01",
+  "section": "Quick forms",
+  "role": "Sales Executive",
+  "steps": "CRM & Leads → New · Quick → company, contact, mobile, interested in, value, next follow-up → Save",
+  "expected": "A small quick card (prototype fields), not the full Lead form; the lead is saved with stage New and the follow-up ToDo",
+  "route": [
+   "List",
+   "Lead"
+  ]
+ },
+ {
+  "id": "QC-02",
+  "section": "Quick forms",
+  "role": "Sales Executive",
+  "steps": "New → Customer (Quick) → name, group, emirate, contact, mobile, TRN, credit limit, payment terms → Save",
+  "expected": "Prototype fields only — no GSTIN, GST Category, postal code or state; customer, contact and address created",
+  "route": [
+   "List",
+   "Customer"
+  ]
+ },
+ {
+  "id": "QC-03",
+  "section": "Quick forms",
+  "role": "Purchase Manager",
+  "steps": "New → Supplier (Quick) → name, country, currency, terms, incoterm, contact, TRN, IBAN → Save",
+  "expected": "Prototype fields, no GST; supplier saved with currency and terms",
+  "route": [
+   "List",
+   "Supplier"
+  ]
+ },
+ {
+  "id": "QC-04",
+  "section": "Quick forms",
+  "role": "Purchase Manager",
+  "steps": "New → Item (Quick) → English and Arabic name, category, unit, HS code, origin, cost, selling price, reorder level, warehouse → Save",
+  "expected": "Item saved with Arabic name, HS code, origin, standard buying and selling prices, reorder level and default warehouse",
+  "route": [
+   "List",
+   "Item"
+  ]
+ },
+ {
+  "id": "QC-05",
+  "section": "Quick forms",
+  "role": "Administrator",
+  "steps": "New → each of Warehouse, Employee, Fixed asset, Customer group, Payment terms, Bank account, Contact, Address, Driver & vehicle",
+  "expected": "Each opens a quick card with the prototype's fields (Employee includes salary parts, IBAN and document expiries; Driver & vehicle together) and saves",
+  "route": [
+   "hipersign-create"
+  ]
+ },
+ {
+  "id": "QC-06",
+  "section": "Quick forms",
+  "role": "Any",
+  "steps": "Draft Lead / Customer / Item → type some fields → Form mode → Quick, then Standard",
+  "expected": "What was typed is kept in every mode",
+  "route": [
+   "List",
+   "Lead"
+  ]
+ },
+ {
+  "id": "FM-06",
+  "section": "Form modes",
+  "role": "System Manager",
+  "steps": "For each of the 26 forms that gain the Form mode drop-down (Supplier … Company Document): open New in Quick, Standard and Detailed; fill only what is shown; save; switch mode on a draft",
+  "expected": "Every mode saves without a hidden-mandatory error; Standard hides only the listed rarely used fields; typed values survive a mode switch; New buttons carry the mode chip",
+  "route": [
+   "List",
+   "Supplier"
+  ]
+ },
+ {
+  "id": "UI-01",
+  "section": "Look",
+  "role": "Any",
+  "steps": "Open the Sales Order, Customer, Item, ToDo and Workflow lists; then add a filter",
+  "expected": "No empty dark box at the end of rows; the last column fully visible; no sideways scroll at 1366 px or wider; the active Filters button readable in dark mode",
+  "route": [
+   "List",
+   "Sales Order"
+  ]
+ },
+ {
+  "id": "BNK-02",
+  "section": "Banking",
+  "role": "Accountant",
+  "steps": "Finance → Bank reconciliation → import the demo Emirates NBD statement → Match all → book the bank charge line",
+  "expected": "Lines matched to receipts, payments and cheques; charge booked in one click; unmatched transfer left for review; no chart error",
+  "route": [
+   "List",
+   "Bank Transaction"
+  ]
  }
 ]

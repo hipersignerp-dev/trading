@@ -13,7 +13,17 @@ from frappe.utils import add_days, flt, today
 
 from hipersign_trading.utils import settings
 
-COVERED = ["Quotation", "Sales Order", "Purchase Order", "Sales Invoice", "Payment Entry", "Customer", "Item", "Lead"]
+COVERED = [
+	"Quotation", "Sales Order", "Purchase Order", "Sales Invoice", "Payment Entry", "Customer", "Item", "Lead",
+	# v1.5.6
+	"Supplier", "Supplier Quotation", "Material Request", "Purchase Receipt", "Purchase Invoice", "Landed Cost Voucher",
+	"Import Shipment", "Export Shipment", "Letter of Credit", "Bank Guarantee",
+	"Delivery Note", "Stock Entry", "Stock Reconciliation", "Pick List", "Delivery Trip", "Warranty Claim", "Warehouse",
+	"Journal Entry", "Post Dated Cheque", "Credit Limit Request", "Tax Return",
+	"Employee", "Leave Application", "Expense Claim", "Asset", "Company Document",
+	# quick cards only (no Standard / Detailed split)
+	"Address", "Contact", "Customer Group", "Payment Terms Template", "Bank Account", "Driver",
+]
 PACK_MODE = {"Starter": "Quick", "Standard": "Standard", "Enterprise": "Detailed"}
 MODES = ("Quick", "Standard", "Detailed")
 
@@ -59,6 +69,15 @@ def set_form_mode(doctype, mode):
 	return mode
 
 
+def clear_all_form_modes():
+	n = 0
+	for dt in COVERED:
+		n += frappe.db.count("DefaultValue", {"defkey": _key(dt)})
+		frappe.db.delete("DefaultValue", {"defkey": _key(dt)})
+	frappe.clear_cache()
+	return n
+
+
 @frappe.whitelist()
 def clear_form_modes():
 	frappe.only_for("System Manager")
@@ -73,6 +92,36 @@ def clear_form_modes():
 
 # ---------------------------------------------------------------- Quick quotation / order / purchase order
 def _rate_preview(doctype, party, item_code):
+	"""v1.5.6 (FM-01): the price the document will really use — ERPNext's own pricing (price list, the customer group's
+	pricing rule discount) in the party's currency — so the estimate matches the saved quotation."""
+	try:
+		from erpnext.stock.get_item_details import get_item_details
+		from hipersign_trading.utils import user_company
+
+		company = user_company()
+		buying = doctype == "Purchase Order"
+		party_dt = "Supplier" if buying else "Customer"
+		currency = (party and frappe.db.get_value(party_dt, party, "default_currency")) or frappe.get_cached_value("Company", company, "default_currency")
+		pl = (party and frappe.db.get_value(party_dt, party, "default_price_list")) or frappe.db.get_single_value(
+			"Buying Settings" if buying else "Selling Settings", "buying_price_list" if buying else "selling_price_list")
+		args = {"item_code": item_code, "company": company, "doctype": doctype, "currency": currency, "conversion_rate": 1, "qty": 1,
+			"price_list": pl, "transaction_type": "buying" if buying else "selling", "price_list_currency": frappe.db.get_value("Price List", pl, "currency") if pl else currency,
+			"plc_conversion_rate": 1, "ignore_pricing_rule": 0, "transaction_date": today()}
+		if party:
+			args["supplier" if buying else "customer"] = party
+		if currency != (args["price_list_currency"] or currency):
+			from erpnext.setup.utils import get_exchange_rate
+
+			args["plc_conversion_rate"] = flt(get_exchange_rate(args["price_list_currency"], currency, today())) or 1
+		d = get_item_details(args)
+		if flt(d.get("rate")) or flt(d.get("price_list_rate")):
+			return flt(d.get("rate") or d.get("price_list_rate")), pl, True
+	except Exception:
+		frappe.clear_last_message()
+	return _rate_preview_simple(doctype, party, item_code)
+
+
+def _rate_preview_simple(doctype, party, item_code):
 	if doctype == "Purchase Order":
 		pl = (party and frappe.db.get_value("Supplier", party, "default_price_list")) or frappe.db.get_single_value("Buying Settings", "buying_price_list")
 	else:
@@ -216,12 +265,17 @@ def quick_invoice(delivery_note):
 
 # ---------------------------------------------------------------- Quick receive payment
 @frappe.whitelist()
-def open_invoices(customer, company=None):
+def open_invoices(customer, company=None, credit_notes=1):
+	"""Open invoices, oldest first. v1.5.6: unapplied credit notes (negative balance) come first, so a receipt nets them off."""
 	f = {"customer": customer, "docstatus": 1, "outstanding_amount": [">", 0]}
 	if company:
 		f["company"] = company
-	return frappe.get_all("Sales Invoice", filters=f, fields=["name", "due_date", "posting_date", "outstanding_amount", "currency", "grand_total"],
-		order_by="due_date asc, posting_date asc, name asc")
+	fields = ["name", "due_date", "posting_date", "outstanding_amount", "currency", "grand_total", "is_return"]
+	rows = frappe.get_all("Sales Invoice", filters=f, fields=fields, order_by="due_date asc, posting_date asc, name asc")
+	if int(credit_notes or 0):
+		cn = dict(f, outstanding_amount=["<", 0], is_return=1)
+		rows = frappe.get_all("Sales Invoice", filters=cn, fields=fields, order_by="posting_date asc") + rows
+	return rows
 
 
 @frappe.whitelist()
@@ -233,16 +287,21 @@ def quick_receive(customer, amount, mode_of_payment=None, reference_no=None, com
 	if amount <= 0:
 		frappe.throw(_("Enter the amount received"))
 	invs = open_invoices(customer, company)
-	out = sum(flt(i.outstanding_amount) for i in invs)
+	out = sum(flt(i.outstanding_amount) for i in invs)  # credit notes count negative
 	if amount > out + 0.005:
 		frappe.throw(_("{0} is more than the {1} the customer owes — record the extra as an advance on a full Payment Entry.").format(
 			frappe.format(amount, "Currency"), frappe.format(out, "Currency")))
-	if not invs:
+	if not [i for i in invs if flt(i.outstanding_amount) > 0]:
 		frappe.throw(_("The customer has no open invoices."))
-	pe = get_payment_entry("Sales Invoice", invs[0].name, party_amount=amount)
+	first = next(i for i in invs if flt(i.outstanding_amount) > 0)
+	pe = get_payment_entry("Sales Invoice", first.name, party_amount=amount)
 	pe.set("references", [])
-	left = amount
-	for i in invs:
+	credits = [i for i in invs if flt(i.outstanding_amount) < 0]
+	left = amount - sum(flt(i.outstanding_amount) for i in credits)  # each credit note frees that much more for invoices
+	for i in credits:
+		pe.append("references", {"reference_doctype": "Sales Invoice", "reference_name": i.name, "total_amount": i.grand_total,
+			"outstanding_amount": i.outstanding_amount, "allocated_amount": i.outstanding_amount, "due_date": i.due_date})
+	for i in [x for x in invs if flt(x.outstanding_amount) > 0]:
 		if left <= 0.005:
 			break
 		a = min(left, flt(i.outstanding_amount))

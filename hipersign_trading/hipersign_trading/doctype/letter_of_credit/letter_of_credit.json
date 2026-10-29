@@ -31,6 +31,7 @@
   "status",
   "company",
   "issuing_bank",
+  "bank_account",
   "lc_number",
   "sb_amount",
   "currency",
@@ -158,6 +159,13 @@
    "label": "Issuing / advising bank",
    "options": "Bank",
    "reqd": 1
+  },
+  {
+   "fieldname": "bank_account",
+   "fieldtype": "Link",
+   "label": "Bank account",
+   "options": "Bank Account",
+   "description": "The company account at the issuing bank — the cash margin is blocked from it and returned to it"
   },
   {
    "fieldname": "lc_number",

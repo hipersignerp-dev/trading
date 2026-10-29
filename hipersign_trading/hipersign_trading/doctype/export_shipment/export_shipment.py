@@ -121,6 +121,13 @@ class ExportShipment(Document):
 
 		if not self.delivery_note or frappe.db.get_value("Delivery Note", self.delivery_note, "docstatus") != 1:
 			frappe.throw(_("Submit the delivery note (pack the goods) first."))
+		# v1.5.6 (EXP-02): an invoice already made from this delivery note (e.g. from the note itself) is linked, not refused
+		existing = frappe.db.sql("""select distinct sii.parent from `tabSales Invoice Item` sii join `tabSales Invoice` si on si.name = sii.parent
+			where sii.delivery_note=%s and si.docstatus < 2 and si.is_return = 0 order by si.creation limit 1""", self.delivery_note)
+		if existing:
+			frappe.db.set_value("Sales Invoice", existing[0][0], "hs_export_shipment", self.name, update_modified=False)
+			self.db_set("sales_invoice", existing[0][0])
+			return existing[0][0]
 		si = make_sales_invoice(self.delivery_note)
 		si.hs_export_shipment = self.name
 		si.insert()

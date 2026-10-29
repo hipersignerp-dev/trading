@@ -23,7 +23,11 @@ add_to_apps_screen = [
 	}
 ]
 
-app_include_css = ["/assets/hipersign_trading/css/hipersign.css" + _v, "/assets/hipersign_trading/css/hipersign_theme.css" + _v]
+app_include_css = [
+	"/assets/hipersign_trading/css/hipersign.css" + _v,
+	"/assets/hipersign_trading/css/hipersign_theme.css" + _v,
+	"/assets/hipersign_trading/css/hs_shell.css" + _v,
+]
 app_include_js = [
 	"/assets/hipersign_trading/js/hipersign.js" + _v,
 	"/assets/hipersign_trading/js/doc_send.js" + _v,
@@ -33,6 +37,7 @@ app_include_js = [
 	"/assets/hipersign_trading/js/hs_setup.js" + _v,
 	"/assets/hipersign_trading/js/hs_docs.js" + _v,
 	"/assets/hipersign_trading/js/hs_form_modes.js" + _v,
+	"/assets/hipersign_trading/js/hs_quick_cards.js" + _v,
 	"/assets/hipersign_trading/js/hs_money.js" + _v,
 	"/assets/hipersign_trading/js/hs_nav.js" + _v,
 	"/assets/hipersign_trading/js/hs_ui.js" + _v,
@@ -52,6 +57,13 @@ after_migrate = "hipersign_trading.setup.after_migrate"
 before_uninstall = "hipersign_trading.setup.before_uninstall"
 
 boot_session = "hipersign_trading.boot.boot_session"
+# v1.5.6: Customer / Supplier forms open for users without invoice access (overrides/party_dashboard.py)
+override_doctype_class = {
+	"Customer": "hipersign_trading.overrides.party_dashboard.HipersignCustomer",
+	"Supplier": "hipersign_trading.overrides.party_dashboard.HipersignSupplier",
+}
+
+before_request = ["hipersign_trading.demo_access.before_request", "hipersign_trading.overrides.user.driver_redirect"]
 
 # ---------------------------------------------------------------- fixtures
 # Custom fields, property setters, workflows and the CRM kanban board ship with the app.
@@ -82,8 +94,13 @@ fixtures = [
 doc_events = {
 	# external documents: blocking rules on submit and on status changes (Hipersign Document Rule)
 	"*": {
-		"before_submit": "hipersign_trading.doc_rules.before_submit",
-		"validate": "hipersign_trading.doc_rules.validate",
+		# v1.5.6: the view-only demo account changes nothing (demo_access.py)
+		"before_insert": "hipersign_trading.demo_access.doc_guard",
+		"before_submit": ["hipersign_trading.demo_access.doc_guard", "hipersign_trading.doc_rules.before_submit"],
+		"validate": ["hipersign_trading.demo_access.doc_guard", "hipersign_trading.doc_rules.validate"],
+		"before_cancel": "hipersign_trading.demo_access.doc_guard",
+		"on_trash": "hipersign_trading.demo_access.doc_guard",
+		"before_rename": "hipersign_trading.demo_access.doc_guard",
 	},
 	"File": {
 		"after_insert": "hipersign_trading.doc_rules.file_after_insert",
@@ -104,15 +121,20 @@ doc_events = {
 	"Supplier": {"before_save": "hipersign_trading.overrides.kyc.party_before_save"},
 	"Pick List": {"before_submit": "hipersign_trading.overrides.advances.pick_list_before_submit"},
 	"Payment Entry": {
+		"before_validate": "hipersign_trading.overrides.payment_entry.before_validate",
 		"validate": "hipersign_trading.overrides.payment_entry.validate",
 		"on_submit": "hipersign_trading.overrides.advances.payment_entry_changed",
 		"on_cancel": "hipersign_trading.overrides.advances.payment_entry_changed",
 	},
 	"Sales Invoice": {
-		"validate": "hipersign_trading.overrides.sales_invoice.validate",
+		"validate": ["hipersign_trading.overrides.sales_invoice.validate", "hipersign_trading.overrides.returns.unlink_outstanding"],
 		"before_submit": "hipersign_trading.overrides.returns.sales_return_before_submit",
+		"on_update": "hipersign_trading.overrides.sales_invoice.link_export_shipment",
 	},
-	"Purchase Invoice": {"before_submit": "hipersign_trading.overrides.returns.purchase_return_before_submit"},
+	"Purchase Invoice": {
+		"validate": "hipersign_trading.overrides.returns.unlink_outstanding",
+		"before_submit": "hipersign_trading.overrides.returns.purchase_return_before_submit",
+	},
 	"Delivery Note": {
 		"validate": "hipersign_trading.overrides.delivery_note.validate",
 		"before_submit": "hipersign_trading.overrides.advances.dn_before_submit",
@@ -125,6 +147,7 @@ doc_events = {
 	},
 	"Quotation": {"validate": "hipersign_trading.overrides.quotation.validate"},
 	"Lead": {"validate": "hipersign_trading.overrides.lead.validate"},
+	"User": {"before_insert": "hipersign_trading.overrides.user.before_insert"},
 }
 
 # ---------------------------------------------------------------- scheduler
@@ -157,7 +180,9 @@ portal_menu_items = [
 ]
 
 # ---------------------------------------------------------------- driver web app (/driver)
-role_home_page = {"Driver": "driver"}
+# v1.5.6: only a driver-only login opens /driver (role_home_page sent every login holding the Driver role there,
+# Administrator included)
+get_website_user_home_page = "hipersign_trading.overrides.user.home_page"
 
 # ---------------------------------------------------------------- jinja helpers for print formats
 jinja = {

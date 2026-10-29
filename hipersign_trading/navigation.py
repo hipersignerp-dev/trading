@@ -22,86 +22,98 @@ SIDEBAR = "Hipersign ERP"
 TILE = "Hipersign ERP"
 LOGO = "/assets/hipersign_trading/images/hipersign-logo.png"
 
+# v1.5.6: the prototype's menu — its 32 entries, names and order. Each module entry opens its page (or, until the page
+# exists, its first list); the ERPNext lists behind it stay one click away as sub-items (NAV_SUB), shown by hs_nav.js.
 # (group label, icon, [(label, link_type, link_to, icon, feature or None, extra)])
 NAV = [
 	("Overview", "house", [
 		("Home", "Page", "hipersign-home", "house", None, {}),
+		("Messages", "Page", "hipersign-messages", "message-square", None, {}),
 		("Approvals", "Page", "hipersign-approvals", "inbox", None, {}),
 		("Insights & Alerts", "Page", "hipersign-alerts", "sparkles", None, {}),
-		("Messages", "Page", "hipersign-messages", "message-square", None, {}),
 		("Trade Journey", "Page", "hipersign-journey", "workflow", None, {}),
-		("Create New", "Page", "hipersign-create", "circle-plus", None, {}),
 	]),
 	("Sales", "tag", [
 		("CRM & Leads", "DocType", "Lead", "users", "crm", {}),
-		("Quotations", "DocType", "Quotation", "file-text", None, {}),
-		("Sales Orders", "DocType", "Sales Order", "tag", None, {}),
+		("Quotations & Orders", "DocType", "Sales Order", "tag", None, {}),
 		("Order Tracker", "Page", "sales-order-tracker", "list-checks", "tracker", {}),
-		("Sales Invoices", "DocType", "Sales Invoice", "receipt", None, {}),
-		("Customers", "DocType", "Customer", "user-round", None, {}),
 		("Exports & Re-exports", "DocType", "Export Shipment", "globe", "exports", {}),
-		("Customer Portal", "URL", "/me", "share-2", "portal", {}),
+		("Customer Portal", "URL", "/statement", "share-2", "portal", {}),
 	]),
 	("Purchasing", "shopping-cart", [
-		("Purchase Requests", "DocType", "Material Request", "clipboard-list", "rfq", {}),
-		("Supplier Quotations", "DocType", "Supplier Quotation", "scale", "rfq", {}),
 		("Purchase Orders", "DocType", "Purchase Order", "shopping-cart", None, {}),
 		("Imports & Shipments", "DocType", "Import Shipment", "ship", "imports", {}),
 		("Goods Receiving", "DocType", "Purchase Receipt", "scan-line", None, {}),
 		("Landed Cost & Margin", "Page", "hipersign-landed", "layers", "imports", {}),
-		("Purchase Invoices", "DocType", "Purchase Invoice", "file-input", None, {}),
-		("Suppliers", "DocType", "Supplier", "factory", None, {}),
-		("Smart Reorder", "Report", "Hipersign Smart Reorder", "refresh-cw", None, {}),
 	]),
 	("Inventory & Delivery", "package", [
 		("Warehouse & Stock", "Workspace", "Hipersign Warehouse", "warehouse", None, {}),
-		("Items", "DocType", "Item", "package", None, {}),
-		("Stock Balance", "Report", "Stock Balance", "chart-column", None, {}),
-		("Stock Transfers", "DocType", "Stock Entry", "arrow-left-right", None, {}),
-		("Stock Count", "DocType", "Stock Reconciliation", "list-ordered", None, {}),
-		("Pick Lists", "DocType", "Pick List", "hand", "multiwh", {}),
 		("Dispatch & Delivery", "DocType", "Delivery Note", "truck", None, {}),
-		("Delivery Trips", "DocType", "Delivery Trip", "route", "trips", {}),
 		("Driver App", "URL", "/driver", "map-pin", "trips", {}),
-		("Serial & Warranty", "Page", "serial-lookup", "scan-barcode", "serial", {}),
-		("Warranty Claims", "DocType", "Warranty Claim", "shield-check", "serial", {}),
 	]),
 	("Finance & Tax", "banknote", [
 		("Finance", "Workspace", "Hipersign Finance", "banknote", None, {}),
-		("Payments", "DocType", "Payment Entry", "credit-card", None, {}),
-		("Post-dated Cheques", "DocType", "Post Dated Cheque", "notebook-pen", "pdc", {}),
-		("Bank Reconciliation", "DocType", "Bank Reconciliation Tool", "landmark", "recon", {}),
-		("Journal Entries", "DocType", "Journal Entry", "book-open", None, {}),
-		("General Ledger", "Report", "General Ledger", "book", None, {}),
-		("Profit and Loss", "Report", "Profit and Loss Statement", "trending-up", None, {}),
-		("Balance Sheet", "Report", "Balance Sheet", "scale", None, {}),
+		("Accounting", "DocType", "Journal Entry", "book-open", None, {}),
 		("LCs & Guarantees", "DocType", "Letter of Credit", "file-signature", "lc", {}),
-		("Bank Guarantees", "DocType", "Bank Guarantee", "file-check", "lc", {}),
-		("VAT & Corporate Tax", "DocType", "Tax Return", "percent", None, {}),
-		("Currency Revaluation", "DocType", "Exchange Rate Revaluation", "coins", "fx", {}),
-		("Group Companies", "Report", "Hipersign Group Consolidation", "building-2", "group", {}),
-		("Group Members", "DocType", "Hipersign Group Member", "network", "group", {}),
-		("KYC & Compliance", "Workspace", "Hipersign Documents", "shield", None, {}),
-		("Company Licences", "DocType", "Company Document", "badge-check", "codocs", {}),
-		("Missing Documents", "Report", "Missing Documents", "file-warning", None, {}),
+		("VAT & E-invoicing", "DocType", "Tax Return", "percent", None, {"filters": [["Tax Return", "tax_type", "=", "VAT 201"]]}),
+		("Corporate Tax", "DocType", "Tax Return", "landmark", "ctax", {"filters": [["Tax Return", "tax_type", "=", "Corporate Tax"]]}),
+		("Group & Countries", "Report", "Hipersign Group Consolidation", "building-2", "group", {}),
+		("KYC & Compliance", "Workspace", "Hipersign Documents", "shield", "kyc", {}),
+		("Company Compliance", "DocType", "Company Document", "badge-check", "codocs", {}),
 	]),
 	("People & Assets", "users", [
 		("HR & Payroll", "Workspace", "Hipersign HR", "user", "hr", {}),
-		("Employees", "DocType", "Employee", "id-card", "hr", {}),
 		("Fixed Assets", "DocType", "Asset", "building", "assets", {}),
 	]),
 	("Admin", "sliders-horizontal", [
-		("Hipersign Settings", "DocType", "Hipersign Settings", "sliders-horizontal", None, {}),
-		("Approval Workflows", "DocType", "Workflow", "git-branch", None, {}),
-		("Document Rules", "DocType", "Hipersign Document Rule", "file-cog", None, {}),
-		("Editable Lists", "DocType", "Hipersign List Value", "list", None, {}),
+		("Workflows & Settings", "DocType", "Hipersign Settings", "sliders-horizontal", None, {}),
+		("Document Centre", "Report", "Missing Documents", "file-warning", None, {}),
 		("Data Migration", "DocType", "Data Import", "upload", None, {}),
-		("Users", "DocType", "User", "user-cog", None, {}),
-		("System Settings", "DocType", "System Settings", "settings", None, {}),
 		("Test Centre", "Page", "hipersign-tests", "flask-conical", None, {}),
+	]),
+	("Add-ons", "puzzle", [
 		("Add-ons & Pricing", "Page", "hipersign-addons", "puzzle", None, {}),
 	]),
 ]
+
+# the live site's lists under each entry: (label, link_type, link_to, feature or None)
+NAV_SUB = {
+	"CRM & Leads": [("Leads", "DocType", "Lead", None), ("Opportunities", "DocType", "Opportunity", None)],
+	"Quotations & Orders": [("Quotations", "DocType", "Quotation", None), ("Sales Orders", "DocType", "Sales Order", None),
+		("Customers", "DocType", "Customer", None)],
+	"Exports & Re-exports": [("Export Shipments", "DocType", "Export Shipment", None)],
+	"Purchase Orders": [("Purchase Requests", "DocType", "Material Request", "rfq"), ("Supplier Quotations", "DocType", "Supplier Quotation", "rfq"),
+		("Purchase Orders", "DocType", "Purchase Order", None), ("Smart Reorder", "Report", "Hipersign Smart Reorder", None),
+		("Suppliers", "DocType", "Supplier", None)],
+	"Imports & Shipments": [("Import Shipments", "DocType", "Import Shipment", None), ("Landed Cost Vouchers", "DocType", "Landed Cost Voucher", None)],
+	"Goods Receiving": [("Purchase Receipts", "DocType", "Purchase Receipt", None)],
+	"Warehouse & Stock": [("Items", "DocType", "Item", None), ("Stock Balance", "Report", "Stock Balance", None),
+		("Stock Transfers", "DocType", "Stock Entry", None), ("Stock Count", "DocType", "Stock Reconciliation", None),
+		("Pick Lists", "DocType", "Pick List", "multiwh"), ("Serial & Warranty", "Page", "serial-lookup", "serial"),
+		("Warranty Claims", "DocType", "Warranty Claim", "serial")],
+	"Dispatch & Delivery": [("Delivery Notes", "DocType", "Delivery Note", None), ("Delivery Trips", "DocType", "Delivery Trip", "trips")],
+	"Finance": [("Sales Invoices", "DocType", "Sales Invoice", None), ("Payments", "DocType", "Payment Entry", None),
+		("Post-dated Cheques", "DocType", "Post Dated Cheque", "pdc"), ("Bank Reconciliation", "DocType", "Bank Reconciliation Tool", "recon"),
+		("Purchase Invoices", "DocType", "Purchase Invoice", None)],
+	"Accounting": [("Journal Entries", "DocType", "Journal Entry", None), ("General Ledger", "Report", "General Ledger", None),
+		("Profit and Loss", "Report", "Profit and Loss Statement", None), ("Balance Sheet", "Report", "Balance Sheet", None),
+		("Currency Revaluation", "DocType", "Exchange Rate Revaluation", "fx")],
+	"LCs & Guarantees": [("Letters of Credit", "DocType", "Letter of Credit", None), ("Bank Guarantees", "DocType", "Bank Guarantee", None)],
+	"VAT & E-invoicing": [("Tax Returns", "DocType", "Tax Return", None), ("VAT 201", "Report", "UAE VAT 201", None)],
+	"Group & Countries": [("Group Members", "DocType", "Hipersign Group Member", None), ("Group Consolidation", "Report", "Hipersign Group Consolidation", None)],
+	"KYC & Compliance": [("Missing Documents", "Report", "Missing Documents", None)],
+	"Company Compliance": [("Company Documents", "DocType", "Company Document", None), ("Company Deadlines", "DocType", "Company Deadline", None)],
+	"HR & Payroll": [("Employees", "DocType", "Employee", None), ("Leave", "DocType", "Leave Application", None),
+		("Expense Claims", "DocType", "Expense Claim", None), ("Payroll", "DocType", "Payroll Entry", None)],
+	"Fixed Assets": [("Assets", "DocType", "Asset", None)],
+	"Workflows & Settings": [("Hipersign Settings", "DocType", "Hipersign Settings", None), ("Approval Workflows", "DocType", "Workflow", None),
+		("Document Rules", "DocType", "Hipersign Document Rule", None), ("Editable Lists", "DocType", "Hipersign List Value", None),
+		("Users", "DocType", "User", None), ("System Settings", "DocType", "System Settings", None)],
+	"Document Centre": [("Missing Documents", "Report", "Missing Documents", None), ("Document Waivers", "DocType", "Document Waiver", None)],
+}
+
+# count badges, as in the prototype
+NAV_BADGES = ("Messages", "Approvals", "Insights & Alerts", "CRM & Leads")
 
 LINK_DOCTYPE = {"DocType": "DocType", "Report": "Report", "Page": "Page", "Workspace": "Workspace"}
 
@@ -157,6 +169,43 @@ def sidebar_items(s=None):
 	return rows
 
 
+def _route(ltype, target):
+	if ltype == "DocType":
+		return ["List", target] if not frappe.get_meta(target).issingle else ["Form", target]
+	if ltype == "Report":
+		return ["query-report", target]
+	if ltype == "Page":
+		return [target]
+	if ltype == "Workspace":
+		return ["Workspaces", target]
+	return None
+
+
+def sub_items():
+	"""The sub-items each user may open, for the desk menu (boot info)."""
+	from hipersign_trading.utils import can_read
+
+	s = _s()
+	out = {}
+	for entry, rows in NAV_SUB.items():
+		kept = []
+		for label, ltype, target, feature in rows:
+			if not _on(s, feature):
+				continue
+			if ltype in LINK_DOCTYPE and not frappe.db.exists(LINK_DOCTYPE[ltype], target):
+				continue
+			if ltype == "DocType" and not can_read(target):
+				continue
+			if ltype == "Report" and not frappe.get_cached_doc("Report", target).is_permitted():
+				continue
+			if ltype == "Page" and not frappe.get_cached_doc("Page", target).is_permitted():
+				continue
+			kept.append({"label": label, "route": _route(ltype, target), "target": target})
+		if kept:
+			out[entry] = kept
+	return out
+
+
 def ensure_sidebar(s=None):
 	if not supported():
 		return
@@ -201,9 +250,9 @@ def ensure_tile():
 
 
 def _ours(icon):
-	"""The Hipersign ERP tile and the tiles of our sister apps (e.g. Hipersign Mobile) stay; this app's per-workspace
-	tiles go, because the one Hipersign ERP menu replaces them."""
-	return icon.name == TILE or ((icon.app or "").startswith("hipersign") and icon.app != "hipersign_trading")
+	"""v1.5.6: with "only Hipersign tiles" on, the one Hipersign ERP tile stays and nothing else — sister apps' tiles
+	(branding, mobile) used to show a second Hipersign tile on the desktop."""
+	return icon.name == TILE
 
 
 def apply_desktop(s=None):

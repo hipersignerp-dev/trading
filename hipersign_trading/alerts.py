@@ -269,7 +269,11 @@ def rule_waivers(company):
 	out = []
 	if not _has("Document Waiver"):
 		return out
+	from hipersign_trading.api.approvals import waiver_open
+
 	for w in frappe.get_all("Document Waiver", filters={"status": ["in", ["Overdue", "Pending"]]}, fields=["name", "status", "reference_doctype", "reference_name", "document_type", "due_date", "approver_role"]):
+		if w.status == "Pending" and not waiver_open(w):
+			continue  # v1.5.6: its record has moved on
 		out.append(dict(key=f"waiver:{w.name}:{w.status}", severity="High" if w.status == "Overdue" else "Medium", category="Document exceptions",
 			title=_("{0} for {1} {2} — {3}").format(_(w.document_type), _(w.reference_doctype), w.reference_name, _("overdue") if w.status == "Overdue" else _("waiting for the {0}").format(_(w.approver_role))),
 			evidence=[[_("Status"), _(w.status)], [_("Document due"), _d(w.due_date)]],
@@ -282,9 +286,18 @@ RULES = [rule_customs, rule_stock, rule_slow_moving, rule_receivables, rule_cheq
 	rule_lc, rule_bg, rule_company_docs, rule_kyc, rule_waivers]
 
 
+# v1.5.6 (SET-05): a switched-off feature raises no alerts
+RULE_FEATURE = {"rule_customs": "imports", "rule_cheques": "pdc", "rule_lc": "lc", "rule_bg": "lc", "rule_employee_docs": "hr",
+	"rule_company_docs": "codocs", "rule_kyc": "kyc"}
+
+
 def evaluate(company=None):
+	from hipersign_trading.features import feature_on
+
 	out = []
 	for rule in RULES:
+		if RULE_FEATURE.get(rule.__name__) and not feature_on(RULE_FEATURE[rule.__name__]):
+			continue
 		frappe.db.savepoint("hs_alert_rule")
 		try:
 			out.extend(rule(company))

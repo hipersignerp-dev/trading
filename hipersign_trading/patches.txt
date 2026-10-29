@@ -6,3 +6,5 @@
 hipersign_trading.patches.v1_2.settings_defaults
 hipersign_trading.patches.v1_3.upgrade_from_v12
 hipersign_trading.patches.v1_4.look_and_menus
+hipersign_trading.patches.v1_5.company_default
+hipersign_trading.patches.v1_5.home_page

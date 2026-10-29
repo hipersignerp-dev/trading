@@ -1,5 +1,47 @@
 # Changelog
 
+## 1.5.6 — 29 Oct 2026 — the prototype's shell, quick cards and the audit fixes
+**Top bar** (Hipersign desk theme): ☰ shrinks the menu to an icon rail (slides in on narrow screens); real search as you type
+(customers, suppliers, items, orders, quotations, invoices, shipments, serials) with keyboard control and "/" to focus; one scope
+drop-down (whole group, a country or one company) and one period drop-down that Home and new documents follow; **+ New** opens the
+prototype's 13 groups with a Quick / Standard / Detailed chip, and All opens a new list-style Create New page; the bell groups
+mentions, emails, documents to review, WhatsApp, approvals, lead follow-ups and alerts, with Mark all read; the user menu has Switch
+user (demo sites), Add / Manage users, Presentation mode, My settings, Toggle theme and Log out. Demo and view-only banners, and a
+Book a demo dialog (WhatsApp or email to sales@hipersignerp.com).
+**Menu:** the prototype's 32 entries in 8 sections, list sub-items under each module (open sections remembered), count badges on
+Messages, Approvals, Insights & Alerts and CRM & Leads, a Book a demo box; Add Sidebar Item only for administrators; pages opened from
+the top bar keep the Hipersign menu. Customer Portal opens the customer pages (/statement, /warranty) as a preview of any customer.
+**Quick cards** for 13 masters with the prototype's fields — Lead, Customer (with contact, address and credit-limit request),
+Supplier (contact, address, bank IBAN), Item / Service (Arabic name, HS code, origin, standard buying and selling prices, reorder level,
+default warehouse), Address, Contact, Warehouse, Employee (salary parts, WPS IBAN, document expiries, salary assignment), Fixed asset,
+Customer group (discount pricing rule), Payment terms, Bank account and Driver & vehicle. They replace Frappe's quick entry (also from
+a Link field's "Create a new …") and hand typed values to the full form and back.
+**Form modes** on 26 more forms (Supplier … Company Document): Standard hides only rarely used fields, never a mandatory one or one
+that holds a value; the lists' New buttons carry the mode.
+**Choice lists:** Emirate on leads, customers, addresses and warehouses; supplier type and usual Incoterm; vehicle type; quotation
+delivery period and warranty; Delivery and Site address types; lead source shown on leads and a link on customers; lead owner limited
+to sales users. Emirate, supplier type, vehicle type and delivery period are editable Hipersign lists.
+**View-only demo account** ("Demo Viewer" role): opens every page and can switch user, but every change is refused on the server.
+**Fixes from the audit:** smart reorder purchase orders in foreign currency carry the exchange rate; the approval reason is kept on a
+sales order in approval; VAT returns fall back to invoice totals and cannot be sent empty; Log activity on a lead saves note, stage,
+follow-up and next action together; an export shipment links an invoice made from its delivery note; return invoices no longer
+reduce the original's outstanding twice; group consolidation splits inter-company balances and rounds; Home follows the top-bar scope
+and period, hides features that are off and opens stock at the live stock view; post-dated cheque wording; quick invoice re-reads its
+list; quick receipt nets credit notes; quick rates use ERPNext pricing rules; stock reservation warehouse filtered by company; advance
+receipts from on-hold orders; LC margin release uses the margin account; Order Tracker totals in base currency; the Feature pack
+field applies its switches; a driver-only login opens /driver (Administrator no longer lands there); the Home chart no longer redraws
+while hidden; Create menus without Work Order, Production Plan, Project and other non-trading documents; the user name never wraps in
+the top bar; Gulf currencies shown as AED / SAR / OMR; serial look-up explains itself before a scan; no sideways scrollbar in the
+Arabic menu; Arabic for the new top bar, cards and menu.
+**Access:** Sales User and Sales Manager may read, print and report sales invoices (ERPNext 16 refused them every Customer form);
+users who may read customers or suppliers but not invoices (stores, logistics, HR) open those forms without the invoice totals;
+every user opens Hipersign Home after login (the older per-role workspaces are cleared — a buyer was sent to one he could not open);
+the demo Managing Director, Purchase Manager, Sales Manager and Warehouse Manager may add suppliers, items and customers.
+**Demo loader:** service invoices from January, opening capital and monthly overheads (positive year-to-date figures); VAT settings;
+import charge bills; inter-company VAT; a bank statement to reconcile; payroll, leave, attendance, expense claims and an advance;
+fixed assets; delivery trips with vehicles; credit-limit requests; messages with mentions; the view-only demo user.
+**Test Centre:** 20 new scripts (101 in all).
+
 ## 1.5.5 — 28 Oct 2026 — top bar off the app launcher
 The top bar no longer shows on the app launcher (/desk), which has its own header.
 

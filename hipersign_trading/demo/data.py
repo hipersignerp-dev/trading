@@ -97,14 +97,14 @@ LEAD_SOURCES = ["Website enquiry", "WhatsApp enquiry", "Referral", "Walk-in", "E
 
 DEMO_USERS = [
 	# key, first, last, roles
-	("md", "Khalid", "Al Mansoori", ["Managing Director", "Sales Manager", "Purchase Manager", "Accounts Manager", "Stock Manager"]),
+	("md", "Khalid", "Al Mansoori", ["Managing Director", "Sales Manager", "Purchase Manager", "Accounts Manager", "Stock Manager", "Sales Master Manager", "Purchase Master Manager", "Item Manager"]),
 	("buyer", "Rahul", "Nair", ["Purchase User"]),
-	("pm", "Fatima", "Al Zaabi", ["Purchase Manager", "Purchase User"]),
+	("pm", "Fatima", "Al Zaabi", ["Purchase Manager", "Purchase User", "Purchase Master Manager", "Item Manager"]),
 	("logi", "Imran", "Sheikh", ["Logistics Coordinator", "Stock User", "Purchase User"]),
 	("store", "Joseph", "D'Souza", ["Stock User"]),
-	("whm", "Ahmed", "Hassan", ["Stock Manager", "Stock User"]),
+	("whm", "Ahmed", "Hassan", ["Stock Manager", "Stock User", "Item Manager"]),
 	("sales", "Priya", "Menon", ["Sales User"]),
-	("sm", "Omar", "Haddad", ["Sales Manager", "Sales User"]),
+	("sm", "Omar", "Haddad", ["Sales Manager", "Sales User", "Sales Master Manager"]),
 	("acc", "Anil", "Kumar", ["Accounts User"]),
 	("fin", "Sara", "Al Hashimi", ["Accounts Manager", "Accounts User"]),
 	("hr", "Lina", "Farah", ["HR Manager", "HR User"]),

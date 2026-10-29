@@ -49,6 +49,13 @@ def my_stops():
 		order_by="posting_date asc",
 		limit=50,
 	)
+	# v1.5.6 (DRV-01): a delivery whose order still waits for its advance is not offered to the driver
+	from hipersign_trading.overrides.advances import on_hold
+
+	def held(dn):
+		return any(on_hold(so) for so in set(frappe.get_all("Delivery Note Item", filters={"parent": dn}, pluck="against_sales_order")) if so)
+
+	stops = [s for s in stops if not held(s.name)]
 	for s in stops:
 		s["items"] = frappe.get_all("Delivery Note Item", filters={"parent": s.name}, fields=["item_code", "item_name", "qty", "uom"], order_by="idx")
 	done = frappe.get_all(

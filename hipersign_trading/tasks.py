@@ -31,6 +31,10 @@ def _users_with_role(role):
 		u.parent
 		for u in frappe.get_all("Has Role", filters={"role": role, "parenttype": "User"}, fields=["parent"])
 		if u.parent not in ("Administrator", "Guest") and frappe.db.get_value("User", u.parent, "enabled")
+		# v1.5.6: people who work in the desk only — not sample or portal accounts, not the view-only demo login
+		and frappe.db.get_value("User", u.parent, "user_type") == "System User"
+		and not frappe.db.exists("Has Role", {"parent": u.parent, "role": "Demo Viewer"})
+		and not u.parent.endswith("@example.com")
 	]
 
 

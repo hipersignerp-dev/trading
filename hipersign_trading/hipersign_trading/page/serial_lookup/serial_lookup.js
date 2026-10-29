@@ -4,8 +4,12 @@ frappe.pages["serial-lookup"].on_page_load = function (wrapper) {
 	const field = page.add_field({ fieldname: "serial", fieldtype: "Link", options: "Serial No", label: __("Scan or type a serial number"), change: () => show(field.get_value()) });
 	const out = $('<div class="hs-serial" style="margin-top:16px"></div>').appendTo(page.main);
 	const row = (l, v) => `<tr><td class="text-muted" style="width:40%">${l}</td><td><b>${v || "—"}</b></td></tr>`;
+	// v1.5.6: say what the page does before anything is scanned
+	const empty = () => out.html(`<div class="frappe-card p-4 text-muted" style="max-width:640px">${frappe.utils.icon("search", "lg")}
+		<p style="margin:10px 0 4px"><b>${__("Scan a barcode or type a serial number")}</b></p>
+		<p class="small" style="margin:0">${__("You will see the item, when it was received, which customer bought it and when it was delivered, whether the warranty still covers it, and any claims — and you can register a new claim from here.")}</p></div>`);
 	function show(sn) {
-		if (!sn) return out.empty();
+		if (!sn) return empty();
 		frappe.call("hipersign_trading.api.serials.lookup", { serial_no: sn }).then(({ message: r }) => {
 			const color = r.status === "Under warranty" ? "green" : r.status === "Warranty expired" ? "red" : "blue";
 			const dl = r.delivery;
@@ -21,6 +25,7 @@ frappe.pages["serial-lookup"].on_page_load = function (wrapper) {
 		});
 	}
 	wrapper.hs_show = (sn) => { field.set_value(sn); };
+	empty();
 	const q = frappe.utils.get_url_arg("serial") || (frappe.route_options && frappe.route_options.serial);
 	if (q) setTimeout(() => field.set_value(q), 200);
 };

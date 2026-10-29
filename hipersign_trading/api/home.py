@@ -32,10 +32,14 @@ def period_range(period):
 	return start, t, _("{0} to date").format(t.strftime("%b %Y"))
 
 
-def _companies(company=None):
+def _companies(company=None, country=None):
 	if company:
 		return [company]
-	return frappe.get_all("Company", filters={"is_group": 0}, pluck="name", order_by="creation asc")
+	f = {"is_group": 0}
+	country = country or frappe.flags.get("hs_country")
+	if country:
+		f["country"] = country
+	return frappe.get_all("Company", filters=f, pluck="name", order_by="creation asc")
 
 
 # ---------------------------------------------------------------- ledger figures for one company
@@ -152,6 +156,8 @@ def _sum(dt, field, filters):
 def _co(f, company):
 	if company:
 		f = dict(f, company=company)
+	elif frappe.flags.get("hs_country"):
+		f = dict(f, company=["in", _companies()])
 	return f
 
 
@@ -176,7 +182,7 @@ def lifecycle(company, start, end):
 			"small": _("{0} receipts this month").format(_count("Purchase Receipt", _co({"docstatus": 1, "posting_date": [">=", get_first_day(today())]}, company))),
 			"route": ["List", "Purchase Receipt"]},
 		{"n": "04", "icon": "package", "title": _("Warehouse & inventory"), "big": stock_value, "big_is_money": 1,
-			"small": _("{0} items low / out").format(low), "route": ["query-report", "Stock Balance"]},
+			"small": _("{0} items low / out").format(low), "route": ["query-report", "Stock Projected Qty"]},
 		{"n": "05", "icon": "tag", "title": _("Sales & orders"),
 			"big": _("{0} orders to deliver").format(_count("Sales Order", _co({"docstatus": 1, "status": ["in", ["To Deliver and Bill", "To Deliver"]]}, company))),
 			"small": _("{0} open").format(money(_sum("Sales Order", "base_grand_total", _co({"docstatus": 1, "status": ["in", ["To Deliver and Bill", "To Deliver", "To Bill"]]}, company)), precision=0)),
@@ -189,6 +195,19 @@ def lifecycle(company, start, end):
 			"small": _("{0} overdue").format(money(_sum("Sales Invoice", "outstanding_amount", dict(ar, due_date=["<", today()])), precision=0)),
 			"route": ["query-report", "Accounts Receivable"]},
 	]
+
+
+# v1.5.6 (SET-05): what a switched-off feature contributes to Home disappears with it
+STAGE_FEATURE = {"02": "imports", "03": None}
+KPI_FEATURE = {"Post-dated cheques in hand": "pdc", "Shipments in transit": "imports", "Export shipments": "exports", "Sales pipeline (CRM)": "crm"}
+
+
+def _feature_filter(rows, key, mapping):
+	from hipersign_trading.features import feature_on
+
+	if key == "label":  # KPI labels are translated
+		mapping = {_(k): v for k, v in mapping.items()}
+	return [r for r in rows if not mapping.get(r.get(key)) or feature_on(mapping[r.get(key)])]
 
 
 def kpis(company, start, end, label):
@@ -217,7 +236,7 @@ def kpis(company, start, end, label):
 		{"label": _("Total purchases"), "icon": "shopping-cart", "value": purch, "money": 1, "sub": _("{0} · orders placed").format(label), "tone": "violet", "route": ["List", "Purchase Order"]},
 		{"label": _("Gross profit"), "icon": "trending-up", "value": led["gross"], "money": 1, "sub": _("{0}% margin after landed cost · target {1}%").format(round(gm, 1), round(target)), "tone": "green" if gm >= target else "amber", "route": ["query-report", "Gross Profit"]},
 		{"label": _("Net profit (before tax)"), "icon": "chart", "value": led["profit"], "money": 1, "sub": _("{0}% net margin · after {1} expenses").format(round(nm, 1), money(led["opex"], precision=0)), "tone": "green" if led["profit"] >= 0 else "red", "route": ["query-report", "Profit and Loss Statement"]},
-		{"label": _("Stock value"), "icon": "package", "value": led["stock"], "money": 1, "sub": _("Valued at landed cost"), "tone": "blue", "route": ["query-report", "Stock Balance"]},
+		{"label": _("Stock value"), "icon": "package", "value": led["stock"], "money": 1, "sub": _("Valued at landed cost"), "tone": "blue", "route": ["query-report", "Stock Projected Qty"]},
 		{"label": _("Outstanding receivables"), "icon": "clock", "value": _sum("Sales Invoice", "outstanding_amount", ar), "money": 1, "sub": _("{0} open invoices").format(_count("Sales Invoice", ar)), "tone": "blue", "route": ["query-report", "Accounts Receivable"]},
 		{"label": _("Overdue receivables"), "icon": "circle-alert", "value": _sum("Sales Invoice", "outstanding_amount", overdue), "money": 1, "sub": _("{0} past due").format(_count("Sales Invoice", overdue)), "tone": "red", "route": ["List", "Sales Invoice"], "options": {"status": "Overdue"}},
 		{"label": _("Payables due ≤ 30 days"), "icon": "receipt", "value": _sum("Purchase Invoice", "outstanding_amount", pay30), "money": 1, "sub": _("Suppliers & service providers"), "tone": "amber", "route": ["query-report", "Accounts Payable"]},
@@ -318,20 +337,44 @@ def _route_ok(route):
 	return True
 
 
+def _group_on():
+	from hipersign_trading.features import feature_on
+
+	return feature_on("group")
+
+
 @frappe.whitelist()
-def get_home(period="month", company=None):
+def get_home(period=None, company=None, country=None):
+	"""v1.5.6: scope and period come from the top bar (the user's defaults) unless the page passes them."""
+	from hipersign_trading.api.ui import get_period, get_scope
+
+	if not period:
+		period = get_period()
+	if not company and not country:
+		scope = get_scope()[0]
+		if scope.startswith("company:"):
+			company = scope.split(":", 1)[1]
+		elif scope.startswith("country:"):
+			country = scope.split(":", 1)[1]
 	company = company or None
+	if country and not company:
+		cos = _companies(country=country)
+		if len(cos) == 1:
+			company, country = cos[0], None
+	frappe.flags.hs_country = country if not company else None
 	start, end, label = period_range(period)
 	n_companies = len(_companies())
+	scope_label = company or (_("{0} · {1} companies").format(_(country), n_companies) if country else _("Whole group"))
 	finance = bool(FINANCE_ROLES & set(frappe.get_roles()))
 	return {
 		"period": {"key": period, "label": label, "start": str(start), "end": str(end)},
+		"scope_label": scope_label,
 		"company": company, "companies": _companies(), "currency": frappe.get_cached_value("Company", company or _companies()[0], "default_currency") if _companies() else "AED",
-		"group": group_view(period, company) if finance and (n_companies > 1 or frappe.db.count("Hipersign Group Member", {"active": 1}) > 1) else None,
-		"lifecycle": [s for s in lifecycle(company, start, end) if _route_ok(s["route"])],
+		"group": group_view(period, company) if finance and _group_on() and not company and (n_companies > 1 or frappe.db.count("Hipersign Group Member", {"active": 1}) > 1) else None,
+		"lifecycle": _feature_filter([s for s in lifecycle(company, start, end) if _route_ok(s["route"])], "n", STAGE_FEATURE),
 		"work": [w for w in work_today(company) if _route_ok(w["route"])],
 		"alerts": top_alerts(company),
-		"kpis": [k for k in kpis(company, start, end, label) if _route_ok(k.get("route"))],
+		"kpis": _feature_filter([k for k in kpis(company, start, end, label) if _route_ok(k.get("route"))], "label", KPI_FEATURE),
 		"pl": pl_block(company, start, end) if finance else None,
 		"monthly": monthly(company) if finance or _route_ok(["List", "Sales Invoice"]) else None,
 		"target_margin": flt(settings().get("target_margin")) or 20,

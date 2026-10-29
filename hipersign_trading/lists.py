@@ -27,10 +27,18 @@ LISTS = {
 		["Damaged in transit", "Wrong item supplied", "Defective — under warranty", "Customer cancelled", "Excess quantity", "Price difference"],
 		True,
 	),
+	"Emirate": (
+		[("Lead", "hs_emirate"), ("Customer", "hs_emirate"), ("Address", "hs_emirate"), ("Warehouse", "hs_emirate")],
+		["Abu Dhabi", "Dubai", "Sharjah", "Ajman", "Umm Al Quwain", "Ras Al Khaimah", "Fujairah"],
+		True,
+	),
+	"Supplier type": ([("Supplier", "hs_supplier_kind")], ["Goods supplier", "Freight & Shipping", "Customs broker", "Insurance", "Handling", "Other services"], False),
+	"Vehicle type": ([("Vehicle", "hs_vehicle_type")], ["Pickup", "Van", "3-ton truck", "7-ton truck", "10-ton truck", "Trailer", "Car"], True),
+	"Delivery period": ([("Quotation", "hs_delivery_period")], ["Ex-stock", "1–2 weeks", "2–4 weeks", "4–6 weeks", "6–8 weeks", "8–12 weeks"], True),
 }
 
 ERPNEXT_MASTERS = [
-	("Lead Source", "Lead source"), ("Customer Group", "Customer group"), ("Supplier Group", "Supplier group"), ("Territory", "Territory"),
+	("UTM Source", "Lead source"), ("Customer Group", "Customer group"), ("Supplier Group", "Supplier group"), ("Territory", "Territory"),
 	("Item Group", "Item group"), ("UOM", "Unit of measure"), ("Mode of Payment", "Payment mode"), ("Incoterm", "Incoterm"),
 	("Payment Terms Template", "Payment terms"), ("Designation", "Designation"), ("Department", "Department"), ("Brand", "Brand"),
 	("Hipersign Document Type", "Document type"), ("Company Document Type", "Company document type"),

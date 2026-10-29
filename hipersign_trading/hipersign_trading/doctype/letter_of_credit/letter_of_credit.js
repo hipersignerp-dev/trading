@@ -17,9 +17,9 @@ frappe.ui.form.on("Letter of Credit", {
 		if (["Issued", "Documents Presented", "Accepted"].includes(s)) step("Paid", "Paid", "paid_on");
 		if (["Applied", "Issued"].includes(s)) frm.add_custom_button(__("Expired"), () => frm.set_value("status", "Expired").then(() => frm.save()), __("Status"));
 		if (frm.doc.margin_amount && !frm.doc.margin_entry && s !== "Applied")
-			frm.add_custom_button(__("Margin journal entry"), () => frm.call("make_margin_entry").then(r => r.message && frappe.set_route("Form", "Journal Entry", r.message)), __("Create"));
+			frm.add_custom_button(__("Margin journal entry"), () => frm.call("make_margin_entry").then(r => r.message && frappe.model.with_doc("Journal Entry", r.message, () => frappe.set_route("Form", "Journal Entry", r.message))), __("Create"));
 		if (frm.doc.trust_receipt && !frm.doc.tr_entry)
-			frm.add_custom_button(__("Trust receipt journal entry"), () => frm.call("make_trust_receipt_entry").then(r => r.message && frappe.set_route("Form", "Journal Entry", r.message)), __("Create"));
+			frm.add_custom_button(__("Trust receipt journal entry"), () => frm.call("make_trust_receipt_entry").then(r => r.message && frappe.model.with_doc("Journal Entry", r.message, () => frappe.set_route("Form", "Journal Entry", r.message))), __("Create"));
 		if (frm.doc.expiry_date && ["Applied", "Issued"].includes(s)) {
 			const left = frappe.datetime.get_day_diff(frm.doc.expiry_date, frappe.datetime.get_today());
 			if (left <= 14) frm.dashboard.add_comment(left < 0 ? __("Expired {0} days ago", [-left]) : __("Expires in {0} days", [left]), left < 0 ? "red" : "orange", true);

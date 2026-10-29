@@ -7,6 +7,7 @@ frappe.pages["hipersign-messages"].on_page_load = function (wrapper) {
 	});
 	const st = { box: "all", doctype: "", list: [], types: [], current: null };
 	v.$actions.html(
+		`<button class="btn btn-sm btn-primary hsx-newmsg">${frappe.utils.icon("add", "sm")} ${__("New message on a record")}</button> ` +
 		ui.seg("box", [["all", __("All")], ["mentions", __("Mentions")], ["mine", __("I'm in")], ["email", __("Email")], ["whatsapp", "WhatsApp"]], st.box) +
 			`<select class="hsx-select hsx-dt"><option value="">${__("All records")}</option></select>`
 	);
@@ -50,7 +51,8 @@ frappe.pages["hipersign-messages"].on_page_load = function (wrapper) {
 			<span class="text-muted small">${__("Type @ to mention a colleague — they get a notification.")}</span><button class="btn btn-sm btn-primary hsx-send">${__("Send")}</button></div></div>`);
 		control = frappe.ui.form.make_control({
 			parent: $thread.find(".hsx-box"),
-			df: { fieldtype: "Comment", fieldname: "hs_msg", placeholder: __("Write a message…") },
+			// v1.5.6 (MSG-01): Frappe offers the @ people picker only when enable_mentions is set
+			df: { fieldtype: "Comment", fieldname: "hs_msg", placeholder: __("Write a message…"), enable_mentions: 1 },
 			render_input: true,
 			only_input: true,
 		});
@@ -81,6 +83,30 @@ frappe.pages["hipersign-messages"].on_page_load = function (wrapper) {
 				load(true);
 			})
 			.finally(() => $btn.prop("disabled", false));
+	});
+	// v1.5.6 (MSG-03): start a conversation on any record
+	v.$actions.on("click", ".hsx-newmsg", function () {
+		const d = new frappe.ui.Dialog({
+			title: __("New message on a record"),
+			fields: [
+				{ fieldtype: "Link", fieldname: "doctype", label: __("Record type"), options: "DocType", reqd: 1,
+					get_query: () => ({ filters: { istable: 0, issingle: 0, name: ["in", ["Sales Order", "Quotation", "Lead", "Customer", "Supplier", "Purchase Order",
+						"Import Shipment", "Export Shipment", "Delivery Note", "Sales Invoice", "Purchase Invoice", "Payment Entry", "Letter of Credit", "Item",
+						"Post Dated Cheque", "Material Request", "Purchase Receipt", "Employee", "Asset", "Tax Return", "Warranty Claim"]] } }) },
+				{ fieldtype: "Dynamic Link", fieldname: "name", label: __("Record"), options: "doctype", reqd: 1 },
+				{ fieldtype: "Comment", fieldname: "text", label: __("Message"), enable_mentions: 1, reqd: 1 },
+			],
+			primary_action_label: __("Send"),
+			primary_action(val) {
+				if (!val.text || !strip_html(val.text).trim()) return;
+				frappe.xcall("hipersign_trading.api.messages.post", { doctype: val.doctype, name: val.name, text: val.text }).then((t) => {
+					d.hide();
+					render_thread(t);
+					load(true);
+				});
+			},
+		});
+		d.show();
 	});
 	v.$actions.on("click", "[data-seg=box] button", function () {
 		st.box = $(this).attr("data-v");

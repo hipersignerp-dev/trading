@@ -115,7 +115,8 @@ class LetterofCredit(Document):
 			return self.margin_release_entry
 		if not self.margin_entry:
 			frappe.throw(_("No margin was blocked for this LC."))
-		bank = self._bank()
+		# v1.5.6 (LC-04): the margin goes back to the account it was blocked from
+		bank = frappe.db.get_value("Journal Entry Account", {"parent": self.margin_entry, "credit_in_account_currency": [">", 0]}, "account") or self._bank()
 		amt = flt(frappe.db.get_value("Journal Entry", self.margin_entry, "total_debit"), 2) or flt(self.margin_amount, 2)
 		je = self._je(_("LC margin release {0}").format(self.lc_number or self.name), [
 			{"account": bank, "debit_in_account_currency": amt},

@@ -29,7 +29,7 @@ def get_orders(search=None, status=None, sales_person=None, month=None, limit=60
 		or_filters=or_filters,
 		fields=[
 			"name", "customer", "customer_name", "po_no", "transaction_date", "delivery_date", "currency",
-			"grand_total", "base_grand_total", "advance_paid", "per_delivered", "per_billed", "status",
+			"grand_total", "base_grand_total", "conversion_rate", "advance_paid", "per_delivered", "per_billed", "status",
 			"docstatus", "owner", "hs_is_export",
 		],
 		order_by="transaction_date desc, name desc",
@@ -41,11 +41,18 @@ def get_orders(search=None, status=None, sales_person=None, month=None, limit=60
 		if status and row["bucket"] != status:
 			continue
 		out.append(row)
+	# v1.5.6 (TRK-01): totals in the company currency — an OMR order counts at its booked rate, not as AED
+	def base(r, k):
+		return flt(r[k]) * flt(r.get("conversion_rate") or 1)
+
 	totals = {
-		"value": sum(r["value"] for r in out),
-		"paid": sum(r["paid"] for r in out),
-		"remaining": sum(r["remaining"] for r in out),
-		"overdue": sum(r["overdue"] for r in out),
+		"value": sum(base(r, "value") for r in out),
+		"paid": sum(base(r, "paid") for r in out),
+		"remaining": sum(base(r, "remaining") for r in out),
+		"overdue": sum(base(r, "overdue") for r in out),
+		"count": len(out),
+		"open": sum(1 for r in out if r.get("bucket") != "Completed"),
+		"currency": frappe.get_cached_value("Company", filters.get("company"), "default_currency") if filters.get("company") else None,
 	}
 	return {"orders": out, "totals": totals}
 
@@ -123,7 +130,7 @@ def build_row(so):
 	return {
 		"name": name, "customer": so.customer, "customer_name": so.customer_name, "po_no": so.po_no,
 		"date": so.transaction_date, "delivery_date": so.delivery_date, "currency": so.currency,
-		"value": value, "paid": paid, "remaining": max(0, value - paid), "overdue": overdue,
+		"value": value, "paid": paid, "remaining": max(0, value - paid), "overdue": overdue, "conversion_rate": flt(so.get("conversion_rate") or 1),
 		"per_billed": flt(so.per_billed), "bucket": bucket, "export": so.hs_is_export,
 		"stages": [dict(s, name=STAGES[k]) for k, s in enumerate(stages)],
 		"invoices": [i.name for i in invs], "delivery_notes": [d.name for d in dns], "quotation": quotation,
