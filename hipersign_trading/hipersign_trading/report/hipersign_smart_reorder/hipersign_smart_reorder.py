@@ -125,6 +125,17 @@ def chart(rows):
 		"type": "bar", "colors": ["#2563eb"]}
 
 
+def _rate(from_currency, to_currency):
+	from erpnext.setup.utils import get_exchange_rate
+
+	rate = flt(get_exchange_rate(from_currency, to_currency, today(), "for_buying")) or flt(get_exchange_rate(from_currency, to_currency, today()))
+	if not rate:
+		r = frappe.get_all("Currency Exchange", filters={"from_currency": from_currency, "to_currency": to_currency, "date": ["<=", today()]},
+			fields=["exchange_rate"], order_by="date desc", limit=1)
+		rate = flt(r[0].exchange_rate) if r else 0
+	return rate
+
+
 @frappe.whitelist()
 def make_purchase_orders(items, company=None):
 	"""Draft purchase orders, one per supplier, for the ticked suggestions. Approval follows the PO workflow."""
@@ -145,14 +156,19 @@ def make_purchase_orders(items, company=None):
 		po = frappe.get_doc({"doctype": "Purchase Order", "supplier": sup, "company": company, "transaction_date": today(),
 			"schedule_date": add_days(today(), lt or 30),
 			"items": [{"item_code": r["item_code"], "qty": flt(r["suggested_qty"]), "schedule_date": add_days(today(), lt or 30)} for r in rows]})
+		# v1.6.0 (RO-01): the supplier's currency and its rate go on the order before ERPNext fills the rest —
+		# set_missing_values itself stopped with "Exchange Rate is mandatory … CNY to AED" for a CNY supplier
+		currency = frappe.db.get_value("Supplier", sup, "default_currency") or company_currency
+		if currency != company_currency:
+			rate = _rate(currency, company_currency)
+			if not rate:
+				frappe.throw(_("No exchange rate from {0} to {1}. Add it in Currency Exchange and try again.").format(currency, company_currency))
+			po.currency, po.conversion_rate = currency, rate
 		po.set_missing_values()
-		# v1.5.6 (RO-01): a foreign-currency supplier (e.g. CNY) needs the rate filled before insert
-		if po.currency and po.currency != company_currency and not flt(po.conversion_rate):
-			from erpnext.setup.utils import get_exchange_rate
-
-			po.conversion_rate = flt(get_exchange_rate(po.currency, company_currency, po.transaction_date, "for_buying"))
-			if not po.conversion_rate:
-				frappe.throw(_("No exchange rate from {0} to {1}. Add it in Currency Exchange and try again.").format(po.currency, company_currency))
+		if po.currency != company_currency and not flt(po.conversion_rate):
+			po.conversion_rate = _rate(po.currency, company_currency)
+		if po.price_list_currency and po.price_list_currency != company_currency and not flt(po.plc_conversion_rate):
+			po.plc_conversion_rate = _rate(po.price_list_currency, company_currency) or 1
 		po.insert()
 		po.add_comment("Info", _("Created from Smart reorder"))
 		made.append(po.name)

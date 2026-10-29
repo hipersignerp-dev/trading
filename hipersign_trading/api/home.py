@@ -280,27 +280,48 @@ def monthly(company):
 
 
 def work_today(company):
+	"""v1.6.0 (HOM-02, SET-05): a line shows only when the user can open its records and its feature is switched on —
+	a Sales Executive used to see bank lines and leave requests, and Starter still showed lead follow-ups."""
+	from hipersign_trading.features import feature_on
+	from hipersign_trading.utils import can_read
+
 	u = frappe.session.user
 	rows = []
 
-	def add(n, label, route, options=None):
+	def add(dt, filters, label, route, options=None, feature=None):
+		if feature and not feature_on(feature):
+			return
+		if not frappe.db.table_exists(dt) or not can_read(dt):
+			return
+		try:
+			n = len(frappe.get_list(dt, filters=filters, pluck="name", limit_page_length=0))
+		except Exception:
+			n = 0
 		if n:
 			rows.append({"n": n, "label": label, "route": route, "options": options or {}})
 
-	add(_count("ToDo", {"allocated_to": u, "status": "Open"}), _("open to-dos for you"), ["List", "ToDo"], {"allocated_to": u, "status": "Open"})
-	add(len(__import__("hipersign_trading.api.approvals", fromlist=["x"]).pending(company, mine=True)), _("approvals waiting for you"), ["hipersign-approvals"])
-	add(_count("Notification Log", {"for_user": u, "read": 0}), _("unread notifications"), ["List", "Notification Log"])
+	add("ToDo", {"allocated_to": u, "status": "Open"}, _("open to-dos for you"), ["List", "ToDo"], {"allocated_to": u, "status": "Open"})
+	n = len(__import__("hipersign_trading.api.approvals", fromlist=["x"]).pending(company, mine=True))
+	if n:
+		rows.append({"n": n, "label": _("approvals waiting for you"), "route": ["hipersign-approvals"], "options": {}})
+	add("Notification Log", {"for_user": u, "read": 0}, _("unread notifications"), ["List", "Notification Log"])
 	if frappe.get_meta("Lead").has_field("hs_next_follow_up"):
-		add(_count("Lead", {"hs_next_follow_up": ["<=", today()], "hs_pipeline_stage": ["not in", ["Won", "Lost"]]}), _("lead follow-ups due"), ["List", "Lead"])
-	add(_count("Post Dated Cheque", _co({"status": "In Hand", "direction": "Received", "cheque_date": ["<=", today()]}, company)), _("cheques ready to deposit"), ["List", "Post Dated Cheque"], {"status": "In Hand"})
-	add(_count("Delivery Note", _co({"docstatus": 1, "per_billed": ["<", 100], "is_return": 0}, company)), _("deliveries to invoice"), ["List", "Delivery Note"], {"per_billed": ["<", 100], "docstatus": 1})
-	if frappe.db.table_exists("Bank Transaction"):
-		add(_count("Bank Transaction", _co({"docstatus": 1, "status": "Unreconciled"}, company)), _("bank lines to reconcile"), ["bank-reconciliation-tool"] if frappe.db.exists("Page", "bank-reconciliation-tool") else ["Form", "Bank Reconciliation Tool"])
-	add(_count("Import Shipment", _co({"status": "Cleared"}, company)), _("shipments to receive"), ["List", "Import Shipment"], {"status": "Cleared"})
-	add(_count("Warranty Claim", {"status": "Open"}), _("open warranty claims"), ["List", "Warranty Claim"], {"status": "Open"})
-	if frappe.db.table_exists("Leave Application"):
-		add(_count("Leave Application", _co({"status": "Open", "docstatus": 0}, company)), _("leave requests"), ["List", "Leave Application"], {"status": "Open"})
-	add(_count("ToDo", {"status": "Open", "reference_type": ["in", ["Company Document", "Company Deadline"]]}), _("compliance to-dos"), ["List", "ToDo"], {"status": "Open"})
+		add("Lead", {"hs_next_follow_up": ["<=", today()], "hs_pipeline_stage": ["not in", ["Won", "Lost"]]}, _("lead follow-ups due"), ["List", "Lead"], feature="crm")
+	add("Post Dated Cheque", _co({"status": "In Hand", "direction": "Received", "cheque_date": ["<=", today()]}, company), _("cheques ready to deposit"),
+		["List", "Post Dated Cheque"], {"status": "In Hand"}, feature="pdc")
+	add("Delivery Note", _co({"docstatus": 1, "per_billed": ["<", 100], "is_return": 0}, company), _("deliveries to invoice"), ["List", "Delivery Note"],
+		{"per_billed": ["<", 100], "docstatus": 1})
+	add("Bank Transaction", _co({"docstatus": 1, "status": "Unreconciled"}, company), _("bank lines to reconcile"),
+		["bank-reconciliation-tool"] if frappe.db.exists("Page", "bank-reconciliation-tool") else ["Form", "Bank Reconciliation Tool"], feature="recon")
+	add("Import Shipment", _co({"status": "Cleared"}, company), _("shipments to receive"), ["List", "Import Shipment"], {"status": "Cleared"}, feature="imports")
+	add("Warranty Claim", {"status": "Open"}, _("open warranty claims"), ["List", "Warranty Claim"], {"status": "Open"}, feature="serial")
+	# leave requests are work for HR and for the leave approver — not the employee's own requests
+	leave = _co({"status": "Open", "docstatus": 0}, company)
+	if not set(frappe.get_roles()) & {"HR User", "HR Manager", "System Manager"}:
+		leave["leave_approver"] = u
+	add("Leave Application", leave, _("leave requests"), ["List", "Leave Application"], {"status": "Open"}, feature="hr")
+	if feature_on("codocs") and can_read("Company Document"):
+		add("ToDo", {"status": "Open", "reference_type": ["in", ["Company Document", "Company Deadline"]]}, _("compliance to-dos"), ["List", "ToDo"], {"status": "Open"})
 	return rows
 
 

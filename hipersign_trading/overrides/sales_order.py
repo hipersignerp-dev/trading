@@ -8,6 +8,9 @@ from hipersign_trading.utils import is_export_customer, settings, valuation_rate
 
 
 def validate(doc, method=None):
+	from hipersign_trading.overrides.pricing import keep
+
+	keep(doc)
 	s = settings()
 	apply_export_terms(doc, s)
 	reasons_sm, reasons_fin = [], []

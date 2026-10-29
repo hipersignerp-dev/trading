@@ -177,7 +177,7 @@
   "section": "Returns",
   "role": "Sales Executive",
   "steps": "Sales Invoice → Create → Return / Credit Note, pick a reason → Submit",
-  "expected": "Blocked: \"must be approved by the Sales Manager\"",
+  "expected": "Credit note saved as a draft; the Sales Executive has no Submit — only the Sales Manager (or Accounts) can submit it",
   "route": [
    "List",
    "Sales Invoice"
@@ -299,7 +299,7 @@
  {
   "id": "MST-07",
   "section": "Masters",
-  "role": "Sales Manager",
+  "role": "Sales Manager (supplier: Purchase Manager)",
   "steps": "Open item ITM-002, customer Al Noor LLC, supplier EuroSafe",
   "expected": "Brand/model, Carton = 100 Nos, weight, minimum order, default supplier; territory, sales person, website; supplier lead time",
   "route": [
@@ -311,7 +311,7 @@
   "id": "ADV-01",
   "section": "Advances",
   "role": "Warehouse Manager",
-  "steps": "Al Noor order **ANL/PO/7802** (50% advance terms) → Create → Delivery Note / Pick List → Submit",
+  "steps": "Al Noor order **ANL/PO/7802** (50% advance terms) → Create → Delivery Note / Pick List → Submit (run before ADV-02)",
   "expected": "Blocked: \"Advance before delivery … has not been received\"",
   "route": [
    "List",
@@ -421,7 +421,7 @@
   "id": "LC-03",
   "section": "Landed cost & LCs",
   "role": "Purchase Manager",
-  "steps": "Letter of Credit ENBD-ILC-26-0418",
+  "steps": "Letter of Credit ENBD-ILC-26-0418 (run before LC-04)",
   "expected": "Expiry warning on the form; ToDo from `letter_of_credit_alerts`",
   "route": [
    "List",
@@ -907,7 +907,7 @@
   "section": "Navigation",
   "role": "Administrator",
   "steps": "Look at the side menu; open each section; click Quotations & Orders, then its Sales Orders sub-item; reload",
-  "expected": "Top level = the prototype's 34 entries in its order and names (Overview: Home, Messages, Approvals, Insights & Alerts, Trade Journey; Accounting and Corporate Tax as their own entries); each module shows its list sub-items; no Create New or Add Sidebar Item; count badges on Messages, Approvals, Insights & Alerts and CRM; open sections remembered after reload",
+  "expected": "Top level = the prototype's 32 entries in its order and names (Overview: Home, Messages, Approvals, Insights & Alerts, Trade Journey; Accounting and Corporate Tax as their own entries); each module shows its list sub-items; no Create New or Add Sidebar Item; count badges on Messages, Approvals, Insights & Alerts and CRM; open sections remembered after reload",
   "route": [
    "hipersign-home"
   ]

@@ -186,7 +186,10 @@ def quick_create(doctype, data, action="save"):
 		frappe.throw(_("Choose the {0}").format(_("supplier") if doctype == "Purchase Order" else _("customer")))
 	if not lines:
 		frappe.throw(_("Add at least one item with a quantity"))
-	company = data.get("company") or settings().get("company") or frappe.defaults.get_user_default("Company") or frappe.defaults.get_global_default("company")
+	from hipersign_trading.utils import user_company
+
+	# v1.6.0 (TOP-01): the top bar's company first (Hipersign Settings' company used to win over the scope)
+	company = data.get("company") or user_company()
 	doc = frappe.new_doc(doctype)
 	doc.company = company
 	need = add_days(today(), 3 if doctype == "Sales Order" else 30)
@@ -209,6 +212,11 @@ def quick_create(doctype, data, action="save"):
 		if doctype == "Purchase Order":
 			row["schedule_date"] = need
 		doc.append("items", row)
+	# v1.6.0 (PL-01): the party's own price list, as the dialog's prices showed (a quick quotation used Standard Selling)
+	party_dt = "Supplier" if doctype == "Purchase Order" else ("Lead" if doc.get("quotation_to") == "Lead" else "Customer")
+	pl = frappe.db.get_value(party_dt, data.party, "default_price_list") if party_dt != "Lead" else None
+	if pl and frappe.db.get_value("Price List", pl, "enabled"):
+		doc.set("buying_price_list" if doctype == "Purchase Order" else "selling_price_list", pl)
 	doc.flags.hs_quick = True
 	doc.set_missing_values()
 	doc.insert()

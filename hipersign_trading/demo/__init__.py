@@ -858,11 +858,24 @@ def portal_user(c):
 	"""Gulf Trading LLC can log in to the customer portal: orders, invoices, statement, warranty."""
 	email = f"portal.gulftrading@{D.DEMO_EMAIL_DOMAIN}"
 	if frappe.db.exists("User", email):
+		_portal_link(email)
 		return
 	frappe.get_doc({"doctype": "User", "email": email, "first_name": "Yousef", "last_name": "Karim (portal)", "send_welcome_email": 0,
 		"user_type": "Website User", "roles": [{"role": "Customer"}]}).insert(ignore_permissions=True)
 	frappe.get_doc({"doctype": "Contact", "first_name": "Yousef", "last_name": "Karim (portal)", "user": email,
 		"email_ids": [{"email_id": email, "is_primary": 1}], "links": [{"link_doctype": "Customer", "link_name": "Gulf Trading LLC"}]}).insert(ignore_permissions=True)
+	_portal_link(email)
+
+
+def _portal_link(email):
+	"""v1.6.0 (PRT-01): ERPNext 15+ finds a portal login's customer through the customer's Portal Users table."""
+	if not frappe.db.exists("Customer", "Gulf Trading LLC") or not frappe.get_meta("Customer").has_field("portal_users"):
+		return
+	cust = frappe.get_doc("Customer", "Gulf Trading LLC")
+	if not any(r.user == email for r in cust.get("portal_users") or []):
+		cust.append("portal_users", {"user": email})
+		cust.flags.ignore_permissions = True
+		cust.save()
 
 
 def home_workspaces(c):

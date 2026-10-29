@@ -23,6 +23,15 @@ def portal_customer():
 
 	customers, _s = get_customers_suppliers("Sales Invoice", frappe.session.user)
 	if not customers:
+		# v1.6.0 (PRT-01): ERPNext 15+ links portal logins through the customer's Portal Users table; a login linked
+		# only through its Contact (as the demo and older sites do) found no customer and got "Not permitted"
+		contact = frappe.qb.DocType("Contact")
+		link = frappe.qb.DocType("Dynamic Link")
+		customers = (frappe.qb.from_(contact).join(link).on(link.parent == contact.name)
+			.select(link.link_name).distinct()
+			.where(contact.user == frappe.session.user).where(link.parenttype == "Contact").where(link.link_doctype == "Customer")
+		).run(pluck=True)
+	if not customers:
 		frappe.throw(_("Your login is not linked to a customer account. Please contact us."), frappe.PermissionError)
 	name = frappe.form_dict.get("customer")
 	return name if name in customers else customers[0], customers

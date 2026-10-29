@@ -199,8 +199,14 @@ def v12_reservations(c):
 		for i in so.items:
 			if not i.warehouse:
 				i.db_set("warehouse", frappe.db.get_value("Item Default", {"parent": i.item_code, "company": c.company}, "default_warehouse"))
+		# ERPNext 16 reserves only lines (and orders) marked "Reserve Stock" — without the flags nothing was reserved (ADV-03)
+		if so.meta.has_field("reserve_stock"):
+			so.db_set("reserve_stock", 1)
+		for i in so.items:
+			if i.meta.has_field("reserve_stock"):
+				i.db_set("reserve_stock", 1)
 		so.reload()
-		so.create_stock_reservation_entries()
+		so.create_stock_reservation_entries(notify=False)
 	# ERPNext 16 refuses a pick list for an order with reserved stock: the draft pick list goes on another open order,
 	# in its own savepoint so a refusal never takes the reservation with it
 	pl_so = frappe.db.get_value("Sales Order", {"po_no": "FB/PO/0932", "docstatus": 1})

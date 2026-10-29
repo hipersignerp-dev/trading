@@ -11,7 +11,7 @@ const hs_icon = (n, size) => frappe.utils.icon(n, size || "sm");
 // [label, icon, action] — action: {dt, values, mode?} opens a document; {route} opens a page; {fn} runs a function
 hipersign.create.GROUPS = () => [
 	[__("Sales"), [
-		[__("Lead"), "users", { dt: "Lead" }],
+		[__("Lead"), "users", { dt: "Lead", feature: "crm" }],
 		[__("Quotation"), "file", { dt: "Quotation" }],
 		[__("Sales order"), "list", { dt: "Sales Order" }],
 		[__("Customer"), "users", { dt: "Customer" }],
@@ -147,7 +147,10 @@ hipersign.topbar.sync = function () {
 // ---------------------------------------------------------------- render
 hipersign.topbar.render = function () {
 	if (!document.documentElement.classList.contains("hs-theme") || frappe.session.user === "Guest") return;
-	const $host = $(".main-section > header").first();
+	let $host = $(".main-section > header").first();
+	// v1.6.0 (USR-01): while viewing as another user (impersonation), read-only mode or on a phone, Frappe swaps the
+	// <header> for its navbar template, which is empty in Frappe 16 — put a header back so the top bar still shows
+	if (!$host.length && $(".main-section").length) $host = $("<header></header>").prependTo($(".main-section").first());
 	if (!$host.length) return;
 	if ($host.find(".hs-topbar").length) return hipersign.topbar.sync();
 	const name = frappe.user.full_name ? frappe.user.full_name() : frappe.session.user;
