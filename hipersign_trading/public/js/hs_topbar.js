@@ -385,6 +385,7 @@ hipersign.topbar.user_menu = function (sw) {
 	if (frappe.user.has_role("System Manager") && !(frappe.boot.hipersign || {}).view_only) {
 		items.push(`<a class="dropdown-item" data-act="add_user">${hs_esc(__("Add user"))}</a><a class="dropdown-item" data-act="users">${hs_esc(__("Manage users"))}</a>`);
 	}
+	if (hipersign.tour) items.push(`<a class="dropdown-item" data-act="tour">${hs_esc(__("Take the guided tour"))}</a>`);
 	if ((frappe.boot.hipersign || {}).demo_site) items.push(`<a class="dropdown-item" data-act="present">${hs_esc(hipersign.topbar.presenting() ? __("Leave presentation mode") : __("Presentation mode"))}</a>`);
 	items.push(`<a class="dropdown-item" data-act="settings">${hs_esc(__("My settings"))}</a>`);
 	items.push(`<a class="dropdown-item" data-act="theme">${hs_esc(__("Toggle theme"))}</a><div class="dropdown-divider"></div>`);
@@ -588,6 +589,7 @@ $(document).on("click", ".hs-topbar .hs-tb-user [data-act]", function (e) {
 	else if (act === "logout") frappe.app.logout();
 	else if (act === "add_user") frappe.new_doc("User");
 	else if (act === "users") frappe.set_route("List", "User");
+	else if (act === "tour") hipersign.tour.start();
 	else if (act === "present") {
 		try { localStorage.setItem("hs_present", hipersign.topbar.presenting() ? "0" : "1"); } catch (err) { /* ignore */ }
 		hipersign.topbar.banners();

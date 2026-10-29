@@ -1,0 +1,36 @@
+{
+ "doctype": "Page",
+ "name": "hipersign-crm",
+ "page_name": "hipersign-crm",
+ "title": "CRM & Leads",
+ "module": "Hipersign Trading",
+ "standard": "Yes",
+ "system_page": 0,
+ "icon": "",
+ "roles": [
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "Managing Director"
+  },
+  {
+   "role": "Sales User"
+  },
+  {
+   "role": "Sales Manager"
+  },
+  {
+   "role": "Accounts User"
+  },
+  {
+   "role": "Accounts Manager"
+  },
+  {
+   "role": "Demo Viewer"
+  }
+ ],
+ "owner": "Administrator",
+ "creation": "2026-10-29 21:00:00",
+ "modified": "2026-10-29 21:00:00"
+}

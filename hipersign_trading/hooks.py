@@ -27,6 +27,7 @@ app_include_css = [
 	"/assets/hipersign_trading/css/hipersign.css" + _v,
 	"/assets/hipersign_trading/css/hipersign_theme.css" + _v,
 	"/assets/hipersign_trading/css/hs_shell.css" + _v,
+	"/assets/hipersign_trading/css/hs_pages.css" + _v,
 ]
 app_include_js = [
 	"/assets/hipersign_trading/js/hipersign.js" + _v,
@@ -42,6 +43,10 @@ app_include_js = [
 	"/assets/hipersign_trading/js/hs_nav.js" + _v,
 	"/assets/hipersign_trading/js/hs_ui.js" + _v,
 	"/assets/hipersign_trading/js/hs_topbar.js" + _v,
+	"/assets/hipersign_trading/js/hs_panel.js" + _v,
+	"/assets/hipersign_trading/js/hs_module.js" + _v,
+	"/assets/hipersign_trading/js/hs_tour.js" + _v,
+	"/assets/hipersign_trading/js/hs_deal.js" + _v,
 ]
 
 website_context = {

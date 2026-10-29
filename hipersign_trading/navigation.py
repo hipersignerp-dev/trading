@@ -34,8 +34,8 @@ NAV = [
 		("Trade Journey", "Page", "hipersign-journey", "workflow", None, {}),
 	]),
 	("Sales", "tag", [
-		("CRM & Leads", "DocType", "Lead", "users", "crm", {}),
-		("Quotations & Orders", "DocType", "Sales Order", "tag", None, {}),
+		("CRM & Leads", "Page", "hipersign-crm", "users", "crm", {}),
+		("Quotations & Orders", "Page", "hipersign-orders", "tag", None, {}),
 		("Order Tracker", "Page", "sales-order-tracker", "list-checks", "tracker", {}),
 		("Exports & Re-exports", "DocType", "Export Shipment", "globe", "exports", {}),
 		("Customer Portal", "URL", "/statement", "share-2", "portal", {}),

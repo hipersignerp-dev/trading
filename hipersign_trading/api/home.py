@@ -186,7 +186,7 @@ def lifecycle(company, start, end):
 		{"n": "05", "icon": "tag", "title": _("Sales & orders"),
 			"big": _("{0} orders to deliver").format(_count("Sales Order", _co({"docstatus": 1, "status": ["in", ["To Deliver and Bill", "To Deliver"]]}, company))),
 			"small": _("{0} open").format(money(_sum("Sales Order", "base_grand_total", _co({"docstatus": 1, "status": ["in", ["To Deliver and Bill", "To Deliver", "To Bill"]]}, company)), precision=0)),
-			"route": ["List", "Sales Order"]},
+			"route": ["hipersign-orders"]},
 		{"n": "06", "icon": "truck", "title": _("Dispatch & delivery"),
 			"big": _("{0} notes not delivered").format(_count("Delivery Note", _co({"docstatus": 1, "hs_delivery_status": ["in", ["", "Ready to Dispatch", "Out for Delivery", "Failed"]]}, company))),
 			"small": _("{0} out for delivery").format(_count("Delivery Note", _co({"docstatus": 1, "hs_delivery_status": "Out for Delivery"}, company))),
@@ -249,9 +249,9 @@ def kpis(company, start, end, label):
 		{"label": _("Export shipments"), "icon": "globe", "value": _count("Export Shipment", _co({"status": ["!=", "Documents Complete"]}, company)),
 			"sub": _("{0} awaiting proof of export (0% VAT)").format(_count("Export Shipment", _co({"status": ["in", ["Shipped", "Delivered"]], "proof_of_export_on": ["is", "not set"]}, company))), "tone": "blue", "route": ["List", "Export Shipment"]},
 		{"label": _("Sales pipeline (CRM)"), "icon": "sparkles", "value": _sum("Lead", "hs_estimated_value", leads_open) if leads_open else 0, "money": 1,
-			"sub": _("{0} open leads · {1} follow-ups due").format(_count("Lead", leads_open), _count("Lead", dict(leads_open, hs_next_follow_up=["<=", today()])) if leads_open else 0), "tone": "violet", "route": ["List", "Lead"]},
+			"sub": _("{0} open leads · {1} follow-ups due").format(_count("Lead", leads_open), _count("Lead", dict(leads_open, hs_next_follow_up=["<=", today()])) if leads_open else 0), "tone": "violet", "route": ["hipersign-crm"]},
 		{"label": _("Open sales orders"), "icon": "list", "value": _sum("Sales Order", "base_grand_total", _co({"docstatus": 1, "status": ["in", ["To Deliver and Bill", "To Deliver", "To Bill"]]}, company)), "money": 1,
-			"sub": _("{0} orders incl. VAT").format(_count("Sales Order", _co({"docstatus": 1, "status": ["in", ["To Deliver and Bill", "To Deliver", "To Bill"]]}, company))), "tone": "blue", "route": ["List", "Sales Order"]},
+			"sub": _("{0} orders incl. VAT").format(_count("Sales Order", _co({"docstatus": 1, "status": ["in", ["To Deliver and Bill", "To Deliver", "To Bill"]]}, company))), "tone": "blue", "route": ["hipersign-orders"]},
 		{"label": _("Pending approvals"), "icon": "inbox", "value": len(appr), "sub": _("POs, orders, payments, stock, exceptions"), "tone": "amber", "route": ["hipersign-approvals"]},
 	]
 

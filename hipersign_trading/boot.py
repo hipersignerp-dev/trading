@@ -25,6 +25,7 @@ def boot_session(bootinfo):
 		info["home_workspace"] = "Hipersign Trading"
 		info["home_page"] = "hipersign-home" if frappe.db.exists("Page", "hipersign-home") and frappe.get_cached_doc("Page", "hipersign-home").is_permitted() else None
 		info["demo_site"] = bool(frappe.conf.get("hipersign_demo_site"))
+		info["deal_demo"] = bool(info["demo_site"] and s.get("deal_demo") and "System Manager" in frappe.get_roles())
 		from hipersign_trading.navigation import NAV_BADGES, sub_items
 
 		info["nav_sub"] = sub_items()

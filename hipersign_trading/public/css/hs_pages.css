@@ -1,0 +1,112 @@
+/* Hipersign ERP v1.6.0 — the record panel and the module pages (KPIs, tabs, filter chips, list, pipeline board).
+   Colours come from the Hipersign theme variables and fall back to ERPNext's own, so they work in light and dark. */
+.hp-panel, .hsx-mod, .hp-thread {
+	--x-surface: var(--hs-surface, var(--card-bg)); --x-surface-2: var(--hs-surface-2, var(--subtle-fg)); --x-line: var(--hs-line, var(--border-color));
+	--x-line-2: var(--hs-line-2, var(--border-color)); --x-ink: var(--hs-ink, var(--heading-color)); --x-ink-2: var(--hs-ink-2, var(--text-color));
+	--x-muted: var(--hs-muted, var(--text-muted)); --x-blue: var(--hs-blue, var(--primary)); --x-violet: var(--hs-violet, #6d2fe0);
+	--x-green: var(--hs-green, #12945e); --x-amber: var(--hs-amber, #c97a06); --x-red: var(--hs-red, #d23447);
+	--x-blue-bg: var(--hs-blue-bg, #e8effe); --x-violet-bg: var(--hs-violet-bg, #f0eafd); --x-green-bg: var(--hs-green-bg, #e6f6ee);
+	--x-amber-bg: var(--hs-amber-bg, #fdf3e1); --x-red-bg: var(--hs-red-bg, #fdeaec); --x-shadow: var(--hs-shadow, var(--shadow-sm));
+}
+.hsx-pill.orange { background: var(--x-amber-bg); color: var(--x-amber); }
+
+/* ---------------------------------------------------------------- record panel */
+.hp-backdrop { position: fixed; inset: 0; background: rgba(8, 14, 34, .35); z-index: 1029; display: none; }
+.hp-panel { position: fixed; top: 0; right: 0; bottom: 0; width: min(640px, 100vw); background: var(--x-surface); z-index: 1030;
+	box-shadow: var(--hs-shadow-lg, -8px 0 30px rgba(0, 0, 0, .2)); transform: translateX(105%); transition: transform .2s ease; display: flex; color: var(--x-ink-2); }
+body.hp-open .hp-panel { transform: none; }
+body.hp-open .hp-backdrop { display: block; }
+.hp-inner { display: flex; flex-direction: column; width: 100%; min-height: 0; }
+.hp-head { display: flex; justify-content: space-between; gap: 12px; padding: 18px 20px 12px; border-bottom: 1px solid var(--x-line); }
+.hp-head h2 { font-size: 18px; font-weight: 800; margin: 2px 0; color: var(--x-ink); }
+.hp-sub { color: var(--x-muted); font-size: 13px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.hp-hbtn { display: flex; gap: 6px; align-items: flex-start; }
+.hp-back { font-size: 12px; cursor: pointer; color: var(--x-blue); }
+.hp-body { flex: 1; overflow: auto; padding: 14px 20px 20px; background: var(--x-surface-2); }
+.hp-card { background: var(--x-surface); border: 1px solid var(--x-line); border-radius: 12px; padding: 14px 16px; margin-bottom: 12px; }
+.hp-ch { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 8px; }
+.hp-ch h4 { font-size: 14px; font-weight: 700; margin: 0; color: var(--x-ink); display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.hp-ch h4 small { font-weight: 500; color: var(--x-muted); font-size: 12px; }
+.hp-facts { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 18px; }
+.hp-fact { display: flex; justify-content: space-between; gap: 12px; padding: 5px 0; font-size: 13px; border-bottom: 1px dashed var(--x-line-2); }
+.hp-fact:last-child { border-bottom: 0; }
+.hp-fact > span { color: var(--x-muted); }
+.hp-fact > b { color: var(--x-ink); font-weight: 600; text-align: right; display: flex; align-items: center; gap: 6px; justify-content: flex-end; }
+.hp-link { color: var(--x-blue) !important; cursor: pointer; }
+.hp-bar { display: inline-block; width: 120px; height: 6px; border-radius: 9px; background: var(--x-line); overflow: hidden; }
+.hp-bar > span { display: block; height: 100%; background: var(--x-green); }
+.hp-progress { display: flex; margin: 0 0 14px; }
+.hp-step { flex: 1; text-align: center; position: relative; font-size: 12px; color: var(--x-muted); }
+.hp-step::before { content: ""; position: absolute; top: 12px; left: -50%; right: 50%; height: 2px; background: var(--x-line); }
+.hp-step:first-child::before { display: none; }
+.hp-step.done::before, .hp-step.cur::before { background: var(--x-green); }
+.hp-dot { position: relative; z-index: 1; display: inline-flex; width: 26px; height: 26px; border-radius: 50%; align-items: center; justify-content: center;
+	background: var(--x-surface); border: 2px solid var(--x-line); font-weight: 700; color: var(--x-muted); }
+.hp-step.done .hp-dot { background: var(--x-green); border-color: var(--x-green); color: #fff; }
+.hp-step.done .hp-dot svg { stroke: #fff; }
+.hp-step.cur .hp-dot { background: var(--x-blue); border-color: var(--x-blue); color: #fff; box-shadow: 0 0 0 4px var(--x-blue-bg); }
+.hp-step.cur { color: var(--x-blue); font-weight: 600; }
+.hp-sl { display: block; margin-top: 4px; }
+.hp-tw { overflow-x: auto; }
+.hp-t { width: 100%; font-size: 12.5px; border-collapse: collapse; }
+.hp-t th { color: var(--x-muted); font-weight: 600; text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--x-line); white-space: nowrap; }
+.hp-t td { padding: 7px 8px; border-bottom: 1px solid var(--x-line-2); vertical-align: top; }
+.hp-approval { border-color: var(--x-amber); background: var(--x-amber-bg); }
+.hp-approval p { margin: 0 0 8px; }
+.hp-doc { display: flex; justify-content: space-between; gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--x-line-2); font-size: 13px; align-items: center; }
+.hp-doc.miss b { color: var(--x-red); }
+.hp-hist { list-style: none; margin: 0; padding: 0; font-size: 12.5px; }
+.hp-hist li { padding: 5px 0 5px 14px; border-left: 2px solid var(--x-line); margin-left: 4px; }
+.hp-hist li span { color: var(--x-muted); margin-right: 8px; }
+.hp-foot { border-top: 1px solid var(--x-line); padding: 10px 16px; display: flex; flex-direction: column; gap: 8px; background: var(--x-surface); }
+.hp-btns { display: flex; gap: 6px; flex-wrap: wrap; }
+.hp-prim { justify-content: flex-end; }
+.hp-n { background: var(--x-red); color: #fff; border-radius: 9px; padding: 0 6px; font-size: 11px; margin-left: 4px; }
+.hp-danger { color: var(--x-red) !important; border-color: var(--x-red) !important; }
+.hp-thread { max-height: 50vh; overflow: auto; }
+.hp-m { padding: 8px 10px; border-radius: 10px; background: var(--x-surface-2); margin-bottom: 8px; }
+.hp-m.system { opacity: .8; font-size: 12px; }
+@media (max-width: 640px) { .hp-facts { grid-template-columns: 1fr; } }
+
+/* ---------------------------------------------------------------- module pages */
+.hsx-mod .hsx-mtabs { display: flex; gap: 4px; border-bottom: 1px solid var(--x-line); margin: 18px 0 12px; overflow-x: auto; }
+.hsx-mod .hsx-mtabs button { border: 0; background: none; padding: 8px 12px; font-weight: 600; color: var(--x-muted); border-bottom: 2px solid transparent; white-space: nowrap; }
+.hsx-mod .hsx-mtabs button.on { color: var(--x-blue); border-bottom-color: var(--x-blue); }
+.hsx-mod .hsx-chips { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; align-items: center; }
+.hsx-mod .hsx-chips button { border: 1px solid var(--x-line); background: var(--x-surface); border-radius: 8px; padding: 4px 10px; font-size: 12.5px; color: var(--x-ink-2); }
+.hsx-mod .hsx-chips button.on { background: var(--x-blue-bg); border-color: var(--x-blue); color: var(--x-blue); font-weight: 600; }
+.hsx-mod .hsx-chips select, .hsx-mod .hsx-chips input { width: auto; height: 30px; font-size: 12.5px; }
+.hsx-mod .hsx-mlist td .hsx-sub2 { display: block; color: var(--x-muted); font-size: 12px; }
+.hsx-mod .hsx-mlist td.num, .hsx-mod .hsx-mlist th.num { text-align: right; white-space: nowrap; }
+.hsx-mod .hsx-mlist tr[data-dt] { cursor: pointer; }
+.hsx-mod .hsx-mlist tr[data-dt]:hover td { background: var(--x-surface-2); }
+.hsx-mod .hsx-code { font-family: var(--font-mono, monospace); font-size: 12px; background: var(--x-surface-2); border: 1px solid var(--x-line); border-radius: 6px; padding: 1px 6px; white-space: nowrap; }
+.hsx-board { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 8px; align-items: flex-start; }
+.hsx-col { min-width: 230px; flex: 0 0 230px; background: var(--x-surface-2); border: 1px solid var(--x-line); border-radius: 12px; padding: 10px; }
+.hsx-col-h { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 12px; color: var(--x-muted); }
+.hsx-lc { background: var(--x-surface); border: 1px solid var(--x-line); border-radius: 10px; padding: 10px 12px; margin-bottom: 8px; cursor: pointer; font-size: 12.5px; }
+.hsx-lc.overdue { border-left: 3px solid var(--x-red); }
+.hsx-lc:hover { border-color: var(--x-blue); }
+.hsx-lc b { color: var(--x-ink); display: block; font-size: 13.5px; }
+.hsx-lc .lc-row { display: flex; justify-content: space-between; margin-top: 6px; align-items: center; }
+.hsx-lc .lc-ow { float: right; background: var(--x-blue-bg); color: var(--x-blue); border-radius: 50%; width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; }
+.hsx-lc.dragging { opacity: .5; }
+.hsx-col.drop { border-color: var(--x-blue); background: var(--x-blue-bg); }
+.hsx-mod .hsx-note { color: var(--x-muted); font-size: 12px; margin-top: 8px; }
+.hsx-mchip { font-size: 10px; font-weight: 700; letter-spacing: .04em; padding: 1px 6px; border-radius: 6px; background: rgba(255, 255, 255, .2); margin-left: 4px; }
+.btn-default .hsx-mchip { background: var(--x-blue-bg, #e8effe); color: var(--x-blue, #1d5bea); }
+
+/* ---------------------------------------------------------------- guided tour */
+.ht-box { position: fixed; z-index: 1040; border-radius: 12px; box-shadow: 0 0 0 9999px rgba(8, 14, 34, .45); border: 2px solid var(--hs-blue, #1d5bea);
+	pointer-events: none; transition: all .2s ease; }
+.ht-card { position: fixed; z-index: 1041; background: var(--hs-surface, var(--card-bg)); color: var(--hs-ink-2, var(--text-color)); border-radius: 14px;
+	padding: 14px 16px; box-shadow: var(--hs-shadow-lg, 0 12px 40px rgba(0, 0, 0, .25)); border: 1px solid var(--hs-line, var(--border-color)); }
+.ht-card b { display: block; font-size: 15px; color: var(--hs-ink, var(--heading-color)); margin: 8px 0 4px; }
+.ht-card p { font-size: 13px; margin: 0 0 10px; line-height: 1.5; }
+.ht-top { display: flex; gap: 8px; align-items: center; }
+.ht-top select { width: auto; max-width: 190px; height: 28px; font-size: 12px; }
+.ht-x { margin-left: auto; cursor: pointer; }
+.ht-bar { height: 4px; background: var(--hs-line, var(--border-color)); border-radius: 4px; overflow: hidden; margin-bottom: 10px; }
+.ht-bar i { display: block; height: 100%; background: var(--hs-blue, #1d5bea); }
+.ht-btns { display: flex; gap: 6px; justify-content: flex-end; }
+.hd-t tr.hd-next td { background: var(--hs-blue-bg, #e8effe); } .hd-t td { vertical-align: middle; }
