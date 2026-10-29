@@ -217,7 +217,11 @@ def rule_bg(company):
 	out = []
 	if not _has("Bank Guarantee"):
 		return out
-	for bg in frappe.get_all("Bank Guarantee", filters=_co({"docstatus": 1, "end_date": ["between", [add_days(today(), -30), add_days(today(), 30)]]}, company),
+	# v1.6.0: ERPNext 16's Bank Guarantee has no company field
+	f = {"docstatus": 1, "end_date": ["between", [add_days(today(), -30), add_days(today(), 30)]]}
+	if frappe.get_meta("Bank Guarantee").has_field("company"):
+		f = _co(f, company)
+	for bg in frappe.get_all("Bank Guarantee", filters=f,
 			fields=["name", "bank_guarantee_number", "end_date", "amount", "name_of_beneficiary"]):
 		out.append(dict(key=f"bg:{bg.name}:{bg.end_date}", severity="Medium", category="Bank guarantees",
 			title=_("Guarantee {0} for {1} ends {2}").format(bg.bank_guarantee_number or bg.name, bg.name_of_beneficiary or "", _d(bg.end_date)),
