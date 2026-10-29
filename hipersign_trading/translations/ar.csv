@@ -1500,3 +1500,176 @@ Submit,إرسال
 WhatsApp,واتساب
 Approval,الموافقة
 Pay,دفع
+Waiting for the {0},بانتظار {0}
+History,السجل
+Open the full form,فتح النموذج الكامل
+Nothing yet.,لا شيء بعد.
+Download for Excel,تنزيل لملف Excel
+Attach other file,إرفاق ملف آخر
+Exception {0},استثناء {0}
+Required — missing,مطلوب — غير موجود
+Attached,تم الإرفاق
+Log activity,تسجيل نشاط
+Stage after this,المرحلة بعد ذلك
+What happened,ما الذي حدث
+Lead lost,خسارة العميل المحتمل
+Mark as lost,تعليم كخاسر
+Quotation lost,خسارة عرض السعر
+Messages — {0},الرسائل — {0}
+No messages yet — write the first one below; @mention a colleague to notify them.,لا توجد رسائل بعد — اكتب أول رسالة أدناه؛ اذكر زميلًا بـ @ لإشعاره.
+All owners,جميع المسؤولين
+My leads,عملائي المحتملون
+All sources,جميع المصادر
+Search…,بحث…
+Nothing here.,لا شيء هنا.
+There is nothing to show for your role yet.,لا يوجد ما يُعرض لدورك بعد.
+{0} of {1} in this chapter,{0} من {1} في هذا الفصل
+End the tour,إنهاء الجولة
+Next: {0},التالي: {0}
+Live deal demo,عرض صفقة مباشر
+The Live deal demo is switched off. A System Manager turns it on in Hipersign Settings (demo sites only).,عرض الصفقة المباشر متوقف. يقوم مدير النظام بتشغيله من إعدادات Hipersign (لمواقع العرض فقط).
+skipped,تم التخطي
+One deal from the first enquiry to the customer's cheque. Each step creates and submits the real record — open any of them. Reset removes everything this run made.,صفقة واحدة من أول استفسار حتى شيك العميل. كل خطوة تنشئ السجل الحقيقي وتعتمده — افتح أيًا منها. إعادة الضبط تحذف كل ما أنشأه هذا التشغيل.
+Revenue (net),الإيرادات (الصافي)
+Landed cost of goods,التكلفة الواصلة للبضائع
+Gross profit — {0}%,إجمالي الربح — {0}%
+Cash in (advance + cheque),النقد الوارد (دفعة مقدمة + شيك)
+Play: {0},تشغيل: {0}
+Play all,تشغيل الكل
+Cancel and delete every record this demo run made?,إلغاء وحذف كل سجل أنشأه تشغيل العرض هذا؟
+Demo deal removed,تم حذف صفقة العرض
+Created by {0},أنشأه {0}
+"Calls, meetings and messages — newest last",المكالمات والاجتماعات والرسائل — الأحدث في الأخير
+Export sales order,أمر بيع تصدير
+Outside UAE,خارج الإمارات
+Any — chosen at delivery,أي مستودع — يُحدد عند التسليم
+Total in {0},الإجمالي بـ {0}
+No limit,بلا حد
+Tax invoice,فاتورة ضريبية
+Won,تم الفوز
+Create quotation,إنشاء عرض سعر
+Lines,البنود
+Make sales order,إنشاء أمر بيع
+Edit details,تعديل التفاصيل
+Payment schedule,جدول الدفعات
+Terms & remarks,الشروط والملاحظات
+Book export shipment,حجز شحنة تصدير
+Customer details,بيانات العميل
+Add contact,إضافة جهة اتصال
+Add address,إضافة عنوان
+Open invoices,الفواتير المفتوحة
+Credit limit,الحد الائتماني
+Quick quote,عرض سعر سريع
+Quick order,طلب سريع
+Tax invoice (EN/AR),فاتورة ضريبية (إنجليزي/عربي)
+Item details,تفاصيل الصنف
+Stock by warehouse,المخزون حسب المستودع
+Last 60 days,آخر 60 يومًا
+Stock ledger,دفتر المخزون
+Create PO,إنشاء أمر شراء
+Net total,الإجمالي الصافي
+Grand total,الإجمالي الكلي
+In words,بالكلمات
+Estimated value,القيمة التقديرية
+Quotation date,تاريخ العرض
+Valid till,صالح حتى
+Enquiry,الاستفسار
+Prepared by,أعدّه
+Estimated margin,الهامش التقديري
+Customer's PO,أمر شراء العميل
+Billing address,عنوان الفوترة
+Shipping address,عنوان الشحن
+Order date & time,تاريخ ووقت الطلب
+Delivery date,تاريخ التسليم
+Sales person,مندوب المبيعات
+Source warehouse,المستودع المصدر
+Export terms,شروط التصدير
+Customer code,رمز العميل
+Available credit,الائتمان المتاح
+Customer type,نوع العميل
+Billing currency,عملة الفوترة
+Price list,قائمة الأسعار
+Customer TRN,الرقم الضريبي للعميل
+Place of supply,مكان التوريد
+Due date,تاريخ الاستحقاق
+Delivery notes,إشعارات التسليم
+Against invoice,مقابل الفاتورة
+Item code,رمز الصنف
+Arabic description,الوصف بالعربية
+Standard selling rate,سعر البيع القياسي
+Valuation (landed) rate,سعر التقييم (الواصل)
+Margin at list price,الهامش بسعر القائمة
+Brand · model,العلامة · الطراز
+Sales unit,وحدة البيع
+Purchase unit,وحدة الشراء
+Minimum order,الحد الأدنى للطلب
+Lead time,مدة التوريد
+Average selling rate,متوسط سعر البيع
+"Manage customer orders, agreed pricing and fulfilment. Discounts, margins below landed cost and credit limits are checked before an order is confirmed.",إدارة طلبات العملاء والأسعار المتفق عليها والتنفيذ. يتم التحقق من الخصومات والهوامش دون التكلفة الواصلة والحدود الائتمانية قبل تأكيد الطلب.
+New quotation,عرض سعر جديد
+New sales order,أمر بيع جديد
+Sales — {0},المبيعات — {0}
+"{0} invoices, net of VAT",{0} فواتير، دون الضريبة
+Open orders (incl. VAT),الطلبات المفتوحة (شاملة الضريبة)
+Not yet invoiced,لم تُفوتر بعد
+Orders to deliver,طلبات للتسليم
+"Approved, stock to dispatch",معتمدة، مخزون للإرسال
+Awaiting approval,بانتظار الموافقة
+"Discount, margin or credit",خصم أو هامش أو ائتمان
+Quotation conversion,تحويل العروض
+{0} quotations open,{0} عروض مفتوحة
+Customers over limit,عملاء تجاوزوا الحد
+Exposure above credit limit,مديونية فوق الحد الائتماني
+Sales orders,أوامر البيع
+Customers & credit,العملاء والائتمان
+Over limit,فوق الحد
+Price lists & pricing rules,قوائم الأسعار وقواعد التسعير
+Price lists,قوائم الأسعار
+Pricing rules,قواعد التسعير
++{0} more,+{0} أخرى
+SO No.,رقم أمر البيع
+Order date,تاريخ الطلب
+Customer / lead,العميل / المحتمل
+Applies to,ينطبق على
+Discount / rate,الخصم / السعر
+Items priced,أصناف مسعّرة
+KYC,اعرف عميلك
+"Capture every enquiry, follow it up on time and turn it into quotations and orders — one pipeline for the whole sales team.",سجّل كل استفسار وتابعه في الوقت المناسب وحوّله إلى عروض أسعار وطلبات — مسار واحد لفريق المبيعات بأكمله.
+Open leads,العملاء المحتملون المفتوحون
+{0} pipeline value,قيمة المسار {0}
+Weighted pipeline,المسار المرجّح
+Value × stage probability,القيمة × احتمال المرحلة
+Follow-ups due,متابعات مستحقة
+{0} overdue · {1} today,{0} متأخرة · {1} اليوم
+Won — {0},الفوز — {0}
+{0} leads converted,{0} تم تحويلهم
+Win rate,نسبة الفوز
+{0} leads closed in 3 months,{0} أُغلقت خلال 3 أشهر
+Pipeline,المسار
+All leads,كل العملاء المحتملين
+Follow-ups ({0}),المتابعات ({0})
+Sources & performance,المصادر والأداء
+"Drag a card to move it to another stage, or open it to log a call, meeting or WhatsApp. Won and Lost show the last two months.",اسحب البطاقة لنقلها إلى مرحلة أخرى، أو افتحها لتسجيل مكالمة أو اجتماع أو واتساب. يعرض الفوز والخسارة آخر شهرين.
+Follow up,المتابعة
+Not set,غير محدد
+Open pipeline,المسار المفتوح
+Won value,قيمة الفوز
+Lead captured from a referral and qualified,تم تسجيل عميل محتمل من إحالة وتأهيله
+Quotation sent and accepted,تم إرسال عرض السعر وقبوله
+Customer created from the lead; order approved and stock reserved,تم إنشاء العميل من العميل المحتمل؛ واعتماد الطلب وحجز المخزون
+Purchase order placed with the supplier,تم إصدار أمر الشراء للمورد
+Letter of credit issued by the bank,أصدر البنك الاعتماد المستندي
+Goods shipped — bill of lading and freight recorded,تم شحن البضائع — تسجيل بوليصة الشحن والأجرة
+Arrived at Jebel Ali and cleared by customs (duty paid),وصلت إلى جبل علي وتم تخليصها جمركيًا (الرسوم مدفوعة)
+Goods received into the warehouse,تم استلام البضائع في المستودع
+"Freight, duty and clearing spread over the goods — the landed cost",توزيع الشحن والرسوم والتخليص على البضائع — التكلفة الواصلة
+30% advance received by bank transfer,استلام دفعة مقدمة 30% بتحويل بنكي
+Delivered to the customer's site,تم التسليم إلى موقع العميل
+Tax invoice issued; the advance is set against it,صدرت الفاتورة الضريبية؛ وتمت تسوية الدفعة المقدمة مقابلها
+Post-dated cheque received for the balance,استلام شيك مؤجل بالرصيد المتبقي
+Take the guided tour,ابدأ الجولة الإرشادية
+Contacted,تم التواصل
+Qualified,مؤهل
+Proposal,عرض
+Negotiation,تفاوض
+Lost,خسارة

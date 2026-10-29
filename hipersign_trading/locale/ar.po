@@ -4509,3 +4509,522 @@ msgstr "الموافقة"
 
 msgid "Pay"
 msgstr "دفع"
+
+msgid "Waiting for the {0}"
+msgstr "بانتظار {0}"
+
+msgid "History"
+msgstr "السجل"
+
+msgid "Open the full form"
+msgstr "فتح النموذج الكامل"
+
+msgid "Nothing yet."
+msgstr "لا شيء بعد."
+
+msgid "Download for Excel"
+msgstr "تنزيل لملف Excel"
+
+msgid "Attach other file"
+msgstr "إرفاق ملف آخر"
+
+msgid "Exception {0}"
+msgstr "استثناء {0}"
+
+msgid "Required — missing"
+msgstr "مطلوب — غير موجود"
+
+msgid "Attached"
+msgstr "تم الإرفاق"
+
+msgid "Log activity"
+msgstr "تسجيل نشاط"
+
+msgid "Stage after this"
+msgstr "المرحلة بعد ذلك"
+
+msgid "What happened"
+msgstr "ما الذي حدث"
+
+msgid "Lead lost"
+msgstr "خسارة العميل المحتمل"
+
+msgid "Mark as lost"
+msgstr "تعليم كخاسر"
+
+msgid "Quotation lost"
+msgstr "خسارة عرض السعر"
+
+msgid "Messages — {0}"
+msgstr "الرسائل — {0}"
+
+msgid "No messages yet — write the first one below; @mention a colleague to notify them."
+msgstr "لا توجد رسائل بعد — اكتب أول رسالة أدناه؛ اذكر زميلًا بـ @ لإشعاره."
+
+msgid "All owners"
+msgstr "جميع المسؤولين"
+
+msgid "My leads"
+msgstr "عملائي المحتملون"
+
+msgid "All sources"
+msgstr "جميع المصادر"
+
+msgid "Search…"
+msgstr "بحث…"
+
+msgid "Nothing here."
+msgstr "لا شيء هنا."
+
+msgid "There is nothing to show for your role yet."
+msgstr "لا يوجد ما يُعرض لدورك بعد."
+
+msgid "{0} of {1} in this chapter"
+msgstr "{0} من {1} في هذا الفصل"
+
+msgid "End the tour"
+msgstr "إنهاء الجولة"
+
+msgid "Next: {0}"
+msgstr "التالي: {0}"
+
+msgid "Live deal demo"
+msgstr "عرض صفقة مباشر"
+
+msgid "The Live deal demo is switched off. A System Manager turns it on in Hipersign Settings (demo sites only)."
+msgstr "عرض الصفقة المباشر متوقف. يقوم مدير النظام بتشغيله من إعدادات Hipersign (لمواقع العرض فقط)."
+
+msgid "skipped"
+msgstr "تم التخطي"
+
+msgid "One deal from the first enquiry to the customer's cheque. Each step creates and submits the real record — open any of them. Reset removes everything this run made."
+msgstr "صفقة واحدة من أول استفسار حتى شيك العميل. كل خطوة تنشئ السجل الحقيقي وتعتمده — افتح أيًا منها. إعادة الضبط تحذف كل ما أنشأه هذا التشغيل."
+
+msgid "Revenue (net)"
+msgstr "الإيرادات (الصافي)"
+
+msgid "Landed cost of goods"
+msgstr "التكلفة الواصلة للبضائع"
+
+msgid "Gross profit — {0}%"
+msgstr "إجمالي الربح — {0}%"
+
+msgid "Cash in (advance + cheque)"
+msgstr "النقد الوارد (دفعة مقدمة + شيك)"
+
+msgid "Play: {0}"
+msgstr "تشغيل: {0}"
+
+msgid "Play all"
+msgstr "تشغيل الكل"
+
+msgid "Cancel and delete every record this demo run made?"
+msgstr "إلغاء وحذف كل سجل أنشأه تشغيل العرض هذا؟"
+
+msgid "Demo deal removed"
+msgstr "تم حذف صفقة العرض"
+
+msgid "Created by {0}"
+msgstr "أنشأه {0}"
+
+msgid "Calls, meetings and messages — newest last"
+msgstr "المكالمات والاجتماعات والرسائل — الأحدث في الأخير"
+
+msgid "Export sales order"
+msgstr "أمر بيع تصدير"
+
+msgid "Outside UAE"
+msgstr "خارج الإمارات"
+
+msgid "Any — chosen at delivery"
+msgstr "أي مستودع — يُحدد عند التسليم"
+
+msgid "Total in {0}"
+msgstr "الإجمالي بـ {0}"
+
+msgid "No limit"
+msgstr "بلا حد"
+
+msgid "Tax invoice"
+msgstr "فاتورة ضريبية"
+
+msgid "Won"
+msgstr "تم الفوز"
+
+msgid "Create quotation"
+msgstr "إنشاء عرض سعر"
+
+msgid "Lines"
+msgstr "البنود"
+
+msgid "Make sales order"
+msgstr "إنشاء أمر بيع"
+
+msgid "Edit details"
+msgstr "تعديل التفاصيل"
+
+msgid "Payment schedule"
+msgstr "جدول الدفعات"
+
+msgid "Terms & remarks"
+msgstr "الشروط والملاحظات"
+
+msgid "Book export shipment"
+msgstr "حجز شحنة تصدير"
+
+msgid "Customer details"
+msgstr "بيانات العميل"
+
+msgid "Add contact"
+msgstr "إضافة جهة اتصال"
+
+msgid "Add address"
+msgstr "إضافة عنوان"
+
+msgid "Open invoices"
+msgstr "الفواتير المفتوحة"
+
+msgid "Credit limit"
+msgstr "الحد الائتماني"
+
+msgid "Quick quote"
+msgstr "عرض سعر سريع"
+
+msgid "Quick order"
+msgstr "طلب سريع"
+
+msgid "Tax invoice (EN/AR)"
+msgstr "فاتورة ضريبية (إنجليزي/عربي)"
+
+msgid "Item details"
+msgstr "تفاصيل الصنف"
+
+msgid "Stock by warehouse"
+msgstr "المخزون حسب المستودع"
+
+msgid "Last 60 days"
+msgstr "آخر 60 يومًا"
+
+msgid "Stock ledger"
+msgstr "دفتر المخزون"
+
+msgid "Create PO"
+msgstr "إنشاء أمر شراء"
+
+msgid "Net total"
+msgstr "الإجمالي الصافي"
+
+msgid "Grand total"
+msgstr "الإجمالي الكلي"
+
+msgid "In words"
+msgstr "بالكلمات"
+
+msgid "Estimated value"
+msgstr "القيمة التقديرية"
+
+msgid "Quotation date"
+msgstr "تاريخ العرض"
+
+msgid "Valid till"
+msgstr "صالح حتى"
+
+msgid "Enquiry"
+msgstr "الاستفسار"
+
+msgid "Prepared by"
+msgstr "أعدّه"
+
+msgid "Estimated margin"
+msgstr "الهامش التقديري"
+
+msgid "Customer's PO"
+msgstr "أمر شراء العميل"
+
+msgid "Billing address"
+msgstr "عنوان الفوترة"
+
+msgid "Shipping address"
+msgstr "عنوان الشحن"
+
+msgid "Order date & time"
+msgstr "تاريخ ووقت الطلب"
+
+msgid "Delivery date"
+msgstr "تاريخ التسليم"
+
+msgid "Sales person"
+msgstr "مندوب المبيعات"
+
+msgid "Source warehouse"
+msgstr "المستودع المصدر"
+
+msgid "Export terms"
+msgstr "شروط التصدير"
+
+msgid "Customer code"
+msgstr "رمز العميل"
+
+msgid "Available credit"
+msgstr "الائتمان المتاح"
+
+msgid "Customer type"
+msgstr "نوع العميل"
+
+msgid "Billing currency"
+msgstr "عملة الفوترة"
+
+msgid "Price list"
+msgstr "قائمة الأسعار"
+
+msgid "Customer TRN"
+msgstr "الرقم الضريبي للعميل"
+
+msgid "Place of supply"
+msgstr "مكان التوريد"
+
+msgid "Due date"
+msgstr "تاريخ الاستحقاق"
+
+msgid "Delivery notes"
+msgstr "إشعارات التسليم"
+
+msgid "Against invoice"
+msgstr "مقابل الفاتورة"
+
+msgid "Item code"
+msgstr "رمز الصنف"
+
+msgid "Arabic description"
+msgstr "الوصف بالعربية"
+
+msgid "Standard selling rate"
+msgstr "سعر البيع القياسي"
+
+msgid "Valuation (landed) rate"
+msgstr "سعر التقييم (الواصل)"
+
+msgid "Margin at list price"
+msgstr "الهامش بسعر القائمة"
+
+msgid "Brand · model"
+msgstr "العلامة · الطراز"
+
+msgid "Sales unit"
+msgstr "وحدة البيع"
+
+msgid "Purchase unit"
+msgstr "وحدة الشراء"
+
+msgid "Minimum order"
+msgstr "الحد الأدنى للطلب"
+
+msgid "Lead time"
+msgstr "مدة التوريد"
+
+msgid "Average selling rate"
+msgstr "متوسط سعر البيع"
+
+msgid "Manage customer orders, agreed pricing and fulfilment. Discounts, margins below landed cost and credit limits are checked before an order is confirmed."
+msgstr "إدارة طلبات العملاء والأسعار المتفق عليها والتنفيذ. يتم التحقق من الخصومات والهوامش دون التكلفة الواصلة والحدود الائتمانية قبل تأكيد الطلب."
+
+msgid "New quotation"
+msgstr "عرض سعر جديد"
+
+msgid "New sales order"
+msgstr "أمر بيع جديد"
+
+msgid "Sales — {0}"
+msgstr "المبيعات — {0}"
+
+msgid "{0} invoices, net of VAT"
+msgstr "{0} فواتير، دون الضريبة"
+
+msgid "Open orders (incl. VAT)"
+msgstr "الطلبات المفتوحة (شاملة الضريبة)"
+
+msgid "Not yet invoiced"
+msgstr "لم تُفوتر بعد"
+
+msgid "Orders to deliver"
+msgstr "طلبات للتسليم"
+
+msgid "Approved, stock to dispatch"
+msgstr "معتمدة، مخزون للإرسال"
+
+msgid "Awaiting approval"
+msgstr "بانتظار الموافقة"
+
+msgid "Discount, margin or credit"
+msgstr "خصم أو هامش أو ائتمان"
+
+msgid "Quotation conversion"
+msgstr "تحويل العروض"
+
+msgid "{0} quotations open"
+msgstr "{0} عروض مفتوحة"
+
+msgid "Customers over limit"
+msgstr "عملاء تجاوزوا الحد"
+
+msgid "Exposure above credit limit"
+msgstr "مديونية فوق الحد الائتماني"
+
+msgid "Sales orders"
+msgstr "أوامر البيع"
+
+msgid "Customers & credit"
+msgstr "العملاء والائتمان"
+
+msgid "Over limit"
+msgstr "فوق الحد"
+
+msgid "Price lists & pricing rules"
+msgstr "قوائم الأسعار وقواعد التسعير"
+
+msgid "Price lists"
+msgstr "قوائم الأسعار"
+
+msgid "Pricing rules"
+msgstr "قواعد التسعير"
+
+msgid "+{0} more"
+msgstr "+{0} أخرى"
+
+msgid "SO No."
+msgstr "رقم أمر البيع"
+
+msgid "Order date"
+msgstr "تاريخ الطلب"
+
+msgid "Customer / lead"
+msgstr "العميل / المحتمل"
+
+msgid "Applies to"
+msgstr "ينطبق على"
+
+msgid "Discount / rate"
+msgstr "الخصم / السعر"
+
+msgid "Items priced"
+msgstr "أصناف مسعّرة"
+
+msgid "KYC"
+msgstr "اعرف عميلك"
+
+msgid "Capture every enquiry, follow it up on time and turn it into quotations and orders — one pipeline for the whole sales team."
+msgstr "سجّل كل استفسار وتابعه في الوقت المناسب وحوّله إلى عروض أسعار وطلبات — مسار واحد لفريق المبيعات بأكمله."
+
+msgid "Open leads"
+msgstr "العملاء المحتملون المفتوحون"
+
+msgid "{0} pipeline value"
+msgstr "قيمة المسار {0}"
+
+msgid "Weighted pipeline"
+msgstr "المسار المرجّح"
+
+msgid "Value × stage probability"
+msgstr "القيمة × احتمال المرحلة"
+
+msgid "Follow-ups due"
+msgstr "متابعات مستحقة"
+
+msgid "{0} overdue · {1} today"
+msgstr "{0} متأخرة · {1} اليوم"
+
+msgid "Won — {0}"
+msgstr "الفوز — {0}"
+
+msgid "{0} leads converted"
+msgstr "{0} تم تحويلهم"
+
+msgid "Win rate"
+msgstr "نسبة الفوز"
+
+msgid "{0} leads closed in 3 months"
+msgstr "{0} أُغلقت خلال 3 أشهر"
+
+msgid "Pipeline"
+msgstr "المسار"
+
+msgid "All leads"
+msgstr "كل العملاء المحتملين"
+
+msgid "Follow-ups ({0})"
+msgstr "المتابعات ({0})"
+
+msgid "Sources & performance"
+msgstr "المصادر والأداء"
+
+msgid "Drag a card to move it to another stage, or open it to log a call, meeting or WhatsApp. Won and Lost show the last two months."
+msgstr "اسحب البطاقة لنقلها إلى مرحلة أخرى، أو افتحها لتسجيل مكالمة أو اجتماع أو واتساب. يعرض الفوز والخسارة آخر شهرين."
+
+msgid "Follow up"
+msgstr "المتابعة"
+
+msgid "Not set"
+msgstr "غير محدد"
+
+msgid "Open pipeline"
+msgstr "المسار المفتوح"
+
+msgid "Won value"
+msgstr "قيمة الفوز"
+
+msgid "Lead captured from a referral and qualified"
+msgstr "تم تسجيل عميل محتمل من إحالة وتأهيله"
+
+msgid "Quotation sent and accepted"
+msgstr "تم إرسال عرض السعر وقبوله"
+
+msgid "Customer created from the lead; order approved and stock reserved"
+msgstr "تم إنشاء العميل من العميل المحتمل؛ واعتماد الطلب وحجز المخزون"
+
+msgid "Purchase order placed with the supplier"
+msgstr "تم إصدار أمر الشراء للمورد"
+
+msgid "Letter of credit issued by the bank"
+msgstr "أصدر البنك الاعتماد المستندي"
+
+msgid "Goods shipped — bill of lading and freight recorded"
+msgstr "تم شحن البضائع — تسجيل بوليصة الشحن والأجرة"
+
+msgid "Arrived at Jebel Ali and cleared by customs (duty paid)"
+msgstr "وصلت إلى جبل علي وتم تخليصها جمركيًا (الرسوم مدفوعة)"
+
+msgid "Goods received into the warehouse"
+msgstr "تم استلام البضائع في المستودع"
+
+msgid "Freight, duty and clearing spread over the goods — the landed cost"
+msgstr "توزيع الشحن والرسوم والتخليص على البضائع — التكلفة الواصلة"
+
+msgid "30% advance received by bank transfer"
+msgstr "استلام دفعة مقدمة 30% بتحويل بنكي"
+
+msgid "Delivered to the customer's site"
+msgstr "تم التسليم إلى موقع العميل"
+
+msgid "Tax invoice issued; the advance is set against it"
+msgstr "صدرت الفاتورة الضريبية؛ وتمت تسوية الدفعة المقدمة مقابلها"
+
+msgid "Post-dated cheque received for the balance"
+msgstr "استلام شيك مؤجل بالرصيد المتبقي"
+
+msgid "Take the guided tour"
+msgstr "ابدأ الجولة الإرشادية"
+
+msgid "Contacted"
+msgstr "تم التواصل"
+
+msgid "Qualified"
+msgstr "مؤهل"
+
+msgid "Proposal"
+msgstr "عرض"
+
+msgid "Negotiation"
+msgstr "تفاوض"
+
+msgid "Lost"
+msgstr "خسارة"

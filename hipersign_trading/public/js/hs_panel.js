@@ -314,3 +314,19 @@ document.addEventListener("click", function (e) {
 	e.stopPropagation();
 	hipersign.panel.open(lv.doctype, decodeURIComponent(name));
 }, true);
+
+// links to these records on Hipersign pages (Order Tracker, Approvals, Alerts, Trade Journey …) open the panel in place
+document.addEventListener("click", function (e) {
+	if (e.ctrlKey || e.metaKey || e.shiftKey || e.button !== 0 || !e.target.closest) return;
+	const a = e.target.closest("a[href]");
+	if (!a || a.closest(".hp-panel") || a.target === "_blank") return;
+	const route = frappe.get_route() || [];
+	if (!route.length || ["Form", "List", "Tree", "query-report", "Workspaces", "print"].includes(route[0])) return;
+	const m = (a.getAttribute("href") || "").match(/^\/(?:app|desk)\/([a-z0-9-]+)\/([^/?#]+)$/);
+	if (!m) return;
+	const dt = hipersign.panel.TYPES.find((t) => frappe.router.slug(t) === m[1]);
+	if (!dt || !hipersign.panel.has(dt) || m[2].startsWith("new-")) return;
+	e.preventDefault();
+	e.stopPropagation();
+	hipersign.panel.open(dt, decodeURIComponent(m[2]));
+}, true);

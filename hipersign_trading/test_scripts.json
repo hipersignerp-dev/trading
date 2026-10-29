@@ -1070,5 +1070,55 @@
    "List",
    "Bank Transaction"
   ]
+ },
+ {
+  "id": "TOUR-01",
+  "section": "Demo",
+  "role": "Any",
+  "steps": "Home → Take the guided tour → follow chapter 3 (CRM & sales) to the end; change chapter with the drop-down; Escape",
+  "expected": "Each step opens its page, highlights the part and explains it; Next / Back / chapter drop-down / close work; chapters and steps follow the pack and the user's access",
+  "route": [
+   "hipersign-home"
+  ]
+ },
+ {
+  "id": "DEAL-01",
+  "section": "Demo",
+  "role": "Administrator (demo site)",
+  "steps": "Hipersign Settings → Live deal demo on Home ✓ → Home → Live deal demo → Play all → open three of the records → Reset",
+  "expected": "13 steps (fewer when LC, imports, advances or cheques are switched off), each creating and submitting the real record; the result shows revenue, landed cost, gross profit and cash; Reset cancels and deletes only that run's records and the customer it created",
+  "route": [
+   "hipersign-home"
+  ]
+ },
+ {
+  "id": "CRM-02",
+  "section": "CRM",
+  "role": "Sales Manager",
+  "steps": "CRM & Leads → check the 5 KPI tiles → Pipeline: filter by owner and source, drag a card from Contacted to Qualified → open a card → → Proposal, Log activity with a next follow-up → Create quotation; then All leads, Follow-ups and Sources & performance tabs",
+  "expected": "KPIs, stage columns with count and value, cards with need, value, coloured follow-up date, owner and source; the lead panel shows details, stage line, activity and actions; stage moves and the follow-up are saved; Create quotation opens a quotation for the lead; the other tabs show the list, the follow-ups due and the source statistics",
+  "route": [
+   "hipersign-crm"
+  ]
+ },
+ {
+  "id": "SAL-04",
+  "section": "Sales",
+  "role": "Sales Manager",
+  "steps": "Quotations & Orders → check the 6 KPIs (click each) → Sales orders tab: each status chip → open an order → Create delivery note; Quotations tab → Make sales order on an open quotation, Lost on another; Customers & credit; Price lists & pricing rules",
+  "expected": "Page as in the prototype: 6 KPIs that open their tab, 4 tabs, status chips, order and quotation panels with progress line, customer and order details, items with delivered / billed / pending, totals in words, payment schedule, documents, history and next-step buttons; Make sales order, Lost with a reason and Create delivery note open or save the real ERPNext records",
+  "route": [
+   "hipersign-orders"
+  ]
+ },
+ {
+  "id": "PANEL-02",
+  "section": "Record panel",
+  "role": "Sales Manager",
+  "steps": "Open a lead, quotation, sales order, customer, tax invoice, delivery note and item from Quotations & Orders, CRM & Leads, the Sales Order list, the top-bar search and the Order Tracker; click a linked record inside a panel, then Back; Message, Email, WhatsApp, Print; ↗ (full form)",
+  "expected": "The panel opens over the page with title, type and status, header facts, progress line where the record has stages, sections and tables (Excel download), documents box with Attach, history and footer actions; links open the linked record's panel and Back returns; ↗ opens the full form; Escape or × closes it and the page stays where it was",
+  "route": [
+   "hipersign-orders"
+  ]
  }
 ]
