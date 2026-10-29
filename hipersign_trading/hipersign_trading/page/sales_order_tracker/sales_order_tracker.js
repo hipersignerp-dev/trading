@@ -41,7 +41,8 @@ class HipersignTracker {
 	render(r) {
 		const t = r.totals;
 		const kpi = (l, v, cls = "") => `<div class="hs-kpi ${cls}"><span>${l}</span><b>${v}</b></div>`;
-		let html = `<div class="hs-kpis">${kpi(__("Sales value"), this.money(t.value))}${kpi(__("Paid"), this.money(t.paid), "green")}${kpi(__("Remaining"), this.money(t.remaining))}${kpi(__("Overdue"), this.money(t.overdue), "red")}</div>`;
+		$(".popover").remove(); // v1.5.6: no stage pop-up left behind
+		let html = `<div class="hs-kpis">${kpi(__("Orders tracked"), t.count || 0)}${kpi(__("Sales value"), this.money(t.value))}${kpi(__("Paid"), this.money(t.paid), "green")}${kpi(__("Remaining"), this.money(t.remaining))}${kpi(__("Overdue"), this.money(t.overdue), "red")}</div>`;
 		if (!r.orders.length) html += `<div class="text-muted" style="padding:30px;text-align:center">${__("No orders match the filters.")}</div>`;
 		html += r.orders.map((o) => this.row(o)).join("");
 		this.$body.html(html);
@@ -99,3 +100,6 @@ class HipersignTracker {
 		} else hipersign.send_whatsapp("Sales Order", so, "Hipersign Order Confirmation");
 	}
 }
+
+// v1.5.6: a stage pop-up never stays on screen after leaving the page
+$(document).on("page-change", () => $(".popover").remove());

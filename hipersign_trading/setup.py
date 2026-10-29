@@ -54,6 +54,43 @@ def v13_defaults(new_site):
 	from hipersign_trading.features import apply_effects
 
 	apply_effects(frappe.get_single(SETTINGS))
+	gulf_currency_codes()
+	sales_can_read_invoices()
+
+
+# v1.5.6: ERPNext 16 reads the customer's invoices when the Customer form opens (the dashboard totals) with the user's own
+# permissions, and gives Sales User / Sales Manager no access to Sales Invoice — so sales staff could not open any customer.
+# They get read, print and report on invoices (no create, change or submit).
+def sales_can_read_invoices():
+	from frappe.permissions import add_permission, update_permission_property
+
+	for role in ("Sales User", "Sales Manager"):
+		if not frappe.db.exists("Role", role):
+			continue
+		exists = frappe.db.get_value("Custom DocPerm", {"parent": "Sales Invoice", "role": role, "permlevel": 0, "if_owner": 0})
+		if exists:
+			continue
+		frappe.flags.mute_messages = True
+		try:
+			add_permission("Sales Invoice", role, 0)
+			for ptype in ("print", "report", "export"):
+				update_permission_property("Sales Invoice", role, 0, ptype, 1, validate=False)
+		finally:
+			frappe.flags.mute_messages = False
+	frappe.clear_cache(doctype="Sales Invoice")
+
+
+# v1.5.6: Gulf currencies show their code ("AED 1,250.00"), as on the prototype and on UAE invoices, instead of
+# the Arabic abbreviation; a symbol the site changed to something else is left alone
+GULF_SYMBOLS = {"AED": "د.إ", "SAR": "ر.س", "OMR": "ر.ع.", "QAR": "ر.ق", "KWD": "د.ك", "BHD": ".د.ب"}
+
+
+def gulf_currency_codes():
+	for code, arabic in GULF_SYMBOLS.items():
+		sym = frappe.db.get_value("Currency", code, "symbol")
+		if sym is not None and (sym or "").strip() in (arabic, arabic.strip("."), ""):
+			frappe.db.set_value("Currency", code, "symbol", code, update_modified=False)
+	frappe.clear_cache(doctype="Currency")
 
 
 def enable_serials():

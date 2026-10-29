@@ -1,0 +1,6 @@
+{% if hs_preview %}<div class="alert alert-info" style="display:flex;flex-wrap:wrap;gap:10px;align-items:center">
+	<span><b>{{ _("Preview") }}</b> — {{ _("showing exactly what {0} sees in the customer portal.").format(customer.customer_name) }}</span>
+	<form method="get" style="margin-left:auto;display:flex;gap:6px;align-items:center"><label class="small" style="margin:0">{{ _("Customer") }}</label>
+	<select name="customer" class="form-control form-control-sm" style="width:auto;max-width:260px" onchange="this.form.submit()">{% for c in hs_preview_customers %}<option value="{{ c.name }}" {{ "selected" if c.name == hs_preview_customer else "" }}>{{ c.label }}</option>{% endfor %}</select></form>
+	<span class="small"><a href="/statement?customer={{ hs_preview_customer | urlencode }}">{{ _("Statement") }}</a> · <a href="/warranty?customer={{ hs_preview_customer | urlencode }}">{{ _("Warranty") }}</a> · <a href="/app/hipersign-home">{{ _("Back to the ERP") }}</a></span>
+</div>{% endif %}

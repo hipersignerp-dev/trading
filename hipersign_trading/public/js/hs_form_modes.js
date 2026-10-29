@@ -1,7 +1,15 @@
 // Hipersign ERP v1.3 — form modes: Quick (a small dialog), Standard (the essential fields), Detailed (every field).
 frappe.provide("hipersign.fm");
 
-hipersign.fm.COVERED = ["Quotation", "Sales Order", "Purchase Order", "Sales Invoice", "Payment Entry", "Customer", "Item", "Lead"];
+hipersign.fm.COVERED = ["Quotation", "Sales Order", "Purchase Order", "Sales Invoice", "Payment Entry", "Customer", "Item", "Lead",
+	// v1.5.6: 26 more forms
+	"Supplier", "Supplier Quotation", "Material Request", "Purchase Receipt", "Purchase Invoice", "Landed Cost Voucher",
+	"Import Shipment", "Export Shipment", "Letter of Credit", "Bank Guarantee",
+	"Delivery Note", "Stock Entry", "Stock Reconciliation", "Pick List", "Delivery Trip", "Warranty Claim", "Warehouse",
+	"Journal Entry", "Post Dated Cheque", "Credit Limit Request", "Tax Return",
+	"Employee", "Leave Application", "Expense Claim", "Asset", "Company Document",
+	// quick cards only
+	"Address", "Contact", "Customer Group", "Payment Terms Template", "Bank Account", "Driver"];
 // fields hidden in Standard (Detailed shows them all)
 hipersign.fm.OPTIONAL = {
 	Quotation: ["hs_enquiry_ref", "hs_enquiry_date", "order_type", "incoterm", "named_place", "campaign", "source", "letter_head", "select_print_heading",
@@ -16,6 +24,51 @@ hipersign.fm.OPTIONAL = {
 	Customer: ["website", "language", "market_segment", "industry", "tax_category", "tax_withholding_category", "account_manager", "default_commission_rate"],
 	Item: ["brand", "barcodes", "shelf_life_in_days", "end_of_life", "warranty_period", "weight_per_unit", "weight_uom", "country_of_origin", "customs_tariff_number"],
 	Lead: ["website", "annual_revenue", "no_of_employees", "industry", "market_segment", "language", "fax"],
+	// v1.5.6 — rarely used fields; a mandatory field or one that already has a value is never hidden
+	Supplier: ["alias", "tax_category", "tax_withholding_category", "tax_withholding_group", "is_transporter", "language", "website", "is_frozen", "on_hold", "hold_type",
+		"release_date", "allow_purchase_invoice_creation_without_purchase_order", "allow_purchase_invoice_creation_without_purchase_receipt", "gender", "default_bank_account"],
+	"Supplier Quotation": ["buying_price_list", "plc_conversion_rate", "ignore_pricing_rule", "tax_category", "shipping_rule", "apply_discount_on", "disable_rounded_total",
+		"select_print_heading", "group_same_items", "letter_head", "is_subcontracted", "named_place", "shipping_address", "billing_address", "cost_center", "project", "tc_name"],
+	"Material Request": ["customer", "scan_barcode", "letter_head", "select_print_heading", "tc_name", "terms", "buying_price_list"],
+	"Purchase Receipt": ["set_posting_time", "supplier_address", "contact_person", "shipping_address", "buying_price_list", "plc_conversion_rate", "ignore_pricing_rule",
+		"rejected_warehouse", "supplier_warehouse", "tax_category", "shipping_rule", "apply_discount_on", "disable_rounded_total", "tc_name", "terms", "project", "letter_head",
+		"select_print_heading", "group_same_items", "instructions", "transporter_name", "lr_no", "lr_date", "scan_barcode", "billing_address", "apply_putaway_rule",
+		"set_from_warehouse", "cost_center", "named_place", "dispatch_address"],
+	"Purchase Invoice": ["apply_tds", "cost_center", "set_posting_time", "on_hold", "release_date", "hold_comment", "supplier_address", "contact_person", "shipping_address",
+		"buying_price_list", "plc_conversion_rate", "ignore_pricing_rule", "rejected_warehouse", "scan_barcode", "tax_category", "shipping_rule", "apply_discount_on",
+		"disable_rounded_total", "write_off_amount", "write_off_account", "write_off_cost_center", "tc_name", "terms", "letter_head", "group_same_items", "select_print_heading",
+		"is_opening", "from_date", "to_date"],
+	"Landed Cost Voucher": [],
+	"Import Shipment": ["shipping_line", "insurance_policy", "vessel_flight"],
+	"Export Shipment": ["named_place", "coo_no", "re_export_of", "duty_refund_status"],
+	"Letter of Credit": ["tolerance_pct", "charges", "trust_receipt", "tr_amount", "tr_start", "tr_days", "tr_rate", "tr_repaid_on"],
+	"Bank Guarantee": ["fixed_deposit_number", "margin_money", "charges", "more_information", "project"],
+	"Delivery Note": ["set_posting_time", "issue_credit_note", "po_date", "company_address", "plc_conversion_rate", "ignore_pricing_rule", "scan_barcode", "tax_category",
+		"shipping_rule", "apply_discount_on", "tc_name", "terms", "lr_no", "lr_date", "project", "territory", "letter_head", "select_print_heading", "print_without_amount",
+		"group_same_items", "sales_partner", "commission_rate", "total_commission", "set_target_warehouse", "disable_rounded_total", "dispatch_address_name", "cost_center",
+		"named_place", "utm_medium", "utm_content", "utm_source", "utm_campaign", "company_contact_person"],
+	"Stock Entry": ["work_order", "inspection_required", "from_bom", "bom_no", "fg_completed_qty", "use_multi_level_bom", "source_warehouse_address", "target_warehouse_address",
+		"scan_barcode", "select_print_heading", "letter_head", "is_opening", "project", "add_to_transit", "apply_putaway_rule", "process_loss_qty", "process_loss_percentage", "cost_center"],
+	"Stock Reconciliation": ["set_posting_time", "cost_center", "scan_barcode", "scan_mode"],
+	"Pick List": ["work_order", "material_request", "scan_barcode", "scan_mode", "prompt_qty", "consider_rejected_warehouses", "ignore_pricing_rule", "group_same_items"],
+	"Delivery Trip": ["calculate_arrival_time", "optimize_route", "driver_address"],
+	"Warranty Claim": ["amc_expiry_date", "service_address", "from_company", "complaint_raised_by"],
+	Warehouse: ["account", "phone_no", "address_line_2", "pin", "default_in_transit_warehouse", "is_rejected_warehouse", "customer", "warehouse_type"],
+	"Journal Entry": ["multi_currency", "write_off_based_on", "write_off_amount", "letter_head", "select_print_heading", "is_opening", "from_template", "tax_withholding_category",
+		"apply_tds", "periodic_entry_difference_account", "for_all_stock_asset_accounts", "stock_asset_account", "tax_withholding_group", "ignore_tax_withholding_threshold",
+		"override_tax_withholding_entries"],
+	"Post Dated Cheque": ["reference_doctype", "reference_name"],
+	"Credit Limit Request": [],
+	"Tax Return": ["ct_threshold"],
+	Employee: ["salutation", "middle_name", "employee_number", "emergency_phone_number", "person_to_be_contacted", "relation", "create_user_permission", "scheduled_confirmation_date",
+		"final_confirmation_date", "contract_end_date", "notice_number_of_days", "date_of_retirement", "branch", "prefered_contact_email", "unsubscribed",
+		"permanent_accommodation_type", "permanent_address", "current_accommodation_type", "bio", "date_of_issue", "place_of_issue", "marital_status", "blood_group",
+		"family_background", "health_details", "attendance_device_id", "ctc"],
+	"Leave Application": ["follow_via_email", "letter_head", "color", "salary_slip"],
+	"Expense Claim": ["project", "task", "clearance_date", "cost_center", "delivery_trip", "gain_loss_account"],
+	Asset: ["asset_owner", "asset_owner_company", "customer", "cost_center", "department", "policy_number", "insurer", "insured_value", "comprehensive_insurance",
+		"opening_accumulated_depreciation", "opening_number_of_booked_depreciations", "asset_quantity"],
+	"Company Document": ["renewal_cost"],
 };
 hipersign.fm.MODES = ["Quick", "Standard", "Detailed"];
 
@@ -33,6 +86,7 @@ hipersign.fm.new = function (dt, values) {
 };
 
 hipersign.fm.full_form = function (dt, v) {
+	if (hipersign.qc && hipersign.qc.has(dt)) return hipersign.qc.full_form(dt, v || {});
 	frappe.model.with_doctype(dt, () => {
 		const doc = frappe.model.get_new_doc(dt);
 		const party = { Quotation: "party_name", "Sales Order": "customer", "Purchase Order": "supplier" }[dt];
@@ -89,7 +143,15 @@ hipersign.fm.hook_list = function () {
 // ---------------------------------------------------------------- forms: Standard / Detailed, and the mode switch
 hipersign.fm.apply = function (frm) {
 	const dt = frm.doctype, m = hipersign.fm.mode(dt);
-	(hipersign.fm.OPTIONAL[dt] || []).forEach((f) => { if (frm.fields_dict[f]) frm.toggle_display(f, m === "Detailed"); });
+	(hipersign.fm.OPTIONAL[dt] || []).forEach((f) => {
+		const fd = frm.fields_dict[f];
+		if (!fd) return;
+		// never hide a mandatory field, or one that already holds a value (switching mode never hides typed data)
+		const v = frm.doc[f], d = fd.df.default;
+		const filled = v !== undefined && v !== null && v !== "" && v !== 0 && !(Array.isArray(v) && !v.length) && (d === undefined || d === null || String(v) !== String(d));
+		const reqd = fd.df.reqd || frappe.meta.get_docfield(dt, f, frm.doc.name)?.reqd;
+		frm.toggle_display(f, m === "Detailed" || reqd || filled);
+	});
 };
 
 hipersign.fm.COVERED.forEach((dt) => frappe.ui.form.on(dt, {
@@ -99,9 +161,14 @@ hipersign.fm.COVERED.forEach((dt) => frappe.ui.form.on(dt, {
 		const cur = hipersign.fm.mode(dt);
 		hipersign.fm.MODES.forEach((m) => {
 			if (m === "Quick" && !hipersign.fm.quick_kinds.includes(dt)) return;
+			// a saved master is edited on its form; the card only makes new records
+			if (m === "Quick" && hipersign.qc && hipersign.qc.has(dt) && !frm.is_new()) return;
 			frm.add_custom_button((m === cur ? "✓ " : "") + __(m), () => {
 				hipersign.fm.remember(dt, m).then(() => {
-					if (m === "Quick") return hipersign.fm.quick(dt, hipersign.fm.from_form(frm));
+					if (m === "Quick") {
+						const v = hipersign.qc && hipersign.qc.has(dt) ? hipersign.qc.from_doc(dt, frm.doc) : hipersign.fm.from_form(frm);
+						return hipersign.fm.quick(dt, v);
+					}
 					hipersign.fm.apply(frm);
 					frm.refresh();
 				});
@@ -117,10 +184,11 @@ hipersign.fm.from_form = (frm) => ({
 });
 
 // ---------------------------------------------------------------- the Quick dialogs
-hipersign.fm.quick_kinds = ["Quotation", "Sales Order", "Purchase Order", "Sales Invoice", "Payment Entry", "Customer", "Item", "Lead"];
+hipersign.fm.quick_kinds = ["Quotation", "Sales Order", "Purchase Order", "Sales Invoice", "Payment Entry", "Customer", "Item", "Lead",
+	"Supplier", "Warehouse", "Employee", "Asset", "Address", "Contact", "Customer Group", "Payment Terms Template", "Bank Account", "Driver"];
 
 hipersign.fm.quick = function (dt, v) {
-	if (["Customer", "Item", "Lead"].includes(dt)) return frappe.ui.form.make_quick_entry(dt, null, null, frappe.model.get_new_doc(dt));
+	if (hipersign.qc && hipersign.qc.has(dt)) return hipersign.qc.open(dt, { values: v || {} });
 	if (dt === "Sales Invoice") return hipersign.fm.quick_invoice();
 	if (dt === "Payment Entry") return hipersign.fm.quick_receive(v);
 	return hipersign.fm.quick_doc(dt, v);
@@ -250,7 +318,12 @@ hipersign.fm.quick_invoice = function () {
 		d.$wrapper.on("click", ".hs-inv", (e) => {
 			const dn = $(e.currentTarget).data("dn");
 			$(e.currentTarget).prop("disabled", true);
-			frappe.xcall("hipersign_trading.api.quick.quick_invoice", { delivery_note: dn }).then((r) => { frappe.show_alert({ message: r.message, indicator: "green" }); $(e.currentTarget).closest("tr").remove(); }).catch(() => $(e.currentTarget).prop("disabled", false));
+			frappe.xcall("hipersign_trading.api.quick.quick_invoice", { delivery_note: dn }).then((r) => {
+				frappe.show_alert({ message: r.message, indicator: "green" });
+				// v1.5.6: the list is read again, so an invoiced delivery never stays on it
+				d.hide();
+				hipersign.fm.quick_invoice();
+			}).catch(() => $(e.currentTarget).prop("disabled", false));
 		});
 		d.show();
 	});
@@ -282,15 +355,16 @@ hipersign.fm.quick_receive = function (v) {
 		const show = () => {
 			let left = flt(d.get_value("amount"));
 			const out = invs.reduce((a, i) => a + flt(i.outstanding_amount), 0);
-			const rows = invs.map((i) => { const a = Math.max(0, Math.min(left, flt(i.outstanding_amount))); left -= a;
-				return `<tr><td>${i.name}</td><td>${frappe.datetime.str_to_user(i.due_date)}</td><td class="text-right">${format_currency(i.outstanding_amount, i.currency)}</td><td class="text-right"><b>${a ? format_currency(a, i.currency) : "—"}</b></td></tr>`; }).join("");
+			left -= invs.filter((i) => flt(i.outstanding_amount) < 0).reduce((a, i) => a + flt(i.outstanding_amount), 0);
+			const rows = invs.map((i) => { const neg = flt(i.outstanding_amount) < 0; const a = neg ? flt(i.outstanding_amount) : Math.max(0, Math.min(left, flt(i.outstanding_amount))); if (!neg) left -= a;
+				return `<tr><td>${i.name}${neg ? " · " + __("credit note") : ""}</td><td>${frappe.datetime.str_to_user(i.due_date)}</td><td class="text-right">${format_currency(i.outstanding_amount, i.currency)}</td><td class="text-right"><b>${a ? format_currency(a, i.currency) : "—"}</b></td></tr>`; }).join("");
 			d.fields_dict.alloc.$wrapper.html(`<table class="table table-sm"><tr class="text-muted"><td>${__("Invoice")}</td><td>${__("Due")}</td><td class="text-right">${__("Outstanding")}</td><td class="text-right">${__("Applied")}</td></tr>${rows}</table>`
 				+ (flt(d.get_value("amount")) > out + 0.005 ? `<p class="text-danger small">${__("More than the customer owes — record the extra as an advance in the Standard form.")}</p>` : ""));
 		};
 		if (!reset) return show();
 		frappe.xcall("hipersign_trading.api.quick.open_invoices", { customer: c }).then((r) => {
 			invs = r || [];
-			d.set_value("amount", invs.reduce((a, i) => a + flt(i.outstanding_amount), 0)).then(show);
+			d.set_value("amount", Math.max(0, invs.reduce((a, i) => a + flt(i.outstanding_amount), 0))).then(show);
 		});
 	};
 	d.show();

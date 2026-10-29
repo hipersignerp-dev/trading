@@ -77,11 +77,23 @@ def doc_level():
 
 def pack_of(s=None):
 	s = s or _s()
-	on = {k for k in FEATURES if s.get(field(k))}
+	# v1.5.6 (SET-04): Group follows the company mode, not the pack, so "Starter" on a group site stays Starter
+	on = {k for k in FEATURES if s.get(field(k))} - {"group"}
 	for name, p in PACKS.items():
-		if on == set(p["on"]) and (s.get("document_level") or "Full") == p["doc_level"]:
+		if on == set(p["on"]) - {"group"} and (s.get("document_level") or "Full") == p["doc_level"]:
 			return name
 	return "Custom"
+
+
+def set_switches(s, pack):
+	"""Every switch, the document level and the pack name from a pack, on the settings document in memory."""
+	p = PACKS[pack]
+	for k in FEATURES:
+		s.set(field(k), 1 if k in p["on"] else 0)
+	if s.get("company_mode") == "Group":
+		s.set(field("group"), 1)
+	s.document_level = p["doc_level"]
+	s.feature_pack = pack
 
 
 def apply_pack(pack, company_mode=None, save=True):
@@ -89,15 +101,10 @@ def apply_pack(pack, company_mode=None, save=True):
 	if pack not in PACKS:
 		frappe.throw(_("Unknown pack {0}").format(pack))
 	s = frappe.get_doc(SETTINGS)
-	p = PACKS[pack]
-	for k in FEATURES:
-		s.set(field(k), 1 if k in p["on"] else 0)
 	if company_mode:
 		s.company_mode = company_mode
-	if s.get("company_mode") == "Group":
-		s.set(field("group"), 1)
-	s.document_level = p["doc_level"]
-	s.feature_pack = pack
+	set_switches(s, pack)
+	s.flags.hs_pack_applied = pack
 	if save:
 		s.flags.ignore_mandatory = True
 		s.save(ignore_permissions=True)

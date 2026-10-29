@@ -1,7 +1,7 @@
 import frappe
 from frappe.utils import flt, getdate, today
 
-from hipersign_trading.portal import portal_customer
+from hipersign_trading.portal import portal_customer, preview_context
 
 no_cache = 1
 
@@ -11,6 +11,7 @@ def get_context(context):
 	context.show_sidebar = 1
 	context.title = "Statement of account"
 	context.customer = frappe.get_cached_doc("Customer", customer)
+	preview_context(context, customer, customers)
 	context.customers = customers
 	rows = []
 	for si in frappe.get_all("Sales Invoice", filters={"customer": customer, "docstatus": 1},

@@ -14,6 +14,7 @@ from hipersign_trading.utils import has_any_role
 def _check(doc, roles, label):
 	if not doc.get("is_return"):
 		return
+	unlink_outstanding(doc)
 	if doc.meta.has_field("hs_return_reason") and not doc.get("hs_return_reason"):
 		frappe.throw(_("Select the return reason before submitting the {0}.").format(label))
 	if not has_any_role(*roles):
@@ -31,3 +32,14 @@ def sales_return_before_submit(doc, method=None):
 
 def purchase_return_before_submit(doc, method=None):
 	_check(doc, ["Purchase Manager", "Accounts Manager"], _("Debit note"))
+
+
+def unlink_outstanding(doc, method=None):
+	"""v1.5.6 (RET-02): a return made against an invoice reduces that invoice's balance.
+
+	ERPNext ticks "Update Outstanding for Self" on new returns, which books the credit on the return itself and leaves
+	the original invoice showing the full amount due.
+	"""
+	if doc.get("is_return") and doc.get("return_against") and doc.meta.has_field("update_outstanding_for_self"):
+		if doc.get("update_outstanding_for_self"):
+			doc.update_outstanding_for_self = 0

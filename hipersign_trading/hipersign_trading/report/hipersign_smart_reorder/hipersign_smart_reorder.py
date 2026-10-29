@@ -15,7 +15,7 @@ from frappe import _
 from frappe.utils import add_days, cint, flt, today
 
 from hipersign_trading.constants import LEAD_DAYS_BY_ORIGIN, LEAD_DAYS_DEFAULT
-from hipersign_trading.utils import settings
+from hipersign_trading.utils import settings, user_company
 
 
 def execute(filters=None):
@@ -72,7 +72,7 @@ def suggestions(filters=None):
 	window = cint(filters.get("history_days") or s.get("reorder_history_days") or 60)
 	cover = cint(filters.get("cover_days") or s.get("reorder_cover_days") or 60)
 	safety = flt(s.get("reorder_safety_factor") if s.get("reorder_safety_factor") is not None else 0.5)
-	company = filters.get("company") or s.company or frappe.defaults.get_global_default("company")
+	company = filters.get("company") or user_company()
 	item_filters = {"is_stock_item": 1, "disabled": 0}
 	if filters.get("item_group"):
 		item_filters["item_group"] = filters.item_group
@@ -130,7 +130,8 @@ def make_purchase_orders(items, company=None):
 	"""Draft purchase orders, one per supplier, for the ticked suggestions. Approval follows the PO workflow."""
 	frappe.has_permission("Purchase Order", "create", throw=True)
 	items = frappe.parse_json(items) if isinstance(items, str) else items
-	company = company or settings().company or frappe.defaults.get_global_default("company")
+	company = company or user_company()
+	company_currency = frappe.get_cached_value("Company", company, "default_currency")
 	by_sup = {}
 	for r in items:
 		if not r.get("supplier") or flt(r.get("suggested_qty")) <= 0:
@@ -145,6 +146,13 @@ def make_purchase_orders(items, company=None):
 			"schedule_date": add_days(today(), lt or 30),
 			"items": [{"item_code": r["item_code"], "qty": flt(r["suggested_qty"]), "schedule_date": add_days(today(), lt or 30)} for r in rows]})
 		po.set_missing_values()
+		# v1.5.6 (RO-01): a foreign-currency supplier (e.g. CNY) needs the rate filled before insert
+		if po.currency and po.currency != company_currency and not flt(po.conversion_rate):
+			from erpnext.setup.utils import get_exchange_rate
+
+			po.conversion_rate = flt(get_exchange_rate(po.currency, company_currency, po.transaction_date, "for_buying"))
+			if not po.conversion_rate:
+				frappe.throw(_("No exchange rate from {0} to {1}. Add it in Currency Exchange and try again.").format(po.currency, company_currency))
 		po.insert()
 		po.add_comment("Info", _("Created from Smart reorder"))
 		made.append(po.name)

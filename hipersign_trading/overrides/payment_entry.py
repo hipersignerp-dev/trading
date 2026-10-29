@@ -62,6 +62,27 @@ def _check_supplier_overpayment(doc):
 				r.idx, r.reference_name, frappe.format(max(0, out - unposted), "Currency"), frappe.format(unposted, "Currency")))
 
 
+def before_validate(doc, method=None):
+	"""v1.5.6 (PDC-05): paying a bill beyond what is still owed after cheques already issued (posted or not) gets our
+	explanation, before ERPNext's generic "allocated amount is greater than outstanding" refusal."""
+	if doc.payment_type != "Pay" or doc.party_type != "Supplier":
+		return
+	for r in doc.get("references") or []:
+		if r.reference_doctype != "Purchase Invoice" or not r.reference_name:
+			continue
+		chq = frappe.get_all("Post Dated Cheque", filters={"direction": "Issued", "reference_doctype": "Purchase Invoice",
+			"reference_name": r.reference_name, "status": ["in", ["Issued", "Cleared"]]}, fields=["name", "amount", "posted", "cheque_no"])
+		if not chq:
+			continue
+		out = flt(frappe.db.get_value("Purchase Invoice", r.reference_name, "outstanding_amount"))
+		unposted = sum(flt(c.amount) for c in chq if not c.posted)
+		owed = max(0, out - unposted)
+		if flt(r.allocated_amount) > owed + 0.005:
+			frappe.throw(_("Row {0}: {1} — only {2} is still owed. Cheques already issued against this bill: {3}. Reduce the amount or pay another bill.").format(
+				r.idx, r.reference_name, frappe.format(owed, "Currency"),
+				", ".join(f"{c.cheque_no} ({frappe.format(c.amount, 'Currency')})" for c in chq)), title=_("Already covered by a cheque"))
+
+
 @frappe.whitelist()
 def short_payment_info(allocated, company=None):
 	s = settings()

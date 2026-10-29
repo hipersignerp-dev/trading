@@ -467,11 +467,7 @@ html.hs-theme .hsx-t .docno, html.hs-theme .list-row .list-row-col .list-id {
 	border: 1px solid var(--hs-line); border-radius: 6px; padding: 1px 6px; color: var(--hs-ink-2);
 }
 
-/* 6. List views: quieter rows (no likes / comment counts / modified time), prototype header */
-html.hs-theme .list-row-activity .comment-count,
-html.hs-theme .list-row-activity .list-row-like,
-html.hs-theme .list-row-head .list-row-activity .liked-by-filter,
-html.hs-theme .list-row-activity .modified { display: none !important; }
+/* 6. List views: prototype header (v1.5.6: the activity column itself goes — see hs_shell.css) */
 html.hs-theme .list-row-head { font-size: 12px; text-transform: none; }
 html.hs-theme .list-row { min-height: 48px; }
 html.hs-theme .frappe-list .result { border-radius: 10px; }

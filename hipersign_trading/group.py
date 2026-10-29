@@ -49,6 +49,7 @@ def trial_balance(company, period_end):
 
 	before = sums(gl.posting_date < fy_start)
 	during = sums((gl.posting_date >= fy_start) & (gl.posting_date <= period_end))
+	ic = intercompany_sums(company, fy_start, period_end)
 	rows, prior_pl = [], 0.0
 	for a in accounts:
 		b = before.get(a.name, (0, 0))
@@ -61,14 +62,62 @@ def trial_balance(company, period_end):
 		closing = opening + d[0] - d[1]
 		if not (opening or d[0] or d[1]):
 			continue
-		rows.append({"account": a.name, "account_name": _short(a.name, company), "root_type": a.root_type, "report_type": a.report_type,
+		row = {"account": a.name, "account_name": _short(a.name, company), "root_type": a.root_type, "report_type": a.report_type,
 			"opening": round(opening, 2), "debit": round(d[0], 2), "credit": round(d[1], 2), "closing": round(closing, 2),
-			"period_movement": round(d[0] - d[1], 2), "is_intercompany": 1 if a.get("hs_intercompany") else 0})
+			"period_movement": round(d[0] - d[1], 2), "is_intercompany": 1 if a.get("hs_intercompany") else 0}
+		# v1.5.6 (GRP-03): the part of an ordinary account that comes from trading with a group company is split off as
+		# its own inter-company row, so the consolidation eliminates it (the FZE sale and purchase used to stay in).
+		part = ic.get(a.name)
+		if part and not row["is_intercompany"]:
+			ic_open, ic_dr, ic_cr = part if a.report_type != "Profit and Loss" else (0.0, part[1], part[2])
+			ic_close = ic_open + ic_dr - ic_cr
+			if abs(ic_close) > 0.004 or abs(ic_dr - ic_cr) > 0.004:
+				rows.append({**row, "opening": round(ic_open, 2), "debit": round(ic_dr, 2), "credit": round(ic_cr, 2),
+					"closing": round(ic_close, 2), "period_movement": round(ic_dr - ic_cr, 2), "is_intercompany": 1})
+				for k, v in (("opening", ic_open), ("debit", ic_dr), ("credit", ic_cr), ("closing", ic_close), ("period_movement", ic_dr - ic_cr)):
+					row[k] = round(row[k] - v, 2)
+		rows.append(row)
 	if abs(prior_pl) > 0.004:
 		rows.append({"account": RE_KEY, "account_name": "Retained earnings (prior years)", "root_type": "Equity", "report_type": "Balance Sheet",
 			"opening": round(prior_pl, 2), "debit": 0, "credit": 0, "closing": round(prior_pl, 2), "period_movement": 0, "is_intercompany": 0})
 	return {"company": company, "currency": frappe.get_cached_value("Company", company, "default_currency"), "year_start": str(fy_start),
 		"period_end": str(period_end), "rows": rows}
+
+
+def intercompany_sums(company, fy_start, period_end):
+	"""Per account: (opening, debit, credit) of entries with group companies, i.e. internal customers and suppliers.
+
+	Balance-sheet accounts count the party's entries (receivable, payable); income and expense accounts count the
+	lines of invoices made to an internal customer or from an internal supplier. VAT stays: it is real tax.
+	"""
+	out = {}
+	party_rows = frappe.db.sql(
+		"""select gle.account,
+			sum(case when gle.posting_date < %(start)s then gle.debit - gle.credit else 0 end),
+			sum(case when gle.posting_date >= %(start)s then gle.debit else 0 end),
+			sum(case when gle.posting_date >= %(start)s then gle.credit else 0 end)
+		from `tabGL Entry` gle
+		where gle.company = %(company)s and gle.is_cancelled = 0 and gle.posting_date <= %(end)s and (
+			(gle.party_type = 'Customer' and gle.party in (select name from `tabCustomer` where is_internal_customer = 1))
+			or (gle.party_type = 'Supplier' and gle.party in (select name from `tabSupplier` where is_internal_supplier = 1)))
+		group by gle.account""",
+		{"company": company, "start": fy_start, "end": period_end},
+	)
+	for acc, o, dr, cr in party_rows:
+		out[acc] = (flt(o), flt(dr), flt(cr))
+	pl_rows = frappe.db.sql(
+		"""select gle.account, 0, sum(gle.debit), sum(gle.credit)
+		from `tabGL Entry` gle join `tabAccount` acc on acc.name = gle.account
+		where gle.company = %(company)s and gle.is_cancelled = 0 and acc.report_type = 'Profit and Loss'
+			and gle.posting_date between %(start)s and %(end)s and (
+			(gle.voucher_type = 'Sales Invoice' and gle.voucher_no in (select name from `tabSales Invoice` where is_internal_customer = 1))
+			or (gle.voucher_type = 'Purchase Invoice' and gle.voucher_no in (select name from `tabPurchase Invoice` where is_internal_supplier = 1)))
+		group by gle.account""",
+		{"company": company, "start": fy_start, "end": period_end},
+	)
+	for acc, o, dr, cr in pl_rows:
+		out[acc] = (flt(o), flt(dr), flt(cr))
+	return out
 
 
 def sync_member(member, period_end=None):
@@ -174,9 +223,9 @@ def consolidate(period_end, currency=None):
 			if r.report_type != "Profit and Loss":
 				bs_total += amt
 		# balance sheet: assets (Dr +) + liabilities/equity (Cr −) + profit for the year (Cr) must be zero; the rest is translation
-		cta = -(bs_total - col["profit"])
+		cta = round(-(bs_total - col["profit"]), 2)  # v1.5.6: no 2.9e-10 left over from the translation
 		col["cta"] = cta
-		lines.setdefault(("Balance Sheet", "Equity", "Profit for the year"), {})[m.name] = -col["profit"]
+		lines.setdefault(("Balance Sheet", "Equity", "Current year profit"), {})[m.name] = -col["profit"]
 		lines.setdefault(("Balance Sheet", "Equity", "Translation reserve (CTA)"), {})[m.name] = cta
 		members.append(col)
 	# minority interests

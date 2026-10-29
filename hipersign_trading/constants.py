@@ -20,7 +20,7 @@ ROLE_MAP = {
 	"Driver": "Driver",
 }
 
-NEW_ROLES = ["Managing Director", "Logistics Coordinator", "HR Manager", "HR User"]
+NEW_ROLES = ["Managing Director", "Logistics Coordinator", "HR Manager", "HR User", "Demo Viewer"]
 
 # Roles without desk access (they only use the mobile web pages)
 WEB_ROLES = ["Driver"]

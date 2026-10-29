@@ -40,7 +40,7 @@ frappe.pages["hipersign-approvals"].on_page_load = function (wrapper) {
 			rows.map((x, i) => ({
 				cells: [
 					ui.pill(x.type, "violet"),
-					`<a href="/app/${frappe.router.slug(x.doctype)}/${encodeURIComponent(x.name)}" class="hsx-doc"><b>${ui.esc(x.name)}</b></a>`,
+					`<a class="hsx-doc" data-hs-route='${ui.esc(JSON.stringify(["Form", x.doctype, x.name]))}'><b>${ui.esc(x.name)}</b></a>`,
 					`<b>${ui.esc(x.description || "")}</b><span class="sub">${__("by {0} · {1} · {2} days", [ui.esc(x.by_name || x.by), frappe.datetime.str_to_user(x.since), x.days])}</span>`,
 					x.value ? ui.money(x.value) : "—",
 					`<b>${ui.esc(x.waiting_for.map((r) => __(r)).join(" / "))}</b><span class="sub">${ui.esc(x.reason || "")}</span>`,

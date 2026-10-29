@@ -24,6 +24,14 @@ def boot_session(bootinfo):
 		info["sidebar"] = "Hipersign ERP"
 		info["home_workspace"] = "Hipersign Trading"
 		info["home_page"] = "hipersign-home" if frappe.db.exists("Page", "hipersign-home") and frappe.get_cached_doc("Page", "hipersign-home").is_permitted() else None
+		info["demo_site"] = bool(frappe.conf.get("hipersign_demo_site"))
+		from hipersign_trading.navigation import NAV_BADGES, sub_items
+
+		info["nav_sub"] = sub_items()
+		info["nav_badges"] = list(NAV_BADGES)
 		bootinfo.hipersign = info
+		from hipersign_trading.demo_access import boot as demo_boot
+
+		demo_boot(bootinfo)
 	except Exception:
 		frappe.log_error(title="Hipersign boot info")

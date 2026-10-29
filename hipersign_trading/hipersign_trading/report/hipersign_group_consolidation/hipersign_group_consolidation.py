@@ -69,6 +69,10 @@ def execute(filters=None):
 	rates = ", ".join(f"{m['member']}: {m['currency']} {round(m['closing_rate'], 4)} closing / {round(m['average_rate'], 4)} average" for m in c["members"] if m["currency"] != cur)
 	if rates:
 		msg = ((msg + "<br>") if msg else "") + _("Rates to {0} — {1}").format(cur, rates)
+	for row in data:  # v1.5.6: whole cents only, so translation leftovers never print as 2.9e-10
+		for k, v in list(row.items()):
+			if isinstance(v, float):
+				row[k] = 0.0 if abs(v) < 0.005 else round(v, 2)
 	return columns, data, msg
 
 

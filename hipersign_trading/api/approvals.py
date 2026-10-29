@@ -72,7 +72,17 @@ def _waivers():
 		"reason": w.reason or "", "value": 0, "waiting_for": [w.approver_role], "actions": ["Approve", "Reject"],
 		"by": w.requested_by or w.owner, "since": str(w.creation)[:10]}
 		for w in frappe.get_all("Document Waiver", filters={"status": "Pending"},
-			fields=["name", "document_type", "reference_doctype", "reference_name", "reason", "approver_role", "requested_by", "owner", "creation"])]
+			fields=["name", "document_type", "reference_doctype", "reference_name", "reason", "approver_role", "requested_by", "owner", "creation"])
+		if waiver_open(w)]
+
+
+def waiver_open(w):
+	"""v1.5.6: an exception for a record that has already moved on (submitted, cancelled or deleted) is no longer waiting."""
+	if not w.reference_doctype or not w.reference_name or not frappe.db.exists(w.reference_doctype, w.reference_name):
+		return False
+	if frappe.get_meta(w.reference_doctype).is_submittable:
+		return frappe.db.get_value(w.reference_doctype, w.reference_name, "docstatus") == 0
+	return True
 
 
 def _tax_returns(company=None):

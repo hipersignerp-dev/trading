@@ -13,6 +13,16 @@ frappe.ui.form.on("Hipersign Settings", {
 		frm.add_custom_button(__("Editable lists"), () => frappe.set_route("List", "Hipersign List Value"), __("Set-up"));
 		frm.add_custom_button(__("Document rules"), () => frappe.set_route("List", "Hipersign Document Rule"), __("Set-up"));
 	},
+	// v1.5.6 (SET-04): picking a pack here applies it, like the Pack menu
+	feature_pack(frm) {
+		const p = frm.doc.feature_pack, prev = frm.__hs_pack || (frm.doc.__onload || {}).feature_pack;
+		if (!["Starter", "Standard", "Enterprise"].includes(p)) return;
+		frappe.confirm(__("Set every feature switch to the {0} pack? No data is deleted.", [__(p)]),
+			() => frm.save(),
+			() => frm.set_value("feature_pack", frm.__hs_pack_saved || prev || "Custom"));
+	},
+	onload_post_render(frm) { frm.__hs_pack_saved = frm.doc.feature_pack; },
+	after_save(frm) { frm.__hs_pack_saved = frm.doc.feature_pack; },
 	company_mode(frm) { if (frm.doc.company_mode === "Group") frm.set_value("feat_group", 1); },
 	feat_imports(frm) { if (!frm.doc.feat_imports && frm.doc.feat_lc) frm.set_value("feat_lc", 0); },
 });

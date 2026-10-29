@@ -42,9 +42,15 @@ def validate(doc, method=None):
 
 	set_fields(doc)
 
+	reason = "\n".join(reasons_sm + reasons_fin)
+	# v1.5.6 (SAL-03): once the order is in approval, the reason that sent it there stays. On submit the order's own
+	# value no longer counts towards credit exposure, so re-checking then used to empty the reason of approved orders.
+	in_approval = doc.docstatus == 1 or (doc.get("workflow_state") or "Draft") not in ("Draft", "Rejected")
+	if in_approval and doc.get("hs_approval_reason"):
+		return
 	doc.hs_needs_sales_manager = 1 if reasons_sm else 0
 	doc.hs_needs_finance = 1 if reasons_fin else 0
-	doc.hs_approval_reason = "\n".join(reasons_sm + reasons_fin)
+	doc.hs_approval_reason = reason
 
 
 def apply_export_terms(doc, s):

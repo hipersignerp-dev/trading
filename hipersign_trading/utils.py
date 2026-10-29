@@ -8,6 +8,14 @@ def settings():
 	return frappe.get_cached_doc(SETTINGS)
 
 
+def user_company(user=None):
+	"""The company the user works in: the top bar scope (user default "Company"), else Hipersign Settings, else the global default."""
+	company = frappe.defaults.get_user_default("Company", user=user)
+	if not company or not frappe.db.exists("Company", company):
+		company = settings().get("company") or frappe.defaults.get_global_default("company")
+	return company
+
+
 def is_export_customer(customer):
 	return bool(customer) and frappe.db.get_value("Customer", customer, "hs_market") == "Export"
 

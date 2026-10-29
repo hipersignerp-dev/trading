@@ -52,6 +52,12 @@ class TaxReturn(Document):
 	# ---------------------------------------------------------------- figures
 	def fetch_vat(self):
 		f = frappe._dict(company=self.company, from_date=self.period_from, to_date=self.period_to)
+		# v1.5.6 (VAT-01): ERPNext's UAE VAT 201 report reads the VAT accounts from UAE VAT Settings and returns zeros
+		# without them, so the return used to show nothing although invoices carried VAT.
+		if not frappe.db.exists("UAE VAT Settings", self.company):
+			self.fetch_vat_from_invoices()
+			self.net_vat = flt(self.output_vat) + flt(self.reverse_charge_vat) - flt(self.input_vat)
+			return
 		try:
 			from erpnext.regional.report.uae_vat_201 import uae_vat_201 as r
 
@@ -95,6 +101,20 @@ class TaxReturn(Document):
 		else:
 			self.tax_payable = flt(max(0, flt(self.taxable_income) - flt(self.ct_threshold)) * CT_RATE / 100, 2)
 
+	def check_not_empty(self):
+		"""v1.5.6 (VAT-01): a VAT return with every box at zero is refused while the period has submitted invoices."""
+		if self.tax_type != "VAT 201":
+			return
+		boxes = ("standard_rated_sales", "output_vat", "zero_rated_sales", "exempt_sales", "reverse_charge_base",
+			"standard_rated_expenses", "input_vat")
+		if any(flt(self.get(b)) for b in boxes):
+			return
+		args = {"company": self.company, "docstatus": 1, "posting_date": ["between", [self.period_from, self.period_to]]}
+		n = frappe.db.count("Sales Invoice", args) + frappe.db.count("Purchase Invoice", args)
+		if n:
+			frappe.throw(_("Every box is zero, but {0} invoices were posted in this period. Check UAE VAT Settings "
+				"(the VAT accounts) and refresh the figures before sending the return.").format(n), title=_("Return is empty"))
+
 	# ---------------------------------------------------------------- workflow
 	def _move(self, status, text):
 		self.status = status
@@ -116,6 +136,7 @@ class TaxReturn(Document):
 		if getdate(self.period_to) >= getdate(today()):
 			frappe.throw(_("The period ends on {0} — prepare the return after it closes.").format(frappe.format(self.period_to, "Date")))
 		self.save()
+		self.check_not_empty()
 		self._move("Pending Finance Manager", _("Sent to the Finance Manager by {0}").format(frappe.session.user))
 
 	@frappe.whitelist()
@@ -124,6 +145,7 @@ class TaxReturn(Document):
 			frappe.throw(_("Only the Finance Manager (Accounts Manager) can approve a tax return."))
 		if self.status != "Pending Finance Manager":
 			frappe.throw(_("The return is not waiting for approval."))
+		self.check_not_empty()
 		self.approved_by, self.approved_on = frappe.session.user, today()
 		if self.tax_type == "VAT 201" and settings().get("lock_filed_periods"):
 			self.accounting_period = lock_period(self.company, self.period_from, self.period_to, self.title)

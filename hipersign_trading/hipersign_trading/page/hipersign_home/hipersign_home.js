@@ -5,21 +5,25 @@ frappe.pages["hipersign-home"].on_page_load = function (wrapper) {
 		title: __("Hipersign Home"),
 		desc: __("One view of purchasing, imports, stock, sales and finance — every number below opens the records behind it."),
 	});
-	const st = { period: "month", company: "" };
+	// v1.5.6: scope (group, country, company) and period come from the top bar, as in the prototype
+	const st = {};
 	let chart = null;
-
-	v.$actions.html(
-		ui.seg("period", [["month", __("This month")], ["last_month", __("Last month")], ["ytd", __("Year to date")]], st.period) +
-			`<select class="hsx-select hsx-co"><option value="">${__("All companies")}</option></select>`
-	);
-	v.$actions.on("click", "[data-seg=period] button", function () {
-		st.period = $(this).attr("data-v");
-		$(this).addClass("on").siblings().removeClass("on");
-		load();
+	$(document).on("hs-scope-change", () => { if (wrapper.hs_load && $(wrapper).is(":visible")) load(); });
+	// v1.5.6: a hidden page's chart has no width — stop it redrawing on resize (negative bar widths in the console)
+	$(wrapper).on("hide", () => {
+		if (chart && chart.destroy) chart.destroy();
 	});
-	v.$actions.on("change", ".hsx-co", function () {
-		st.company = $(this).val();
-		load();
+	$(wrapper).on("show", () => {
+		if (!chart || !chart.boundDrawFn || !chart.parent) return;
+		if (window.ResizeObserver) {
+			chart.resizeObserver = new ResizeObserver(chart.boundDrawFn);
+			chart.resizeObserver.observe(chart.parent);
+		}
+		window.addEventListener("resize", chart.boundDrawFn);
+	});
+	v.$body.on("click", "[data-hs-scope]", function (e) {
+		e.stopPropagation();
+		if (hipersign.topbar && hipersign.topbar.set_scope) hipersign.topbar.set_scope($(this).attr("data-hs-scope"));
 	});
 
 	function money(x, cur) {
@@ -29,11 +33,15 @@ frappe.pages["hipersign-home"].on_page_load = function (wrapper) {
 	function group(g) {
 		if (!g || !g.rows.length) return "";
 		const t = g.totals;
+		// v1.5.6: the prototype's four group tiles; each opens the consolidation
+		const cons = ["query-report", "Hipersign Group Consolidation"];
 		const kp = [
-			{ label: __("Group revenue (YTD)"), value: t.revenue, money: 1, currency: g.currency, tone: "navy", sub: __("after intercompany {0}", [money(t.revenue_after_ic, g.currency)]) },
-			{ label: __("Group profit (YTD)"), value: t.profit, money: 1, currency: g.currency, tone: t.profit >= 0 ? "green" : "red" },
-			{ label: __("Group cash & bank"), value: t.cash, money: 1, currency: g.currency, tone: "green" },
-			{ label: __("Group receivables"), value: t.receivables, money: 1, currency: g.currency, tone: "violet" },
+			{ label: __("Revenue — {0}", [__("year to date")]), value: t.revenue_after_ic, money: 1, currency: g.currency, tone: "navy", route: cons,
+				sub: t.ic ? __("after inter-company · {0} before", [money(t.revenue, g.currency)]) : __("No inter-company sales") },
+			{ label: __("Profit for the year"), value: t.profit, money: 1, currency: g.currency, tone: t.profit >= 0 ? "green" : "red", route: cons,
+				sub: t.revenue ? __("{0}% of revenue", [flt((t.profit / t.revenue) * 100, 1)]) : "" },
+			{ label: __("Cash & bank"), value: t.cash, money: 1, currency: g.currency, tone: "green", route: cons, sub: __("Receivables {0}", [money(t.receivables, g.currency)]) },
+			{ label: __("Stock"), value: t.stock, money: 1, currency: g.currency, tone: "violet", route: cons, sub: __("Payables {0}", [money(t.payables, g.currency)]) },
 		].map(ui.kpi).join("");
 		const rows = g.rows.map((r) => ({
 			cells: [
@@ -44,17 +52,18 @@ frappe.pages["hipersign-home"].on_page_load = function (wrapper) {
 				r.remote ? "—" : `${flt(r.gross_margin, 1)}%`,
 				money(r.profit, g.currency),
 				r.remote ? "—" : money(r.cash, g.currency),
+				r.remote ? "" : `<button class="btn btn-xs btn-default" data-hs-scope="company:${ui.esc(r.company)}">${__("View")}</button>`,
 			],
 			route: r.remote ? ["Form", "Hipersign Group Member", r.company] : null,
 		}));
 		const table = ui.table(
 			[{ label: __("Company") }, { label: __("Currency") }, { label: __("Revenue (local)"), cls: "n" }, { label: __("Revenue ({0})", [g.currency]), cls: "n" },
-				{ label: __("Gross margin"), cls: "n" }, { label: __("Profit ({0})", [g.currency]), cls: "n" }, { label: __("Cash ({0})", [g.currency]), cls: "n" }],
+				{ label: __("Gross margin"), cls: "n" }, { label: __("Profit ({0})", [g.currency]), cls: "n" }, { label: __("Cash ({0})", [g.currency]), cls: "n" }, { label: "" }],
 			rows
 		);
-		return ui.card(__("Group"), `<div class="hsx-kpis" style="margin-bottom:12px">${kp}</div>${table}`, {
+		return ui.card(__("{0} — {1} companies", [st.scope_label || __("Whole group"), g.rows.length]), `<div class="hsx-kpis" style="margin-bottom:12px">${kp}</div>${table}`, {
 			icon: "organization",
-			sub: __("Year to date · translated to {0} at average rates (cash at closing rate)", [g.currency]),
+			sub: __("In {0} — profit at average rates, balances at closing rates", [g.currency]),
 			actions: `<button class="btn btn-xs btn-default" data-hs-route='["query-report","Hipersign Group Consolidation"]'>${__("Group consolidation")}</button>`,
 		});
 	}
@@ -114,9 +123,8 @@ frappe.pages["hipersign-home"].on_page_load = function (wrapper) {
 
 	function render(d) {
 		st.label = d.period.label;
-		const $co = v.$actions.find(".hsx-co");
-		if ($co.find("option").length === 1) d.companies.forEach((c) => $co.append(`<option value="${ui.esc(c)}">${ui.esc(c)}</option>`));
-		$co.toggle(d.companies.length > 1).val(st.company);
+		st.scope_label = d.scope_label;
+		v.$actions.html(`<span class="hsx-chip">${ui.esc(d.period.label)}</span>`);
 		const cur = d.currency;
 		const k = d.kpis.map((x) => Object.assign({ currency: cur }, x));
 		v.$body.html(
@@ -130,6 +138,7 @@ frappe.pages["hipersign-home"].on_page_load = function (wrapper) {
 		);
 		const el = v.$body.find(".hsx-chart")[0];
 		if (!el) return;
+		if (chart && chart.destroy) chart.destroy();
 		chart = new frappe.Chart(el, {
 			type: "bar",
 			height: 240,
@@ -143,7 +152,7 @@ frappe.pages["hipersign-home"].on_page_load = function (wrapper) {
 
 	function load() {
 		if (!v.$body.children().length) ui.loading(v.$body);
-		frappe.xcall("hipersign_trading.api.home.get_home", { period: st.period, company: st.company || null }).then(render);
+		frappe.xcall("hipersign_trading.api.home.get_home", {}).then(render);
 	}
 
 	wrapper.hs_load = load;

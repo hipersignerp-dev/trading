@@ -25,7 +25,12 @@ frappe.ui.form.on("Post Dated Cheque", {
 	refresh(frm) {
 		if (frm.is_new()) return;
 		const go = (method, args, msg) =>
-			frm.call(method, args || {}).then(() => { frm.reload_doc(); if (msg) frappe.show_alert({ message: msg, indicator: "green" }); });
+			frm.call(method, args || {}).then((r) => {
+				frm.reload_doc();
+				// v1.5.6: say what was actually posted — a bank journal when the cheque was booked on receipt, else a payment
+				if (msg === "cleared") msg = frm.doc.posted ? __("Cleared — bank journal {0} posted", [r.message]) : __("Cleared — payment {0} created", [r.message]);
+				if (msg) frappe.show_alert({ message: msg, indicator: "green" });
+			});
 		const st = frm.doc.status;
 		const due = frappe.datetime.get_day_diff(frm.doc.cheque_date, frappe.datetime.get_today());
 		frm.dashboard.clear_headline();
@@ -36,12 +41,12 @@ frappe.ui.form.on("Post Dated Cheque", {
 			);
 		if (st === "In Hand") frm.add_custom_button(__("Deposit"), () => go("deposit", {}, __("Deposited"))).addClass("btn-primary");
 		if (st === "Deposited") {
-			frm.add_custom_button(__("Cleared"), () => go("clear", {}, __("Payment Entry created"))).addClass("btn-primary");
+			frm.add_custom_button(__("Cleared"), () => go("clear", {}, "cleared")).addClass("btn-primary");
 			frm.add_custom_button(__("Bounced"), () =>
 				frappe.prompt({ fieldname: "reason", fieldtype: "Data", label: __("Bank return reason"), default: __("Insufficient funds") },
 					(v) => go("bounce", v, __("Marked as bounced"))));
 		}
-		if (st === "Issued") frm.add_custom_button(__("Presented & cleared"), () => go("clear", {}, __("Payment Entry created"))).addClass("btn-primary");
+		if (st === "Issued") frm.add_custom_button(__("Presented & cleared"), () => go("clear", {}, "cleared")).addClass("btn-primary");
 		if (st === "Bounced")
 			frm.add_custom_button(__("Replacement cheque"), () =>
 				frappe.prompt([

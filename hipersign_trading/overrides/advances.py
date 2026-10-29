@@ -90,3 +90,31 @@ def payment_entry_changed(doc, method=None):
 	for r in doc.get("references") or []:
 		if r.reference_doctype == "Sales Order" and r.reference_name:
 			refresh(r.reference_name)
+
+
+def on_hold(sales_order):
+	"""v1.5.6: True while the order's advance is still due and no approved exception lets it go ahead."""
+	if not feature_on("advances") or not settings().get("advance_before_delivery") or not sales_order or not frappe.db.exists("Sales Order", sales_order):
+		return False
+	so = frappe.get_doc("Sales Order", sales_order)
+	required, received = position(so)
+	if status_of(required, received) not in ("Waiting", "Part received"):
+		return False
+	return not frappe.db.exists("Document Waiver", {"reference_doctype": "Sales Order", "reference_name": sales_order,
+		"document_type": "Advance payment", "status": ["in", ["Approved", "Used"]]})
+
+
+@frappe.whitelist()
+def advance_payment_entry(sales_order):
+	"""v1.5.6 (ADV-02): "Receive advance" pre-fills the advance still due, not the whole order."""
+	from erpnext.accounts.doctype.payment_entry.payment_entry import get_payment_entry
+
+	so = frappe.get_doc("Sales Order", sales_order)
+	so.check_permission("read")
+	required, received = position(so)
+	due = max(0.0, required - received)
+	if due <= 0:
+		frappe.throw(_("The advance on {0} has been received.").format(so.name))
+	rate = flt(so.conversion_rate or 1)
+	in_order_currency = due / rate if (so.get("party_account_currency") or so.currency) == so.currency and rate else due
+	return get_payment_entry("Sales Order", so.name, party_amount=flt(in_order_currency, 2))

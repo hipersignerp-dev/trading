@@ -11,7 +11,7 @@ msgid "Post-dated cheques"
 msgstr "الشيكات المؤجلة"
 
 msgid "Post-dated cheques in hand"
-msgstr "شيكات مؤجلة بالصندوق"
+msgstr "شيكات آجلة بالصندوق"
 
 msgid "Cheques due to deposit"
 msgstr "شيكات مستحقة للإيداع"
@@ -41,7 +41,7 @@ msgid "Cleared"
 msgstr "تم التحصيل"
 
 msgid "Bounced"
-msgstr "مرتجع"
+msgstr "مرتجعة"
 
 msgid "Replaced"
 msgstr "مستبدل"
@@ -677,7 +677,7 @@ msgid "Applied"
 msgstr "المطبَّق"
 
 msgid "Approve"
-msgstr "اعتماد"
+msgstr "موافقة"
 
 msgid "Approve exception"
 msgstr "اعتماد الاستثناء"
@@ -1268,7 +1268,7 @@ msgid "Quick {0}"
 msgstr "{0} سريع"
 
 msgid "Quotation"
-msgstr "عرض السعر"
+msgstr "عرض سعر"
 
 msgid "Rates to {0} — {1}"
 msgstr "الأسعار إلى {0} — {1}"
@@ -1283,7 +1283,7 @@ msgid "Record"
 msgstr "تسجيل"
 
 msgid "Record receipt"
-msgstr "تسجيل الاستلام"
+msgstr "تسجيل الإيصال"
 
 msgid "Record renewal"
 msgstr "تسجيل التجديد"
@@ -3608,7 +3608,7 @@ msgid "Cheques"
 msgstr "الشيكات"
 
 msgid "VAT"
-msgstr "ضريبة القيمة المضافة"
+msgstr "الضريبة"
 
 msgid "Employee documents"
 msgstr "مستندات الموظفين"
@@ -3639,3 +3639,873 @@ msgstr "فشل"
 
 msgid "Not run"
 msgstr "لم يُنفَّذ"
+
+msgid "Sales order"
+msgstr "أمر البيع"
+
+msgid "Customer group"
+msgstr "مجموعة العملاء"
+
+msgid "Purchasing & imports"
+msgstr "المشتريات والاستيراد"
+
+msgid "Service provider"
+msgstr "مزود خدمة"
+
+msgid "Import shipment"
+msgstr "شحنة استيراد"
+
+msgid "Letter of credit"
+msgstr "اعتماد مستندي"
+
+msgid "Bank guarantee"
+msgstr "ضمان بنكي"
+
+msgid "Exports"
+msgstr "الصادرات"
+
+msgid "Export order"
+msgstr "أمر تصدير"
+
+msgid "Products, services & stock"
+msgstr "المنتجات والخدمات والمخزون"
+
+msgid "Purchase request"
+msgstr "طلب شراء"
+
+msgid "Stock item"
+msgstr "صنف مخزني"
+
+msgid "Stock transfer"
+msgstr "تحويل مخزون"
+
+msgid "Stock count"
+msgstr "جرد المخزون"
+
+msgid "Serial number look-up"
+msgstr "البحث برقم التسلسل"
+
+msgid "Warranty claim"
+msgstr "مطالبة ضمان"
+
+msgid "Supplier bills"
+msgstr "فواتير الموردين"
+
+msgid "Supplier bill"
+msgstr "فاتورة مورد"
+
+msgid "Journal entry"
+msgstr "قيد يومية"
+
+msgid "Cheque received (PDC)"
+msgstr "شيك مستلم (مؤجل)"
+
+msgid "Cheque issued (PDC)"
+msgstr "شيك صادر (مؤجل)"
+
+msgid "Credit note (sales return)"
+msgstr "إشعار دائن (مرتجع مبيعات)"
+
+msgid "Debit note (purchase return)"
+msgstr "إشعار مدين (مرتجع مشتريات)"
+
+msgid "Driver & vehicle"
+msgstr "السائق والمركبة"
+
+msgid "Delivery trip"
+msgstr "رحلة توصيل"
+
+msgid "Bank account"
+msgstr "حساب بنكي"
+
+msgid "Payment terms"
+msgstr "شروط الدفع"
+
+msgid "Credit limit request"
+msgstr "طلب حد ائتماني"
+
+msgid "Expense claim"
+msgstr "مطالبة مصروفات"
+
+msgid "Employee advance"
+msgstr "سلفة موظف"
+
+msgid "Leave request"
+msgstr "طلب إجازة"
+
+msgid "Fixed asset"
+msgstr "أصل ثابت"
+
+msgid "Administration"
+msgstr "الإدارة"
+
+msgid "Search items, orders, customers, shipments…"
+msgstr "ابحث عن الأصناف والطلبات والعملاء والشحنات…"
+
+msgid "Whole group · {0} companies"
+msgstr "المجموعة كاملة · {0} شركات"
+
+msgid "{0} · {1} companies"
+msgstr "{0} · {1} شركات"
+
+msgid "Whole group"
+msgstr "المجموعة كاملة"
+
+msgid "companies"
+msgstr "شركات"
+
+msgid "Working in {0}"
+msgstr "العمل في {0}"
+
+msgid "Showing {0} · new documents use {1}"
+msgstr "عرض {0} · المستندات الجديدة تستخدم {1}"
+
+msgid "No records match {0}"
+msgstr "لا توجد سجلات تطابق {0}"
+
+msgid "Search everywhere for “{0}”"
+msgstr "ابحث في كل مكان عن «{0}»"
+
+msgid "Form mode — click to change"
+msgstr "وضع النموذج — انقر للتغيير"
+
+msgid "Create new"
+msgstr "إنشاء جديد"
+
+msgid "{0} now opens in {1}"
+msgstr "يفتح {0} الآن في وضع {1}"
+
+msgid "{0} new"
+msgstr "{0} جديد"
+
+msgid "{0} more"
+msgstr "{0} أخرى"
+
+msgid "Open the full list"
+msgstr "فتح القائمة كاملة"
+
+msgid "You're all caught up."
+msgstr "لا يوجد جديد."
+
+msgid "Mark all read"
+msgstr "تحديد الكل كمقروء"
+
+msgid "Back to {0}"
+msgstr "العودة إلى {0}"
+
+msgid "Switch user"
+msgstr "تبديل المستخدم"
+
+msgid "Add user"
+msgstr "إضافة مستخدم"
+
+msgid "Manage users"
+msgstr "إدارة المستخدمين"
+
+msgid "Leave presentation mode"
+msgstr "إنهاء وضع العرض"
+
+msgid "Presentation mode"
+msgstr "وضع العرض"
+
+msgid "My settings"
+msgstr "إعداداتي"
+
+msgid "Toggle theme"
+msgstr "تبديل المظهر"
+
+msgid "View-only demo — look around freely; nothing you do here is saved."
+msgstr "عرض تجريبي للاطلاع فقط — تصفّح بحرية؛ لا يُحفظ أي شيء تفعله هنا."
+
+msgid "Book a demo"
+msgstr "احجز عرضاً"
+
+msgid "DEMO"
+msgstr "تجريبي"
+
+msgid "Demonstration environment"
+msgstr "بيئة العرض التجريبي"
+
+msgid "Pack"
+msgstr "الباقة"
+
+msgid "Change pack"
+msgstr "تغيير الباقة"
+
+msgid "Book a free demo"
+msgstr "احجز عرضًا تجريبيًا مجانيًا"
+
+msgid "See Hipersign ERP running your trading business — purchasing, imports, stock, sales, exports, finance, HR and assets — with your own data in a free, personalised demo."
+msgstr "شاهد Hipersign ERP يدير أعمالك التجارية — المشتريات والاستيراد والمخزون والمبيعات والتصدير والمالية والموارد البشرية والأصول — ببياناتك في عرض تجريبي مجاني مخصص لك."
+
+msgid "Your name"
+msgstr "اسمك"
+
+msgid "Mobile / WhatsApp"
+msgstr "الجوال / واتساب"
+
+msgid "Interested in"
+msgstr "مهتم بـ"
+
+msgid "Preferred time"
+msgstr "الوقت المفضل"
+
+msgid "Send on WhatsApp"
+msgstr "إرسال عبر واتساب"
+
+msgid "Send by email"
+msgstr "إرسال بالبريد الإلكتروني"
+
+msgid "WhatsApp opened with your request — press send there"
+msgstr "تم فتح واتساب مع طلبك — اضغط إرسال هناك"
+
+msgid "Email opened with your request — press send there"
+msgstr "تم فتح البريد مع طلبك — اضغط إرسال هناك"
+
+msgid "New lead"
+msgstr "عميل محتمل جديد"
+
+msgid "Company, contact and what they are interested in"
+msgstr "الشركة وجهة الاتصال وما يهتمون به"
+
+msgid "Company / client"
+msgstr "الشركة / العميل"
+
+msgid "Contact person"
+msgstr "الشخص المسؤول"
+
+msgid "Emirate"
+msgstr "الإمارة"
+
+msgid "Estimated value (AED)"
+msgstr "القيمة التقديرية (درهم)"
+
+msgid "Expected close"
+msgstr "الإغلاق المتوقع"
+
+msgid "Stage"
+msgstr "المرحلة"
+
+msgid "Next follow-up"
+msgstr "المتابعة التالية"
+
+msgid "Next action"
+msgstr "الإجراء التالي"
+
+msgid "New customer"
+msgstr "عميل جديد"
+
+msgid "Customer master — pricing group, terms and credit"
+msgstr "بيانات العميل — مجموعة التسعير والشروط والائتمان"
+
+msgid "Company / client name"
+msgstr "اسم الشركة / العميل"
+
+msgid "Decides the selling rate"
+msgstr "تحدد سعر البيع"
+
+msgid "Market"
+msgstr "السوق"
+
+msgid "Emirate / city (UAE)"
+msgstr "الإمارة / المدينة (الإمارات)"
+
+msgid "Country (city) — export"
+msgstr "الدولة (المدينة) — تصدير"
+
+msgid "Invoice currency"
+msgstr "عملة الفاتورة"
+
+msgid "TRN"
+msgstr "الرقم الضريبي"
+
+msgid "15 digits — needed before the first tax invoice"
+msgstr "15 رقمًا — مطلوب قبل أول فاتورة ضريبية"
+
+msgid "Credit limit (AED)"
+msgstr "الحد الائتماني (درهم)"
+
+msgid "New or higher limits go to the Finance Manager for approval"
+msgstr "الحدود الجديدة أو الأعلى تُرسل إلى المدير المالي للموافقة"
+
+msgid "Lead source"
+msgstr "مصدر العميل المحتمل"
+
+msgid "New supplier"
+msgstr "مورد جديد"
+
+msgid "Supplier register"
+msgstr "سجل الموردين"
+
+msgid "Supplier name"
+msgstr "اسم المورد"
+
+msgid "Supplier type"
+msgstr "نوع المورد"
+
+msgid "Goods suppliers appear on purchase orders; the rest are import service providers"
+msgstr "موردو البضائع يظهرون في أوامر الشراء؛ والباقون مزودو خدمات استيراد"
+
+msgid "Country (city)"
+msgstr "الدولة (المدينة)"
+
+msgid "Order currency"
+msgstr "عملة الطلب"
+
+msgid "Default incoterm"
+msgstr "شرط التسليم الافتراضي"
+
+msgid "Phone / WhatsApp"
+msgstr "الهاتف / واتساب"
+
+msgid "TRN (UAE suppliers)"
+msgstr "الرقم الضريبي (موردو الإمارات)"
+
+msgid "15 digits — optional"
+msgstr "15 رقمًا — اختياري"
+
+msgid "Supplier bank"
+msgstr "بنك المورد"
+
+msgid "Supplier bank IBAN"
+msgstr "رقم الآيبان لبنك المورد"
+
+msgid "Optional — for payments"
+msgstr "اختياري — للمدفوعات"
+
+msgid "New item"
+msgstr "صنف جديد"
+
+msgid "Item master — pricing, HS code and barcode"
+msgstr "بيانات الصنف — التسعير ورمز النظام المنسق والباركود"
+
+msgid "Item name (English)"
+msgstr "اسم الصنف (إنجليزي)"
+
+msgid "Item name (Arabic)"
+msgstr "اسم الصنف (عربي)"
+
+msgid "Shown on bilingual documents"
+msgstr "يظهر في المستندات ثنائية اللغة"
+
+msgid "HS code"
+msgstr "رمز النظام المنسق"
+
+msgid "Used for customs and duty"
+msgstr "يُستخدم للجمارك والرسوم"
+
+msgid "Country of origin"
+msgstr "بلد المنشأ"
+
+msgid "Standard cost (AED)"
+msgstr "التكلفة القياسية (درهم)"
+
+msgid "Standard selling price (AED)"
+msgstr "سعر البيع القياسي (درهم)"
+
+msgid "Kept in stock"
+msgstr "يُحفظ في المخزون"
+
+msgid "Untick for a service (installation, freight, labour…)"
+msgstr "ألغِ التحديد للخدمات (تركيب، شحن، عمالة…)"
+
+msgid "Default warehouse"
+msgstr "المستودع الافتراضي"
+
+msgid "New warehouse"
+msgstr "مستودع جديد"
+
+msgid "Stock location"
+msgstr "موقع المخزون"
+
+msgid "Warehouse name"
+msgstr "اسم المستودع"
+
+msgid "Location / address"
+msgstr "الموقع / العنوان"
+
+msgid "Capacity (pallet positions)"
+msgstr "السعة (مواقع المنصات)"
+
+msgid "Warehouse in-charge"
+msgstr "مسؤول المستودع"
+
+msgid "New driver & vehicle"
+msgstr "سائق ومركبة جديدان"
+
+msgid "Delivery driver and the vehicle they drive"
+msgstr "سائق التوصيل والمركبة التي يقودها"
+
+msgid "Driver name"
+msgstr "اسم السائق"
+
+msgid "Vehicle plate"
+msgstr "لوحة المركبة"
+
+msgid "Vehicle type"
+msgstr "نوع المركبة"
+
+msgid "New employee"
+msgstr "موظف جديد"
+
+msgid "Employee master — salary for WPS and UAE document expiries"
+msgstr "بيانات الموظف — الراتب لنظام حماية الأجور وانتهاء الوثائق"
+
+msgid "Full name"
+msgstr "الاسم الكامل"
+
+msgid "Joining date"
+msgstr "تاريخ الالتحاق"
+
+msgid "Date of birth"
+msgstr "تاريخ الميلاد"
+
+msgid "Basic salary (AED)"
+msgstr "الراتب الأساسي (درهم)"
+
+msgid "Housing allowance"
+msgstr "بدل السكن"
+
+msgid "Transport allowance"
+msgstr "بدل المواصلات"
+
+msgid "Other allowance"
+msgstr "بدلات أخرى"
+
+msgid "Salary account IBAN (WPS)"
+msgstr "آيبان حساب الراتب (حماية الأجور)"
+
+msgid "Document expiries"
+msgstr "انتهاء الوثائق"
+
+msgid "Passport expiry"
+msgstr "انتهاء جواز السفر"
+
+msgid "New fixed asset"
+msgstr "أصل ثابت جديد"
+
+msgid "Asset register — cost, custodian and renewals"
+msgstr "سجل الأصول — التكلفة والعهدة والتجديدات"
+
+msgid "Asset name"
+msgstr "اسم الأصل"
+
+msgid "Purchase date"
+msgstr "تاريخ الشراء"
+
+msgid "Cost (AED, excl. VAT)"
+msgstr "التكلفة (درهم، دون ضريبة القيمة المضافة)"
+
+msgid "Residual value (AED)"
+msgstr "القيمة المتبقية (درهم)"
+
+msgid "Useful life (months)"
+msgstr "العمر الإنتاجي (أشهر)"
+
+msgid "Vehicles and renewals"
+msgstr "المركبات والتجديدات"
+
+msgid "Plate no. (vehicles)"
+msgstr "رقم اللوحة (للمركبات)"
+
+msgid "Registration (Mulkiya) expiry"
+msgstr "انتهاء الملكية"
+
+msgid "Insurance expiry"
+msgstr "انتهاء التأمين"
+
+msgid "Next service"
+msgstr "الصيانة التالية"
+
+msgid "New contact"
+msgstr "جهة اتصال جديدة"
+
+msgid "A person at a customer or supplier"
+msgstr "شخص لدى عميل أو مورد"
+
+msgid "Contact name"
+msgstr "اسم جهة الاتصال"
+
+msgid "e.g. Purchasing, Accounts, Site engineer"
+msgstr "مثلًا: المشتريات، الحسابات، مهندس الموقع"
+
+msgid "Receives reports & statements"
+msgstr "يستلم التقارير وكشوف الحساب"
+
+msgid "Primary contact"
+msgstr "جهة الاتصال الرئيسية"
+
+msgid "New address"
+msgstr "عنوان جديد"
+
+msgid "Billing, delivery or site address"
+msgstr "عنوان الفوترة أو التسليم أو الموقع"
+
+msgid "Address name"
+msgstr "اسم العنوان"
+
+msgid "e.g. JLT site, Main office"
+msgstr "مثلًا: موقع أبراج بحيرات جميرا، المكتب الرئيسي"
+
+msgid "Site contact & phone"
+msgstr "مسؤول الموقع والهاتف"
+
+msgid "Map pin / landmark"
+msgstr "موقع الخريطة / معلم قريب"
+
+msgid "New customer group"
+msgstr "مجموعة عملاء جديدة"
+
+msgid "Pricing group — discount, terms and credit"
+msgstr "مجموعة التسعير — الخصم والشروط والائتمان"
+
+msgid "Group name"
+msgstr "اسم المجموعة"
+
+msgid "Discount on Standard Selling (%)"
+msgstr "الخصم على سعر البيع القياسي (%)"
+
+msgid "Default payment terms"
+msgstr "شروط الدفع الافتراضية"
+
+msgid "Default credit limit (AED)"
+msgstr "الحد الائتماني الافتراضي (درهم)"
+
+msgid "New payment terms"
+msgstr "شروط دفع جديدة"
+
+msgid "Advance and balance"
+msgstr "الدفعة المقدمة والرصيد"
+
+msgid "Template name"
+msgstr "اسم القالب"
+
+msgid "e.g. 30% advance, balance 60 days"
+msgstr "مثلًا: 30% مقدمًا، والباقي خلال 60 يومًا"
+
+msgid "Advance (%)"
+msgstr "الدفعة المقدمة (%)"
+
+msgid "Balance due in (days)"
+msgstr "استحقاق الرصيد خلال (أيام)"
+
+msgid "Counted from"
+msgstr "يُحتسب من"
+
+msgid "New bank account"
+msgstr "حساب بنكي جديد"
+
+msgid "Company bank account — shown on invoices"
+msgstr "حساب الشركة البنكي — يظهر في الفواتير"
+
+msgid "Account name"
+msgstr "اسم الحساب"
+
+msgid "SWIFT / BIC"
+msgstr "رمز السويفت"
+
+msgid "Default account for invoices"
+msgstr "الحساب الافتراضي للفواتير"
+
+msgid "New service"
+msgstr "خدمة جديدة"
+
+msgid "{0} {1} saved"
+msgstr "تم حفظ {0} {1}"
+
+msgid "Lists"
+msgstr "القوائم"
+
+msgid "See it run your business"
+msgstr "شاهده يدير أعمالك"
+
+msgid "credit note"
+msgstr "إشعار دائن"
+
+msgid "Nothing you can create here — ask your administrator for access."
+msgstr "لا يوجد ما يمكنك إنشاؤه هنا — اطلب الصلاحية من مسؤول النظام."
+
+msgid "Open in {0} and remember it"
+msgstr "افتح في وضع {0} وتذكّر الاختيار"
+
+msgid "Opens a page"
+msgstr "يفتح صفحة"
+
+msgid "Opens in {0}"
+msgstr "يفتح في وضع {0}"
+
+msgid "Opens the form"
+msgstr "يفتح النموذج"
+
+msgid "Scan a barcode or type a serial number"
+msgstr "امسح الباركود أو اكتب رقم التسلسل"
+
+msgid "You will see the item, when it was received, which customer bought it and when it was delivered, whether the warranty still covers it, and any claims — and you can register a new claim from here."
+msgstr "سترى الصنف، ومتى تم استلامه، وأي عميل اشتراه ومتى سُلِّم، وهل لا يزال مشمولًا بالضمان، وأي مطالبات — ويمكنك تسجيل مطالبة جديدة من هنا."
+
+msgid "{0} days from delivery"
+msgstr "{0} يومًا من التسليم"
+
+msgid "In our stock"
+msgstr "في مخزوننا"
+
+msgid "Preview"
+msgstr "معاينة"
+
+msgid "showing exactly what {0} sees in the customer portal."
+msgstr "يعرض تمامًا ما يراه {0} في بوابة العملاء."
+
+msgid "Back to the ERP"
+msgstr "العودة إلى النظام"
+
+msgid "Statement"
+msgstr "كشف الحساب"
+
+msgid "Goods supplier"
+msgstr "مورد بضائع"
+
+msgid "Freight & Shipping"
+msgstr "الشحن والنقل"
+
+msgid "Customs broker"
+msgstr "مخلّص جمركي"
+
+msgid "Handling"
+msgstr "المناولة"
+
+msgid "Other services"
+msgstr "خدمات أخرى"
+
+msgid "Abu Dhabi"
+msgstr "أبوظبي"
+
+msgid "Dubai"
+msgstr "دبي"
+
+msgid "Sharjah"
+msgstr "الشارقة"
+
+msgid "Ajman"
+msgstr "عجمان"
+
+msgid "Umm Al Quwain"
+msgstr "أم القيوين"
+
+msgid "Ras Al Khaimah"
+msgstr "رأس الخيمة"
+
+msgid "Fujairah"
+msgstr "الفجيرة"
+
+msgid "Delivery period"
+msgstr "مدة التسليم"
+
+msgid "Warranty (months)"
+msgstr "الضمان (أشهر)"
+
+msgid "Usual Incoterm"
+msgstr "شرط التسليم المعتاد"
+
+msgid "Receives statements & reports"
+msgstr "يستلم كشوف الحساب والتقارير"
+
+msgid "Salary (WPS)"
+msgstr "الراتب (حماية الأجور)"
+
+msgid "Vehicle & service"
+msgstr "المركبة والصيانة"
+
+msgid "Plate no."
+msgstr "رقم اللوحة"
+
+msgid "Fill in {0}"
+msgstr "أدخل {0}"
+
+msgid "Missing information"
+msgstr "معلومات ناقصة"
+
+msgid "TRN must be 15 digits"
+msgstr "يجب أن يتكون الرقم الضريبي من 15 رقمًا"
+
+msgid "Check the email address"
+msgstr "تحقق من عنوان البريد الإلكتروني"
+
+msgid "Enter a valid mobile / WhatsApp number"
+msgstr "أدخل رقم جوال / واتساب صحيحًا"
+
+msgid "Enter the country for an export customer"
+msgstr "أدخل الدولة لعميل التصدير"
+
+msgid "{0} is already a customer"
+msgstr "{0} عميل مسجل بالفعل"
+
+msgid "{0} is already in the supplier register"
+msgstr "{0} مسجل بالفعل في سجل الموردين"
+
+msgid "Enter the standard cost and the standard selling price"
+msgstr "أدخل التكلفة القياسية وسعر البيع القياسي"
+
+msgid "Enter the basic salary"
+msgstr "أدخل الراتب الأساسي"
+
+msgid "Enter the cost"
+msgstr "أدخل التكلفة"
+
+msgid "Quotations & Orders"
+msgstr "عروض الأسعار والطلبات"
+
+msgid "VAT & E-invoicing"
+msgstr "الضريبة والفوترة الإلكترونية"
+
+msgid "Group & Countries"
+msgstr "المجموعة والدول"
+
+msgid "Company Compliance"
+msgstr "امتثال الشركة"
+
+msgid "Workflows & Settings"
+msgstr "سير العمل والإعدادات"
+
+msgid "Document Centre"
+msgstr "مركز المستندات"
+
+msgid "Export Shipments"
+msgstr "شحنات التصدير"
+
+msgid "Import Shipments"
+msgstr "شحنات الاستيراد"
+
+msgid "Landed Cost Vouchers"
+msgstr "قسائم تكلفة الوصول"
+
+msgid "Purchase Receipts"
+msgstr "إيصالات الشراء"
+
+msgid "Letters of Credit"
+msgstr "الاعتمادات المستندية"
+
+msgid "Tax Returns"
+msgstr "الإقرارات الضريبية"
+
+msgid "Group Consolidation"
+msgstr "توحيد المجموعة"
+
+msgid "Company Documents"
+msgstr "مستندات الشركة"
+
+msgid "Company Deadlines"
+msgstr "مواعيد الشركة النهائية"
+
+msgid "Document Waivers"
+msgstr "إعفاءات المستندات"
+
+msgid "Add-ons"
+msgstr "الإضافات"
+
+msgid "high"
+msgstr "عالية"
+
+msgid "Managing Director"
+msgstr "المدير العام"
+
+msgid "Administrator"
+msgstr "مدير النظام"
+
+msgid "Accountant"
+msgstr "محاسب"
+
+msgid "Finance Manager"
+msgstr "المدير المالي"
+
+msgid "Sales Manager"
+msgstr "مدير المبيعات"
+
+msgid "Sales Executive"
+msgstr "مندوب مبيعات"
+
+msgid "Purchase Manager"
+msgstr "مدير المشتريات"
+
+msgid "Buyer"
+msgstr "مسؤول مشتريات"
+
+msgid "Warehouse Manager"
+msgstr "مدير المستودع"
+
+msgid "Storekeeper"
+msgstr "أمين مخزن"
+
+msgid "Logistics Coordinator"
+msgstr "منسق الخدمات اللوجستية"
+
+msgid "HR Manager"
+msgstr "مدير الموارد البشرية"
+
+msgid "Print"
+msgstr "طباعة"
+
+msgid "Invoice date"
+msgstr "تاريخ الفاتورة"
+
+msgid "Balance"
+msgstr "الرصيد"
+
+msgid "To deliver"
+msgstr "للتسليم"
+
+msgid "Take photo"
+msgstr "التقاط صورة"
+
+msgid "Direct"
+msgstr "مباشرة"
+
+msgid "Accounting"
+msgstr "المحاسبة"
+
+msgid "Attendance"
+msgstr "الحضور"
+
+msgid "Leave"
+msgstr "الإجازات"
+
+msgid "Warehouse"
+msgstr "المستودع"
+
+msgid "Asset"
+msgstr "الأصل"
+
+msgid "Delivery note"
+msgstr "إشعار التسليم"
+
+msgid "Available"
+msgstr "المتاح"
+
+msgid "Price"
+msgstr "السعر"
+
+msgid "Owner"
+msgstr "المسؤول"
+
+msgid "Cheque"
+msgstr "الشيك"
+
+msgid "Claim"
+msgstr "المطالبة"
+
+msgid "Notifications"
+msgstr "الإشعارات"
+
+msgid "Cancel"
+msgstr "إلغاء"
+
+msgid "Submit"
+msgstr "إرسال"
+
+msgid "WhatsApp"
+msgstr "واتساب"
+
+msgid "Approval"
+msgstr "الموافقة"
+
+msgid "Pay"
+msgstr "دفع"
