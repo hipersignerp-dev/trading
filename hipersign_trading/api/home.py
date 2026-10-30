@@ -172,7 +172,7 @@ def lifecycle(company, start, end):
 	ar = _co({"docstatus": 1, "outstanding_amount": [">", 0]}, company)
 	return [
 		{"n": "01", "icon": "shopping-cart", "title": _("Supplier purchasing"), "big": _("{0} open POs").format(_count("Purchase Order", open_po)),
-			"small": _sum("Purchase Order", "base_grand_total", open_po), "small_is_money": 1, "route": ["List", "Purchase Order"], "options": {"per_received": ["<", 100], "docstatus": 1}},
+			"small": _sum("Purchase Order", "base_grand_total", open_po), "small_is_money": 1, "route": ["hipersign-purchasing"]},
 		{"n": "02", "icon": "ship", "title": _("Import & shipment"),
 			"big": _("{0} shipments open").format(_count("Import Shipment", _co({"status": ["not in", ["Received at Warehouse"]]}, company))),
 			"small": _("{0} at port / customs").format(_count("Import Shipment", _co({"status": ["in", ["Arrived at Port", "Under Customs Clearance"]]}, company))),
@@ -233,7 +233,7 @@ def kpis(company, start, end, label):
 	appr = pending(company)
 	return [
 		{"label": _("Total sales (net)"), "icon": "tag", "value": sales, "money": 1, "sub": _("{0} · {1} invoices").format(label, n_inv), "tone": "blue", "route": ["List", "Sales Invoice"]},
-		{"label": _("Total purchases"), "icon": "shopping-cart", "value": purch, "money": 1, "sub": _("{0} · orders placed").format(label), "tone": "violet", "route": ["List", "Purchase Order"]},
+		{"label": _("Total purchases"), "icon": "shopping-cart", "value": purch, "money": 1, "sub": _("{0} · orders placed").format(label), "tone": "violet", "route": ["hipersign-purchasing"]},
 		{"label": _("Gross profit"), "icon": "trending-up", "value": led["gross"], "money": 1, "sub": _("{0}% margin after landed cost · target {1}%").format(round(gm, 1), round(target)), "tone": "green" if gm >= target else "amber", "route": ["query-report", "Gross Profit"]},
 		{"label": _("Net profit (before tax)"), "icon": "chart", "value": led["profit"], "money": 1, "sub": _("{0}% net margin · after {1} expenses").format(round(nm, 1), money(led["opex"], precision=0)), "tone": "green" if led["profit"] >= 0 else "red", "route": ["query-report", "Profit and Loss Statement"]},
 		{"label": _("Stock value"), "icon": "package", "value": led["stock"], "money": 1, "sub": _("Valued at landed cost"), "tone": "blue", "route": ["query-report", "Stock Projected Qty"]},

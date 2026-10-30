@@ -5,19 +5,41 @@ frappe.provide("hipersign.module");
 const hm_esc = (s) => frappe.utils.escape_html(s == null ? "" : String(s));
 const STAGE_TONE = { New: "blue", Contacted: "blue", Qualified: "violet", Proposal: "violet", Negotiation: "orange", Won: "green", Lost: "red" };
 const STATUS_TONE = { Draft: "grey", "To Deliver and Bill": "blue", "To Deliver": "blue", "To Bill": "blue", Completed: "green", Closed: "grey", Cancelled: "red",
-	"On Hold": "orange", Open: "blue", Replied: "blue", Ordered: "green", Lost: "red", Expired: "grey", "Partially Ordered": "blue" };
+	"On Hold": "orange", Open: "blue", Replied: "blue", Ordered: "green", Lost: "red", Expired: "grey", "Partially Ordered": "blue",
+	"To Receive and Bill": "blue", "To Receive": "blue", Received: "green", "In Transit": "blue", Booked: "grey", "Under Customs Clearance": "orange",
+	Cleared: "green", "Received at Warehouse": "green", Pending: "orange", Submitted: "blue", Stopped: "grey" };
 
 hipersign.module.cell = function (c) {
 	if (c === null || c === undefined || c === "") return "—";
 	if (typeof c !== "object") return hm_esc(typeof c === "number" ? format_number(c, null, c % 1 ? 2 : 0) : c);
 	if (c.code) return `<span class="hsx-code">${hm_esc(c.code)}</span>`;
+	if (c.link) return `<a class="hsx-link" data-ldt="${hm_esc(c.link[0])}" data-lname="${hm_esc(c.link[1])}">${hm_esc(c.link[1])}</a>${c.pill ? `<div><span class="hsx-pill ${STATUS_TONE[c.pill] || "blue"}">${hm_esc(__(c.pill))}</span></div>` : ""}`;
 	if (c.main !== undefined) return `<b>${hm_esc(c.main)}</b>${c.sub ? `<span class="hsx-sub2">${hm_esc(c.sub)}</span>` : ""}`;
 	if (c.lines) return c.lines.map((l) => `<div>${hm_esc(l)}</div>`).join("") || "—";
 	if (c.date !== undefined) return c.date ? `<span class="${c.late ? "text-danger" : ""}" style="white-space:nowrap">${hm_esc(frappe.datetime.str_to_user(c.date))}</span>` : "—";
 	if (c.bar !== undefined) return `<span class="hp-bar" style="width:80px"><span style="width:${Math.min(100, c.bar)}%;${c.bar < 100 ? "background:var(--x-blue)" : ""}"></span></span> <b>${format_number(c.bar, null, 0)}%</b>`;
 	if (c.pill !== undefined) return `<span class="hsx-pill ${c.tone || STAGE_TONE[c.pill] || STATUS_TONE[c.pill] || (/^Pending/.test(c.pill) ? "orange" : "grey")}">${hm_esc(__(c.pill))}</span>`;
-	if (c.money !== undefined) return `<span class="${c.neg ? "text-danger" : ""}">${hm_esc(format_number(c.money, null, 2))}</span>`;
+	if (c.money !== undefined) return `<span class="${c.neg ? "text-danger" : ""}" style="white-space:nowrap">${c.currency ? hm_esc(c.currency) + " " : ""}${hm_esc(format_number(c.money, null, 2))}</span>${c.sub ? `<span class="hsx-sub2" style="white-space:nowrap">${hm_esc(c.sub)}</span>` : ""}`;
 	return "";
+};
+
+// summary cards under the KPIs: horizontal bars (amount per name) or a donut (share per name)
+const HM_COLORS = { blue: "var(--x-blue, #2563eb)", violet: "var(--x-violet, #7c3aed)", orange: "#d97706", green: "#16a34a", navy: "#1e3a8a", teal: "#0d9488", red: "#dc2626", grey: "#94a3b8" };
+hipersign.module.card_html = function (c) {
+	const ui = hipersign.ui, cur = c.currency;
+	const max = Math.max(1, ...(c.rows || []).map((r) => r[1]));
+	let body = "";
+	if (!(c.rows || []).length) body = `<div class="hsx-empty">${__("Nothing in this period.")}</div>`;
+	else if (c.type === "bars") body = c.rows.map(([l, v]) => `<div class="hsx-hbar"><span class="hsx-hbar-l" title="${hm_esc(l)}">${hm_esc(l)}</span>
+		<span class="hsx-hbar-t"><i style="width:${Math.max(2, (v / max) * 100)}%"></i></span><b>${hm_esc(ui.money(v, cur, true))}</b></div>`).join("");
+	else {
+		const tot = c.rows.reduce((a, r) => a + r[1], 0) || 1;
+		let acc = 0;
+		const stops = c.rows.map(([, v, col]) => { const a = acc; acc += (v / tot) * 360; return `${HM_COLORS[col] || col} ${a}deg ${acc}deg`; }).join(",");
+		body = `<div class="hsx-donut-w"><div class="hsx-donut" style="background:conic-gradient(${stops})"><span><b>${hm_esc(c.center)}</b><small>${hm_esc(c.center_label || "")}</small></span></div>
+			<div class="hsx-legend">${c.rows.map(([l, v, col]) => `<span><i style="background:${HM_COLORS[col] || col}"></i>${hm_esc(l)} ${hm_esc(ui.money(v, cur, true))}</span>`).join("")}</div></div>`;
+	}
+	return `<div class="hsx-mcard ${c.wide ? "wide" : ""}"><div class="hsx-mcard-h"><b>${hm_esc(c.title)}</b> <span class="text-muted">${hm_esc(c.sub || "")}</span></div>${body}</div>`;
 };
 
 hipersign.module.render = function (wrapper, key) {
@@ -40,10 +62,11 @@ hipersign.module.render = function (wrapper, key) {
 		frappe.xcall("hipersign_trading.api.module.get_module", { key, owner: st.owner, source: st.source }).then((m) => {
 			st.data = m;
 			head(m);
-			if (!st.tab || !m.tabs.find((t) => t.key === st.tab)) st.tab = m.tabs[0].key;
+			if (!st.tab || !m.tabs.find((t) => t.key === st.tab)) st.tab = m.default_tab || m.tabs[0].key;
 			const filters = m.filters ? `<select class="form-control hsx-owner"><option value="">${__("All owners")}</option><option value="mine">${__("My leads")}</option>${m.filters.owners.map(([u, n]) => `<option value="${hm_esc(u)}">${hm_esc(n)}</option>`).join("")}</select>
 				<select class="form-control hsx-source"><option value="">${__("All sources")}</option>${m.filters.sources.map((s) => `<option value="${hm_esc(s)}">${hm_esc(__(s))}</option>`).join("")}</select>` : "";
 			v.$body.html(`<div class="hsx-kpis">${m.kpis.map((k, i) => ui.kpi(Object.assign({}, k, { route: null })).replace("<button ", `<button data-k="${i}" `)).join("")}</div>
+				${(m.cards || []).length ? `<div class="hsx-mcards">${m.cards.map(hipersign.module.card_html).join("")}</div>` : ""}
 				<div class="hsx-mtabs">${m.tabs.map((t) => `<button data-tab="${t.key}" class="${t.key === st.tab ? "on" : ""}">${hm_esc(t.label)}</button>`).join("")}</div>
 				<div class="hsx-chips"></div><div class="hsx-mfilters hsx-chips" style="${filters ? "" : "display:none"}">${filters}
 				<input class="form-control hsx-q" placeholder="${__("Search…")}" style="max-width:220px"></div>
@@ -72,7 +95,9 @@ hipersign.module.render = function (wrapper, key) {
 			const title = (st.data.tabs.find((x) => x.key === st.tab) || {}).label;
 			$out.html(ui.card(title, r.rows.length ? `<div class="hsx-tw"><table class="hsx-t hsx-mlist"><thead><tr>${r.cols.map((c) => `<th class="${c.cls || ""}">${hm_esc(c.label)}</th>`).join("")}</tr></thead>
 				<tbody>${r.rows.map((row) => `<tr ${row.dt ? `data-dt="${hm_esc(row.dt)}" data-name="${hm_esc(row.name)}"` : ""}>${row.cells.map((c, i) => `<td class="${(r.cols[i] || {}).cls || ""}">${hipersign.module.cell(c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`
-				: `<div class="hsx-empty">${__("Nothing here.")}</div>`, { actions: r.rows.length ? `<button class="btn btn-default btn-xs hsx-xl">${__("Excel")}</button>` : "" }));
+				: `<div class="hsx-empty">${hm_esc(r.empty || __("Nothing here."))}</div>`, { actions: (r.actions || []).map((a, i) => `<button class="btn ${a.primary ? "btn-primary" : "btn-default"} btn-xs hsx-ra" data-i="${i}">${hm_esc(a.label)}</button>`).join(" ")
+					+ (r.rows.length ? ` <button class="btn btn-default btn-xs hsx-xl">${__("Excel")}</button>` : "") }));
+				$out.find(".hsx-ra").on("click", function () { const a = r.actions[+$(this).attr("data-i")]; frappe.route_options = a.options || null; frappe.set_route(...a.route); });
 			$out.find(".hsx-xl").on("click", () => frappe.tools.downloadify([r.cols.map((c) => c.label)].concat(r.rows.map((row) => row.cells.map(plain))), null, title));
 		});
 	}
@@ -122,7 +147,9 @@ hipersign.module.render = function (wrapper, key) {
 	v.$body.on("change", ".hsx-owner", function () { st.owner = $(this).val(); load(); });
 	v.$body.on("change", ".hsx-source", function () { st.source = $(this).val(); load(); });
 	v.$body.on("input", ".hsx-q", frappe.utils.debounce(function () { st.q = $(this).val(); rows(); }, 300));
-	v.$body.on("click", "tr[data-dt]", function () { hipersign.panel.open($(this).attr("data-dt"), $(this).attr("data-name")); });
+	const open = (dt, name) => (hipersign.panel && hipersign.panel.has && hipersign.panel.has(dt) ? hipersign.panel.open(dt, name) : frappe.set_route("Form", dt, name));
+	v.$body.on("click", "tr[data-dt]", function (e) { if ($(e.target).closest(".hsx-link").length) return; open($(this).attr("data-dt"), $(this).attr("data-name")); });
+	v.$body.on("click", ".hsx-link", function (e) { e.stopPropagation(); open($(this).attr("data-ldt"), $(this).attr("data-lname")); });
 	v.$body.on("click", ".hsx-lc", function () { hipersign.panel.open("Lead", $(this).attr("data-name")); });
 	v.$actions.on("click", ".hsx-new", function () { const dt = $(this).attr("data-dt"); hipersign.fm ? hipersign.fm.new(dt) : frappe.new_doc(dt); });
 	$(document).on("hs-scope-change", () => { if ($(wrapper).is(":visible")) load(); });

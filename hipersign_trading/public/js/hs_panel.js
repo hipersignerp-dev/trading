@@ -3,7 +3,7 @@
 // Links inside a panel open the linked record's panel; Back returns to the previous one; Close returns to the page.
 frappe.provide("hipersign.panel");
 
-hipersign.panel.TYPES = ["Lead", "Quotation", "Sales Order", "Customer", "Sales Invoice", "Delivery Note", "Item"];
+hipersign.panel.TYPES = ["Lead", "Quotation", "Sales Order", "Customer", "Sales Invoice", "Delivery Note", "Item", "Purchase Order", "Supplier"];
 hipersign.panel.has = (dt) => hipersign.panel.TYPES.includes(dt) && !((frappe.boot.hipersign || {}).no_panels);
 hipersign.panel.stack = [];
 
@@ -262,7 +262,7 @@ hipersign.panel.clients = {
 	quick_doc(p, args) {
 		const dt = args.doctype;
 		hipersign.panel.close();
-		const v = dt === "Purchase Order" ? { items: [{ item_code: args.item, qty: 1 }] } : { party: p.name };
+		const v = args.item ? { items: [{ item_code: args.item, qty: 1 }] } : { party: args.party || p.name };
 		if (hipersign.fm && hipersign.fm.quick_doc) hipersign.fm.quick_doc(dt, v);
 		else frappe.new_doc(dt);
 	},

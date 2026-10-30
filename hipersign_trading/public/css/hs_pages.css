@@ -110,3 +110,29 @@ body.hp-open .hp-backdrop { display: block; }
 .ht-bar i { display: block; height: 100%; background: var(--hs-blue, #1d5bea); }
 .ht-btns { display: flex; gap: 6px; justify-content: flex-end; }
 .hd-t tr.hd-next td { background: var(--hs-blue-bg, #e8effe); } .hd-t td { vertical-align: middle; }
+
+/* v1.6.0 purchasing pages: summary cards under the KPIs (bars per supplier, currency donut) and links inside list cells */
+.hsx-mcards { display: grid; grid-template-columns: 2fr 1fr; gap: 12px; margin-top: 12px; }
+@media (max-width: 900px) { .hsx-mcards { grid-template-columns: 1fr; } }
+.hsx-mcard { background: var(--x-surface); border: 1px solid var(--x-line); border-radius: 10px; box-shadow: var(--x-shadow); padding: 13px 16px; min-width: 0; }
+.hsx-mcard-h { margin-bottom: 12px; font-size: 14px; } .hsx-mcard-h .text-muted { font-size: 12px; margin-left: 6px; }
+.hsx-hbar { display: grid; grid-template-columns: minmax(90px, 180px) 1fr auto; align-items: center; gap: 10px; margin: 8px 0; font-size: 13px; }
+.hsx-hbar-l { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--x-ink-2, var(--text-color)); }
+.hsx-hbar-t { height: 8px; border-radius: 6px; background: var(--x-line, #eef1f6); overflow: hidden; }
+.hsx-hbar-t i { display: block; height: 100%; border-radius: 6px; background: var(--x-violet, #7c3aed); }
+.hsx-hbar b { white-space: nowrap; font-size: 13px; }
+.hsx-donut-w { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.hsx-donut { width: 112px; height: 112px; border-radius: 50%; display: grid; place-items: center; }
+.hsx-donut > span { width: 80px; height: 80px; border-radius: 50%; background: var(--x-surface, #fff); display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.hsx-donut b { font-size: 22px; line-height: 1; } .hsx-donut small { color: var(--x-muted); font-size: 11px; }
+.hsx-legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 12px; justify-content: center; }
+.hsx-legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 5px; vertical-align: -1px; }
+.hsx-mlist .hsx-link { color: var(--x-blue, #2563eb); font-weight: 600; cursor: pointer; }
+.hsx-mlist .hsx-link + div .hsx-pill { margin-top: 3px; }
+.hsx-mod .hsx-kpis { grid-template-columns: repeat(auto-fit, minmax(165px, 1fr)); }
+.hsx-mod .hsx-mlist td.items { min-width: 170px; }
+.hsx-mod .hsx-mlist .hsx-pill { white-space: normal; display: inline-block; max-width: 132px; line-height: 1.25; text-align: center; }
+.hsx-mod .hsx-mlist .hp-bar { width: 56px !important; }
+.hsx-mod .hsx-mlist td, .hsx-mod .hsx-mlist th { padding-left: 10px; padding-right: 10px; }
+.hsx-mod .hsx-mlist .hsx-code { font-size: 11px; white-space: nowrap; }
+.hp-t td a { white-space: nowrap; } .hp-t td { white-space: nowrap; } .hp-t td:nth-child(2) { white-space: normal; }

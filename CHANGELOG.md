@@ -1,6 +1,16 @@
 # Changelog
 
-## 1.6.0 — in progress
+## 1.6.0 — 30 Oct 2026 — record panel, CRM and sales pages, guided tour, Live deal demo, Test Centre fixes
+**Record panel:** leads, quotations, sales orders, customers, tax invoices, delivery notes and items open in the prototype's side
+panel — header facts, progress line, sections and tables (Excel), documents box, history and next-step buttons (Make sales order,
+Create delivery note, Receive advance, Record payment, Lost with a reason, Message, Email, WhatsApp, Print); links inside open the
+linked record's panel with Back; ↗ opens the full form.
+**Module pages:** CRM & Leads (5 KPIs, pipeline board with drag-and-drop stages, owner and source filters, all leads, follow-ups,
+sources & performance) and Quotations & Orders (6 KPIs, orders / quotations / customers & credit / price lists tabs with status chips).
+**Guided tour:** the prototype's 13 chapters (79 steps) from Home or the user menu, following the pack and the user's access.
+**Live deal demo** (demo sites, Hipersign Settings): one deal from enquiry to the customer's cheque, step by step on real records,
+with revenue, landed cost, gross profit and cash at the end; Reset removes the run.
+**Demo data:** sales delivered and invoiced this month. **Test Centre:** 106 scripts (TOUR-01, DEAL-01, CRM-02, SAL-04, PANEL-02).
 **Fixes from the Test Centre run on the demo site (29 Oct 2026):**
 - Sales: a sales person's extra discount is kept on save (the customer-group rule is the floor), so a 15% order goes to the Sales
   Manager (SAL-02); the Finance Manager (Accounts Manager) can approve sales and purchase orders (SAL-03, PUR-01); sales staff can

@@ -12,7 +12,7 @@ from frappe.utils import add_days, add_months, cint, flt, getdate, today
 from hipersign_trading.api.home import period_range
 from hipersign_trading.api.ui import get_period, scope_companies
 
-MODULES = ("sales", "crm")
+MODULES = ("sales", "crm", "purchasing")
 
 
 def _scope():
@@ -152,8 +152,8 @@ def sales_rows(tab, chip, q=None):
 					" – ".join(x for x in [frappe.utils.formatdate(r.valid_from), frappe.utils.formatdate(r.valid_upto)] if x) or _("Always")]} for r in rows]}
 		rows = frappe.get_list("Price List", filters={"selling": 1}, fields=["name", "currency", "enabled"], order_by="name asc") if _perm("Price List") else []
 		counts = {}
-	for r in frappe.get_all("Item Price", filters={"price_list": ["in", [x.name for x in rows] or [""]]}, pluck="price_list"):
-		counts[r] = counts.get(r, 0) + 1
+		for r in frappe.get_all("Item Price", filters={"price_list": ["in", [x.name for x in rows] or [""]]}, pluck="price_list"):
+			counts[r] = counts.get(r, 0) + 1
 		return {"cols": [{"label": _("Price list")}, {"label": _("Currency")}, {"label": _("Items priced"), "cls": "num"}, {"label": _("Status")}],
 			"rows": [{"dt": "Price List", "name": r.name, "cells": [{"main": r.name}, r.currency, counts.get(r.name, 0), {"pill": _("Enabled") if r.enabled else _("Disabled"), "tone": "green" if r.enabled else "grey"}]} for r in rows]}
 	return {"cols": [], "rows": []}
@@ -354,6 +354,10 @@ def get_module(key, owner=None, source=None):
 		return sales_module()
 	if key == "crm":
 		return crm_module(owner or None, source or None)
+	if key == "purchasing":
+		from hipersign_trading.api.module_buy import purchasing_module
+
+		return purchasing_module()
 	frappe.throw(_("Unknown module"))
 
 
@@ -363,4 +367,8 @@ def get_rows(key, tab, chip=None, q=None, owner=None, source=None):
 		return sales_rows(tab, chip or "all", q or None)
 	if key == "crm":
 		return crm_rows(tab, chip or "open", q or None, owner or None, source or None)
+	if key == "purchasing":
+		from hipersign_trading.api.module_buy import purchasing_rows
+
+		return purchasing_rows(tab, chip or "all", q or None)
 	frappe.throw(_("Unknown module"))

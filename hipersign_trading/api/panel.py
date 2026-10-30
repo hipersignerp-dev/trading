@@ -15,7 +15,7 @@ import frappe
 from frappe import _
 from frappe.utils import cint, date_diff, flt, fmt_money, formatdate, get_datetime, getdate, money_in_words, today
 
-PANELS = ("Lead", "Quotation", "Sales Order", "Customer", "Sales Invoice", "Delivery Note", "Item")
+PANELS = ("Lead", "Quotation", "Sales Order", "Customer", "Sales Invoice", "Delivery Note", "Item", "Purchase Order", "Supplier")
 
 STATUS_TONE = {
 	"Draft": "grey", "To Deliver and Bill": "blue", "To Deliver": "blue", "To Bill": "blue", "Completed": "green", "Closed": "grey",
@@ -23,7 +23,9 @@ STATUS_TONE = {
 	"Paid": "green", "Unpaid": "orange", "Overdue": "red", "Partly Paid": "blue", "Return": "grey", "Credit Note Issued": "grey",
 	"Submitted": "blue", "To Bill ": "blue", "Won": "green", "New": "blue", "Contacted": "blue", "Qualified": "blue", "Proposal": "violet",
 	"Negotiation": "orange", "Return Issued": "grey", "Partly Billed": "blue", "Pending Sales Manager": "orange",
-	"Pending Finance Manager": "orange", "Rejected": "red", "Approved": "green",
+	"Pending Finance Manager": "orange", "Rejected": "red", "Approved": "green", "Pending Purchase Manager": "orange",
+	"To Receive and Bill": "blue", "To Receive": "blue", "Received": "green", "In Transit": "blue", "Booked": "grey",
+	"Under Customs Clearance": "orange", "Cleared": "green", "Received at Warehouse": "green", "Issued": "blue", "Accepted": "violet",
 }
 
 
@@ -173,7 +175,8 @@ def _address(name):
 	if not name:
 		return ""
 	a = frappe.db.get_value("Address", name, ["address_title", "city", "country"], as_dict=True)
-	return " — ".join(x for x in [a.address_title, ", ".join(y for y in [a.city, a.country] if y)] if x) if a else name
+	place = ", ".join(dict.fromkeys(y for y in [a.city, a.country] if y)) if a else ""
+	return " — ".join(x for x in [a.address_title, place] if x) if a else name
 
 
 def _contact(name):
@@ -490,6 +493,118 @@ def item(doc):
 	return p
 
 
+# ---------------------------------------------------------------- purchasing (v1.6.0 step 2)
+def _company_currency(company):
+	return frappe.get_cached_value("Company", company, "default_currency")
+
+
+def purchase_order(doc):
+	ccy = _company_currency(doc.company)
+	foreign = doc.currency != ccy
+	ship = None
+	if frappe.db.table_exists("Import Shipment PO"):
+		sh = frappe.get_all("Import Shipment PO", filters={"purchase_order": doc.name, "parenttype": "Import Shipment"}, pluck="parent", order_by="creation desc", limit=1)
+		if sh:
+			ship = frappe.db.get_value("Import Shipment", sh[0], ["name", "status", "eta", "bl_awb", "mode", "port_of_loading", "port_of_discharge", "bill_of_entry"], as_dict=True)
+	lc = frappe.db.get_value("Letter of Credit", {"purchase_order": doc.name, "status": ["!=", "Cancelled"]}, ["name", "lc_number", "status", "amount", "currency", "expiry_date"],
+		as_dict=True) if frappe.db.table_exists("Letter of Credit") and frappe.has_permission("Letter of Credit") else None
+	country = frappe.db.get_value("Supplier", doc.supplier, "country")
+	p = _base(doc, f"{doc.name} — {doc.supplier_name}", _("Import purchase order") if ship or foreign else _("Purchase order"))
+	receipts = frappe.get_all("Purchase Receipt Item", filters={"purchase_order": doc.name, "docstatus": 1}, pluck="parent", distinct=True)
+	bills = frappe.get_all("Purchase Invoice Item", filters={"purchase_order": doc.name, "docstatus": 1}, pluck="parent", distinct=True)
+	unpaid = frappe.db.exists("Purchase Invoice", {"name": ["in", bills or [""]], "outstanding_amount": [">", 0]})
+	steps = ["Draft", "Approval", "Ordered"] + (["Shipment"] if ship else []) + ["Received", "Billed", "Paid"]
+	if doc.docstatus == 0:
+		cur = 1 if (_wf_state(doc) or "").startswith("Pending") else 0
+	elif flt(doc.per_received) < 100:
+		cur = steps.index("Shipment") if ship and ship.status not in ("Cleared", "Received at Warehouse") else steps.index("Received")
+	elif flt(doc.per_billed) < 100:
+		cur = steps.index("Billed")
+	else:
+		cur = len(steps) if not unpaid else steps.index("Paid")
+	p["progress"] = progress(steps, cur)
+	facts = []
+	if ship:
+		facts.append([_("Import shipment"), link("Import Shipment", ship.name)])
+	if lc:
+		facts.append([_("Letter of credit"), link("Letter of Credit", lc.name, lc.lc_number or lc.name)])
+	facts += [[_("Goods receipt"), link("Purchase Receipt", r)] for r in receipts[:3]] + [[_("Supplier bill"), link("Purchase Invoice", b)] for b in bills[:3]]
+	p["facts"] = facts
+	p["sections"] = [
+		section("Supplier", kv(("Supplier", link("Supplier", doc.supplier, doc.supplier_name)), ("Country", country), ("Contact person", _contact(doc.contact_person)),
+			("Supplier address", _address(doc.supplier_address)), ("Supplier's confirmation", " · ".join(x for x in [doc.get("order_confirmation_no"), d(doc.get("order_confirmation_date"))] if x))),
+			actions=[act("Edit details", route=["Form", "Purchase Order", doc.name])] if doc.docstatus == 0 and p["can_edit"] else []),
+		section("Order", kv(("Order date", d(doc.transaction_date)), ("Expected", d(doc.schedule_date)), ("Payment terms", doc.payment_terms_template),
+			("Incoterm", " · ".join(x for x in [doc.get("incoterm"), doc.get("named_place")] if x)), ("Receive into", doc.set_warehouse),
+			("Currency & rate", f"{doc.currency} · 1 = {flt(doc.conversion_rate, 4):g} {ccy}" if foreign else ""),
+			(_("Total in {0}").format(doc.currency), money(doc.rounded_total or doc.grand_total, doc.currency)),
+			(_("Total in {0}").format(ccy) if foreign else "", money(doc.base_rounded_total or doc.base_grand_total, ccy) if foreign else ""),
+			("% received", bar(doc.per_received)), ("% billed", bar(doc.per_billed)), ("Status", pill(_status(doc))))),
+		section("Items", kind="table", cols=["#", "Item", "UOM", "Qty", "Rate", "Disc", "Net", "Received", "Pending"],
+			rows=_items_rows(doc, lambda it: [flt(it.received_qty), flt(it.qty) - flt(it.received_qty)])),
+		_totals(doc),
+	]
+	if ship:
+		p["sections"].append(section("Import shipment", kv(("Shipment", link("Import Shipment", ship.name)), ("Status", pill(ship.status)), ("Mode", _(ship.mode or "")),
+			("Route", " → ".join(x for x in [ship.port_of_loading, ship.port_of_discharge] if x)), ("ETA", d(ship.eta)), ("BL / AWB", ship.bl_awb),
+			("Bill of entry", ship.bill_of_entry))))
+	if lc:
+		p["sections"].append(section("Letter of credit", kv(("LC", link("Letter of Credit", lc.name, lc.lc_number or lc.name)), ("Status", pill(lc.status)),
+			("Amount", money(lc.amount, lc.currency)), ("Expiry", d(lc.expiry_date)))))
+	if doc.get("payment_schedule"):
+		p["sections"].append(section("Payment schedule", kind="table", cols=["Payment term", "Due date", "%", "Amount"],
+			rows=[[r.payment_term or r.description or "", d(r.due_date), f"{flt(r.invoice_portion):g}%", money(r.payment_amount, doc.currency)] for r in doc.payment_schedule]))
+	acts = [act("Purchase order", print_format="Hipersign Purchase Order")]
+	if doc.docstatus == 0 and p["can_edit"]:
+		acts.insert(0, act("Edit", kind="primary", route=["Form", "Purchase Order", doc.name]))
+	if doc.docstatus == 1 and _status(doc) not in ("Closed", "Completed", "On Hold"):
+		blocked = ship and ship.status not in ("Cleared", "Received at Warehouse")
+		if flt(doc.per_received) < 100 and _can("Purchase Receipt"):
+			acts.append(act("Receive goods", kind="default" if blocked else "primary", make="erpnext.buying.doctype.purchase_order.purchase_order.make_purchase_receipt",
+				confirm=_("Shipment {0} is “{1}” — goods can be received only after customs clearance. Try anyway?").format(ship.name, _(ship.status)) if blocked else None))
+		if flt(doc.per_billed) < 100 and _can("Purchase Invoice"):
+			acts.append(act("Create supplier bill", kind="primary" if flt(doc.per_received) >= 100 else "default",
+				make="erpnext.buying.doctype.purchase_order.purchase_order.make_purchase_invoice"))
+		if not ship and foreign and frappe.db.table_exists("Import Shipment") and _can("Import Shipment"):
+			acts.append(act("Book import shipment", action="book_import"))
+	p["actions"] = acts
+	return p
+
+
+def supplier(doc):
+	p = _base(doc, doc.supplier_name, _("Supplier"))
+	p["status"] = pill("Disabled" if doc.disabled else (doc.get("hs_kyc_status") or "Active"), "red" if doc.disabled else
+		{"Verified": "green", "Pending": "orange", "Expired": "red", "Blocked": "red"}.get(doc.get("hs_kyc_status"), "green"))
+	company = _company()
+	ccy = _company_currency(company)
+	open_po = frappe.get_all("Purchase Order", filters={"supplier": doc.name, "docstatus": 1, "status": ["in", ["To Receive and Bill", "To Receive", "To Bill"]]},
+		fields=["name", "transaction_date", "schedule_date", "grand_total", "currency", "per_received", "status"], order_by="transaction_date desc", limit=10) \
+		if frappe.has_permission("Purchase Order") else []
+	bills = frappe.get_all("Purchase Invoice", filters={"supplier": doc.name, "docstatus": 1, "outstanding_amount": ["!=", 0]},
+		fields=["name", "posting_date", "due_date", "outstanding_amount", "currency", "conversion_rate", "bill_no"], order_by="due_date asc", limit=10) \
+		if frappe.has_permission("Purchase Invoice") else []
+	payable = sum(flt(b.outstanding_amount) * flt(b.conversion_rate or 1) for b in bills)
+	p["facts"] = kv(("Country", doc.country), ("Currency", doc.default_currency), ("Payment terms", doc.payment_terms),
+		("Incoterm", doc.get("hs_incoterm")), ("Lead time", f"{cint(doc.get('hs_lead_time_days'))} {_('days')}" if doc.get("hs_lead_time_days") else ""),
+		("TRN", doc.tax_id), ("Payable", money(payable, ccy) if bills else ""), ("Open orders", len(open_po) or ""))
+	p["sections"].append(section("Supplier", kv(("Type", _(doc.get("hs_supplier_kind") or doc.supplier_group or "")), ("Primary contact", _contact(doc.supplier_primary_contact)),
+		("Address", _address(doc.supplier_primary_address)), ("Website", doc.website), ("Trade licence", doc.get("hs_trade_licence_no")),
+		("Licence expiry", d(doc.get("hs_trade_licence_expiry"))))))
+	if open_po:
+		p["sections"].append(section("Open purchase orders", kind="table", cols=["PO", "Date", "Expected", "Value", "Received", "Status"],
+			rows=[[link("Purchase Order", r.name), d(r.transaction_date), d(r.schedule_date), money(r.grand_total, r.currency), bar(r.per_received), pill(r.status)] for r in open_po]))
+	if bills:
+		p["sections"].append(section("Bills to pay", kind="table", cols=["Bill", "Supplier ref", "Due", "Outstanding"],
+			rows=[[link("Purchase Invoice", b.name), b.bill_no or "", d(b.due_date), money(b.outstanding_amount, b.currency)] for b in bills]))
+	acts = []
+	if p["can_edit"]:
+		acts.append(act("Edit", route=["Form", "Supplier", doc.name]))
+	if _can("Purchase Order"):
+		acts.append(act("New purchase order", kind="primary", client="quick_doc", args={"doctype": "Purchase Order", "party": doc.name}))
+	p["actions"] = acts
+	return p
+
+
 def _company():
 	from hipersign_trading.utils import user_company
 
@@ -497,7 +612,7 @@ def _company():
 
 
 BUILDERS = {"Lead": lead, "Quotation": quotation, "Sales Order": sales_order, "Customer": customer, "Sales Invoice": sales_invoice,
-	"Delivery Note": delivery_note, "Item": item}
+	"Delivery Note": delivery_note, "Item": item, "Purchase Order": purchase_order, "Supplier": supplier}
 
 
 # ---------------------------------------------------------------- API
@@ -528,6 +643,8 @@ MAKERS = {
 	"erpnext.selling.doctype.sales_order.sales_order.make_delivery_note",
 	"erpnext.selling.doctype.sales_order.sales_order.make_sales_invoice",
 	"erpnext.stock.doctype.delivery_note.delivery_note.make_sales_invoice",
+	"erpnext.buying.doctype.purchase_order.purchase_order.make_purchase_receipt",
+	"erpnext.buying.doctype.purchase_order.purchase_order.make_purchase_invoice",
 }
 
 
@@ -565,4 +682,11 @@ def action(doctype, name, action, args=None):
 			"incoterm": doc.get("incoterm"), "named_place": doc.get("named_place"), "mode": doc.get("hs_shipment_mode")})
 		es.insert()
 		return {"message": _("Export shipment {0} booked").format(es.name), "route": ["Form", "Export Shipment", es.name]}
+	if action == "book_import" and doctype == "Purchase Order":
+		doc.check_permission("read")
+		frappe.has_permission("Import Shipment", "create", throw=True)
+		sh = frappe.get_doc({"doctype": "Import Shipment", "company": doc.company, "status": "Booked",
+			"purchase_orders": [{"purchase_order": doc.name}]})
+		sh.insert()
+		return {"message": _("Import shipment {0} booked").format(sh.name), "route": ["Form", "Import Shipment", sh.name]}
 	frappe.throw(_("Unknown action"))
