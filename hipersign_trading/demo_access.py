@@ -50,6 +50,8 @@ HIPERSIGN_READ = {
 	"api.tracker.get_orders", "api.ui.bell", "api.ui.mark_all_read", "api.ui.search", "api.ui.set_company", "api.ui.set_language",
 	"api.ui.set_period", "api.ui.set_scope", "api.ui.switch_user", "api.ui.topbar", "api.wps.download_sif", "doc_rules.missing_count",
 	"overrides.payment_entry.short_payment_info", "api.crm.get_pipeline", "api.crm.sales_users",
+	# v1.7.0: the create modals read their choices before anything is saved
+	"api.create.options", "api.create.party", "api.create.rates", "api.create.link_options", "api.create_flow.prepare",
 }
 
 

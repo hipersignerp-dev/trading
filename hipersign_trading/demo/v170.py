@@ -44,4 +44,18 @@ def v170_attendance(c):
 		a.submit()
 
 
-STEPS = [v170_assets, v170_attendance]
+def v170_viewer_hr(c):
+	"""The view-only demo login also sees HR & Payroll (it cannot change anything)."""
+	from hipersign_trading.demo.v156 import VIEWER
+
+	if not frappe.db.exists("User", VIEWER):
+		return
+	add = [r for r in ("HR User", "Accounts User") if frappe.db.exists("Role", r) and not frappe.db.exists("Has Role", {"parent": VIEWER, "role": r})]
+	if add:
+		u = frappe.get_doc("User", VIEWER)
+		for r in add:
+			u.append("roles", {"role": r})
+		u.save(ignore_permissions=True)
+
+
+STEPS = [v170_assets, v170_attendance, v170_viewer_hr]

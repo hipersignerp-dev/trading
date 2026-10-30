@@ -462,6 +462,11 @@ def _assets(cos, cat=None):
 	f = {"company": ["in", cos], "docstatus": ["<", 2], "status": ["not in", ["Scrapped", "Sold"]]}
 	if cat and cat != "all":
 		f["asset_category"] = cat
+	try:
+		frappe.get_list("Asset", limit=1)
+	except frappe.PermissionError:
+		frappe.clear_messages()
+		return []
 	rows = frappe.get_list("Asset", filters=f, fields=_fields("Asset", ["name", "asset_name", "asset_category", "location", "custodian", "purchase_date", "net_purchase_amount",
 		"value_after_depreciation", "status", "docstatus", "hs_plate_no", "hs_registration_expiry", "hs_next_service", "insurance_end_date", "total_number_of_depreciations",
 		"frequency_of_depreciation", "opening_accumulated_depreciation"]), order_by="purchase_date asc", limit=500)

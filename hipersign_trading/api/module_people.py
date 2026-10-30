@@ -65,7 +65,7 @@ def _dept(d):
 def hr_module():
 	cos, start, end, label, cur = _scope()
 	if not _hr():
-		frappe.throw(_("HR is not installed or you have no access to employees."), frappe.PermissionError)
+		return {"title": _("HR & Payroll"), "desc": _("You have no access to employee records — ask the HR Manager."), "new": [], "kpis": [], "tabs": [], "nosearch": 1}
 	emps = _employees(cos)
 	t = getdate(today())
 	leave_open = frappe.db.count("Leave Application", {"company": ["in", cos], "status": "Open", "docstatus": 0}) if _perm("Leave Application") else 0
