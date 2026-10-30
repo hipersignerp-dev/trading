@@ -1,0 +1,33 @@
+{
+ "doctype": "Page",
+ "name": "hipersign-vat",
+ "page_name": "hipersign-vat",
+ "title": "VAT & E-invoicing",
+ "module": "Hipersign Trading",
+ "standard": "Yes",
+ "system_page": 0,
+ "icon": "",
+ "roles": [
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "Managing Director"
+  },
+  {
+   "role": "Accounts Manager"
+  },
+  {
+   "role": "Accounts User"
+  },
+  {
+   "role": "Auditor"
+  },
+  {
+   "role": "Demo Viewer"
+  }
+ ],
+ "owner": "Administrator",
+ "creation": "2026-10-30 14:00:00",
+ "modified": "2026-10-30 14:00:00"
+}

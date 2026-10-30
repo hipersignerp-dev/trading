@@ -3,7 +3,8 @@
 // Links inside a panel open the linked record's panel; Back returns to the previous one; Close returns to the page.
 frappe.provide("hipersign.panel");
 
-hipersign.panel.TYPES = ["Lead", "Quotation", "Sales Order", "Customer", "Sales Invoice", "Delivery Note", "Item", "Purchase Order", "Supplier"];
+hipersign.panel.TYPES = ["Lead", "Quotation", "Sales Order", "Customer", "Sales Invoice", "Delivery Note", "Item", "Purchase Order", "Supplier",
+	"Import Shipment", "Letter of Credit", "Purchase Receipt"];
 hipersign.panel.has = (dt) => hipersign.panel.TYPES.includes(dt) && !((frappe.boot.hipersign || {}).no_panels);
 hipersign.panel.stack = [];
 
@@ -184,7 +185,7 @@ hipersign.panel.run = function (p, a, $btn) {
 	if (a.print_format) return window.open(frappe.urllib.get_full_url(`/printview?doctype=${encodeURIComponent(dt)}&name=${encodeURIComponent(name)}&format=${encodeURIComponent(a.print_format)}`));
 	if (a.make) {
 		$btn && $btn.prop("disabled", true);
-		return frappe.xcall("hipersign_trading.api.panel.make", { method: a.make, source_name: name }).then((doc) => {
+		return frappe.xcall("hipersign_trading.api.panel.make", { method: a.make, source_name: a.source || name }).then((doc) => {
 			const d = frappe.model.sync(doc)[0];
 			hipersign.panel.close();
 			frappe.set_route("Form", d.doctype, d.name);

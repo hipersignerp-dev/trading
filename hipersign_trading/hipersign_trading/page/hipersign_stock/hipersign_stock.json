@@ -1,0 +1,45 @@
+{
+ "doctype": "Page",
+ "name": "hipersign-stock",
+ "page_name": "hipersign-stock",
+ "title": "Warehouse & Stock",
+ "module": "Hipersign Trading",
+ "standard": "Yes",
+ "system_page": 0,
+ "icon": "",
+ "roles": [
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "Managing Director"
+  },
+  {
+   "role": "Stock Manager"
+  },
+  {
+   "role": "Stock User"
+  },
+  {
+   "role": "Purchase Manager"
+  },
+  {
+   "role": "Purchase User"
+  },
+  {
+   "role": "Sales Manager"
+  },
+  {
+   "role": "Sales User"
+  },
+  {
+   "role": "Accounts Manager"
+  },
+  {
+   "role": "Demo Viewer"
+  }
+ ],
+ "owner": "Administrator",
+ "creation": "2026-10-30 14:00:00",
+ "modified": "2026-10-30 14:00:00"
+}

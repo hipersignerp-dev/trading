@@ -155,7 +155,7 @@ hipersign.module.render = function (wrapper, key) {
 			});
 	}
 
-	v.$body.on("click", ".hsx-mlink", function () { frappe.set_route(...st.data.links[+$(this).attr("data-li")][1]); });
+	v.$body.on("click", ".hsx-mlink", function () { const l = st.data.links[+$(this).attr("data-li")]; frappe.route_options = l[2] || null; frappe.set_route(...l[1]); });
 	v.$body.on("click", ".hsx-mtabs button", function () { st.tab = $(this).attr("data-tab"); tab(); });
 	v.$body.on("click", ".hsx-chips [data-chip]", function () { st.chip[st.tab] = $(this).attr("data-chip"); tab(); });
 	v.$body.on("click", "[data-k]", function () {

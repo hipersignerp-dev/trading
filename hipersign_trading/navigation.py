@@ -47,7 +47,7 @@ NAV = [
 		("Landed Cost & Margin", "Page", "hipersign-landed", "layers", "imports", {}),
 	]),
 	("Inventory & Delivery", "package", [
-		("Warehouse & Stock", "Workspace", "Hipersign Warehouse", "warehouse", None, {}),
+		("Warehouse & Stock", "Page", "hipersign-stock", "warehouse", None, {}),
 		("Dispatch & Delivery", "Page", "hipersign-dispatch", "truck", None, {}),
 		("Driver App", "URL", "/driver", "map-pin", "trips", {}),
 	]),
@@ -55,7 +55,7 @@ NAV = [
 		("Finance", "Page", "hipersign-fin", "banknote", None, {}),
 		("Accounting", "DocType", "Journal Entry", "book-open", None, {}),
 		("LCs & Guarantees", "Page", "hipersign-lc", "file-signature", "lc", {}),
-		("VAT & E-invoicing", "DocType", "Tax Return", "percent", None, {"filters": [["Tax Return", "tax_type", "=", "VAT 201"]]}),
+		("VAT & E-invoicing", "Page", "hipersign-vat", "percent", None, {}),
 		("Corporate Tax", "DocType", "Tax Return", "landmark", "ctax", {"filters": [["Tax Return", "tax_type", "=", "Corporate Tax"]]}),
 		("Group & Countries", "Report", "Hipersign Group Consolidation", "building-2", "group", {}),
 		("KYC & Compliance", "Workspace", "Hipersign Documents", "shield", "kyc", {}),

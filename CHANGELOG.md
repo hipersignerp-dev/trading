@@ -7,6 +7,13 @@ Create delivery note, Receive advance, Record payment, Lost with a reason, Messa
 linked record's panel with Back; ↗ opens the full form.
 **Module pages:** CRM & Leads (5 KPIs, pipeline board with drag-and-drop stages, owner and source filters, all leads, follow-ups,
 sources & performance) and Quotations & Orders (6 KPIs, orders / quotations / customers & credit / price lists tabs with status chips).
+**Operations pages:** Supplier Purchasing, Imports & Shipments (shipment board), Goods Receiving, LCs & Guarantees, Dispatch &
+Delivery (dispatch board), Finance (receivables ageing; Receive / Pay / Invoice buttons), Warehouse & Inventory (stock items, movements,
+transfers, counts, reservations, warehouses, ageing) and UAE VAT & E-invoicing (live VAT 201 boxes split by emirate from the customer's
+address, return history, sales and purchase VAT, e-invoicing readiness); the sidebar opens these pages.
+**More record panels:** purchase orders, suppliers, import shipments (status steps, documents, landed charges, Mark next status,
+Receive, Create landed cost), letters of credit (Mark next status, Block / Release margin, Book trust receipt) and goods receipts
+(Create supplier bill, Return to supplier).
 **Guided tour:** the prototype's 13 chapters (79 steps) from Home or the user menu, following the pack and the user's access.
 **Live deal demo** (demo sites, Hipersign Settings): one deal from enquiry to the customer's cheque, step by step on real records,
 with revenue, landed cost, gross profit and cash at the end; Reset removes the run.

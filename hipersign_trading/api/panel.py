@@ -15,7 +15,8 @@ import frappe
 from frappe import _
 from frappe.utils import cint, date_diff, flt, fmt_money, formatdate, get_datetime, getdate, money_in_words, today
 
-PANELS = ("Lead", "Quotation", "Sales Order", "Customer", "Sales Invoice", "Delivery Note", "Item", "Purchase Order", "Supplier")
+PANELS = ("Lead", "Quotation", "Sales Order", "Customer", "Sales Invoice", "Delivery Note", "Item", "Purchase Order", "Supplier",
+	"Import Shipment", "Letter of Credit", "Purchase Receipt")
 
 STATUS_TONE = {
 	"Draft": "grey", "To Deliver and Bill": "blue", "To Deliver": "blue", "To Bill": "blue", "Completed": "green", "Closed": "grey",
@@ -611,8 +612,177 @@ def _company():
 	return user_company()
 
 
+# ---------------------------------------------------------------- imports, LCs and receipts (v1.6.0 step 7)
+SHIP_STEPS = ["Booked", "Shipped", "In Transit", "Arrived at Port", "Under Customs Clearance", "Cleared", "Received at Warehouse"]
+LC_STEPS = ["Applied", "Issued", "Documents Presented", "Accepted", "Paid"]
+
+
+def _days(v):
+	if not v:
+		return ""
+	n = date_diff(v, today())
+	return _("in {0} days").format(n) if n > 0 else _("today") if n == 0 else _("{0} days ago").format(-n)
+
+
+def _per_received(po):
+	return flt(frappe.db.get_value("Purchase Order", po, "per_received"))
+
+
+def import_shipment(doc):
+	ccy = _company_currency(doc.company)
+	suppliers = sorted({r.supplier for r in doc.purchase_orders if r.supplier})
+	p = _base(doc, f"{doc.name} — {', '.join(suppliers)}" if suppliers else doc.name, _("Import shipment"))
+	p["status"] = pill(doc.status)
+	idx = SHIP_STEPS.index(doc.status) if doc.status in SHIP_STEPS else 0
+	p["progress"] = progress(SHIP_STEPS, len(SHIP_STEPS) if doc.status == "Received at Warehouse" else idx)
+	prs = doc.purchase_receipts() if doc.purchase_orders else []
+	lcs = frappe.get_all("Letter of Credit", filters={"status": ["!=", "Cancelled"], "import_shipment": doc.name}, fields=["name", "lc_number"]) \
+		if frappe.has_permission("Letter of Credit") else []
+	late = bool(doc.eta) and getdate(doc.eta) < getdate(today()) and idx < SHIP_STEPS.index("Arrived at Port")
+	eta = f"{d(doc.eta)} · {_days(doc.eta)}" if doc.eta and idx < SHIP_STEPS.index("Arrived at Port") else d(doc.eta)
+	p["facts"] = kv(("Mode", _(doc.mode or "")), ("Route", " → ".join(x for x in [doc.port_of_loading, doc.port_of_discharge] if x)),
+		("ETA", pill(eta, "red") if late else eta), ("Goods value", money(doc.goods_value, ccy)),
+		("Landed charges", money(doc.total_charges, ccy) if doc.total_charges else ""))
+	for l in lcs:
+		p["facts"].append([_("Letter of credit"), link("Letter of Credit", l.name, l.lc_number or l.name)])
+	p["facts"] += [[_("Goods receipt"), link("Purchase Receipt", r)] for r in prs[:3]]
+	p["sections"] = [
+		section("Transport", kv(("BL / AWB", doc.bl_awb), ("Vessel / flight", doc.vessel_flight), ("Shipping line", doc.shipping_line),
+			("Forwarder", link("Supplier", doc.forwarder)), ("Containers", doc.containers or ""), ("Insurance policy", doc.insurance_policy),
+			("ETD", d(doc.etd)), ("ETA", d(doc.eta)), ("Arrived", d(doc.arrived_on)), ("Cleared", d(doc.cleared_on)), ("Bill of entry", doc.bill_of_entry))),
+		section("Purchase orders", kind="table", cols=["PO", "Supplier", "Value", _("In {0}").format(ccy), "Received"],
+			rows=[[link("Purchase Order", r.purchase_order), r.supplier or "", money(r.grand_total, r.currency), money(r.base_grand_total, ccy),
+				bar(_per_received(r.purchase_order))] for r in doc.purchase_orders]),
+	]
+	if doc.documents:
+		got = sum(1 for x in doc.documents if x.received)
+		p["sections"].append(section("Shipping documents", kind="table", cols=["Document", "Required", "Received", "Reference"],
+			sub=_("{0} of {1} received").format(got, len(doc.documents)),
+			rows=[[_(x.document_type), _("Yes") if x.required else "—", pill("Received", "green") if x.received else pill("Missing", "red" if x.required else "grey"),
+				" · ".join(y for y in [x.reference_no, d(x.received_on)] if y)] for x in doc.documents]))
+	if doc.charges:
+		p["sections"].append(section("Landed charges", kind="table", cols=["Charge", "Provider", "Amount", "Bill"],
+			rows=[[_(c.charge_type or ""), c.provider or "", money(c.amount, ccy), link("Purchase Invoice", c.purchase_invoice)] for c in doc.charges],
+			total=money(doc.total_charges, ccy)))
+	acts = []
+	if p["can_edit"]:
+		acts.append(act("Edit", route=["Form", "Import Shipment", doc.name]))
+		if idx < len(SHIP_STEPS) - 2:
+			nxt = SHIP_STEPS[idx + 1]
+			acts.append(act(_("Mark {0}").format(_(nxt)), kind="primary", action="ship_next", args={"status": nxt}))
+	if doc.status in ("Cleared", "Received at Warehouse") and _can("Purchase Receipt"):
+		for po in [r.purchase_order for r in doc.purchase_orders if _per_received(r.purchase_order) < 100][:2]:
+			acts.append(act(_("Receive {0}").format(po), kind="primary", make="erpnext.buying.doctype.purchase_order.purchase_order.make_purchase_receipt", source=po))
+	if doc.landed_cost_voucher:
+		acts.append(act("Landed cost", route=["Form", "Landed Cost Voucher", doc.landed_cost_voucher]))
+	elif prs and doc.charges and p["can_edit"]:
+		acts.append(act("Create landed cost", action="ship_lcv"))
+	p["actions"] = acts
+	return p
+
+
+def letter_of_credit(doc):
+	ccy = _company_currency(doc.company)
+	party = doc.party_name or doc.supplier or doc.customer
+	p = _base(doc, " — ".join(x for x in [doc.lc_number or doc.name, party] if x), _("{0} letter of credit").format(_(doc.lc_type or "Import")))
+	p["status"] = pill(doc.status)
+	if doc.status in LC_STEPS:
+		p["progress"] = progress(LC_STEPS, len(LC_STEPS) if doc.status == "Paid" else LC_STEPS.index(doc.status))
+	left = date_diff(doc.expiry_date, today()) if doc.expiry_date else None
+	expiry = d(doc.expiry_date)
+	if left is not None and left <= 15 and doc.status not in ("Paid", "Cancelled", "Expired"):
+		expiry = pill(f"{expiry} · {_days(doc.expiry_date)}", "red" if left < 0 else "orange")
+	foreign = doc.currency and doc.currency != ccy
+	p["facts"] = kv(("Amount", money(doc.amount, doc.currency)), (_("In {0}").format(ccy), money(doc.base_amount, ccy) if foreign and doc.base_amount else ""),
+		("Issuing bank", doc.issuing_bank), ("Tenor", _(doc.tenor or "")), ("Expiry", expiry), ("Maturity", d(doc.maturity_date)))
+	p["sections"] = [
+		section("Parties", kv(("Supplier", link("Supplier", doc.supplier)), ("Customer", link("Customer", doc.customer)),
+			("Purchase order", link("Purchase Order", doc.purchase_order)), ("Sales order", link("Sales Order", doc.sales_order)),
+			("Import shipment", link("Import Shipment", doc.import_shipment)), ("Bank account", doc.bank_account))),
+		section("Terms", kv(("LC number", doc.lc_number), ("Tolerance", f"±{flt(doc.tolerance_pct):g}%" if doc.tolerance_pct else ""),
+			("Exchange rate", f"{flt(doc.exchange_rate, 4):g}" if foreign and doc.exchange_rate else ""), ("Issued", d(doc.issue_date)),
+			("Latest shipment", d(doc.latest_shipment_date)), ("Expiry", d(doc.expiry_date)), ("Bank charges", money(doc.charges, ccy) if doc.charges else ""))),
+		section("Documents & payment", kv(("Documents presented", d(doc.documents_presented_on)), ("Discrepancies", doc.discrepancies),
+			("Accepted", d(doc.accepted_on)), ("Maturity", d(doc.maturity_date)), ("Paid", d(doc.paid_on)))),
+		section("Cash margin", kv(("Margin", f"{flt(doc.margin_pct):g}% · {fmt_money(doc.margin_amount, currency=ccy)}" if doc.margin_amount else ""),
+			("Margin entry", link("Journal Entry", doc.margin_entry)), ("Released by", link("Journal Entry", doc.margin_release_entry)))),
+	]
+	if doc.trust_receipt:
+		p["sections"].append(section("Trust receipt loan", kv(("Amount", money(doc.tr_amount, ccy)), ("From", d(doc.tr_start)),
+			("Days", doc.tr_days or ""), ("Rate", f"{flt(doc.tr_rate):g}%" if doc.tr_rate else ""), ("Due", d(doc.tr_due)),
+			("Interest", money(doc.tr_interest, ccy) if doc.tr_interest else ""), ("Repaid", d(doc.tr_repaid_on)), ("Loan entry", link("Journal Entry", doc.tr_entry)))))
+	acts = []
+	if p["can_edit"]:
+		acts.append(act("Edit", route=["Form", "Letter of Credit", doc.name]))
+		if doc.status in LC_STEPS[:-1]:
+			nxt = LC_STEPS[LC_STEPS.index(doc.status) + 1]
+			acts.append(act(_("Mark {0}").format(_(nxt)), kind="primary", action="lc_next", args={"status": nxt}))
+		if flt(doc.margin_amount) > 0 and not doc.margin_entry:
+			acts.append(act("Block margin", action="lc_margin"))
+		if doc.margin_entry and not doc.margin_release_entry and doc.status in ("Paid", "Expired", "Cancelled"):
+			acts.append(act("Release margin", action="lc_margin_release"))
+		if doc.trust_receipt and not doc.tr_entry:
+			acts.append(act("Book trust receipt", action="lc_tr"))
+	p["actions"] = acts
+	return p
+
+
+def _receipt_items(doc):
+	"""Rejected and batch / serial columns only when some line has them, so the table fits the panel."""
+	rej = any(flt(it.rejected_qty) for it in doc.items)
+	bs = any(it.batch_no or it.serial_no for it in doc.items)
+	cols = ["#", "Item", "UOM", "Accepted"] + (["Rejected"] if rej else []) + ["Rate", "Amount"] + (["Batch / serial"] if bs else [])
+	rows = []
+	for i, it in enumerate(doc.items, 1):
+		r = [i, link("Item", it.item_code, it.item_name), it.uom, flt(it.qty)] + ([flt(it.rejected_qty) or "—"] if rej else [])
+		r += [money(it.rate, doc.currency), money(it.amount, doc.currency)] + ([(it.batch_no or it.serial_no or "").replace("\n", ", ")[:60]] if bs else [])
+		rows.append(r)
+	return section("Items", kind="table", cols=cols, rows=rows, total=money(doc.total, doc.currency))
+
+
+def purchase_receipt(doc):
+	p = _base(doc, f"{doc.name} — {doc.supplier_name}", _("Goods receipt"))
+	pos = sorted({i.purchase_order for i in doc.items if i.purchase_order})
+	ship = frappe.get_all("Import Shipment PO", filters={"purchase_order": ["in", pos], "parenttype": "Import Shipment"}, pluck="parent", limit=1) \
+		if pos and frappe.db.table_exists("Import Shipment PO") else []
+	billed = flt(doc.per_billed)
+	lcv = frappe.get_all("Landed Cost Purchase Receipt", filters={"receipt_document": doc.name, "docstatus": 1}, pluck="parent", limit=1)
+	steps = ["Draft", "Received"] + (["Landed cost"] if ship else []) + ["Billed"]
+	if doc.docstatus == 0:
+		cur = 0
+	elif ship and not lcv:
+		cur = steps.index("Landed cost")
+	else:
+		cur = steps.index("Billed") if billed < 100 else len(steps)
+	p["progress"] = progress(steps, cur)
+	rejected = sum(flt(i.rejected_qty) for i in doc.items)
+	p["facts"] = kv(("Supplier", link("Supplier", doc.supplier, doc.supplier_name)), ("Received on", d(doc.posting_date)),
+		("Warehouse", doc.set_warehouse or (doc.items[0].warehouse if doc.items else "")), ("Supplier delivery note", doc.get("supplier_delivery_note")),
+		("Rejected qty", pill(f"{rejected:g}", "red") if rejected else ""), ("Value", money(doc.rounded_total or doc.grand_total, doc.currency)))
+	p["facts"] += [[_("Purchase order"), link("Purchase Order", po)] for po in pos[:3]]
+	if ship:
+		p["facts"].append([_("Import shipment"), link("Import Shipment", ship[0])])
+	if lcv:
+		p["facts"].append([_("Landed cost"), link("Landed Cost Voucher", lcv[0])])
+	p["sections"] = [
+		_receipt_items(doc),
+		section("Billing", kv(("% billed", bar(billed)), ("Status", pill(_status(doc))))),
+	]
+	acts = []
+	if doc.docstatus == 0 and p["can_edit"]:
+		acts.append(act("Edit", kind="primary", route=["Form", "Purchase Receipt", doc.name]))
+	if doc.docstatus == 1 and billed < 100 and doc.status != "Closed" and _can("Purchase Invoice"):
+		acts.append(act("Create supplier bill", kind="primary", make="erpnext.stock.doctype.purchase_receipt.purchase_receipt.make_purchase_invoice"))
+	if doc.docstatus == 1 and not doc.is_return and _can("Purchase Receipt"):
+		acts.append(act("Return to supplier", make="erpnext.stock.doctype.purchase_receipt.purchase_receipt.make_purchase_return",
+			confirm=_("Create a draft return to {0} for this receipt?").format(doc.supplier_name)))
+	p["actions"] = acts
+	return p
+
+
 BUILDERS = {"Lead": lead, "Quotation": quotation, "Sales Order": sales_order, "Customer": customer, "Sales Invoice": sales_invoice,
-	"Delivery Note": delivery_note, "Item": item, "Purchase Order": purchase_order, "Supplier": supplier}
+	"Delivery Note": delivery_note, "Item": item, "Purchase Order": purchase_order, "Supplier": supplier,
+	"Import Shipment": import_shipment, "Letter of Credit": letter_of_credit, "Purchase Receipt": purchase_receipt}
 
 
 # ---------------------------------------------------------------- API
@@ -647,6 +817,8 @@ MAKERS = {
 	"erpnext.buying.doctype.purchase_order.purchase_order.make_purchase_invoice",
 	"hipersign_trading.api.panel.pay_sales_invoice",
 	"hipersign_trading.api.panel.pay_purchase_invoice",
+	"erpnext.stock.doctype.purchase_receipt.purchase_receipt.make_purchase_invoice",
+	"erpnext.stock.doctype.purchase_receipt.purchase_receipt.make_purchase_return",
 }
 
 
@@ -704,4 +876,30 @@ def action(doctype, name, action, args=None):
 			"purchase_orders": [{"purchase_order": doc.name}]})
 		sh.insert()
 		return {"message": _("Import shipment {0} booked").format(sh.name), "route": ["Form", "Import Shipment", sh.name]}
+	if action == "ship_next" and doctype == "Import Shipment":
+		doc.check_permission("write")
+		st = args.get("status")
+		if st not in SHIP_STEPS or SHIP_STEPS.index(st) != SHIP_STEPS.index(doc.status) + 1:
+			frappe.throw(_("{0} cannot move to {1}").format(doc.name, _(st or "")))
+		doc.status = st
+		doc.save()
+		return {"message": _("{0} is now {1}").format(doc.name, _(st))}
+	if action == "ship_lcv" and doctype == "Import Shipment":
+		doc.check_permission("write")
+		lcv = doc.make_landed_cost_voucher()
+		return {"message": _("Landed cost voucher {0} created").format(lcv), "route": ["Form", "Landed Cost Voucher", lcv]}
+	if action == "lc_next" and doctype == "Letter of Credit":
+		doc.check_permission("write")
+		st = args.get("status")
+		if st not in LC_STEPS or doc.status not in LC_STEPS or LC_STEPS.index(st) != LC_STEPS.index(doc.status) + 1:
+			frappe.throw(_("{0} cannot move to {1}").format(doc.lc_number or doc.name, _(st or "")))
+		doc.status = st
+		field = {"Documents Presented": "documents_presented_on", "Accepted": "accepted_on", "Paid": "paid_on", "Issued": "issue_date"}.get(st)
+		if field and not doc.get(field):
+			doc.set(field, today())
+		doc.save()
+		return {"message": _("{0} is now {1}").format(doc.lc_number or doc.name, _(st))}
+	if action in ("lc_margin", "lc_margin_release", "lc_tr") and doctype == "Letter of Credit":
+		je = {"lc_margin": doc.make_margin_entry, "lc_margin_release": doc.make_margin_release_entry, "lc_tr": doc.make_trust_receipt_entry}[action]()
+		return {"message": _("Journal entry {0} created").format(je), "route": ["Form", "Journal Entry", je]}
 	frappe.throw(_("Unknown action"))
