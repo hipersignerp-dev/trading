@@ -88,7 +88,7 @@ frappe.provide("hipersign.cm");
 		},
 	};
 
-	C.has = (dt) => !!DT_KIND[dt] || (hipersign.qc && hipersign.qc.has(dt));
+	C.has = (dt) => !!DT_KIND[dt] || !!(C.DOCS && C.DOCS[dt]) || (hipersign.qc && hipersign.qc.has(dt));
 
 	// ------------------------------------------------------------ the shell (overlay, header, body, footer)
 	C.shell = function ({ title, sub, mode, modes, wide, onMode, onClose }) {
@@ -474,9 +474,183 @@ frappe.provide("hipersign.cm");
 		});
 	};
 
+
+	// ------------------------------------------------------------ the other create forms (one renderer, one save)
+	const L = (dt, filters, extra) => Object.assign({ dt, filters: filters || {} }, extra || {});
+	const MODES_SHIP = [["Sea", __("Sea")], ["Air", __("Air")], ["Land", __("Land")]];
+	C.DOCS = {
+		"Import Shipment": { title: __("New import shipment"), sub: __("For an approved import order — documents and charges are added on the shipment"), fields: [
+			{ f: "purchase_order", label: __("Purchase order"), t: "select", src: L("Purchase Order", { docstatus: 1, per_received: ["<", 100] }), req: 1, m: "q", w: 2 },
+			{ f: "mode", label: __("Mode"), t: "select", opts: MODES_SHIP, def: "Sea", m: "q" },
+			{ f: "shipping_line", label: __("Shipping line / airline"), m: "s", ph: "Maersk" },
+			{ f: "bl_awb", label: __("BL / AWB number"), m: "q" },
+			{ f: "containers", label: __("Number of containers"), t: "number", m: "s" },
+			{ f: "vessel_flight", label: __("Vessel / flight"), m: "s" },
+			{ f: "port_of_loading", label: __("Port of loading"), m: "s" },
+			{ f: "port_of_discharge", label: __("Port of discharge"), def: "Jebel Ali Port", m: "s" },
+			{ f: "insurance_policy", label: __("Insurance policy no."), m: "d" },
+			{ f: "etd", label: __("ETD"), t: "date", m: "q" },
+			{ f: "eta", label: __("ETA"), t: "date", m: "q" },
+		] },
+		"Export Shipment": { title: __("New export shipment"), sub: __("Book the shipment for a confirmed export order — 0% VAT needs proof of export"), fields: [
+			{ f: "sales_order", label: __("Export order"), t: "select", src: L("Sales Order", { docstatus: 1, per_delivered: ["<", 100] }), req: 1, m: "q", w: 2 },
+			{ f: "mode", label: __("Mode"), t: "select", opts: MODES_SHIP, def: "Land", m: "q" },
+			{ f: "port_of_loading", label: __("Port / border of loading"), m: "q", ph: "Hatta border (Oman)" },
+			{ f: "destination", label: __("Destination"), m: "q", ph: "Muscat, Oman" },
+			{ f: "incoterm", label: __("Incoterm"), t: "select", src: L("Incoterm"), m: "s" },
+			{ f: "forwarder", label: __("Forwarder / transporter"), t: "select", src: L("Supplier", { disabled: 0 }), m: "s" },
+			{ f: "etd", label: __("Planned departure (ETD)"), t: "date", m: "q", def: () => plus(3) },
+			{ f: "_transit_days", label: __("Transit days"), t: "number", m: "s", def: 2 },
+			{ f: "re_export_of", label: __("Re-export of import"), t: "select", src: L("Import Shipment"), m: "d", blank: __("No — local stock") },
+		] },
+		"Material Request": { title: __("New purchase request"), sub: __("Ask purchasing to buy items"), fields: [
+			{ f: "_department", label: __("Department"), t: "select", src: L("Department", { is_group: 0 }), m: "s" },
+			{ f: "schedule_date", label: __("Needed by"), t: "date", m: "q", def: () => plus(7) },
+			{ f: "_reason", label: __("Reason"), m: "s", w: 2 },
+		], rows: { cols: [{ f: "item_code", label: __("Item"), t: "select", src: L("Item", { disabled: 0, is_purchase_item: 1 }), w: 3 }, { f: "qty", label: __("Qty"), t: "number" }], n: 2 },
+			actions: [{ label: __("Save"), action: "save" }, { label: __("Submit request"), action: "submit", primary: 1 }] },
+		"Stock Entry": { title: __("Stock transfer"), sub: __("Move stock between warehouses"), fields: [
+			{ f: "from_warehouse", label: __("From"), t: "select", src: L("Warehouse", { is_group: 0 }), req: 1, m: "q" },
+			{ f: "to_warehouse", label: __("To"), t: "select", src: L("Warehouse", { is_group: 0 }), req: 1, m: "q" },
+			{ f: "posting_date", label: __("Transfer date"), t: "date", m: "s", def: today },
+			{ f: "_requested_by", label: __("Requested by"), m: "s" },
+			{ f: "_reason", label: __("Reason"), m: "s", w: 2 },
+		], rows: { cols: [{ f: "item_code", label: __("Item"), t: "select", src: L("Item", { disabled: 0, is_stock_item: 1 }), w: 3 }, { f: "qty", label: __("Quantity"), t: "number" }], n: 1 },
+			actions: [{ label: __("Save draft"), action: "save" }, { label: __("Transfer"), action: "submit", primary: 1 }] },
+		"Stock Reconciliation": { title: __("Stock count"), sub: __("Count and reconcile — differences go to the Warehouse Manager for approval"), fields: [
+			{ f: "_reason", label: __("Reason"), t: "select", opts: ["Cycle count — damaged cartons", "Cycle count — miscount on receipt", "Breakage in warehouse", "Item found — not booked", "Theft or loss", "Year-end physical count"].map((x) => [x, __(x)]), m: "q", w: 2 },
+		], rows: { cols: [{ f: "item_code", label: __("Item"), t: "select", src: L("Item", { disabled: 0, is_stock_item: 1 }), w: 3 }, { f: "warehouse", label: __("Warehouse"), t: "select", src: L("Warehouse", { is_group: 0 }), w: 2 },
+			{ f: "qty", label: __("Counted quantity"), t: "number" }], n: 1 },
+			actions: [{ label: __("Save draft"), action: "save" }, { label: __("Send for approval"), action: "submit", primary: 1 }] },
+		"Journal Entry": { title: __("New journal entry"), sub: __("Manual entry — debits and credits must agree; large entries need a supporting document"), fields: [
+			{ f: "posting_date", label: __("Posting date"), t: "date", m: "q", def: today },
+			{ f: "user_remark", label: __("Memo"), m: "q" },
+		], rows: { cols: [{ f: "account", label: __("Account"), t: "select", src: L("Account", { is_group: 0 }), w: 3 }, { f: "debit", label: __("Debit"), t: "number" }, { f: "credit", label: __("Credit"), t: "number" }], n: 2, sum: ["debit", "credit"] },
+			actions: [{ label: __("Save draft"), action: "save" }, { label: __("Post"), action: "submit", primary: 1 }] },
+		"Post Dated Cheque": { title: __("Cheque received from customer"), sub: __("Post-dated cheque — the invoice's outstanding falls at once; clearing moves it to the bank"), fields: [
+			{ f: "direction", label: __("Cheque"), t: "select", opts: [["Received", __("Received from a customer")], ["Issued", __("Issued to a supplier")]], def: "Received", m: "q", redraw: 1 },
+			{ f: "_invoice", label: __("Invoice"), t: "select", src: L("Sales Invoice", { docstatus: 1, outstanding_amount: [">", 0], is_return: 0 }), req: 1, m: "q", show: (v) => v.direction !== "Issued" },
+			{ f: "_invoice", label: __("Supplier invoice"), t: "select", src: L("Purchase Invoice", { docstatus: 1, outstanding_amount: [">", 0] }), req: 1, m: "q", show: (v) => v.direction === "Issued" },
+			{ f: "cheque_no", label: __("Cheque no."), req: 1, m: "q" },
+			{ f: "drawn_on", label: __("Drawn on (customer bank)"), m: "q", show: (v) => v.direction !== "Issued", ph: "Emirates NBD" },
+			{ f: "bank_account", label: __("Our bank account"), t: "select", src: L("Account", { account_type: "Bank", is_group: 0 }), m: "q", show: (v) => v.direction === "Issued" },
+			{ f: "amount", label: __("Amount (AED)"), t: "number", req: 1, m: "q" },
+			{ f: "cheque_date", label: __("Cheque date"), t: "date", req: 1, m: "q", def: () => plus(30) },
+		] },
+		"Expense Claim": { title: __("New expense claim"), sub: __("Receipts with the supplier's TRN let the VAT be recovered"), fields: [
+			{ f: "employee", label: __("Employee"), t: "select", src: L("Employee", { status: "Active" }), req: 1, m: "q" },
+			{ f: "_purpose", label: __("Purpose"), m: "q" },
+			{ f: "cost_center", label: __("Cost centre"), t: "select", src: L("Cost Center", { is_group: 0 }), m: "s" },
+		], rows: { cols: [{ f: "expense_date", label: __("Date"), t: "date" }, { f: "expense_type", label: __("Type"), t: "select", src: L("Expense Claim Type"), w: 2 },
+			{ f: "description", label: __("What, where, with whom"), w: 2 }, { f: "amount", label: __("Amount (AED)"), t: "number" }], n: 1, sum: ["amount"] } },
+		"Leave Application": { title: __("Leave request"), sub: __("Goes to the employee's leave approver"), fields: [
+			{ f: "employee", label: __("Employee"), t: "select", src: L("Employee", { status: "Active" }), req: 1, m: "q", w: 2 },
+			{ f: "leave_type", label: __("Leave type"), t: "select", src: L("Leave Type"), req: 1, m: "q" },
+			{ f: "from_date", label: __("From"), t: "date", req: 1, m: "q", def: () => plus(7) },
+			{ f: "to_date", label: __("To"), t: "date", req: 1, m: "q", def: () => plus(9) },
+			{ f: "description", label: __("Reason"), m: "q", w: 2 },
+		] },
+		"Letter of Credit": { title: __("New LC application"), sub: __("Import letter of credit for a supplier order — the bank blocks the cash margin"), fields: [
+			{ f: "purchase_order", label: __("Purchase order"), t: "select", src: L("Purchase Order", { docstatus: 1, per_received: ["<", 100] }), req: 1, m: "q", w: 2 },
+			{ f: "issuing_bank", label: __("Issuing bank"), t: "select", src: L("Bank"), req: 1, m: "q" },
+			{ f: "amount", label: __("Amount (order currency)"), t: "number", m: "q", hint: __("Empty = the order total") },
+			{ f: "tenor", label: __("Payment"), t: "select", opts: ["At sight", "Usance 30 days", "Usance 60 days", "Usance 90 days", "Usance 120 days", "Usance 180 days"].map((x) => [x, __(x)]), m: "q" },
+			{ f: "tolerance_pct", label: __("Tolerance ±%"), t: "number", def: 5, m: "s" },
+			{ f: "margin_pct", label: __("Cash margin %"), t: "number", def: 10, m: "s" },
+			{ f: "latest_shipment_date", label: __("Latest shipment date"), t: "date", m: "s", def: () => plus(45) },
+			{ f: "expiry_date", label: __("Expiry date"), t: "date", m: "q", def: () => plus(75) },
+		] },
+		"Bank Guarantee": { title: __("Request a bank guarantee"), sub: __("Performance, advance-payment or tender bond for a customer"), fields: [
+			{ f: "_bg_kind", label: __("Type"), t: "select", opts: ["Performance bond", "Advance payment guarantee", "Tender (bid) bond", "Retention guarantee", "Customs / financial guarantee"].map((x) => [x, __(x)]), m: "q" },
+			{ f: "customer", label: __("Beneficiary (customer)"), t: "select", src: L("Customer", { disabled: 0 }), req: 1, m: "q" },
+			{ f: "_contract", label: __("Contract / tender / order"), m: "q" },
+			{ f: "_contract_value", label: __("Contract value (AED)"), t: "number", req: 1, m: "q" },
+			{ f: "_pct", label: __("Guarantee %"), t: "number", def: 10, m: "q" },
+			{ f: "bank", label: __("Issuing bank"), t: "select", src: L("Bank"), m: "q" },
+			{ f: "_margin_pct", label: __("Cash margin %"), t: "number", def: 10, m: "s" },
+			{ f: "start_date", label: __("Valid from"), t: "date", m: "q", def: today },
+			{ f: "_valid_to", label: __("Valid to"), t: "date", m: "q", def: () => plus(365) },
+		] },
+		"Company Document": { title: __("Add company document"), sub: __("Licence, registration or certificate — renewal reminders follow the expiry"), fields: [
+			{ f: "company", label: __("Company"), t: "select", src: L("Company"), req: 1, m: "q" },
+			{ f: "document_type", label: __("Document type"), t: "select", src: L("Company Document Type"), req: 1, m: "q" },
+			{ f: "document_number", label: __("Number"), m: "q" },
+			{ f: "authority", label: __("Issuing authority"), m: "s" },
+			{ f: "issue_date", label: __("Issue date"), t: "date", m: "s" },
+			{ f: "expiry_date", label: __("Expiry date"), t: "date", m: "q" },
+			{ f: "responsible_user", label: __("Responsible"), t: "select", src: L("User", { user_type: "System User", enabled: 1 }), m: "s" },
+			{ f: "notes", label: __("Notes"), t: "textarea", m: "d", w: 2 },
+		] },
+	};
+
+	C.doc = function (dt, preset) {
+		const spec = C.DOCS[dt];
+		preset = preset || {};
+		let mode = (hipersign.fm && hipersign.fm.COVERED.includes(dt) && hipersign.fm.mode(dt)) || "Standard";
+		const v = Object.assign({}, preset), opt = {};
+		spec.fields.forEach((df) => { if (v[df.f] === undefined && df.def !== undefined) v[df.f] = typeof df.def === "function" ? df.def() : df.def; });
+		const R = spec.rows, rows = [];
+		if (R) { (preset.rows || []).forEach((r) => rows.push(Object.assign({}, r))); while (rows.length < R.n) rows.push({}); }
+		const title = () => dt === "Post Dated Cheque" && v.direction === "Issued" ? __("Issue cheque to supplier") : spec.title;
+		const sh = C.shell({ title: title(), sub: spec.sub, mode, modes: hipersign.fm && hipersign.fm.COVERED.includes(dt), wide: !!R && R.cols.length > 2,
+			onMode: (m) => { read(); mode = m; sh.setMode(m); hipersign.fm.remember(dt, m); draw(); } });
+		const src = (s) => s ? opt[JSON.stringify(s)] || [] : null;
+		const read = () => {
+			sh.$body.find("[data-f]").each(function () { v[$(this).data("f")] = $(this).val(); });
+			sh.$body.find("tr[data-r]").each(function () { const r = rows[+$(this).data("r")]; $(this).find("[data-c]").each(function () { r[$(this).data("c")] = $(this).val(); }); });
+		};
+		const draw = () => {
+			sh.$ov.find(".hsc-head h3").text(title());
+			const fields = spec.fields.filter((df) => visible(df, mode) && (!df.show || df.show(v)));
+			let h = `<div class="hsc-grid">${fields.map((df) => C.field(Object.assign({}, df, { list: df.src ? src(df.src) : df.opts, noblank: df.req && df.t === "select" ? 0 : 0 }), v[df.f])).join("")}</div>`;
+			if (R) {
+				h += `<div class="hsc-lines"><table><thead><tr>${R.cols.map((c) => `<th class="${c.t === "number" ? "c-n" : ""}" style="${c.w ? `width:${c.w * 14}%` : ""}">${esc(c.label)}</th>`).join("")}<th></th></tr></thead><tbody>`
+					+ rows.map((r, i) => `<tr data-r="${i}">${R.cols.map((c) => `<td>${c.t === "select" ? `<select data-c="${c.f}">${optHtml(src(c.src), r[c.f], "—")}</select>`
+						: `<input data-c="${c.f}" type="${c.t || "text"}" ${c.t === "number" ? 'step="any"' : ""} value="${esc(r[c.f] ?? (c.t === "date" ? today() : ""))}">`}</td>`).join("")}
+						<td><button type="button" class="hsc-del">${frappe.utils.icon("close", "xs")}</button></td></tr>`).join("")
+					+ `</tbody></table><div class="hsc-lbtn"><button type="button" class="btn btn-default btn-sm hsc-addr">${frappe.utils.icon("add", "xs")} ${__("Add line")}</button></div></div>`;
+				if (R.sum) h += `<div class="hsc-totals"><div>${R.sum.map((f) => `<div class="hsc-tl"><span>${esc((R.cols.find((c) => c.f === f) || {}).label)}</span><b data-sum="${f}">0</b></div>`).join("")}</div><div></div></div>`;
+			}
+			sh.$body.html(h);
+			sums();
+		};
+		const sums = () => { if (!R || !R.sum) return; read(); R.sum.forEach((f) => sh.$body.find(`[data-sum="${f}"]`).text(format_currency(rows.reduce((a, r) => a + flt(r[f]), 0)))); };
+		sh.$body.on("change", "[data-f]", function () { const df = spec.fields.find((x) => x.f === $(this).data("f")); if (df && df.redraw) { read(); draw(); } });
+		sh.$body.on("input change", "[data-c]", sums);
+		sh.$body.on("click", ".hsc-addr", () => { read(); rows.push({}); draw(); });
+		sh.$body.on("click", ".hsc-del", function () { read(); rows.splice(+$(this).closest("tr").data("r"), 1); if (!rows.length) rows.push({}); draw(); });
+		const acts = spec.actions || [{ label: __("Save"), action: "save", primary: 1 }];
+		sh.$fl.html(`<button type="button" class="btn btn-default hsc-full">${__("Open full form")} ↗</button>`);
+		sh.$fl.on("click", ".hsc-full", () => { sh.close(); hipersign.create && hipersign.create.new_doc ? hipersign.create.new_doc(dt, {}) : frappe.new_doc(dt); });
+		sh.$fr.html(`<button type="button" class="btn btn-default hsc-cancel">${__("Cancel")}</button>` + acts.map((a, i) =>
+			`<button type="button" class="btn ${a.primary ? "btn-primary" : "btn-default"} hsc-act" data-i="${i}">${a.primary ? frappe.utils.icon("check", "xs") + " " : ""}${esc(a.label)}</button>`).join(""));
+		sh.$fr.on("click", ".hsc-cancel", sh.close);
+		sh.$fr.on("click", ".hsc-act", function () {
+			read();
+			const miss = spec.fields.filter((df) => df.req && (!df.show || df.show(v)) && !v[df.f]).map((df) => df.label);
+			if (miss.length) return frappe.msgprint(__("Please fill in: {0}", [miss.join(", ")]));
+			const a = acts[+$(this).data("i")], btn = this;
+			$(btn).prop("disabled", true);
+			frappe.xcall("hipersign_trading.api.create.save_doc", { doctype: dt, values: v, rows, action: a.action }).then((r) => {
+				sh.close();
+				frappe.show_alert({ message: r.message, indicator: r.needs_documents ? "orange" : "green" }, 7);
+				if (hipersign.panel && hipersign.panel.has(dt)) hipersign.panel.open(dt, r.name); else frappe.set_route("Form", dt, r.name);
+				if (window.cur_list && cur_list.doctype === dt) cur_list.refresh();
+			}).catch(() => {}).finally(() => $(btn).prop("disabled", false));
+		});
+		// load every choice list the form uses, then draw
+		const srcs = [...spec.fields.filter((d) => d.src).map((d) => d.src), ...(R ? R.cols.filter((c) => c.src).map((c) => c.src) : [])];
+		const uniq = [...new Map(srcs.map((s) => [JSON.stringify(s), s])).values()];
+		sh.$body.html(`<div class="hsc-loading">${__("Loading…")}</div>`);
+		Promise.all(uniq.map((s) => frappe.xcall("hipersign_trading.api.create.link_options", { doctype: s.dt, query: JSON.stringify({ filters: s.filters }) })
+			.then((r) => { opt[JSON.stringify(s)] = r || []; }).catch(() => { opt[JSON.stringify(s)] = []; }))).then(draw);
+		return sh;
+	};
+
 	// ------------------------------------------------------------ routing: every "New …" for these opens the modal
 	C.new = function (dt, values) {
 		if (DT_KIND[dt]) return C.open(DT_KIND[dt], values || {});
+		if (C.DOCS[dt]) return C.doc(dt, values || {});
 		return hipersign.qc.open(dt, { values: values || {} });
 	};
 })();

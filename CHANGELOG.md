@@ -12,6 +12,10 @@ in the header, two-column fields — instead of ERPNext's quick entry or full fo
 - "From a document" modals, as on the prototype: Pick & deliver (sales order → delivery note, quantity and warehouse per line),
   Receive goods (purchase order → receipt: scan, accepted / rejected, warehouse; blocked before customs clearance), Receive
   payment, Pay supplier and Create invoice — from the panels' and pages' buttons.
+- New import shipment, export shipment, purchase request, stock transfer, stock count (to the Warehouse Manager), journal entry
+  (debits = credits), cheque received / issued (party and invoice from the invoice picked), expense claim, leave request, LC
+  application (supplier, currency and amount from the order; cash margin), bank guarantee (amount from contract value × %),
+  company document — the prototype's fields, in the same modal (api/create.save_doc).
 
 ## 1.6.1 — 30 Oct 2026 — fixes from the 1.6.0 Test Centre re-run on tradingdemo
 - Finance → To bill and the *Delivered, not invoiced* KPI count what is left to invoice from the non-return invoice lines; a

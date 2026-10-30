@@ -342,5 +342,210 @@ def link_options(doctype, query=None):
 		from hipersign_trading.api.crm import sales_users
 
 		return [{"name": r[0], "label": r[1] if len(r) > 1 and r[1] else r[0]} for r in sales_users("User", "", "name", 0, LIMIT, {})]
+	if meta.has_field("company") and "company" not in filters and doctype not in ("User",):
+		filters["company"] = _company()
 	title = meta.title_field if meta.title_field and meta.title_field != "name" and meta.has_field(meta.title_field) else None
-	return _names(doctype, filters, title, f"{title} asc" if title else "name asc")
+	rows = _names(doctype, filters, title, "modified desc" if meta.is_submittable else (f"{title} asc" if title else "name asc"))
+	if meta.is_submittable or meta.autoname and "naming_series" in (meta.autoname or "") or doctype in ("Employee", "Item"):
+		# documents and coded masters: "PUR-ORD-2026-00003 — EuroSafe Systems GmbH", as on the prototype
+		for r in rows:
+			if r["label"] != r["name"]:
+				r["label"] = f"{r['name']} — {r['label']}"
+	return rows
+
+
+# ---------------------------------------------------------------- v1.7.0 part 2: the other create forms (one save for all)
+SIMPLE = {"Import Shipment", "Export Shipment", "Material Request", "Stock Entry", "Stock Reconciliation", "Journal Entry", "Post Dated Cheque",
+	"Expense Claim", "Leave Application", "Letter of Credit", "Bank Guarantee", "Company Document"}
+
+
+@frappe.whitelist()
+def save_doc(doctype, values, rows=None, action="save"):
+	if doctype not in SIMPLE:
+		frappe.throw(_("Unknown form"))
+	frappe.has_permission(doctype, "create", throw=True)
+	v = frappe._dict(frappe.parse_json(values) if isinstance(values, str) else (values or {}))
+	rows = [r for r in (frappe.parse_json(rows) if isinstance(rows, str) else (rows or [])) if any(x not in (None, "", 0, "0") for x in r.values())]
+	doc = frappe.new_doc(doctype)
+	meta = doc.meta
+	if meta.has_field("company"):
+		doc.company = v.get("company") or _company()
+	pre = globals().get("_pre_" + frappe.scrub(doctype))
+	if pre:
+		pre(doc, v, rows)
+	for k, val in v.items():
+		if val in (None, "") or k.startswith("_"):
+			continue
+		df = meta.get_field(k)
+		if df and df.fieldtype not in ("Table", "Table MultiSelect") and not doc.get(k):
+			doc.set(k, val)
+	post = globals().get("_post_" + frappe.scrub(doctype))
+	if post:
+		post(doc, v, rows)
+	if hasattr(doc, "set_missing_values"):
+		try:
+			doc.set_missing_values()
+		except Exception:
+			frappe.clear_last_message()
+	doc.insert()
+	msg = _("{0} {1} saved").format(_(doctype), doc.name)
+	needs = None
+	if action == "submit" and meta.is_submittable:
+		from hipersign_trading.doc_rules import DocumentNeeded
+
+		frappe.db.savepoint("hs_simple_submit")
+		try:
+			doc = _submit(doc)
+			msg = _("{0} {1} · {2}").format(_(doctype), doc.name, _(doc.get("workflow_state") or ("Submitted" if doc.docstatus == 1 else "Draft")))
+		except DocumentNeeded as e:
+			frappe.db.rollback(save_point="hs_simple_submit")
+			frappe.local.message_log = []
+			needs = frappe.utils.strip_html(str(e))
+			msg = _("{0} {1} saved as a draft — attach the document needed, then submit").format(_(doctype), doc.name)
+	return {"doctype": doctype, "name": doc.name, "message": msg, "needs_documents": needs}
+
+
+def _pre_import_shipment(doc, v, rows):
+	doc.status = "Booked"
+	pos = [v.get("purchase_order")] if v.get("purchase_order") else [r.get("purchase_order") for r in rows]
+	for po in [p for p in pos if p]:
+		doc.append("purchase_orders", {"purchase_order": po})
+
+
+def _pre_export_shipment(doc, v, rows):
+	doc.status = "Booked"
+	if v.get("etd") and v.get("_transit_days"):
+		doc.eta = add_days(v.etd, cint(v._transit_days))
+
+
+def _pre_material_request(doc, v, rows):
+	doc.material_request_type = "Purchase"
+	doc.transaction_date = today()
+	need = v.get("schedule_date") or add_days(today(), 7)
+	for r in rows:
+		if r.get("item_code") and flt(r.get("qty")) > 0:
+			doc.append("items", {"item_code": r["item_code"], "qty": flt(r["qty"]), "schedule_date": need})
+	if v.get("_reason") or v.get("_department"):
+		doc.terms = " — ".join(x for x in [v.get("_department"), v.get("_reason")] if x)
+
+
+def _pre_stock_entry(doc, v, rows):
+	doc.stock_entry_type = "Material Transfer"
+	doc.purpose = "Material Transfer"
+	for r in rows:
+		if r.get("item_code") and flt(r.get("qty")) > 0:
+			doc.append("items", {"item_code": r["item_code"], "qty": flt(r["qty"]), "s_warehouse": v.get("from_warehouse"), "t_warehouse": v.get("to_warehouse")})
+	if v.get("_reason") or v.get("_requested_by"):
+		doc.remarks = " — ".join(x for x in [v.get("_requested_by"), v.get("_reason")] if x)
+	if v.get("posting_date") and getdate(v.posting_date) != getdate(today()):
+		doc.set_posting_time = 1
+
+
+def _pre_stock_reconciliation(doc, v, rows):
+	doc.purpose = "Stock Reconciliation"
+	from hipersign_trading.utils import valuation_rate
+
+	for r in rows:
+		if r.get("item_code") and r.get("warehouse") and r.get("qty") not in (None, ""):
+			doc.append("items", {"item_code": r["item_code"], "warehouse": r["warehouse"], "qty": flt(r["qty"]),
+				"valuation_rate": flt(valuation_rate(r["item_code"], r["warehouse"])) or None})
+	if not doc.get("items"):
+		frappe.throw(_("Enter the item, warehouse and counted quantity"))
+	if v.get("_reason") and doc.meta.has_field("remarks"):
+		doc.remarks = v._reason
+
+
+def _pre_journal_entry(doc, v, rows):
+	doc.voucher_type = "Journal Entry"
+	doc.posting_date = v.get("posting_date") or today()
+	doc.user_remark = v.get("user_remark")
+	dr = cr = 0
+	for r in rows:
+		if not r.get("account"):
+			continue
+		d, c = flt(r.get("debit")), flt(r.get("credit"))
+		if not d and not c:
+			continue
+		row = {"account": r["account"], "debit_in_account_currency": d, "credit_in_account_currency": c}
+		at = frappe.get_cached_value("Account", r["account"], "account_type")
+		if at in ("Receivable", "Payable") and r.get("party"):
+			row.update({"party_type": "Customer" if at == "Receivable" else "Supplier", "party": r["party"]})
+		doc.append("accounts", row)
+		dr += d
+		cr += c
+	if abs(dr - cr) > 0.005:
+		frappe.throw(_("Debits ({0}) and credits ({1}) must be equal").format(frappe.format(dr, "Currency"), frappe.format(cr, "Currency")))
+
+
+def _pre_post_dated_cheque(doc, v, rows):
+	inv_dt = "Sales Invoice" if v.get("direction") != "Issued" else "Purchase Invoice"
+	if v.get("_invoice"):
+		inv = frappe.db.get_value(inv_dt, v._invoice, ["customer" if inv_dt == "Sales Invoice" else "supplier", "company"], as_dict=True)
+		doc.party_type = "Customer" if inv_dt == "Sales Invoice" else "Supplier"
+		doc.party = inv.get("customer") or inv.get("supplier")
+		doc.company = inv.company
+		doc.reference_doctype, doc.reference_name = inv_dt, v._invoice
+	doc.direction = v.get("direction") or "Received"
+	doc.received_on = today()
+	doc.status = "In Hand" if doc.direction == "Received" else "Issued"
+
+
+def _pre_expense_claim(doc, v, rows):
+	doc.posting_date = today()
+	for r in rows:
+		if r.get("expense_type") and flt(r.get("amount")) > 0:
+			acc = frappe.db.get_value("Expense Claim Account", {"parent": r["expense_type"], "company": doc.company}, "default_account") \
+				or frappe.get_cached_value("Company", doc.company, "default_expense_account") \
+				or frappe.db.get_value("Account", {"company": doc.company, "root_type": "Expense", "is_group": 0, "account_name": ["like", "%Miscellaneous%"]}, "name")
+			doc.append("expenses", {"expense_date": r.get("expense_date") or today(), "expense_type": r["expense_type"], "description": r.get("description"),
+				"amount": flt(r["amount"]), "sanctioned_amount": flt(r["amount"]), "cost_center": v.get("cost_center"), "default_account": acc})
+	if not doc.get("expenses"):
+		frappe.throw(_("Add at least one expense with a type and an amount"))
+	emp = frappe.db.get_value("Employee", v.get("employee"), ["expense_approver", "reports_to", "company"], as_dict=True) if v.get("employee") else None
+	if emp:
+		doc.company = emp.company or doc.company
+		doc.expense_approver = emp.expense_approver or (frappe.db.get_value("Employee", emp.reports_to, "user_id") if emp.reports_to else None)
+	doc.remark = v.get("_purpose")
+	doc.currency = doc.currency or frappe.get_cached_value("Company", doc.company, "default_currency")
+	doc.exchange_rate = doc.exchange_rate or 1
+
+
+def _pre_leave_application(doc, v, rows):
+	doc.posting_date = today()
+	doc.status = "Open"
+	emp = frappe.db.get_value("Employee", v.get("employee"), ["leave_approver", "reports_to", "company"], as_dict=True) if v.get("employee") else None
+	if emp:
+		doc.company = emp.company or doc.company
+		doc.leave_approver = emp.leave_approver or (frappe.db.get_value("Employee", emp.reports_to, "user_id") if emp.reports_to else None)
+
+
+def _pre_letter_of_credit(doc, v, rows):
+	doc.lc_type = "Import"
+	doc.status = "Applied"
+	if v.get("purchase_order"):
+		po = frappe.db.get_value("Purchase Order", v.purchase_order, ["supplier", "currency", "grand_total", "company", "conversion_rate"], as_dict=True)
+		doc.supplier, doc.currency, doc.company = po.supplier, po.currency, po.company
+		doc.amount = flt(v.get("amount")) or po.grand_total
+		doc.exchange_rate = po.conversion_rate
+		doc.base_amount = flt(doc.amount) * flt(po.conversion_rate or 1)
+		ship = frappe.get_all("Import Shipment PO", filters={"purchase_order": v.purchase_order, "parenttype": "Import Shipment"}, pluck="parent", limit=1)
+		if ship:
+			doc.import_shipment = ship[0]
+	if flt(v.get("margin_pct")):
+		doc.margin_amount = flt(doc.base_amount or doc.amount) * flt(v.margin_pct) / 100
+
+
+def _pre_bank_guarantee(doc, v, rows):
+	doc.bg_type = "Providing"
+	cv, pct = flt(v.get("_contract_value")), flt(v.get("_pct")) or 10
+	doc.amount = flt(v.get("amount")) or cv * pct / 100
+	doc.start_date = v.get("start_date") or today()
+	if v.get("_valid_to"):
+		from frappe.utils import date_diff
+
+		doc.validity = date_diff(v._valid_to, doc.start_date)
+	if flt(v.get("_margin_pct")):
+		doc.margin_money = doc.amount * flt(v._margin_pct) / 100
+	doc.more_information = " — ".join(x for x in [v.get("_bg_kind"), v.get("_contract")] if x)
+	if v.get("customer"):
+		doc.name_of_beneficiary = frappe.db.get_value("Customer", v.customer, "customer_name")
