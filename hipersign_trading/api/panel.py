@@ -788,11 +788,14 @@ BUILDERS = {"Lead": lead, "Quotation": quotation, "Sales Order": sales_order, "C
 # ---------------------------------------------------------------- API
 @frappe.whitelist()
 def get_panel(doctype, name):
-	if doctype not in BUILDERS:
+	from hipersign_trading.api import panel_more
+
+	builders = {**BUILDERS, **panel_more.BUILDERS}
+	if doctype not in builders:
 		frappe.throw(_("No panel for {0}").format(doctype))
 	doc = frappe.get_doc(doctype, name)
 	doc.check_permission("read")
-	p = BUILDERS[doctype](doc)
+	p = builders[doctype](doc)
 	p["sections"] = [s for s in p["sections"] if s and (s["kind"] != "kv" or s["rows"] or s["actions"])]
 	return p
 
@@ -800,7 +803,9 @@ def get_panel(doctype, name):
 @frappe.whitelist(methods=["POST"])
 def make(method, source_name):
 	"""Run one of ERPNext's whitelisted "make" mappers named by a panel button and return the new draft."""
-	if method not in MAKERS:
+	from hipersign_trading.api import panel_more
+
+	if method not in MAKERS and method not in panel_more.MAKERS:
 		frappe.throw(_("Not allowed"))
 	fn = frappe.get_attr(method)
 	doc = fn(source_name)
@@ -902,4 +907,9 @@ def action(doctype, name, action, args=None):
 	if action in ("lc_margin", "lc_margin_release", "lc_tr") and doctype == "Letter of Credit":
 		je = {"lc_margin": doc.make_margin_entry, "lc_margin_release": doc.make_margin_release_entry, "lc_tr": doc.make_trust_receipt_entry}[action]()
 		return {"message": _("Journal entry {0} created").format(je), "route": ["Form", "Journal Entry", je]}
+	from hipersign_trading.api import panel_more
+
+	r = panel_more.action(doc, action, args)
+	if r is not None:
+		return r
 	frappe.throw(_("Unknown action"))

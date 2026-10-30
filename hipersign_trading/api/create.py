@@ -498,7 +498,7 @@ def _pre_expense_claim(doc, v, rows):
 				or frappe.get_cached_value("Company", doc.company, "default_expense_account") \
 				or frappe.db.get_value("Account", {"company": doc.company, "root_type": "Expense", "is_group": 0, "account_name": ["like", "%Miscellaneous%"]}, "name")
 			doc.append("expenses", {"expense_date": r.get("expense_date") or today(), "expense_type": r["expense_type"], "description": r.get("description"),
-				"amount": flt(r["amount"]), "sanctioned_amount": flt(r["amount"]), "cost_center": v.get("cost_center"), "default_account": acc})
+				"amount": flt(r["amount"]), "sanctioned_amount": flt(r["amount"]), "cost_center": v.get("cost_center") or frappe.get_cached_value("Company", doc.company, "cost_center"), "default_account": acc})
 	if not doc.get("expenses"):
 		frappe.throw(_("Add at least one expense with a type and an amount"))
 	emp = frappe.db.get_value("Employee", v.get("employee"), ["expense_approver", "reports_to", "company"], as_dict=True) if v.get("employee") else None
