@@ -184,6 +184,8 @@ hipersign.panel.run = function (p, a, $btn) {
 	if (a.route) { hipersign.panel.close(); if (a.options) frappe.route_options = a.options; return frappe.set_route(...a.route); }
 	if (a.print_format) return window.open(frappe.urllib.get_full_url(`/printview?doctype=${encodeURIComponent(dt)}&name=${encodeURIComponent(name)}&format=${encodeURIComponent(a.print_format)}`));
 	if (a.make) {
+		// v1.7.0: deliver / receive / pay / invoice open the prototype's modal; it refreshes the panel when done
+		if (hipersign.cm && hipersign.cm.make(a.make, a.source || name, (r) => { $(document).trigger("hp-changed"); hipersign.panel.open(r.doctype, r.name); })) return;
 		$btn && $btn.prop("disabled", true);
 		return frappe.xcall("hipersign_trading.api.panel.make", { method: a.make, source_name: a.source || name }).then((doc) => {
 			const d = frappe.model.sync(doc)[0];

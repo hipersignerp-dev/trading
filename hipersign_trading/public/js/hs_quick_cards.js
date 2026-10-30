@@ -252,6 +252,8 @@ hipersign.qc.open = function (dt, opts) {
 					{ fieldname: "link_name", label: __("Name"), fieldtype: "Dynamic Link", options: "link_doctype", default: link[1] || "" });
 			}
 			fields.forEach((f) => { if (f.fieldname && values[f.fieldname] !== undefined) f.default = values[f.fieldname]; });
+			// v1.7.0: the prototype's create modal (hs_create.js) draws the card
+			if (hipersign.cm && hipersign.cm.render_card) return hipersign.cm.render_card(dt, card, fields, values, opts, resolve);
 			const service = dt === "Item" && values.is_stock_item !== undefined && !+values.is_stock_item;
 			const d = new frappe.ui.Dialog({
 				title: service ? __("New service") : card.title,

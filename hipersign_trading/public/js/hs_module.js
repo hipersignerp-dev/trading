@@ -172,6 +172,9 @@ hipersign.module.render = function (wrapper, key) {
 		e.stopPropagation();
 		const $b = $(this);
 		if ($b.attr("data-ldt")) return open($b.attr("data-ldt"), $b.attr("data-lname"));
+		// v1.7.0: deliver / receive / pay / invoice open the prototype's modal; the page reloads its rows after
+		if (hipersign.cm && hipersign.cm.make($b.attr("data-make"), $b.attr("data-source"), (r) => { if (v.reload) v.reload(); else if (wrapper.hs_reload) wrapper.hs_reload();
+			if (hipersign.panel && hipersign.panel.has(r.doctype)) hipersign.panel.open(r.doctype, r.name); })) return;
 		$b.prop("disabled", true);
 		frappe.xcall("hipersign_trading.api.panel.make", { method: $b.attr("data-make"), source_name: $b.attr("data-source") })
 			.then((doc) => { const d = frappe.model.sync(doc)[0]; frappe.set_route("Form", d.doctype, d.name); })

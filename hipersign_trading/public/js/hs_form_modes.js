@@ -81,6 +81,8 @@ hipersign.fm.remember = (dt, mode) => {
 // ---------------------------------------------------------------- New: open in the user's mode
 hipersign.fm.new = function (dt, values) {
 	const m = hipersign.fm.mode(dt);
+	// v1.7.0: quotations, orders and the masters open the prototype's create modal in every mode (it has the mode switch)
+	if (hipersign.cm && hipersign.cm.has(dt) && !(values && values.__full)) return hipersign.cm.new(dt, values || {});
 	if (m === "Quick") return hipersign.fm.quick(dt, values || {});
 	hipersign.fm.full_form(dt, values || {});
 };

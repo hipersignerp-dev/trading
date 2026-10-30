@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.7.0 — in progress — the prototype's create forms, remaining pages and record views
+**Create forms (prototype modal):** every "New …" opens one modal — title and subtitle, the Quick / Standard / Detailed switch
+in the header, two-column fields — instead of ERPNext's quick entry or full form ("Open full form ↗" is still there).
+- Quotation, Sales order, Purchase order: the line table inside the modal (item · qty · rate · disc · available · margin · net),
+  totals with VAT, the customer group's discount in Disc %, and for sales orders the credit limit / exposure / after this order;
+  Save draft, Submit (through the approval workflow), Save & send on WhatsApp; "+ Add new prospect / client…" on the quotation
+  makes the prospect (lead) or customer from the same modal.
+- Lead, Customer, Supplier, Item, Service, Warehouse, Driver, Employee, Fixed asset, Contact, Address, Customer group, Payment
+  terms, Bank account: the quick cards drawn in the same modal.
+- "From a document" modals, as on the prototype: Pick & deliver (sales order → delivery note, quantity and warehouse per line),
+  Receive goods (purchase order → receipt: scan, accepted / rejected, warehouse; blocked before customs clearance), Receive
+  payment, Pay supplier and Create invoice — from the panels' and pages' buttons.
+
 ## 1.6.1 — 30 Oct 2026 — fixes from the 1.6.0 Test Centre re-run on tradingdemo
 - Finance → To bill and the *Delivered, not invoiced* KPI count what is left to invoice from the non-return invoice lines; a
   credit note no longer puts a fully invoiced delivery back on the list (FIN-02). Dispatch's *Not invoiced* flag and the
