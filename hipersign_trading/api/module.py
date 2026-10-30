@@ -12,7 +12,7 @@ from frappe.utils import add_days, add_months, cint, flt, getdate, today
 from hipersign_trading.api.home import period_range
 from hipersign_trading.api.ui import get_period, scope_companies
 
-MODULES = ("sales", "crm", "purchasing", "imports")
+MODULES = ("sales", "crm", "purchasing", "imports", "receiving")
 
 
 def _scope():
@@ -77,12 +77,12 @@ def sales_module():
 		"desc": _("Manage customer orders, agreed pricing and fulfilment. Discounts, margins below landed cost and credit limits are checked before an order is confirmed."),
 		"new": [{"label": _("New quotation"), "doctype": "Quotation"}, {"label": _("New sales order"), "doctype": "Sales Order", "primary": 1}],
 		"kpis": [
-			kpi(_("Sales — {0}").format(label), sales, _("{0} invoices, net of VAT").format(n_inv), "blue", "chart", True, cur, ["List", "Sales Invoice"]),
+			kpi(_("Sales — {0}").format(label), sales, _("{0} invoices, net of VAT").format(n_inv), "blue", "chart-column", True, cur, ["List", "Sales Invoice"]),
 			kpi(_("Open orders (incl. VAT)"), open_val, _("Not yet invoiced"), "violet", "list", True, cur, tab="orders", chip="bill"),
 			kpi(_("Orders to deliver"), to_deliver, _("Approved, stock to dispatch"), "blue", "truck", tab="orders", chip="deliver"),
 			kpi(_("Awaiting approval"), waiting, _("Discount, margin or credit"), "amber", "inbox", tab="orders", chip="approval"),
 			kpi(_("Quotation conversion"), f"{round(q_ordered / q_total * 100) if q_total else 0}%", _("{0} quotations open").format(q_open), "green", "trending-up", tab="quotes", chip="open"),
-			kpi(_("Customers over limit"), len(over), _("Exposure above credit limit"), "red", "alert-triangle", tab="credit", chip="over"),
+			kpi(_("Customers over limit"), len(over), _("Exposure above credit limit"), "red", "triangle-alert", tab="credit", chip="over"),
 		],
 		"tabs": [
 			{"key": "orders", "label": _("Sales orders"), "chips": [[k, _(v)] for k, v in SO_CHIPS]},
@@ -260,7 +260,7 @@ def crm_module(owner=None, source=None):
 			kpi(_("Weighted pipeline"), sum(flt(l.value) * flt(l.prob) / 100 for l in open_), _("Value × stage probability"), "violet", "trending-up", True, cur, tab="pipeline"),
 			kpi(_("Follow-ups due"), len(due), _("{0} overdue · {1} today").format(len(overdue), len(due) - len(overdue)), "red", "clock", tab="follow"),
 			kpi(_("Won — {0}").format(label), sum(flt(l.value) for l in won_month), _("{0} leads converted").format(len(won_month)), "green", "check", True, cur, tab="leads", chip="won"),
-			kpi(_("Win rate"), f"{round(len(won) / len(closed) * 100) if closed else 0}%", _("{0} leads closed in 3 months").format(len(closed)), "navy", "bar-chart", tab="sources"),
+			kpi(_("Win rate"), f"{round(len(won) / len(closed) * 100) if closed else 0}%", _("{0} leads closed in 3 months").format(len(closed)), "navy", "chart-column", tab="sources"),
 		],
 		"tabs": [
 			{"key": "pipeline", "label": _("Pipeline"), "chips": []},
@@ -362,6 +362,10 @@ def get_module(key, owner=None, source=None):
 		from hipersign_trading.api.module_buy import imports_module
 
 		return imports_module()
+	if key == "receiving":
+		from hipersign_trading.api.module_buy import receiving_module
+
+		return receiving_module()
 	frappe.throw(_("Unknown module"))
 
 
@@ -379,4 +383,8 @@ def get_rows(key, tab, chip=None, q=None, owner=None, source=None):
 		from hipersign_trading.api.module_buy import imports_rows
 
 		return imports_rows(tab, chip or "open", q or None)
+	if key == "receiving":
+		from hipersign_trading.api.module_buy import receiving_rows
+
+		return receiving_rows(tab, chip or "all", q or None)
 	frappe.throw(_("Unknown module"))

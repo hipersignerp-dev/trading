@@ -180,7 +180,7 @@ def lifecycle(company, start, end):
 		{"n": "03", "icon": "scan-line", "title": _("Goods receiving"),
 			"big": _("{0} ready to receive").format(_count("Import Shipment", _co({"status": "Cleared"}, company))),
 			"small": _("{0} receipts this month").format(_count("Purchase Receipt", _co({"docstatus": 1, "posting_date": [">=", get_first_day(today())]}, company))),
-			"route": ["List", "Purchase Receipt"]},
+			"route": ["hipersign-receiving"]},
 		{"n": "04", "icon": "package", "title": _("Warehouse & inventory"), "big": stock_value, "big_is_money": 1,
 			"small": _("{0} items low / out").format(low), "route": ["query-report", "Stock Projected Qty"]},
 		{"n": "05", "icon": "tag", "title": _("Sales & orders"),

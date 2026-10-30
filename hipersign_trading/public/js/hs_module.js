@@ -13,6 +13,9 @@ hipersign.module.cell = function (c) {
 	if (c === null || c === undefined || c === "") return "—";
 	if (typeof c !== "object") return hm_esc(typeof c === "number" ? format_number(c, null, c % 1 ? 2 : 0) : c);
 	if (c.code) return `<span class="hsx-code">${hm_esc(c.code)}</span>`;
+	if (c.button) return `<button class="btn btn-xs ${c.primary ? "btn-primary" : "btn-default"} hsx-cbtn" ${c.make ? `data-make="${hm_esc(c.make)}" data-source="${hm_esc(c.source)}"` : ""}
+		${c.open ? `data-ldt="${hm_esc(c.open[0])}" data-lname="${hm_esc(c.open[1])}"` : ""} style="white-space:nowrap">${hm_esc(c.button)}</button>`;
+	if (c.text !== undefined) return `<span class="hsx-tone-${hm_esc(c.tone || "")}">${hm_esc(c.text)}</span>`;
 	if (c.link) return `<a class="hsx-link" data-ldt="${hm_esc(c.link[0])}" data-lname="${hm_esc(c.link[1])}">${hm_esc(c.link[1])}</a>${c.pill ? `<div><span class="hsx-pill ${STATUS_TONE[c.pill] || "blue"}">${hm_esc(__(c.pill))}</span></div>` : ""}`;
 	if (c.main !== undefined) return `<b>${hm_esc(c.main)}</b>${c.sub ? `<span class="hsx-sub2">${hm_esc(c.sub)}</span>` : ""}`;
 	if (c.lines) return c.lines.map((l) => `<div>${hm_esc(l)}</div>`).join("") || "—";
@@ -122,7 +125,7 @@ hipersign.module.render = function (wrapper, key) {
 			${c.cards.length ? c.cards.map((k) => `<div class="hsx-kc" data-dt="${hm_esc(k.dt)}" data-name="${hm_esc(k.name)}">
 				<div class="hsx-kc-top"><span class="hsx-code">${hm_esc(k.code)}</span>${k.pill ? hipersign.module.cell({ pill: k.pill }) : ""}</div>
 				<b>${hm_esc(k.title)}</b>${(k.lines || []).filter(Boolean).map((l) => `<div class="text-muted small">${hm_esc(l)}</div>`).join("")}
-				${k.warn ? `<div class="hsx-kc-warn">${frappe.utils.icon("alert-triangle", "xs")} ${hm_esc(k.warn)}</div>` : ""}</div>`).join("")
+				${k.warn ? `<div class="hsx-kc-warn">${frappe.utils.icon("triangle-alert", "xs")} ${hm_esc(k.warn)}</div>` : ""}</div>`).join("")
 				: `<div class="text-muted small" style="padding:4px 2px">${__("None")}</div>`}</div>`).join("")}</div>`);
 		$out.find(".hsx-kc").on("click", function () { open($(this).attr("data-dt"), $(this).attr("data-name")); });
 	}
@@ -161,6 +164,15 @@ hipersign.module.render = function (wrapper, key) {
 	v.$body.on("input", ".hsx-q", frappe.utils.debounce(function () { st.q = $(this).val(); rows(); }, 300));
 	const open = (dt, name) => (hipersign.panel && hipersign.panel.has && hipersign.panel.has(dt) ? hipersign.panel.open(dt, name) : frappe.set_route("Form", dt, name));
 	v.$body.on("click", "tr[data-dt]", function (e) { if ($(e.target).closest(".hsx-link").length) return; open($(this).attr("data-dt"), $(this).attr("data-name")); });
+	v.$body.on("click", ".hsx-cbtn", function (e) {
+		e.stopPropagation();
+		const $b = $(this);
+		if ($b.attr("data-ldt")) return open($b.attr("data-ldt"), $b.attr("data-lname"));
+		$b.prop("disabled", true);
+		frappe.xcall("hipersign_trading.api.panel.make", { method: $b.attr("data-make"), source_name: $b.attr("data-source") })
+			.then((doc) => { const d = frappe.model.sync(doc)[0]; frappe.set_route("Form", d.doctype, d.name); })
+			.finally(() => $b.prop("disabled", false));
+	});
 	v.$body.on("click", ".hsx-link", function (e) { e.stopPropagation(); open($(this).attr("data-ldt"), $(this).attr("data-lname")); });
 	v.$body.on("click", ".hsx-lc", function () { hipersign.panel.open("Lead", $(this).attr("data-name")); });
 	v.$actions.on("click", ".hsx-new", function () { const dt = $(this).attr("data-dt"); hipersign.fm ? hipersign.fm.new(dt) : frappe.new_doc(dt); });

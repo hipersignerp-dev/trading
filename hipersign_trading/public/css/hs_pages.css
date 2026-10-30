@@ -143,3 +143,4 @@ body.hp-open .hp-backdrop { display: block; }
 .hsx-kc-top { display: flex; justify-content: space-between; align-items: center; gap: 6px; flex-wrap: wrap; }
 .hsx-kc-warn { color: #b45309; font-size: 12px; margin-top: 4px; }
 .hsx-board.hsx-kanban { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; overflow: visible; } @media (max-width: 900px) { .hsx-board.hsx-kanban { grid-template-columns: 1fr; } } .hsx-board.hsx-kanban .hsx-col { min-width: 0; width: auto; }
+.hsx-tone-green { color: #15803d; } .hsx-tone-orange { color: #b45309; } .hsx-tone-red { color: #dc2626; font-weight: 600; }

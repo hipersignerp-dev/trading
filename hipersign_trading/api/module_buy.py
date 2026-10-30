@@ -80,7 +80,7 @@ def purchasing_module():
 		"kpis": [
 			kpi(_("Open purchase orders"), len(open_rows), _("{0} not yet received").format(_fmt(not_received, cur)), "blue", "list", tab="orders", chip="open"),
 			kpi(_("Awaiting approval"), waiting, _("Purchase / Finance Manager"), "violet", "inbox", tab="orders", chip="approval"),
-			kpi(_("Ordered — {0}").format(label), sum(flt(r.base_grand_total) for r in ordered), _("{0} orders").format(len(ordered)), "navy", "chart", True, cur, tab="orders", chip="all"),
+			kpi(_("Ordered — {0}").format(label), sum(flt(r.base_grand_total) for r in ordered), _("{0} orders").format(len(ordered)), "navy", "chart-column", True, cur, tab="orders", chip="all"),
 			kpi(_("Overdue deliveries"), len(overdue), _("Expected date passed"), "red", "clock", tab="orders", chip="overdue"),
 			kpi(_("Reorder suggestions"), len(reorder), _("Based on sales speed & lead time"), "amber", "flag", tab="reorder"),
 		],
@@ -314,3 +314,108 @@ def imports_rows(tab, chip, q=None):
 			{"money": r.goods_value}, {"money": r.total_charges} if flt(r.total_charges) else "—",
 			{"pill": _("{0} missing").format(len(r.missing)), "tone": "orange"} if r.missing else {"pill": _("Complete"), "tone": "green"},
 			{"pill": r.status}]} for r in rows]}
+
+
+# ---------------------------------------------------------------- Goods Receiving (v1.6.0 step 3)
+def receiving_module():
+	cos, start, end, label, cur = _scope()
+	waiting = _awaiting(cos)
+	ready = [w for w in waiting if w["ok"]]
+	blocked = [w for w in waiting if not w["ok"]]
+	recs = _receipts(cos, start, end)
+	acc = sum(r.acc for r in recs)
+	rej = sum(r.rej for r in recs)
+	return {
+		"title": _("Goods Receiving"),
+		"desc": _("Record incoming goods and check deliveries against the purchase order — quantities, damages and the receiving warehouse."),
+		"new": [{"label": _("New goods receipt"), "doctype": "Purchase Receipt", "primary": 1}],
+		"kpis": [
+			kpi(_("Ready to receive"), len(ready), _("Cleared imports & local orders"), "green", "check", tab="awaiting", chip="ready"),
+			kpi(_("Awaiting clearance"), len(blocked), _("Receipt blocked until cleared"), "amber", "lock", tab="awaiting", chip="blocked"),
+			kpi(_("Receipts — {0}").format(label), len(recs), _("{0} units counted").format(f"{acc + rej:,.0f}"), "blue", "package", tab="receipts"),
+			kpi(_("Rejected — {0}").format(label), f"{rej:,.0f}", _("Moved to Rejected Warehouse"), "red", "triangle-alert", tab="receipts"),
+			kpi(_("Acceptance rate"), f"{acc / (acc + rej) * 100:.1f}%" if acc + rej else "—", _("Accepted ÷ received"), "violet", "check"),
+		],
+		"tabs": [
+			{"key": "awaiting", "label": _("Awaiting receipt ({0})").format(len(waiting)), "chips": [["all", _("All")], ["ready", _("Ready to receive")], ["blocked", _("Awaiting clearance")]]},
+			{"key": "receipts", "label": _("Recent receipts"), "chips": []},
+		],
+	}
+
+
+def _awaiting(cos):
+	if not _perm("Purchase Order"):
+		return []
+	pos = frappe.get_list("Purchase Order", filters={"company": ["in", cos], "docstatus": 1, "status": ["in", ["To Receive and Bill", "To Receive"]], "per_received": ["<", 100]},
+		fields=["name", "supplier", "supplier_name", "schedule_date", "currency"], order_by="schedule_date asc", limit=200)
+	names = [p.name for p in pos]
+	ships = _shipments(names)
+	boe = dict(frappe.get_all("Import Shipment", filters={"name": ["in", [s[0] for s in ships.values()] or [""]]}, fields=["name", "bill_of_entry"], as_list=True))
+	left = {}
+	for r in frappe.get_all("Purchase Order Item", filters={"parent": ["in", names or [""]]}, fields=["parent", "item_name", "qty", "received_qty"], order_by="idx"):
+		if flt(r.qty) > flt(r.received_qty):
+			left.setdefault(r.parent, []).append(f"{flt(r.qty) - flt(r.received_qty):g} × {r.item_name}")
+	block = frappe.db.get_single_value("Hipersign Settings", "block_receipt_before_clearance")
+	out = []
+	for p in pos:
+		sh = ships.get(p.name)
+		if sh and sh[1] in ("Cleared", "Received at Warehouse"):
+			ok, check = True, _("Cleared") + (f" — BOE {boe.get(sh[0])}" if boe.get(sh[0]) else "")
+		elif sh:
+			ok, check = not block, _("Shipment {0}").format(_(sh[1] or "").lower())
+		else:
+			ok, check = True, _("Local supplier — deliver to warehouse")
+		out.append({"po": p, "ship": sh, "ok": ok, "check": check, "left": left.get(p.name, [])})
+	return out
+
+
+def _receipts(cos, start, end):
+	if not _perm("Purchase Receipt"):
+		return []
+	recs = frappe.get_list("Purchase Receipt", filters={"company": ["in", cos], "docstatus": 1, "is_return": 0, "posting_date": ["between", [start, end]]},
+		fields=["name", "posting_date", "supplier", "supplier_name", "base_grand_total", "set_warehouse"], order_by="posting_date desc", limit=100)
+	agg = {}
+	for i in frappe.get_all("Purchase Receipt Item", filters={"parent": ["in", [r.name for r in recs] or [""]]}, fields=["parent", "qty", "rejected_qty", "warehouse", "purchase_order"]):
+		a = agg.setdefault(i.parent, {"acc": 0, "rej": 0, "wh": [], "po": []})
+		a["acc"] += flt(i.qty)
+		a["rej"] += flt(i.rejected_qty)
+		if i.warehouse and i.warehouse not in a["wh"]:
+			a["wh"].append(i.warehouse)
+		if i.purchase_order and i.purchase_order not in a["po"]:
+			a["po"].append(i.purchase_order)
+	for r in recs:
+		a = agg.get(r.name, {"acc": 0, "rej": 0, "wh": [], "po": []})
+		r.acc, r.rej, r.wh, r.po = a["acc"], a["rej"], a["wh"], a["po"]
+	return recs
+
+
+def receiving_rows(tab, chip, q=None):
+	cos, start, end, label, cur = _scope()
+	t = getdate(today())
+	if tab == "awaiting":
+		rows = _awaiting(cos)
+		if chip == "ready":
+			rows = [w for w in rows if w["ok"]]
+		elif chip == "blocked":
+			rows = [w for w in rows if not w["ok"]]
+		if q:
+			rows = [w for w in rows if q.lower() in (w["po"].supplier_name or "").lower() or q.lower() in w["po"].name.lower()]
+		can = _perm("Purchase Receipt") and frappe.has_permission("Purchase Receipt", "create")
+		return {"cols": [{"label": _("PO")}, {"label": _("Supplier")}, {"label": _("Outstanding"), "cls": "items"}, {"label": _("Shipment")}, {"label": _("Expected")},
+			{"label": _("Check")}, {"label": ""}],
+			"rows": [{"dt": "Purchase Order", "name": w["po"].name, "cells": [{"code": w["po"].name}, {"main": w["po"].supplier_name or w["po"].supplier}, {"lines": w["left"][:3]},
+				{"link": ["Import Shipment", w["ship"][0]], "pill": w["ship"][1]} if w["ship"] else _("Local"),
+				{"date": w["po"].schedule_date, "late": bool(w["po"].schedule_date and getdate(w["po"].schedule_date) < t)},
+				{"text": w["check"], "tone": "green" if w["ok"] else "orange"},
+				({"button": _("Receive"), "primary": 1, "make": "erpnext.buying.doctype.purchase_order.purchase_order.make_purchase_receipt", "source": w["po"].name} if w["ok"] and can
+					else {"button": _("Open shipment"), "open": ["Import Shipment", w["ship"][0]]} if w["ship"] else "")]} for w in rows],
+			"empty": _("Nothing waiting — every open purchase order is received.")}
+	if tab == "receipts":
+		recs = _receipts(cos, frappe.utils.add_days(today(), -90), today())
+		return {"cols": [{"label": _("Receipt")}, {"label": _("Date")}, {"label": _("PO")}, {"label": _("Supplier")}, {"label": _("Accepted"), "cls": "num"},
+			{"label": _("Rejected"), "cls": "num"}, {"label": _("Warehouse")}, {"label": _("Value ({0})").format(cur), "cls": "num"}],
+			"rows": [{"dt": "Purchase Receipt", "name": r.name, "cells": [{"code": r.name}, {"date": r.posting_date},
+				{"link": ["Purchase Order", r.po[0]]} if r.po else "—", r.supplier_name or r.supplier, f"{r.acc:,.0f}",
+				{"text": f"{r.rej:,.0f}", "tone": "red" if r.rej else ""}, ", ".join(w.rsplit(" - ", 1)[0] for w in r.wh) or "—", {"money": r.base_grand_total}]} for r in recs],
+			"empty": _("No receipts in the last 90 days.")}
+	return {"cols": [], "rows": []}
