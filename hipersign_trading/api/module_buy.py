@@ -546,3 +546,148 @@ def lc_rows(tab, chip, q=None):
 			"rows": [{"dt": "Letter of Credit", "name": l.name, "cells": [{"date": d_, "late": d_ < t}, w, l.lc_number or l.name, l.supplier or l.party_name or "—", l.issuing_bank or "—",
 				{"money": a}]} for d_, l, w, a in rows], "empty": _("Nothing due.")}
 	return {"cols": [], "rows": []}
+
+
+# ---------------------------------------------------------------- Dispatch & Delivery (v1.6.0 step 5)
+SO_TO_DELIVER = ["To Deliver and Bill", "To Deliver"]
+MK_DN = "erpnext.selling.doctype.sales_order.sales_order.make_delivery_note"
+
+
+def _so_items(names):
+	out = {}
+	for r in frappe.get_all("Sales Order Item", filters={"parent": ["in", names or [""]]}, fields=["parent", "item_name", "qty", "delivered_qty"], order_by="idx"):
+		if flt(r.qty) > flt(r.delivered_qty):
+			out.setdefault(r.parent, []).append(f"{flt(r.qty) - flt(r.delivered_qty):g} × {r.item_name}")
+	return out
+
+
+def _dispatch_data(cos):
+	t = getdate(today())
+	so = frappe.get_list("Sales Order", filters={"company": ["in", cos], "docstatus": 1, "status": ["in", SO_TO_DELIVER]},
+		fields=["name", "customer_name", "delivery_date", "base_grand_total", "hs_is_export"] if frappe.get_meta("Sales Order").has_field("hs_is_export")
+		else ["name", "customer_name", "delivery_date", "base_grand_total"], order_by="delivery_date asc", limit=200) if _perm("Sales Order") else []
+	picks, pick_so = [], {}
+	if _perm("Pick List"):
+		picks = frappe.get_list("Pick List", filters={"company": ["in", cos], "docstatus": ["<", 2], "status": ["in", ["Draft", "Open"]]},
+			fields=["name", "customer", "status", "docstatus", "owner"], order_by="creation desc", limit=100)
+		for r in frappe.get_all("Pick List Item", filters={"parent": ["in", [p.name for p in picks] or [""]]}, fields=["parent", "sales_order"]):
+			if r.sales_order:
+				pick_so.setdefault(r.parent, set()).add(r.sales_order)
+	dn_f = {"company": ["in", cos], "docstatus": ["<", 2], "is_return": 0}
+	dns = frappe.get_list("Delivery Note", filters=dn_f, fields=["name", "customer_name", "posting_date", "docstatus", "per_billed", "status", "hs_delivery_status",
+		"delivery_trip", "driver_name", "vehicle_no", "hs_received_by", "hs_pod_time", "base_grand_total"], order_by="posting_date desc", limit=200) if _perm("Delivery Note") else []
+	return so, picks, pick_so, dns, t
+
+
+def dispatch_module():
+	cos, start, end, label, cur = _scope()
+	so, picks, pick_so, dns, t = _dispatch_data(cos)
+	ready = [d for d in dns if d.docstatus == 1 and (d.hs_delivery_status or "Ready to Dispatch") == "Ready to Dispatch"]
+	out = [d for d in dns if d.docstatus == 1 and d.hs_delivery_status == "Out for Delivery"]
+	done = [d for d in dns if d.docstatus == 1 and d.hs_delivery_status == "Delivered" and start <= getdate(d.hs_pod_time or d.posting_date) <= end]
+	units = sum(flt(r.qty) for r in frappe.get_all("Delivery Note Item", filters={"parent": ["in", [d.name for d in done] or [""]]}, fields=["qty"]))
+	# on time: delivered on or before the order's delivery date
+	on_time = 0
+	for d in done:
+		so_name = frappe.db.get_value("Delivery Note Item", {"parent": d.name}, "against_sales_order")
+		promised = frappe.db.get_value("Sales Order", so_name, "delivery_date") if so_name else None
+		if not promised or getdate(d.hs_pod_time or d.posting_date) <= getdate(promised):
+			on_time += 1
+	return {
+		"title": _("Dispatch & Delivery"),
+		"desc": _("Coordinate picking, dispatch and customer delivery documentation — with drivers, trips and proof of delivery."),
+		"new": [{"label": _("New delivery note"), "doctype": "Delivery Note", "primary": 1}, {"label": _("New delivery trip"), "doctype": "Delivery Trip"}],
+		"kpis": [
+			kpi(_("Orders to deliver"), len(so), _("{0} incl. VAT").format(_fmt(sum(flt(s.base_grand_total) for s in so), cur)), "blue", "list", tab="board"),
+			kpi(_("Ready to dispatch"), len(ready), _("Delivery note made, not yet out"), "violet", "package", tab="notes", chip="ready"),
+			kpi(_("Out for delivery"), len(out), _("On a delivery trip"), "amber", "truck", tab="notes", chip="out"),
+			kpi(_("Delivered — {0}").format(label), len(done), _("{0} units").format(f"{units:,.0f}"), "green", "check", tab="notes", chip="delivered"),
+			kpi(_("On-time delivery"), f"{round(on_time / len(done) * 100)}%" if done else "—", _("Delivered on or before the promised date"), "navy", "clock"),
+		],
+		"tabs": [
+			{"key": "board", "label": _("Dispatch board"), "chips": []},
+			{"key": "trips", "label": _("Delivery trips"), "chips": []},
+			{"key": "notes", "label": _("Delivery notes"), "chips": [["all", _("All")], ["ready", _("Ready to dispatch")], ["out", _("Out for delivery")],
+				["delivered", _("Delivered")], ["bill", _("Not invoiced")]]},
+		],
+	}
+
+
+def dispatch_rows(tab, chip, q=None):
+	cos, start, end, label, cur = _scope()
+	so, picks, pick_so, dns, t = _dispatch_data(cos)
+	if tab == "board":
+		picked = set().union(*pick_so.values()) if pick_so else set()
+		items = _so_items([s.name for s in so])
+		can_dn = frappe.has_permission("Delivery Note", "create")
+		def promised(s):
+			return _("Promised {0}").format(frappe.utils.formatdate(s.delivery_date, "dd MMM")) if s.delivery_date else ""
+		cols = [
+			{"label": _("To deliver"), "count": len([s for s in so if s.name not in picked]), "cards": [{"dt": "Sales Order", "name": s.name, "code": s.name, "title": s.customer_name,
+				"lines": [", ".join(items.get(s.name, [])[:2]), promised(s)], "warn": _("Late") if s.delivery_date and getdate(s.delivery_date) < t else "",
+				"button": {"label": _("Delivery note"), "make": MK_DN, "source": s.name} if can_dn else None} for s in so if s.name not in picked]},
+			{"label": _("Picking & packing"), "count": len(picks), "cards": [{"dt": "Pick List", "name": p.name, "code": p.name, "pill": _("Draft") if p.docstatus == 0 else p.status,
+				"title": p.customer or ", ".join(sorted(pick_so.get(p.name, []))), "lines": [", ".join(sorted(pick_so.get(p.name, []))), frappe.utils.get_fullname(p.owner)]} for p in picks]},
+			{"label": _("Ready to dispatch"), "count": 0, "cards": []},
+			{"label": _("Out for delivery"), "count": 0, "cards": []},
+			{"label": _("Delivered (last 10 days)"), "count": 0, "cards": []},
+		]
+		for d in dns:
+			if d.docstatus != 1:
+				continue
+			st = d.hs_delivery_status or "Ready to Dispatch"
+			card = {"dt": "Delivery Note", "name": d.name, "code": d.name, "title": d.customer_name,
+				"lines": [" · ".join(x for x in [d.driver_name, d.vehicle_no, d.delivery_trip] if x)]}
+			if st == "Ready to Dispatch":
+				cols[2]["cards"].append(card)
+			elif st == "Out for Delivery":
+				cols[3]["cards"].append(card)
+			elif st == "Delivered" and getdate(d.hs_pod_time or d.posting_date) >= frappe.utils.add_days(t, -10):
+				card["lines"] = [" · ".join(x for x in [frappe.utils.formatdate(d.hs_pod_time or d.posting_date, "dd MMM"), _("received by {0}").format(d.hs_received_by) if d.hs_received_by else ""] if x)]
+				card["warn"] = _("Not invoiced") if flt(d.per_billed) < 100 else ""
+				cols[4]["cards"].append(card)
+		for c in cols[2:]:
+			c["count"] = len(c["cards"])
+		return {"kanban": cols, "kanban_cols": 5}
+	if tab == "trips":
+		if not _perm("Delivery Trip"):
+			return {"cols": [], "rows": []}
+		trips = frappe.get_list("Delivery Trip", filters={"company": ["in", cos], "docstatus": ["<", 2]}, fields=["name", "driver", "driver_name", "vehicle", "departure_time",
+			"total_distance", "uom", "status", "docstatus"], order_by="departure_time desc", limit=100)
+		stops = {}
+		for r in frappe.get_all("Delivery Stop", filters={"parent": ["in", [x.name for x in trips] or [""]]}, fields=["parent"]):
+			stops[r.parent] = stops.get(r.parent, 0) + 1
+		phone = dict(frappe.get_all("Driver", filters={"name": ["in", [x.driver for x in trips if x.driver] or [""]]}, fields=["name", "cell_number"], as_list=True)) if _perm("Driver") else {}
+		return {"cols": [{"label": _("Trip")}, {"label": _("Driver")}, {"label": _("Vehicle")}, {"label": _("Departure")}, {"label": _("Stops"), "cls": "num"},
+			{"label": _("Distance"), "cls": "num"}, {"label": _("Status")}],
+			"rows": [{"dt": "Delivery Trip", "name": r.name, "cells": [{"code": r.name}, {"main": r.driver_name or "—", "sub": phone.get(r.driver) or ""}, r.vehicle or "—",
+				frappe.utils.format_datetime(r.departure_time, "dd MMM yyyy HH:mm") if r.departure_time else "—", stops.get(r.name, 0),
+				f"{flt(r.total_distance):g} {r.uom or 'km'}" if r.total_distance else "—", {"pill": _("Draft") if r.docstatus == 0 else r.status}]} for r in trips],
+			"empty": _("No delivery trips yet.")}
+	if tab == "notes":
+		rows = [d for d in dns if d.docstatus == 1]
+		if chip == "ready":
+			rows = [d for d in rows if (d.hs_delivery_status or "Ready to Dispatch") == "Ready to Dispatch"]
+		elif chip == "out":
+			rows = [d for d in rows if d.hs_delivery_status == "Out for Delivery"]
+		elif chip == "delivered":
+			rows = [d for d in rows if d.hs_delivery_status == "Delivered"]
+		elif chip == "bill":
+			rows = [d for d in rows if flt(d.per_billed) < 100]
+		if q:
+			rows = [d for d in rows if q.lower() in (d.customer_name or "").lower() or q.lower() in d.name.lower()]
+		so_of = {}
+		for r in frappe.get_all("Delivery Note Item", filters={"parent": ["in", [d.name for d in rows] or [""]]}, fields=["parent", "against_sales_order"]):
+			if r.against_sales_order:
+				so_of.setdefault(r.parent, r.against_sales_order)
+		inv = {}
+		for r in frappe.get_all("Sales Invoice Item", filters={"delivery_note": ["in", [d.name for d in rows] or [""]], "docstatus": 1}, fields=["parent", "delivery_note"]):
+			inv.setdefault(r.delivery_note, r.parent)
+		return {"cols": [{"label": _("Delivery note")}, {"label": _("Order")}, {"label": _("Customer")}, {"label": _("Date")}, {"label": _("Transport")},
+			{"label": _("Value ({0})").format(cur), "cls": "num"}, {"label": _("Status")}, {"label": _("Invoice")}],
+			"rows": [{"dt": "Delivery Note", "name": d.name, "cells": [{"code": d.name}, {"link": ["Sales Order", so_of[d.name]]} if so_of.get(d.name) else "—", {"main": d.customer_name},
+				{"date": d.posting_date}, {"main": d.delivery_trip or "—", "sub": " — ".join(x for x in [d.driver_name, d.vehicle_no] if x)} if (d.delivery_trip or d.driver_name) else "—",
+				{"money": d.base_grand_total}, {"pill": d.hs_delivery_status or "Ready to Dispatch"},
+				{"link": ["Sales Invoice", inv[d.name]]} if inv.get(d.name) else {"text": _("To bill"), "tone": "orange"}]} for d in rows],
+			"empty": _("No delivery notes here.")}
+	return {"cols": [], "rows": []}

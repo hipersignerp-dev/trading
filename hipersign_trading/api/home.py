@@ -190,7 +190,7 @@ def lifecycle(company, start, end):
 		{"n": "06", "icon": "truck", "title": _("Dispatch & delivery"),
 			"big": _("{0} notes not delivered").format(_count("Delivery Note", _co({"docstatus": 1, "hs_delivery_status": ["in", ["", "Ready to Dispatch", "Out for Delivery", "Failed"]]}, company))),
 			"small": _("{0} out for delivery").format(_count("Delivery Note", _co({"docstatus": 1, "hs_delivery_status": "Out for Delivery"}, company))),
-			"route": ["List", "Delivery Note"]},
+			"route": ["hipersign-dispatch"]},
 		{"n": "07", "icon": "banknote", "title": _("Finance & visibility"), "big": _sum("Sales Invoice", "outstanding_amount", ar), "big_is_money": 1, "big_suffix": _("receivable"),
 			"small": _("{0} overdue").format(money(_sum("Sales Invoice", "outstanding_amount", dict(ar, due_date=["<", today()])), precision=0)),
 			"route": ["query-report", "Accounts Receivable"]},

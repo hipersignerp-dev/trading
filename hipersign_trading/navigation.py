@@ -48,7 +48,7 @@ NAV = [
 	]),
 	("Inventory & Delivery", "package", [
 		("Warehouse & Stock", "Workspace", "Hipersign Warehouse", "warehouse", None, {}),
-		("Dispatch & Delivery", "DocType", "Delivery Note", "truck", None, {}),
+		("Dispatch & Delivery", "Page", "hipersign-dispatch", "truck", None, {}),
 		("Driver App", "URL", "/driver", "map-pin", "trips", {}),
 	]),
 	("Finance & Tax", "banknote", [
