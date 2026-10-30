@@ -129,10 +129,17 @@ body.hp-open .hp-backdrop { display: block; }
 .hsx-legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 5px; vertical-align: -1px; }
 .hsx-mlist .hsx-link { color: var(--x-blue, #2563eb); font-weight: 600; cursor: pointer; }
 .hsx-mlist .hsx-link + div .hsx-pill { margin-top: 3px; }
-.hsx-mod .hsx-kpis { grid-template-columns: repeat(auto-fit, minmax(165px, 1fr)); }
+.hsx-mod .hsx-kpis { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
 .hsx-mod .hsx-mlist td.items { min-width: 170px; }
 .hsx-mod .hsx-mlist .hsx-pill { white-space: normal; display: inline-block; max-width: 132px; line-height: 1.25; text-align: center; }
 .hsx-mod .hsx-mlist .hp-bar { width: 56px !important; }
 .hsx-mod .hsx-mlist td, .hsx-mod .hsx-mlist th { padding-left: 10px; padding-right: 10px; }
 .hsx-mod .hsx-mlist .hsx-code { font-size: 11px; white-space: nowrap; }
 .hp-t td a { white-space: nowrap; } .hp-t td { white-space: nowrap; } .hp-t td:nth-child(2) { white-space: normal; }
+.hsx-kanban .hsx-col-h { display: flex; justify-content: space-between; align-items: center; }
+.hsx-kc { background: var(--x-surface); border: 1px solid var(--x-line); border-radius: 9px; padding: 10px 12px; margin-top: 8px; cursor: pointer; font-size: 12.5px; }
+.hsx-kc:hover { border-color: var(--x-blue, #2563eb); }
+.hsx-kc > b { display: block; margin: 6px 0 3px; color: var(--x-ink); font-size: 13px; }
+.hsx-kc-top { display: flex; justify-content: space-between; align-items: center; gap: 6px; flex-wrap: wrap; }
+.hsx-kc-warn { color: #b45309; font-size: 12px; margin-top: 4px; }
+.hsx-board.hsx-kanban { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; overflow: visible; } @media (max-width: 900px) { .hsx-board.hsx-kanban { grid-template-columns: 1fr; } } .hsx-board.hsx-kanban .hsx-col { min-width: 0; width: auto; }

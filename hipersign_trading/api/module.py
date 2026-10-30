@@ -12,7 +12,7 @@ from frappe.utils import add_days, add_months, cint, flt, getdate, today
 from hipersign_trading.api.home import period_range
 from hipersign_trading.api.ui import get_period, scope_companies
 
-MODULES = ("sales", "crm", "purchasing")
+MODULES = ("sales", "crm", "purchasing", "imports")
 
 
 def _scope():
@@ -358,6 +358,10 @@ def get_module(key, owner=None, source=None):
 		from hipersign_trading.api.module_buy import purchasing_module
 
 		return purchasing_module()
+	if key == "imports":
+		from hipersign_trading.api.module_buy import imports_module
+
+		return imports_module()
 	frappe.throw(_("Unknown module"))
 
 
@@ -371,4 +375,8 @@ def get_rows(key, tab, chip=None, q=None, owner=None, source=None):
 		from hipersign_trading.api.module_buy import purchasing_rows
 
 		return purchasing_rows(tab, chip or "all", q or None)
+	if key == "imports":
+		from hipersign_trading.api.module_buy import imports_rows
+
+		return imports_rows(tab, chip or "open", q or None)
 	frappe.throw(_("Unknown module"))

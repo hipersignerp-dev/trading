@@ -42,7 +42,7 @@ NAV = [
 	]),
 	("Purchasing", "shopping-cart", [
 		("Purchase Orders", "Page", "hipersign-purchasing", "shopping-cart", None, {}),
-		("Imports & Shipments", "DocType", "Import Shipment", "ship", "imports", {}),
+		("Imports & Shipments", "Page", "hipersign-imports", "ship", "imports", {}),
 		("Goods Receiving", "DocType", "Purchase Receipt", "scan-line", None, {}),
 		("Landed Cost & Margin", "Page", "hipersign-landed", "layers", "imports", {}),
 	]),

@@ -92,6 +92,7 @@ hipersign.module.render = function (wrapper, key) {
 		ui.loading($out);
 		frappe.xcall("hipersign_trading.api.module.get_rows", { key, tab: st.tab, chip: st.chip[st.tab] || null, q: st.q, owner: st.owner, source: st.source }).then((r) => {
 			if (r.board) return board($out, r.board);
+			if (r.kanban) return kanban($out, r.kanban);
 			const title = (st.data.tabs.find((x) => x.key === st.tab) || {}).label;
 			$out.html(ui.card(title, r.rows.length ? `<div class="hsx-tw"><table class="hsx-t hsx-mlist"><thead><tr>${r.cols.map((c) => `<th class="${c.cls || ""}">${hm_esc(c.label)}</th>`).join("")}</tr></thead>
 				<tbody>${r.rows.map((row) => `<tr ${row.dt ? `data-dt="${hm_esc(row.dt)}" data-name="${hm_esc(row.name)}"` : ""}>${row.cells.map((c, i) => `<td class="${(r.cols[i] || {}).cls || ""}">${hipersign.module.cell(c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`
@@ -114,6 +115,17 @@ hipersign.module.render = function (wrapper, key) {
 		if (c.bar !== undefined) return c.bar;
 		return "";
 	};
+
+	// a read-only board (shipments by stage): cards open their record
+	function kanban($out, cols) {
+		$out.html(`<div class="hsx-board hsx-kanban">${cols.map((c) => `<div class="hsx-col"><div class="hsx-col-h"><b>${hm_esc(c.label)}</b><span>${c.count}</span></div>
+			${c.cards.length ? c.cards.map((k) => `<div class="hsx-kc" data-dt="${hm_esc(k.dt)}" data-name="${hm_esc(k.name)}">
+				<div class="hsx-kc-top"><span class="hsx-code">${hm_esc(k.code)}</span>${k.pill ? hipersign.module.cell({ pill: k.pill }) : ""}</div>
+				<b>${hm_esc(k.title)}</b>${(k.lines || []).filter(Boolean).map((l) => `<div class="text-muted small">${hm_esc(l)}</div>`).join("")}
+				${k.warn ? `<div class="hsx-kc-warn">${frappe.utils.icon("alert-triangle", "xs")} ${hm_esc(k.warn)}</div>` : ""}</div>`).join("")
+				: `<div class="text-muted small" style="padding:4px 2px">${__("None")}</div>`}</div>`).join("")}</div>`);
+		$out.find(".hsx-kc").on("click", function () { open($(this).attr("data-dt"), $(this).attr("data-name")); });
+	}
 
 	function board($out, cols) {
 		const cur = (frappe.boot.sysdefaults && frappe.boot.sysdefaults.currency) || "AED";

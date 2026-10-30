@@ -217,3 +217,100 @@ def _fmt_base(r, cur):
 	if not _foreign(r, cur):
 		return ""
 	return f"{cur} {flt(r.base_grand_total):,.2f}"
+
+
+# ---------------------------------------------------------------- Import & Shipment (v1.6.0 step 2)
+SHIP_COLS = [("booked", "Booked & shipped", ["Booked", "Shipped"]), ("transit", "In transit", ["In Transit"]),
+	("port", "At port & customs", ["Arrived at Port", "Under Customs Clearance"]), ("done", "Cleared & received", ["Cleared", "Received at Warehouse"])]
+OPEN_SHIP = ["Booked", "Shipped", "In Transit", "Arrived at Port", "Under Customs Clearance", "Cleared"]
+
+
+def _ships(cos, filters=None, q=None):
+	if not _perm("Import Shipment"):
+		return []
+	f = {"company": ["in", cos], "docstatus": ["<", 2]}
+	f.update(filters or {})
+	rows = frappe.get_list("Import Shipment", filters=f, fields=["name", "status", "mode", "port_of_loading", "port_of_discharge", "eta", "etd", "goods_value",
+		"total_charges", "bl_awb", "bill_of_entry", "cleared_on", "arrived_on", "modified"], order_by="eta asc", limit=300)
+	names = [r.name for r in rows] or [""]
+	sup, missing = {}, {}
+	for p in frappe.get_all("Import Shipment PO", filters={"parent": ["in", names], "parenttype": "Import Shipment"}, fields=["parent", "supplier", "purchase_order"], order_by="idx"):
+		sup.setdefault(p.parent, []).append(p.supplier or frappe.db.get_value("Purchase Order", p.purchase_order, "supplier_name"))
+	for dd in frappe.get_all("Shipment Document", filters={"parent": ["in", names], "parenttype": "Import Shipment", "required": 1, "received": 0}, fields=["parent", "document_type"]):
+		missing.setdefault(dd.parent, []).append(dd.document_type)
+	for r in rows:
+		r.suppliers = list(dict.fromkeys(x for x in sup.get(r.name, []) if x))
+		r.missing = missing.get(r.name, [])
+	if q:
+		ql = q.lower()
+		rows = [r for r in rows if ql in r.name.lower() or any(ql in s.lower() for s in r.suppliers) or ql in (r.bl_awb or "").lower()]
+	return rows
+
+
+def imports_module():
+	cos, start, end, label, cur = _scope()
+	t = getdate(today())
+	open_ = _ships(cos, {"status": ["in", OPEN_SHIP]})
+	soon = [r for r in open_ if r.eta and t <= getdate(r.eta) <= frappe.utils.add_days(t, 7) and r.status in ("Booked", "Shipped", "In Transit")]
+	port = [r for r in open_ if r.status in ("Arrived at Port", "Under Customs Clearance")]
+	cleared = [r for r in open_ if r.status == "Cleared"]
+	gaps = [r for r in open_ if r.missing]
+	charges = 0
+	if frappe.db.table_exists("Shipment Charge"):
+		charges = sum(flt(c.amount) for c in frappe.get_all("Shipment Charge", filters={"parenttype": "Import Shipment", "date": ["between", [start, end]]}, fields=["amount"]))
+	return {
+		"title": _("Import & Shipment"),
+		"desc": _("Coordinate shipment information, import documentation and associated costs — from booking to customs clearance."),
+		"new": [{"label": _("New shipment"), "doctype": "Import Shipment", "primary": 1}],
+		"kpis": [
+			kpi(_("Open shipments"), len(open_), _("{0} goods value").format(_fmt(sum(flt(r.goods_value) for r in open_), cur)), "blue", "ship", tab="board"),
+			kpi(_("Arriving in 7 days"), len(soon), _("By ETA"), "violet", "clock", tab="all", chip="soon"),
+			kpi(_("At port / customs"), len(port), _("Demurrage risk after free days"), "amber", "flag", tab="all", chip="port"),
+			kpi(_("Cleared, awaiting receipt"), len(cleared), _("Ready for goods receiving"), "green", "check", tab="all", chip="cleared"),
+			kpi(_("Missing documents"), len(gaps), _("Shipments with gaps"), "red", "file", tab="all", chip="gaps"),
+			kpi(_("Import charges — {0}").format(label), charges, _("Freight, duty, insurance, clearing, handling"), "navy", "layers", True, cur, route=["hipersign-landed"]),
+		],
+		"tabs": [
+			{"key": "board", "label": _("Shipment board"), "chips": []},
+			{"key": "all", "label": _("All shipments"), "chips": [["open", _("Open")], ["soon", _("Arriving in 7 days")], ["port", _("At port / customs")],
+				["cleared", _("Cleared")], ["gaps", _("Missing documents")], ["all", _("All")]]},
+		],
+	}
+
+
+def _route(r):
+	return " → ".join(x for x in [r.port_of_loading, r.port_of_discharge] if x)
+
+
+def imports_rows(tab, chip, q=None):
+	cos, start, end, label, cur = _scope()
+	t = getdate(today())
+	if tab == "board":
+		rows = _ships(cos, {"modified": [">=", frappe.utils.add_months(today(), -3)]}, q)
+		cols = []
+		for key, title, sts in SHIP_COLS:
+			rs = [r for r in rows if r.status in sts and (key != "done" or r.status == "Cleared" or getdate(r.modified) >= frappe.utils.add_days(t, -45))]
+			cols.append({"key": key, "label": title, "count": len(rs), "cards": [{"dt": "Import Shipment", "name": r.name, "code": r.name, "pill": r.status,
+				"title": ", ".join(r.suppliers) or "—", "lines": [" · ".join(x for x in [_(r.mode or ""), _route(r)] if x),
+				" · ".join(x for x in [_("ETA {0}").format(frappe.utils.formatdate(r.eta, "dd MMM")) if r.eta else "", _fmt(r.goods_value, cur) if r.goods_value else ""] if x)],
+				"warn": _("{0} missing").format(", ".join(r.missing)) if r.missing else ""} for r in rs]})
+		return {"kanban": cols}
+	f = {}
+	if chip in ("open", "soon", "port", "cleared", "gaps"):
+		f["status"] = ["in", OPEN_SHIP]
+	rows = _ships(cos, f, q)
+	if chip == "soon":
+		rows = [r for r in rows if r.eta and t <= getdate(r.eta) <= frappe.utils.add_days(t, 7) and r.status in ("Booked", "Shipped", "In Transit")]
+	elif chip == "port":
+		rows = [r for r in rows if r.status in ("Arrived at Port", "Under Customs Clearance")]
+	elif chip == "cleared":
+		rows = [r for r in rows if r.status == "Cleared"]
+	elif chip == "gaps":
+		rows = [r for r in rows if r.missing]
+	return {"cols": [{"label": _("Shipment")}, {"label": _("Supplier")}, {"label": _("Mode · route")}, {"label": _("ETA")}, {"label": _("Goods value"), "cls": "num"},
+		{"label": _("Charges"), "cls": "num"}, {"label": _("Documents")}, {"label": _("Status")}],
+		"rows": [{"dt": "Import Shipment", "name": r.name, "cells": [{"code": r.name}, {"main": ", ".join(r.suppliers) or "—", "sub": r.bl_awb or ""},
+			{"main": _(r.mode or ""), "sub": _route(r)}, {"date": r.eta, "late": bool(r.eta and getdate(r.eta) < t and r.status in ("Booked", "Shipped", "In Transit"))},
+			{"money": r.goods_value}, {"money": r.total_charges} if flt(r.total_charges) else "—",
+			{"pill": _("{0} missing").format(len(r.missing)), "tone": "orange"} if r.missing else {"pill": _("Complete"), "tone": "green"},
+			{"pill": r.status}]} for r in rows]}
