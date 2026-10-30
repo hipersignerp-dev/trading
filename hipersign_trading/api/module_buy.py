@@ -419,3 +419,130 @@ def receiving_rows(tab, chip, q=None):
 				{"text": f"{r.rej:,.0f}", "tone": "red" if r.rej else ""}, ", ".join(w.rsplit(" - ", 1)[0] for w in r.wh) or "—", {"money": r.base_grand_total}]} for r in recs],
 			"empty": _("No receipts in the last 90 days.")}
 	return {"cols": [], "rows": []}
+
+
+# ---------------------------------------------------------------- LCs & Guarantees (v1.6.0 step 4)
+LC_OPEN = ["Applied", "Issued", "Documents Presented", "Accepted"]
+
+
+def _lcs(cos, filters=None):
+	if not frappe.db.table_exists("Letter of Credit") or not _perm("Letter of Credit"):
+		return []
+	f = {"company": ["in", cos]}
+	f.update(filters or {})
+	return frappe.get_list("Letter of Credit", filters=f, fields=["name", "lc_number", "lc_type", "supplier", "customer", "party_name", "purchase_order", "import_shipment",
+		"status", "issuing_bank", "currency", "amount", "base_amount", "margin_amount", "margin_entry", "margin_release_entry", "tenor", "latest_shipment_date", "expiry_date",
+		"maturity_date", "trust_receipt", "tr_amount", "tr_due", "tr_interest", "tr_repaid_on", "discrepancies", "documents_presented_on"], order_by="creation desc", limit=300)
+
+
+def _bgs(cos):
+	if not _perm("Bank Guarantee"):
+		return []
+	f = {"docstatus": 1}
+	if frappe.get_meta("Bank Guarantee").has_field("company"):
+		f["company"] = ["in", cos]
+	return frappe.get_list("Bank Guarantee", filters=f, fields=["name", "bg_type", "bank_guarantee_number", "name_of_beneficiary", "customer", "supplier", "amount",
+		"start_date", "end_date", "bank", "margin_money"], order_by="end_date asc", limit=200)
+
+
+def lc_module():
+	cos, start, end, label, cur = _scope()
+	t = getdate(today())
+	lcs = _lcs(cos)
+	open_ = [l for l in lcs if l.status in LC_OPEN]
+	bgs = [b for b in _bgs(cos) if not b.end_date or getdate(b.end_date) >= t]
+	m_lc = sum(flt(l.margin_amount) for l in lcs if l.margin_entry and not l.margin_release_entry)
+	m_bg = sum(flt(b.margin_money) for b in bgs)
+	due = [l for l in open_ if l.maturity_date and not l.trust_receipt and t <= getdate(l.maturity_date) <= frappe.utils.add_days(t, 30)] + \
+		[l for l in lcs if l.trust_receipt and not l.tr_repaid_on and l.tr_due and getdate(l.tr_due) <= frappe.utils.add_days(t, 30)]
+	expiring = [l for l in open_ if l.status == "Issued" and l.expiry_date and t <= getdate(l.expiry_date) <= frappe.utils.add_days(t, 14)]
+	applied = [l for l in open_ if l.status == "Applied"]
+	return {
+		"title": _("LCs & Guarantees"),
+		"desc": _("Import letters of credit, trust receipts and bank guarantees — application, approval, bank issue, documents, extension, release and settlement — with cash due."),
+		"new": [{"label": _("New LC application"), "doctype": "Letter of Credit", "primary": 1}, {"label": _("New bank guarantee"), "doctype": "Bank Guarantee"}],
+		"kpis": [
+			kpi(_("Open letters of credit"), sum(flt(l.base_amount) for l in open_), _("{0} LCs · issued to accepted").format(len(open_)), "blue", "file", True, cur, tab="lcs", chip="open"),
+			kpi(_("Cash margin held"), m_lc + m_bg, _("LCs {0} · guarantees {1}").format(_fmt(m_lc, cur), _fmt(m_bg, cur)), "violet", "lock", True, cur, tab="lcs", chip="open"),
+			kpi(_("Payments due in 30 days"), sum(flt(l.tr_amount if l.trust_receipt and not l.tr_repaid_on else l.base_amount) for l in due),
+				_("{0} maturities & trust receipts").format(len(due)), "amber", "clock", True, cur, tab="due"),
+			kpi(_("Expiring in 14 days"), len(expiring), _("Issued, documents not yet presented"), "red", "triangle-alert", tab="lcs", chip="expiring"),
+			kpi(_("Awaiting approval"), len(applied), _("Applied — Finance Manager / MD"), "navy", "inbox", tab="lcs", chip="applied"),
+		],
+		"tabs": [
+			{"key": "lcs", "label": _("Letters of credit"), "chips": [["open", _("Open")], ["applied", _("Applied")], ["expiring", _("Expiring")], ["all", _("All")]]},
+			{"key": "bgs", "label": _("Bank guarantees ({0})").format(len(bgs)), "chips": []},
+			{"key": "tr", "label": _("Trust receipts"), "chips": []},
+			{"key": "due", "label": _("Payments due"), "chips": []},
+		],
+		"note": _("The bank issues the LC (SWIFT MT700) from its own portal — the ERP keeps the application, approvals, bank reference, documents, charges and payments."),
+	}
+
+
+def _lc_cells(l, cur, t):
+	party = l.supplier or l.customer or l.party_name
+	ship = frappe.db.get_value("Import Shipment", l.import_shipment, "status") if l.import_shipment else None
+	if not ship and l.purchase_order:
+		sh = _shipments([l.purchase_order]).get(l.purchase_order)
+		if sh:
+			l.import_shipment, ship = sh
+	exp_late = bool(l.expiry_date and getdate(l.expiry_date) <= frappe.utils.add_days(t, 14) and l.status in ("Issued",))
+	status = "Discrepant" if l.discrepancies and l.status == "Documents Presented" else l.status
+	nxt = {"Applied": _("Approve & send to bank"), "Issued": _("Documents received"), "Documents Presented": _("Accept documents"),
+		"Accepted": _("Settle at maturity")}.get(l.status)
+	return [{"main": l.lc_number or l.name, "sub": l.name if l.lc_number else ""},
+		{"main": party or "—", "sub": " · ".join(x for x in [l.purchase_order, l.issuing_bank] if x)},
+		{"money": l.amount, "currency": l.currency, "sub": f"{cur} {flt(l.base_amount):,.2f}" if l.currency != cur else ""},
+		_(l.tenor or "") or "—",
+		{"main": frappe.utils.formatdate(l.latest_shipment_date, "dd MMM yyyy") if l.latest_shipment_date else "—",
+			"sub": _("expires {0}").format(frappe.utils.formatdate(l.expiry_date, "dd MMM yyyy")) if l.expiry_date else "", "late": exp_late},
+		{"link": ["Import Shipment", l.import_shipment], "pill": ship} if l.import_shipment else "—",
+		{"pill": status, "tone": "red" if status == "Discrepant" else None},
+		{"button": nxt, "open": ["Letter of Credit", l.name], "primary": 1} if nxt else ""]
+
+
+def lc_rows(tab, chip, q=None):
+	cos, start, end, label, cur = _scope()
+	t = getdate(today())
+	if tab == "lcs":
+		lcs = _lcs(cos)
+		if chip == "open":
+			lcs = [l for l in lcs if l.status in LC_OPEN]
+		elif chip == "applied":
+			lcs = [l for l in lcs if l.status == "Applied"]
+		elif chip == "expiring":
+			lcs = [l for l in lcs if l.status == "Issued" and l.expiry_date and t <= getdate(l.expiry_date) <= frappe.utils.add_days(t, 14)]
+		if q:
+			ql = q.lower()
+			lcs = [l for l in lcs if ql in (l.lc_number or l.name).lower() or ql in (l.supplier or l.party_name or "").lower()]
+		return {"cols": [{"label": _("LC")}, {"label": _("Supplier · order")}, {"label": _("Amount"), "cls": "num"}, {"label": _("Terms")}, {"label": _("Ship by · expiry")},
+			{"label": _("Shipment")}, {"label": _("Status")}, {"label": ""}],
+			"rows": [{"dt": "Letter of Credit", "name": l.name, "cells": _lc_cells(l, cur, t)} for l in lcs], "empty": _("No letters of credit here.")}
+	if tab == "bgs":
+		bgs = _bgs(cos)
+		return {"cols": [{"label": _("Guarantee")}, {"label": _("Type")}, {"label": _("Beneficiary")}, {"label": _("Bank")}, {"label": _("Amount"), "cls": "num"},
+			{"label": _("Margin"), "cls": "num"}, {"label": _("Valid")}, {"label": _("Status")}],
+			"rows": [{"dt": "Bank Guarantee", "name": b.name, "cells": [{"main": b.bank_guarantee_number or b.name, "sub": b.name if b.bank_guarantee_number else ""},
+				_(b.bg_type or ""), b.name_of_beneficiary or b.customer or b.supplier or "—", b.bank or "—", {"money": b.amount}, {"money": b.margin_money} if b.margin_money else "—",
+				{"main": frappe.utils.formatdate(b.end_date, "dd MMM yyyy") if b.end_date else "—", "sub": _("from {0}").format(frappe.utils.formatdate(b.start_date, "dd MMM yyyy")) if b.start_date else ""},
+				{"pill": _("Expired") if b.end_date and getdate(b.end_date) < t else (_("Expiring") if b.end_date and getdate(b.end_date) <= frappe.utils.add_days(t, 30) else _("Valid")),
+					"tone": "red" if b.end_date and getdate(b.end_date) < t else ("orange" if b.end_date and getdate(b.end_date) <= frappe.utils.add_days(t, 30) else "green")}]} for b in bgs],
+			"empty": _("No bank guarantees.")}
+	if tab == "tr":
+		lcs = [l for l in _lcs(cos) if l.trust_receipt]
+		return {"cols": [{"label": _("LC")}, {"label": _("Supplier")}, {"label": _("Trust receipt"), "cls": "num"}, {"label": _("Due")}, {"label": _("Interest"), "cls": "num"}, {"label": _("Status")}],
+			"rows": [{"dt": "Letter of Credit", "name": l.name, "cells": [{"main": l.lc_number or l.name}, l.supplier or l.party_name or "—", {"money": l.tr_amount},
+				{"date": l.tr_due, "late": bool(l.tr_due and getdate(l.tr_due) < t and not l.tr_repaid_on)}, {"money": l.tr_interest},
+				{"pill": _("Repaid") if l.tr_repaid_on else _("Open"), "tone": "green" if l.tr_repaid_on else "blue"}]} for l in lcs], "empty": _("No trust receipts.")}
+	if tab == "due":
+		rows = []
+		for l in _lcs(cos):
+			if l.status in LC_OPEN and l.maturity_date and not l.trust_receipt:
+				rows.append((getdate(l.maturity_date), l, _("LC maturity"), flt(l.base_amount)))
+			if l.trust_receipt and not l.tr_repaid_on and l.tr_due:
+				rows.append((getdate(l.tr_due), l, _("Trust receipt"), flt(l.tr_amount) + flt(l.tr_interest)))
+		rows.sort(key=lambda r: r[0])
+		return {"cols": [{"label": _("Due")}, {"label": _("What")}, {"label": _("LC")}, {"label": _("Supplier")}, {"label": _("Bank")}, {"label": _("Amount ({0})").format(cur), "cls": "num"}],
+			"rows": [{"dt": "Letter of Credit", "name": l.name, "cells": [{"date": d_, "late": d_ < t}, w, l.lc_number or l.name, l.supplier or l.party_name or "—", l.issuing_bank or "—",
+				{"money": a}]} for d_, l, w, a in rows], "empty": _("Nothing due.")}
+	return {"cols": [], "rows": []}

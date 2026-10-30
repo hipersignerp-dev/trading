@@ -54,7 +54,7 @@ NAV = [
 	("Finance & Tax", "banknote", [
 		("Finance", "Workspace", "Hipersign Finance", "banknote", None, {}),
 		("Accounting", "DocType", "Journal Entry", "book-open", None, {}),
-		("LCs & Guarantees", "DocType", "Letter of Credit", "file-signature", "lc", {}),
+		("LCs & Guarantees", "Page", "hipersign-lc", "file-signature", "lc", {}),
 		("VAT & E-invoicing", "DocType", "Tax Return", "percent", None, {"filters": [["Tax Return", "tax_type", "=", "VAT 201"]]}),
 		("Corporate Tax", "DocType", "Tax Return", "landmark", "ctax", {"filters": [["Tax Return", "tax_type", "=", "Corporate Tax"]]}),
 		("Group & Countries", "Report", "Hipersign Group Consolidation", "building-2", "group", {}),

@@ -7,7 +7,8 @@ const STAGE_TONE = { New: "blue", Contacted: "blue", Qualified: "violet", Propos
 const STATUS_TONE = { Draft: "grey", "To Deliver and Bill": "blue", "To Deliver": "blue", "To Bill": "blue", Completed: "green", Closed: "grey", Cancelled: "red",
 	"On Hold": "orange", Open: "blue", Replied: "blue", Ordered: "green", Lost: "red", Expired: "grey", "Partially Ordered": "blue",
 	"To Receive and Bill": "blue", "To Receive": "blue", Received: "green", "In Transit": "blue", Booked: "grey", "Under Customs Clearance": "orange",
-	Cleared: "green", "Received at Warehouse": "green", Pending: "orange", Submitted: "blue", Stopped: "grey" };
+	Cleared: "green", "Received at Warehouse": "green", Pending: "orange", Submitted: "blue", Stopped: "grey",
+	Applied: "orange", Issued: "grey", "Documents Presented": "blue", Accepted: "green", Paid: "green", Discrepant: "red" };
 
 hipersign.module.cell = function (c) {
 	if (c === null || c === undefined || c === "") return "—";
@@ -17,7 +18,7 @@ hipersign.module.cell = function (c) {
 		${c.open ? `data-ldt="${hm_esc(c.open[0])}" data-lname="${hm_esc(c.open[1])}"` : ""} style="white-space:nowrap">${hm_esc(c.button)}</button>`;
 	if (c.text !== undefined) return `<span class="hsx-tone-${hm_esc(c.tone || "")}">${hm_esc(c.text)}</span>`;
 	if (c.link) return `<a class="hsx-link" data-ldt="${hm_esc(c.link[0])}" data-lname="${hm_esc(c.link[1])}">${hm_esc(c.link[1])}</a>${c.pill ? `<div><span class="hsx-pill ${STATUS_TONE[c.pill] || "blue"}">${hm_esc(__(c.pill))}</span></div>` : ""}`;
-	if (c.main !== undefined) return `<b>${hm_esc(c.main)}</b>${c.sub ? `<span class="hsx-sub2">${hm_esc(c.sub)}</span>` : ""}`;
+	if (c.main !== undefined) return `<b>${hm_esc(c.main)}</b>${c.sub ? `<span class="hsx-sub2 ${c.late ? "text-danger" : ""}">${hm_esc(c.sub)}</span>` : ""}`;
 	if (c.lines) return c.lines.map((l) => `<div>${hm_esc(l)}</div>`).join("") || "—";
 	if (c.date !== undefined) return c.date ? `<span class="${c.late ? "text-danger" : ""}" style="white-space:nowrap">${hm_esc(frappe.datetime.str_to_user(c.date))}</span>` : "—";
 	if (c.bar !== undefined) return `<span class="hp-bar" style="width:80px"><span style="width:${Math.min(100, c.bar)}%;${c.bar < 100 ? "background:var(--x-blue)" : ""}"></span></span> <b>${format_number(c.bar, null, 0)}%</b>`;
