@@ -5,7 +5,7 @@ Same shape as api/module.py (get_module / get_rows dispatch there). Read with th
 
 import frappe
 from frappe import _
-from frappe.utils import add_days, add_months, cint, date_diff, flt, formatdate, get_first_day, get_last_day, getdate, today
+from frappe.utils import add_days, add_months, cint, date_diff, flt, formatdate, get_first_day, get_last_day, getdate, today  # noqa: F401
 
 from hipersign_trading.api.module import _fields, _fmt, _perm, _scope, kpi
 
@@ -555,4 +555,113 @@ def assets_rows(tab, chip, q=None):
 			"rows": [{"dt": "Asset", "name": r.name, "cells": [{"main": r.asset_name, "sub": r.name}, _(r.asset_category or ""), {"money": r.net_purchase_amount},
 				{"money": flt(r.net_purchase_amount) - flt(r.value_after_depreciation)}, {"money": r.value_after_depreciation}, {"money": r.month_dep} if r.month_dep else "—",
 				r.life or "—"]} for r in rows if r.docstatus == 1], "empty": _("No submitted assets.")}
+	return {"cols": [], "rows": []}
+
+
+# ---------------------------------------------------------------- Finance: the prototype's extra tabs (v1.7.0)
+FIN_EXTRA = ("advances", "collections", "bankrec", "cashflow", "pl")
+
+
+def vat_payable(cos, start, end):
+	out = frappe.db.sql("""select sum(base_total_taxes_and_charges) from `tabSales Invoice` where docstatus = 1 and company in %s and posting_date between %s and %s""",
+		(tuple(cos), start, end))[0][0]
+	inp = frappe.db.sql("""select sum(base_total_taxes_and_charges) from `tabPurchase Invoice` where docstatus = 1 and company in %s and posting_date between %s and %s""",
+		(tuple(cos), start, end))[0][0]
+	return flt(out) - flt(inp)
+
+
+def finance_extra(tab, chip, q=None):
+	cos, start, end, label, cur = _scope()
+	t = getdate(today())
+	if tab == "advances":
+		pes = frappe.get_list("Payment Entry", filters={"company": ["in", cos], "docstatus": 1, "payment_type": "Receive", "party_type": "Customer", "unallocated_amount": [">", 0]},
+			fields=["name", "party", "party_name", "posting_date", "paid_amount", "unallocated_amount", "mode_of_payment", "reference_no", "paid_from_account_currency"],
+			order_by="posting_date desc", limit=200) if _perm("Payment Entry") else []
+		so_adv = frappe.get_list("Sales Order", filters={"company": ["in", cos], "docstatus": 1, "advance_paid": [">", 0], "per_billed": ["<", 100]},
+			fields=["name", "customer_name", "transaction_date", "advance_paid", "grand_total", "currency"], order_by="transaction_date desc", limit=100) if _perm("Sales Order") else []
+		rows = [{"dt": "Payment Entry", "name": p.name, "cells": [{"code": p.name}, {"main": p.party_name or p.party, "sub": " ".join(x for x in [p.mode_of_payment, p.reference_no] if x)},
+			{"date": p.posting_date}, {"money": p.paid_amount}, {"money": p.unallocated_amount}, {"pill": _("Not applied"), "tone": "orange"}]} for p in pes]
+		rows += [{"dt": "Sales Order", "name": s.name, "cells": [{"code": s.name}, {"main": s.customer_name, "sub": _("Advance against the order")}, {"date": s.transaction_date},
+			{"money": s.advance_paid, "currency": s.currency if s.currency != cur else None}, {"money": s.advance_paid}, {"pill": _("Held on order"), "tone": "blue"}]} for s in so_adv]
+		return {"title": _("Customer advances"), "cols": [{"label": _("Receipt / order")}, {"label": _("Customer")}, {"label": _("Received")}, {"label": _("Amount"), "cls": "num"},
+			{"label": _("Unapplied"), "cls": "num"}, {"label": _("Status")}], "rows": rows,
+			"actions": [{"label": _("Receive advance"), "primary": 1, "route": ["Form", "Payment Entry", "new"], "options": {"payment_type": "Receive", "party_type": "Customer"}}],
+			"empty": _("No customer advances waiting to be applied.")}
+	if tab == "collections":
+		inv = frappe.get_list("Sales Invoice", filters={"company": ["in", cos], "docstatus": 1, "outstanding_amount": [">", 0], "due_date": ["<=", add_days(t, 7)]},
+			fields=["name", "customer", "customer_name", "due_date", "outstanding_amount", "currency", "posting_date"], order_by="due_date asc", limit=300) if _perm("Sales Invoice") else []
+		by = {}
+		for i in inv:
+			x = by.setdefault(i.customer, frappe._dict(customer=i.customer, name=i.customer_name, n=0, amt=0, oldest=i.due_date, inv=[]))
+			x.n += 1
+			x.amt += flt(i.outstanding_amount)
+			x.inv.append(i.name)
+			x.oldest = min(getdate(x.oldest), getdate(i.due_date))
+		rows = []
+		for x in sorted(by.values(), key=lambda x: x.oldest):
+			late = date_diff(t, x.oldest)
+			stage = _("Final notice") if late > 60 else _("2nd reminder") if late > 30 else _("1st reminder") if late > 0 else _("Due soon")
+			rows.append({"dt": "Customer", "name": x.customer, "cells": [{"main": x.name, "sub": ", ".join(x.inv[:3]) + ("…" if len(x.inv) > 3 else "")}, x.n, {"money": x.amt},
+				{"main": _d(x.oldest), "sub": _("{0} days late").format(late) if late > 0 else _("due in {0} days").format(-late), "late": late > 0},
+				{"pill": stage, "tone": "red" if late > 30 else "orange" if late > 0 else "blue"}, {"url": f"/portal?tab=statement&customer={frappe.utils.quote(x.customer)}", "label": _("Statement")}]})
+		return {"title": _("Collections — overdue and due in the next 7 days"), "cols": [{"label": _("Customer")}, {"label": _("Invoices"), "cls": "num"}, {"label": _("Outstanding"), "cls": "num"},
+			{"label": _("Oldest due")}, {"label": _("Next step")}, {"label": ""}], "rows": rows, "empty": _("Nothing overdue or due this week.")}
+	if tab == "bankrec":
+		bts = frappe.get_list("Bank Transaction", filters={"company": ["in", cos], "docstatus": 1, "status": ["in", ["Unreconciled", "Pending"]]},
+			fields=["name", "date", "description", "deposit", "withdrawal", "unallocated_amount", "bank_account", "reference_number"], order_by="date desc", limit=200) \
+			if frappe.db.table_exists("Bank Transaction") and _perm("Bank Transaction") else []
+		return {"title": _("Bank statement lines to match"), "cols": [{"label": _("Date")}, {"label": _("Description")}, {"label": _("Account")}, {"label": _("In"), "cls": "num"},
+			{"label": _("Out"), "cls": "num"}, {"label": _("To match"), "cls": "num"}, {"label": _("Status")}],
+			"rows": [{"dt": "Bank Transaction", "name": b.name, "cells": [{"date": b.date}, {"main": b.description or "—", "sub": b.reference_number or ""}, b.bank_account,
+				{"money": b.deposit} if flt(b.deposit) else "—", {"money": b.withdrawal} if flt(b.withdrawal) else "—", {"money": b.unallocated_amount},
+				{"pill": _("Unmatched"), "tone": "orange"}]} for b in bts],
+			"actions": [{"label": _("Open reconciliation tool"), "primary": 1, "route": ["bank-reconciliation-tool"]}, {"label": _("Import statement"), "route": ["Form", "Bank Statement Import", "new"]}],
+			"empty": _("All bank lines are matched.")}
+	if tab == "cashflow":
+		r = frappe.db.sql("""select date_format(gle.posting_date, '%%Y-%%m') m, sum(gle.debit) i, sum(gle.credit) o from `tabGL Entry` gle join tabAccount a on a.name = gle.account
+			where gle.is_cancelled = 0 and gle.company in %s and a.account_type in ('Bank', 'Cash') and gle.posting_date >= %s and gle.voucher_type != 'Period Closing Voucher'
+			group by m order by m""", (tuple(cos), get_first_day(add_months(t, -5))), as_dict=True)
+		opening = flt(frappe.db.sql("""select sum(gle.debit - gle.credit) from `tabGL Entry` gle join tabAccount a on a.name = gle.account where gle.is_cancelled = 0
+			and gle.company in %s and a.account_type in ('Bank', 'Cash') and gle.posting_date < %s""", (tuple(cos), get_first_day(add_months(t, -5))))[0][0])
+		rows, bal = [], opening
+		for x in r:
+			bal += flt(x.i) - flt(x.o)
+			rows.append({"cells": [{"main": formatdate(x.m + "-01", "MMMM yyyy")}, {"money": x.i}, {"money": x.o}, {"money": flt(x.i) - flt(x.o), "neg": flt(x.i) < flt(x.o)}, {"money": bal}]})
+		dues_in = flt(frappe.db.sql("""select sum(outstanding_amount) from `tabSales Invoice` where docstatus=1 and company in %s and outstanding_amount > 0 and due_date <= %s""",
+			(tuple(cos), add_days(t, 30)))[0][0])
+		dues_out = flt(frappe.db.sql("""select sum(outstanding_amount) from `tabPurchase Invoice` where docstatus=1 and company in %s and outstanding_amount > 0 and due_date <= %s""",
+			(tuple(cos), add_days(t, 30)))[0][0])
+		rows.append({"cells": [{"main": _("Next 30 days (expected)")}, {"money": dues_in}, {"money": dues_out}, {"money": dues_in - dues_out, "neg": dues_in < dues_out}, {"money": bal + dues_in - dues_out}]})
+		return {"title": _("Cash flow — bank and cash, last six months"), "cols": [{"label": _("Month")}, {"label": _("Money in"), "cls": "num"}, {"label": _("Money out"), "cls": "num"},
+			{"label": _("Net"), "cls": "num"}, {"label": _("Closing balance"), "cls": "num"}], "rows": rows,
+			"actions": [{"label": _("Cash Flow report"), "route": ["query-report", "Cash Flow"]}]}
+	if tab == "pl":
+		ys = getdate(f"{t.year}-01-01")
+		cols_p = [(label, start, end), (_("Year to date"), ys, t)]
+		figs = []
+		for _l, a, b in cols_p:
+			r = frappe.db.sql("""select a.root_type, a.account_type, a.parent_account, sum(gle.credit - gle.debit) amt from `tabGL Entry` gle join tabAccount a on a.name = gle.account
+				where gle.is_cancelled = 0 and gle.company in %s and gle.posting_date between %s and %s and a.root_type in ('Income', 'Expense')
+				and gle.voucher_type != 'Period Closing Voucher' group by a.root_type, a.account_type, a.parent_account""", (tuple(cos), a, b), as_dict=True)
+			f = frappe._dict(rev=0, cogs=0, exp={})
+			for x in r:
+				if x.root_type == "Income":
+					f.rev += flt(x.amt)
+				elif x.account_type in ("Cost of Goods Sold", "Stock Adjustment"):
+					f.cogs += -flt(x.amt)
+				else:
+					k = (frappe.db.get_value("Account", x.parent_account, "account_name") or x.parent_account or _("Other")) if x.parent_account else _("Other")
+					f.exp[k] = f.exp.get(k, 0) - flt(x.amt)
+			figs.append(f)
+		keys = sorted({k for f in figs for k in f.exp}, key=lambda k: -figs[1].exp.get(k, 0))
+		def line(lab, vals, **kw):
+			return dict({"cells": [{"main": lab} if kw.get("b") else lab] + [{"money": v, "neg": v < 0} for v in vals]}, **({"cls": "hsx-grp-row"} if kw.get("b") else {}))
+		rows = [line(_("Revenue"), [f.rev for f in figs], b=1), line(_("Cost of sales (landed)"), [-f.cogs for f in figs]),
+			line(_("Gross profit"), [f.rev - f.cogs for f in figs], b=1)]
+		rows += [line("   " + k, [-f.exp.get(k, 0) for f in figs]) for k in keys]
+		rows.append(line(_("Net profit"), [f.rev - f.cogs - sum(f.exp.values()) for f in figs], b=1))
+		gm = [((f.rev - f.cogs) / f.rev * 100) if f.rev else 0 for f in figs]
+		rows.append({"cells": [_("Gross margin")] + [{"text": f"{g:.1f}%"} for g in gm]})
+		return {"title": _("Profit & loss"), "cols": [{"label": _("Line")}] + [{"label": l, "cls": "num"} for l, _a, _b in cols_p], "rows": rows,
+			"actions": [{"label": _("Profit and Loss report"), "route": ["query-report", "Profit and Loss Statement"]}]}
 	return {"cols": [], "rows": []}

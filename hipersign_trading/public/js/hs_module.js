@@ -16,6 +16,7 @@ hipersign.module.cell = function (c) {
 	if (c.code) return `<span class="hsx-code">${hm_esc(c.code)}</span>`;
 	if (c.button) return `<button class="btn btn-xs ${c.primary ? "btn-primary" : "btn-default"} hsx-cbtn" ${c.make ? `data-make="${hm_esc(c.make)}" data-source="${hm_esc(c.source)}"` : ""}
 		${c.open ? `data-ldt="${hm_esc(c.open[0])}" data-lname="${hm_esc(c.open[1])}"` : ""} style="white-space:nowrap">${hm_esc(c.button)}</button>`;
+	if (c.url) return `<a class="btn btn-xs btn-default" target="_blank" href="${hm_esc(c.url)}" onclick="event.stopPropagation()">${hm_esc(c.label || c.url)}</a>`;
 	if (c.text !== undefined) return `<span class="hsx-tone-${hm_esc(c.tone || "")}">${hm_esc(c.text)}</span>`;
 	if (c.link) return `<a class="hsx-link" data-ldt="${hm_esc(c.link[0])}" data-lname="${hm_esc(c.link[1])}">${hm_esc(c.link[1])}</a>${c.pill ? `<div><span class="hsx-pill ${STATUS_TONE[c.pill] || "blue"}">${hm_esc(__(c.pill))}</span></div>` : ""}`;
 	if (c.main !== undefined) return `<b>${hm_esc(c.main)}</b>${c.sub ? `<span class="hsx-sub2 ${c.late ? "text-danger" : ""}">${hm_esc(c.sub)}</span>` : ""}`;
@@ -102,7 +103,7 @@ hipersign.module.render = function (wrapper, key) {
 			if ($out.find(".hsx-mout2").length) $out = $out.find(".hsx-mout2");
 			const title = r.title || (st.data.tabs.find((x) => x.key === st.tab) || {}).label;
 			$out.html(ui.card(title, r.rows.length ? `<div class="hsx-tw"><table class="hsx-t hsx-mlist"><thead><tr>${r.cols.map((c) => `<th class="${c.cls || ""}">${hm_esc(c.label)}</th>`).join("")}</tr></thead>
-				<tbody>${r.rows.map((row) => `<tr ${row.dt ? `data-dt="${hm_esc(row.dt)}" data-name="${hm_esc(row.name)}"` : ""}>${row.cells.map((c, i) => `<td class="${(r.cols[i] || {}).cls || ""}">${hipersign.module.cell(c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`
+				<tbody>${r.rows.map((row) => `<tr class="${row.cls || ""}" ${row.dt ? `data-dt="${hm_esc(row.dt)}" data-name="${hm_esc(row.name)}"` : ""}>${row.cells.map((c, i) => `<td class="${(r.cols[i] || {}).cls || ""}">${hipersign.module.cell(c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`
 				: `<div class="hsx-empty">${hm_esc(r.empty || __("Nothing here."))}</div>`, { actions: (r.actions || []).map((a, i) => `<button class="btn ${a.primary ? "btn-primary" : "btn-default"} btn-xs hsx-ra" data-i="${i}">${hm_esc(a.label)}</button>`).join(" ")
 					+ (r.rows.length ? ` <button class="btn btn-default btn-xs hsx-xl">${__("Excel")}</button>` : "") }));
 				$out.find(".hsx-ra").on("click", function () { const a = r.actions[+$(this).attr("data-i")]; frappe.route_options = a.options || null; frappe.set_route(...a.route); });
