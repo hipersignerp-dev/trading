@@ -177,7 +177,7 @@
   "section": "Returns",
   "role": "Sales Executive",
   "steps": "Sales Invoice → Create → Return / Credit Note, pick a reason → Submit",
-  "expected": "Blocked: \"must be approved by the Sales Manager\"",
+  "expected": "Credit note saved as a draft; the Sales Executive has no Submit — only the Sales Manager (or Accounts) can submit it",
   "route": [
    "List",
    "Sales Invoice"
@@ -299,7 +299,7 @@
  {
   "id": "MST-07",
   "section": "Masters",
-  "role": "Sales Manager",
+  "role": "Sales Manager (supplier: Purchase Manager)",
   "steps": "Open item ITM-002, customer Al Noor LLC, supplier EuroSafe",
   "expected": "Brand/model, Carton = 100 Nos, weight, minimum order, default supplier; territory, sales person, website; supplier lead time",
   "route": [
@@ -311,7 +311,7 @@
   "id": "ADV-01",
   "section": "Advances",
   "role": "Warehouse Manager",
-  "steps": "Al Noor order **ANL/PO/7802** (50% advance terms) → Create → Delivery Note / Pick List → Submit",
+  "steps": "Al Noor order **ANL/PO/7802** (50% advance terms) → Create → Delivery Note / Pick List → Submit (run before ADV-02)",
   "expected": "Blocked: \"Advance before delivery … has not been received\"",
   "route": [
    "List",
@@ -421,7 +421,7 @@
   "id": "LC-03",
   "section": "Landed cost & LCs",
   "role": "Purchase Manager",
-  "steps": "Letter of Credit ENBD-ILC-26-0418",
+  "steps": "Letter of Credit ENBD-ILC-26-0418 (run before LC-04)",
   "expected": "Expiry warning on the form; ToDo from `letter_of_credit_alerts`",
   "route": [
    "List",
@@ -907,7 +907,7 @@
   "section": "Navigation",
   "role": "Administrator",
   "steps": "Look at the side menu; open each section; click Quotations & Orders, then its Sales Orders sub-item; reload",
-  "expected": "Top level = the prototype's 34 entries in its order and names (Overview: Home, Messages, Approvals, Insights & Alerts, Trade Journey; Accounting and Corporate Tax as their own entries); each module shows its list sub-items; no Create New or Add Sidebar Item; count badges on Messages, Approvals, Insights & Alerts and CRM; open sections remembered after reload",
+  "expected": "Top level = the prototype's 32 entries in its order and names (Overview: Home, Messages, Approvals, Insights & Alerts, Trade Journey; Accounting and Corporate Tax as their own entries); each module shows its list sub-items; no Create New or Add Sidebar Item; count badges on Messages, Approvals, Insights & Alerts and CRM; open sections remembered after reload",
   "route": [
    "hipersign-home"
   ]
@@ -1069,6 +1069,136 @@
   "route": [
    "List",
    "Bank Transaction"
+  ]
+ },
+ {
+  "id": "TOUR-01",
+  "section": "Demo",
+  "role": "Any",
+  "steps": "Home → Take the guided tour → follow chapter 3 (CRM & sales) to the end; change chapter with the drop-down; Escape",
+  "expected": "Each step opens its page, highlights the part and explains it; Next / Back / chapter drop-down / close work; chapters and steps follow the pack and the user's access",
+  "route": [
+   "hipersign-home"
+  ]
+ },
+ {
+  "id": "DEAL-01",
+  "section": "Demo",
+  "role": "Administrator (demo site)",
+  "steps": "Hipersign Settings → Live deal demo on Home ✓ → Home → Live deal demo → Play all → open three of the records → Reset",
+  "expected": "13 steps (fewer when LC, imports, advances or cheques are switched off), each creating and submitting the real record; the result shows revenue, landed cost, gross profit and cash; Reset cancels and deletes only that run's records and the customer it created",
+  "route": [
+   "hipersign-home"
+  ]
+ },
+ {
+  "id": "CRM-02",
+  "section": "CRM",
+  "role": "Sales Manager",
+  "steps": "CRM & Leads → check the 5 KPI tiles → Pipeline: filter by owner and source, drag a card from Contacted to Qualified → open a card → → Proposal, Log activity with a next follow-up → Create quotation; then All leads, Follow-ups and Sources & performance tabs",
+  "expected": "KPIs, stage columns with count and value, cards with need, value, coloured follow-up date, owner and source; the lead panel shows details, stage line, activity and actions; stage moves and the follow-up are saved; Create quotation opens a quotation for the lead; the other tabs show the list, the follow-ups due and the source statistics",
+  "route": [
+   "hipersign-crm"
+  ]
+ },
+ {
+  "id": "SAL-04",
+  "section": "Sales",
+  "role": "Sales Manager",
+  "steps": "Quotations & Orders → check the 6 KPIs (click each) → Sales orders tab: each status chip → open an order → Create delivery note; Quotations tab → Make sales order on an open quotation, Lost on another; Customers & credit; Price lists & pricing rules",
+  "expected": "Page as in the prototype: 6 KPIs that open their tab, 4 tabs, status chips, order and quotation panels with progress line, customer and order details, items with delivered / billed / pending, totals in words, payment schedule, documents, history and next-step buttons; Make sales order, Lost with a reason and Create delivery note open or save the real ERPNext records",
+  "route": [
+   "hipersign-orders"
+  ]
+ },
+ {
+  "id": "PANEL-02",
+  "section": "Record panel",
+  "role": "Sales Manager",
+  "steps": "Open a lead, quotation, sales order, customer, tax invoice, delivery note and item from Quotations & Orders, CRM & Leads, the Sales Order list, the top-bar search and the Order Tracker; click a linked record inside a panel, then Back; Message, Email, WhatsApp, Print; ↗ (full form)",
+  "expected": "The panel opens over the page with title, type and status, header facts, progress line where the record has stages, sections and tables (Excel download), documents box with Attach, history and footer actions; links open the linked record's panel and Back returns; ↗ opens the full form; Escape or × closes it and the page stays where it was",
+  "route": [
+   "hipersign-orders"
+  ]
+ },
+ {
+  "id": "PUR-03",
+  "section": "Purchasing",
+  "role": "Purchase Manager",
+  "steps": "Purchase Orders page → KPI *Open purchase orders* → click a PO row → panel → *Receive goods* (local PO) or *Book import shipment* (foreign PO)",
+  "expected": "KPIs, supplier and currency cards; the PO panel shows progress Draft→Paid, shipment and LC sections; the button opens a draft receipt or books a shipment",
+  "route": [
+   "hipersign-purchasing"
+  ]
+ },
+ {
+  "id": "IMP-03",
+  "section": "Imports & LCs",
+  "role": "Logistics",
+  "steps": "Imports & Shipments page → shipment board → click the *In transit* card → panel → *Mark Arrived at Port*",
+  "expected": "Panel shows 7 status steps, transport, POs, shipping documents and landed charges; status moves one step (it cannot skip steps)",
+  "route": [
+   "hipersign-imports"
+  ]
+ },
+ {
+  "id": "LC-05",
+  "section": "Imports & LCs",
+  "role": "Finance Manager",
+  "steps": "LCs & Guarantees page → click an LC → panel",
+  "expected": "Amount in LC currency and AED, expiry warning within 15 days, margin and trust receipt sections; *Mark …* / *Book trust receipt* buttons follow the LC's state",
+  "route": [
+   "hipersign-lc"
+  ]
+ },
+ {
+  "id": "RCV-01",
+  "section": "Stock",
+  "role": "Storekeeper",
+  "steps": "Goods Receiving page → *Awaiting receipt* → a shipment not yet cleared shows *Open shipment*; receipts tab → click a receipt → panel",
+  "expected": "Receive is offered only after customs clearance; the receipt panel shows accepted / rejected qty, landed cost and *Return to supplier*",
+  "route": [
+   "hipersign-receiving"
+  ]
+ },
+ {
+  "id": "STK-02",
+  "section": "Stock",
+  "role": "Warehouse Manager",
+  "steps": "Warehouse & Stock page → KPI *Below reorder level* → tabs Stock movements, Warehouses, Ageing",
+  "expected": "Low-stock chip filters the items; movements show in/out with balance; warehouses show value share; ageing shows last received / last sold and slow-moving items",
+  "route": [
+   "hipersign-stock"
+  ]
+ },
+ {
+  "id": "DSP-01",
+  "section": "Dispatch",
+  "role": "Logistics",
+  "steps": "Dispatch & Delivery page → board column *Ready to dispatch* → *Delivery note* on a card",
+  "expected": "A draft delivery note for the order opens; trips and delivery notes tabs list the month's dispatches",
+  "route": [
+   "hipersign-dispatch"
+  ]
+ },
+ {
+  "id": "FIN-02",
+  "section": "Finance",
+  "role": "Accountant",
+  "steps": "Finance page → Receivables → *Receive* on an overdue invoice; *To bill* tab → *Invoice*",
+  "expected": "A draft receipt for the outstanding amount opens; *Invoice* opens a draft tax invoice from the delivery note; ageing card adds up to outstanding",
+  "route": [
+   "hipersign-fin"
+  ]
+ },
+ {
+  "id": "VAT-03",
+  "section": "Tax",
+  "role": "Finance Manager",
+  "steps": "VAT & E-invoicing page → VAT 201 tab → Sales invoices chip *TRN missing* → E-invoicing readiness",
+  "expected": "Boxes 1a–1g split by emirate add up to the output VAT KPI; invoices to companies without a TRN are listed; readiness shows Ready / Open per check",
+  "route": [
+   "hipersign-vat"
   ]
  }
 ]

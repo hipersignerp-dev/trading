@@ -56,7 +56,9 @@ hipersign.load_demo = function () {
 
 $(document).on("app_ready", () => {
 	const info = hipersign.info();
-	if (info.setup_needed && info.is_system_manager && !sessionStorage.getItem("hs_setup_shown")) {
+	// v1.6.0: not over ERPNext's own set-up wizard (the company it creates is the one the questions ask about)
+	const in_wizard = (frappe.get_route() || [])[0] === "setup-wizard" || (frappe.boot.sysdefaults && !cint(frappe.boot.sysdefaults.setup_complete));
+	if (info.setup_needed && info.is_system_manager && !in_wizard && !sessionStorage.getItem("hs_setup_shown")) {
 		sessionStorage.setItem("hs_setup_shown", 1);
 		setTimeout(() => hipersign.setup_wizard(false), 1200);
 	}

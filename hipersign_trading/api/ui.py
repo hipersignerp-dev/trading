@@ -73,6 +73,14 @@ def set_company(company):
 	return set_scope("company:" + (company or ""))["company"]
 
 
+def _set_company(company):
+	"""v1.6.0 (TOP-01): the user's company default goes under the lowercase key "company". Frappe reads
+	get_user_default("Company") from the "company" key, and the site's global default company has that key too, so a
+	"Company" row was always overruled by the global default and the scope drop-down could not change company."""
+	frappe.defaults.clear_user_default("company")
+	frappe.defaults.set_user_default("company", company)
+
+
 @frappe.whitelist(methods=["POST"])
 def set_scope(scope):
 	"""Group, a country or a company. A company scope also becomes the user's Company default (one row only:
@@ -89,8 +97,7 @@ def set_scope(scope):
 		if not company or not frappe.db.exists("Company", company):
 			frappe.throw(_("Company {0} not found").format(company))
 		frappe.get_doc("Company", company).check_permission("read")
-		frappe.defaults.clear_user_default("Company")
-		frappe.defaults.set_user_default("Company", company)
+		_set_company(company)
 	else:
 		frappe.throw(_("Unknown scope {0}").format(scope))
 	if scope.startswith("country:"):
@@ -98,8 +105,7 @@ def set_scope(scope):
 		current = user_company()
 		in_country = scope_companies(scope)
 		if current not in in_country and in_country:
-			frappe.defaults.clear_user_default("Company")
-			frappe.defaults.set_user_default("Company", in_country[0])
+			_set_company(in_country[0])
 	frappe.defaults.set_user_default("hs_scope", scope)
 	return {"scope": scope, "company": user_company()}
 

@@ -127,10 +127,29 @@ html.hs-theme.hs-presenting .hs-book-box, html.hs-theme.hs-presenting .hs-banner
 /* ---------------------------------------------------------------- list views (replaces theme section 6)
    The old rule hid the modified time and comment count but left Frappe's sticky 130 px right-hand column:
    an empty dark box with a stray "·" on every row, covering the last column and causing a sideways scroll. */
-html.hs-theme .list-row-container .list-row > .level-right { display: none !important; }
-html.hs-theme .list-row-head .level-right { position: static !important; background: transparent !important; width: auto !important; }
+html.hs-theme .list-row-head .level-right { background: transparent !important; }
 html.hs-theme .list-row-head .level-right .list-row-activity > :not(.list-count) { display: none !important; }
 html.hs-theme .frappe-list .result { overflow-x: auto; }
+/* v1.6.0 (UI-01): Frappe 16 gives every column a fixed basis that never shrinks ("flex: 1 0 Npx", min-width 150 px), so
+   seven columns overflowed 1366–1536 px screens and the last one (the ID) was cut off. Columns now shrink (ellipsis), the
+   subject, the status and the last column keep a readable minimum, and the right-hand column has the same fixed width on
+   the header and the rows (empty on the rows), so headings stay over their values. */
+html.hs-theme .frappe-list .result .list-row-container, html.hs-theme .frappe-list .result .list-row,
+html.hs-theme .frappe-list .result .list-row-head { max-width: 100% !important; min-width: 0 !important; }
+html.hs-theme .frappe-list .list-row .level-left, html.hs-theme .frappe-list .list-row-head .level-left { min-width: 0; flex: 1 1 auto; }
+html.hs-theme .frappe-list .list-row .level-left > .list-row-col,
+html.hs-theme .frappe-list .list-row-head .level-left > .list-row-col { flex-shrink: 1 !important; min-width: 84px !important; margin-right: 10px; }
+html.hs-theme .frappe-list .list-row .level-left > .list-row-col.tag-col,
+html.hs-theme .frappe-list .list-row-head .level-left > .list-row-col.tag-col { min-width: 0 !important; }
+html.hs-theme .frappe-list .list-row .level-left > .list-row-col.list-subject,
+html.hs-theme .frappe-list .list-row-head .level-left > .list-row-col.list-subject { min-width: 160px !important; }
+html.hs-theme .frappe-list .list-row .level-left > .list-row-col:not([style]):not(.tag-col),
+html.hs-theme .frappe-list .list-row-head .level-left > .list-row-col:not([style]):not(.tag-col) { min-width: 96px !important; }
+html.hs-theme .frappe-list .list-row .level-left > .list-row-col:last-child:not(.list-subject),
+html.hs-theme .frappe-list .list-row-head .level-left > .list-row-col:last-child:not(.list-subject) { min-width: 150px !important; }
+html.hs-theme .frappe-list .list-row-container .list-row > .level-right { display: block !important; visibility: hidden; position: static !important;
+	flex: 0 0 76px !important; width: 76px !important; min-width: 0 !important; }
+html.hs-theme .frappe-list .list-row-head > .level-right { position: static !important; flex: 0 0 76px !important; width: 76px !important; min-width: 0 !important; }
 /* the active filter button: readable in both themes */
 html.hs-theme .filter-selector .filter-button.btn-primary-light,
 html.hs-theme .filter-selector .btn.btn-primary-light {

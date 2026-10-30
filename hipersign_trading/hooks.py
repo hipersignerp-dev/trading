@@ -27,6 +27,7 @@ app_include_css = [
 	"/assets/hipersign_trading/css/hipersign.css" + _v,
 	"/assets/hipersign_trading/css/hipersign_theme.css" + _v,
 	"/assets/hipersign_trading/css/hs_shell.css" + _v,
+	"/assets/hipersign_trading/css/hs_pages.css" + _v,
 ]
 app_include_js = [
 	"/assets/hipersign_trading/js/hipersign.js" + _v,
@@ -42,6 +43,10 @@ app_include_js = [
 	"/assets/hipersign_trading/js/hs_nav.js" + _v,
 	"/assets/hipersign_trading/js/hs_ui.js" + _v,
 	"/assets/hipersign_trading/js/hs_topbar.js" + _v,
+	"/assets/hipersign_trading/js/hs_panel.js" + _v,
+	"/assets/hipersign_trading/js/hs_module.js" + _v,
+	"/assets/hipersign_trading/js/hs_tour.js" + _v,
+	"/assets/hipersign_trading/js/hs_deal.js" + _v,
 ]
 
 website_context = {
@@ -91,6 +96,9 @@ fixtures = [
 ]
 
 # ---------------------------------------------------------------- document events
+# v1.6.0: sales staff may change only credit notes among sales invoices (overrides/returns.py)
+has_permission = {"Sales Invoice": "hipersign_trading.overrides.returns.sales_invoice_permission"}
+
 doc_events = {
 	# external documents: blocking rules on submit and on status changes (Hipersign Document Rule)
 	"*": {
@@ -114,6 +122,7 @@ doc_events = {
 		"on_update": "hipersign_trading.overrides.customer.on_update",
 	},
 	"Sales Order": {
+		"before_validate": "hipersign_trading.overrides.pricing.remember",
 		"validate": "hipersign_trading.overrides.sales_order.validate",
 		"before_submit": "hipersign_trading.overrides.kyc.sales_order_before_submit",
 		"on_submit": "hipersign_trading.overrides.sales_order.on_submit",
@@ -127,6 +136,7 @@ doc_events = {
 		"on_cancel": "hipersign_trading.overrides.advances.payment_entry_changed",
 	},
 	"Sales Invoice": {
+		"before_validate": "hipersign_trading.overrides.returns.sales_staff_only_returns",
 		"validate": ["hipersign_trading.overrides.sales_invoice.validate", "hipersign_trading.overrides.returns.unlink_outstanding"],
 		"before_submit": "hipersign_trading.overrides.returns.sales_return_before_submit",
 		"on_update": "hipersign_trading.overrides.sales_invoice.link_export_shipment",
@@ -145,7 +155,7 @@ doc_events = {
 		"validate": "hipersign_trading.overrides.purchase_receipt.validate",
 		"on_submit": "hipersign_trading.overrides.purchase_receipt.on_submit",
 	},
-	"Quotation": {"validate": "hipersign_trading.overrides.quotation.validate"},
+	"Quotation": {"before_validate": "hipersign_trading.overrides.pricing.remember", "validate": "hipersign_trading.overrides.quotation.validate"},
 	"Lead": {"validate": "hipersign_trading.overrides.lead.validate"},
 	"User": {"before_insert": "hipersign_trading.overrides.user.before_insert"},
 }

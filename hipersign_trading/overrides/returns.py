@@ -43,3 +43,31 @@ def unlink_outstanding(doc, method=None):
 	if doc.get("is_return") and doc.get("return_against") and doc.meta.has_field("update_outstanding_for_self"):
 		if doc.get("update_outstanding_for_self"):
 			doc.update_outstanding_for_self = 0
+
+
+# v1.6.0 (RET-01, RET-02): sales staff draft credit notes and the Sales Manager submits them, as the rule above says —
+# but ERPNext gives Sales User / Sales Manager no create or submit on Sales Invoice, so neither could even start one.
+# They now get create / write (and the Sales Manager submit) on Sales Invoice, limited by the check below to returns:
+# ordinary tax invoices stay with Accounts.
+ACCOUNTS_ROLES = {"Accounts User", "Accounts Manager", "System Manager"}
+SALES_ROLES = {"Sales User", "Sales Manager"}
+
+
+def _sales_only(user=None):
+	roles = set(frappe.get_roles(user))
+	return bool(roles & SALES_ROLES) and not roles & ACCOUNTS_ROLES
+
+
+def sales_invoice_permission(doc, ptype=None, user=None, debug=False):
+	if ptype not in ("create", "write", "submit", "cancel", "amend", "delete") or not _sales_only(user):
+		return True
+	# a new document is checked before "Is Return" is set (Create → Return maps onto a blank invoice): it is checked
+	# again in sales_staff_only_returns when it is saved
+	if doc.is_new() and ptype == "create":
+		return True
+	return bool(doc.get("is_return"))
+
+
+def sales_staff_only_returns(doc, method=None):
+	if not doc.get("is_return") and _sales_only():
+		frappe.throw(_("Sales staff can make credit notes only — tax invoices are made by Accounts."), frappe.PermissionError)

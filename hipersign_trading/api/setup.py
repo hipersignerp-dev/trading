@@ -20,6 +20,12 @@ def complete_setup(company_mode, pack, company=None):
 	s.flags.ignore_mandatory = True
 	s.save(ignore_permissions=True)
 	apply_effects(s)
+	# v1.6.0 (PDC-04): on a new site the company exists only now — the cheque holding accounts (and the bilingual print
+	# formats) were set up on install, before there was a company, so received cheques were never posted on receipt
+	from hipersign_trading.setup import default_print_formats, ensure_cheque_accounts
+
+	ensure_cheque_accounts()
+	default_print_formats()
 	frappe.db.commit()
 	return {"pack": pack, "company_mode": company_mode}
 

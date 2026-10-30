@@ -8,3 +8,4 @@ hipersign_trading/docs/current
 hipersign_trading/zz_dbg/
 hipersign_trading/zz_*.py
 dump.rdb
+.scratch/

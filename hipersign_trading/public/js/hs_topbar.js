@@ -11,7 +11,7 @@ const hs_icon = (n, size) => frappe.utils.icon(n, size || "sm");
 // [label, icon, action] — action: {dt, values, mode?} opens a document; {route} opens a page; {fn} runs a function
 hipersign.create.GROUPS = () => [
 	[__("Sales"), [
-		[__("Lead"), "users", { dt: "Lead" }],
+		[__("Lead"), "users", { dt: "Lead", feature: "crm" }],
 		[__("Quotation"), "file", { dt: "Quotation" }],
 		[__("Sales order"), "list", { dt: "Sales Order" }],
 		[__("Customer"), "users", { dt: "Customer" }],
@@ -147,7 +147,10 @@ hipersign.topbar.sync = function () {
 // ---------------------------------------------------------------- render
 hipersign.topbar.render = function () {
 	if (!document.documentElement.classList.contains("hs-theme") || frappe.session.user === "Guest") return;
-	const $host = $(".main-section > header").first();
+	let $host = $(".main-section > header").first();
+	// v1.6.0 (USR-01): while viewing as another user (impersonation), read-only mode or on a phone, Frappe swaps the
+	// <header> for its navbar template, which is empty in Frappe 16 — put a header back so the top bar still shows
+	if (!$host.length && $(".main-section").length) $host = $("<header></header>").prependTo($(".main-section").first());
 	if (!$host.length) return;
 	if ($host.find(".hs-topbar").length) return hipersign.topbar.sync();
 	const name = frappe.user.full_name ? frappe.user.full_name() : frappe.session.user;
@@ -385,6 +388,7 @@ hipersign.topbar.user_menu = function (sw) {
 	if (frappe.user.has_role("System Manager") && !(frappe.boot.hipersign || {}).view_only) {
 		items.push(`<a class="dropdown-item" data-act="add_user">${hs_esc(__("Add user"))}</a><a class="dropdown-item" data-act="users">${hs_esc(__("Manage users"))}</a>`);
 	}
+	if (hipersign.tour) items.push(`<a class="dropdown-item" data-act="tour">${hs_esc(__("Take the guided tour"))}</a>`);
 	if ((frappe.boot.hipersign || {}).demo_site) items.push(`<a class="dropdown-item" data-act="present">${hs_esc(hipersign.topbar.presenting() ? __("Leave presentation mode") : __("Presentation mode"))}</a>`);
 	items.push(`<a class="dropdown-item" data-act="settings">${hs_esc(__("My settings"))}</a>`);
 	items.push(`<a class="dropdown-item" data-act="theme">${hs_esc(__("Toggle theme"))}</a><div class="dropdown-divider"></div>`);
@@ -588,6 +592,7 @@ $(document).on("click", ".hs-topbar .hs-tb-user [data-act]", function (e) {
 	else if (act === "logout") frappe.app.logout();
 	else if (act === "add_user") frappe.new_doc("User");
 	else if (act === "users") frappe.set_route("List", "User");
+	else if (act === "tour") hipersign.tour.start();
 	else if (act === "present") {
 		try { localStorage.setItem("hs_present", hipersign.topbar.presenting() ? "0" : "1"); } catch (err) { /* ignore */ }
 		hipersign.topbar.banners();

@@ -1,0 +1,951 @@
+{
+ "chapters": [
+  "Welcome",
+  "Master data",
+  "CRM & sales",
+  "Purchasing",
+  "Imports & receiving",
+  "Warehouse & stock",
+  "Delivery",
+  "Exports",
+  "Finance",
+  "Accounting & tax",
+  "Group companies",
+  "People & assets",
+  "Admin & go-live"
+ ],
+ "steps": [
+  {
+   "chapter": 0,
+   "title": "One connected trading lifecycle",
+   "text": "Hipersign ERP follows every deal from the supplier’s factory to the customer’s site. Each stage is a live count — click any of them to open the records behind it.",
+   "route": [
+    "hipersign-home"
+   ],
+   "selector": ".hsx-body .hsx-card",
+   "role": "Managing Director",
+   "feature": null
+  },
+  {
+   "chapter": 0,
+   "title": "Live figures for the owner",
+   "text": "Sales, gross and net profit, stock, receivables, cash, cheques in hand and the sales pipeline. Change the period at the top; every tile drills down.",
+   "route": [
+    "hipersign-home"
+   ],
+   "selector": ".hsx-kpis",
+   "role": "Managing Director",
+   "feature": null
+  },
+  {
+   "chapter": 0,
+   "title": "Your work and the top alerts",
+   "text": "Each person sees only what is waiting for them, plus the five most urgent alert groups — not a wall of notifications.",
+   "route": [
+    "hipersign-home"
+   ],
+   "selector": ".hsx-grid2",
+   "role": "Managing Director",
+   "feature": null
+  },
+  {
+   "chapter": 0,
+   "title": "Insights & alerts",
+   "text": "Overdue invoices, orders waiting for an advance, low stock, slow movers, thin margins, expiring visas and documents — each alert says why it matters and what to do, and opens the record.",
+   "route": [
+    "hipersign-alerts"
+   ],
+   "selector": ".hsx-body",
+   "role": "Managing Director",
+   "feature": null
+  },
+  {
+   "chapter": 0,
+   "title": "Trade journey",
+   "text": "Pick a purchase order and follow it end to end: supplier, shipment, customs, goods receipt, landed cost and the customer orders it fed.",
+   "route": [
+    "hipersign-journey"
+   ],
+   "selector": ".hsx-body",
+   "role": "Managing Director",
+   "feature": null
+  },
+  {
+   "chapter": 0,
+   "title": "Messages — team, WhatsApp and email",
+   "text": "Team chat linked to records, plus customer WhatsApp and email in one inbox. Messages about an order sit on that order.",
+   "route": [
+    "hipersign-messages"
+   ],
+   "selector": ".hsx-body",
+   "role": "Managing Director",
+   "feature": null
+  },
+  {
+   "chapter": 0,
+   "title": "One approvals inbox",
+   "text": "Purchase orders, discounts, credit limits, payments, credit notes, journal entries, leave and payroll — each person approves only what their role allows.",
+   "route": [
+    "hipersign-approvals"
+   ],
+   "selector": ".hsx-body",
+   "role": "Managing Director",
+   "feature": null
+  },
+  {
+   "chapter": 1,
+   "title": "Item master",
+   "text": "Brand, model and description; sales and purchase units with the conversion (1 carton = 100 Nos); weight per unit for delivery notes; warranty; minimum order; lead time and default supplier for smart reorder.",
+   "route": [
+    "query-report",
+    "Stock Projected Qty"
+   ],
+   "selector": ".page-form, .report-wrapper",
+   "role": "Stock Manager",
+   "feature": null
+  },
+  {
+   "chapter": 1,
+   "title": "Customer master",
+   "text": "Customer type, territory, billing currency, price list, sales person and website — the sales person fills in automatically on new quotations and orders. Contacts, addresses, KYC and credit sit on the same record.",
+   "route": [
+    "hipersign-orders"
+   ],
+   "selector": ".hsx-mout",
+   "role": "Sales Manager",
+   "feature": null,
+   "tab": "credit"
+  },
+  {
+   "chapter": 1,
+   "title": "Supplier master",
+   "text": "Address, supplier group, lead time and website. The supplier’s lead time drives the expected arrival on new purchase orders and the reorder point of the items it supplies.",
+   "route": [
+    "List",
+    "Purchase Order"
+   ],
+   "selector": ".frappe-list",
+   "role": "Purchase Manager",
+   "feature": null
+  },
+  {
+   "chapter": 1,
+   "title": "Shared master data",
+   "text": "Payment terms (including advance terms), bank accounts, currencies and customer groups — add once, used by every form.",
+   "route": [
+    "Form",
+    "Hipersign Settings"
+   ],
+   "selector": ".form-layout",
+   "role": "System Manager",
+   "feature": null
+  },
+  {
+   "chapter": 1,
+   "title": "Drop-down lists",
+   "text": "Every choice in a form — incoterms, ports, shipping lines, units, brands, cost centres, return and rejection reasons — is a list you own. Pick “+ Add new …” at the bottom of any drop-down to add a value without leaving the form; deactivate old values here and their history stays.",
+   "route": [
+    "Form",
+    "Hipersign Settings"
+   ],
+   "selector": ".form-layout",
+   "role": "System Manager",
+   "feature": null
+  },
+  {
+   "chapter": 2,
+   "title": "CRM pipeline",
+   "text": "Leads from WhatsApp, the website and referrals move across the board; follow-ups are due-dated and a won lead becomes a customer and a quotation.",
+   "route": [
+    "hipersign-crm"
+   ],
+   "selector": ".hsx-board, .hsx-mout",
+   "role": "Sales Manager",
+   "feature": "crm",
+   "tab": "pipeline"
+  },
+  {
+   "chapter": 2,
+   "title": "Quotations",
+   "text": "Multi-line quotations with stock items, services and one-off custom items, priced from the customer’s group — sent as a bilingual PDF by email or WhatsApp.",
+   "route": [
+    "hipersign-orders"
+   ],
+   "selector": ".hsx-mout",
+   "role": "Sales User",
+   "feature": null,
+   "tab": "quotes"
+  },
+  {
+   "chapter": 2,
+   "title": "Price lists",
+   "text": "Standard Selling, Wholesale and Export (USD) — each with its own items, rates and valid-from dates. A quotation or order opens on the customer’s list and offers only that list’s items; “All products” shows everything and flags items without a list price. Changing the list re-prices the lines.",
+   "route": [
+    "hipersign-orders"
+   ],
+   "selector": ".hsx-mout",
+   "role": "Sales Manager",
+   "feature": null,
+   "tab": "pricing"
+  },
+  {
+   "chapter": 2,
+   "title": "Sales orders with credit control",
+   "text": "Orders above the credit limit, with deep discounts or below landed cost route for approval. Stock is reserved as soon as an order is approved.",
+   "route": [
+    "hipersign-orders"
+   ],
+   "selector": ".hsx-mout",
+   "role": "Sales User",
+   "feature": null,
+   "tab": "orders"
+  },
+  {
+   "chapter": 2,
+   "title": "Price lists & pricing rules",
+   "text": "One standard selling list with a discount per customer group; the landed rate sits beside every price so nobody sells at a loss by accident.",
+   "route": [
+    "hipersign-orders"
+   ],
+   "selector": ".hsx-mout",
+   "role": "Sales Manager",
+   "feature": null,
+   "tab": "pricing"
+  },
+  {
+   "chapter": 2,
+   "title": "Quick, Standard or Detailed",
+   "text": "Every New button opens the way you like to work. Quick is a small card — customer, items and quantities, with prices, terms and validity from the defaults; type “200 cam” and press Enter. Standard shows the essential fields, Detailed every field. Switch at the top of any form without losing what you typed; the arrow changes your default.",
+   "route": [
+    "hipersign-orders"
+   ],
+   "selector": ".hsx-kpis",
+   "role": "Sales User",
+   "feature": null
+  },
+  {
+   "chapter": 2,
+   "title": "Sales order tracker",
+   "text": "Every order’s stage — stock, delivery, invoice, payment — at a glance, with the statement of account one click away.",
+   "route": [
+    "sales-order-tracker"
+   ],
+   "selector": ".layout-main-section",
+   "role": "Sales User",
+   "feature": "tracker"
+  },
+  {
+   "chapter": 2,
+   "title": "Customer portal",
+   "text": "Customers see their orders, deliveries, invoices and statement, and can pay online — fewer “where is my order?” calls. (Menu → Customer Portal opens the customer's pages as a preview.)",
+   "route": [
+    "hipersign-home"
+   ],
+   "selector": ".hsx-body",
+   "role": "Sales User",
+   "feature": "portal"
+  },
+  {
+   "chapter": 3,
+   "title": "Purchase requests",
+   "text": "Anyone can request stock; the Purchase Manager approves it and it becomes a request for quotation or a purchase order.",
+   "route": [
+    "List",
+    "Purchase Order"
+   ],
+   "selector": ".frappe-list",
+   "role": "Purchase User",
+   "feature": null
+  },
+  {
+   "chapter": 3,
+   "title": "Supplier quotations compared",
+   "text": "Send one request to several suppliers and compare price in AED, lead time and arrival date side by side — the best offer becomes the order.",
+   "route": [
+    "List",
+    "Purchase Order"
+   ],
+   "selector": ".frappe-list",
+   "role": "Purchase User",
+   "feature": null
+  },
+  {
+   "chapter": 3,
+   "title": "Purchase orders in the supplier’s currency",
+   "text": "USD, EUR or CNY orders with the exchange rate, incoterm and approval limits. A warning appears if a line is below the item’s minimum order or not a full carton.",
+   "route": [
+    "List",
+    "Purchase Order"
+   ],
+   "selector": ".frappe-list",
+   "role": "Purchase User",
+   "feature": null
+  },
+  {
+   "chapter": 3,
+   "title": "Smart reorder",
+   "text": "Sales trend, lead time and safety stock give a reorder point per item; suggestions are rounded to full cartons, respect the minimum order and go to the default supplier.",
+   "route": [
+    "List",
+    "Purchase Order"
+   ],
+   "selector": ".frappe-list",
+   "role": "Purchase User",
+   "feature": null
+  },
+  {
+   "chapter": 4,
+   "title": "Import shipments & customs",
+   "text": "ETA, bill of lading, customs documents and freight, duty and clearing charges — goods cannot be received before clearance.",
+   "route": [
+    "List",
+    "Import Shipment"
+   ],
+   "selector": ".frappe-list",
+   "role": "Logistics Coordinator",
+   "feature": "imports"
+  },
+  {
+   "chapter": 4,
+   "title": "Letters of credit & trust receipts",
+   "text": "LC margin, documents presented, acceptance and maturity; trust receipt loans and their interest — linked to the shipment and the supplier invoice.",
+   "route": [
+    "List",
+    "Letter of Credit"
+   ],
+   "selector": ".frappe-list",
+   "role": "Accounts Manager",
+   "feature": "lc"
+  },
+  {
+   "chapter": 4,
+   "title": "Goods receiving with quality check",
+   "text": "Scan, accept or reject; rejected goods go to a quarantine warehouse and back to the supplier on a debit note.",
+   "route": [
+    "List",
+    "Purchase Receipt"
+   ],
+   "selector": ".frappe-list",
+   "role": "Stock Manager",
+   "feature": null
+  },
+  {
+   "chapter": 4,
+   "title": "True landed cost and margin",
+   "text": "Freight, duty, clearing and insurance are spread over the items, so the margin on every sale is the real one.",
+   "route": [
+    "hipersign-landed"
+   ],
+   "selector": ".hsx-body",
+   "role": "Sales Manager",
+   "feature": "imports"
+  },
+  {
+   "chapter": 5,
+   "title": "Stock across warehouses",
+   "text": "Quantity and value by warehouse and showroom, with brand and model on every line.",
+   "route": [
+    "query-report",
+    "Stock Projected Qty"
+   ],
+   "selector": ".page-form, .report-wrapper",
+   "role": "Stock Manager",
+   "feature": null
+  },
+  {
+   "chapter": 5,
+   "title": "Stock reservations",
+   "text": "Approved orders hold their stock; reservations can be released or handed to a more urgent order.",
+   "route": [
+    "query-report",
+    "Stock Projected Qty"
+   ],
+   "selector": ".page-form, .report-wrapper",
+   "role": "Stock Manager",
+   "feature": null
+  },
+  {
+   "chapter": 5,
+   "title": "Rack & bin locations",
+   "text": "Every item has a bin, so pick lists send the storekeeper straight to the shelf.",
+   "route": [
+    "query-report",
+    "Stock Projected Qty"
+   ],
+   "selector": ".page-form, .report-wrapper",
+   "role": "Stock Manager",
+   "feature": null
+  },
+  {
+   "chapter": 5,
+   "title": "Stock counts",
+   "text": "Count by warehouse or bin; differences post as a stock reconciliation after the Warehouse Manager approves.",
+   "route": [
+    "query-report",
+    "Stock Projected Qty"
+   ],
+   "selector": ".page-form, .report-wrapper",
+   "role": "Stock Manager",
+   "feature": null
+  },
+  {
+   "chapter": 5,
+   "title": "Serial numbers & warranty",
+   "text": "Look up any serial: who bought it, on which delivery and whether it is still under warranty. Claims are tracked to the end.",
+   "route": [
+    "query-report",
+    "Stock Projected Qty"
+   ],
+   "selector": ".page-form, .report-wrapper",
+   "role": "Stock Manager",
+   "feature": null
+  },
+  {
+   "chapter": 5,
+   "title": "Stock ageing",
+   "text": "How long stock has been sitting and what it is worth — slow movers also show up in Insights.",
+   "route": [
+    "query-report",
+    "Stock Projected Qty"
+   ],
+   "selector": ".page-form, .report-wrapper",
+   "role": "Stock Manager",
+   "feature": null
+  },
+  {
+   "chapter": 6,
+   "title": "Pick, pack & dispatch",
+   "text": "Pick lists, cartons and weights, delivery trips with drivers and vehicles. Orders on advance terms stay on hold until the advance is received.",
+   "route": [
+    "List",
+    "Delivery Note"
+   ],
+   "selector": ".frappe-list",
+   "role": "Logistics Coordinator",
+   "feature": null
+  },
+  {
+   "chapter": 6,
+   "title": "Driver app & proof of delivery",
+   "text": "The driver sees the day’s stops, navigates, and captures the receiver’s signature and a photo on the phone.",
+   "route": [
+    "List",
+    "Delivery Trip"
+   ],
+   "selector": ".frappe-list",
+   "role": "Driver",
+   "feature": "trips"
+  },
+  {
+   "chapter": 7,
+   "title": "Exports & re-exports",
+   "text": "Export orders in the customer’s currency, booked by land, sea or air with the forwarder and documents.",
+   "route": [
+    "List",
+    "Export Shipment"
+   ],
+   "selector": ".frappe-list",
+   "role": "Sales Manager",
+   "feature": "exports"
+  },
+  {
+   "chapter": 7,
+   "title": "Proof of export for 0% VAT",
+   "text": "Each shipment lists the documents the FTA needs to support zero-rating and warns before the deadline.",
+   "route": [
+    "List",
+    "Export Shipment"
+   ],
+   "selector": ".frappe-list",
+   "role": "Sales Manager",
+   "feature": "exports"
+  },
+  {
+   "chapter": 7,
+   "title": "Re-exports and duty refunds",
+   "text": "Imported goods sent out again — the customs duty paid on import is tracked for refund.",
+   "route": [
+    "List",
+    "Export Shipment"
+   ],
+   "selector": ".frappe-list",
+   "role": "Sales Manager",
+   "feature": "exports"
+  },
+  {
+   "chapter": 8,
+   "title": "Receivables",
+   "text": "Ageing by days past due and every open invoice with one-click receipt.",
+   "route": [
+    "query-report",
+    "Accounts Receivable"
+   ],
+   "selector": ".report-wrapper, .layout-main-section",
+   "role": "Accounts User",
+   "feature": null
+  },
+  {
+   "chapter": 8,
+   "title": "Bank charges on customer transfers",
+   "text": "A customer pays AED 1,000 but the bank credits AED 980. On Receive payment, on the bank statement or on the invoice, the AED 20 is booked to bank charges and the invoice closes as Paid. Up to the limit anyone can absorb it; above it the Finance Manager decides — or the balance stays open.",
+   "route": [
+    "query-report",
+    "Accounts Receivable"
+   ],
+   "selector": ".report-wrapper, .layout-main-section",
+   "role": "Accounts User",
+   "feature": null
+  },
+  {
+   "chapter": 8,
+   "title": "Customer advances",
+   "text": "Advances against an order or on account sit in Customer advances until they are applied to the tax invoice — automatically when the order is invoiced. VAT on an advance is reported in the month it is received.",
+   "route": [
+    "query-report",
+    "Accounts Receivable"
+   ],
+   "selector": ".report-wrapper, .layout-main-section",
+   "role": "Accounts User",
+   "feature": null
+  },
+  {
+   "chapter": 8,
+   "title": "Payment schedule & advance before delivery",
+   "text": "Each order shows its instalments with what has been received and what is overdue. On 50% advance terms delivery is on hold until the advance comes in — receive it from here.",
+   "route": [
+    "hipersign-orders"
+   ],
+   "selector": ".hsx-mout",
+   "role": "Accounts Manager",
+   "feature": null,
+   "tab": "orders"
+  },
+  {
+   "chapter": 8,
+   "title": "Collections",
+   "text": "Reminders on WhatsApp and email by stage, with promises to pay and the customer’s history.",
+   "route": [
+    "query-report",
+    "Accounts Receivable"
+   ],
+   "selector": ".report-wrapper, .layout-main-section",
+   "role": "Accounts User",
+   "feature": null
+  },
+  {
+   "chapter": 8,
+   "title": "Payables in any currency",
+   "text": "Supplier bills scanned and matched to the order. Pay a EUR or CNY bill in its own currency at the day’s rate — the realised exchange gain or loss posts by itself.",
+   "route": [
+    "query-report",
+    "Accounts Receivable"
+   ],
+   "selector": ".report-wrapper, .layout-main-section",
+   "role": "Accounts User",
+   "feature": null
+  },
+  {
+   "chapter": 8,
+   "title": "Post-dated cheques",
+   "text": "Cheques in hand, due to deposit, cleared or bounced — with a maturity calendar feeding the cash forecast.",
+   "route": [
+    "query-report",
+    "Accounts Receivable"
+   ],
+   "selector": ".report-wrapper, .layout-main-section",
+   "role": "Accounts User",
+   "feature": null
+  },
+  {
+   "chapter": 8,
+   "title": "Bank reconciliation",
+   "text": "Import the bank statement; lines match automatically and charges or unidentified receipts are booked in one click.",
+   "route": [
+    "query-report",
+    "Accounts Receivable"
+   ],
+   "selector": ".report-wrapper, .layout-main-section",
+   "role": "Accounts User",
+   "feature": null
+  },
+  {
+   "chapter": 8,
+   "title": "Cash flow forecast",
+   "text": "Receipts and payments by due date plus operating costs give next month’s closing bank balance.",
+   "route": [
+    "query-report",
+    "Accounts Receivable"
+   ],
+   "selector": ".report-wrapper, .layout-main-section",
+   "role": "Accounts Manager",
+   "feature": null
+  },
+  {
+   "chapter": 9,
+   "title": "Accounting that posts itself",
+   "text": "Every invoice, bill, payment, stock movement and payroll posts to the general ledger — trial balance and balance sheet are always up to date.",
+   "route": [
+    "query-report",
+    "General Ledger"
+   ],
+   "selector": ".report-wrapper, .layout-main-section",
+   "role": "Accounts User",
+   "feature": null
+  },
+  {
+   "chapter": 9,
+   "title": "Profit by branch, department and salesperson",
+   "text": "Cost centres split revenue and costs; head-office costs can be allocated.",
+   "route": [
+    "query-report",
+    "General Ledger"
+   ],
+   "selector": ".report-wrapper, .layout-main-section",
+   "role": "Accounts User",
+   "feature": null
+  },
+  {
+   "chapter": 9,
+   "title": "Month-end currency revaluation",
+   "text": "Open EUR and CNY payables and receivables are revalued at the closing rate; the unrealised gain or loss posts and reverses on the 1st. USD, OMR and SAR are pegged, so they show nil.",
+   "route": [
+    "query-report",
+    "General Ledger"
+   ],
+   "selector": ".report-wrapper, .layout-main-section",
+   "role": "Accounts Manager",
+   "feature": null
+  },
+  {
+   "chapter": 9,
+   "title": "Period closing",
+   "text": "A checklist per month — VAT, journals, payroll, invoicing, revaluation — then lock the month so nothing can be posted into it.",
+   "route": [
+    "query-report",
+    "General Ledger"
+   ],
+   "selector": ".report-wrapper, .layout-main-section",
+   "role": "Accounts Manager",
+   "feature": null
+  },
+  {
+   "chapter": 9,
+   "title": "UAE VAT 201 & e-invoicing",
+   "text": "The return builds itself from invoices, credit notes, purchase bills and advances — per emirate, with reverse charge on imports — then goes to the Finance Manager and EmaraTax.",
+   "route": [
+    "List",
+    "Tax Return"
+   ],
+   "selector": ".frappe-list",
+   "role": "Accounts User",
+   "feature": null
+  },
+  {
+   "chapter": 9,
+   "title": "Corporate tax",
+   "text": "Accounting profit to taxable income with the adjustments, small-business relief check and the 9% charge.",
+   "route": [
+    "List",
+    "Tax Return"
+   ],
+   "selector": ".frappe-list",
+   "role": "Accounts Manager",
+   "feature": null
+  },
+  {
+   "chapter": 9,
+   "title": "KYC & compliance",
+   "text": "Trade licences, TRN certificates and IDs with expiry dates; an expired licence blocks new orders until it is renewed.",
+   "route": [
+    "List",
+    "Customer"
+   ],
+   "selector": ".frappe-list",
+   "role": "Accounts Manager",
+   "feature": "kyc"
+  },
+  {
+   "chapter": 10,
+   "title": "Eight companies, five countries",
+   "text": "The group tree: two companies in the UAE, one each in Saudi Arabia, the UK and Hong Kong, three in India — each with its own currency, ownership, head and ERPNext site. Click a country or a company to view it.",
+   "route": [
+    "query-report",
+    "Hipersign Group Consolidation"
+   ],
+   "selector": ".report-wrapper, .layout-main-section",
+   "role": null,
+   "feature": "group"
+  },
+  {
+   "chapter": 10,
+   "title": "Group, country or company — one selector",
+   "text": "The selector at the top switches the whole workspace between the group, a country and a single company. The group owner sees everything, converted to AED: profit at average rates, balances at closing rates.",
+   "route": [
+    "hipersign-home"
+   ],
+   "selector": ".hsx-body .hsx-card",
+   "role": null,
+   "feature": null
+  },
+  {
+   "chapter": 10,
+   "title": "Country head — India only",
+   "text": "Vikram Rao sees the three Indian companies, India combined and their compliance — nothing from the UAE, Saudi Arabia, the UK or Hong Kong. In ERPNext this is one User Permission on the India group company.",
+   "route": [
+    "hipersign-home"
+   ],
+   "selector": ".hsx-body .hsx-card",
+   "role": null,
+   "feature": null
+  },
+  {
+   "chapter": 10,
+   "title": "Company head — UK only",
+   "text": "James Whitfield sees only Hipersign Trading UK Ltd: its results, trial balance, journal and its own item list. Each company keeps a separate item list.",
+   "route": [
+    "query-report",
+    "Hipersign Group Consolidation"
+   ],
+   "selector": ".report-wrapper, .layout-main-section",
+   "role": null,
+   "feature": "group"
+  },
+  {
+   "chapter": 10,
+   "title": "Inter-company on both sides",
+   "text": "Sales to the FZE, Saudi Arabia, the UK and India and charges from the FZE and Hong Kong are booked in the other company with one click — or automatically. The reconciliation shows any difference.",
+   "route": [
+    "query-report",
+    "Hipersign Group Consolidation"
+   ],
+   "selector": ".report-wrapper, .layout-main-section",
+   "role": "Accounts Manager",
+   "feature": "group"
+  },
+  {
+   "chapter": 10,
+   "title": "Consolidated statements & eliminations",
+   "text": "Investments against share capital, inter-company balances and sales, unrealised profit in stock, the minority shares in Saudi Arabia (25%) and Bengaluru (40%), and the translation reserve for the pound and the rupee.",
+   "route": [
+    "query-report",
+    "Hipersign Group Consolidation"
+   ],
+   "selector": ".report-wrapper, .layout-main-section",
+   "role": "Accounts Manager",
+   "feature": "group"
+  },
+  {
+   "chapter": 11,
+   "title": "HR & payroll with WPS",
+   "text": "Attendance and leave flow into payroll, which is approved and exported as a WPS salary file.",
+   "route": [
+    "List",
+    "Employee"
+   ],
+   "selector": ".frappe-list",
+   "role": "HR Manager",
+   "feature": "hr"
+  },
+  {
+   "chapter": 11,
+   "title": "Expenses & advances",
+   "text": "Staff expense claims with receipts and recoverable VAT, settled against cash advances given to staff.",
+   "route": [
+    "List",
+    "Employee"
+   ],
+   "selector": ".frappe-list",
+   "role": "HR Manager",
+   "feature": "hr"
+  },
+  {
+   "chapter": 11,
+   "title": "Documents & gratuity",
+   "text": "Visas, Emirates IDs and labour cards with expiry alerts; end-of-service gratuity calculated under UAE labour law.",
+   "route": [
+    "List",
+    "Employee"
+   ],
+   "selector": ".frappe-list",
+   "role": "HR Manager",
+   "feature": "hr"
+  },
+  {
+   "chapter": 11,
+   "title": "Fixed assets & vehicles",
+   "text": "Register with custodian, depreciation, service and Mulkiya/insurance renewals.",
+   "route": [
+    "List",
+    "Asset"
+   ],
+   "selector": ".frappe-list",
+   "role": "HR Manager",
+   "feature": "assets"
+  },
+  {
+   "chapter": 12,
+   "title": "Feature packs for every size",
+   "text": "Starter for a small local trader, Standard for a growing importer, Enterprise for groups. Each feature can be switched on or off per company, documents can be off, recommended or fully enforced, and Simple forms hides the optional fields. Nothing is deleted — switch back and every screen returns.",
+   "route": [
+    "Form",
+    "Hipersign Settings"
+   ],
+   "selector": ".form-layout",
+   "role": "System Manager",
+   "feature": null
+  },
+  {
+   "chapter": 12,
+   "title": "Approval rules & workflows",
+   "text": "Who approves what and above which amount — change a limit and it applies to the next document.",
+   "route": [
+    "Form",
+    "Hipersign Settings"
+   ],
+   "selector": ".form-layout",
+   "role": "System Manager",
+   "feature": null
+  },
+  {
+   "chapter": 12,
+   "title": "Business rules",
+   "text": "Switches such as blocking receipt before customs clearance, partial deliveries, negative stock and advance before delivery.",
+   "route": [
+    "Form",
+    "Hipersign Settings"
+   ],
+   "selector": ".form-layout",
+   "role": "System Manager",
+   "feature": null
+  },
+  {
+   "chapter": 12,
+   "title": "Document Centre",
+   "text": "Every record carries typed documents — the customer LPO on a sales order, the bill of lading on a shipment, the supplier invoice on a bill. This list shows each record still missing a required file, with an Attach button right in the row.",
+   "route": [
+    "query-report",
+    "Missing Documents"
+   ],
+   "selector": ".layout-main-section",
+   "role": "System Manager",
+   "feature": null
+  },
+  {
+   "chapter": 12,
+   "title": "Required documents",
+   "text": "For each document choose: blocks the next step, required and flagged, or optional. A blocking rule stops, for example, a supplier payment until the supplier invoice is attached — the user attaches it on the spot and carries on. Replaced files keep their older versions and every view or change is in the audit trail.",
+   "route": [
+    "query-report",
+    "Missing Documents"
+   ],
+   "selector": ".layout-main-section",
+   "role": "System Manager",
+   "feature": null
+  },
+  {
+   "chapter": 12,
+   "title": "Exceptions with approval",
+   "text": "When a rule blocks a step, the user can request an exception. The approver set for that rule — Sales Manager, Purchase Manager, Warehouse Manager, Finance Manager or Managing Director — allows it once, for that record. The document is still due by a date and is chased until attached. An approver can bypass on the spot, but the reason is recorded; nobody approves their own request.",
+   "route": [
+    "query-report",
+    "Missing Documents"
+   ],
+   "selector": ".layout-main-section",
+   "role": "Sales Manager",
+   "feature": null
+  },
+  {
+   "chapter": 12,
+   "title": "Company documents register",
+   "text": "Each group company’s trade licence, registrations, Ejari, civil defence, insurance policies, bank facility letters, powers of attorney and agency agreements — number, authority, expiry, owner and file. Sensitive types sit in a vault that only named roles can open.",
+   "route": [
+    "List",
+    "Company Document"
+   ],
+   "selector": ".frappe-list",
+   "role": "Managing Director",
+   "feature": "compliance"
+  },
+  {
+   "chapter": 12,
+   "title": "Compliance calendar",
+   "text": "One month view of everything due: licence and contract expiries, VAT, corporate tax, WPS and audit deadlines per company, plus the employee, vehicle and KYC expiries already tracked elsewhere.",
+   "route": [
+    "List",
+    "Company Document"
+   ],
+   "selector": ".frappe-list",
+   "role": "Managing Director",
+   "feature": "compliance"
+  },
+  {
+   "chapter": 12,
+   "title": "Reminders by ToDo, email and WhatsApp",
+   "text": "Every morning the reminder run notifies the owner at 90, 60, 30 and 7 days (set per document type) and copies the Managing Director once anything is overdue. Renewals move from Due → Submitted to the authority → Renewed, with the cost, the receipt and the new copy; the old copy is archived.",
+   "route": [
+    "List",
+    "Company Document"
+   ],
+   "selector": ".frappe-list",
+   "role": "Accounts Manager",
+   "feature": "compliance"
+  },
+  {
+   "chapter": 12,
+   "title": "Roles & permissions",
+   "text": "Each role sees only its screens; add users and switch between them from the top-right menu.",
+   "route": [
+    "Form",
+    "Hipersign Settings"
+   ],
+   "selector": ".form-layout",
+   "role": "System Manager",
+   "feature": null
+  },
+  {
+   "chapter": 12,
+   "title": "Data migration",
+   "text": "Bring items, customers, suppliers, open invoices and balances across from Tally or Excel with checks before go-live.",
+   "route": [
+    "List",
+    "Data Import"
+   ],
+   "selector": ".frappe-list",
+   "role": "Accounts Manager",
+   "feature": null
+  },
+  {
+   "chapter": 12,
+   "title": "Test Centre",
+   "text": "Step-by-step user acceptance tests for every feature, by role, with pass/fail notes.",
+   "route": [
+    "hipersign-tests"
+   ],
+   "selector": ".hsx-body, .layout-main-section",
+   "role": "System Manager",
+   "feature": null
+  },
+  {
+   "chapter": 12,
+   "title": "Add-ons & pricing",
+   "text": "Optional modules and integrations such as WhatsApp Business, with clear pricing and implementation hours.",
+   "route": [
+    "hipersign-addons"
+   ],
+   "selector": ".hsx-body, .layout-main-section",
+   "role": "Managing Director",
+   "feature": null
+  },
+  {
+   "chapter": 12,
+   "title": "See it run your business",
+   "text": "That’s the tour. Book a personalised demo with your own data — or keep exploring: switch users from the top-right menu, or jump to any chapter of this tour again.",
+   "route": [
+    "hipersign-home"
+   ],
+   "selector": ".hsx-body",
+   "role": "Managing Director",
+   "feature": null
+  }
+ ]
+}

@@ -172,25 +172,25 @@ def lifecycle(company, start, end):
 	ar = _co({"docstatus": 1, "outstanding_amount": [">", 0]}, company)
 	return [
 		{"n": "01", "icon": "shopping-cart", "title": _("Supplier purchasing"), "big": _("{0} open POs").format(_count("Purchase Order", open_po)),
-			"small": _sum("Purchase Order", "base_grand_total", open_po), "small_is_money": 1, "route": ["List", "Purchase Order"], "options": {"per_received": ["<", 100], "docstatus": 1}},
+			"small": _sum("Purchase Order", "base_grand_total", open_po), "small_is_money": 1, "route": ["hipersign-purchasing"]},
 		{"n": "02", "icon": "ship", "title": _("Import & shipment"),
 			"big": _("{0} shipments open").format(_count("Import Shipment", _co({"status": ["not in", ["Received at Warehouse"]]}, company))),
 			"small": _("{0} at port / customs").format(_count("Import Shipment", _co({"status": ["in", ["Arrived at Port", "Under Customs Clearance"]]}, company))),
-			"route": ["List", "Import Shipment"]},
+			"route": ["hipersign-imports"]},
 		{"n": "03", "icon": "scan-line", "title": _("Goods receiving"),
 			"big": _("{0} ready to receive").format(_count("Import Shipment", _co({"status": "Cleared"}, company))),
 			"small": _("{0} receipts this month").format(_count("Purchase Receipt", _co({"docstatus": 1, "posting_date": [">=", get_first_day(today())]}, company))),
-			"route": ["List", "Purchase Receipt"]},
+			"route": ["hipersign-receiving"]},
 		{"n": "04", "icon": "package", "title": _("Warehouse & inventory"), "big": stock_value, "big_is_money": 1,
 			"small": _("{0} items low / out").format(low), "route": ["query-report", "Stock Projected Qty"]},
 		{"n": "05", "icon": "tag", "title": _("Sales & orders"),
 			"big": _("{0} orders to deliver").format(_count("Sales Order", _co({"docstatus": 1, "status": ["in", ["To Deliver and Bill", "To Deliver"]]}, company))),
 			"small": _("{0} open").format(money(_sum("Sales Order", "base_grand_total", _co({"docstatus": 1, "status": ["in", ["To Deliver and Bill", "To Deliver", "To Bill"]]}, company)), precision=0)),
-			"route": ["List", "Sales Order"]},
+			"route": ["hipersign-orders"]},
 		{"n": "06", "icon": "truck", "title": _("Dispatch & delivery"),
 			"big": _("{0} notes not delivered").format(_count("Delivery Note", _co({"docstatus": 1, "hs_delivery_status": ["in", ["", "Ready to Dispatch", "Out for Delivery", "Failed"]]}, company))),
 			"small": _("{0} out for delivery").format(_count("Delivery Note", _co({"docstatus": 1, "hs_delivery_status": "Out for Delivery"}, company))),
-			"route": ["List", "Delivery Note"]},
+			"route": ["hipersign-dispatch"]},
 		{"n": "07", "icon": "banknote", "title": _("Finance & visibility"), "big": _sum("Sales Invoice", "outstanding_amount", ar), "big_is_money": 1, "big_suffix": _("receivable"),
 			"small": _("{0} overdue").format(money(_sum("Sales Invoice", "outstanding_amount", dict(ar, due_date=["<", today()])), precision=0)),
 			"route": ["query-report", "Accounts Receivable"]},
@@ -233,7 +233,7 @@ def kpis(company, start, end, label):
 	appr = pending(company)
 	return [
 		{"label": _("Total sales (net)"), "icon": "tag", "value": sales, "money": 1, "sub": _("{0} · {1} invoices").format(label, n_inv), "tone": "blue", "route": ["List", "Sales Invoice"]},
-		{"label": _("Total purchases"), "icon": "shopping-cart", "value": purch, "money": 1, "sub": _("{0} · orders placed").format(label), "tone": "violet", "route": ["List", "Purchase Order"]},
+		{"label": _("Total purchases"), "icon": "shopping-cart", "value": purch, "money": 1, "sub": _("{0} · orders placed").format(label), "tone": "violet", "route": ["hipersign-purchasing"]},
 		{"label": _("Gross profit"), "icon": "trending-up", "value": led["gross"], "money": 1, "sub": _("{0}% margin after landed cost · target {1}%").format(round(gm, 1), round(target)), "tone": "green" if gm >= target else "amber", "route": ["query-report", "Gross Profit"]},
 		{"label": _("Net profit (before tax)"), "icon": "chart", "value": led["profit"], "money": 1, "sub": _("{0}% net margin · after {1} expenses").format(round(nm, 1), money(led["opex"], precision=0)), "tone": "green" if led["profit"] >= 0 else "red", "route": ["query-report", "Profit and Loss Statement"]},
 		{"label": _("Stock value"), "icon": "package", "value": led["stock"], "money": 1, "sub": _("Valued at landed cost"), "tone": "blue", "route": ["query-report", "Stock Projected Qty"]},
@@ -245,13 +245,13 @@ def kpis(company, start, end, label):
 			"sub": _("{0} to deposit this week · {1} bounced").format(_count("Post Dated Cheque", dict(pdc, status="In Hand", cheque_date=["<=", add_days(today(), 7)])),
 				_count("Post Dated Cheque", _co({"status": "Bounced"}, company))), "tone": "violet", "route": ["List", "Post Dated Cheque"]},
 		{"label": _("Shipments in transit"), "icon": "ship", "value": _count("Import Shipment", _co({"status": ["in", ["Shipped", "In Transit", "Arrived at Port", "Under Customs Clearance", "Cleared"]]}, company)),
-			"sub": _("{0} at port / customs / cleared").format(_count("Import Shipment", _co({"status": ["in", ["Arrived at Port", "Under Customs Clearance", "Cleared"]]}, company))), "tone": "blue", "route": ["List", "Import Shipment"]},
+			"sub": _("{0} at port / customs / cleared").format(_count("Import Shipment", _co({"status": ["in", ["Arrived at Port", "Under Customs Clearance", "Cleared"]]}, company))), "tone": "blue", "route": ["hipersign-imports"]},
 		{"label": _("Export shipments"), "icon": "globe", "value": _count("Export Shipment", _co({"status": ["!=", "Documents Complete"]}, company)),
 			"sub": _("{0} awaiting proof of export (0% VAT)").format(_count("Export Shipment", _co({"status": ["in", ["Shipped", "Delivered"]], "proof_of_export_on": ["is", "not set"]}, company))), "tone": "blue", "route": ["List", "Export Shipment"]},
 		{"label": _("Sales pipeline (CRM)"), "icon": "sparkles", "value": _sum("Lead", "hs_estimated_value", leads_open) if leads_open else 0, "money": 1,
-			"sub": _("{0} open leads · {1} follow-ups due").format(_count("Lead", leads_open), _count("Lead", dict(leads_open, hs_next_follow_up=["<=", today()])) if leads_open else 0), "tone": "violet", "route": ["List", "Lead"]},
+			"sub": _("{0} open leads · {1} follow-ups due").format(_count("Lead", leads_open), _count("Lead", dict(leads_open, hs_next_follow_up=["<=", today()])) if leads_open else 0), "tone": "violet", "route": ["hipersign-crm"]},
 		{"label": _("Open sales orders"), "icon": "list", "value": _sum("Sales Order", "base_grand_total", _co({"docstatus": 1, "status": ["in", ["To Deliver and Bill", "To Deliver", "To Bill"]]}, company)), "money": 1,
-			"sub": _("{0} orders incl. VAT").format(_count("Sales Order", _co({"docstatus": 1, "status": ["in", ["To Deliver and Bill", "To Deliver", "To Bill"]]}, company))), "tone": "blue", "route": ["List", "Sales Order"]},
+			"sub": _("{0} orders incl. VAT").format(_count("Sales Order", _co({"docstatus": 1, "status": ["in", ["To Deliver and Bill", "To Deliver", "To Bill"]]}, company))), "tone": "blue", "route": ["hipersign-orders"]},
 		{"label": _("Pending approvals"), "icon": "inbox", "value": len(appr), "sub": _("POs, orders, payments, stock, exceptions"), "tone": "amber", "route": ["hipersign-approvals"]},
 	]
 
@@ -280,27 +280,48 @@ def monthly(company):
 
 
 def work_today(company):
+	"""v1.6.0 (HOM-02, SET-05): a line shows only when the user can open its records and its feature is switched on —
+	a Sales Executive used to see bank lines and leave requests, and Starter still showed lead follow-ups."""
+	from hipersign_trading.features import feature_on
+	from hipersign_trading.utils import can_read
+
 	u = frappe.session.user
 	rows = []
 
-	def add(n, label, route, options=None):
+	def add(dt, filters, label, route, options=None, feature=None):
+		if feature and not feature_on(feature):
+			return
+		if not frappe.db.table_exists(dt) or not can_read(dt):
+			return
+		try:
+			n = len(frappe.get_list(dt, filters=filters, pluck="name", limit_page_length=0))
+		except Exception:
+			n = 0
 		if n:
 			rows.append({"n": n, "label": label, "route": route, "options": options or {}})
 
-	add(_count("ToDo", {"allocated_to": u, "status": "Open"}), _("open to-dos for you"), ["List", "ToDo"], {"allocated_to": u, "status": "Open"})
-	add(len(__import__("hipersign_trading.api.approvals", fromlist=["x"]).pending(company, mine=True)), _("approvals waiting for you"), ["hipersign-approvals"])
-	add(_count("Notification Log", {"for_user": u, "read": 0}), _("unread notifications"), ["List", "Notification Log"])
+	add("ToDo", {"allocated_to": u, "status": "Open"}, _("open to-dos for you"), ["List", "ToDo"], {"allocated_to": u, "status": "Open"})
+	n = len(__import__("hipersign_trading.api.approvals", fromlist=["x"]).pending(company, mine=True))
+	if n:
+		rows.append({"n": n, "label": _("approvals waiting for you"), "route": ["hipersign-approvals"], "options": {}})
+	add("Notification Log", {"for_user": u, "read": 0}, _("unread notifications"), ["List", "Notification Log"])
 	if frappe.get_meta("Lead").has_field("hs_next_follow_up"):
-		add(_count("Lead", {"hs_next_follow_up": ["<=", today()], "hs_pipeline_stage": ["not in", ["Won", "Lost"]]}), _("lead follow-ups due"), ["List", "Lead"])
-	add(_count("Post Dated Cheque", _co({"status": "In Hand", "direction": "Received", "cheque_date": ["<=", today()]}, company)), _("cheques ready to deposit"), ["List", "Post Dated Cheque"], {"status": "In Hand"})
-	add(_count("Delivery Note", _co({"docstatus": 1, "per_billed": ["<", 100], "is_return": 0}, company)), _("deliveries to invoice"), ["List", "Delivery Note"], {"per_billed": ["<", 100], "docstatus": 1})
-	if frappe.db.table_exists("Bank Transaction"):
-		add(_count("Bank Transaction", _co({"docstatus": 1, "status": "Unreconciled"}, company)), _("bank lines to reconcile"), ["bank-reconciliation-tool"] if frappe.db.exists("Page", "bank-reconciliation-tool") else ["Form", "Bank Reconciliation Tool"])
-	add(_count("Import Shipment", _co({"status": "Cleared"}, company)), _("shipments to receive"), ["List", "Import Shipment"], {"status": "Cleared"})
-	add(_count("Warranty Claim", {"status": "Open"}), _("open warranty claims"), ["List", "Warranty Claim"], {"status": "Open"})
-	if frappe.db.table_exists("Leave Application"):
-		add(_count("Leave Application", _co({"status": "Open", "docstatus": 0}, company)), _("leave requests"), ["List", "Leave Application"], {"status": "Open"})
-	add(_count("ToDo", {"status": "Open", "reference_type": ["in", ["Company Document", "Company Deadline"]]}), _("compliance to-dos"), ["List", "ToDo"], {"status": "Open"})
+		add("Lead", {"hs_next_follow_up": ["<=", today()], "hs_pipeline_stage": ["not in", ["Won", "Lost"]]}, _("lead follow-ups due"), ["List", "Lead"], feature="crm")
+	add("Post Dated Cheque", _co({"status": "In Hand", "direction": "Received", "cheque_date": ["<=", today()]}, company), _("cheques ready to deposit"),
+		["List", "Post Dated Cheque"], {"status": "In Hand"}, feature="pdc")
+	add("Delivery Note", _co({"docstatus": 1, "per_billed": ["<", 100], "is_return": 0}, company), _("deliveries to invoice"), ["List", "Delivery Note"],
+		{"per_billed": ["<", 100], "docstatus": 1})
+	add("Bank Transaction", _co({"docstatus": 1, "status": "Unreconciled"}, company), _("bank lines to reconcile"),
+		["bank-reconciliation-tool"] if frappe.db.exists("Page", "bank-reconciliation-tool") else ["Form", "Bank Reconciliation Tool"], feature="recon")
+	add("Import Shipment", _co({"status": "Cleared"}, company), _("shipments to receive"), ["List", "Import Shipment"], {"status": "Cleared"}, feature="imports")
+	add("Warranty Claim", {"status": "Open"}, _("open warranty claims"), ["List", "Warranty Claim"], {"status": "Open"}, feature="serial")
+	# leave requests are work for HR and for the leave approver — not the employee's own requests
+	leave = _co({"status": "Open", "docstatus": 0}, company)
+	if not set(frappe.get_roles()) & {"HR User", "HR Manager", "System Manager"}:
+		leave["leave_approver"] = u
+	add("Leave Application", leave, _("leave requests"), ["List", "Leave Application"], {"status": "Open"}, feature="hr")
+	if feature_on("codocs") and can_read("Company Document"):
+		add("ToDo", {"status": "Open", "reference_type": ["in", ["Company Document", "Company Deadline"]]}, _("compliance to-dos"), ["List", "ToDo"], {"status": "Open"})
 	return rows
 
 

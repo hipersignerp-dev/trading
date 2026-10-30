@@ -21,8 +21,21 @@ frappe.ui.form.on("Hipersign Settings", {
 			() => frm.save(),
 			() => frm.set_value("feature_pack", frm.__hs_pack_saved || prev || "Custom"));
 	},
-	onload_post_render(frm) { frm.__hs_pack_saved = frm.doc.feature_pack; },
-	after_save(frm) { frm.__hs_pack_saved = frm.doc.feature_pack; },
+	onload_post_render(frm) { frm.__hs_pack_saved = frm.doc.feature_pack; frm.__hs_desk = hs_desk_sig(frm); },
+	after_save(frm) {
+		frm.__hs_pack_saved = frm.doc.feature_pack;
+		// v1.6.0: the desktop tiles, theme and menu are in the page's boot — reload once so they show at once
+		const sig = hs_desk_sig(frm);
+		if (frm.__hs_desk !== undefined && sig !== frm.__hs_desk) {
+			frm.__hs_desk = sig;
+			frappe.show_alert({ message: __("Desktop and menu updated — reloading…"), indicator: "blue" });
+			setTimeout(() => frappe.ui.toolbar.clear_cache(), 900);
+		}
+	},
 	company_mode(frm) { if (frm.doc.company_mode === "Group") frm.set_value("feat_group", 1); },
 	feat_imports(frm) { if (!frm.doc.feat_imports && frm.doc.feat_lc) frm.set_value("feat_lc", 0); },
 });
+
+function hs_desk_sig(frm) {
+	return ["only_hipersign_tiles", "desk_theme", "keep_hipersign_sidebar", "hide_getting_started"].map((f) => String(frm.doc[f] || "")).join("|");
+}

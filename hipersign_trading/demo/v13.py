@@ -64,7 +64,9 @@ def v13_documents(c):
 	for s_ in frappe.get_all("Import Shipment", filters={"status": ["not in", ["Booked"]]}, fields=["name", "bl_awb"])[:-1]:
 		_attach("Import Shipment", s_.name, "Bill of lading / AWB", f"BL {s_.bl_awb or s_.name}.pdf")
 	# a big draft order without the customer's LPO: an exception is waiting for the Sales Manager
-	draft = frappe.get_all("Sales Order", filters={"docstatus": 0, "company": c.company, "base_grand_total": [">=", 50000]}, pluck="name", limit=1)
+	# v1.6.0: not an order already waiting for approval (the Finance Manager's credit example must keep its LPO)
+	draft = frappe.get_all("Sales Order", filters={"docstatus": 0, "company": c.company, "base_grand_total": [">=", 50000],
+		"workflow_state": ["not in", ["Pending Sales Manager", "Pending Finance Manager"]]}, pluck="name", limit=1)
 	if not draft:
 		from hipersign_trading.demo import make_so
 

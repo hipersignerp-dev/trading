@@ -1,0 +1,33 @@
+{
+ "doctype": "Page",
+ "name": "hipersign-lc",
+ "page_name": "hipersign-lc",
+ "title": "LCs & Guarantees",
+ "module": "Hipersign Trading",
+ "standard": "Yes",
+ "system_page": 0,
+ "icon": "",
+ "roles": [
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "Managing Director"
+  },
+  {
+   "role": "Purchase Manager"
+  },
+  {
+   "role": "Accounts User"
+  },
+  {
+   "role": "Accounts Manager"
+  },
+  {
+   "role": "Demo Viewer"
+  }
+ ],
+ "owner": "Administrator",
+ "creation": "2026-10-30 12:00:00",
+ "modified": "2026-10-30 12:00:00"
+}

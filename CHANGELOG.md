@@ -1,5 +1,50 @@
 # Changelog
 
+## 1.6.0 — 30 Oct 2026 — record panel, CRM and sales pages, guided tour, Live deal demo, Test Centre fixes
+**Record panel:** leads, quotations, sales orders, customers, tax invoices, delivery notes and items open in the prototype's side
+panel — header facts, progress line, sections and tables (Excel), documents box, history and next-step buttons (Make sales order,
+Create delivery note, Receive advance, Record payment, Lost with a reason, Message, Email, WhatsApp, Print); links inside open the
+linked record's panel with Back; ↗ opens the full form.
+**Module pages:** CRM & Leads (5 KPIs, pipeline board with drag-and-drop stages, owner and source filters, all leads, follow-ups,
+sources & performance) and Quotations & Orders (6 KPIs, orders / quotations / customers & credit / price lists tabs with status chips).
+**Operations pages:** Supplier Purchasing, Imports & Shipments (shipment board), Goods Receiving, LCs & Guarantees, Dispatch &
+Delivery (dispatch board), Finance (receivables ageing; Receive / Pay / Invoice buttons), Warehouse & Inventory (stock items, movements,
+transfers, counts, reservations, warehouses, ageing) and UAE VAT & E-invoicing (live VAT 201 boxes split by emirate from the customer's
+address, return history, sales and purchase VAT, e-invoicing readiness); the sidebar opens these pages.
+**More record panels:** purchase orders, suppliers, import shipments (status steps, documents, landed charges, Mark next status,
+Receive, Create landed cost), letters of credit (Mark next status, Block / Release margin, Book trust receipt) and goods receipts
+(Create supplier bill, Return to supplier).
+**Guided tour:** the prototype's 13 chapters (79 steps) from Home or the user menu, following the pack and the user's access.
+**Live deal demo** (demo sites, Hipersign Settings): one deal from enquiry to the customer's cheque, step by step on real records,
+with revenue, landed cost, gross profit and cash at the end; Reset removes the run.
+**Demo data:** sales delivered and invoiced this month; the Oman subsidiary's figures (OMR), so the group consolidation shows LLC, FZE
+and Oman with the 30% minority (GRP-03). **Test Centre:** 114 scripts (TOUR-01, DEAL-01, CRM-02, SAL-04, PANEL-02, PUR-03, IMP-03,
+LC-05, RCV-01, STK-02, DSP-01, FIN-02, VAT-03).
+**Group consolidation:** a member without a stored rate on the year start translates equity at the nearest stored rate, not 1 (GRP-03).
+**Settings:** changing the desktop tiles, theme or menu options reloads the page once, so the desktop shows the change at once.
+**Fixes from the Test Centre run on the demo site (29 Oct 2026):**
+- Sales: a sales person's extra discount is kept on save (the customer-group rule is the floor), so a 15% order goes to the Sales
+  Manager (SAL-02); the Finance Manager (Accounts Manager) can approve sales and purchase orders (SAL-03, PUR-01); sales staff can
+  draft credit notes and the Sales Manager submits them, ordinary invoices stay with Accounts (RET-01/02); the Order Tracker's
+  Statement of Account opens the customer statement for sales staff instead of the General Ledger they cannot open (TRK-01).
+- Top bar: the company chosen in the scope drop-down now sticks (it was overruled by the site's default company) and quick documents
+  use it (TOP-01); the top bar stays while viewing as another user and on phones (USR-01); quick quotations and orders use the
+  customer's own price list (PL-01); Hipersign print formats are the default for quotations, orders, invoices, delivery notes and
+  purchase orders, so Print and the WhatsApp link send the bilingual layout (QTN-01).
+- Home: Work for today shows a line only when the user can open its records, counts follow permissions, and switched-off features
+  (CRM, cheques, reconciliation, imports, warranty, HR, compliance) are hidden; leave requests only for HR and the leave approver
+  (HOM-02, SET-05); the New panel hides Lead when CRM is off.
+- Lists no longer scroll sideways at 1366 px and wider: columns shrink, headings stay over their values, the last column stays
+  readable (UI-01).
+- Permissions: storekeepers can make receipts and delivery notes from orders (read on Address, Contact, Account — IMP-02); the
+  warehouse team can log warranty claims (SER-02); any desk user can record Test Centre results (TST-01).
+- Smart reorder makes purchase orders for foreign-currency suppliers (CNY) — the currency and rate are set before ERPNext fills the
+  order (RO-01). Portal logins linked through their contact find their customer (PRT-01). Post-dated cheque holding accounts are
+  created when set-up finishes, so cheques post on receipt on new sites (PDC-04).
+- Demo data: exchange gain/loss and round-off accounts (FX-01); the advance order's stock reserved (ADV-03); portal user in the
+  customer's Portal Users; the orders waiting for approval carry their LPO and the LPO exception sits on its own draft (SAL-03,
+  KYC-02, DOC-03); an overdue Horizon invoice for the collections hold (COL-02). Re-running Load demo data repairs existing demo sites.
+
 ## 1.5.6 — 29 Oct 2026 — the prototype's shell, quick cards and the audit fixes
 **Top bar** (Hipersign desk theme): ☰ shrinks the menu to an icon rail (slides in on narrow screens); real search as you type
 (customers, suppliers, items, orders, quotations, invoices, shipments, serials) with keyboard control and "/" to focus; one scope

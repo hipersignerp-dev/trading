@@ -31,6 +31,9 @@ def get_tests():
 def set_result(test_id, result, notes=None):
 	if result not in ("Not run", "Pass", "Fail", "Blocked"):
 		frappe.throw(_("Unknown result"))
+	# v1.6.0 (TST-01): any desk user records results — HR, driver-office and other roles had no permission on the doctype
+	if frappe.session.user == "Guest" or frappe.get_cached_value("User", frappe.session.user, "user_type") != "System User":
+		frappe.throw(_("Only desk users can record test results."), frappe.PermissionError)
 	if not frappe.db.exists("Hipersign Test Result", test_id):
 		doc = frappe.new_doc("Hipersign Test Result")
 		doc.test_id = test_id
@@ -39,6 +42,7 @@ def set_result(test_id, result, notes=None):
 	doc.result = result
 	if notes is not None:
 		doc.notes = notes
+	doc.flags.ignore_permissions = True
 	doc.save()
 	return {"test_id": test_id, "result": result}
 

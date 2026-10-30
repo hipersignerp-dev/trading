@@ -7,6 +7,9 @@ from hipersign_trading.utils import valuation_rate
 
 
 def validate(doc, method=None):
+	from hipersign_trading.overrides.pricing import keep
+
+	keep(doc)
 	net = sum(flt(i.base_net_amount) for i in doc.items)
 	cost = sum(flt(i.stock_qty or i.qty) * valuation_rate(i.item_code, i.warehouse) for i in doc.items)
 	doc.hs_estimated_gross_profit = net - cost

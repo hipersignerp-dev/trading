@@ -81,7 +81,12 @@ class HipersignTracker {
 	}
 	report(so, kind) {
 		frappe.db.get_value("Sales Order", so, ["customer", "company"]).then(({ message: m }) => {
-			if (kind === "soa") return frappe.set_route("query-report", "General Ledger", { company: m.company, party_type: "Customer", party: [m.customer], group_by: "Group by Voucher (Consolidated)" });
+			// v1.6.0 (TRK-01): the General Ledger only for accounts staff; sales staff get the customer's statement page
+			if (kind === "soa") {
+				if (frappe.boot.user.can_read.includes("GL Entry") && frappe.user.has_role(["Accounts User", "Accounts Manager", "Auditor", "System Manager"]))
+					return frappe.set_route("query-report", "General Ledger", { company: m.company, party_type: "Customer", party: [m.customer], group_by: "Group by Voucher (Consolidated)" });
+				return window.open(frappe.urllib.get_full_url(`/statement?customer=${encodeURIComponent(m.customer)}`));
+			}
 			if (kind === "order") return window.open(frappe.urllib.get_full_url(`/printview?doctype=Sales%20Order&name=${encodeURIComponent(so)}&format=Hipersign%20Order%20Confirmation`));
 			const dt = kind === "delivery" ? "Delivery Note" : "Sales Invoice";
 			const item = kind === "delivery" ? "against_sales_order" : "sales_order";
