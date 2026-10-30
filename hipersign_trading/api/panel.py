@@ -645,7 +645,22 @@ MAKERS = {
 	"erpnext.stock.doctype.delivery_note.delivery_note.make_sales_invoice",
 	"erpnext.buying.doctype.purchase_order.purchase_order.make_purchase_receipt",
 	"erpnext.buying.doctype.purchase_order.purchase_order.make_purchase_invoice",
+	"hipersign_trading.api.panel.pay_sales_invoice",
+	"hipersign_trading.api.panel.pay_purchase_invoice",
 }
+
+
+def pay_sales_invoice(source_name):
+	"""A draft receipt for the invoice's outstanding amount (the Finance page's Receive button)."""
+	from erpnext.accounts.doctype.payment_entry.payment_entry import get_payment_entry
+
+	return get_payment_entry("Sales Invoice", source_name)
+
+
+def pay_purchase_invoice(source_name):
+	from erpnext.accounts.doctype.payment_entry.payment_entry import get_payment_entry
+
+	return get_payment_entry("Purchase Invoice", source_name)
 
 
 @frappe.whitelist(methods=["POST"])

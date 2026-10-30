@@ -52,7 +52,7 @@ NAV = [
 		("Driver App", "URL", "/driver", "map-pin", "trips", {}),
 	]),
 	("Finance & Tax", "banknote", [
-		("Finance", "Workspace", "Hipersign Finance", "banknote", None, {}),
+		("Finance", "Page", "hipersign-fin", "banknote", None, {}),
 		("Accounting", "DocType", "Journal Entry", "book-open", None, {}),
 		("LCs & Guarantees", "Page", "hipersign-lc", "file-signature", "lc", {}),
 		("VAT & E-invoicing", "DocType", "Tax Return", "percent", None, {"filters": [["Tax Return", "tax_type", "=", "VAT 201"]]}),

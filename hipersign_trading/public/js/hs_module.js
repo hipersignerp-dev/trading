@@ -71,7 +71,8 @@ hipersign.module.render = function (wrapper, key) {
 				<select class="form-control hsx-source"><option value="">${__("All sources")}</option>${m.filters.sources.map((s) => `<option value="${hm_esc(s)}">${hm_esc(__(s))}</option>`).join("")}</select>` : "";
 			v.$body.html(`<div class="hsx-kpis">${m.kpis.map((k, i) => ui.kpi(Object.assign({}, k, { route: null })).replace("<button ", `<button data-k="${i}" `)).join("")}</div>
 				${(m.cards || []).length ? `<div class="hsx-mcards">${m.cards.map(hipersign.module.card_html).join("")}</div>` : ""}
-				<div class="hsx-mtabs">${m.tabs.map((t) => `<button data-tab="${t.key}" class="${t.key === st.tab ? "on" : ""}">${hm_esc(t.label)}</button>`).join("")}</div>
+				<div class="hsx-mtabs">${m.tabs.map((t) => `<button data-tab="${t.key}" class="${t.key === st.tab ? "on" : ""}">${hm_esc(t.label)}</button>`).join("")}
+					${(m.links || []).map(([l, r], i) => `<a class="hsx-mlink" data-li="${i}">${hm_esc(l)} ↗</a>`).join("")}</div>
 				<div class="hsx-chips"></div><div class="hsx-mfilters hsx-chips" style="${filters ? "" : "display:none"}">${filters}
 				<input class="form-control hsx-q" placeholder="${__("Search…")}" style="max-width:220px"></div>
 				<div class="hsx-mout"></div>${m.note ? `<p class="hsx-note">${hm_esc(m.note)}</p>` : ""}`);
@@ -154,6 +155,7 @@ hipersign.module.render = function (wrapper, key) {
 			});
 	}
 
+	v.$body.on("click", ".hsx-mlink", function () { frappe.set_route(...st.data.links[+$(this).attr("data-li")][1]); });
 	v.$body.on("click", ".hsx-mtabs button", function () { st.tab = $(this).attr("data-tab"); tab(); });
 	v.$body.on("click", ".hsx-chips [data-chip]", function () { st.chip[st.tab] = $(this).attr("data-chip"); tab(); });
 	v.$body.on("click", "[data-k]", function () {

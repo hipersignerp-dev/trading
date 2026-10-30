@@ -691,3 +691,145 @@ def dispatch_rows(tab, chip, q=None):
 				{"link": ["Sales Invoice", inv[d.name]]} if inv.get(d.name) else {"text": _("To bill"), "tone": "orange"}]} for d in rows],
 			"empty": _("No delivery notes here.")}
 	return {"cols": [], "rows": []}
+
+
+# ---------------------------------------------------------------- Finance & Management Visibility (v1.6.0 step 6)
+FIN_ROLES = {"System Manager", "Managing Director", "Accounts Manager", "Accounts User", "Auditor"}
+
+
+def _invoices(cos, filters=None):
+	if not _perm("Sales Invoice"):
+		return []
+	f = {"company": ["in", cos], "docstatus": 1, "is_return": 0}
+	f.update(filters or {})
+	return frappe.get_list("Sales Invoice", filters=f, fields=["name", "customer", "customer_name", "posting_date", "due_date", "grand_total", "outstanding_amount",
+		"currency", "conversion_rate", "base_grand_total", "base_net_total", "status"], order_by="posting_date desc", limit=500)
+
+
+def finance_module():
+	cos, start, end, label, cur = _scope()
+	t = getdate(today())
+	inv_p = _invoices(cos, {"posting_date": ["between", [start, end]]})
+	open_inv = _invoices(cos, {"outstanding_amount": [">", 0]})
+	base = lambda r: flt(r.outstanding_amount) * flt(r.conversion_rate or 1)
+	overdue = [r for r in open_inv if r.due_date and getdate(r.due_date) < t]
+	pay = frappe.get_list("Purchase Invoice", filters={"company": ["in", cos], "docstatus": 1, "outstanding_amount": [">", 0]},
+		fields=["outstanding_amount", "conversion_rate", "due_date"], limit_page_length=0) if _perm("Purchase Invoice") else []
+	pay_total = sum(flt(p.outstanding_amount) * flt(p.conversion_rate or 1) for p in pay)
+	pay_30 = sum(flt(p.outstanding_amount) * flt(p.conversion_rate or 1) for p in pay if p.due_date and getdate(p.due_date) <= frappe.utils.add_days(t, 30))
+	cash = None
+	if set(frappe.get_roles()) & FIN_ROLES:
+		from hipersign_trading.api.home import ledger
+
+		cash = sum(ledger(c, start, end)["cash"] for c in cos)
+	to_bill = frappe.get_list("Delivery Note", filters={"company": ["in", cos], "docstatus": 1, "is_return": 0, "per_billed": ["<", 100], "status": ["!=", "Closed"]},
+		fields=["base_grand_total", "per_billed"], limit_page_length=0) if _perm("Delivery Note") else []
+	ages = [0, 0, 0, 0, 0]
+	for r in open_inv:
+		dd = (t - getdate(r.due_date)).days if r.due_date else -1
+		ages[0 if dd <= 0 else 1 if dd <= 30 else 2 if dd <= 60 else 3 if dd <= 90 else 4] += base(r)
+	n_pdc = frappe.db.count("Post Dated Cheque", {"company": ["in", cos], "status": ["in", ["In Hand", "Deposited", "Issued"]]}) \
+		if frappe.db.table_exists("Post Dated Cheque") and _perm("Post Dated Cheque") else 0
+	n_ret = len(frappe.get_list("Sales Invoice", filters={"company": ["in", cos], "is_return": 1, "docstatus": ["<", 2], "posting_date": [">=", frappe.utils.add_days(t, -90)]},
+		pluck="name")) if _perm("Sales Invoice") else 0
+	kpis = [
+		kpi(_("Invoiced — {0}").format(label), sum(flt(r.base_net_total) for r in inv_p), _("Net of VAT"), "blue", "file", True, cur, tab="receivables", chip="all"),
+		kpi(_("Outstanding receivables"), sum(base(r) for r in open_inv), _("{0} invoices").format(len(open_inv)), "violet", "clock", True, cur, tab="receivables", chip="open"),
+		kpi(_("Overdue receivables"), sum(base(r) for r in overdue), _("{0} past due").format(len(overdue)), "red", "triangle-alert", True, cur, tab="receivables", chip="overdue"),
+		kpi(_("Payables"), pay_total, _("{0} due in 30 days").format(_fmt(pay_30, cur)), "amber", "shopping-cart", True, cur, tab="payables"),
+	]
+	if cash is not None:
+		kpis.append(kpi(_("Cash & bank"), cash, _("After receipts & payments"), "green", "banknote", True, cur, route=["query-report", "General Ledger"]))
+	kpis.append(kpi(_("Delivered, not invoiced"), len(to_bill), _("{0} to bill").format(_fmt(sum(flt(d.base_grand_total) * (100 - flt(d.per_billed)) / 100 for d in to_bill), cur)),
+		"navy", "flag", tab="tobill"))
+	return {
+		"title": _("Finance & Management Visibility"),
+		"desc": _("Customer balances, supplier obligations, cash and profit — from the same documents the warehouse and sales teams use."),
+		"new": [{"label": _("New invoice"), "doctype": "Sales Invoice"}, {"label": _("Receive payment"), "doctype": "Payment Entry", "primary": 1}],
+		"kpis": kpis,
+		"cards": [{"title": _("Receivables ageing"), "sub": _("Days past due"), "type": "bars", "currency": cur, "wide": 0,
+			"rows": [[_("Not due"), ages[0]], ["1–30", ages[1]], ["31–60", ages[2]], ["61–90", ages[3]], ["90+", ages[4]]]}],
+		"tabs": [
+			{"key": "receivables", "label": _("Receivables"), "chips": [["open", _("Open")], ["overdue", _("Overdue")], ["all", _("All")]]},
+			{"key": "payables", "label": _("Payables"), "chips": [["open", _("Open")], ["due", _("Due in 30 days")]]},
+			{"key": "tobill", "label": _("To bill ({0})").format(len(to_bill)), "chips": []},
+			{"key": "returns", "label": _("Returns & credit notes ({0})").format(n_ret), "chips": []},
+			{"key": "cheques", "label": _("Cheques (PDC) ({0})").format(n_pdc), "chips": [["open", _("Open")], ["all", _("All")]]},
+		],
+		"links": [[_("Bank reconciliation"), ["bank-reconciliation-tool"]], [_("Cash flow"), ["query-report", "Cash Flow"]], [_("Profit & loss"), ["query-report", "Profit and Loss Statement"]]],
+	}
+
+
+def finance_rows(tab, chip, q=None):
+	cos, start, end, label, cur = _scope()
+	t = getdate(today())
+	can_pe = frappe.has_permission("Payment Entry", "create")
+	if tab == "receivables":
+		f = {"outstanding_amount": [">", 0]} if chip in ("open", "overdue") else {"posting_date": [">=", frappe.utils.add_days(t, -120)]}
+		rows = _invoices(cos, f)
+		if chip == "overdue":
+			rows = [r for r in rows if r.due_date and getdate(r.due_date) < t]
+		if q:
+			rows = [r for r in rows if q.lower() in (r.customer_name or "").lower() or q.lower() in r.name.lower()]
+		rows.sort(key=lambda r: (getdate(r.due_date) if r.due_date else t))
+		def st(r):
+			if flt(r.outstanding_amount) <= 0:
+				return {"pill": _("Paid"), "tone": "green"}
+			if r.due_date and getdate(r.due_date) < t:
+				return {"pill": _("Overdue"), "tone": "red"}
+			return {"pill": _("Part paid") if flt(r.outstanding_amount) < flt(r.grand_total) else _("Unpaid"), "tone": "orange" if flt(r.outstanding_amount) >= flt(r.grand_total) else "blue"}
+		return {"cols": [{"label": _("Invoice")}, {"label": _("Customer")}, {"label": _("Date")}, {"label": _("Due")}, {"label": _("Total"), "cls": "num"},
+			{"label": _("Outstanding"), "cls": "num"}, {"label": _("Status")}, {"label": ""}],
+			"rows": [{"dt": "Sales Invoice", "name": r.name, "cells": [{"code": r.name}, {"main": r.customer_name}, {"date": r.posting_date},
+				{"main": frappe.utils.formatdate(r.due_date, "dd MMM yyyy") if r.due_date else "—",
+					"sub": _("{0} d overdue").format((t - getdate(r.due_date)).days) if r.due_date and getdate(r.due_date) < t and flt(r.outstanding_amount) > 0 else "", "late": True},
+				{"money": r.grand_total, "currency": r.currency if r.currency != cur else None}, {"money": r.outstanding_amount, "currency": r.currency if r.currency != cur else None},
+				st(r), {"button": _("Receive"), "primary": 1, "make": "hipersign_trading.api.panel.pay_sales_invoice", "source": r.name}
+				if can_pe and flt(r.outstanding_amount) > 0 else ""]} for r in rows], "empty": _("No invoices here.")}
+	if tab == "payables":
+		if not _perm("Purchase Invoice"):
+			return {"cols": [], "rows": []}
+		rows = frappe.get_list("Purchase Invoice", filters={"company": ["in", cos], "docstatus": 1, "outstanding_amount": [">", 0]}, fields=["name", "supplier", "supplier_name",
+			"bill_no", "posting_date", "due_date", "grand_total", "outstanding_amount", "currency"], order_by="due_date asc", limit=300)
+		if chip == "due":
+			rows = [r for r in rows if r.due_date and getdate(r.due_date) <= frappe.utils.add_days(t, 30)]
+		return {"cols": [{"label": _("Bill")}, {"label": _("Supplier")}, {"label": _("Supplier ref")}, {"label": _("Date")}, {"label": _("Due")}, {"label": _("Total"), "cls": "num"},
+			{"label": _("Outstanding"), "cls": "num"}, {"label": ""}],
+			"rows": [{"dt": "Purchase Invoice", "name": r.name, "cells": [{"code": r.name}, {"main": r.supplier_name or r.supplier}, r.bill_no or "—", {"date": r.posting_date},
+				{"date": r.due_date, "late": bool(r.due_date and getdate(r.due_date) < t)}, {"money": r.grand_total, "currency": r.currency if r.currency != cur else None},
+				{"money": r.outstanding_amount, "currency": r.currency if r.currency != cur else None},
+				{"button": _("Pay"), "make": "hipersign_trading.api.panel.pay_purchase_invoice", "source": r.name} if can_pe else ""]} for r in rows],
+			"empty": _("Nothing to pay.")}
+	if tab == "tobill":
+		dns = frappe.get_list("Delivery Note", filters={"company": ["in", cos], "docstatus": 1, "is_return": 0, "per_billed": ["<", 100], "status": ["!=", "Closed"]},
+			fields=["name", "customer_name", "posting_date", "base_grand_total", "per_billed"], order_by="posting_date asc", limit=200) if _perm("Delivery Note") else []
+		can = frappe.has_permission("Sales Invoice", "create")
+		return {"cols": [{"label": _("Delivery note")}, {"label": _("Customer")}, {"label": _("Delivered")}, {"label": _("Billed")}, {"label": _("To bill ({0})").format(cur), "cls": "num"}, {"label": ""}],
+			"rows": [{"dt": "Delivery Note", "name": d.name, "cells": [{"code": d.name}, {"main": d.customer_name}, {"date": d.posting_date}, {"bar": flt(d.per_billed)},
+				{"money": flt(d.base_grand_total) * (100 - flt(d.per_billed)) / 100},
+				{"button": _("Invoice"), "primary": 1, "make": "erpnext.stock.doctype.delivery_note.delivery_note.make_sales_invoice", "source": d.name} if can else ""]} for d in dns],
+			"empty": _("Everything delivered is invoiced.")}
+	if tab == "returns":
+		rows = frappe.get_list("Sales Invoice", filters={"company": ["in", cos], "is_return": 1, "docstatus": ["<", 2], "posting_date": [">=", frappe.utils.add_days(t, -90)]},
+			fields=_fields("Sales Invoice", ["name", "customer_name", "posting_date", "return_against", "grand_total", "docstatus", "hs_return_reason"]), order_by="posting_date desc", limit=100) \
+			if _perm("Sales Invoice") else []
+		return {"cols": [{"label": _("Credit note")}, {"label": _("Customer")}, {"label": _("Date")}, {"label": _("Against")}, {"label": _("Reason")}, {"label": _("Amount"), "cls": "num"}, {"label": _("Status")}],
+			"rows": [{"dt": "Sales Invoice", "name": r.name, "cells": [{"code": r.name}, {"main": r.customer_name}, {"date": r.posting_date},
+				{"link": ["Sales Invoice", r.return_against]} if r.return_against else "—", r.get("hs_return_reason") or "—", {"money": r.grand_total},
+				{"pill": _("Waiting for Sales Manager") if r.docstatus == 0 else _("Issued"), "tone": "orange" if r.docstatus == 0 else "green"}]} for r in rows],
+			"empty": _("No credit notes in the last 90 days.")}
+	if tab == "cheques":
+		if not (frappe.db.table_exists("Post Dated Cheque") and _perm("Post Dated Cheque")):
+			return {"cols": [], "rows": []}
+		f = {"company": ["in", cos]}
+		if chip == "open":
+			f["status"] = ["in", ["In Hand", "Deposited", "Issued", "Bounced"]]
+		rows = frappe.get_list("Post Dated Cheque", filters=f, fields=["name", "cheque_no", "direction", "party", "amount", "cheque_date", "status", "drawn_on", "reference_name"],
+			order_by="cheque_date asc", limit=200)
+		return {"cols": [{"label": _("Cheque")}, {"label": _("Direction")}, {"label": _("Party")}, {"label": _("Bank")}, {"label": _("Cheque date")}, {"label": _("Against")},
+			{"label": _("Amount"), "cls": "num"}, {"label": _("Status")}],
+			"rows": [{"dt": "Post Dated Cheque", "name": r.name, "cells": [{"main": r.cheque_no, "sub": r.name}, _(r.direction), r.party, r.drawn_on or "—",
+				{"date": r.cheque_date, "late": bool(r.status == "In Hand" and r.cheque_date and getdate(r.cheque_date) <= t)}, r.reference_name or "—", {"money": r.amount},
+				{"pill": r.status, "tone": {"In Hand": "blue", "Deposited": "violet", "Cleared": "green", "Bounced": "red", "Issued": "orange", "Replaced": "grey"}.get(r.status, "grey")}]}
+				for r in rows], "empty": _("No cheques here.")}
+	return {"cols": [], "rows": []}
