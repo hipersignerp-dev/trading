@@ -12,8 +12,9 @@ from frappe.utils import add_days, add_months, cint, flt, getdate, today
 from hipersign_trading.api.home import period_range
 from hipersign_trading.api.ui import get_period, scope_companies
 
-MODULES = ("sales", "crm", "purchasing", "imports", "receiving", "lc", "dispatch", "finance", "stock", "vat", "exports", "accounts", "codocs", "assets")
+MODULES = ("sales", "crm", "purchasing", "imports", "receiving", "lc", "dispatch", "finance", "stock", "vat", "exports", "accounts", "codocs", "assets", "hr", "kyc", "tax", "group")
 MORE = ("exports", "accounts", "codocs", "assets")
+PEOPLE = ("hr", "kyc", "tax", "group")
 
 
 def _scope():
@@ -355,6 +356,10 @@ def get_module(key, owner=None, source=None):
 		from hipersign_trading.api import module_more
 
 		return getattr(module_more, key + "_module")()
+	if key in PEOPLE:
+		from hipersign_trading.api import module_people
+
+		return getattr(module_people, key + "_module")()
 	if key == "sales":
 		return sales_module()
 	if key == "crm":
@@ -400,6 +405,10 @@ def get_rows(key, tab, chip=None, q=None, owner=None, source=None):
 		from hipersign_trading.api import module_more
 
 		return getattr(module_more, key + "_rows")(tab, chip or None, q or None)
+	if key in PEOPLE:
+		from hipersign_trading.api import module_people
+
+		return getattr(module_people, key + "_rows")(tab, chip or None, q or None)
 	if key == "sales":
 		return sales_rows(tab, chip or "all", q or None)
 	if key == "crm":

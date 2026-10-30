@@ -38,7 +38,7 @@ NAV = [
 		("Quotations & Orders", "Page", "hipersign-orders", "tag", None, {}),
 		("Order Tracker", "Page", "sales-order-tracker", "list-checks", "tracker", {}),
 		("Exports & Re-exports", "Page", "hipersign-exports", "globe", "exports", {}),
-		("Customer Portal", "URL", "/statement", "share-2", "portal", {}),
+		("Customer Portal", "Page", "hipersign-portal", "share-2", "portal", {}),
 	]),
 	("Purchasing", "shopping-cart", [
 		("Purchase Orders", "Page", "hipersign-purchasing", "shopping-cart", None, {}),
@@ -56,13 +56,13 @@ NAV = [
 		("Accounting", "Page", "hipersign-accounts", "book-open", None, {}),
 		("LCs & Guarantees", "Page", "hipersign-lc", "file-signature", "lc", {}),
 		("VAT & E-invoicing", "Page", "hipersign-vat", "percent", None, {}),
-		("Corporate Tax", "DocType", "Tax Return", "landmark", "ctax", {"filters": [["Tax Return", "tax_type", "=", "Corporate Tax"]]}),
-		("Group & Countries", "Report", "Hipersign Group Consolidation", "building-2", "group", {}),
-		("KYC & Compliance", "Workspace", "Hipersign Documents", "shield", "kyc", {}),
+		("Corporate Tax", "Page", "hipersign-tax", "landmark", "ctax", {}),
+		("Group & Countries", "Page", "hipersign-group", "building-2", "group", {}),
+		("KYC & Compliance", "Page", "hipersign-kyc", "shield", "kyc", {}),
 		("Company Compliance", "Page", "hipersign-codocs", "badge-check", "codocs", {}),
 	]),
 	("People & Assets", "users", [
-		("HR & Payroll", "Workspace", "Hipersign HR", "user", "hr", {}),
+		("HR & Payroll", "Page", "hipersign-people", "user", "hr", {}),
 		("Fixed Assets", "Page", "hipersign-assets", "building", "assets", {}),
 	]),
 	("Admin", "sliders-horizontal", [

@@ -28,4 +28,20 @@ def v170_assets(c):
 			frappe.db.set_value("Asset", a.name, {k: v for k, v in vals.items() if v is not None or k != "hs_plate_no"}, update_modified=False)
 
 
-STEPS = [v170_assets]
+def v170_attendance(c):
+	"""Today's attendance, so HR & Payroll shows who is in (one late)."""
+	if not frappe.db.table_exists("Attendance"):
+		return
+	from frappe.utils import today
+
+	emps = frappe.get_all("Employee", filters={"company": c.company, "status": "Active"}, fields=["name", "date_of_joining"], order_by="name asc")
+	for i, e in enumerate(emps):
+		if frappe.db.exists("Attendance", {"employee": e.name, "attendance_date": today(), "docstatus": ["<", 2]}):
+			continue
+		a = frappe.get_doc({"doctype": "Attendance", "employee": e.name, "attendance_date": today(), "status": "Present", "company": c.company,
+			"late_entry": 1 if i == len(emps) - 1 else 0})
+		a.insert(ignore_permissions=True)
+		a.submit()
+
+
+STEPS = [v170_assets, v170_attendance]

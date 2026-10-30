@@ -1,0 +1,33 @@
+{
+ "doctype": "Page",
+ "name": "hipersign-people",
+ "page_name": "hipersign-people",
+ "title": "HR & Payroll",
+ "module": "Hipersign Trading",
+ "standard": "Yes",
+ "system_page": 0,
+ "icon": "",
+ "roles": [
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "Managing Director"
+  },
+  {
+   "role": "HR Manager"
+  },
+  {
+   "role": "HR User"
+  },
+  {
+   "role": "Accounts Manager"
+  },
+  {
+   "role": "Demo Viewer"
+  }
+ ],
+ "owner": "Administrator",
+ "creation": "2026-10-30 14:00:00",
+ "modified": "2026-10-30 14:00:00"
+}

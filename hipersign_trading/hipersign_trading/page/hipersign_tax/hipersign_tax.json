@@ -1,0 +1,30 @@
+{
+ "doctype": "Page",
+ "name": "hipersign-tax",
+ "page_name": "hipersign-tax",
+ "title": "UAE Corporate Tax",
+ "module": "Hipersign Trading",
+ "standard": "Yes",
+ "system_page": 0,
+ "icon": "",
+ "roles": [
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "Managing Director"
+  },
+  {
+   "role": "Accounts Manager"
+  },
+  {
+   "role": "Accounts User"
+  },
+  {
+   "role": "Demo Viewer"
+  }
+ ],
+ "owner": "Administrator",
+ "creation": "2026-10-30 14:00:00",
+ "modified": "2026-10-30 14:00:00"
+}

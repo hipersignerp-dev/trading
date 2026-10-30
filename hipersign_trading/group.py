@@ -168,10 +168,15 @@ def rate(from_cur, to_cur, date):
 		return 1.0
 	from erpnext.setup.utils import get_exchange_rate
 
+	# v1.7.0: ERPNext pops "Unable to find exchange rate…" for every missing date; the nearest rate is used instead,
+	# so those messages are dropped
+	n = len(frappe.local.message_log or [])
 	r = flt(get_exchange_rate(from_cur, to_cur, str(getdate(date))))
 	if not r:
 		inv = flt(get_exchange_rate(to_cur, from_cur, str(getdate(date))))
 		r = 1 / inv if inv else 0
+	if frappe.local.message_log and len(frappe.local.message_log) > n:
+		del frappe.local.message_log[n:]
 	if not r:
 		r = _nearest_rate(from_cur, to_cur, date)
 	return r or 1.0
