@@ -172,7 +172,20 @@ def rate(from_cur, to_cur, date):
 	if not r:
 		inv = flt(get_exchange_rate(to_cur, from_cur, str(getdate(date))))
 		r = 1 / inv if inv else 0
+	if not r:
+		r = _nearest_rate(from_cur, to_cur, date)
 	return r or 1.0
+
+
+def _nearest_rate(from_cur, to_cur, date):
+	"""v1.6.0 (GRP-03): no rate on or before the date (e.g. the year start for equity) — use the nearest stored one,
+	either way, rather than translating at 1."""
+	for f, t, inv in ((from_cur, to_cur, False), (to_cur, from_cur, True)):
+		row = frappe.db.sql("""select exchange_rate from `tabCurrency Exchange` where from_currency = %s and to_currency = %s
+			order by abs(datediff(date, %s)) asc limit 1""", (f, t, getdate(date)))
+		if row and flt(row[0][0]):
+			return 1 / flt(row[0][0]) if inv else flt(row[0][0])
+	return 0
 
 
 def average_rate(from_cur, to_cur, start, end):

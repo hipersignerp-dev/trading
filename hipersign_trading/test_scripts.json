@@ -1120,5 +1120,85 @@
   "route": [
    "hipersign-orders"
   ]
+ },
+ {
+  "id": "PUR-03",
+  "section": "Purchasing",
+  "role": "Purchase Manager",
+  "steps": "Purchase Orders page → KPI *Open purchase orders* → click a PO row → panel → *Receive goods* (local PO) or *Book import shipment* (foreign PO)",
+  "expected": "KPIs, supplier and currency cards; the PO panel shows progress Draft→Paid, shipment and LC sections; the button opens a draft receipt or books a shipment",
+  "route": [
+   "hipersign-purchasing"
+  ]
+ },
+ {
+  "id": "IMP-03",
+  "section": "Imports & LCs",
+  "role": "Logistics",
+  "steps": "Imports & Shipments page → shipment board → click the *In transit* card → panel → *Mark Arrived at Port*",
+  "expected": "Panel shows 7 status steps, transport, POs, shipping documents and landed charges; status moves one step (it cannot skip steps)",
+  "route": [
+   "hipersign-imports"
+  ]
+ },
+ {
+  "id": "LC-05",
+  "section": "Imports & LCs",
+  "role": "Finance Manager",
+  "steps": "LCs & Guarantees page → click an LC → panel",
+  "expected": "Amount in LC currency and AED, expiry warning within 15 days, margin and trust receipt sections; *Mark …* / *Book trust receipt* buttons follow the LC's state",
+  "route": [
+   "hipersign-lc"
+  ]
+ },
+ {
+  "id": "RCV-01",
+  "section": "Stock",
+  "role": "Storekeeper",
+  "steps": "Goods Receiving page → *Awaiting receipt* → a shipment not yet cleared shows *Open shipment*; receipts tab → click a receipt → panel",
+  "expected": "Receive is offered only after customs clearance; the receipt panel shows accepted / rejected qty, landed cost and *Return to supplier*",
+  "route": [
+   "hipersign-receiving"
+  ]
+ },
+ {
+  "id": "STK-02",
+  "section": "Stock",
+  "role": "Warehouse Manager",
+  "steps": "Warehouse & Stock page → KPI *Below reorder level* → tabs Stock movements, Warehouses, Ageing",
+  "expected": "Low-stock chip filters the items; movements show in/out with balance; warehouses show value share; ageing shows last received / last sold and slow-moving items",
+  "route": [
+   "hipersign-stock"
+  ]
+ },
+ {
+  "id": "DSP-01",
+  "section": "Dispatch",
+  "role": "Logistics",
+  "steps": "Dispatch & Delivery page → board column *Ready to dispatch* → *Delivery note* on a card",
+  "expected": "A draft delivery note for the order opens; trips and delivery notes tabs list the month's dispatches",
+  "route": [
+   "hipersign-dispatch"
+  ]
+ },
+ {
+  "id": "FIN-02",
+  "section": "Finance",
+  "role": "Accountant",
+  "steps": "Finance page → Receivables → *Receive* on an overdue invoice; *To bill* tab → *Invoice*",
+  "expected": "A draft receipt for the outstanding amount opens; *Invoice* opens a draft tax invoice from the delivery note; ageing card adds up to outstanding",
+  "route": [
+   "hipersign-fin"
+  ]
+ },
+ {
+  "id": "VAT-03",
+  "section": "Tax",
+  "role": "Finance Manager",
+  "steps": "VAT & E-invoicing page → VAT 201 tab → Sales invoices chip *TRN missing* → E-invoicing readiness",
+  "expected": "Boxes 1a–1g split by emirate add up to the output VAT KPI; invoices to companies without a TRN are listed; readiness shows Ready / Open per check",
+  "route": [
+   "hipersign-vat"
+  ]
  }
 ]

@@ -17,7 +17,11 @@ Receive, Create landed cost), letters of credit (Mark next status, Block / Relea
 **Guided tour:** the prototype's 13 chapters (79 steps) from Home or the user menu, following the pack and the user's access.
 **Live deal demo** (demo sites, Hipersign Settings): one deal from enquiry to the customer's cheque, step by step on real records,
 with revenue, landed cost, gross profit and cash at the end; Reset removes the run.
-**Demo data:** sales delivered and invoiced this month. **Test Centre:** 106 scripts (TOUR-01, DEAL-01, CRM-02, SAL-04, PANEL-02).
+**Demo data:** sales delivered and invoiced this month; the Oman subsidiary's figures (OMR), so the group consolidation shows LLC, FZE
+and Oman with the 30% minority (GRP-03). **Test Centre:** 114 scripts (TOUR-01, DEAL-01, CRM-02, SAL-04, PANEL-02, PUR-03, IMP-03,
+LC-05, RCV-01, STK-02, DSP-01, FIN-02, VAT-03).
+**Group consolidation:** a member without a stored rate on the year start translates equity at the nearest stored rate, not 1 (GRP-03).
+**Settings:** changing the desktop tiles, theme or menu options reloads the page once, so the desktop shows the change at once.
 **Fixes from the Test Centre run on the demo site (29 Oct 2026):**
 - Sales: a sales person's extra discount is kept on save (the customer-group rule is the floor), so a 15% order goes to the Sales
   Manager (SAL-02); the Finance Manager (Accounts Manager) can approve sales and purchase orders (SAL-03, PUR-01); sales staff can

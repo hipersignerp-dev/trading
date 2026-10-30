@@ -172,4 +172,49 @@ def v160_deal_demo(c):
 		frappe.db.set_single_value("Hipersign Settings", "deal_demo", 1)
 
 
-STEPS = [v160_company_accounts, v160_reservation, v160_portal, v160_pending_lpos, v160_horizon_overdue, v160_month_sales, v160_deal_demo]
+# GRP-03: the Oman subsidiary's figures (OMR), so the group consolidation shows LLC, FZE and Oman with the 30% minority
+OMAN_MONTHS = [(-3, 41800), (-2, 46250), (-1, 52900), (0, 38400)]  # months back from this month, sales in OMR
+OMAN_MARK = "Hipersign demo — Oman"
+
+
+def _oman_je(co, abbr, posting_date, title, rows):
+	je = frappe.get_doc({"doctype": "Journal Entry", "voucher_type": "Journal Entry", "company": co, "posting_date": posting_date,
+		"title": title, "user_remark": f"{OMAN_MARK}: {title}", "multi_currency": 0,
+		"accounts": [{"account": f"{a} - {abbr}", "debit_in_account_currency": flt(dr), "credit_in_account_currency": flt(cr),
+			"cost_center": f"Main - {abbr}"} for a, dr, cr in rows]})
+	je.flags.hs_system_entry = True  # demo bookkeeping, not a manual entry that needs a supporting document
+	je.insert(ignore_permissions=True)
+	je.submit()
+
+
+def v160_oman(c):
+	from hipersign_trading.demo.data import GROUP
+
+	name, abbr = next(((n, a) for n, a, cur, *_ in GROUP["companies"] if cur == "OMR"), (None, None))
+	if not name or not frappe.db.exists("Company", name):
+		return
+	if frappe.db.exists("Journal Entry", {"company": name, "user_remark": ["like", f"{OMAN_MARK}%"], "docstatus": 1}):
+		return
+	needed = ["Cash", "Capital Equipment", "Capital Stock", "Sales", "Cost of Goods Sold", "Salary", "Office Rent"]
+	if any(not frappe.db.exists("Account", f"{a} - {abbr}") for a in needed):
+		return
+	t = getdate(today())
+	start = get_first_day(frappe.utils.add_months(t, OMAN_MONTHS[0][0]))
+	_oman_je(name, abbr, start, "Opening capital", [("Cash", 60000, 0), ("Capital Equipment", 25000, 0), ("Capital Stock", 0, 85000)])
+	for back, sales in OMAN_MONTHS:
+		first = get_first_day(frappe.utils.add_months(t, back))
+		day = min(add_days(first, 24), t) if back == 0 else add_days(first, 24)
+		month = getdate(first).strftime("%b %Y")
+		_oman_je(name, abbr, day, f"Sales {month}", [("Cash", sales, 0), ("Sales", 0, sales)])
+		_oman_je(name, abbr, day, f"Cost of sales {month}", [("Cost of Goods Sold", flt(sales * 0.72, 2), 0), ("Cash", 0, flt(sales * 0.72, 2))])
+		_oman_je(name, abbr, day, f"Salaries and rent {month}", [("Salary", 4200, 0), ("Office Rent", 1350, 0), ("Cash", 0, 5550)])
+	try:
+		from hipersign_trading.group import sync_member
+
+		if frappe.db.exists("Hipersign Group Member", name):
+			sync_member(name, today())
+	except Exception:
+		frappe.clear_last_message()
+
+
+STEPS = [v160_company_accounts, v160_reservation, v160_portal, v160_pending_lpos, v160_horizon_overdue, v160_month_sales, v160_oman, v160_deal_demo]
