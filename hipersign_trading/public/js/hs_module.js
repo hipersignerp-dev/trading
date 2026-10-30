@@ -93,12 +93,13 @@ hipersign.module.render = function (wrapper, key) {
 	}
 
 	function rows() {
-		const $out = v.$body.find(".hsx-mout");
+		let $out = v.$body.find(".hsx-mout");
 		ui.loading($out);
 		frappe.xcall("hipersign_trading.api.module.get_rows", { key, tab: st.tab, chip: st.chip[st.tab] || null, q: st.q, owner: st.owner, source: st.source }).then((r) => {
 			if (r.board) return board($out, r.board);
-			if (r.kanban) return kanban($out, r.kanban, r.kanban_cols);
-			const title = (st.data.tabs.find((x) => x.key === st.tab) || {}).label;
+			if (r.kanban) { kanban($out, r.kanban, r.kanban_cols); if (!r.after) return; $out.append('<div class="hsx-mout2" style="margin-top:16px"></div>'); r = r.after; }
+			if ($out.find(".hsx-mout2").length) $out = $out.find(".hsx-mout2");
+			const title = r.title || (st.data.tabs.find((x) => x.key === st.tab) || {}).label;
 			$out.html(ui.card(title, r.rows.length ? `<div class="hsx-tw"><table class="hsx-t hsx-mlist"><thead><tr>${r.cols.map((c) => `<th class="${c.cls || ""}">${hm_esc(c.label)}</th>`).join("")}</tr></thead>
 				<tbody>${r.rows.map((row) => `<tr ${row.dt ? `data-dt="${hm_esc(row.dt)}" data-name="${hm_esc(row.name)}"` : ""}>${row.cells.map((c, i) => `<td class="${(r.cols[i] || {}).cls || ""}">${hipersign.module.cell(c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`
 				: `<div class="hsx-empty">${hm_esc(r.empty || __("Nothing here."))}</div>`, { actions: (r.actions || []).map((a, i) => `<button class="btn ${a.primary ? "btn-primary" : "btn-default"} btn-xs hsx-ra" data-i="${i}">${hm_esc(a.label)}</button>`).join(" ")
