@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.6.1 — 30 Oct 2026 — fixes from the 1.6.0 Test Centre re-run on tradingdemo
+- Finance → To bill and the *Delivered, not invoiced* KPI count what is left to invoice from the non-return invoice lines; a
+  credit note no longer puts a fully invoiced delivery back on the list (FIN-02). Dispatch's *Not invoiced* flag and the
+  delivery notes' *To bill* chip use the same rule.
+- Dispatch board: no empty second line on cards without driver, vehicle or trip.
+- Test Centre wording: DSP-01 (Delivery note button sits on *To deliver*), FX-01 (a month locked by a VAT return refuses the
+  revaluation entry), FIN-02.
+
 ## 1.6.0 — 30 Oct 2026 — record panel, CRM and sales pages, guided tour, Live deal demo, Test Centre fixes
 **Record panel:** leads, quotations, sales orders, customers, tax invoices, delivery notes and items open in the prototype's side
 panel — header facts, progress line, sections and tables (Excel), documents box, history and next-step buttons (Make sales order,

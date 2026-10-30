@@ -443,8 +443,8 @@
   "id": "FX-01",
   "section": "Finance",
   "role": "Finance Manager",
-  "steps": "Exchange Rate Revaluation (draft, last month end) → Submit → Make journal entries",
-  "expected": "Unrealised gain/loss on EUR/CNY balances; reversal journal on the 1st",
+  "steps": "Exchange Rate Revaluation (draft, today or a month end not yet locked by a VAT return) → Get entries → Submit → Make journal entries",
+  "expected": "Unrealised gain/loss on EUR/CNY balances; reversal journal on the 1st. A month locked by an approved VAT return refuses the entry (closed accounting period)",
   "route": [
    "List",
    "Exchange Rate Revaluation"
@@ -1175,7 +1175,7 @@
   "id": "DSP-01",
   "section": "Dispatch",
   "role": "Logistics",
-  "steps": "Dispatch & Delivery page → board column *Ready to dispatch* → *Delivery note* on a card",
+  "steps": "Dispatch & Delivery page → board column *To deliver* → *Delivery note* on a card; columns Picking & packing, Ready to dispatch, Out for delivery follow the delivery notes",
   "expected": "A draft delivery note for the order opens; trips and delivery notes tabs list the month's dispatches",
   "route": [
    "hipersign-dispatch"
@@ -1186,7 +1186,7 @@
   "section": "Finance",
   "role": "Accountant",
   "steps": "Finance page → Receivables → *Receive* on an overdue invoice; *To bill* tab → *Invoice*",
-  "expected": "A draft receipt for the outstanding amount opens; *Invoice* opens a draft tax invoice from the delivery note; ageing card adds up to outstanding",
+  "expected": "A draft receipt for the outstanding amount opens; *To bill* lists only deliveries with something left to invoice (credit notes do not put a delivery back on the list); *Invoice* opens a draft tax invoice; ageing card adds up to outstanding",
   "route": [
    "hipersign-fin"
   ]
