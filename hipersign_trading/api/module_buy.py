@@ -620,6 +620,7 @@ def dispatch_rows(tab, chip, q=None):
 		picked = set().union(*pick_so.values()) if pick_so else set()
 		items = _so_items([s.name for s in so])
 		can_dn = frappe.has_permission("Delivery Note", "create")
+		unbilled = {d.name for d in _to_bill(cos)}
 		def promised(s):
 			return _("Promised {0}").format(frappe.utils.formatdate(s.delivery_date, "dd MMM")) if s.delivery_date else ""
 		cols = [
@@ -637,14 +638,14 @@ def dispatch_rows(tab, chip, q=None):
 				continue
 			st = d.hs_delivery_status or "Ready to Dispatch"
 			card = {"dt": "Delivery Note", "name": d.name, "code": d.name, "title": d.customer_name,
-				"lines": [" · ".join(x for x in [d.driver_name, d.vehicle_no, d.delivery_trip] if x)]}
+				"lines": [x for x in [" · ".join(y for y in [d.driver_name, d.vehicle_no, d.delivery_trip] if y)] if x]}
 			if st == "Ready to Dispatch":
 				cols[2]["cards"].append(card)
 			elif st == "Out for Delivery":
 				cols[3]["cards"].append(card)
 			elif st == "Delivered" and getdate(d.hs_pod_time or d.posting_date) >= frappe.utils.add_days(t, -10):
 				card["lines"] = [" · ".join(x for x in [frappe.utils.formatdate(d.hs_pod_time or d.posting_date, "dd MMM"), _("received by {0}").format(d.hs_received_by) if d.hs_received_by else ""] if x)]
-				card["warn"] = _("Not invoiced") if flt(d.per_billed) < 100 else ""
+				card["warn"] = _("Not invoiced") if d.name in unbilled else ""
 				cols[4]["cards"].append(card)
 		for c in cols[2:]:
 			c["count"] = len(c["cards"])
@@ -673,7 +674,8 @@ def dispatch_rows(tab, chip, q=None):
 		elif chip == "delivered":
 			rows = [d for d in rows if d.hs_delivery_status == "Delivered"]
 		elif chip == "bill":
-			rows = [d for d in rows if flt(d.per_billed) < 100]
+			unbilled = {d.name for d in _to_bill(cos)}
+			rows = [d for d in rows if d.name in unbilled]
 		if q:
 			rows = [d for d in rows if q.lower() in (d.customer_name or "").lower() or q.lower() in d.name.lower()]
 		so_of = {}
@@ -706,6 +708,33 @@ def _invoices(cos, filters=None):
 		"currency", "conversion_rate", "base_grand_total", "base_net_total", "status"], order_by="posting_date desc", limit=500)
 
 
+def _to_bill(cos):
+	"""v1.6.1 (FIN-02): delivery notes with something left to invoice. ERPNext's per_billed falls below 100 when a credit
+	note is issued against an invoice, so a fully invoiced delivery looked unbilled; count non-return invoice lines."""
+	if not _perm("Delivery Note"):
+		return []
+	dns = frappe.get_list("Delivery Note", filters={"company": ["in", cos], "docstatus": 1, "is_return": 0, "per_billed": ["<", 100], "status": ["!=", "Closed"]},
+		fields=["name", "customer_name", "posting_date", "base_grand_total", "grand_total", "per_billed"], order_by="posting_date asc", limit=300)
+	if not dns:
+		return []
+	items = frappe.get_all("Delivery Note Item", filters={"parent": ["in", [d.name for d in dns]]}, fields=["name", "parent", "amount", "billed_amt"])
+	billed = dict(frappe.db.sql("""select i.dn_detail, sum(i.amount) from `tabSales Invoice Item` i join `tabSales Invoice` s on s.name = i.parent
+		where s.docstatus = 1 and s.is_return = 0 and i.dn_detail in %s group by i.dn_detail""", (tuple(i.name for i in items) or ("",),)))
+	left, total = {}, {}
+	for i in items:
+		done = max(flt(billed.get(i.name)), flt(i.billed_amt))
+		left[i.parent] = left.get(i.parent, 0) + max(0, flt(i.amount) - done)
+		total[i.parent] = total.get(i.parent, 0) + flt(i.amount)
+	out = []
+	for d in dns:
+		if left.get(d.name, 0) > 0.01 and total.get(d.name):
+			share = left[d.name] / total[d.name]
+			d.billed_pct = round((1 - share) * 100, 1)
+			d.to_bill = flt(d.base_grand_total) * share
+			out.append(d)
+	return out
+
+
 def finance_module():
 	cos, start, end, label, cur = _scope()
 	t = getdate(today())
@@ -722,8 +751,7 @@ def finance_module():
 		from hipersign_trading.api.home import ledger
 
 		cash = sum(ledger(c, start, end)["cash"] for c in cos)
-	to_bill = frappe.get_list("Delivery Note", filters={"company": ["in", cos], "docstatus": 1, "is_return": 0, "per_billed": ["<", 100], "status": ["!=", "Closed"]},
-		fields=["base_grand_total", "per_billed"], limit_page_length=0) if _perm("Delivery Note") else []
+	to_bill = _to_bill(cos)
 	ages = [0, 0, 0, 0, 0]
 	for r in open_inv:
 		dd = (t - getdate(r.due_date)).days if r.due_date else -1
@@ -740,7 +768,7 @@ def finance_module():
 	]
 	if cash is not None:
 		kpis.append(kpi(_("Cash & bank"), cash, _("After receipts & payments"), "green", "banknote", True, cur, route=["query-report", "General Ledger"]))
-	kpis.append(kpi(_("Delivered, not invoiced"), len(to_bill), _("{0} to bill").format(_fmt(sum(flt(d.base_grand_total) * (100 - flt(d.per_billed)) / 100 for d in to_bill), cur)),
+	kpis.append(kpi(_("Delivered, not invoiced"), len(to_bill), _("{0} to bill").format(_fmt(sum(d.to_bill for d in to_bill), cur)),
 		"navy", "flag", tab="tobill"))
 	return {
 		"title": _("Finance & Management Visibility"),
@@ -801,12 +829,11 @@ def finance_rows(tab, chip, q=None):
 				{"button": _("Pay"), "make": "hipersign_trading.api.panel.pay_purchase_invoice", "source": r.name} if can_pe else ""]} for r in rows],
 			"empty": _("Nothing to pay.")}
 	if tab == "tobill":
-		dns = frappe.get_list("Delivery Note", filters={"company": ["in", cos], "docstatus": 1, "is_return": 0, "per_billed": ["<", 100], "status": ["!=", "Closed"]},
-			fields=["name", "customer_name", "posting_date", "base_grand_total", "per_billed"], order_by="posting_date asc", limit=200) if _perm("Delivery Note") else []
+		dns = _to_bill(cos)
 		can = frappe.has_permission("Sales Invoice", "create")
 		return {"cols": [{"label": _("Delivery note")}, {"label": _("Customer")}, {"label": _("Delivered")}, {"label": _("Billed")}, {"label": _("To bill ({0})").format(cur), "cls": "num"}, {"label": ""}],
-			"rows": [{"dt": "Delivery Note", "name": d.name, "cells": [{"code": d.name}, {"main": d.customer_name}, {"date": d.posting_date}, {"bar": flt(d.per_billed)},
-				{"money": flt(d.base_grand_total) * (100 - flt(d.per_billed)) / 100},
+			"rows": [{"dt": "Delivery Note", "name": d.name, "cells": [{"code": d.name}, {"main": d.customer_name}, {"date": d.posting_date}, {"bar": d.billed_pct},
+				{"money": d.to_bill},
 				{"button": _("Invoice"), "primary": 1, "make": "erpnext.stock.doctype.delivery_note.delivery_note.make_sales_invoice", "source": d.name} if can else ""]} for d in dns],
 			"empty": _("Everything delivered is invoiced.")}
 	if tab == "returns":
