@@ -1,5 +1,47 @@
 # Changelog
 
+## 1.7.0 — in progress — the prototype's create forms, remaining pages and record views
+**Create forms (prototype modal):** every "New …" opens one modal — title and subtitle, the Quick / Standard / Detailed switch
+in the header, two-column fields — instead of ERPNext's quick entry or full form ("Open full form ↗" is still there).
+- Quotation, Sales order, Purchase order: the line table inside the modal (item · qty · rate · disc · available · margin · net),
+  totals with VAT, the customer group's discount in Disc %, and for sales orders the credit limit / exposure / after this order;
+  Save draft, Submit (through the approval workflow), Save & send on WhatsApp; "+ Add new prospect / client…" on the quotation
+  makes the prospect (lead) or customer from the same modal.
+- Lead, Customer, Supplier, Item, Service, Warehouse, Driver, Employee, Fixed asset, Contact, Address, Customer group, Payment
+  terms, Bank account: the quick cards drawn in the same modal.
+- "From a document" modals, as on the prototype: Pick & deliver (sales order → delivery note, quantity and warehouse per line),
+  Receive goods (purchase order → receipt: scan, accepted / rejected, warehouse; blocked before customs clearance), Receive
+  payment, Pay supplier and Create invoice — from the panels' and pages' buttons.
+- New import shipment, export shipment, purchase request, stock transfer, stock count (to the Warehouse Manager), journal entry
+  (debits = credits), cheque received / issued (party and invoice from the invoice picked), expense claim, leave request, LC
+  application (supplier, currency and amount from the order; cash margin), bank guarantee (amount from contract value × %),
+  company document — the prototype's fields, in the same modal (api/create.save_doc).
+
+**Pages in the prototype's design** (KPI row, tabs, chips, lists and boards; rows open the record panel):
+- Exports & Re-exports — shipment board (Booked & packed · Customs · On the way · Documents complete) with all shipments
+  below, export orders, documents & VAT proof, costs & margin, re-exports.
+- Accounting — trial balance, balance sheet, general ledger, journal entries, cost centres, currency revaluation, chart of
+  accounts, period closing.
+- Company Compliance — register with company chips, calendar, deadlines, renewals, reminders & ToDos, document types.
+- Fixed Assets — register by category, maintenance & renewals (service, Mulkiya, insurance), depreciation.
+- HR & Payroll — employees, attendance, leave (approve from the panel), payroll & WPS file, expenses & advances,
+  documents & end-of-service gratuity.
+- KYC & Compliance — customer and supplier files (licence, TRN, exposure, status), rules.
+- UAE Corporate Tax — full-year forecast / year to date, the computation, approval steps, tax adjustments, prepare the return.
+- Group & Countries — structure by country, dashboard per company, inter-company, consolidated P&L and balance sheet,
+  company books. (ERPNext's "Unable to find exchange rate" pop-ups no longer appear when the nearest rate is used.)
+- Customer Portal — /portal in the prototype's design (orders with the order journey, quotations, invoices, statement,
+  deliveries, warranty); the desk page previews it for any customer.
+- Finance — new tabs Customer advances, Collections, Bank reconciliation, Cash flow, Profit & loss and a VAT payable KPI.
+
+**Record panels** for export shipment, payment, journal entry, supplier bill / debit note, employee, payroll run (WPS file),
+expense claim (approve / reject / pay), employee advance, leave (approve / reject), bank guarantee, fixed asset, purchase
+request (request quotations / order directly), RFQ, post-dated cheque (deposit / clear), tax return, stock entry, pick list,
+delivery trip, warranty claim, company document (start renewal) and deadline (mark done).
+
+**Demo data:** service, Mulkiya and insurance dates on the vans and forklift, a custodian per asset, today's attendance; the
+view-only login also sees HR and fixed assets.
+
 ## 1.6.1 — 30 Oct 2026 — fixes from the 1.6.0 Test Centre re-run on tradingdemo
 - Finance → To bill and the *Delivered, not invoiced* KPI count what is left to invoice from the non-return invoice lines; a
   credit note no longer puts a fully invoiced delivery back on the list (FIN-02). Dispatch's *Not invoiced* flag and the

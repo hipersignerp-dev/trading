@@ -770,6 +770,13 @@ def finance_module():
 		kpis.append(kpi(_("Cash & bank"), cash, _("After receipts & payments"), "green", "banknote", True, cur, route=["query-report", "General Ledger"]))
 	kpis.append(kpi(_("Delivered, not invoiced"), len(to_bill), _("{0} to bill").format(_fmt(sum(d.to_bill for d in to_bill), cur)),
 		"navy", "flag", tab="tobill"))
+	if set(frappe.get_roles()) & FIN_ROLES:
+		from hipersign_trading.api.module_more import vat_payable
+
+		kpis.append(kpi(_("VAT payable — {0}").format(label), vat_payable(cos, start, end), _("Output less input VAT"), "violet", "percent", True, cur, route=["hipersign-vat"]))
+	n_adv = frappe.db.count("Payment Entry", {"company": ["in", cos], "docstatus": 1, "payment_type": "Receive", "party_type": "Customer", "unallocated_amount": [">", 0]}) \
+		if _perm("Payment Entry") else 0
+	n_col = len({r.customer for r in open_inv if r.due_date and getdate(r.due_date) <= frappe.utils.add_days(t, 7)})
 	return {
 		"title": _("Finance & Management Visibility"),
 		"desc": _("Customer balances, supplier obligations, cash and profit — from the same documents the warehouse and sales teams use."),
@@ -779,16 +786,24 @@ def finance_module():
 			"rows": [[_("Not due"), ages[0]], ["1–30", ages[1]], ["31–60", ages[2]], ["61–90", ages[3]], ["90+", ages[4]]]}],
 		"tabs": [
 			{"key": "receivables", "label": _("Receivables"), "chips": [["open", _("Open")], ["overdue", _("Overdue")], ["all", _("All")]]},
+			{"key": "advances", "label": _("Customer advances") + (f" ({n_adv})" if n_adv else ""), "chips": []},
+			{"key": "collections", "label": _("Collections") + (f" ({n_col})" if n_col else ""), "chips": []},
 			{"key": "payables", "label": _("Payables"), "chips": [["open", _("Open")], ["due", _("Due in 30 days")]]},
 			{"key": "tobill", "label": _("To bill ({0})").format(len(to_bill)), "chips": []},
 			{"key": "returns", "label": _("Returns & credit notes ({0})").format(n_ret), "chips": []},
 			{"key": "cheques", "label": _("Cheques (PDC) ({0})").format(n_pdc), "chips": [["open", _("Open")], ["all", _("All")]]},
+			{"key": "bankrec", "label": _("Bank reconciliation"), "chips": []},
+			{"key": "cashflow", "label": _("Cash flow"), "chips": []},
+			{"key": "pl", "label": _("Profit & loss"), "chips": []},
 		],
-		"links": [[_("Bank reconciliation"), ["bank-reconciliation-tool"]], [_("Cash flow"), ["query-report", "Cash Flow"]], [_("Profit & loss"), ["query-report", "Profit and Loss Statement"]]],
 	}
 
 
 def finance_rows(tab, chip, q=None):
+	from hipersign_trading.api.module_more import FIN_EXTRA, finance_extra
+
+	if tab in FIN_EXTRA:
+		return finance_extra(tab, chip, q)
 	cos, start, end, label, cur = _scope()
 	t = getdate(today())
 	can_pe = frappe.has_permission("Payment Entry", "create")

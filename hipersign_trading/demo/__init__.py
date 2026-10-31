@@ -88,6 +88,10 @@ def load():
 
 		for step in v160.STEPS:
 			run(step, ctx)
+		from hipersign_trading.demo import v170
+
+		for step in v170.STEPS:
+			run(step, ctx)
 	finally:
 		resume_workflows(paused)
 		frappe.flags.hs_apply_credit_limit = False
