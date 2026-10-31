@@ -599,3 +599,69 @@ def _pre_bank_guarantee(doc, v, rows):
 	doc.more_information = " — ".join(x for x in [v.get("_bg_kind"), v.get("_contract")] if x)
 	if v.get("customer"):
 		doc.name_of_beneficiary = frappe.db.get_value("Customer", v.customer, "customer_name")
+
+
+@frappe.whitelist()
+def submit_saved(doctype, name):
+	"""v1.7.2: submit a record the create modal saved a moment ago, once its attached documents are in
+	(the modal saves, uploads the files with their document types, then submits — so a blocking rule is met)."""
+	if doctype not in set(DOCTYPES.values()) | SIMPLE:
+		frappe.throw(_("Unknown form"))
+	doc = frappe.get_doc(doctype, name)
+	doc.check_permission("submit")
+	if doc.docstatus != 0:
+		return {"doctype": doctype, "name": name, "message": _("{0} {1} is already submitted").format(_(doctype), name)}
+	from hipersign_trading.doc_rules import DocumentNeeded
+
+	try:
+		doc = _submit(doc)
+	except DocumentNeeded as e:
+		frappe.local.message_log = []
+		return {"doctype": doctype, "name": name, "needs_documents": frappe.utils.strip_html(str(e)),
+			"message": _("{0} {1} saved as a draft — attach the document needed, then submit").format(_(doctype), name)}
+	state = doc.get("workflow_state") or (_("Submitted") if doc.docstatus == 1 else _("Draft"))
+	return {"doctype": doctype, "name": name, "message": _("{0} {1} · {2}").format(_(doctype), name, _(state))}
+
+
+def _mode(v):
+	v = (v or "").lower()
+	return "Air" if "air" in v else "Land" if ("land" in v or "road" in v or "truck" in v) else "Sea" if v else None
+
+
+@frappe.whitelist()
+def fill_doc(kind, name):
+	"""v1.7.2: what the prototype fills in when the source document is picked on a create form."""
+	out, note = {}, ""
+	if kind == "export_from_so" and name:
+		so = frappe.get_doc("Sales Order", name)
+		so.check_permission("read")
+		g = lambda f: so.get(f) if so.meta.has_field(f) else None
+		cust = frappe.get_cached_doc("Customer", so.customer)
+		city = frappe.db.get_value("Address", so.shipping_address_name or so.customer_address, ["city", "country"], as_dict=True) if (so.shipping_address_name or so.customer_address) else None
+		dest = ", ".join(x for x in [(city or {}).get("city"), (city or {}).get("country")] if x) or cust.get("hs_country_city") or ""
+		out = {"mode": _mode(g("hs_shipment_mode")), "destination": g("named_place") or dest, "incoterm": g("incoterm") or cust.get("hs_incoterm") or None}
+		terms = so.payment_terms_template or cust.payment_terms or ""
+		note = _("Payment: {0} · Invoice currency {1} · The export invoice is zero-rated (0% VAT).").format(terms or _("as agreed"), so.currency)
+	elif kind == "import_from_po" and name:
+		po = frappe.get_doc("Purchase Order", name)
+		po.check_permission("read")
+		g = lambda f: po.get(f) if po.meta.has_field(f) else None
+		out = {"mode": _mode(g("hs_shipment_mode")), "port_of_loading": g("hs_port_of_loading"), "port_of_discharge": g("hs_port_of_discharge")}
+		note = _("{0} · {1} {2} · incoterm {3}").format(po.supplier, po.currency, frappe.format(po.grand_total, {"fieldtype": "Float", "precision": 2}), g("incoterm") or "—")
+	elif kind == "lc_from_po" and name:
+		po = frappe.get_doc("Purchase Order", name)
+		po.check_permission("read")
+		out = {"amount": flt(po.grand_total)}
+		note = _("{0} {1} · incoterm {2} — the supplier's payment terms are replaced by the LC. Insurance only when the supplier insures (CIF / CIP).").format(
+			po.currency, frappe.format(po.grand_total, {"fieldtype": "Float", "precision": 2}), po.get("incoterm") or "—")
+	return {"values": {k: v for k, v in out.items() if v not in (None, "")}, "note": note}
+
+
+@frappe.whitelist()
+def stock_now(item_code):
+	"""v1.7.2: on-hand stock of an item in the user's company (the purchase request's "In stock" column)."""
+	company = _company()
+	whs = frappe.get_all("Warehouse", filters={"company": company, "is_group": 0}, pluck="name")
+	if not item_code or not whs:
+		return 0
+	return flt(frappe.db.sql("select sum(actual_qty) from `tabBin` where item_code=%s and warehouse in %s", (item_code, tuple(whs)))[0][0])

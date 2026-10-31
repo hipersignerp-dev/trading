@@ -5,6 +5,18 @@
   company's VAT: Hipersign Settings' local template, the company's default, or its standard VAT template.
 - Export customers get the company's zero-rated / export template; overseas suppliers get no VAT on the order.
 - The modal's totals show the same rate as the saved document (it follows the picked customer / supplier).
+- **Attach documents** on the create modals, as on the prototype: the record's document rules (Blocks next step / Required /
+  Optional) with an Attach button each; files are saved with their document type and a blocking rule is met in the same
+  Submit / Post (save → attach → submit). Purchase order, journal entry, import / export shipment, LC and more.
+- **New lead** in the prototype's order and widths, with its starting values (source Website enquiry, Dubai, close in 30 days,
+  owner = you, follow-up tomorrow, "First call — understand the requirement").
+- The create modal shows its full height (totals, credit and documents visible); the buttons stay at the bottom of the screen.
+- Picking the source fills the form: export order → destination, mode, incoterm and the payment / currency / 0% VAT note;
+  purchase order → import shipment's mode and ports; LC amount and terms note from the order.
+- Journal entry: Empty / Balanced / Difference badge by the totals. Purchase request: "In stock" beside each item.
+- Lists that have a prototype page (Export Shipment, Journal Entry, Company Document / Deadline, Asset, Employee, Leave,
+  Expense Claim, Payroll Entry, Attendance, Tax Return) open the page on the matching tab when opened from search or the
+  sidebar; lists opened with filters stay lists, and each page's ⋯ menu has "Classic list".
 
 ## 1.7.1 — every "New" opens the prototype modal
 - The lists' **Add …** button and the + New menu now open the prototype's create modal for quotations, sales and purchase

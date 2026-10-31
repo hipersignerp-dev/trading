@@ -1,9 +1,10 @@
 /* Hipersign ERP v1.7.0 — the prototype's create modal (hs_create.js) */
 .hsc-ov { position: fixed; inset: 0; z-index: 1040; background: rgba(15, 23, 42, .45); display: flex; align-items: flex-start; justify-content: center;
-	padding: 40px 16px; overflow-y: auto; opacity: 0; transition: opacity .15s; }
+	padding: 40px 16px 60px; overflow-y: auto; opacity: 0; transition: opacity .15s; }
 .hsc-ov.show { opacity: 1; }
 .hsc-modal { background: #fff; color: #111827; width: 720px; max-width: 100%; border-radius: 16px; box-shadow: 0 24px 60px rgba(15, 23, 42, .28);
-	display: flex; flex-direction: column; max-height: calc(100vh - 80px); font-size: 14px; }
+	display: flex; flex-direction: column; font-size: 14px; }
+/* v1.7.2: the whole form shows, as on the prototype — the page behind scrolls, the buttons stay in view */
 .hsc-modal.hsc-wide { width: 1000px; }
 .hsc-head { display: flex; justify-content: space-between; align-items: flex-start; padding: 22px 24px 16px; border-bottom: 1px solid #eef0f3; }
 .hsc-head h3 { font-size: 18px; font-weight: 700; margin: 0 0 4px; color: #0f172a; }
@@ -13,7 +14,7 @@
 .hsc-seg { display: inline-flex; background: #f1f5f9; border-radius: 10px; padding: 3px; gap: 2px; }
 .hsc-seg button { border: 0; background: transparent; padding: 5px 13px; border-radius: 8px; font-size: 13px; font-weight: 600; color: #64748b; }
 .hsc-seg button.on { background: #fff; color: #0f172a; box-shadow: 0 1px 2px rgba(15, 23, 42, .12); }
-.hsc-body { padding: 18px 24px 8px; overflow-y: auto; flex: 1; }
+.hsc-body { padding: 18px 24px 8px; flex: 1; }
 .hsc-loading { color: #94a3b8; padding: 30px 0; text-align: center; }
 .hsc-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px 16px; margin-bottom: 14px; }
 .hsc-f { grid-column: span 2; display: flex; flex-direction: column; min-width: 0; }
@@ -53,7 +54,7 @@
 .hsc-red { color: #dc2626 !important; font-weight: 600; }
 .hsc-amber { color: #d97706 !important; font-weight: 600; }
 .hsc-green { color: #16a34a !important; font-weight: 600; }
-.hsc-foot { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 14px 24px; border-top: 1px solid #eef0f3; background: #fff; border-radius: 0 0 16px 16px; }
+.hsc-foot { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 14px 24px; border-top: 1px solid #eef0f3; background: #fff; border-radius: 0 0 16px 16px; position: sticky; bottom: 0; z-index: 2; box-shadow: 0 -6px 12px -10px rgba(15,23,42,.25); }
 .hsc-fl, .hsc-fr { display: flex; gap: 8px; flex-wrap: wrap; }
 .hsc-foot .btn { height: 36px; border-radius: 9px; padding: 0 16px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
 .hsc-foot .btn-primary { background: #2563eb; border-color: #2563eb; }
@@ -84,3 +85,19 @@
 .hsc-scan > * { flex: none; }
 .hsc-scan > span { flex: 1 1 auto; }
 .hsc-scan .icon, .hsc-scan svg { width: 18px; height: 18px; }
+
+/* v1.7.2: Attach documents (prototype) */
+.hsc-att { margin: 4px 24px 14px; border: 1px solid #e5e7eb; border-radius: 12px; padding: 12px 14px; background: #fafbfc; }
+.hsc-att-h { font-size: 13px; color: #111827; margin-bottom: 8px; display: flex; align-items: center; justify-content: flex-start; gap: 6px; text-align: left; }
+.hsc-att-h .icon, .hsc-att-h svg { flex: 0 0 auto; margin: 0; width: 14px; height: 14px; }
+.hsc-att-h > * { flex: 0 0 auto; }
+.hsc-att-h span { color: #6b7280; font-weight: 400; }
+.hsc-att-r { display: flex; justify-content: space-between; align-items: center; gap: 12px; background: #fff; border: 1px solid #eef0f3; border-radius: 10px; padding: 9px 12px; margin-top: 6px; }
+.hsc-att-t small { display: block; color: #6b7280; font-size: 12px; margin-top: 2px; }
+.hsc-att-t .hsc-att-f { color: #15803d; }
+.hsc-att-t .hsc-badge { font-size: 11px; padding: 2px 8px; margin-left: 6px; }
+.hsc-att-b { display: inline-flex; align-items: center; gap: 5px; margin: 0; cursor: pointer; white-space: nowrap; }
+.hsc-badge.red { background: #fee2e2; color: #b91c1c; }
+[data-theme="dark"] .hsc-att { background: #0f172a; border-color: #1f2937; }
+[data-theme="dark"] .hsc-att-r { background: #111827; border-color: #1f2937; }
+[data-theme="dark"] .hsc-att-h { color: #e5e7eb; }

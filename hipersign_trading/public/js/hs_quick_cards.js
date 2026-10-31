@@ -8,23 +8,21 @@ const M = "@meta"; // Select options read from the doctype, so edited Hipersign 
 
 // fieldname = the value sent to the server; doc = the field on the full form that holds the same value
 hipersign.qc.CARDS = {
-	Lead: { title: __("New lead"), sub: __("Company, contact and what they are interested in"), fields: [
-		{ fieldname: "company_name", label: __("Company / client"), fieldtype: "Data", reqd: 1, name_field: 1 },
-		{ fieldname: "lead_name", label: __("Contact person"), fieldtype: "Data", reqd: 1, doc: "first_name" },
-		{ fieldname: "mobile_no", label: __("Mobile / WhatsApp"), fieldtype: "Data", options: "Phone", reqd: 1 },
-		{ fieldname: "email_id", label: __("Email"), fieldtype: "Data", options: "Email" },
-		{ fieldname: "hs_emirate", label: __("Emirate"), fieldtype: "Select", options: M },
-		{ fieldtype: "Column Break" },
-		{ fieldname: "hs_interested_in", label: __("Interested in"), fieldtype: "Small Text", reqd: 1 },
-		{ fieldname: "utm_source", label: __("Source"), fieldtype: "Link", options: "UTM Source" },
-		{ fieldname: "hs_estimated_value", label: __("Estimated value (AED)"), fieldtype: "Currency" },
-		{ fieldtype: "Section Break" },
-		{ fieldname: "hs_expected_close", label: __("Expected close"), fieldtype: "Date" },
+	// v1.7.2: the prototype's order, widths and starting values
+	Lead: { title: __("New lead"), sub: __("Enquiry to follow up — becomes a prospect when you quote"), fields: [
+		{ fieldname: "company_name", label: __("Company / client"), fieldtype: "Data", reqd: 1, name_field: 1, w: 2, placeholder: __("e.g. Gulf Hospitality Group") },
+		{ fieldname: "lead_name", label: __("Contact person"), fieldtype: "Data", reqd: 1, doc: "first_name", placeholder: __("Full name") },
+		{ fieldname: "mobile_no", label: __("Mobile / WhatsApp"), fieldtype: "Data", options: "Phone", reqd: 1, placeholder: "+971 5x xxx xxxx" },
+		{ fieldname: "email_id", label: __("Email"), fieldtype: "Data", options: "Email", placeholder: "name@company.com" },
+		{ fieldname: "hs_emirate", label: __("Emirate"), fieldtype: "Select", options: M, default: "Dubai" },
+		{ fieldname: "hs_interested_in", label: __("Interested in"), fieldtype: "Data", reqd: 1, w: 2, placeholder: __("e.g. CCTV for a 40-room hotel") },
+		{ fieldname: "utm_source", label: __("Source"), fieldtype: "Link", options: "UTM Source", default: "Website enquiry" },
+		{ fieldname: "hs_estimated_value", label: __("Estimated value (AED)"), fieldtype: "Currency", default: 0 },
+		{ fieldname: "hs_expected_close", label: __("Expected close"), fieldtype: "Date", default_fn: () => frappe.datetime.add_days(frappe.datetime.get_today(), 30) },
 		{ fieldname: "lead_owner", label: __("Owner"), fieldtype: "Link", options: "User", get_query: () => ({ query: "hipersign_trading.api.crm.sales_users" }), default_fn: () => frappe.session.user },
 		{ fieldname: "hs_pipeline_stage", label: __("Stage"), fieldtype: "Select", options: M, default: "New" },
-		{ fieldtype: "Column Break" },
-		{ fieldname: "hs_next_follow_up", label: __("Next follow-up"), fieldtype: "Date", default_fn: () => frappe.datetime.add_days(frappe.datetime.get_today(), 2) },
-		{ fieldname: "hs_next_action", label: __("Next action"), fieldtype: "Data" },
+		{ fieldname: "hs_next_follow_up", label: __("Next follow-up"), fieldtype: "Date", default_fn: () => frappe.datetime.add_days(frappe.datetime.get_today(), 1) },
+		{ fieldname: "hs_next_action", label: __("Next action"), fieldtype: "Data", w: 2, default: __("First call — understand the requirement") },
 	] },
 	Customer: { title: __("New customer"), sub: __("Customer master — pricing group, terms and credit"), fields: [
 		{ fieldname: "customer_name", label: __("Company / client name"), fieldtype: "Data", reqd: 1, name_field: 1 },

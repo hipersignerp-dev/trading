@@ -139,6 +139,7 @@ frappe.provide("hipersign.cm");
 		spec.fields.forEach((df) => { if (st.v[df.f] === undefined && df.def !== undefined) st.v[df.f] = typeof df.def === "function" ? df.def() : df.def; });
 		const sh = C.shell({ title: spec.title, sub: spec.sub, mode, modes: 1, wide: 1,
 			onMode: (m) => { read(); mode = m; sh.setMode(m); hipersign.fm && hipersign.fm.remember(dt, m); draw(); } });
+		const att = C.attach(sh, dt);
 		sh.$body.html(`<div class="hsc-loading">${__("Loading…")}</div>`);
 
 		const read = () => {
@@ -298,7 +299,7 @@ frappe.provide("hipersign.cm");
 			const values = Object.assign({}, st.v);
 			if (st.prospect) values.new_party = st.v.new_party;
 			$(btn).prop("disabled", true);
-			frappe.xcall("hipersign_trading.api.create.save", { kind, values, lines, action: a.action }).then((r) => {
+			att.save("hipersign_trading.api.create.save", { kind, values, lines }, a.action).then((r) => {
 				sh.close();
 				frappe.show_alert({ message: r.message, indicator: r.needs_documents ? "orange" : "green" }, 7);
 				if (a.send && hipersign.send_whatsapp) return hipersign.send_whatsapp(r.doctype, r.name);
@@ -355,7 +356,7 @@ frappe.provide("hipersign.cm");
 		};
 		const conv = (f) => {
 			const t = f.fieldtype;
-			const df = { f: f.fieldname, label: f.label, req: f.reqd, ph: f.placeholder, hint: f.description, w: t === "Small Text" || t === "Text" ? 2 : 1 };
+			const df = { f: f.fieldname, label: f.label, req: f.reqd, ph: f.placeholder, hint: f.description, w: f.w || (t === "Small Text" || t === "Text" ? 2 : 1) };
 			if (t === "Select") Object.assign(df, { t: "select", list: (f.options || "").split("\n").filter((x) => x !== ""), blank: f.reqd ? undefined : "—" });
 			else if (t === "Link") Object.assign(df, { t: "select", list: links[f.options] || [], blank: f.reqd ? undefined : "—" });
 			else if (t === "Check") df.t = "check";
@@ -480,7 +481,7 @@ frappe.provide("hipersign.cm");
 	const MODES_SHIP = [["Sea", __("Sea")], ["Air", __("Air")], ["Land", __("Land")]];
 	C.DOCS = {
 		"Import Shipment": { title: __("New import shipment"), sub: __("For an approved import order — documents and charges are added on the shipment"), fields: [
-			{ f: "purchase_order", label: __("Purchase order"), t: "select", src: L("Purchase Order", { docstatus: 1, per_received: ["<", 100] }), req: 1, m: "q", w: 2 },
+			{ f: "purchase_order", label: __("Purchase order"), t: "select", src: L("Purchase Order", { docstatus: 1, per_received: ["<", 100] }), req: 1, m: "q", w: 2 , fill: "import_from_po" },
 			{ f: "mode", label: __("Mode"), t: "select", opts: MODES_SHIP, def: "Sea", m: "q" },
 			{ f: "shipping_line", label: __("Shipping line / airline"), m: "s", ph: "Maersk" },
 			{ f: "bl_awb", label: __("BL / AWB number"), m: "q" },
@@ -493,7 +494,7 @@ frappe.provide("hipersign.cm");
 			{ f: "eta", label: __("ETA"), t: "date", m: "q" },
 		] },
 		"Export Shipment": { title: __("New export shipment"), sub: __("Book the shipment for a confirmed export order — 0% VAT needs proof of export"), fields: [
-			{ f: "sales_order", label: __("Export order"), t: "select", src: L("Sales Order", { docstatus: 1, per_delivered: ["<", 100] }), req: 1, m: "q", w: 2 },
+			{ f: "sales_order", label: __("Export order"), t: "select", src: L("Sales Order", { docstatus: 1, per_delivered: ["<", 100] }), req: 1, m: "q", w: 2, fill: "export_from_so" },
 			{ f: "mode", label: __("Mode"), t: "select", opts: MODES_SHIP, def: "Land", m: "q" },
 			{ f: "port_of_loading", label: __("Port / border of loading"), m: "q", ph: "Hatta border (Oman)" },
 			{ f: "destination", label: __("Destination"), m: "q", ph: "Muscat, Oman" },
@@ -507,7 +508,7 @@ frappe.provide("hipersign.cm");
 			{ f: "_department", label: __("Department"), t: "select", src: L("Department", { is_group: 0 }), m: "s" },
 			{ f: "schedule_date", label: __("Needed by"), t: "date", m: "q", def: () => plus(7) },
 			{ f: "_reason", label: __("Reason"), m: "s", w: 2 },
-		], rows: { cols: [{ f: "item_code", label: __("Item"), t: "select", src: L("Item", { disabled: 0, is_purchase_item: 1 }), w: 3 }, { f: "qty", label: __("Qty"), t: "number" }], n: 2 },
+		], rows: { cols: [{ f: "item_code", label: __("Item"), t: "select", src: L("Item", { disabled: 0, is_purchase_item: 1 }), w: 3 }, { f: "qty", label: __("Qty"), t: "number" }, { f: "_stock", label: __("In stock"), t: "stock", of: "item_code" }], n: 2 },
 			actions: [{ label: __("Save"), action: "save" }, { label: __("Submit request"), action: "submit", primary: 1 }] },
 		"Stock Entry": { title: __("Stock transfer"), sub: __("Move stock between warehouses"), fields: [
 			{ f: "from_warehouse", label: __("From"), t: "select", src: L("Warehouse", { is_group: 0 }), req: 1, m: "q" },
@@ -525,7 +526,7 @@ frappe.provide("hipersign.cm");
 		"Journal Entry": { title: __("New journal entry"), sub: __("Manual entry — debits and credits must agree; large entries need a supporting document"), fields: [
 			{ f: "posting_date", label: __("Posting date"), t: "date", m: "q", def: today },
 			{ f: "user_remark", label: __("Memo"), m: "q" },
-		], rows: { cols: [{ f: "account", label: __("Account"), t: "select", src: L("Account", { is_group: 0 }), w: 3 }, { f: "debit", label: __("Debit"), t: "number" }, { f: "credit", label: __("Credit"), t: "number" }], n: 2, sum: ["debit", "credit"] },
+		], rows: { cols: [{ f: "account", label: __("Account"), t: "select", src: L("Account", { is_group: 0 }), w: 3 }, { f: "debit", label: __("Debit"), t: "number" }, { f: "credit", label: __("Credit"), t: "number" }], n: 2, balance: 1, sum: ["debit", "credit"] },
 			actions: [{ label: __("Save draft"), action: "save" }, { label: __("Post"), action: "submit", primary: 1 }] },
 		"Post Dated Cheque": { title: __("Cheque received from customer"), sub: __("Post-dated cheque — the invoice's outstanding falls at once; clearing moves it to the bank"), fields: [
 			{ f: "direction", label: __("Cheque"), t: "select", opts: [["Received", __("Received from a customer")], ["Issued", __("Issued to a supplier")]], def: "Received", m: "q", redraw: 1 },
@@ -551,7 +552,7 @@ frappe.provide("hipersign.cm");
 			{ f: "description", label: __("Reason"), m: "q", w: 2 },
 		] },
 		"Letter of Credit": { title: __("New LC application"), sub: __("Import letter of credit for a supplier order — the bank blocks the cash margin"), fields: [
-			{ f: "purchase_order", label: __("Purchase order"), t: "select", src: L("Purchase Order", { docstatus: 1, per_received: ["<", 100] }), req: 1, m: "q", w: 2 },
+			{ f: "purchase_order", label: __("Purchase order"), t: "select", src: L("Purchase Order", { docstatus: 1, per_received: ["<", 100] }), req: 1, m: "q", w: 2, fill: "lc_from_po" },
 			{ f: "issuing_bank", label: __("Issuing bank"), t: "select", src: L("Bank"), req: 1, m: "q" },
 			{ f: "amount", label: __("Amount (order currency)"), t: "number", m: "q", hint: __("Empty = the order total") },
 			{ f: "tenor", label: __("Payment"), t: "select", opts: ["At sight", "Usance 30 days", "Usance 60 days", "Usance 90 days", "Usance 120 days", "Usance 180 days"].map((x) => [x, __(x)]), m: "q" },
@@ -594,6 +595,7 @@ frappe.provide("hipersign.cm");
 		const title = () => dt === "Post Dated Cheque" && v.direction === "Issued" ? __("Issue cheque to supplier") : spec.title;
 		const sh = C.shell({ title: title(), sub: spec.sub, mode, modes: hipersign.fm && hipersign.fm.COVERED.includes(dt), wide: !!R && R.cols.length > 2,
 			onMode: (m) => { read(); mode = m; sh.setMode(m); hipersign.fm.remember(dt, m); draw(); } });
+		const att = C.attach(sh, dt);
 		const src = (s) => s ? opt[JSON.stringify(s)] || [] : null;
 		const read = () => {
 			sh.$body.find("[data-f]").each(function () { v[$(this).data("f")] = $(this).val(); });
@@ -605,18 +607,48 @@ frappe.provide("hipersign.cm");
 			let h = `<div class="hsc-grid">${fields.map((df) => C.field(Object.assign({}, df, { list: df.src ? src(df.src) : df.opts, noblank: df.req && df.t === "select" ? 0 : 0 }), v[df.f])).join("")}</div>`;
 			if (R) {
 				h += `<div class="hsc-lines"><table><thead><tr>${R.cols.map((c) => `<th class="${c.t === "number" ? "c-n" : ""}" style="${c.w ? `width:${c.w * 14}%` : ""}">${esc(c.label)}</th>`).join("")}<th></th></tr></thead><tbody>`
-					+ rows.map((r, i) => `<tr data-r="${i}">${R.cols.map((c) => `<td>${c.t === "select" ? `<select data-c="${c.f}">${optHtml(src(c.src), r[c.f], "—")}</select>`
+					+ rows.map((r, i) => `<tr data-r="${i}">${R.cols.map((c) => c.t === "stock" ? `<td class="c-n hsc-stock" data-stock="${c.of}">${r[c.of] ? (r[c.f] ?? "…") : "—"}</td>` : `<td>${c.t === "select" ? `<select data-c="${c.f}">${optHtml(src(c.src), r[c.f], "—")}</select>`
 						: `<input data-c="${c.f}" type="${c.t || "text"}" ${c.t === "number" ? 'step="any"' : ""} value="${esc(r[c.f] ?? (c.t === "date" ? today() : ""))}">`}</td>`).join("")}
 						<td><button type="button" class="hsc-del">${frappe.utils.icon("close", "xs")}</button></td></tr>`).join("")
 					+ `</tbody></table><div class="hsc-lbtn"><button type="button" class="btn btn-default btn-sm hsc-addr">${frappe.utils.icon("add", "xs")} ${__("Add line")}</button></div></div>`;
 				if (R.sum) h += `<div class="hsc-totals"><div>${R.sum.map((f) => `<div class="hsc-tl"><span>${esc((R.cols.find((c) => c.f === f) || {}).label)}</span><b data-sum="${f}">0</b></div>`).join("")}</div><div></div></div>`;
 			}
+			if (v._note) h += `<div class="hsc-note">${frappe.utils.icon("info", "xs")} ${esc(v._note)}</div>`;
 			sh.$body.html(h);
 			sums();
 		};
-		const sums = () => { if (!R || !R.sum) return; read(); R.sum.forEach((f) => sh.$body.find(`[data-sum="${f}"]`).text(format_currency(rows.reduce((a, r) => a + flt(r[f]), 0)))); };
-		sh.$body.on("change", "[data-f]", function () { const df = spec.fields.find((x) => x.f === $(this).data("f")); if (df && df.redraw) { read(); draw(); } });
+		// v1.7.2: picking the source document fills what the prototype fills (export order → destination, incoterm…)
+		const filled = {};
+		const fill = (df) => {
+			if (!df || !df.fill || !v[df.f]) return Promise.resolve();
+			return frappe.xcall("hipersign_trading.api.create.fill_doc", { kind: df.fill, name: v[df.f] }).then((r) => {
+				Object.entries(r.values || {}).forEach(([k, val]) => { if (!v[k] || filled[k] !== undefined && v[k] === filled[k] || (spec.fields.find((x) => x.f === k) || {}).def === v[k]) { v[k] = val; filled[k] = val; } });
+				v._note = r.note || "";
+				draw();
+			}).catch(() => {});
+		};
+		const sums = () => {
+			if (!R || !R.sum) return;
+			read();
+			const t = {};
+			R.sum.forEach((f) => { t[f] = rows.reduce((a, r) => a + flt(r[f]), 0); sh.$body.find(`[data-sum="${f}"]`).text(format_currency(t[f])); });
+			if (R.balance) { // v1.7.2: the prototype's Empty / Balanced / Difference badge
+				const [d, c] = R.sum, diff = flt(t[d] - t[c], 2);
+				const b = !t[d] && !t[c] ? ["", __("Empty")] : !diff ? ["green", __("Balanced")] : ["orange", __("Difference {0}", [format_currency(Math.abs(diff))])];
+				sh.$body.find(".hsc-totals > div:last-child").html(`<span class="hsc-badge ${b[0]}">${esc(b[1])}</span>`);
+			}
+		};
+		sh.$body.on("change", "[data-f]", function () { const df = spec.fields.find((x) => x.f === $(this).data("f")); if (df && df.fill) { read(); return fill(df); } if (df && df.redraw) { read(); draw(); } });
 		sh.$body.on("input change", "[data-c]", sums);
+		// v1.7.2: "In stock" next to the item (purchase request)
+		sh.$body.on("change", "select[data-c]", function () {
+			const $tr = $(this).closest("tr"), $st = $tr.find(`[data-stock="${$(this).data("c")}"]`);
+			if (!$st.length) return;
+			const r = rows[+$tr.data("r")], code = $(this).val();
+			if (!code) { r._stock = undefined; return $st.text("—"); }
+			$st.text("…");
+			frappe.xcall("hipersign_trading.api.create.stock_now", { item_code: code }).then((q) => { r._stock = format_number(q, null, 0); $st.text(r._stock); });
+		});
 		sh.$body.on("click", ".hsc-addr", () => { read(); rows.push({}); draw(); });
 		sh.$body.on("click", ".hsc-del", function () { read(); rows.splice(+$(this).closest("tr").data("r"), 1); if (!rows.length) rows.push({}); draw(); });
 		const acts = spec.actions || [{ label: __("Save"), action: "save", primary: 1 }];
@@ -631,7 +663,7 @@ frappe.provide("hipersign.cm");
 			if (miss.length) return frappe.msgprint(__("Please fill in: {0}", [miss.join(", ")]));
 			const a = acts[+$(this).data("i")], btn = this;
 			$(btn).prop("disabled", true);
-			frappe.xcall("hipersign_trading.api.create.save_doc", { doctype: dt, values: v, rows, action: a.action }).then((r) => {
+			att.save("hipersign_trading.api.create.save_doc", { doctype: dt, values: v, rows }, a.action).then((r) => {
 				sh.close();
 				frappe.show_alert({ message: r.message, indicator: r.needs_documents ? "orange" : "green" }, 7);
 				if (hipersign.panel && hipersign.panel.has(dt)) hipersign.panel.open(dt, r.name); else frappe.set_route("Form", dt, r.name);
@@ -643,8 +675,49 @@ frappe.provide("hipersign.cm");
 		const uniq = [...new Map(srcs.map((s) => [JSON.stringify(s), s])).values()];
 		sh.$body.html(`<div class="hsc-loading">${__("Loading…")}</div>`);
 		Promise.all(uniq.map((s) => frappe.xcall("hipersign_trading.api.create.link_options", { doctype: s.dt, query: JSON.stringify({ filters: s.filters }) })
-			.then((r) => { opt[JSON.stringify(s)] = r || []; }).catch(() => { opt[JSON.stringify(s)] = []; }))).then(draw);
+			.then((r) => { opt[JSON.stringify(s)] = r || []; }).catch(() => { opt[JSON.stringify(s)] = []; }))).then(() => {
+			draw();
+			const df = spec.fields.find((x) => x.fill);
+			if (df) { read(); fill(df); }
+		});
 		return sh;
+	};
+
+	// ------------------------------------------------------------ v1.7.2: "Attach documents — kept with the record when you save"
+	// (the prototype's box): the document rules for the doctype, a file per document type, uploaded after the save with its type,
+	// then the submit — so a blocking rule is met in one go
+	C.attach = function (sh, dt) {
+		const st = { rules: [], files: {} };
+		const $box = $(`<div class="hsc-att" style="display:none"></div>`).insertAfter(sh.$body);
+		const lv = (r) => r.level === "Block" ? `<span class="hsc-badge red">${__("Blocks next step")}</span>` : r.level === "Required" ? `<span class="hsc-badge orange">${__("Required")}</span>` : `<span class="hsc-badge">${__("Optional")}</span>`;
+		const draw = () => {
+			if (!st.rules.length) return $box.hide();
+			$box.show().html(`<div class="hsc-att-h">${frappe.utils.icon("attachment", "sm")} <b>${__("Attach documents")}</b> <span>— ${__("kept with the record when you save")}</span></div>`
+				+ st.rules.map((r, i) => `<div class="hsc-att-r"><div class="hsc-att-t"><div><b>${esc(__(r.type))}</b> ${lv(r)}</div>
+					${r.note || r.min_amount ? `<small>${esc(r.note || __("From {0}", [format_currency(r.min_amount)]))}</small>` : ""}
+					${st.files[i] ? `<small class="hsc-att-f">${frappe.utils.icon("file", "xs")} ${esc(st.files[i].name)}</small>` : ""}</div>
+					<label class="btn btn-default btn-sm hsc-att-b">${frappe.utils.icon("upload", "xs")} ${st.files[i] ? __("Replace") : __("Attach")}<input type="file" data-i="${i}" hidden></label></div>`).join(""));
+		};
+		$box.on("change", "input[type=file]", function () { const f = this.files[0]; if (f) { st.files[+$(this).data("i")] = f; draw(); } });
+		frappe.xcall("hipersign_trading.api.docs.new_doc_rules", { doctype: dt }).then((r) => { st.rules = r || []; draw(); }).catch(() => {});
+		st.has = () => Object.keys(st.files).length > 0;
+		st.upload = (name) => Promise.all(Object.entries(st.files).map(([i, f]) => {
+			const fd = new FormData();
+			fd.append("file", f, f.name); fd.append("doctype", dt); fd.append("docname", name); fd.append("is_private", 1);
+			return fetch("/api/method/upload_file", { method: "POST", body: fd, headers: { "X-Frappe-CSRF-Token": frappe.csrf_token, Accept: "application/json" } })
+				.then((x) => x.json()).then((j) => {
+					if (j.message && j.message.name) return frappe.xcall("hipersign_trading.api.docs.set_file_type", { file: j.message.name, document_type: st.rules[+i].type });
+					frappe.show_alert({ message: __("{0} could not be attached ({1}) — attach it on the record", [f.name, __(st.rules[+i].type)]), indicator: "red" }, 9);
+				}).catch(() => frappe.show_alert({ message: __("{0} could not be attached — attach it on the record", [f.name]), indicator: "red" }, 9));
+		}));
+		// save (as a draft when files must go first) → upload → submit
+		st.save = (method, args, action) => {
+			const later = st.has() && action === "submit";
+			return frappe.xcall(method, Object.assign({}, args, { action: later ? "save" : action }))
+				.then((r) => (st.has() ? st.upload(r.name).then(() => r) : r))
+				.then((r) => (later ? frappe.xcall("hipersign_trading.api.create.submit_saved", { doctype: r.doctype || dt, name: r.name }) : r));
+		};
+		return st;
 	};
 
 	// ------------------------------------------------------------ routing: every "New …" for these opens the modal
