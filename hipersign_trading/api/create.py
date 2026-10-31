@@ -101,18 +101,66 @@ def _items(buying=False):
 		"available": stock.get(r.name, 0) if r.is_stock_item else None, "group": r.item_group} for r in rows]
 
 
-def _vat_rate(company, buying=False):
-	dt = "Purchase Taxes and Charges Template" if buying else "Sales Taxes and Charges Template"
-	tpl = None
+def _is_foreign(company, buying, party):
+	"""Export customers (zero-rated) and overseas suppliers (no UAE VAT on the order) get no VAT template."""
+	if not party:
+		return False
 	if not buying:
-		tpl = frappe.db.get_single_value("Hipersign Settings", "local_tax_template") if frappe.get_meta("Hipersign Settings").has_field("local_tax_template") else None
-		if tpl and frappe.db.get_value(dt, tpl, "company") != company:
-			tpl = None
-	tpl = tpl or frappe.db.get_value(dt, {"company": company, "is_default": 1, "disabled": 0}, "name") or frappe.db.get_value(dt, {"company": company, "disabled": 0, "title": ["like", "%5%"]}, "name") \
-		or frappe.db.get_value(dt, {"company": company, "disabled": 0}, "name")
-	if not tpl:
+		if not frappe.db.exists("Customer", party):
+			return False
+		c = frappe.db.get_value("Customer", party, ["tax_category", "hs_market"] if frappe.get_meta("Customer").has_field("hs_market") else ["tax_category"], as_dict=True) or {}
+		return (c.get("hs_market") == "Export") or "export" in (c.get("tax_category") or "").lower()
+	country = frappe.db.get_value("Supplier", party, "country")
+	return bool(country) and country != frappe.get_cached_value("Company", company, "country")
+
+
+def _tax_template(company, buying=False, party=None):
+	"""v1.7.1: the company's VAT template for a quick document — the export / zero-rated one for export customers,
+	none for overseas suppliers, otherwise Hipersign Settings' local template, the default, or the company's standard VAT."""
+	dt = "Purchase Taxes and Charges Template" if buying else "Sales Taxes and Charges Template"
+	tpls = frappe.get_all(dt, filters={"company": company, "disabled": 0}, fields=["name", "title", "is_default"], order_by="is_default desc, name asc")
+	if not tpls:
+		return None
+
+	def find(*words, exclude=("zero", "exempt", "excise", "export", "reverse")):
+		for t in tpls:
+			n = (t.title or t.name).lower()
+			if all(w in n for w in words) and not any(x in n for x in exclude):
+				return t.name
+
+	if _is_foreign(company, buying, party):
+		return None if buying else (find("export", exclude=()) or find("zero", exclude=()))
+	if not buying and frappe.get_meta("Hipersign Settings").has_field("local_tax_template"):
+		tpl = frappe.db.get_single_value("Hipersign Settings", "local_tax_template")
+		if tpl and frappe.db.get_value(dt, tpl, "company") == company:
+			return tpl
+	default = next((t.name for t in tpls if t.is_default), None)
+	return default or find("vat") or find("gst") or find("tax") or find()
+
+
+def _template_rate(template, buying=False):
+	if not template:
 		return 0
-	return flt(frappe.db.get_value(dt.replace(" Template", ""), {"parent": tpl}, "rate"))
+	dt = "Purchase Taxes and Charges" if buying else "Sales Taxes and Charges"
+	return flt(sum(flt(r) for r in frappe.get_all(dt, filters={"parent": template, "parenttype": dt + " Template"}, pluck="rate")))
+
+
+def _vat_rate(company, buying=False, party=None):
+	return _template_rate(_tax_template(company, buying, party), buying)
+
+
+def _apply_tax(doc, company, buying, party):
+	"""Fill the VAT rows when ERPNext's own rules (tax rule, party template) left the document without taxes."""
+	if doc.get("taxes"):
+		return
+	tpl = _tax_template(company, buying, party)
+	if not tpl:
+		return
+	from erpnext.controllers.accounts_controller import get_taxes_and_charges
+
+	doc.taxes_and_charges = tpl
+	for row in get_taxes_and_charges("Purchase Taxes and Charges Template" if buying else "Sales Taxes and Charges Template", tpl) or []:
+		doc.append("taxes", row)
 
 
 @frappe.whitelist()
@@ -152,6 +200,7 @@ def party(kind, name):
 		out["market"] = doc.get("hs_market") or "Local"
 	else:
 		out["country"] = doc.country
+	out["vat_rate"] = _vat_rate(company, buying, name)
 	return out
 
 
@@ -281,6 +330,7 @@ def save(kind, values, lines=None, action="save"):
 		doc.append("sales_team", {"sales_person": values.sales_person, "allocated_percentage": 100})
 	doc.flags.hs_quick = True
 	doc.set_missing_values()
+	_apply_tax(doc, company, kind == "purchase_order", values.get("party"))
 	_keep_rates(doc, lines)
 	if doc.get("currency") and doc.currency != frappe.get_cached_value("Company", company, "default_currency") and not flt(doc.get("conversion_rate")):
 		from erpnext.setup.utils import get_exchange_rate

@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.7.2 — VAT on quick quotations and orders
+- Quotations, sales orders and purchase orders made from the create modal (Quick, Standard or Detailed) now carry the
+  company's VAT: Hipersign Settings' local template, the company's default, or its standard VAT template.
+- Export customers get the company's zero-rated / export template; overseas suppliers get no VAT on the order.
+- The modal's totals show the same rate as the saved document (it follows the picked customer / supplier).
+
 ## 1.7.1 — every "New" opens the prototype modal
 - The lists' **Add …** button and the + New menu now open the prototype's create modal for quotations, sales and purchase
   orders and the other covered forms on every load (the list button was sometimes left as ERPNext's "Add …" → full form).

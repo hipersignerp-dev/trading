@@ -202,8 +202,8 @@ frappe.provide("hipersign.cm");
 					$(this).find(".l-mg").html(r.item_code && eff && val ? `<span class="${eff < val ? "hsc-red" : eff - val < eff * 0.1 ? "hsc-amber" : "hsc-green"}">${format_number((eff - val) / eff * 100, null, 1)}%</span>` : "—");
 				}
 			});
-			const vat = net * flt(st.o.vat_rate) / 100, tot = net + vat;
-			let left = `<div class="hsc-tl"><span>${__("Net")}</span><b>${fmt(net)}</b></div><div class="hsc-tl"><span>${__("VAT {0}%", [flt(st.o.vat_rate)])}</span><b>${fmt(vat)}</b></div>
+			const vrate = st.p && st.p.vat_rate !== undefined ? flt(st.p.vat_rate) : flt(st.o.vat_rate), vat = net * vrate / 100, tot = net + vat;
+			let left = `<div class="hsc-tl"><span>${__("Net")}</span><b>${fmt(net)}</b></div><div class="hsc-tl"><span>${__("VAT {0}%", [vrate])}</span><b>${fmt(vat)}</b></div>
 				<div class="hsc-tl hsc-tt"><span>${kind === "quotation" ? __("Quotation total") : __("Order total")}</span><b>${fmt(tot)}</b></div>`;
 			let right = "";
 			if (spec.credit && st.v.party && st.p.credit_limit !== undefined) {
