@@ -83,6 +83,8 @@ hipersign.fm.new = function (dt, values) {
 	const m = hipersign.fm.mode(dt);
 	// v1.7.0: quotations, orders and the masters open the prototype's create modal in every mode (it has the mode switch)
 	if (hipersign.cm && hipersign.cm.has(dt) && !(values && values.__full)) return hipersign.cm.new(dt, values || {});
+	// v1.7.1: a delivery, receipt or invoice starts from its order (the prototype's flow modals)
+	if (hipersign.cm && hipersign.cm.PICK && hipersign.cm.PICK[dt] && !(values && (values.__full || Object.keys(values).length))) return hipersign.cm.pick(dt, {});
 	if (m === "Quick") return hipersign.fm.quick(dt, values || {});
 	hipersign.fm.full_form(dt, values || {});
 };
@@ -312,7 +314,7 @@ hipersign.fm.quick_save = function (d, dt, action, send) {
 hipersign.fm.quick_invoice = function () {
 	frappe.xcall("hipersign_trading.api.quick.to_bill").then((rows) => {
 		const d = new frappe.ui.Dialog({ title: __("Quick invoice"), size: "large", fields: [{ fieldtype: "HTML", fieldname: "list" }],
-			secondary_action_label: __("Standard / Detailed form"), secondary_action: () => { d.hide(); hipersign.fm.remember("Sales Invoice", "Standard").then(() => frappe.new_doc("Sales Invoice")); } });
+			secondary_action_label: __("Standard / Detailed form"), secondary_action: () => { d.hide(); hipersign.fm.remember("Sales Invoice", "Standard").then(() => hipersign.create.new_doc("Sales Invoice", {})); } });
 		d.fields_dict.list.$wrapper.html(rows.length ? `<p class="text-muted">${__("Delivered and not yet invoiced — one click creates and submits the tax invoice.")}</p>
 			<table class="table table-sm">${rows.map((r) => `<tr><td><b>${frappe.utils.escape_html(r.customer_name || r.customer)}</b><div class="small text-muted">${r.name} · ${frappe.datetime.str_to_user(r.date)}</div></td>
 			<td class="text-right">${format_currency(r.amount)}</td><td class="text-right"><button class="btn btn-xs btn-primary hs-inv" data-dn="${r.name}">${__("Create invoice")}</button></td></tr>`).join("")}</table>`

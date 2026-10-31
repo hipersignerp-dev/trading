@@ -1,6 +1,14 @@
 # Changelog
 
-## 1.7.0 — in progress — the prototype's create forms, remaining pages and record views
+## 1.7.1 — every "New" opens the prototype modal
+- The lists' **Add …** button and the + New menu now open the prototype's create modal for quotations, sales and purchase
+  orders and the other covered forms on every load (the list button was sometimes left as ERPNext's "Add …" → full form).
+- **New delivery note / goods receipt / tax invoice** ask which order (or delivery) it is for, then open Pick & deliver,
+  Receive goods or the invoice modal — as on the prototype. "Open full form" stays for anything else
+  (invoice without a delivery, services).
+- A dashboard's "+ Quotation / + Sales order" carries the customer into the modal.
+
+## 1.7.0 — the prototype's create forms, remaining pages and record views
 **Create forms (prototype modal):** every "New …" opens one modal — title and subtitle, the Quick / Standard / Detailed switch
 in the header, two-column fields — instead of ERPNext's quick entry or full form ("Open full form ↗" is still there).
 - Quotation, Sales order, Purchase order: the line table inside the modal (item · qty · rate · disc · available · margin · net),

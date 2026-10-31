@@ -649,8 +649,64 @@ frappe.provide("hipersign.cm");
 
 	// ------------------------------------------------------------ routing: every "New …" for these opens the modal
 	C.new = function (dt, values) {
-		if (DT_KIND[dt]) return C.open(DT_KIND[dt], values || {});
+		if (DT_KIND[dt]) {
+			const v = Object.assign({}, values || {});
+			// the customer / supplier a dashboard's "+ Quotation" passes as route options
+			if (!v.party) v.party = v.party_name || v.customer || v.supplier || undefined;
+			if (!v.party) delete v.party;
+			return C.open(DT_KIND[dt], v);
+		}
 		if (C.DOCS[dt]) return C.doc(dt, values || {});
+		if (C.PICK[dt]) return C.pick(dt, values || {});
 		return hipersign.qc.open(dt, { values: values || {} });
+	};
+
+	// v1.7.1: deliveries, receipts and invoices are made from their order, as on the prototype — "New" asks which one
+	C.PICK = {
+		"Delivery Note": { kind: "deliver", title: __("New delivery"), sub: __("Pick the confirmed sales order to deliver — quantities, warehouse and driver follow"),
+			label: __("Sales order to deliver"), src: { dt: "Sales Order", filters: { docstatus: 1, per_delivered: ["<", 100], status: ["not in", ["Closed", "On Hold", "Completed"]] } },
+			party: "customer" },
+		"Purchase Receipt": { kind: "receive", title: __("Receive goods"), sub: __("Pick the supplier order being received — quantities, rejections and warehouse follow"),
+			label: __("Purchase order to receive"), src: { dt: "Purchase Order", filters: { docstatus: 1, per_received: ["<", 100], status: ["not in", ["Closed", "On Hold", "Completed"]] } },
+			party: "supplier" },
+		"Sales Invoice": { kind: "invoice", title: __("New tax invoice"), sub: __("Invoice what was delivered — pick the delivery note"),
+			label: __("Delivery note to invoice"), src: { dt: "Delivery Note", filters: { docstatus: 1, per_billed: ["<", 100], is_return: 0, status: ["not in", ["Closed"]] } },
+			party: "customer", other: __("Invoice without a delivery (services, advance)") },
+	};
+	C.pick = function (dt, values) {
+		const p = C.PICK[dt];
+		const sh = C.shell({ title: p.title, sub: p.sub });
+		sh.$body.html(`<div class="hsc-loading">${__("Loading…")}</div>`);
+		frappe.xcall("hipersign_trading.api.create.link_options", { doctype: p.src.dt, query: JSON.stringify({ filters: p.src.filters }) }).then((list) => {
+			list = list || [];
+			sh.$body.html(`<div class="hsc-grid">${C.field({ f: "source", label: p.label, t: "select", req: 1, w: 2, list }, values.source || (list[0] || {}).name || "")}</div>`
+				+ (list.length ? "" : `<div class="hsc-note">${esc(__("Nothing is waiting — confirm an order first, or open the full form."))}</div>`));
+			sh.$fl.html(`<button type="button" class="btn btn-default hsc-full">${p.other ? esc(p.other) : __("Open full form")} ↗</button>`);
+			sh.$fl.on("click", ".hsc-full", () => { sh.close(); hipersign.create.new_doc(dt, values || {}); });
+			sh.$fr.html(`<button type="button" class="btn btn-default hsc-cancel">${__("Cancel")}</button><button type="button" class="btn btn-primary hsc-go" ${list.length ? "" : "disabled"}>${__("Continue")} →</button>`);
+			sh.$fr.on("click", ".hsc-cancel", sh.close);
+			sh.$fr.on("click", ".hsc-go", () => {
+				const src = sh.$body.find('[data-f="source"]').val();
+				if (!src) return frappe.msgprint(__("Please fill in: {0}", [p.label]));
+				sh.close();
+				C.flow(p.kind, src, () => { if (window.cur_list && cur_list.doctype === dt) cur_list.refresh(); });
+			});
+		}).catch(() => sh.close());
+		return sh;
+	};
+
+	// v1.7.1: the list's "Add …" button, the + New menu and frappe.new_doc open the prototype's modal for every covered form
+	// (not when a Link field asks for a new record, nor when the full form is asked for explicitly)
+	C.routes_new = (dt) => !(frappe.boot.hipersign || {}).no_create_modal && (!!DT_KIND[dt] || !!C.DOCS[dt] || !!C.PICK[dt]);
+	const _new_doc = frappe.new_doc;
+	frappe.new_doc = function (doctype, opts, init_callback) {
+		const r = frappe.get_route() || [];
+		const on_form = r[0] === "Form" && r[1] === doctype;
+		if (!init_callback && !frappe._from_link && !on_form && C.routes_new(doctype) && frappe.model.can_create(doctype)) {
+			const ro = Object.assign({}, typeof opts === "object" && opts ? opts : {}, frappe.route_options || {});
+			frappe.route_options = null;
+			return new Promise((resolve) => { C.new(doctype, ro); resolve(); });
+		}
+		return _new_doc.apply(this, arguments);
 	};
 })();
