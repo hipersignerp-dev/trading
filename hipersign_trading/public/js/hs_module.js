@@ -64,9 +64,13 @@ hipersign.module.render = function (wrapper, key) {
 	}
 
 	function load() {
+		// v1.7.2: a list opened from search lands here on its own tab (hs_nav.js LIST_PAGE)
+		const want = (frappe.route_options || {}).hs_tab;
+		if (want) { st.tab = want; frappe.route_options = null; }
 		frappe.xcall("hipersign_trading.api.module.get_module", { key, owner: st.owner, source: st.source }).then((m) => {
 			st.data = m;
 			head(m);
+			hipersign.nav && hipersign.nav.classic_menu && hipersign.nav.classic_menu(v.page, frappe.get_route_str());
 			if (!st.tab || !m.tabs.find((t) => t.key === st.tab)) st.tab = m.default_tab || (m.tabs[0] || {}).key;
 			const filters = m.filters ? `<select class="form-control hsx-owner"><option value="">${__("All owners")}</option><option value="mine">${__("My leads")}</option>${m.filters.owners.map(([u, n]) => `<option value="${hm_esc(u)}">${hm_esc(n)}</option>`).join("")}</select>
 				<select class="form-control hsx-source"><option value="">${__("All sources")}</option>${m.filters.sources.map((s) => `<option value="${hm_esc(s)}">${hm_esc(__(s))}</option>`).join("")}</select>` : "";

@@ -218,3 +218,32 @@ $(document).on("page-change", () => setTimeout(() => {
 		hipersign.nav.decorate();
 	}
 }, 50));
+
+// ---------------------------------------------------------------- v1.7.2: lists that have a prototype page open the page
+// (search, links and the awesome bar). The page's ⋯ menu keeps "Classic list" for the ERPNext list with filters and bulk edit.
+hipersign.nav.LIST_PAGE = {
+	"Export Shipment": ["hipersign-exports", "board"], "Journal Entry": ["hipersign-accounts", "je"], "Period Closing Voucher": ["hipersign-accounts", "closing"],
+	"Company Document": ["hipersign-codocs", "register"], "Company Deadline": ["hipersign-codocs", "deadlines"], Asset: ["hipersign-assets", "register"],
+	"Asset Maintenance Log": ["hipersign-assets", "maintenance"], Employee: ["hipersign-people", "employees"], "Leave Application": ["hipersign-people", "leave"],
+	"Expense Claim": ["hipersign-people", "expenses"], "Payroll Entry": ["hipersign-people", "payroll"], Attendance: ["hipersign-people", "attendance"],
+	"Tax Return": ["hipersign-tax", null],
+};
+hipersign.nav.classic = {};
+hipersign.nav.classic_menu = function (page, route) {
+	if (!page || page.__hs_classic) return;
+	page.__hs_classic = true;
+	Object.entries(hipersign.nav.LIST_PAGE).filter(([dt, [pg]]) => pg === route && frappe.model.can_read(dt)).forEach(([dt]) =>
+		page.add_menu_item(__("Classic list — {0}", [__(dt)]), () => { hipersign.nav.classic[dt] = 1; frappe.set_route("List", dt); }));
+};
+$(document).on("page-change", () => {
+	const r = frappe.get_route() || [];
+	if (r[0] !== "List" || !r[1] || (r[2] && r[2] !== "List")) return;
+	const map = hipersign.nav.LIST_PAGE[r[1]];
+	if (!map || hipersign.nav.classic[r[1]] || (frappe.boot.hipersign || {}).no_list_pages) return;
+	// a list opened with filters (from a link or a report) stays a list
+	if (frappe.route_options && Object.keys(frappe.route_options).length) return;
+	if (window.location.search && window.location.search.length > 1) return;
+	frappe.route_options = map[1] ? { hs_tab: map[1] } : null;
+	frappe.route_flags.replace_route = true; // Back does not bounce through the list again
+	frappe.set_route(map[0]);
+});
