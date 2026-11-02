@@ -82,3 +82,30 @@ def hs_serials(row):
 def hs_warranty_months(item_code):
 	days = frappe.get_cached_value("Item", item_code, "warranty_period")
 	return round(int(days) / 30.4) if days else 0
+
+
+# ---------------------------------------------------------------- v1.8.0: project prints
+def hs_project_info(project):
+	"""The project block on the project prints: client, consultant, contract, retention, advance, revised value, terms."""
+	if not project or not frappe.db.exists("Project", project):
+		return frappe._dict()
+	p = frappe.get_doc("Project", project)
+	cust = frappe.db.get_value("Customer", p.customer, ["customer_name", "tax_id"], as_dict=True) if p.customer else None
+	vo = sum(frappe.utils.flt(v.amount) for v in frappe.get_all("Variation Order", filters={"project": project, "status": "Approved"}, fields=["amount"]))
+	return frappe._dict(name=p.name, title=p.project_name, client=(cust and cust.customer_name) or p.customer or "", client_trn=(cust and cust.tax_id) or "",
+		consultant=p.get("hs_consultant") or "", location=p.get("hs_location") or "", contract=frappe.utils.flt(p.get("hs_contract_value")), variations=vo,
+		revised=frappe.utils.flt(p.get("hs_contract_value")) + vo, retention=frappe.utils.flt(p.get("hs_retention_pct")), advance=frappe.utils.flt(p.get("hs_advance_pct")),
+		dlp=p.get("hs_dlp_months") or 12, terms=p.get("hs_payment_terms") or "", pm=p.get("hs_project_manager") or "", qs=p.get("hs_quantity_surveyor") or "",
+		start=p.expected_start_date, finish=p.expected_end_date, programme_days=frappe.utils.date_diff(p.expected_end_date, p.expected_start_date) if p.expected_start_date and p.expected_end_date else 0,
+		company=p.company)
+
+
+def hs_boq_sections(doc):
+	"""The BOQ lines grouped by section, with each section's total."""
+	out = []
+	for r in doc.get("items") or []:
+		if not out or out[-1].code != r.section:
+			out.append(frappe._dict(code=r.section, name=r.section_name or "", lines=[], total=0))
+		out[-1].lines.append(r)
+		out[-1].total += frappe.utils.flt(r.amount)
+	return out
