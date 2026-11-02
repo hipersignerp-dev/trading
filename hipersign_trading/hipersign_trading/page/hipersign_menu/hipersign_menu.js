@@ -93,7 +93,7 @@ frappe.pages["hipersign-menu"].on_page_load = function (wrapper) {
 		const pv = ui.card(__("Preview"), `<div class="hsm-pv">${previewHtml()}</div>
 			<p class="hsx-note">${esc(__("What a user in this scope sees (before role permissions), in the language you work in."))}</p>`, { icon: "eye" });
 		const help = ui.card(__("How it is applied"), `<dl class="hsm-help">
-			<dt>${esc(__("Order"))}</dt><dd>${esc(__("Role → company → whole site; the most specific wins"))}</dd>
+			<dt>${esc(__("Precedence"))}</dt><dd>${esc(__("Role → company → whole site; the most specific wins"))}</dd>
 			<dt>${esc(__("Hidden screens"))}</dt><dd>${esc(__("Gone from the sidebar, + New and the top-bar search; a direct link still opens them for users who may see them"))}</dd>
 			<dt>${esc(__("Roles"))}</dt><dd>${esc(__("A menu never grants access — role permissions still decide"))}</dd>
 			<dt>${esc(__("Languages"))}</dt><dd>${esc(__("Empty boxes keep the standard translation"))}</dd>

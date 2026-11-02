@@ -1673,3 +1673,86 @@ Qualified,مؤهل
 Proposal,عرض
 Negotiation,تفاوض
 Lost,خسارة
+0 keeps the standard position,0 يُبقي الموضع القياسي
+A custom link needs an English label,الرابط المخصص يحتاج إلى اسم بالإنجليزية
+A menu never grants access — role permissions still decide,القائمة لا تمنح صلاحية أبدًا — صلاحيات الدور هي التي تقرر
+Add a custom link,إضافة رابط مخصص
+Add link,إضافة رابط
+Applies to everyone unless a company or role changes it,ينطبق على الجميع ما لم تغيّره شركة أو دور
+Applies to users with this role — wins over company and site,ينطبق على مستخدمي هذا الدور — يتقدّم على الشركة والموقع
+Applies when this company is selected at the top,ينطبق عند اختيار هذه الشركة في الأعلى
+Change,التغيير
+Change log,سجل التغييرات
+Chinese,الصينية
+Choose a company,اختر شركة
+Choose a role,اختر دورًا
+Choose the company this menu change applies to,اختر الشركة التي ينطبق عليها هذا التغيير في القائمة
+Choose the role this menu change applies to,اختر الدور الذي ينطبق عليه هذا التغيير في القائمة
+Company — {0},الشركة — {0}
+Custom Link,رابط مخصص
+Custom link,رابط مخصص
+Custom link · whole site,رابط مخصص · الموقع بالكامل
+Display,العرض
+Empty boxes keep the standard translation,الحقول الفارغة تُبقي الترجمة القياسية
+Enter a label and a link,أدخل اسمًا ورابطًا
+Entry type,نوع البند
+"Gone from the sidebar, + New and the top-bar search; a direct link still opens them for users who may see them",تختفي من القائمة الجانبية و«+ جديد» والبحث في الشريط العلوي؛ ويظل الرابط المباشر يفتحها للمستخدمين المصرّح لهم
+Group key (g:…) a custom link is shown under,مفتاح المجموعة (g:…) التي يظهر تحتها الرابط المخصص
+Groups and screens added by later releases appear here by themselves,المجموعات والشاشات التي تضيفها الإصدارات اللاحقة تظهر هنا تلقائيًا
+Hidden,مخفي
+Hidden screens,الشاشات المخفية
+Hidden — switch on to show,مخفي — شغّل المفتاح للإظهار
+Hipersign Menu Log,سجل قائمة Hipersign
+Hipersign Menu Override,تخصيص قائمة Hipersign
+How it is applied,كيف يُطبَّق
+Icon,الأيقونة
+Label,الاسم
+Label (Arabic),الاسم (العربية)
+Label (Chinese),الاسم (الصينية)
+Label (English),الاسم (الإنجليزية)
+"Language must be English, Arabic or Chinese",يجب أن تكون اللغة الإنجليزية أو العربية أو الصينية
+Languages,اللغات
+Leave this scope without saving your changes?,مغادرة هذا النطاق دون حفظ التغييرات؟
+Link,الرابط
+"Link — web address, /app/… or #page",الرابط — عنوان ويب أو ‎/app/…‎ أو ‎#صفحة
+Menu,القائمة
+Menu builder,منشئ القائمة
+"Menu builder change log: who changed the menu, when, and what.",سجل تغييرات منشئ القائمة: من غيّر القائمة ومتى وماذا.
+"Menu builder: one change to the Hipersign ERP menu for the whole site, one company or one role (role beats company beats site).",منشئ القائمة: تغيير واحد في قائمة Hipersign ERP للموقع بالكامل أو لشركة أو لدور (الدور يتقدّم على الشركة، والشركة على الموقع).
+Menu item,بند القائمة
+Menu key,مفتاح القائمة
+Menu reset to standard — {0},أُعيدت القائمة إلى الوضع القياسي — {0}
+Menu saved — {0} changes. Users see it the next time they load the desk.,حُفظت القائمة — {0} تغييرات. يراها المستخدمون عند تحميل سطح المكتب في المرة القادمة.
+Move down,تحريك للأسفل
+Move up,تحريك للأعلى
+New modules,الوحدات الجديدة
+No changes yet — every change to the menu is logged here.,لا توجد تغييرات بعد — يُسجَّل هنا كل تغيير في القائمة.
+Nothing changed,لم يتغيّر شيء
+Nothing to show.,لا شيء للعرض.
+Only a System Manager or the Managing Director can change the menu,لا يمكن تغيير القائمة إلا لمدير النظام أو المدير العام
+Remove every menu change for {0}? Other scopes keep theirs.,إزالة كل تغييرات القائمة لـ {0}؟ تحتفظ النطاقات الأخرى بتغييراتها.
+Remove link,إزالة الرابط
+Reset to standard,إعادة إلى الوضع القياسي
+Role — {0},الدور — {0}
+Role → company → whole site; the most specific wins,الدور ← الشركة ← الموقع بالكامل؛ الأكثر تحديدًا هو الذي يُطبَّق
+Roles,الأدوار
+Sales Executive (Chinese),مندوب مبيعات (الصينية)
+Scope,النطاق
+"Show or hide, rename in English, Arabic and Chinese, and reorder any menu group or screen — for the whole site, one company or one role. Users see the new menu the next time they load the desk.",أظهر أو أخفِ، وأعد التسمية بالإنجليزية والعربية والصينية، وأعد ترتيب أي مجموعة أو شاشة في القائمة — للموقع بالكامل أو لشركة أو لدور. يرى المستخدمون القائمة الجديدة عند تحميل سطح المكتب في المرة القادمة.
+Shown,ظاهر
+Shown — switch off to hide,ظاهر — أطفئ المفتاح للإخفاء
+Site,الموقع
+"Stable key of the menu entry: g:… for a group, the page / doctype / report / URL slug for an item, link-… for a custom link",مفتاح ثابت لبند القائمة: g:… للمجموعة، واسم الصفحة / نوع المستند / التقرير / الرابط للبند، وlink-… للرابط المخصص
+This menu entry already has a change for this scope ({0}),لهذا البند تغيير في هذا النطاق بالفعل ({0})
+Under menu group,تحت مجموعة القائمة
+Unknown scope {0},نطاق غير معروف {0}
+Unsaved changes,تغييرات غير محفوظة
+"Use a web address (https://…), a desk path (/app/…) or #page",استخدم عنوان ويب (https://…) أو مسارًا في سطح المكتب (/app/…) أو #صفحة
+"Use a web address (https://…), a desk path (/app/…) or #page for {0}",استخدم عنوان ويب (https://…) أو مسارًا في سطح المكتب (/app/…) أو #صفحة لـ {0}
+Visibility,الظهور
+"What a user in this scope sees (before role permissions), in the language you work in.",ما يراه المستخدم في هذا النطاق (قبل صلاحيات الدور)، باللغة التي تعمل بها.
+Whole site,الموقع بالكامل
+"https://…, /app/… or #page",https://… أو ‎/app/…‎ أو ‎#صفحة
+switch to hide · type a name to rename · arrows to reorder,المفتاح للإخفاء · اكتب اسمًا لإعادة التسمية · الأسهم لإعادة الترتيب
+Precedence,الأولوية
+By,بواسطة

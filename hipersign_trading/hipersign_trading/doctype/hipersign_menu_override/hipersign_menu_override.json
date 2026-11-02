@@ -60,7 +60,7 @@
    "label": "Menu key",
    "reqd": 1,
    "in_list_view": 1,
-   "description": "Stable key of the menu entry: g:<group> for a group, the page / doctype / report / URL slug for an item, link-… for a custom link"
+   "description": "Stable key of the menu entry: g:… for a group, the page / doctype / report / URL slug for an item, link-… for a custom link"
   },
   {
    "fieldname": "parent_group",

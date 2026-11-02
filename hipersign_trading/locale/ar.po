@@ -5028,3 +5028,252 @@ msgstr "تفاوض"
 
 msgid "Lost"
 msgstr "خسارة"
+
+msgid "0 keeps the standard position"
+msgstr "0 يُبقي الموضع القياسي"
+
+msgid "A custom link needs an English label"
+msgstr "الرابط المخصص يحتاج إلى اسم بالإنجليزية"
+
+msgid "A menu never grants access — role permissions still decide"
+msgstr "القائمة لا تمنح صلاحية أبدًا — صلاحيات الدور هي التي تقرر"
+
+msgid "Add a custom link"
+msgstr "إضافة رابط مخصص"
+
+msgid "Add link"
+msgstr "إضافة رابط"
+
+msgid "Applies to everyone unless a company or role changes it"
+msgstr "ينطبق على الجميع ما لم تغيّره شركة أو دور"
+
+msgid "Applies to users with this role — wins over company and site"
+msgstr "ينطبق على مستخدمي هذا الدور — يتقدّم على الشركة والموقع"
+
+msgid "Applies when this company is selected at the top"
+msgstr "ينطبق عند اختيار هذه الشركة في الأعلى"
+
+msgid "Change"
+msgstr "التغيير"
+
+msgid "Change log"
+msgstr "سجل التغييرات"
+
+msgid "Chinese"
+msgstr "الصينية"
+
+msgid "Choose a company"
+msgstr "اختر شركة"
+
+msgid "Choose a role"
+msgstr "اختر دورًا"
+
+msgid "Choose the company this menu change applies to"
+msgstr "اختر الشركة التي ينطبق عليها هذا التغيير في القائمة"
+
+msgid "Choose the role this menu change applies to"
+msgstr "اختر الدور الذي ينطبق عليه هذا التغيير في القائمة"
+
+msgid "Company — {0}"
+msgstr "الشركة — {0}"
+
+msgid "Custom Link"
+msgstr "رابط مخصص"
+
+msgid "Custom link"
+msgstr "رابط مخصص"
+
+msgid "Custom link · whole site"
+msgstr "رابط مخصص · الموقع بالكامل"
+
+msgid "Display"
+msgstr "العرض"
+
+msgid "Empty boxes keep the standard translation"
+msgstr "الحقول الفارغة تُبقي الترجمة القياسية"
+
+msgid "Enter a label and a link"
+msgstr "أدخل اسمًا ورابطًا"
+
+msgid "Entry type"
+msgstr "نوع البند"
+
+msgid "Gone from the sidebar, + New and the top-bar search; a direct link still opens them for users who may see them"
+msgstr "تختفي من القائمة الجانبية و«+ جديد» والبحث في الشريط العلوي؛ ويظل الرابط المباشر يفتحها للمستخدمين المصرّح لهم"
+
+msgid "Group key (g:…) a custom link is shown under"
+msgstr "مفتاح المجموعة (g:…) التي يظهر تحتها الرابط المخصص"
+
+msgid "Groups and screens added by later releases appear here by themselves"
+msgstr "المجموعات والشاشات التي تضيفها الإصدارات اللاحقة تظهر هنا تلقائيًا"
+
+msgid "Hidden"
+msgstr "مخفي"
+
+msgid "Hidden screens"
+msgstr "الشاشات المخفية"
+
+msgid "Hidden — switch on to show"
+msgstr "مخفي — شغّل المفتاح للإظهار"
+
+msgid "Hipersign Menu Log"
+msgstr "سجل قائمة Hipersign"
+
+msgid "Hipersign Menu Override"
+msgstr "تخصيص قائمة Hipersign"
+
+msgid "How it is applied"
+msgstr "كيف يُطبَّق"
+
+msgid "Icon"
+msgstr "الأيقونة"
+
+msgid "Label"
+msgstr "الاسم"
+
+msgid "Label (Arabic)"
+msgstr "الاسم (العربية)"
+
+msgid "Label (Chinese)"
+msgstr "الاسم (الصينية)"
+
+msgid "Label (English)"
+msgstr "الاسم (الإنجليزية)"
+
+msgid "Language must be English, Arabic or Chinese"
+msgstr "يجب أن تكون اللغة الإنجليزية أو العربية أو الصينية"
+
+msgid "Languages"
+msgstr "اللغات"
+
+msgid "Leave this scope without saving your changes?"
+msgstr "مغادرة هذا النطاق دون حفظ التغييرات؟"
+
+msgid "Link"
+msgstr "الرابط"
+
+msgid "Link — web address, /app/… or #page"
+msgstr "الرابط — عنوان ويب أو ‎/app/…‎ أو ‎#صفحة"
+
+msgid "Menu"
+msgstr "القائمة"
+
+msgid "Menu builder"
+msgstr "منشئ القائمة"
+
+msgid "Menu builder change log: who changed the menu, when, and what."
+msgstr "سجل تغييرات منشئ القائمة: من غيّر القائمة ومتى وماذا."
+
+msgid "Menu builder: one change to the Hipersign ERP menu for the whole site, one company or one role (role beats company beats site)."
+msgstr "منشئ القائمة: تغيير واحد في قائمة Hipersign ERP للموقع بالكامل أو لشركة أو لدور (الدور يتقدّم على الشركة، والشركة على الموقع)."
+
+msgid "Menu item"
+msgstr "بند القائمة"
+
+msgid "Menu key"
+msgstr "مفتاح القائمة"
+
+msgid "Menu reset to standard — {0}"
+msgstr "أُعيدت القائمة إلى الوضع القياسي — {0}"
+
+msgid "Menu saved — {0} changes. Users see it the next time they load the desk."
+msgstr "حُفظت القائمة — {0} تغييرات. يراها المستخدمون عند تحميل سطح المكتب في المرة القادمة."
+
+msgid "Move down"
+msgstr "تحريك للأسفل"
+
+msgid "Move up"
+msgstr "تحريك للأعلى"
+
+msgid "New modules"
+msgstr "الوحدات الجديدة"
+
+msgid "No changes yet — every change to the menu is logged here."
+msgstr "لا توجد تغييرات بعد — يُسجَّل هنا كل تغيير في القائمة."
+
+msgid "Nothing changed"
+msgstr "لم يتغيّر شيء"
+
+msgid "Nothing to show."
+msgstr "لا شيء للعرض."
+
+msgid "Only a System Manager or the Managing Director can change the menu"
+msgstr "لا يمكن تغيير القائمة إلا لمدير النظام أو المدير العام"
+
+msgid "Remove every menu change for {0}? Other scopes keep theirs."
+msgstr "إزالة كل تغييرات القائمة لـ {0}؟ تحتفظ النطاقات الأخرى بتغييراتها."
+
+msgid "Remove link"
+msgstr "إزالة الرابط"
+
+msgid "Reset to standard"
+msgstr "إعادة إلى الوضع القياسي"
+
+msgid "Role — {0}"
+msgstr "الدور — {0}"
+
+msgid "Role → company → whole site; the most specific wins"
+msgstr "الدور ← الشركة ← الموقع بالكامل؛ الأكثر تحديدًا هو الذي يُطبَّق"
+
+msgid "Roles"
+msgstr "الأدوار"
+
+msgid "Sales Executive (Chinese)"
+msgstr "مندوب مبيعات (الصينية)"
+
+msgid "Scope"
+msgstr "النطاق"
+
+msgid "Show or hide, rename in English, Arabic and Chinese, and reorder any menu group or screen — for the whole site, one company or one role. Users see the new menu the next time they load the desk."
+msgstr "أظهر أو أخفِ، وأعد التسمية بالإنجليزية والعربية والصينية، وأعد ترتيب أي مجموعة أو شاشة في القائمة — للموقع بالكامل أو لشركة أو لدور. يرى المستخدمون القائمة الجديدة عند تحميل سطح المكتب في المرة القادمة."
+
+msgid "Shown"
+msgstr "ظاهر"
+
+msgid "Shown — switch off to hide"
+msgstr "ظاهر — أطفئ المفتاح للإخفاء"
+
+msgid "Site"
+msgstr "الموقع"
+
+msgid "Stable key of the menu entry: g:… for a group, the page / doctype / report / URL slug for an item, link-… for a custom link"
+msgstr "مفتاح ثابت لبند القائمة: g:… للمجموعة، واسم الصفحة / نوع المستند / التقرير / الرابط للبند، وlink-… للرابط المخصص"
+
+msgid "This menu entry already has a change for this scope ({0})"
+msgstr "لهذا البند تغيير في هذا النطاق بالفعل ({0})"
+
+msgid "Under menu group"
+msgstr "تحت مجموعة القائمة"
+
+msgid "Unknown scope {0}"
+msgstr "نطاق غير معروف {0}"
+
+msgid "Unsaved changes"
+msgstr "تغييرات غير محفوظة"
+
+msgid "Use a web address (https://…), a desk path (/app/…) or #page"
+msgstr "استخدم عنوان ويب (https://…) أو مسارًا في سطح المكتب (/app/…) أو #صفحة"
+
+msgid "Use a web address (https://…), a desk path (/app/…) or #page for {0}"
+msgstr "استخدم عنوان ويب (https://…) أو مسارًا في سطح المكتب (/app/…) أو #صفحة لـ {0}"
+
+msgid "Visibility"
+msgstr "الظهور"
+
+msgid "What a user in this scope sees (before role permissions), in the language you work in."
+msgstr "ما يراه المستخدم في هذا النطاق (قبل صلاحيات الدور)، باللغة التي تعمل بها."
+
+msgid "Whole site"
+msgstr "الموقع بالكامل"
+
+msgid "https://…, /app/… or #page"
+msgstr "https://… أو ‎/app/…‎ أو ‎#صفحة"
+
+msgid "switch to hide · type a name to rename · arrows to reorder"
+msgstr "المفتاح للإخفاء · اكتب اسمًا لإعادة التسمية · الأسهم لإعادة الترتيب"
+
+msgid "Precedence"
+msgstr "الأولوية"
+
+msgid "By"
+msgstr "بواسطة"
