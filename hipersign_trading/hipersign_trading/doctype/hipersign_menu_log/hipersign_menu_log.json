@@ -1,0 +1,55 @@
+{
+ "doctype": "DocType",
+ "name": "Hipersign Menu Log",
+ "module": "Hipersign Trading",
+ "custom": 0,
+ "istable": 0,
+ "issingle": 0,
+ "autoname": "hash",
+ "naming_rule": "Random",
+ "engine": "InnoDB",
+ "track_changes": 0,
+ "in_create": 1,
+ "description": "Menu builder change log: who changed the menu, when, and what.",
+ "fields": [
+  {
+   "fieldname": "scope_label",
+   "fieldtype": "Data",
+   "label": "Scope",
+   "in_list_view": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "change",
+   "fieldtype": "Small Text",
+   "label": "Change",
+   "in_list_view": 1,
+   "read_only": 1
+  }
+ ],
+ "field_order": [
+  "scope_label",
+  "change"
+ ],
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "report": 1,
+   "export": 1,
+   "delete": 1
+  },
+  {
+   "role": "Managing Director",
+   "read": 1,
+   "report": 1,
+   "export": 1
+  }
+ ],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "owner": "Administrator",
+ "creation": "2026-11-02 12:00:00.000000",
+ "modified": "2026-11-02 12:00:00.000000",
+ "modified_by": "Administrator"
+}

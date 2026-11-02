@@ -5028,3 +5028,1251 @@ msgstr "تفاوض"
 
 msgid "Lost"
 msgstr "خسارة"
+
+msgid "Projects"
+msgstr "المشاريع"
+
+msgid "Estimating & BOQ"
+msgstr "التقدير وجدول الكميات"
+
+msgid "Site & procurement"
+msgstr "الموقع والمشتريات"
+
+msgid "Progress & billing"
+msgstr "الإنجاز والفوترة"
+
+msgid "Subcontractors"
+msgstr "مقاولو الباطن"
+
+msgid "Timesheets & labour"
+msgstr "ساعات العمل والعمالة"
+
+msgid "Project costing"
+msgstr "تكاليف المشاريع"
+
+msgid "Project Tracker"
+msgstr "متابعة المشاريع"
+
+msgid "Portfolio"
+msgstr "المحفظة"
+
+msgid "How it works"
+msgstr "كيف يعمل"
+
+msgid "Red flags"
+msgstr "تنبيهات حمراء"
+
+msgid "Bill of quantities"
+msgstr "جدول الكميات"
+
+msgid "Cost build-up"
+msgstr "بناء التكلفة"
+
+msgid "Tenders & quotations"
+msgstr "المناقصات وعروض الأسعار"
+
+msgid "Material requests"
+msgstr "طلبات المواد"
+
+msgid "Deliveries to site"
+msgstr "التوريد للموقع"
+
+msgid "Site stock"
+msgstr "مخزون الموقع"
+
+msgid "Returns"
+msgstr "المرتجعات"
+
+msgid "Progress certificates"
+msgstr "شهادات الإنجاز"
+
+msgid "Measurement"
+msgstr "القياس"
+
+msgid "Progress invoices"
+msgstr "فواتير الإنجاز"
+
+msgid "Retention"
+msgstr "المحتجزات"
+
+msgid "Advance recovery"
+msgstr "استرداد الدفعة المقدمة"
+
+msgid "Variations"
+msgstr "أوامر التغيير"
+
+msgid "Subcontract orders"
+msgstr "أوامر مقاولي الباطن"
+
+msgid "Claims"
+msgstr "المطالبات"
+
+msgid "Back-charges"
+msgstr "الخصومات"
+
+msgid "Timesheets"
+msgstr "سجلات الدوام"
+
+msgid "By project & task"
+msgstr "حسب المشروع والمهمة"
+
+msgid "Crew"
+msgstr "الطاقم"
+
+msgid "Daily site reports"
+msgstr "التقارير اليومية للموقع"
+
+msgid "By cost head"
+msgstr "حسب بند التكلفة"
+
+msgid "All projects"
+msgstr "كل المشاريع"
+
+msgid "New project"
+msgstr "مشروع جديد"
+
+msgid "New progress certificate"
+msgstr "شهادة إنجاز جديدة"
+
+msgid "New variation"
+msgstr "أمر تغيير جديد"
+
+msgid "Win the job"
+msgstr "الفوز بالمشروع"
+
+msgid "Contract & security"
+msgstr "العقد والضمانات"
+
+msgid "Mobilise & plan"
+msgstr "التجهيز والتخطيط"
+
+msgid "Buy & build"
+msgstr "الشراء والتنفيذ"
+
+msgid "Measure, bill & control"
+msgstr "القياس والفوترة والرقابة"
+
+msgid "Complete & close"
+msgstr "الإنجاز والإغلاق"
+
+msgid "Contractor"
+msgstr "مقاول"
+
+msgid "Tender"
+msgstr "مناقصة"
+
+msgid "Mobilising"
+msgstr "التجهيز"
+
+msgid "Execution"
+msgstr "التنفيذ"
+
+msgid "Handover"
+msgstr "التسليم"
+
+msgid "At risk"
+msgstr "معرّض للخطر"
+
+msgid "Purchase orders"
+msgstr "أوامر الشراء"
+
+msgid "New BOQ"
+msgstr "جدول كميات جديد"
+
+msgid "New subcontract order"
+msgstr "أمر مقاولة باطن جديد"
+
+msgid "New timesheet"
+msgstr "سجل دوام جديد"
+
+msgid "New task"
+msgstr "مهمة جديدة"
+
+msgid "Material request"
+msgstr "طلب مواد"
+
+msgid "Material request to site"
+msgstr "طلب مواد للموقع"
+
+msgid "Site transfer"
+msgstr "تحويل للموقع"
+
+msgid "Progress certificate"
+msgstr "شهادة إنجاز"
+
+msgid "Variation"
+msgstr "أمر تغيير"
+
+msgid "Subcontract order"
+msgstr "أمر مقاولة باطن"
+
+msgid "Complete step {0}"
+msgstr "إكمال الخطوة {0}"
+
+msgid "Record certification"
+msgstr "تسجيل الاعتماد"
+
+msgid "Send to consultant"
+msgstr "إرسال للاستشاري"
+
+msgid "Send to client"
+msgstr "إرسال للعميل"
+
+msgid "Client approved"
+msgstr "اعتمد العميل"
+
+msgid "Receive at site"
+msgstr "استلام في الموقع"
+
+msgid "Certify"
+msgstr "اعتماد"
+
+msgid "Retention invoice"
+msgstr "فاتورة المحتجزات"
+
+msgid "Raise advance invoice"
+msgstr "إصدار فاتورة الدفعة المقدمة"
+
+msgid "Raise retention invoice"
+msgstr "إصدار فاتورة المحتجزات"
+
+msgid "Approve submitted"
+msgstr "اعتماد المقدَّم"
+
+msgid "Signed by both parties"
+msgstr "موقَّع من الطرفين"
+
+msgid "Print BOQ"
+msgstr "طباعة جدول الكميات"
+
+msgid "Process — 26 steps"
+msgstr "العملية — 26 خطوة"
+
+msgid "Project portfolio"
+msgstr "محفظة المشاريع"
+
+msgid "Closed"
+msgstr "مغلق"
+
+msgid "Project"
+msgstr "المشروع"
+
+msgid "Projects & contracting"
+msgstr "المشاريع والمقاولات"
+
+msgid "Industries"
+msgstr "القطاعات"
+
+msgid "Project Manager"
+msgstr "مدير المشروع"
+
+msgid "Quantity Surveyor"
+msgstr "مهندس الكميات"
+
+msgid "Site Engineer"
+msgstr "مهندس الموقع"
+
+msgid "Contract value (incl. variations)"
+msgstr "قيمة العقد (شاملة أوامر التغيير)"
+
+msgid "Work done"
+msgstr "الأعمال المنجزة"
+
+msgid "Certified"
+msgstr "المعتمد"
+
+msgid "Collected"
+msgstr "المحصَّل"
+
+msgid "Cost to date"
+msgstr "التكلفة حتى تاريخه"
+
+msgid "Forecast at completion"
+msgstr "التكلفة المتوقعة عند الإنجاز"
+
+msgid "Forecast margin"
+msgstr "الهامش المتوقع"
+
+msgid "Budget"
+msgstr "الموازنة"
+
+msgid "Committed"
+msgstr "الملتزم به"
+
+msgid "Actual cost to date"
+msgstr "التكلفة الفعلية حتى تاريخه"
+
+msgid "Contract value by project"
+msgstr "قيمة العقد حسب المشروع"
+
+msgid "Where the projects are"
+msgstr "أين وصلت المشاريع"
+
+msgid "Project BOQ"
+msgstr "جدول كميات المشروع"
+
+msgid "Progress Certificate"
+msgstr "شهادة إنجاز"
+
+msgid "Variation Order"
+msgstr "أمر تغيير"
+
+msgid "Subcontract Order"
+msgstr "أمر مقاولة باطن"
+
+msgid "Subcontract Claim"
+msgstr "مطالبة مقاول باطن"
+
+msgid "Back Charge"
+msgstr "خصم على المقاول"
+
+msgid "Daily Site Report"
+msgstr "تقرير الموقع اليومي"
+
+msgid "Project Step Log"
+msgstr "سجل خطوات المشروع"
+
+msgid "Being priced"
+msgstr "قيد التسعير"
+
+msgid "Awarded"
+msgstr "تمت الترسية"
+
+msgid "Pending client"
+msgstr "بانتظار العميل"
+
+msgid "Submitted to consultant"
+msgstr "لدى الاستشاري"
+
+msgid "Invoiced"
+msgstr "مفوتر"
+
+msgid "Pending signature"
+msgstr "بانتظار التوقيع"
+
+msgid "Materials"
+msgstr "المواد"
+
+msgid "Labour"
+msgstr "العمالة"
+
+msgid "Subcontract"
+msgstr "مقاولات الباطن"
+
+msgid "Plant & equipment"
+msgstr "المعدات"
+
+msgid "Site overheads"
+msgstr "مصاريف الموقع"
+
+msgid "Open screen"
+msgstr "فتح الشاشة"
+
+msgid "Tender print"
+msgstr "طباعة العطاء"
+
+msgid "0 keeps the standard position"
+msgstr "0 يُبقي الموضع القياسي"
+
+msgid "A custom link needs an English label"
+msgstr "الرابط المخصص يحتاج إلى اسم بالإنجليزية"
+
+msgid "A menu never grants access — role permissions still decide"
+msgstr "القائمة لا تمنح صلاحية أبدًا — صلاحيات الدور هي التي تقرر"
+
+msgid "Add a custom link"
+msgstr "إضافة رابط مخصص"
+
+msgid "Add link"
+msgstr "إضافة رابط"
+
+msgid "Applies to everyone unless a company or role changes it"
+msgstr "ينطبق على الجميع ما لم تغيّره شركة أو دور"
+
+msgid "Applies to users with this role — wins over company and site"
+msgstr "ينطبق على مستخدمي هذا الدور — يتقدّم على الشركة والموقع"
+
+msgid "Applies when this company is selected at the top"
+msgstr "ينطبق عند اختيار هذه الشركة في الأعلى"
+
+msgid "Change"
+msgstr "التغيير"
+
+msgid "Change log"
+msgstr "سجل التغييرات"
+
+msgid "Chinese"
+msgstr "الصينية"
+
+msgid "Choose a company"
+msgstr "اختر شركة"
+
+msgid "Choose a role"
+msgstr "اختر دورًا"
+
+msgid "Choose the company this menu change applies to"
+msgstr "اختر الشركة التي ينطبق عليها هذا التغيير في القائمة"
+
+msgid "Choose the role this menu change applies to"
+msgstr "اختر الدور الذي ينطبق عليه هذا التغيير في القائمة"
+
+msgid "Company — {0}"
+msgstr "الشركة — {0}"
+
+msgid "Custom Link"
+msgstr "رابط مخصص"
+
+msgid "Custom link"
+msgstr "رابط مخصص"
+
+msgid "Custom link · whole site"
+msgstr "رابط مخصص · الموقع بالكامل"
+
+msgid "Display"
+msgstr "العرض"
+
+msgid "Empty boxes keep the standard translation"
+msgstr "الحقول الفارغة تُبقي الترجمة القياسية"
+
+msgid "Enter a label and a link"
+msgstr "أدخل اسمًا ورابطًا"
+
+msgid "Entry type"
+msgstr "نوع البند"
+
+msgid "Gone from the sidebar, + New and the top-bar search; a direct link still opens them for users who may see them"
+msgstr "تختفي من القائمة الجانبية و«+ جديد» والبحث في الشريط العلوي؛ ويظل الرابط المباشر يفتحها للمستخدمين المصرّح لهم"
+
+msgid "Group key (g:…) a custom link is shown under"
+msgstr "مفتاح المجموعة (g:…) التي يظهر تحتها الرابط المخصص"
+
+msgid "Groups and screens added by later releases appear here by themselves"
+msgstr "المجموعات والشاشات التي تضيفها الإصدارات اللاحقة تظهر هنا تلقائيًا"
+
+msgid "Hidden"
+msgstr "مخفي"
+
+msgid "Hidden screens"
+msgstr "الشاشات المخفية"
+
+msgid "Hidden — switch on to show"
+msgstr "مخفي — شغّل المفتاح للإظهار"
+
+msgid "Hipersign Menu Log"
+msgstr "سجل قائمة Hipersign"
+
+msgid "Hipersign Menu Override"
+msgstr "تخصيص قائمة Hipersign"
+
+msgid "How it is applied"
+msgstr "كيف يُطبَّق"
+
+msgid "Icon"
+msgstr "الأيقونة"
+
+msgid "Label"
+msgstr "الاسم"
+
+msgid "Label (Arabic)"
+msgstr "الاسم (العربية)"
+
+msgid "Label (Chinese)"
+msgstr "الاسم (الصينية)"
+
+msgid "Label (English)"
+msgstr "الاسم (الإنجليزية)"
+
+msgid "Language must be English, Arabic or Chinese"
+msgstr "يجب أن تكون اللغة الإنجليزية أو العربية أو الصينية"
+
+msgid "Languages"
+msgstr "اللغات"
+
+msgid "Leave this scope without saving your changes?"
+msgstr "مغادرة هذا النطاق دون حفظ التغييرات؟"
+
+msgid "Link"
+msgstr "الرابط"
+
+msgid "Link — web address, /app/… or #page"
+msgstr "الرابط — عنوان ويب أو ‎/app/…‎ أو ‎#صفحة"
+
+msgid "Menu"
+msgstr "القائمة"
+
+msgid "Menu builder"
+msgstr "منشئ القائمة"
+
+msgid "Menu builder change log: who changed the menu, when, and what."
+msgstr "سجل تغييرات منشئ القائمة: من غيّر القائمة ومتى وماذا."
+
+msgid "Menu builder: one change to the Hipersign ERP menu for the whole site, one company or one role (role beats company beats site)."
+msgstr "منشئ القائمة: تغيير واحد في قائمة Hipersign ERP للموقع بالكامل أو لشركة أو لدور (الدور يتقدّم على الشركة، والشركة على الموقع)."
+
+msgid "Menu item"
+msgstr "بند القائمة"
+
+msgid "Menu key"
+msgstr "مفتاح القائمة"
+
+msgid "Menu reset to standard — {0}"
+msgstr "أُعيدت القائمة إلى الوضع القياسي — {0}"
+
+msgid "Menu saved — {0} changes. Users see it the next time they load the desk."
+msgstr "حُفظت القائمة — {0} تغييرات. يراها المستخدمون عند تحميل سطح المكتب في المرة القادمة."
+
+msgid "Move down"
+msgstr "تحريك للأسفل"
+
+msgid "Move up"
+msgstr "تحريك للأعلى"
+
+msgid "New modules"
+msgstr "الوحدات الجديدة"
+
+msgid "No changes yet — every change to the menu is logged here."
+msgstr "لا توجد تغييرات بعد — يُسجَّل هنا كل تغيير في القائمة."
+
+msgid "Nothing changed"
+msgstr "لم يتغيّر شيء"
+
+msgid "Nothing to show."
+msgstr "لا شيء للعرض."
+
+msgid "Only a System Manager or the Managing Director can change the menu"
+msgstr "لا يمكن تغيير القائمة إلا لمدير النظام أو المدير العام"
+
+msgid "Remove every menu change for {0}? Other scopes keep theirs."
+msgstr "إزالة كل تغييرات القائمة لـ {0}؟ تحتفظ النطاقات الأخرى بتغييراتها."
+
+msgid "Remove link"
+msgstr "إزالة الرابط"
+
+msgid "Reset to standard"
+msgstr "إعادة إلى الوضع القياسي"
+
+msgid "Role — {0}"
+msgstr "الدور — {0}"
+
+msgid "Role → company → whole site; the most specific wins"
+msgstr "الدور ← الشركة ← الموقع بالكامل؛ الأكثر تحديدًا هو الذي يُطبَّق"
+
+msgid "Roles"
+msgstr "الأدوار"
+
+msgid "Sales Executive (Chinese)"
+msgstr "مندوب مبيعات (الصينية)"
+
+msgid "Scope"
+msgstr "النطاق"
+
+msgid "Show or hide, rename in English, Arabic and Chinese, and reorder any menu group or screen — for the whole site, one company or one role. Users see the new menu the next time they load the desk."
+msgstr "أظهر أو أخفِ، وأعد التسمية بالإنجليزية والعربية والصينية، وأعد ترتيب أي مجموعة أو شاشة في القائمة — للموقع بالكامل أو لشركة أو لدور. يرى المستخدمون القائمة الجديدة عند تحميل سطح المكتب في المرة القادمة."
+
+msgid "Shown"
+msgstr "ظاهر"
+
+msgid "Shown — switch off to hide"
+msgstr "ظاهر — أطفئ المفتاح للإخفاء"
+
+msgid "Site"
+msgstr "الموقع"
+
+msgid "Stable key of the menu entry: g:… for a group, the page / doctype / report / URL slug for an item, link-… for a custom link"
+msgstr "مفتاح ثابت لبند القائمة: g:… للمجموعة، واسم الصفحة / نوع المستند / التقرير / الرابط للبند، وlink-… للرابط المخصص"
+
+msgid "This menu entry already has a change for this scope ({0})"
+msgstr "لهذا البند تغيير في هذا النطاق بالفعل ({0})"
+
+msgid "Under menu group"
+msgstr "تحت مجموعة القائمة"
+
+msgid "Unknown scope {0}"
+msgstr "نطاق غير معروف {0}"
+
+msgid "Unsaved changes"
+msgstr "تغييرات غير محفوظة"
+
+msgid "Use a web address (https://…), a desk path (/app/…) or #page"
+msgstr "استخدم عنوان ويب (https://…) أو مسارًا في سطح المكتب (/app/…) أو #صفحة"
+
+msgid "Use a web address (https://…), a desk path (/app/…) or #page for {0}"
+msgstr "استخدم عنوان ويب (https://…) أو مسارًا في سطح المكتب (/app/…) أو #صفحة لـ {0}"
+
+msgid "Visibility"
+msgstr "الظهور"
+
+msgid "What a user in this scope sees (before role permissions), in the language you work in."
+msgstr "ما يراه المستخدم في هذا النطاق (قبل صلاحيات الدور)، باللغة التي تعمل بها."
+
+msgid "Whole site"
+msgstr "الموقع بالكامل"
+
+msgid "https://…, /app/… or #page"
+msgstr "https://… أو ‎/app/…‎ أو ‎#صفحة"
+
+msgid "switch to hide · type a name to rename · arrows to reorder"
+msgstr "المفتاح للإخفاء · اكتب اسمًا لإعادة التسمية · الأسهم لإعادة الترتيب"
+
+msgid "Precedence"
+msgstr "الأولوية"
+
+msgid "By"
+msgstr "بواسطة"
+
+msgid "Manufacturing"
+msgstr "التصنيع"
+
+msgid "Production"
+msgstr "الإنتاج"
+
+msgid "Planning"
+msgstr "التخطيط"
+
+msgid "BOMs & routings"
+msgstr "قوائم المواد ومسارات التصنيع"
+
+msgid "Shop floor"
+msgstr "أرضية المصنع"
+
+msgid "Quality"
+msgstr "الجودة"
+
+msgid "Costing"
+msgstr "التكاليف"
+
+msgid "Production Tracker"
+msgstr "متتبع الإنتاج"
+
+msgid "Work Orders"
+msgstr "أوامر العمل"
+
+msgid "Production Plans"
+msgstr "خطط الإنتاج"
+
+msgid "BOMs"
+msgstr "قوائم المواد"
+
+msgid "Routings"
+msgstr "مسارات التصنيع"
+
+msgid "Operations"
+msgstr "العمليات"
+
+msgid "Workstations"
+msgstr "محطات العمل"
+
+msgid "Job Cards"
+msgstr "بطاقات التشغيل"
+
+msgid "Quality Inspections"
+msgstr "فحوصات الجودة"
+
+msgid "Inspection Templates"
+msgstr "نماذج الفحص"
+
+msgid "Stock Ledger"
+msgstr "سجل المخزون"
+
+msgid "Manufacturing Step Log"
+msgstr "سجل خطوات التصنيع"
+
+msgid "Production Manager"
+msgstr "مدير الإنتاج"
+
+msgid "QC Inspector"
+msgstr "مفتش الجودة"
+
+msgid "Manufacturer"
+msgstr "مصنّع"
+
+msgid "BOMs and routings, production planning, work orders, shop floor job cards, quality inspection and costing"
+msgstr "قوائم المواد ومسارات التصنيع وتخطيط الإنتاج وأوامر العمل وبطاقات التشغيل وفحص الجودة والتكاليف"
+
+msgid "Assemblers and factories — BOMs and routings, production planning with shortages, work orders, a shop-floor tablet view for job cards, quality inspection with test certificates and costing of actual against standard, plus purchasing, imports, serial numbers, HR and assets."
+msgstr "المجمِّعون والمصانع — قوائم المواد ومسارات التصنيع، تخطيط الإنتاج مع النواقص، أوامر العمل، عرض لوحي لبطاقات التشغيل، فحص الجودة مع شهادات الاختبار، ومقارنة التكلفة الفعلية بالمعيارية، بالإضافة إلى المشتريات والاستيراد والأرقام التسلسلية والموارد البشرية والأصول."
+
+msgid "Bills of materials with sub-assemblies, routings by workstation, standard cost roll-up, versions and where-used."
+msgstr "قوائم المواد مع التجميعات الفرعية، ومسارات التصنيع حسب محطة العمل، وتجميع التكلفة المعيارية، والإصدارات وأماكن الاستخدام."
+
+msgid "Sales orders and forecast → production plan → work orders and material requests, with component shortages and suggested purchase orders."
+msgstr "أوامر البيع والتوقعات ← خطة الإنتاج ← أوامر العمل وطلبات المواد، مع نواقص المكونات وأوامر الشراء المقترحة."
+
+msgid "Tablet view for the line: job cards by workstation — start and stop, quantity, scrap and operator. Every tap updates the work order, the tracker and the cost."
+msgstr "عرض لوحي لخط الإنتاج: بطاقات التشغيل حسب محطة العمل — البدء والإيقاف والكمية والتالف والمشغل. كل لمسة تحدّث أمر العمل والمتتبع والتكلفة."
+
+msgid "Incoming, in-process and final inspection with AQL sampling, rejects, rework and test certificates per batch."
+msgstr "فحص الوارد وأثناء التصنيع والنهائي بعينات AQL، والمرفوضات وإعادة التشغيل وشهادات الاختبار لكل دفعة."
+
+msgid "Standard vs actual cost per work order — material, labour and overhead variances — and margin per product."
+msgstr "التكلفة المعيارية مقابل الفعلية لكل أمر عمل — فروقات المواد والعمالة والمصاريف غير المباشرة — والهامش لكل منتج."
+
+msgid "{0} — today's work orders, output against plan, work in progress, late orders and the load on every workstation."
+msgstr "{0} — أوامر العمل اليوم، والإنتاج مقابل الخطة، والإنتاج تحت التشغيل، والأوامر المتأخرة وحمل كل محطة عمل."
+
+msgid "Today"
+msgstr "اليوم"
+
+msgid "Work orders"
+msgstr "أوامر العمل"
+
+msgid "Workstation load"
+msgstr "حمل محطات العمل"
+
+msgid "Stock entries"
+msgstr "قيود المخزون"
+
+msgid "Demand"
+msgstr "الطلب"
+
+msgid "Production plans"
+msgstr "خطط الإنتاج"
+
+msgid "Shortages"
+msgstr "النواقص"
+
+msgid "BOM tree & cost"
+msgstr "شجرة قائمة المواد والتكلفة"
+
+msgid "Versions"
+msgstr "الإصدارات"
+
+msgid "Where used"
+msgstr "أماكن الاستخدام"
+
+msgid "Incoming"
+msgstr "الوارد"
+
+msgid "In-process"
+msgstr "أثناء التصنيع"
+
+msgid "Final"
+msgstr "النهائي"
+
+msgid "Rejects & rework"
+msgstr "المرفوضات وإعادة التشغيل"
+
+msgid "Actual vs standard"
+msgstr "الفعلي مقابل المعياري"
+
+msgid "Work orders in process"
+msgstr "أوامر العمل قيد التنفيذ"
+
+msgid "Output — last day vs plan"
+msgstr "الإنتاج — آخر يوم مقابل الخطة"
+
+msgid "Work in progress (WIP)"
+msgstr "الإنتاج تحت التشغيل"
+
+msgid "Late work orders"
+msgstr "أوامر العمل المتأخرة"
+
+msgid "Scrap rate — 60 days"
+msgstr "نسبة التالف — 60 يومًا"
+
+msgid "Busiest workstation"
+msgstr "أكثر محطة عمل انشغالًا"
+
+msgid "Open demand"
+msgstr "الطلب المفتوح"
+
+msgid "Planned production"
+msgstr "الإنتاج المخطط"
+
+msgid "Component shortages"
+msgstr "نواقص المكونات"
+
+msgid "Suggested purchase orders"
+msgstr "أوامر الشراء المقترحة"
+
+msgid "Material requests open"
+msgstr "طلبات المواد المفتوحة"
+
+msgid "Active BOMs"
+msgstr "قوائم المواد الفعالة"
+
+msgid "Components"
+msgstr "المكونات"
+
+msgid "Standard cost — {0}"
+msgstr "التكلفة المعيارية — {0}"
+
+msgid "Inspections — 30 days"
+msgstr "الفحوصات — 30 يومًا"
+
+msgid "Pass rate"
+msgstr "نسبة القبول"
+
+msgid "Rejected units"
+msgstr "الوحدات المرفوضة"
+
+msgid "Rework open"
+msgstr "إعادة تشغيل مفتوحة"
+
+msgid "Test certificates"
+msgstr "شهادات الاختبار"
+
+msgid "Standard cost — closed WOs"
+msgstr "التكلفة المعيارية — أوامر العمل المغلقة"
+
+msgid "Actual cost"
+msgstr "التكلفة الفعلية"
+
+msgid "Material variance"
+msgstr "فرق المواد"
+
+msgid "Labour variance"
+msgstr "فرق العمالة"
+
+msgid "Overhead variance"
+msgstr "فرق المصاريف غير المباشرة"
+
+msgid "Orders tracked"
+msgstr "الأوامر المتتبعة"
+
+msgid "In production"
+msgstr "قيد الإنتاج"
+
+msgid "New work order"
+msgstr "أمر عمل جديد"
+
+msgid "New production plan"
+msgstr "خطة إنتاج جديدة"
+
+msgid "New BOM"
+msgstr "قائمة مواد جديدة"
+
+msgid "New job card"
+msgstr "بطاقة تشغيل جديدة"
+
+msgid "New quality inspection"
+msgstr "فحص جودة جديد"
+
+msgid "Manufacture entry"
+msgstr "قيد التصنيع"
+
+msgid "Material transfer to WIP"
+msgstr "تحويل المواد إلى الإنتاج تحت التشغيل"
+
+msgid "Transfer to WIP"
+msgstr "تحويل إلى تحت التشغيل"
+
+msgid "Run MRP"
+msgstr "تشغيل تخطيط الاحتياجات"
+
+msgid "Raise PO"
+msgstr "إصدار أمر شراء"
+
+msgid "Job ticket"
+msgstr "بطاقة العمل"
+
+msgid "FG label"
+msgstr "ملصق المنتج التام"
+
+msgid "QC certificate"
+msgstr "شهادة الجودة"
+
+msgid "Print BOM"
+msgstr "طباعة قائمة المواد"
+
+msgid "Release"
+msgstr "إطلاق"
+
+msgid "Close work order"
+msgstr "إغلاق أمر العمل"
+
+msgid "Pause"
+msgstr "إيقاف مؤقت"
+
+msgid "Complete"
+msgstr "إكمال"
+
+msgid "Scrap +1"
+msgstr "تالف +1"
+
+msgid "Accept"
+msgstr "قبول"
+
+msgid "Rework done +4"
+msgstr "تمت إعادة التشغيل +4"
+
+msgid "Make active"
+msgstr "تفعيل"
+
+msgid "Record result"
+msgstr "تسجيل النتيجة"
+
+msgid "Receive finished goods"
+msgstr "استلام المنتج التام"
+
+msgid "Issue to WIP"
+msgstr "صرف إلى تحت التشغيل"
+
+msgid "Run MRP and plan"
+msgstr "تشغيل التخطيط ووضع الخطة"
+
+msgid "Create job card"
+msgstr "إنشاء بطاقة تشغيل"
+
+msgid "Plan all open orders"
+msgstr "تخطيط كل الأوامر المفتوحة"
+
+msgid "Process — 22 steps"
+msgstr "العملية — 22 خطوة"
+
+msgid "Today on the floor"
+msgstr "اليوم في المصنع"
+
+msgid "Output vs plan — last 7 days"
+msgstr "الإنتاج مقابل الخطة — آخر 7 أيام"
+
+msgid "Late or on hold"
+msgstr "متأخرة أو موقوفة"
+
+msgid "Manufacture entries & material transfers"
+msgstr "قيود التصنيع وتحويلات المواد"
+
+msgid "Material availability & shortages (MRP)"
+msgstr "توفر المواد والنواقص (تخطيط الاحتياجات)"
+
+msgid "Standard cost and margin per product"
+msgstr "التكلفة المعيارية والهامش لكل منتج"
+
+msgid "Work orders — actual vs standard"
+msgstr "أوامر العمل — الفعلي مقابل المعياري"
+
+msgid "Variance by work order"
+msgstr "الفرق حسب أمر العمل"
+
+msgid "Cost roll-up"
+msgstr "تجميع التكلفة"
+
+msgid "Routing"
+msgstr "مسار التصنيع"
+
+msgid "Workstation"
+msgstr "محطة العمل"
+
+msgid "Operation"
+msgstr "العملية"
+
+msgid "Operator"
+msgstr "المشغل"
+
+msgid "Work order"
+msgstr "أمر العمل"
+
+msgid "Job card"
+msgstr "بطاقة التشغيل"
+
+msgid "Quality inspection"
+msgstr "فحص الجودة"
+
+msgid "Production plan"
+msgstr "خطة الإنتاج"
+
+msgid "Component"
+msgstr "المكوّن"
+
+msgid "Product"
+msgstr "المنتج"
+
+msgid "Batch"
+msgstr "الدفعة"
+
+msgid "Scrap"
+msgstr "تالف"
+
+msgid "Rework"
+msgstr "إعادة تشغيل"
+
+msgid "Forecast"
+msgstr "توقع"
+
+msgid "All workstations"
+msgstr "كل محطات العمل"
+
+msgid "Standard cost"
+msgstr "التكلفة المعيارية"
+
+msgid "Demand & plan"
+msgstr "الطلب والتخطيط"
+
+msgid "Make"
+msgstr "التصنيع"
+
+msgid "Finish & ship"
+msgstr "الإنهاء والشحن"
+
+msgid "Bill & close"
+msgstr "الفوترة والإغلاق"
+
+msgid "Sales order / forecast"
+msgstr "أمر البيع / التوقع"
+
+msgid "Production planning (MRP: demand, stock, open WOs)"
+msgstr "تخطيط الإنتاج (الطلب والمخزون وأوامر العمل المفتوحة)"
+
+msgid "BOM & routing check (version, alternates)"
+msgstr "مراجعة قائمة المواد والمسار (الإصدار والبدائل)"
+
+msgid "BOM check"
+msgstr "مراجعة القائمة"
+
+msgid "Material availability & shortages"
+msgstr "توفر المواد والنواقص"
+
+msgid "Availability"
+msgstr "التوفر"
+
+msgid "Material req."
+msgstr "طلب مواد"
+
+msgid "Purchase / import of components"
+msgstr "شراء / استيراد المكونات"
+
+msgid "Purchase"
+msgstr "الشراء"
+
+msgid "Incoming quality inspection"
+msgstr "فحص جودة الوارد"
+
+msgid "Incoming QC"
+msgstr "فحص الوارد"
+
+msgid "Work order released (qty, due date, workstation)"
+msgstr "إطلاق أمر العمل (الكمية والموعد ومحطة العمل)"
+
+msgid "WO released"
+msgstr "إطلاق الأمر"
+
+msgid "Material issue to WIP (pick from stores)"
+msgstr "صرف المواد إلى تحت التشغيل (من المخازن)"
+
+msgid "Job cards per operation (cutting, SMT/assembly, wiring, testing, packing)"
+msgstr "بطاقات تشغيل لكل عملية (القص، التركيب، التوصيل، الاختبار، التغليف)"
+
+msgid "Job cards"
+msgstr "بطاقات التشغيل"
+
+msgid "Operation start/stop, operator, time"
+msgstr "بدء/إيقاف العملية، المشغل، الوقت"
+
+msgid "In-process QC"
+msgstr "فحص أثناء التصنيع"
+
+msgid "Scrap & rework recorded"
+msgstr "تسجيل التالف وإعادة التشغيل"
+
+msgid "Scrap & rework"
+msgstr "التالف وإعادة التشغيل"
+
+msgid "Final QC & test certificate"
+msgstr "الفحص النهائي وشهادة الاختبار"
+
+msgid "Final QC"
+msgstr "الفحص النهائي"
+
+msgid "Finished goods receipt to warehouse (manufacture entry)"
+msgstr "استلام المنتج التام في المستودع (قيد التصنيع)"
+
+msgid "FG receipt"
+msgstr "استلام المنتج"
+
+msgid "Batch / serial numbers & labels"
+msgstr "الدفعات والأرقام التسلسلية والملصقات"
+
+msgid "Batch & serials"
+msgstr "الدفعات والتسلسل"
+
+msgid "Packing & carton labels"
+msgstr "التغليف وملصقات الكراتين"
+
+msgid "Packing"
+msgstr "التغليف"
+
+msgid "Delivery / export shipment"
+msgstr "التسليم / شحنة التصدير"
+
+msgid "Production costing (actual vs standard)"
+msgstr "تكاليف الإنتاج (الفعلي مقابل المعياري)"
+
+msgid "Variance & margin analysis"
+msgstr "تحليل الفروقات والهامش"
+
+msgid "Variance"
+msgstr "الفرق"
+
+msgid "Work order closed"
+msgstr "إغلاق أمر العمل"
+
+msgid "Production — Hipersign Lighting Industries"
+msgstr "الإنتاج — هايبرساين لصناعات الإضاءة"
+
+msgid "How it works — 22 steps"
+msgstr "كيف يعمل — 22 خطوة"
+
+msgid "Planning & shortages"
+msgstr "التخطيط والنواقص"
+
+msgid "BOMs, routings and cost roll-up"
+msgstr "قوائم المواد والمسارات وتجميع التكلفة"
+
+msgid "The work order, step by step"
+msgstr "أمر العمل خطوة بخطوة"
+
+msgid "Accounts Manager"
+msgstr "مدير الحسابات"
+
+msgid "Every sales order and its work order through the 22 manufacturing steps — status, % and date per step, with red flags. Hover a step for who does it and the facts behind it."
+msgstr "كل أمر بيع وأمر العمل الخاص به عبر خطوات التصنيع الـ22 — الحالة و% والتاريخ لكل خطوة مع العلامات الحمراء. مرّر على الخطوة لمعرفة المسؤول والحقائق."
+
+msgid "Daily site report"
+msgstr "تقرير الموقع اليومي"
+
+msgid "New daily site report"
+msgstr "تقرير موقع يومي جديد"
+
+msgid "Own manpower"
+msgstr "العمالة الذاتية"
+
+msgid "Subcontractor manpower"
+msgstr "عمالة مقاولي الباطن"
+
+msgid "Issues & delays"
+msgstr "المشكلات والتأخيرات"
+
+msgid "Save report"
+msgstr "حفظ التقرير"
+
+msgid "Projects — {0}"
+msgstr "المشاريع — {0}"
+
+msgid "Manufacturing — {0}"
+msgstr "التصنيع — {0}"
+
+msgid "Quality — {0}"
+msgstr "الجودة — {0}"
+
+msgid "Tracker"
+msgstr "المتابعة"
+
+msgid "In process"
+msgstr "قيد التصنيع"
+
+msgid "To inspect"
+msgstr "بانتظار الفحص"
+
+msgid "In final QC"
+msgstr "في الفحص النهائي"
+
+msgid "Pass rate — 30 days"
+msgstr "نسبة القبول — 30 يومًا"
+
+msgid "Lines…"
+msgstr "البنود…"
+
+msgid "Approve qty"
+msgstr "الكمية المعتمدة"
+
+msgid "Requested"
+msgstr "المطلوب"
+
+msgid "Reject all"
+msgstr "رفض الكل"
+
+msgid "Partly approved"
+msgstr "معتمد جزئيًا"
+
+msgid "partly approved"
+msgstr "معتمد جزئيًا"
+
+msgid "lines rejected"
+msgstr "بنود مرفوضة"
+
+msgid "Reason for rejected or reduced lines"
+msgstr "سبب رفض البنود أو تخفيضها"
+
+msgid "Approve {0} line by line"
+msgstr "اعتماد {0} بندًا بندًا"
+
+msgid "inspections to record"
+msgstr "فحوصات للتسجيل"
+
+msgid "site material requests to approve"
+msgstr "طلبات مواد للموقع بانتظار الاعتماد"
+
+msgid "{0} WO"
+msgstr "{0} أمر عمل"
+
+msgid "{0} WOs"
+msgstr "{0} أوامر عمل"
+
+msgid "Rejected lines"
+msgstr "البنود المرفوضة"
+
+msgid "Nothing waiting for inspection."
+msgstr "لا شيء بانتظار الفحص."
+
+msgid "Contract value"
+msgstr "قيمة العقد"
+
+msgid "Site visit"
+msgstr "زيارة الموقع"
+
+msgid "BOQ & estimate"
+msgstr "جدول الكميات والتقدير"
+
+msgid "Award"
+msgstr "الترسية"
+
+msgid "Contract"
+msgstr "العقد"
+
+msgid "Bonds"
+msgstr "الضمانات"
+
+msgid "Mobilise"
+msgstr "التجهيز"
+
+msgid "Procure"
+msgstr "الشراء"
+
+msgid "Deliveries"
+msgstr "التوريدات"
+
+msgid "Measure"
+msgstr "القياس"
+
+msgid "Sub claims"
+msgstr "مطالبات الباطن"
+
+msgid "Cost control"
+msgstr "ضبط التكاليف"
+
+msgid "Completion"
+msgstr "الإنجاز"
+
+msgid "Final acct"
+msgstr "الحساب الختامي"
+
+msgid "Closure"
+msgstr "الإغلاق"
+
+msgid "Completed"
+msgstr "مكتمل"
+
+msgid "Not started"
+msgstr "لم يبدأ"
+
+msgid "Stopped"
+msgstr "متوقف"
+
+msgid "Late"
+msgstr "متأخرة"
+
+msgid "{0} · due {1}"
+msgstr "{0} · الاستحقاق {1}"
+
+msgid "Final QC · due {0}"
+msgstr "الفحص النهائي · الاستحقاق {0}"

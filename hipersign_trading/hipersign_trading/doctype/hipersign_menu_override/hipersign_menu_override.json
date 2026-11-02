@@ -1,0 +1,173 @@
+{
+ "doctype": "DocType",
+ "name": "Hipersign Menu Override",
+ "module": "Hipersign Trading",
+ "custom": 0,
+ "istable": 0,
+ "issingle": 0,
+ "autoname": "hash",
+ "naming_rule": "Random",
+ "engine": "InnoDB",
+ "track_changes": 1,
+ "description": "Menu builder: one change to the Hipersign ERP menu for the whole site, one company or one role (role beats company beats site).",
+ "title_field": "item_key",
+ "show_title_field_in_link": 0,
+ "fields": [
+  {
+   "fieldname": "scope",
+   "fieldtype": "Select",
+   "label": "Scope",
+   "options": "Site\nCompany\nRole",
+   "default": "Site",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "depends_on": "eval:doc.scope==\"Company\"",
+   "mandatory_depends_on": "eval:doc.scope==\"Company\"",
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "role",
+   "fieldtype": "Link",
+   "label": "Role",
+   "options": "Role",
+   "depends_on": "eval:doc.scope==\"Role\"",
+   "mandatory_depends_on": "eval:doc.scope==\"Role\"",
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "column_break_scope",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "item_type",
+   "fieldtype": "Select",
+   "label": "Entry type",
+   "options": "Group\nItem\nCustom Link",
+   "default": "Item",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "item_key",
+   "fieldtype": "Data",
+   "label": "Menu key",
+   "reqd": 1,
+   "in_list_view": 1,
+   "description": "Stable key of the menu entry: g:… for a group, the page / doctype / report / URL slug for an item, link-… for a custom link"
+  },
+  {
+   "fieldname": "parent_group",
+   "fieldtype": "Data",
+   "label": "Under menu group",
+   "description": "Group key (g:…) a custom link is shown under"
+  },
+  {
+   "fieldname": "section_display",
+   "fieldtype": "Section Break",
+   "label": "Display"
+  },
+  {
+   "fieldname": "visibility",
+   "fieldtype": "Select",
+   "label": "Visibility",
+   "options": "Standard\nHidden\nShown",
+   "default": "Standard",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "sort_order",
+   "fieldtype": "Int",
+   "label": "Order",
+   "description": "0 keeps the standard position"
+  },
+  {
+   "fieldname": "column_break_labels",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "label_en",
+   "fieldtype": "Data",
+   "label": "Label (English)"
+  },
+  {
+   "fieldname": "label_ar",
+   "fieldtype": "Data",
+   "label": "Label (Arabic)"
+  },
+  {
+   "fieldname": "label_zh",
+   "fieldtype": "Data",
+   "label": "Label (Chinese)"
+  },
+  {
+   "fieldname": "section_link",
+   "fieldtype": "Section Break",
+   "label": "Custom link",
+   "depends_on": "eval:doc.item_type==\"Custom Link\""
+  },
+  {
+   "fieldname": "link_url",
+   "fieldtype": "Data",
+   "label": "Link",
+   "description": "https://…, /app/… or #page",
+   "mandatory_depends_on": "eval:doc.item_type==\"Custom Link\""
+  },
+  {
+   "fieldname": "icon",
+   "fieldtype": "Data",
+   "label": "Icon"
+  }
+ ],
+ "field_order": [
+  "scope",
+  "company",
+  "role",
+  "column_break_scope",
+  "item_type",
+  "item_key",
+  "parent_group",
+  "section_display",
+  "visibility",
+  "sort_order",
+  "column_break_labels",
+  "label_en",
+  "label_ar",
+  "label_zh",
+  "section_link",
+  "link_url",
+  "icon"
+ ],
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "report": 1,
+   "export": 1
+  },
+  {
+   "role": "Managing Director",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "report": 1,
+   "export": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "owner": "Administrator",
+ "creation": "2026-11-02 12:00:00.000000",
+ "modified": "2026-11-02 12:00:00.000000",
+ "modified_by": "Administrator"
+}

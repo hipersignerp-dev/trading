@@ -788,9 +788,9 @@ BUILDERS = {"Lead": lead, "Quotation": quotation, "Sales Order": sales_order, "C
 # ---------------------------------------------------------------- API
 @frappe.whitelist()
 def get_panel(doctype, name):
-	from hipersign_trading.api import panel_more
+	from hipersign_trading.api import panel_mfg, panel_more, panel_projects
 
-	builders = {**BUILDERS, **panel_more.BUILDERS}
+	builders = {**BUILDERS, **panel_more.BUILDERS, **panel_projects.BUILDERS, **panel_mfg.BUILDERS}
 	if doctype not in builders:
 		frappe.throw(_("No panel for {0}").format(doctype))
 	doc = frappe.get_doc(doctype, name)
@@ -907,8 +907,12 @@ def action(doctype, name, action, args=None):
 	if action in ("lc_margin", "lc_margin_release", "lc_tr") and doctype == "Letter of Credit":
 		je = {"lc_margin": doc.make_margin_entry, "lc_margin_release": doc.make_margin_release_entry, "lc_tr": doc.make_trust_receipt_entry}[action]()
 		return {"message": _("Journal entry {0} created").format(je), "route": ["Form", "Journal Entry", je]}
-	from hipersign_trading.api import panel_more
+	from hipersign_trading.api import panel_mfg, panel_more, panel_projects
 
+	if action.startswith("pj:"):  # v1.8.0: the Projects buttons (api.projects.act)
+		return panel_projects.action(doc, action, args)
+	if action.startswith("mf:"):  # v1.8.0: the Manufacturing buttons (api.manufacturing.act)
+		return panel_mfg.action(doc, action, args)
 	r = panel_more.action(doc, action, args)
 	if r is not None:
 		return r

@@ -9,7 +9,12 @@ frappe.provide("hipersign.nav");
 	if ((info.theme || "Hipersign") === "Hipersign" && frappe.session && frappe.session.user !== "Guest") {
 		document.documentElement.classList.add("hs-theme");
 	}
+	// v1.8.0: Simplified Chinese gets a CJK font stack (hipersign_theme.css); Arabic keeps Frappe's right-to-left layout
+	if (((frappe.boot && frappe.boot.lang) || "").toLowerCase().startsWith("zh")) document.documentElement.classList.add("hs-lang-zh");
 })();
+
+// v1.8.0: the sidebar shows translated or renamed labels (menu builder); sub-items and badges are keyed by the NAV label
+hipersign.nav.base = (name) => ((frappe.boot.hipersign || {}).nav_alias || {})[name] || name;
 
 hipersign.nav.SIDEBAR = "Hipersign ERP";
 hipersign.nav.key = (s) => (s || "").toString().toLowerCase().replace(/[-_]/g, " ").trim();
@@ -139,7 +144,7 @@ hipersign.nav.decorate = function () {
 		const $c = $(this), name = $c.attr("item-name");
 		if (!name || $c.hasClass("section-item") || $c.attr("data-hs-dec")) return;
 		$c.attr("data-hs-dec", "1");
-		const rows = subs[name];
+		const rows = subs[name] || subs[hipersign.nav.base(name)];
 		if (!rows || !rows.length) return;
 		const $row = $c.children(".standard-sidebar-item").first();
 		$(`<span class="hs-sub-toggle" title="${frappe.utils.escape_html(__("Lists"))}">${frappe.utils.icon("right", "xs")}</span>`).appendTo($row);
@@ -169,7 +174,7 @@ hipersign.nav.paint_badges = function () {
 	$(".body-sidebar .sidebar-item-container").each(function () {
 		const $c = $(this), name = $c.attr("item-name");
 		if (!name || $c.hasClass("section-item")) return;
-		const n = b[name];
+		const n = b[name] || b[hipersign.nav.base(name)];
 		const $row = $c.children(".standard-sidebar-item").first();
 		$row.find(".hs-badge-n").remove();
 		$c.toggleClass("hs-has-badge", !!n);

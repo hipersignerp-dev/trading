@@ -1,5 +1,98 @@
 # Changelog
 
+## 1.8.0 — Projects (prototype p19): contracting and fit-out from enquiry to profit report
+- **Projects menu** (switch *Projects & contracting*, Settings → Features → Industries) with eight pages: **Projects**
+  (portfolio, How it works, red flags), **Estimating & BOQ** (BOQ by section, cost build-up, tenders & quotations),
+  **Site & procurement** (material requests against BOQ lines, project POs, deliveries to site, site stock, returns),
+  **Progress & billing** (certificates, measurement typed per BOQ line, progress / advance / retention invoices, retention,
+  advance recovery, variations), **Subcontractors** (orders, claims, retention, back-charges), **Timesheets & labour**,
+  **Project costing** (budget vs committed vs actual vs forecast per cost head) and the **Project Tracker** (every project
+  through 26 steps in 6 phases with status, % and date per step and its red flags).
+- **The 26-step process** is defined once (api/projects.py). The project panel shows the stepper with what happens, who,
+  documents, approval and trigger per step, the money, terms, bonds, red flags and prints; *Complete step N* checks the
+  step's approval role and is logged (Project Step Log: who and when). Contract signed creates the contract sales order.
+- **Money that posts**: advance invoice (Cr Advances from Customers + VAT); progress certificate → progress invoice = work
+  this period less advance recovery and retention, plus 5% VAT on the net (deductions as tax-table rows, so no negative
+  rates); retention release invoice; approved variations raise the revised contract (and add a line to the contract order);
+  subcontract claim → certified → supplier bill less retention (Retention Payable) and agreed back-charges, plus VAT;
+  project material request → PO → receipt at the project's site store; cost by head from the GL and approved timesheets.
+- **New records**: Project BOQ (lines with cost build-up and progress), Progress Certificate, Variation Order, Subcontract
+  Order, Subcontract Claim, Back Charge, Daily Site Report, Project Step Log; contract fields on Project, bond type and
+  status on Bank Guarantee, project on material requests and purchase orders.
+- **Nine create windows** (Quick / Standard / Detailed) from + New → Projects and the pages: project, BOQ lines, task,
+  timesheet, progress certificate, variation, subcontract order, material request to site, site transfer.
+- **Six prints** (English + Arabic): BOQ / tender, interim payment certificate, progress invoice, retention invoice,
+  variation order, subcontract order.
+- **Contractor pack** (Standard without exports, plus projects, LCs, advances, HR, assets, company compliance); Enterprise
+  includes Projects. Roles **Project Manager**, **Quantity Surveyor**, **Site Engineer**; the Demo Viewer reads the pages.
+  Tour chapter *Projects*, Test Centre scripts PRJ-01…12, Arabic labels.
+- **Demo**: Golden Dragon Interiors LLC (Business Bay, AED) joins the demo group with the prototype's five projects — the
+  AED 4.2M Business Bay hotel in execution, villas mobilising, DIFC office in handover, a clinic tender and a closed
+  restaurant — all posted as real documents.
+- Fix: a group company's sales orders keep their own VAT template (the main company's was forced on them).
+
+## 1.8.0 — Manufacturing (prototype p19): assemblers and factories from sales order to closed work order
+- **Manufacturing menu** (switch *Manufacturing*, Settings → Features → Industries) with seven pages: **Production**
+  (today on the floor, work orders, workstation load, stock entries, How it works), **Planning** (demand incl. forecast,
+  production plans, MRP shortages with *Raise PO*, material requests, component purchase orders), **BOMs & routings** (BOM
+  tree with sub-assemblies and the standard cost roll-up, versions, where used, workstations), **Shop floor** (a tablet view:
+  start / pause a job card, +10 / +50, scrap, operator, complete), **Quality** (incoming, in-process, final, rejects &
+  rework, test certificates), **Costing** (actual against standard per work order with material, labour and overhead
+  variances, margin per product) and the **Production Tracker** (every sales order through 22 steps in 5 phases).
+- **The 22-step process** is defined once (api/manufacturing.py), with the approval role per step and the red flags (late
+  work order, held for a component shortage, open rework, a material request waiting, an invoice not paid). *Complete step
+  N* on the sales order or work order panel makes what the step needs — production plan and work orders, approved material
+  requests, release, issue to WIP, finished goods receipt, delivery, invoice, close — and is logged in the **Manufacturing
+  Step Log**.
+- **Built on ERPNext's own documents**: BOM (with operations and routing), Workstation (labour and overhead as operating
+  components), Operation, Production Plan, Work Order, Job Card, Material Request, Purchase Order / Receipt, Stock Entry
+  (Material Transfer for Manufacture, Manufacture), Quality Inspection (+ templates), Batch. Finished goods are valued at
+  the materials consumed plus labour and overhead from the job cards' actual hours (credited to *Manufacturing Labour /
+  Overhead Absorbed*); WIP gets its own account on a new factory. Scrap is recorded per operation and booked as process
+  loss, also across partial receipts (the shop floor splits job cards when finished goods are received part-way).
+- Custom fields: Chinese item and workstation names, the sales order's step and forecast flag, operator and scrap on the
+  job card, stage / result / lot / rework / certificate on the quality inspection, the BOM change note, serials and picker
+  on the stock entry, the company's Chinese name. Work orders, job cards, inspections and plans number WO-, JC-, QI-, PP-.
+- **Seven create windows** (Quick / Standard / Detailed) from + New → Manufacturing and the pages: BOM, work order,
+  production plan, job card, quality inspection, manufacture entry, material transfer to WIP.
+- **Four prints in English + Chinese**: job ticket (barcodes per job card), bill of materials, QC test certificate and the
+  finished-goods label (batch, serials, QR code and barcode).
+- **Manufacturer pack** (Standard plus manufacturing, serial numbers, HR, assets); Enterprise includes Manufacturing.
+  Roles **Production Manager** and **QC Inspector**; the Demo Viewer reads the pages. Tour chapter *Manufacturing*, Test
+  Centre scripts MFG-01…11, Arabic labels and Simplified Chinese for every new string.
+- **Demo**: Hipersign Lighting Industries FZE (KEZAD, AED) joins the demo group — LED panels, high-bays and drivers from
+  Chinese components, seven orders from closed to forecast, a rejected heat-sink lot, work orders running on the shop floor
+  now, test certificates and the costing — all posted as real documents.
+- Fix: a group company's export invoices keep their own zero-rated VAT template (the main company's was forced on them).
+- **Closing the p19 gaps**: Home shows a **Projects** and a **Manufacturing** card (four figures that open their page, the
+  open projects / work orders below, Tracker) when the feature is on and the user may open the page; the QC Inspector gets
+  a **Quality** card first and *inspections to record* under Work for today. The top-bar search finds projects,
+  variations, subcontract orders and work orders (permissions, feature switches and menu-builder hidden screens apply).
+  **Daily site report** window (Quick / Standard / Detailed) from + New, Site & procurement and Timesheets. Site material
+  requests: approve all or **line by line** (approve, reduce or reject each line with a reason; all rejected = Rejected),
+  and **Create PO** opens the app's purchase order window with the lines still to order, linked to the request. Role
+  matrix as p19: the Quantity Surveyor no longer opens Site & procurement or Timesheets (Projects User dropped from those
+  pages) and now has Home; the project panel's *Open screen* shows only screens the user may open.
+
+## 1.8.0 — Chinese & menu builder
+- **Simplified Chinese (中文)**: every string the app shows — pages, menus, buttons, messages, doctype and workspace labels,
+  reports, number cards, the guided tour and the Test Centre sections — in `translations/zh.csv` and `locale/zh.po`
+  (language code `zh`, alongside ERPNext's own Chinese). 3,715 strings, 100% of what `tools/i18n_extract.py` finds:
+  1,043 from the approved prototype (p19), 2,672 translated for this release. The print formats stay English + Arabic.
+- **Language switch** in the top bar: English / العربية / 中文. It sets the user's language and reloads; Arabic keeps the
+  right-to-left layout, Chinese uses a CJK font stack (PingFang SC, Microsoft YaHei, Noto Sans SC) only when chosen.
+  Migrate makes sure the Language records `ar` and `zh` exist and are enabled.
+- **Menu builder** (Admin → Menu builder, System Manager and Managing Director): show or hide, rename in English, Arabic
+  and Chinese, and reorder every menu group and screen, and add custom links (web address, /app/… or #page) — for the
+  whole site, one company or one role. Role beats company beats site, field by field. Live preview, Save, Reset to
+  standard per scope and a change log (who, when, what). Stored in **Hipersign Menu Override**, logged in
+  **Hipersign Menu Log**. Applied when the desk loads, on top of the feature packs; a hidden screen also leaves + New and
+  the top-bar search. A menu never grants access — role permissions still decide.
+- NAV groups and items have stable keys (`g:<group>`, the target's slug), so groups added later (Projects, Manufacturing)
+  appear in the builder with no other change.
+- Test Centre: ZH-01…07 and MENU-01…12. Arabic labels for the builder and the language switch.
+- Tools (no bench needed): `tools/i18n_extract.py`, `tools/i18n_build.py check zh`, `tools/test_menu.py`.
+
 ## 1.7.3 — the 2 Nov review: every New in the new window, prints as on the prototype
 - **Every "New" opens the create window** with Quick / Standard / Detailed — from + New and from each list's Add: supplier bill
   (match to the order or goods receipt, lines and VAT), debit note, receive payment (oldest invoices first, bank charges),

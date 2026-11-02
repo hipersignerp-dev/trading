@@ -8,6 +8,9 @@ def validate(doc, method=None):
 	doc.hs_zero_rated = 1 if export else 0
 	s = settings()
 	template = s.export_tax_template if export else None
+	# v1.8.0: the settings' template belongs to the main company; another company of the group keeps its own zero-rated one
+	if template and frappe.db.get_value("Sales Taxes and Charges Template", template, "company") != doc.company:
+		template = None
 	if template and doc.taxes_and_charges != template:
 		doc.taxes_and_charges = template
 		doc.set("taxes", [])

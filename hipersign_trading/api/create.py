@@ -44,9 +44,11 @@ def _company():
 
 
 @frappe.whitelist()
-def options(kind):
-	"""Choice lists for one form."""
-	company = _company()
+def options(kind, company=None):
+	"""Choice lists for one form. v1.8.0: a window opened from a document of another company of the group (Create PO from
+	a project's material request) passes that company."""
+	if not company or not frappe.db.exists("Company", company) or not frappe.has_permission("Company", "read", company):
+		company = _company()
 	ccy = frappe.get_cached_value("Company", company, "default_currency") if company else "AED"
 	o = {"company": company, "currency": ccy, "today": today()}
 	selling = kind in ("quotation", "sales_order", "delivery_note", "invoice", "receive_payment", "lead", "customer")
@@ -250,6 +252,13 @@ def _lines(doc, lines, kind, need):
 			row["schedule_date"] = need
 		if r.get("warehouse"):
 			row["warehouse"] = r["warehouse"]
+		# v1.8.0: Create PO from a material request — the order line stays linked to the request line (ordered quantity, project)
+		if kind == "purchase_order" and r.get("material_request_item"):
+			mri = frappe.db.get_value("Material Request Item", r["material_request_item"], ["parent", "item_code", "project", "warehouse"], as_dict=True)
+			if mri and mri.item_code == r["item_code"] and frappe.has_permission("Material Request", "read", mri.parent):
+				row.update({"material_request": mri.parent, "material_request_item": r["material_request_item"], "warehouse": r.get("warehouse") or mri.warehouse})
+				if mri.project:
+					row["project"] = mri.project
 		doc.append("items", row)
 	if not doc.get("items"):
 		frappe.throw(_("Add at least one line with an item and a quantity"))
@@ -420,6 +429,14 @@ def link_options(doctype, query=None):
 		filters["disabled"] = 0
 	if (q or {}).get("query") == "trip_notes":
 		return _trip_notes()
+	if str((q or {}).get("query") or "").startswith("mfg:"):  # v1.8.0: the Manufacturing windows
+		from hipersign_trading.api.create_mfg import choices
+
+		return choices(q["query"])
+	if (q or {}).get("query") == "boq_lines":  # v1.8.0: material request to site
+		from hipersign_trading.api.create_prj import boq_lines
+
+		return boq_lines()
 	if (q or {}).get("query") == "hipersign_trading.api.crm.sales_users":
 		from hipersign_trading.api.crm import sales_users
 
@@ -442,6 +459,24 @@ SIMPLE = {"Import Shipment", "Export Shipment", "Material Request", "Stock Entry
 	# v1.7.3
 	"Credit Limit Request", "Purchase Invoice", "Payment Entry", "Warranty Claim", "Delivery Trip", "Employee Advance",
 	"Sales Invoice"}  # Sales Invoice: only the credit note window (returns); new invoices start from the delivery (C.PICK)
+# v1.8.0: the Projects windows (api.create_prj)
+SIMPLE |= {"Project", "Project BOQ", "Task", "Timesheet", "Progress Certificate", "Variation Order", "Subcontract Order", "Daily Site Report"}
+# v1.8.0: the Manufacturing windows (api.create_mfg)
+SIMPLE |= {"BOM", "Work Order", "Production Plan", "Job Card", "Quality Inspection"}
+
+
+def _prj_hook(kind, doctype, v):
+	"""v1.8.0: the Projects windows' hooks live in api.create_prj (material request to site and site transfer by their flag)."""
+	from hipersign_trading.api import create_mfg, create_prj
+
+	key = frappe.scrub(doctype)
+	if v.get("_mfg") or doctype in create_mfg.DOCTYPES:  # v1.8.0: Manufacturing (manufacture entry and transfer to WIP by their flag)
+		return getattr(create_mfg, f"{kind}_{key}" + (f"_{v._mfg}" if v.get("_mfg") else ""), None)
+	if doctype in ("Material Request", "Stock Entry") and v.get("_site"):
+		key += "_site"
+	elif doctype not in create_prj.DOCTYPES:
+		return None
+	return getattr(create_prj, f"{kind}_{key}", None)
 
 
 @frappe.whitelist()
@@ -457,10 +492,15 @@ def save_doc(doctype, values, rows=None, action="save"):
 	defaults = {k: doc.get(k) for k in v}
 	if meta.has_field("company"):
 		doc.company = v.get("company") or _company()
-	pre = globals().get("_pre_" + frappe.scrub(doctype))
+	v._action = action
+	frappe.flags.hs_create_msg = None
+	pre = _prj_hook("pre", doctype, v) or globals().get("_pre_" + frappe.scrub(doctype))
 	if pre:
 		# v1.7.3: a hook may hand back the document ERPNext's own mapper made (bill from an order, debit note, receipt)
 		doc = pre(doc, v, rows) or doc
+	if doc.flags.get("hs_done"):  # v1.8.0: the hook saved an existing record (BOQ lines added to the project's BOQ)
+		d = doc.flags.hs_done
+		return {"doctype": d.doctype, "name": d.name, "message": frappe.flags.hs_create_msg or _("{0} {1} saved").format(_(d.doctype), d.name)}
 	for k, val in v.items():
 		if val in (None, "") or k.startswith("_"):
 			continue
@@ -479,11 +519,11 @@ def save_doc(doctype, values, rows=None, action="save"):
 		except Exception:
 			frappe.clear_last_message()
 	doc.insert()
-	after = globals().get("_after_" + frappe.scrub(doctype))
+	after = _prj_hook("after", doctype, v) or globals().get("_after_" + frappe.scrub(doctype))
 	if after:
 		after(doc, v, rows)
 	label = _("Debit Note") if doctype == "Purchase Invoice" and doc.get("is_return") else _(doctype)
-	msg = _("{0} {1} saved").format(label, doc.name)
+	msg = (frappe.flags.hs_create_msg or "").replace("{0}", doc.name) or _("{0} {1} saved").format(label, doc.name)
 	needs = None
 	if action == "submit" and meta.is_submittable:
 		from hipersign_trading.doc_rules import DocumentNeeded
@@ -956,6 +996,10 @@ def fill_doc(kind, name, values=None):
 	values = frappe._dict(frappe.parse_json(values) if isinstance(values, str) else (values or {}))
 	if kind in _FILL:
 		return _FILL[kind](name, values)
+	if kind == "mfg_bom" and name:  # v1.8.0: a new BOM version starts from the active one's components
+		from hipersign_trading.api.create_mfg import fill_bom
+
+		return fill_bom(name, values)
 	if kind == "export_from_so" and name:
 		so = frappe.get_doc("Sales Order", name)
 		so.check_permission("read")

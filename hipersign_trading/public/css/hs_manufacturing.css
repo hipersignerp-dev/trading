@@ -1,0 +1,49 @@
+/* Hipersign ERP v1.8.0 (prototype p19) — Manufacturing: the floor tiles, the columns chart, the Shop floor tablet view. */
+
+/* Production → Today on the floor */
+.hsx-tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+.hsx-tile { border: 1px solid var(--x-line); border-radius: 12px; padding: 12px; background: var(--x-surface); text-align: left; cursor: pointer; display: flex; flex-direction: column; gap: 6px; color: var(--x-ink); font: inherit; min-width: 0; }
+.hsx-tile:hover { border-color: var(--x-blue); }
+.hsx-tile-h { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.hsx-tile-big { font-size: 26px; font-weight: 800; font-variant-numeric: tabular-nums; line-height: 1.2; }
+.hsx-tile-big small { font-size: 14px; color: var(--x-muted); font-weight: 600; }
+.hsx-tile .hp-bar { width: 100%; }
+.hsx-tile-ops { display: flex; flex-wrap: wrap; gap: 4px; }
+.hsx-tile-ops span { font-size: 10.5px; padding: 1px 7px; border-radius: 10px; background: var(--x-surface-2); color: var(--x-muted); }
+.hsx-tile-ops .done { background: var(--x-green-bg); color: var(--x-green); }
+.hsx-tile-ops .cur { background: var(--x-blue-bg); color: var(--x-blue); }
+.hsx-tile-ops .hold { background: var(--x-red-bg); color: var(--x-red); }
+
+/* grouped columns (output vs plan, variance by work order) */
+.hsx-cols { display: flex; align-items: stretch; gap: 8px; padding: 6px 2px 0; }
+.hsx-colg { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.hsx-colb { flex: 1; width: 100%; display: flex; align-items: flex-end; justify-content: center; gap: 2px; border-bottom: 1px solid var(--x-line); }
+.hsx-colb i { display: block; width: 100%; max-width: 14px; border-radius: 3px 3px 0 0; }
+.hsx-colg span { font-size: 10.5px; color: var(--x-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+.hsx-sub-row td { color: var(--x-ink-2); font-size: 12px; }
+
+/* Shop floor — tablet view: big targets, one card per operation of a work order */
+.hsf-seg { margin-bottom: 12px; }
+.hsf-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); gap: 14px; }
+.hsf-card { background: var(--x-surface); border: 1px solid var(--x-line); border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 10px; box-shadow: var(--x-shadow); border-top: 4px solid #8b93a7; min-width: 0; }
+.hsf-card.st-cur { border-top-color: var(--x-blue); }
+.hsf-card.st-done { border-top-color: var(--x-green); }
+.hsf-card.st-late { border-top-color: var(--x-red); }
+.hsf-h { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.hsf-ws { margin-left: auto; }
+.hsf-t { display: flex; flex-direction: column; gap: 2px; }
+.hsf-t b { font-size: 15px; }
+.hsf-t a { cursor: pointer; }
+.hsf-card.st-late .hsf-t b { color: var(--x-red); }
+.hsf-num { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+.hsf-num div { background: var(--x-surface-2); border-radius: 8px; padding: 6px 8px; min-width: 0; }
+.hsf-num span { display: block; font-size: 11px; color: var(--x-muted); }
+.hsf-num b { font-size: 18px; font-variant-numeric: tabular-nums; }
+.hsf-bar { display: flex; align-items: center; gap: 8px; }
+.hsf-bar .hp-bar { flex: 1; width: auto; }
+.hsf-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.hsf-row select { max-width: 220px; height: 38px; }
+.hsf-btns { display: grid; grid-template-columns: repeat(auto-fit, minmax(88px, 1fr)); gap: 8px; }
+.hsf-btns .btn { height: 44px; font-size: 13.5px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
+.hsf-btns .hsf-scrap { color: var(--x-red); border-color: color-mix(in srgb, var(--x-red) 40%, var(--x-line)); }
+@media (max-width: 700px) { .hsf-num { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

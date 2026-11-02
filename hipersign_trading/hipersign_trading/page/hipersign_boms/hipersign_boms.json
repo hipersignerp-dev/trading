@@ -1,0 +1,36 @@
+{
+ "doctype": "Page",
+ "name": "hipersign-boms",
+ "page_name": "hipersign-boms",
+ "title": "BOMs & routings",
+ "module": "Hipersign Trading",
+ "standard": "Yes",
+ "system_page": 0,
+ "icon": "",
+ "roles": [
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "Managing Director"
+  },
+  {
+   "role": "Production Manager"
+  },
+  {
+   "role": "Manufacturing Manager"
+  },
+  {
+   "role": "Demo Viewer"
+  },
+  {
+   "role": "Manufacturing User"
+  },
+  {
+   "role": "Accounts Manager"
+  }
+ ],
+ "owner": "Administrator",
+ "creation": "2026-11-02 15:00:00",
+ "modified": "2026-11-02 15:00:00"
+}

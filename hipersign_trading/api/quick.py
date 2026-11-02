@@ -25,8 +25,12 @@ COVERED = [
 	"Address", "Contact", "Customer Group", "Payment Terms Template", "Bank Account", "Driver",
 	# v1.7.3: the create modal's new windows and cards
 	"Employee Advance", "Currency Exchange", "User",
+	# v1.8.0: the Projects windows
+	"Project", "Project BOQ", "Task", "Timesheet", "Progress Certificate", "Variation Order", "Subcontract Order", "Daily Site Report",
+	# v1.8.0: the Manufacturing windows
+	"BOM", "Work Order", "Production Plan", "Job Card", "Quality Inspection",
 ]
-PACK_MODE = {"Starter": "Quick", "Standard": "Standard", "Enterprise": "Detailed"}
+PACK_MODE = {"Starter": "Quick", "Standard": "Standard", "Contractor": "Standard", "Manufacturer": "Standard", "Enterprise": "Detailed"}
 MODES = ("Quick", "Standard", "Detailed")
 
 

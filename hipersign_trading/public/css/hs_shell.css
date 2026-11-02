@@ -209,3 +209,13 @@ html.hs-theme .hs-tb-ut { max-width: 190px; overflow: hidden; }
 html.hs-theme .hs-tb-ut b, html.hs-theme .hs-tb-ut span { overflow: hidden; text-overflow: ellipsis; }
 /* v1.5.6: no sideways scrollbar in the menu (Arabic / right-to-left) */
 html.hs-theme .body-sidebar-top, html.hs-theme .body-sidebar .sidebar-items, html.hs-theme .body-sidebar { overflow-x: hidden; }
+/* v1.8.0: the language switch — English / العربية / 中文 */
+html.hs-theme .hs-tb-lang { font: 700 13px var(--hs-font); color: var(--hs-ink); }
+html.hs-theme .hs-tb-langs { min-width: 240px; }
+html.hs-theme .hs-tb-langs .dropdown-item { display: flex; align-items: center; gap: 10px; white-space: normal; }
+html.hs-theme .hs-tb-langs .dropdown-item b { display: block; font-weight: 700; }
+html.hs-theme .hs-tb-langs .dropdown-item small { display: block; color: var(--hs-muted); font-size: 11.5px; }
+html.hs-theme .hs-tb-lmark { flex: none; width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; font: 700 12px var(--hs-font);
+	color: #fff; background: linear-gradient(135deg, var(--hs-blue), var(--hs-violet)); }
+html.hs-theme .hs-tb-langs [lang="ar"] b { font-family: "IBM Plex Sans Arabic", var(--hs-font); }
+html.hs-theme .hs-tb-langs [lang="zh"] b, html.hs-theme .hs-tb-langs [lang="zh"] .hs-tb-lmark { font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif; }

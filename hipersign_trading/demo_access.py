@@ -52,6 +52,12 @@ HIPERSIGN_READ = {
 	"overrides.payment_entry.short_payment_info", "api.crm.get_pipeline", "api.crm.sales_users",
 	# v1.7.0: the create modals read their choices before anything is saved
 	"api.create.options", "api.create.party", "api.create.rates", "api.create.link_options", "api.create_flow.prepare",
+	# v1.8.0: the Projects pages and the Project Tracker read only (api.projects.act — every Projects button — is a write)
+	"api.module.get_module", "api.module.get_rows", "api.module_prj.get_tracker", "api.panel.get_panel",
+	# v1.8.0: the Manufacturing pages, the Shop floor and the Production Tracker read only (api.manufacturing.act is a write)
+	"api.module_mfg.get_floor", "api.module_mfg.get_tracker",
+	# v1.8.0: the material request line review and the Create PO window read before anything is saved
+	"api.projects.mr_lines", "api.projects.mr_po_preset",
 }
 
 

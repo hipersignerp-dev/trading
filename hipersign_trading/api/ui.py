@@ -120,8 +120,13 @@ def set_period(period):
 
 @frappe.whitelist(methods=["POST"])
 def set_language(language):
-	if language not in ("en", "ar"):
-		frappe.throw(_("Language must be English or Arabic"))
+	"""v1.8.0: English, Arabic (right to left) or Simplified Chinese — the top bar's language switch."""
+	if language not in ("en", "ar", "zh"):
+		frappe.throw(_("Language must be English, Arabic or Chinese"))
+	if language != "en" and not frappe.db.exists("Language", language):
+		from hipersign_trading.setup import ensure_languages
+
+		ensure_languages()
 	frappe.db.set_value("User", frappe.session.user, "language", language)
 	frappe.clear_cache(user=frappe.session.user)
 	return language
@@ -134,6 +139,11 @@ SEARCH = [
 	("Supplier", "Supplier", ["supplier_name", "tax_id"], "supplier_name", "country"),
 	("Item", "Item", ["item_name", "description"], "item_name", "item_group"),
 	("Lead", "Lead", ["company_name", "lead_name", "mobile_no", "email_id"], "company_name", "lead_name"),
+	# v1.8.0 (prototype p19): projects and their variations / subcontracts, and the factory's work orders (when switched on)
+	("Project", "Project", ["project_name", "customer", "hs_location"], "project_name", "customer"),
+	("Variation Order", "Variation", ["title", "project"], "title", "project"),
+	("Subcontract Order", "Subcontract", ["supplier", "package", "project"], "supplier", "package"),
+	("Work Order", "Work order", ["production_item", "item_name", "sales_order"], "item_name", "status"),
 	("Quotation", "Quotation", ["customer_name", "party_name"], "customer_name", "status"),
 	("Sales Order", "Sales order", ["customer_name", "po_no"], "customer_name", "status"),
 	("Purchase Order", "Purchase order", ["supplier_name"], "supplier_name", "status"),
@@ -149,10 +159,14 @@ SEARCH = [
 	("Serial No", "Serial number", [], "item_name", "status"),
 ]
 
+# v1.8.0: records of a switched-off module stay out of the search
+SEARCH_FEATURE = {"Project": "projects", "Variation Order": "projects", "Subcontract Order": "projects", "Work Order": "manufacturing"}
+
 
 @frappe.whitelist()
 def search(q, limit=12):
 	"""Records by number and name, the prototype's way: type label + number — name. Only what the user may read."""
+	from hipersign_trading.features import feature_on
 	from hipersign_trading.utils import can_read
 
 	q = (q or "").strip()
@@ -161,8 +175,17 @@ def search(q, limit=12):
 		return []
 	out = []
 	like = f"%{q}%"
+	# v1.8.0: screens hidden with the menu builder are left out of the search too
+	from hipersign_trading.menu import hidden_dts_for_user
+
+	try:
+		menu_hidden = set(hidden_dts_for_user())
+	except Exception:
+		menu_hidden = set()
 	for dt, label, fields, title, extra in SEARCH:
-		if len(out) >= limit or not frappe.db.exists("DocType", dt) or not can_read(dt):
+		if len(out) >= limit or dt in menu_hidden or not frappe.db.exists("DocType", dt) or not can_read(dt):
+			continue
+		if SEARCH_FEATURE.get(dt) and not feature_on(SEARCH_FEATURE[dt]):
 			continue
 		meta = frappe.get_meta(dt)
 		fields = [f for f in fields if meta.has_field(f)]

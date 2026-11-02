@@ -18,9 +18,18 @@ ROLE_MAP = {
 	"Finance Manager": "Accounts Manager",
 	"HR Manager": "HR Manager",
 	"Driver": "Driver",
+	"Project Manager": "Project Manager",
+	"Quantity Surveyor": "Quantity Surveyor",
+	"Site Engineer": "Site Engineer",
+	"Production Manager": "Production Manager",
+	"QC Inspector": "QC Inspector",
 }
 
-NEW_ROLES = ["Managing Director", "Logistics Coordinator", "HR Manager", "HR User", "Demo Viewer"]
+NEW_ROLES = ["Managing Director", "Logistics Coordinator", "HR Manager", "HR User", "Demo Viewer",
+	# v1.8.0: the Projects module (prototype p19)
+	"Project Manager", "Quantity Surveyor", "Site Engineer",
+	# v1.8.0: the Manufacturing module (prototype p19)
+	"Production Manager", "QC Inspector"]
 
 # Roles without desk access (they only use the mobile web pages)
 WEB_ROLES = ["Driver"]

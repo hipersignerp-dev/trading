@@ -205,7 +205,9 @@ frappe.provide("hipersign.cm");
 		preset = preset || {};
 		let mode = (hipersign.fm && hipersign.fm.mode(dt)) || "Standard";
 		const st = { v: Object.assign({}, preset), lines: [], o: null, p: {}, rates: {}, prospect: false, L: {} };
-		(preset.items || []).forEach((r) => st.lines.push({ item_code: r.item_code, qty: r.qty, rate: r.rate, discount: r.discount }));
+		// v1.8.0: a line may carry its source (the material request line, warehouse and project of "Create PO")
+		(preset.items || []).forEach((r) => st.lines.push(Object.assign({}, r, { item_code: r.item_code, qty: r.qty, rate: r.rate, discount: r.discount })));
+		delete st.v.items;
 		while (st.lines.length < 3) st.lines.push({});
 		spec.fields.forEach((df) => { if (st.v[df.f] === undefined && df.def !== undefined) st.v[df.f] = typeof df.def === "function" ? df.def() : df.def; });
 		const sh = C.shell({ title: kind === "sales_order" && +preset.hs_is_export ? __("New export order") : spec.title, sub: kind === "sales_order" && +preset.hs_is_export ? __("Foreign customer, currency and incoterm — zero-rated, export shipment follows") : spec.sub, mode, modes: 1, wide: 1,
@@ -390,10 +392,13 @@ frappe.provide("hipersign.cm");
 
 		// v1.7.3: the Detailed fields' own lists (project, tax template, letter head …) and Select options load with the form
 		const extra = [...new Map(spec.fields.filter((df) => df.src && typeof df.src === "object").map((df) => [JSON.stringify(df.src), df.src])).values()];
-		Promise.all([frappe.xcall("hipersign_trading.api.create.options", { kind }), with_meta(dt),
+		Promise.all([frappe.xcall("hipersign_trading.api.create.options", Object.assign({ kind }, preset.company ? { company: preset.company } : {})), with_meta(dt),
 			...extra.map((s) => frappe.xcall("hipersign_trading.api.create.link_options", { doctype: s.dt, query: JSON.stringify({ filters: s.filters }) })
 				.then((r) => { st.L[JSON.stringify(s)] = r || []; }).catch(() => { st.L[JSON.stringify(s)] = []; }))]).then(([o]) => {
 			st.o = o;
+			// v1.8.0: lines passed in keep their item even when it is not on the first page of the list
+			(preset.items || []).forEach((r) => { if (r.item_code && st.o.items && !st.o.items.some((x) => x.name === r.item_code))
+				st.o.items.push({ name: r.item_code, label: `${r.item_code} — ${r.item_name || ""}`, item_name: r.item_name || r.item_code, stock: 1, available: 0 }); });
 			// like the prototype: the first customer / supplier is picked, so the form opens filled in
 			if (!st.v.party && (o[spec.party.src] || []).length) st.v.party = o[spec.party.src][0].name;
 			if (!st.v.currency) st.v.currency = o.currency;
@@ -844,7 +849,7 @@ frappe.provide("hipersign.cm");
 		preset = preset || {};
 		const covered = hipersign.fm && hipersign.fm.COVERED.includes(dt);
 		let mode = (covered && hipersign.fm.mode(dt)) || "Standard";
-		const v = Object.assign({}, preset), opt = {};
+		const v = Object.assign({}, spec.preset || {}, preset), opt = {}; // v1.8.0: a window may carry fixed values (_site: material request to site)
 		spec.fields.forEach((df) => { if (v[df.f] === undefined && df.def !== undefined) v[df.f] = typeof df.def === "function" ? df.def() : df.def; });
 		const R = spec.rows, rows = [];
 		if (R) { (preset.rows || []).forEach((r) => rows.push(Object.assign({}, r))); while (rows.length < R.n) rows.push({}); }

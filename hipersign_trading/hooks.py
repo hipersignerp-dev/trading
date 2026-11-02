@@ -29,6 +29,8 @@ app_include_css = [
 	"/assets/hipersign_trading/css/hs_shell.css" + _v,
 	"/assets/hipersign_trading/css/hs_pages.css" + _v,
 	"/assets/hipersign_trading/css/hs_create.css" + _v,
+	"/assets/hipersign_trading/css/hs_projects.css" + _v,
+	"/assets/hipersign_trading/css/hs_manufacturing.css" + _v,
 ]
 app_include_js = [
 	"/assets/hipersign_trading/js/hipersign.js" + _v,
@@ -49,6 +51,8 @@ app_include_js = [
 	"/assets/hipersign_trading/js/hs_module.js" + _v,
 	"/assets/hipersign_trading/js/hs_tour.js" + _v,
 	"/assets/hipersign_trading/js/hs_deal.js" + _v,
+	"/assets/hipersign_trading/js/hs_projects.js" + _v,
+	"/assets/hipersign_trading/js/hs_manufacturing.js" + _v,
 ]
 
 website_context = {
@@ -68,6 +72,8 @@ boot_session = "hipersign_trading.boot.boot_session"
 override_doctype_class = {
 	"Customer": "hipersign_trading.overrides.party_dashboard.HipersignCustomer",
 	"Supplier": "hipersign_trading.overrides.party_dashboard.HipersignSupplier",
+	# v1.8.0: a partial manufacture entry keeps its own process loss (overrides/stock_entry_mfg.py)
+	"Stock Entry": "hipersign_trading.overrides.stock_entry_mfg.HipersignStockEntry",
 }
 
 before_request = ["hipersign_trading.demo_access.before_request", "hipersign_trading.overrides.user.driver_redirect"]
@@ -159,6 +165,9 @@ doc_events = {
 	},
 	"Quotation": {"before_validate": "hipersign_trading.overrides.pricing.remember", "validate": "hipersign_trading.overrides.quotation.validate"},
 	"Lead": {"validate": "hipersign_trading.overrides.lead.validate"},
+	# v1.8.0: project purchase orders and material requests carry the project on the header (Projects pages, cost heads)
+	"Purchase Order": {"validate": "hipersign_trading.api.projects.po_project"},
+	"Material Request": {"validate": "hipersign_trading.api.projects.mr_project"},
 	"User": {"before_insert": "hipersign_trading.overrides.user.before_insert"},
 }
 
@@ -206,5 +215,16 @@ jinja = {
 		"hipersign_trading.print_helpers.hs_is_export",
 		"hipersign_trading.print_helpers.hs_serials",
 		"hipersign_trading.print_helpers.hs_warranty_months",
+		# v1.8.0: the project prints (BOQ, certificate, progress / retention invoice, variation, subcontract order)
+		"hipersign_trading.print_helpers.hs_project_info",
+		"hipersign_trading.print_helpers.hs_boq_sections",
+		# v1.8.0: the manufacturing prints (job ticket, BOM, QC certificate, finished-goods label — English + Chinese)
+		"hipersign_trading.print_helpers.hs_barcode",
+		"hipersign_trading.print_helpers.hs_qr",
+		"hipersign_trading.print_helpers.hs_company_zh",
+		"hipersign_trading.print_helpers.hs_job_ticket",
+		"hipersign_trading.print_helpers.hs_bom_print",
+		"hipersign_trading.print_helpers.hs_qc_print",
+		"hipersign_trading.print_helpers.hs_fg_label",
 	]
 }

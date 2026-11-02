@@ -22,6 +22,7 @@ def before_migrate():
 
 def after_install():
 	ensure_settings()
+	ensure_languages()
 	default_print_formats()
 	apply_branding()
 	set_credit_controller()
@@ -32,6 +33,7 @@ def after_install():
 
 def after_migrate():
 	ensure_settings()
+	ensure_languages()
 	ensure_cheque_mode()
 	default_print_formats()
 	v13_defaults(new_site=False)
@@ -44,6 +46,30 @@ def after_migrate():
 	navigation.apply()
 
 
+# v1.8.0: the top bar switches between English, Arabic and Simplified Chinese — make sure both Language records exist
+LANGUAGES = (("ar", "العربية"), ("zh", "简体中文"))
+
+
+def ensure_languages():
+	if not frappe.db.table_exists("Language"):
+		return
+	for code, name in LANGUAGES:
+		try:
+			if frappe.db.exists("Language", code):
+				if frappe.get_meta("Language").has_field("enabled") and not frappe.db.get_value("Language", code, "enabled"):
+					frappe.db.set_value("Language", code, "enabled", 1, update_modified=False)
+				continue
+			doc = frappe.new_doc("Language")
+			doc.language_code = code
+			doc.language_name = name
+			if doc.meta.has_field("enabled"):
+				doc.enabled = 1
+			doc.flags.ignore_permissions = True
+			doc.insert()
+		except Exception:
+			frappe.log_error(title=f"Hipersign: Language {code}")
+
+
 # v1.6.0 (QTN-01): ERPNext 16 makes its "… with Item Image" formats the default, so Print, Email and the WhatsApp link
 # sent the English-only ERPNext layout. Our bilingual formats become the default unless the site chose its own.
 PRINT_DEFAULTS = {"Quotation": "Hipersign Quotation", "Sales Order": "Hipersign Order Confirmation", "Sales Invoice": "Hipersign Tax Invoice",
@@ -51,7 +77,12 @@ PRINT_DEFAULTS = {"Quotation": "Hipersign Quotation", "Sales Order": "Hipersign 
 	# v1.7.3: the other documents the prototype prints (Salary Slip only where HRMS is installed)
 	"Purchase Receipt": "Hipersign Goods Receipt Note", "Payment Entry": "Hipersign Payment Voucher",
 	"Delivery Trip": "Hipersign Delivery Trip Sheet", "Export Shipment": "Hipersign Packing List", "Salary Slip": "Hipersign Payslip",
-	"Request for Quotation": "Hipersign Request for Quotation", "Pick List": "Hipersign Pick List"}
+	"Request for Quotation": "Hipersign Request for Quotation", "Pick List": "Hipersign Pick List",
+	# v1.8.0: the project prints (progress and retention invoices are chosen on the Projects screens)
+	"Project BOQ": "Hipersign BOQ Tender", "Progress Certificate": "Hipersign Interim Payment Certificate", "Variation Order": "Hipersign Variation Order",
+	"Subcontract Order": "Hipersign Subcontract Order",
+	# v1.8.0: the manufacturing prints (the finished-goods label is chosen on the work order)
+	"Work Order": "Hipersign Job Ticket", "BOM": "Hipersign Bill of Materials", "Quality Inspection": "Hipersign QC Certificate"}
 
 
 def default_print_formats():
@@ -90,6 +121,8 @@ def v13_defaults(new_site):
 	finance_can_approve_orders()
 	stock_can_read_addresses()
 	stock_can_log_warranty_claims()
+	projects_roles_can_work()
+	manufacturing_roles_can_work()
 
 
 # v1.5.6: ERPNext 16 reads the customer's invoices when the Customer form opens (the dashboard totals) with the user's own
@@ -193,6 +226,92 @@ def stock_can_log_warranty_claims():
 # v1.5.6: Gulf currencies show their code ("AED 1,250.00"), as on the prototype and on UAE invoices, instead of
 # the Arabic abbreviation; a symbol the site changed to something else is left alone
 GULF_SYMBOLS = {"AED": "د.إ", "SAR": "ر.س", "OMR": "ر.ع.", "QAR": "ر.ق", "KWD": "د.ك", "BHD": ".د.ب"}
+
+
+# v1.8.0: what the Projects roles (prototype p19) need on ERPNext's records — the project manager runs the project, the
+# quantity surveyor prices and certifies, the site engineer requests, receives and books hours; the demo viewer reads.
+PROJECT_PERMS = {
+	"Project": {"Project Manager": "rwc", "Quantity Surveyor": "rw", "Site Engineer": "r", "Managing Director": "rwc", "Accounts Manager": "r", "Accounts User": "r", "Demo Viewer": "r"},
+	"Task": {"Project Manager": "rwc", "Quantity Surveyor": "r", "Site Engineer": "rwc", "Managing Director": "r", "Demo Viewer": "r"},
+	"Timesheet": {"Project Manager": "rwcs", "Site Engineer": "rwc", "Managing Director": "r", "Accounts User": "r", "Demo Viewer": "r"},
+	"Activity Type": {"Project Manager": "r", "Site Engineer": "r"},
+	"Activity Cost": {"Project Manager": "rwc", "Site Engineer": "r"},
+	"Material Request": {"Project Manager": "rwcs", "Site Engineer": "rwc", "Quantity Surveyor": "r"},
+	"Purchase Order": {"Project Manager": "r", "Site Engineer": "r", "Quantity Surveyor": "r"},
+	"Purchase Receipt": {"Project Manager": "rwcs", "Site Engineer": "rwcs"},
+	"Stock Entry": {"Project Manager": "rwcs", "Site Engineer": "rwcs"},
+	"Sales Invoice": {"Project Manager": "r", "Quantity Surveyor": "r"},
+	"Purchase Invoice": {"Project Manager": "r", "Quantity Surveyor": "r"},
+	"Bank Guarantee": {"Project Manager": "r", "Quantity Surveyor": "r"},
+	"Employee": {"Project Manager": "r", "Site Engineer": "r"},
+	"Item": {"Project Manager": "r", "Quantity Surveyor": "r", "Site Engineer": "r"},
+	"Warehouse": {"Project Manager": "r", "Site Engineer": "r"},
+	"Supplier": {"Project Manager": "r", "Quantity Surveyor": "r", "Site Engineer": "r"},
+	"Customer": {"Project Manager": "r", "Quantity Surveyor": "r"},
+	"Company": {"Project Manager": "r", "Quantity Surveyor": "r", "Site Engineer": "r"},
+}
+
+
+# v1.8.0: what the Manufacturing roles (prototype p19) need — the production manager plans, releases, issues, runs the shop
+# floor and receives finished goods; the QC inspector inspects incoming lots, operations and batches; the demo viewer reads.
+_PM, _QC, _DV = "Production Manager", "QC Inspector", "Demo Viewer"
+MFG_PERMS = {
+	"BOM": {_PM: "rwcs", _QC: "r", _DV: "r", "Managing Director": "r", "Accounts Manager": "r"},
+	"Routing": {_PM: "rwc", _DV: "r"}, "Operation": {_PM: "rwc", _QC: "r", _DV: "r"}, "Workstation": {_PM: "rwc", _QC: "r", _DV: "r"},
+	"Workstation Operating Component": {_PM: "r", _DV: "r"},
+	"Work Order": {_PM: "rwcs", _QC: "r", _DV: "r", "Managing Director": "r", "Accounts Manager": "r", "Accounts User": "r", "Sales Manager": "r", "Stock User": "r"},
+	"Job Card": {_PM: "rwcs", _QC: "r", _DV: "r", "Manufacturing User": "rwcs", "Managing Director": "r"},
+	"Production Plan": {_PM: "rwcs", _DV: "r", "Managing Director": "r", "Purchase Manager": "r"},
+	"Quality Inspection": {_PM: "r", _QC: "rwcs", _DV: "r", "Managing Director": "r"},
+	"Quality Inspection Template": {_PM: "r", _QC: "rwc", _DV: "r"}, "Quality Inspection Parameter": {_PM: "r", _QC: "rwc", _DV: "r"},
+	"Stock Entry": {_PM: "rwcs", _QC: "r", _DV: "r"}, "Material Request": {_PM: "rwcs", _DV: "r"},
+	"Purchase Order": {_PM: "rwc", _DV: "r"}, "Purchase Receipt": {_PM: "r", _QC: "r", _DV: "r"},
+	"Sales Order": {_PM: "r", _QC: "r", _DV: "r"}, "Delivery Note": {_PM: "r", _DV: "r"}, "Sales Invoice": {_PM: "r"},
+	"Batch": {_PM: "rwc", _QC: "r", _DV: "r"}, "Item": {_PM: "rw", _QC: "r", _DV: "r"}, "Warehouse": {_PM: "r", _QC: "r", _DV: "r"},
+	"Bin": {_PM: "r", _QC: "r", _DV: "r"}, "Customer": {_PM: "r", _QC: "r"}, "Supplier": {_PM: "r", _QC: "r"},
+	"Employee": {_PM: "r", _QC: "r"}, "Company": {_PM: "r", _QC: "r"}, "UOM": {_PM: "r", _QC: "r"},
+	"Stock Ledger Entry": {_PM: "r", _DV: "r"},
+}
+
+
+def manufacturing_roles_can_work():
+	_grant(MFG_PERMS)
+
+
+def projects_roles_can_work():
+	_grant(PROJECT_PERMS)
+
+
+def _grant(table):
+	from frappe.permissions import add_permission, update_permission_property
+
+	ptype = {"r": ("read", "print", "report", "export"), "w": ("write",), "c": ("create",), "s": ("submit",)}
+	for dt, roles in table.items():
+		if not frappe.db.exists("DocType", dt):
+			continue
+		changed = False
+		for role, flags in roles.items():
+			if not frappe.db.exists("Role", role):
+				continue
+			if not frappe.db.get_value("Custom DocPerm", {"parent": dt, "role": role, "permlevel": 0, "if_owner": 0}):
+				frappe.flags.mute_messages = True
+				try:
+					add_permission(dt, role, 0)
+				finally:
+					frappe.flags.mute_messages = False
+				changed = True
+			name = frappe.db.get_value("Custom DocPerm", {"parent": dt, "role": role, "permlevel": 0, "if_owner": 0})
+			if not name:
+				continue
+			for f in flags:
+				for pt in ptype[f]:
+					if pt == "submit" and not frappe.get_meta(dt).is_submittable:
+						continue
+					if not frappe.db.get_value("Custom DocPerm", name, pt):
+						update_permission_property(dt, role, 0, pt, 1, validate=False)
+						changed = True
+		if changed:
+			frappe.clear_cache(doctype=dt)
 
 
 def gulf_currency_codes():

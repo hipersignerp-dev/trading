@@ -1673,3 +1673,2094 @@ Qualified,مؤهل
 Proposal,عرض
 Negotiation,تفاوض
 Lost,خسارة
+Projects,المشاريع
+Estimating & BOQ,التقدير وجدول الكميات
+Site & procurement,الموقع والمشتريات
+Progress & billing,الإنجاز والفوترة
+Subcontractors,مقاولو الباطن
+Timesheets & labour,ساعات العمل والعمالة
+Project costing,تكاليف المشاريع
+Project Tracker,متابعة المشاريع
+Portfolio,المحفظة
+How it works,كيف يعمل
+Red flags,تنبيهات حمراء
+Bill of quantities,جدول الكميات
+Cost build-up,بناء التكلفة
+Tenders & quotations,المناقصات وعروض الأسعار
+Material requests,طلبات المواد
+Deliveries to site,التوريد للموقع
+Site stock,مخزون الموقع
+Returns,المرتجعات
+Progress certificates,شهادات الإنجاز
+Measurement,القياس
+Progress invoices,فواتير الإنجاز
+Retention,المحتجزات
+Advance recovery,استرداد الدفعة المقدمة
+Variations,أوامر التغيير
+Subcontract orders,أوامر مقاولي الباطن
+Claims,المطالبات
+Back-charges,الخصومات
+Timesheets,سجلات الدوام
+By project & task,حسب المشروع والمهمة
+Crew,الطاقم
+Daily site reports,التقارير اليومية للموقع
+By cost head,حسب بند التكلفة
+All projects,كل المشاريع
+New project,مشروع جديد
+New progress certificate,شهادة إنجاز جديدة
+New variation,أمر تغيير جديد
+Win the job,الفوز بالمشروع
+Contract & security,العقد والضمانات
+Mobilise & plan,التجهيز والتخطيط
+Buy & build,الشراء والتنفيذ
+"Measure, bill & control",القياس والفوترة والرقابة
+Complete & close,الإنجاز والإغلاق
+Contractor,مقاول
+Tender,مناقصة
+Mobilising,التجهيز
+Execution,التنفيذ
+Handover,التسليم
+At risk,معرّض للخطر
+Purchase orders,أوامر الشراء
+New BOQ,جدول كميات جديد
+New subcontract order,أمر مقاولة باطن جديد
+New timesheet,سجل دوام جديد
+New task,مهمة جديدة
+Material request,طلب مواد
+Material request to site,طلب مواد للموقع
+Site transfer,تحويل للموقع
+Progress certificate,شهادة إنجاز
+Variation,أمر تغيير
+Subcontract order,أمر مقاولة باطن
+Complete step {0},إكمال الخطوة {0}
+Record certification,تسجيل الاعتماد
+Send to consultant,إرسال للاستشاري
+Send to client,إرسال للعميل
+Client approved,اعتمد العميل
+Receive at site,استلام في الموقع
+Certify,اعتماد
+Retention invoice,فاتورة المحتجزات
+Raise advance invoice,إصدار فاتورة الدفعة المقدمة
+Raise retention invoice,إصدار فاتورة المحتجزات
+Approve submitted,اعتماد المقدَّم
+Signed by both parties,موقَّع من الطرفين
+Print BOQ,طباعة جدول الكميات
+Process — 26 steps,العملية — 26 خطوة
+Project portfolio,محفظة المشاريع
+Closed,مغلق
+Project,المشروع
+Projects & contracting,المشاريع والمقاولات
+Industries,القطاعات
+Project Manager,مدير المشروع
+Quantity Surveyor,مهندس الكميات
+Site Engineer,مهندس الموقع
+Contract value (incl. variations),قيمة العقد (شاملة أوامر التغيير)
+Work done,الأعمال المنجزة
+Certified,المعتمد
+Collected,المحصَّل
+Cost to date,التكلفة حتى تاريخه
+Forecast at completion,التكلفة المتوقعة عند الإنجاز
+Forecast margin,الهامش المتوقع
+Budget,الموازنة
+Committed,الملتزم به
+Actual cost to date,التكلفة الفعلية حتى تاريخه
+Contract value by project,قيمة العقد حسب المشروع
+Where the projects are,أين وصلت المشاريع
+Project BOQ,جدول كميات المشروع
+Progress Certificate,شهادة إنجاز
+Variation Order,أمر تغيير
+Subcontract Order,أمر مقاولة باطن
+Subcontract Claim,مطالبة مقاول باطن
+Back Charge,خصم على المقاول
+Daily Site Report,تقرير الموقع اليومي
+Project Step Log,سجل خطوات المشروع
+Being priced,قيد التسعير
+Awarded,تمت الترسية
+Pending client,بانتظار العميل
+Submitted to consultant,لدى الاستشاري
+Invoiced,مفوتر
+Pending signature,بانتظار التوقيع
+Materials,المواد
+Labour,العمالة
+Subcontract,مقاولات الباطن
+Plant & equipment,المعدات
+Site overheads,مصاريف الموقع
+Open screen,فتح الشاشة
+Tender print,طباعة العطاء
+Post Dated Cheque,شيك مؤجل
+Post-dated cheques,الشيكات المؤجلة
+Post-dated cheques in hand,شيكات آجلة بالصندوق
+Cheques due to deposit,شيكات مستحقة للإيداع
+"Cheques issued, not presented",شيكات صادرة لم تُقدَّم
+Bounced cheques,شيكات مرتجعة
+Direction,الاتجاه
+Received,مستلم
+Issued,صادر
+In Hand,بالصندوق
+Deposited,مودع
+Cleared,تم التحصيل
+Bounced,مرتجعة
+Replaced,مستبدل
+Cancelled,ملغى
+Cheque no.,رقم الشيك
+Cheque date,تاريخ الشيك
+Drawn on (party's bank),مسحوب على (بنك الطرف)
+Our bank account,حسابنا البنكي
+Received / issued on,تاريخ الاستلام / الإصدار
+Deposited on,تاريخ الإيداع
+Cleared on,تاريخ التحصيل
+Bounced on,تاريخ الارتجاع
+Payment entry,قيد الدفع
+Bank charges entry,قيد الرسوم البنكية
+Bank charges on return,رسوم الارتجاع البنكية
+Replaced by,استُبدل بـ
+Deposit,إيداع
+Replacement cheque,شيك بديل
+Cancel cheque,إلغاء الشيك
+Presented & cleared,قُدّم وتم تحصيله
+Return reason,سبب الإرجاع
+Supplier RMA / reference,مرجع المورد للإرجاع
+Damaged in transit,تلف أثناء النقل
+Wrong item supplied,تم توريد صنف خاطئ
+Defective — under warranty,معيب — ضمن الضمان
+Customer cancelled,ألغاه العميل
+Excess quantity,كمية زائدة
+Pricing correction,تصحيح السعر
+Credit note,إشعار دائن
+Debit note,إشعار مدين
+Credit notes to approve,إشعارات دائنة بانتظار الموافقة
+Approval needed,مطلوب موافقة
+Proof of delivery,إثبات التسليم
+Delivery status,حالة التسليم
+Ready to Dispatch,جاهز للإرسال
+Out for Delivery,خرج للتسليم
+Delivered,تم التسليم
+Failed,تعذر التسليم
+Received by,المستلم
+Delivered at,وقت التسليم
+GPS location,الموقع الجغرافي
+Receiver's signature,توقيع المستلم
+Delivery photo,صورة التسليم
+Delivery failed — reason,سبب تعذر التسليم
+Out for delivery,خرج للتسليم
+Ready to dispatch,جاهز للإرسال
+Open driver app,فتح تطبيق السائق
+Hipersign user (driver app login),مستخدم هايبرساين (دخول تطبيق السائق)
+Driver,سائق
+UAE documents & WPS,المستندات الإماراتية ونظام حماية الأجور
+Emirates ID no.,رقم الهوية الإماراتية
+Emirates ID expiry,انتهاء الهوية الإماراتية
+Residence visa expiry,انتهاء الإقامة
+Labour card / MOHRE person ID,بطاقة العمل / الرقم الشخصي
+Labour card expiry,انتهاء بطاقة العمل
+Bank routing code (WPS),رمز توجيه البنك (WPS)
+WPS salary file (SIF),ملف رواتب WPS
+Resolution,المعالجة
+Repair,إصلاح
+Replace,استبدال
+Reject,رفض
+Replacement serial no.,الرقم التسلسلي البديل
+Supplier RMA no.,رقم إرجاع المورد
+Serial & Warranty Look-up,البحث بالرقم التسلسلي والضمان
+Scan or type a serial number,امسح أو اكتب الرقم التسلسلي
+Register warranty claim,تسجيل مطالبة ضمان
+Under warranty,ضمن الضمان
+Warranty expired,انتهى الضمان
+In stock,في المخزون
+Warranty until,الضمان حتى
+Open warranty claims,مطالبات ضمان مفتوحة
+Warranty look-up,البحث عن الضمان
+Statement of account,كشف الحساب
+Warranty,الضمان
+Balance due,الرصيد المستحق
+Overdue,متأخر
+Cheques with us,شيكاتكم لدينا
+Your post-dated cheques with us,شيكاتكم المؤجلة لدينا
+Your warranty claims,مطالبات الضمان الخاصة بكم
+Active,ساري
+Expired,منتهي
+Hipersign Finance,هايبرساين — المالية
+Hipersign Sales,هايبرساين — المبيعات
+Hipersign Warehouse,هايبرساين — المستودع
+Hipersign HR,هايبرساين — الموارد البشرية
+Hipersign Trading,هايبرساين للتجارة
+Finance — what needs you today,المالية — ما يحتاجك اليوم
+Sales — your pipeline and orders,المبيعات — فرصك وطلباتك
+Warehouse & delivery — today,المستودع والتسليم — اليوم
+"People — documents, leave and payroll",الموظفون — المستندات والإجازات والرواتب
+Quick actions,إجراءات سريعة
+Employees,الموظفون
+Visas expiring ≤ 60 days,إقامات تنتهي خلال 60 يوماً
+Import Shipment,شحنة استيراد
+Export Shipment,شحنة تصدير
+Credit Limit Request,طلب حد ائتمان
+Hipersign Settings,إعدادات هايبرساين
+Sales Order Tracker,متابعة أوامر البيع
+Create New,إنشاء جديد
+Bank account for cheques,الحساب البنكي للشيكات
+Bank charges account,حساب الرسوم البنكية
+Returned cheque charge,رسوم الشيك المرتجع
+Remind before cheque date (days),التذكير قبل تاريخ الشيك (أيام)
+MOHRE establishment ID,رقم المنشأة لدى الوزارة
+Employer bank routing code,رمز توجيه بنك صاحب العمل
+Warn before employee documents expire (days),التنبيه قبل انتهاء مستندات الموظف (أيام)
+Returns & warranty,المرتجعات والضمان
+People & assets,الموظفون والأصول
+Receivables,الذمم المدينة
+Payables & bank,الذمم الدائنة والبنك
+Reports & VAT,التقارير والضريبة
+Customers,العملاء
+Documents,المستندات
+After sales,ما بعد البيع
+Stock,المخزون
+Delivery,التسليم
+Serials & warranty,الأرقام التسلسلية والضمان
+People,الموظفون
+Payroll & WPS,الرواتب ونظام حماية الأجور
+Assets,الأصول
+Letter of Credit,خطاب اعتماد
+Letters of credit,خطابات الاعتماد
+Open letters of credit,خطابات اعتماد مفتوحة
+Tax Return,إقرار ضريبي
+Tax returns to approve,إقرارات ضريبية بانتظار الاعتماد
+VAT 201,إقرار ضريبة القيمة المضافة 201
+Corporate Tax,ضريبة الشركات
+Approve & lock,اعتماد وإقفال
+Filed on EmaraTax,مُقدَّم عبر إمارات تاكس
+Send for approval,إرسال للاعتماد
+Return for correction,إعادة للتصحيح
+Refresh figures,تحديث الأرقام
+Record payment,تسجيل الدفع
+Hipersign Smart Reorder,إعادة الطلب الذكية
+Create purchase orders,إنشاء أوامر شراء
+Suggested qty,الكمية المقترحة
+Reorder point,نقطة إعادة الطلب
+Safety stock,مخزون الأمان
+Lead time (days),مدة التوريد (أيام)
+Orders waiting for an advance,طلبات بانتظار الدفعة المقدمة
+Advance required,الدفعة المقدمة المطلوبة
+Advance,الدفعة المقدمة
+Receive advance,استلام دفعة مقدمة
+Advance before delivery,الدفعة المقدمة قبل التسليم
+Waiting,بانتظار
+Part received,مستلمة جزئياً
+Not required,غير مطلوبة
+Advance — to be received before delivery,دفعة مقدمة — تُستلم قبل التسليم
+KYC & compliance,اعرف عميلك والامتثال
+KYC status,حالة اعرف عميلك
+Trade licence no.,رقم الرخصة التجارية
+Trade licence expiry,انتهاء الرخصة التجارية
+Issued by,جهة الإصدار
+Verified,تم التحقق
+Blocked,محظور
+Customers with KYC expired or blocked,عملاء بحالة تحقق منتهية أو محظورة
+KYC notes,ملاحظات التحقق
+Collection,التحصيل
+Collection stage,مرحلة التحصيل
+Last reminder,آخر تذكير
+Promise to pay,وعد بالدفع
+Customer promised to pay on,وعد العميل بالدفع في
+Promised amount,المبلغ الموعود
+Collection notes,ملاحظات التحصيل
+Invoices with a promise to pay,فواتير بوعد دفع
+Friendly reminder,تذكير ودي
+Second reminder,تذكير ثانٍ
+Final notice,إنذار نهائي
+Hold new orders,إيقاف الطلبات الجديدة
+Send reminder on WhatsApp,إرسال تذكير عبر واتساب
+Model / part no.,الطراز / رقم القطعة
+Group,المجموعة
+Owned by the group (%),نسبة ملكية المجموعة (%)
+Minority partner,الشريك الأقلية
+Role in the group,الدور في المجموعة
+Advances & collections,الدفعات المقدمة والتحصيل
+Trade finance,تمويل التجارة
+Tax & period end,الضرائب وإقفال الفترة
+Group companies,شركات المجموعة
+Purchasing,المشتريات
+Reservations & picking,الحجز والانتقاء
+Advances & KYC,الدفعات المقدمة والتحقق
+Expenses & advances,المصروفات والسلف
+Trade finance & compliance,تمويل التجارة والامتثال
+Cash margin,التأمين النقدي
+Trust receipt (bank finance),إيصال أمانة (تمويل بنكي)
+Issued by the bank,صادر من البنك
+Documents presented,تم تقديم المستندات
+Accepted,مقبول
+Paid,مدفوع
+Margin journal entry,قيد التأمين النقدي
+Trust receipt journal entry,قيد إيصال الأمانة
+Expiry date,تاريخ الانتهاء
+LC number,رقم الاعتماد
+Net VAT payable / (refundable),صافي الضريبة المستحقة / (المستردة)
+EmaraTax reference,مرجع إمارات تاكس
+Return & payment due,موعد الإقرار والدفع
+Locked accounting period,الفترة المحاسبية المقفلة
+1. How many companies?,1. كم عدد الشركات؟
+2. Which pack?,2. أي باقة؟
+A rule for {0} on {1} already exists: {2},توجد قاعدة لـ {0} على {1} بالفعل: {2}
+API key,مفتاح API
+API secret,سر API
+Above the bank-charge limit,أعلى من حد الرسوم البنكية
+Above the limit,أعلى من الحد
+Account,الحساب
+Accounts,الحسابات
+Add,إضافة
+Add at least one item with a quantity,أضف صنفاً واحداً على الأقل مع الكمية
+Amount,المبلغ
+Amount field,حقل المبلغ
+Amount received,المبلغ المستلم
+Applied,المطبَّق
+Approve,موافقة
+Approve exception,اعتماد الاستثناء
+Approved,معتمد
+Approved by role,يعتمده الدور
+Approved by the requester,اعتمده مقدم الطلب
+"Approved by the requester, who holds the approving role",اعتمده مقدم الطلب لأنه يملك دور الاعتماد
+Attach,إرفاق
+"Attach the document below with its type (Documents on the form), or request an exception from the {0}:",أرفق المستند أدناه مع نوعه (قسم المستندات في النموذج)، أو اطلب استثناءً من {0}:
+Attachments without a type,مرفقات بدون نوع
+Audit,التدقيق
+Bank charges deducted from the customer's transfer,رسوم بنكية مخصومة من تحويل العميل
+Block,منع
+Book the difference as bank charges,تسجيل الفرق كرسوم بنكية
+Carry on without the {0} for now. The {1} approves the exception; the document stays due until it is attached.,تابع بدون {0} الآن. يعتمد {1} الاستثناء، ويبقى المستند مطلوباً حتى يُرفق.
+Category,الفئة
+Checked,تم التحقق
+Choose single company or group,اختر شركة واحدة أو مجموعة
+"Choose the company on this site, or enter the site URL and the company name on that site.",اختر الشركة على هذا الموقع، أو أدخل رابط الموقع واسم الشركة عليه.
+Choose the {0},اختر {0}
+Closing,الإقفال
+Company,الشركة
+Company Deadline,موعد نظامي للشركة
+Company Document,مستند الشركة
+Company Document Type,نوع مستند الشركة
+Company compliance,امتثال الشركة
+Company licences,تراخيص الشركة
+Company licences due or expired,تراخيص الشركة المستحقة أو المنتهية
+Company name on that site,اسم الشركة على ذلك الموقع
+Company on this site,الشركة على هذا الموقع
+Company {0} not found on this site,الشركة {0} غير موجودة على هذا الموقع
+Consolidation,التوحيد
+Copied {0} lines at today's prices — change the quantities if needed,تم نسخ {0} سطر بأسعار اليوم — عدّل الكميات عند الحاجة
+Corporate tax,ضريبة الشركات
+Country,الدولة
+Create,إنشاء
+Create invoice,إنشاء فاتورة
+Credit,دائن
+Currency,العملة
+Current copy,النسخة الحالية
+Customer,العميل
+Customer PO no.,رقم أمر شراء العميل
+Customs,الجمارك
+Date,التاريخ
+Deadline,الموعد النهائي
+Deadlines calendar,تقويم المواعيد النهائية
+Debit,مدين
+Decide,قرار
+Decided by,قرره
+Decided on,تاريخ القرار
+Decision note,ملاحظة القرار
+Delivered and not yet invoiced — one click creates and submits the tax invoice.,تم التسليم ولم تُصدر فاتورة بعد — نقرة واحدة تنشئ الفاتورة الضريبية وتعتمدها.
+Demo data,البيانات التجريبية
+Demo data is already loading — check back in a few minutes.,البيانات التجريبية قيد التحميل بالفعل — عد بعد بضع دقائق.
+Demo data is loading — check back in a few minutes.,البيانات التجريبية قيد التحميل — عد بعد بضع دقائق.
+Description,الوصف
+Detailed,مفصّل
+Document,المستند
+Document Waiver,استثناء مستند
+Document expected by,المستند متوقع بتاريخ
+Document needed,مستند مطلوب
+Document promised under exception {0} is overdue,المستند الموعود به ضمن الاستثناء {0} متأخر
+Document type,نوع المستند
+Documents overdue under an exception,مستندات متأخرة ضمن استثناء
+Done,تم
+Done on,تم بتاريخ
+Done{0},تم{0}
+Draft,مسودة
+Due,الاستحقاق
+Due for renewal,مستحق التجديد
+Due in {3} days: {0} — {1} ({2}),مستحق خلال {3} يوم: {0} — {1} ({2})
+Due on,تاريخ الاستحقاق
+ESR / UBO,المادة الاقتصادية / المستفيد الحقيقي
+Eliminations,الاستبعادات
+Enter the amount received,أدخل المبلغ المستلم
+Enter the status value.,أدخل قيمة الحالة.
+Every delivery has been invoiced.,صدرت فواتير لكل التسليمات.
+Every field,كل الحقول
+Exception,استثناء
+Exception approved by,اعتمد الاستثناء
+Exception approved: {0} for {1} {2},تم اعتماد الاستثناء: {0} لـ {1} {2}
+Exception approved{0},تم اعتماد الاستثناء{0}
+Exception rejected: {0} for {1} {2},تم رفض الاستثناء: {0} لـ {1} {2}
+Exception requested: {0} for {1} {2},طلب استثناء: {0} لـ {1} {2}
+Exception status,حالة الاستثناء
+Exception {0} approved — you can carry on,تم اعتماد الاستثناء {0} — يمكنك المتابعة
+Exception {0} sent for approval,أُرسل الاستثناء {0} للاعتماد
+Exceptions,الاستثناءات
+Exceptions waiting for approval,استثناءات بانتظار الاعتماد
+Expires,ينتهي
+Expires on,تاريخ الانتهاء
+Export shipment,شحنة تصدير
+External documents,المستندات الخارجية
+Failed: {0},فشل: {0}
+Fewest fields — everything else from the defaults,أقل عدد من الحقول — الباقي من القيم الافتراضية
+Financial year from,السنة المالية من
+Finish set-up,إنهاء الإعداد
+Form mode,وضع النموذج
+Group Trial Balance,ميزان مراجعة المجموعة
+Group Trial Balance Account,حساب ميزان مراجعة المجموعة
+Group consolidation,توحيد المجموعة
+Group ownership %,نسبة ملكية المجموعة %
+"Groups and larger traders — everything: LCs and trade finance, company compliance, group consolidation, HR documents, fixed assets, blocking document rules with exceptions.",للمجموعات والتجار الكبار — كل شيء: الاعتمادات المستندية وتمويل التجارة، امتثال الشركة، توحيد المجموعة، مستندات الموارد البشرية، الأصول الثابتة، وقواعد مستندات مانعة مع استثناءات.
+"Growing importer or exporter — adds CRM, imports and landed cost, exports, approvals, KYC, advances, cheques, bank reconciliation and currencies. Documents are recommended, nothing blocks.",لمستورد أو مصدّر نامٍ — يضيف إدارة العملاء، الاستيراد والتكلفة الواصلة، التصدير، الاعتمادات، اعرف عميلك، الدفعات المقدمة، الشيكات، التسوية البنكية والعملات. المستندات موصى بها ولا شيء يمنع.
+HS Deadlines Open,مواعيد نظامية مفتوحة
+HS Licences Due,تراخيص مستحقة
+HS Overdue Exceptions,استثناءات متأخرة
+HS Pending Exceptions,استثناءات معلقة
+Hipersign Document Rule,قاعدة مستندات هايبرساين
+Hipersign Document Type,نوع مستند هايبرساين
+Hipersign Documents,مستندات هايبرساين
+Hipersign Form Mode,وضع نموذج هايبرساين
+Hipersign Group Consolidation,توحيد مجموعة هايبرساين
+Hipersign Group Member,عضو مجموعة هايبرساين
+Hipersign List Value,قيمة قائمة هايبرساين
+In progress,قيد التنفيذ
+Included in consolidation,مشمول في التوحيد
+Inter-company,بين الشركات
+Inter-company balances do not agree by {0} — check the accounts ticked Inter-company,أرصدة ما بين الشركات غير متطابقة بفارق {0} — راجع الحسابات المعلّمة بين الشركات
+Invoice,الفاتورة
+Invoice settled in full: bank {0} + bank charges {1},سُددت الفاتورة بالكامل: البنك {0} + رسوم بنكية {1}
+Issued on,تاريخ الإصدار
+Issuing authority,جهة الإصدار
+Item,الصنف
+Items,الأصناف
+Last sync,آخر مزامنة
+Lead,عميل محتمل
+Licence,الترخيص
+Line,السطر
+List,القائمة
+Load,تحميل
+Load demo data,تحميل البيانات التجريبية
+Loading demo data in the background — it takes a few minutes. You will get a notification when it is done.,يجري تحميل البيانات التجريبية في الخلفية — يستغرق ذلك بضع دقائق. ستصلك إشعار عند الانتهاء.
+Lost reason,سبب الخسارة
+Main company,الشركة الرئيسية
+Mark done,تحديد كمنجز
+Member,العضو
+Method,الطريقة
+Missing,ناقص
+Missing Documents,المستندات الناقصة
+Missing documents,المستندات الناقصة
+Monthly,شهري
+More than the customer owes — record the extra as an advance in the Standard form.,أكثر مما على العميل — سجّل الزيادة كدفعة مقدمة في النموذج القياسي.
+Multiple companies (group) — consolidation and inter-company,عدة شركات (مجموعة) — التوحيد والمعاملات بين الشركات
+Name,الاسم
+New,جديد
+New expiry date,تاريخ الانتهاء الجديد
+New number (if it changed),الرقم الجديد (إن تغيّر)
+New {0},{0} جديد
+New — {0},جديد — {0}
+Next deadline,الموعد التالي
+Next deadline {0} created,تم إنشاء الموعد التالي {0}
+No expiry,بدون انتهاء
+No item matches — use the Standard form to add a new item,لا يوجد صنف مطابق — استخدم النموذج القياسي لإضافة صنف جديد
+None,لا شيء
+Not permitted,غير مسموح
+Note,ملاحظة
+Notes,ملاحظات
+Number,الرقم
+Off,إيقاف
+On file,موجود
+On submit,عند الاعتماد
+Only a pending request can be approved.,يمكن اعتماد الطلب المعلّق فقط.
+Only a pending request can be rejected.,يمكن رفض الطلب المعلّق فقط.
+Only from amount,فقط من مبلغ
+Only returns / credit notes,المرتجعات / إشعارات الدائن فقط
+Only the {0} can approve this exception.,فقط {0} يمكنه اعتماد هذا الاستثناء.
+Only the {0} can reject this exception.,فقط {0} يمكنه رفض هذا الاستثناء.
+Open,مفتوح
+Open it in Hipersign ERP → Company Compliance.,افتحه في هايبرساين ← امتثال الشركة.
+Open statutory deadlines,مواعيد نظامية مفتوحة
+Open {0},فتح {0}
+Opening,الافتتاحي
+Opens,يفتح
+Optional,اختياري
+Other,أخرى
+Outstanding,المستحق
+Overdue: {0} — {1} (was due {2}),متأخر: {0} — {1} (كان مستحقاً في {2})
+Parent / holding company,الشركة الأم / القابضة
+Party,الطرف
+Payment Entry,قيد الدفع
+Payment method,طريقة الدفع
+Payment {0} · {1} invoice(s),الدفعة {0} · {1} فاتورة
+Pending,معلّق
+Position,المركز
+Presentation currency,عملة العرض
+Price (from the list),السعر (من القائمة)
+Profit for the year,ربح السنة
+Promised by,موعود به بتاريخ
+Purchase Order,أمر الشراء
+Qty,الكمية
+Quantity and item — e.g. 200 cam — then Enter,الكمية والصنف — مثلاً 200 cam — ثم Enter
+Quarterly,ربع سنوي
+Quick,سريع
+Quick entry is not available for {0},الإدخال السريع غير متاح لـ {0}
+Quick invoice,فاتورة سريعة
+Quick receipt,استلام سريع
+Quick {0},{0} سريع
+Quotation,عرض سعر
+Rates to {0} — {1},الأسعار إلى {0} — {1}
+Reason,السبب
+Receive payment,استلام دفعة
+Record,تسجيل
+Record receipt,تسجيل الإيصال
+Record renewal,تسجيل التجديد
+Record type,نوع السجل
+Records,السجلات
+Reference,المرجع
+Reject exception,رفض الاستثناء
+Rejected,مرفوض
+Reminder sent to {0}: {1},أُرسل تذكير إلى {0}: {1}
+Renewal,التجديد
+Renewal cost,تكلفة التجديد
+Renewed,مجدد
+Renewed document,المستند المجدد
+Renewed — valid until {0} (was {1}),تم التجديد — صالح حتى {0} (كان {1})
+Repeat last order — {0} · {1} · {2} lines,تكرار آخر طلب — {0} · {1} · {2} سطر
+Repeats,التكرار
+Report,التقرير
+Request,الطلب
+Request exception,طلب استثناء
+Requested by,طلبه
+Required,مطلوب
+Responsible,المسؤول
+Result,النتيجة
+Role,الدور
+Root,الجذر
+Row {0}: {1} — only {2} is still owed after cheques already issued ({3}). Reduce the amount.,السطر {0}: {1} — المتبقي {2} فقط بعد الشيكات الصادرة ({3}). خفّض المبلغ.
+Rule,القاعدة
+Sales Invoice,فاتورة المبيعات
+Sales Invoice {0} · {1},فاتورة المبيعات {0} · {1}
+Sales Order,أمر البيع
+Save,حفظ
+Save & send on WhatsApp,حفظ وإرسال عبر واتساب
+Send,إرسال
+Series,السلسلة
+Set the bank charges account in Hipersign Settings first.,حدد حساب الرسوم البنكية في إعدادات هايبرساين أولاً.
+Set up Hipersign ERP,إعداد هايبرساين
+Set-up,الإعداد
+Set-up complete,اكتمل الإعداد
+Several items match — pick one,عدة أصناف مطابقة — اختر واحداً
+Shipment mode,طريقة الشحن
+Show,عرض
+Single company,شركة واحدة
+Site URL,رابط الموقع
+"Small local trader, one company — quotations, orders, purchases, stock, delivery, invoices, VAT and accounts. Forms open in Quick mode; no document rules.",تاجر محلي صغير بشركة واحدة — عروض الأسعار، الطلبات، المشتريات، المخزون، التسليم، الفواتير، ضريبة القيمة المضافة والحسابات. النماذج تفتح في الوضع السريع، بدون قواعد مستندات.
+Standard,قياسي
+Standard / Detailed form,النموذج القياسي / المفصّل
+Start renewal (days before expiry),بدء التجديد (أيام قبل الانتهاء)
+Status,الحالة
+Status field,حقل الحالة
+Status value,قيمة الحالة
+Submit order,اعتماد الطلب
+Submitted,معتمد
+Submitted to authority,مقدم للجهة
+Supplier,المورد
+Sync,مزامنة
+Sync all members,مزامنة كل الأعضاء
+Sync trial balance,مزامنة ميزان المراجعة
+Synced on,تاريخ المزامنة
+Synced {0} of {1},تمت مزامنة {0} من {1}
+The customer has no open invoices.,لا توجد فواتير مفتوحة على العميل.
+The date the document is expected cannot be in the past.,لا يمكن أن يكون تاريخ توقع المستند في الماضي.
+The difference of {0} is above the limit of {1} for these invoices (Hipersign Settings → Payments & pricing). ,الفرق {0} أعلى من الحد {1} لهذه الفواتير (إعدادات هايبرساين ← المدفوعات والتسعير). 
+The essential fields,الحقول الأساسية
+The expiry date is before the issue date.,تاريخ الانتهاء قبل تاريخ الإصدار.
+The item list shows the {0} items in {1}. Tick to pick any item.,قائمة الأصناف تعرض {0} صنفاً في {1}. حدد الخيار لاختيار أي صنف.
+The new expiry date must be after the current one ({0}).,يجب أن يكون تاريخ الانتهاء الجديد بعد الحالي ({0}).
+The site switches to the Enterprise pack (group of companies) so every feature has sample data — you can switch back afterwards.,سينتقل الموقع إلى باقة المؤسسات (مجموعة شركات) لتكون لكل ميزة بيانات تجريبية — يمكنك العودة بعد ذلك.
+This site already has {0} submitted invoices — demo data is only loaded on a new or demo site.,يحتوي هذا الموقع على {0} فاتورة معتمدة — تُحمّل البيانات التجريبية على موقع جديد أو تجريبي فقط.
+Total {0},إجمالي {0}
+Two questions — you can change both later in Hipersign Settings → Setup & features. Nothing is deleted when you switch.,سؤالان — يمكنك تغييرهما لاحقاً في إعدادات هايبرساين ← الإعداد والميزات. لا يُحذف شيء عند التبديل.
+Type DEMO to confirm,اكتب DEMO للتأكيد
+"Type DEMO to load the demo companies, customers, items and transactions",اكتب DEMO لتحميل الشركات والعملاء والأصناف والمعاملات التجريبية
+Unknown form mode,وضع نموذج غير معروف
+Unknown pack {0},باقة غير معروفة {0}
+Up to,حتى
+Used,مستخدم
+Used on,تاريخ الاستخدام
+VAT return,إقرار ضريبة القيمة المضافة
+Valid,ساري
+Value,القيمة
+WPS salary file,ملف رواتب نظام حماية الأجور
+When,متى
+When status changes to,عند تغيّر الحالة إلى
+Why,لماذا
+With an exception,مع استثناء
+Year to date (P&L),منذ بداية السنة (الأرباح والخسائر)
+Yearly,سنوي
+You cannot decide your own request.,لا يمكنك البت في طلبك بنفسك.
+Your choice is remembered for next time.,سيُحفظ اختيارك للمرة القادمة.
+"before tax — final prices, credit, approvals and documents are checked on save",قبل الضريبة — يتم التحقق من الأسعار النهائية والائتمان والاعتمادات والمستندات عند الحفظ
+click one to give it a type,انقر على أحدها لتحديد نوعه
+customer,العميل
+estimated,تقديري
+failed: {0},فشل: {0}
+in stock,في المخزون
+line,سطر
+lines,أسطر
+of which minority (non-controlling) interests in equity,منها حقوق الأقلية (غير المسيطرة) في حقوق الملكية
+supplier,المورد
+when {0},عند {0}
+your default,الافتراضي لديك
+{0} attached — you can carry on,تم إرفاق {0} — يمكنك المتابعة
+{0} has no field {1}.,{0} لا يحتوي على الحقل {1}.
+{0} is above the limit of {1} for these invoices. Only the {2} can absorb it — or keep the balance open on the invoice.,{0} أعلى من الحد {1} لهذه الفواتير. فقط {2} يمكنه تحمّله — أو اترك الرصيد مفتوحاً على الفاتورة.
+{0} is already in the {1} list.,{0} موجود بالفعل في قائمة {1}.
+{0} is more than the {1} the customer owes — record the extra as an advance on a full Payment Entry.,{0} أكثر من {1} المستحق على العميل — سجّل الزيادة كدفعة مقدمة في قيد دفع كامل.
+{0} is not submitted — choose “When status changes to” and the status field.,{0} لا يُعتمد — اختر «عند تغيّر الحالة إلى» وحقل الحالة.
+{0} is used on existing documents — deactivate it instead.,{0} مستخدم في مستندات قائمة — قم بتعطيله بدلاً من ذلك.
+"{0} is {1}% owned — minority share of net assets {2}, of profit {3}",{0} مملوكة بنسبة {1}% — حصة الأقلية من صافي الأصول {2} ومن الربح {3}
+"{0} less than the invoices — book it as bank charges to settle them in full, or leave the balance open.",{0} أقل من الفواتير — سجّله كرسوم بنكية لتسويتها بالكامل، أو اترك الرصيد مفتوحاً.
+{0} missing,{0} ناقص
+{0} of {1} expires in {2} days ({3}) — start the renewal,{0} لـ {1} ينتهي خلال {2} يوم ({3}) — ابدأ التجديد
+{0} of {1} has expired ({2}),{0} لـ {1} منتهي ({2})
+"{0} pack, {1}. The menus, rules and forms now follow it. Load demo data from Hipersign Settings → Set-up if this is a demo site.",باقة {0}، {1}. القوائم والقواعد والنماذج تتبعها الآن. حمّل البيانات التجريبية من إعدادات هايبرساين ← الإعداد إذا كان هذا موقعاً تجريبياً.
+{0} {1} created,تم إنشاء {0} {1}
+"{0} {1} saved as a draft — attach the document needed, then submit",حُفظ {0} {1} كمسودة — أرفق المستند المطلوب ثم اعتمده
+{0}: latest trial balance is up to {1},{0}: آخر ميزان مراجعة حتى {1}
+{0}: no trial balance synced up to {1},{0}: لا يوجد ميزان مراجعة متزامن حتى {1}
+{0}: {1} accounts up to {2},{0}: {1} حساب حتى {2}
+— attributable to minority (non-controlling) interests,— العائد لحقوق الأقلية (غير المسيطرة)
+— attributable to the owners of the group,— العائد لمالكي المجموعة
+Hipersign demo data loaded,تم تحميل بيانات هايبرساين التجريبية
+Hipersign demo data failed,فشل تحميل بيانات هايبرساين التجريبية
+Blocks next step,يمنع الخطوة التالية
+Recommended,موصى به
+Exception requested,طُلب استثناء
+"Advance before delivery, collection stages",دفعة مقدمة قبل التسليم، مراحل التحصيل
+Advance payment,دفعة مقدمة
+Advances & payment schedules,الدفعات المقدمة وجداول السداد
+Approval routes — off: documents are approved at once,مسارات الاعتماد — عند الإيقاف تُعتمد المستندات فوراً
+Approval workflows,مسارات الاعتماد
+Asset register and depreciation,سجل الأصول والإهلاك
+Bank advice / transfer copy,إشعار البنك / نسخة التحويل
+Bank reconciliation,التسوية البنكية
+Bank's LC copy,نسخة الاعتماد من البنك
+Bill of entry,بيان الإدخال الجمركي
+Bill of lading / AWB,بوليصة الشحن / بوليصة الشحن الجوي
+Business registration certificate,شهادة تسجيل الأعمال
+Buying,المشتريات
+CRM & leads,إدارة العملاء والفرص
+Certificate of incorporation,شهادة التأسيس
+Certificate of origin,شهادة المنشأ
+Chamber of commerce membership,عضوية غرفة التجارة
+"Cheques in hand and issued, deposit and bounce",الشيكات بالصندوق والصادرة، الإيداع والارتجاع
+Civil Defence,الدفاع المدني
+Civil defence certificate,شهادة الدفاع المدني
+Commercial invoice,الفاتورة التجارية
+Commercial registration (CR),السجل التجاري
+Companies House,سجل الشركات (Companies House)
+"Company licences, deadlines and reminders",تراخيص الشركة والمواعيد والتذكيرات
+Confirmation statement,بيان التأكيد السنوي
+Controls,الضوابط
+Corporate tax registration,تسجيل ضريبة الشركات
+Corporate tax return,إقرار ضريبة الشركات
+Credit notes need the customer's return request,إشعارات الدائن تتطلب طلب الإرجاع من العميل
+Customer KYC documents,مستندات اعرف عميلك
+Customer LPO,أمر شراء العميل
+Customer RFQ / BOQ,طلب عرض سعر العميل / جدول الكميات
+Customer and supplier licences; orders blocked when expired,تراخيص العملاء والموردين؛ تُمنع الطلبات عند انتهائها
+Customer portal,بوابة العملاء
+Customs clearance needs the bill of entry,التخليص الجمركي يتطلب بيان الإدخال
+Customs code,الرمز الجمركي
+DGFT,المديرية العامة للتجارة الخارجية (DGFT)
+Damage photos,صور التلف
+Delivery trips & driver app,رحلات التسليم وتطبيق السائق
+Delivery trips and the driver web app,رحلات التسليم وتطبيق السائق على الويب
+Department of Economy & Tourism,دائرة الاقتصاد والسياحة
+Dubai Chamber,غرفة دبي
+Dubai Customs,جمارك دبي
+Dubai Land Department,دائرة الأراضي والأملاك في دبي
+Emirates ID,الهوية الإماراتية
+Employee documents and WPS file,مستندات الموظفين وملف حماية الأجور
+Establishment card,بطاقة المنشأة
+Exceptions to the KYC block are asked for against this document,تُطلب استثناءات منع اعرف عميلك على هذا المستند
+Exceptions to the advance-before-delivery hold are asked for against this document,تُطلب استثناءات إيقاف الدفعة المقدمة قبل التسليم على هذا المستند
+Exit / export certificate,شهادة الخروج / التصدير
+"Export shipments, proof of export for 0% VAT",شحنات التصدير، إثبات التصدير لضريبة 0%
+Exports & re-exports,التصدير وإعادة التصدير
+Federal Tax Authority,الهيئة الاتحادية للضرائب
+Finance,المالية
+Fixed assets,الأصول الثابتة
+GOSI,التأمينات الاجتماعية (GOSI)
+GOSI certificate,شهادة التأمينات الاجتماعية
+GST registration,تسجيل ضريبة السلع والخدمات (GST)
+GSTN,شبكة ضريبة السلع والخدمات (GSTN)
+General Directorate of Residency (GDRFA),الإدارة العامة للإقامة وشؤون الأجانب
+HR documents & WPS,مستندات الموارد البشرية وحماية الأجور
+Hong Kong,هونغ كونغ
+Import Export Code (IEC),رمز الاستيراد والتصدير (IEC)
+"Import shipments, customs, landed cost",شحنات الاستيراد، الجمارك، التكلفة الواصلة
+Imports & landed cost,الاستيراد والتكلفة الواصلة
+India,الهند
+Inland Revenue Department,دائرة الإيرادات الداخلية
+Insurance certificate,شهادة التأمين
+KYC & licence checks,اعرف عميلك والتحقق من التراخيص
+LCs & trade finance,الاعتمادات المستندية وتمويل التجارة
+"Lead pipeline, follow-ups, lead sources",مسار الفرص، المتابعات، مصادر الفرص
+"Letters of credit, cash margin, trust receipts",الاعتمادات المستندية، الهامش النقدي، إيصالات الأمانة
+"Manual entries from AED 10,000 need a supporting document","القيود اليدوية من 10,000 درهم تتطلب مستنداً داعماً"
+Material requests and supplier quotation comparison,طلبات المواد ومقارنة عروض الموردين
+Ministry of Commerce,وزارة التجارة
+Month-end revaluation reminder,تذكير إعادة التقييم في نهاية الشهر
+Multi-currency & revaluation,تعدد العملات وإعادة التقييم
+Multiple warehouses,مستودعات متعددة
+Order tracker,متتبع الطلبات
+"Orders from AED 50,000 need the customer's purchase order","الطلبات من 50,000 درهم تتطلب أمر شراء العميل"
+Packing list,قائمة التعبئة
+Proforma invoice,الفاتورة المبدئية
+Proof of export for 0% VAT,إثبات التصدير لضريبة 0%
+Purchase requests & RFQs,طلبات الشراء وطلبات عروض الأسعار
+Return request,طلب الإرجاع
+Sales,المبيعات
+Sales order tracker page,صفحة متتبع أوامر البيع
+Saudi Arabia,المملكة العربية السعودية
+Serial numbers & warranty,الأرقام التسلسلية والضمان
+Serial tracking and warranty claims,تتبع الأرقام التسلسلية ومطالبات الضمان
+"Several companies and countries, consolidation",عدة شركات ودول، التوحيد
+Shops & establishment licence,ترخيص المحلات والمنشآت
+Signed delivery note,إشعار التسليم الموقع
+State labour department,دائرة العمل في الولاية
+Statement import and matching,استيراد كشف الحساب ومطابقته
+Statement of account and warranty pages for customers,صفحات كشف الحساب والضمان للعملاء
+Supplier delivery note,إشعار تسليم المورد
+Supplier invoice,فاتورة المورد
+Supplier order confirmation,تأكيد طلب المورد
+Supporting document,مستند داعم
+TRN certificate,شهادة الرقم الضريبي
+Tenancy contract (Ejari),عقد الإيجار (إيجاري)
+The bank's issued LC (MT700) before the LC is marked issued,الاعتماد الصادر من البنك (MT700) قبل تحديد الاعتماد كصادر
+The supplier's confirmation of price and date,تأكيد المورد للسعر والتاريخ
+The supplier's tax invoice must be on file before the bill is booked,يجب وجود الفاتورة الضريبية للمورد قبل تسجيل الفاتورة
+Trade licence,الرخصة التجارية
+"Transfers, reservations and pick lists",التحويلات والحجوزات وقوائم الالتقاط
+United Arab Emirates,الإمارات العربية المتحدة
+United Kingdom,المملكة المتحدة
+VAT registration certificate,شهادة التسجيل في ضريبة القيمة المضافة
+ZATCA,هيئة الزكاة والضريبة والجمارك
+Zakat & VAT certificate,شهادة الزكاة وضريبة القيمة المضافة
+Admin,الإدارة
+Approval Workflows,مسارات الاعتماد
+Approvals,الموافقات
+Balance Sheet,الميزانية العمومية
+Bank Guarantees,الضمانات البنكية
+Bank Reconciliation,التسوية البنكية
+CRM & Leads,العملاء المحتملون
+Company Licences,تراخيص الشركة
+Currency Revaluation,إعادة تقييم العملات
+Customer Portal,بوابة العملاء
+Data Migration,ترحيل البيانات
+Delivery Trips,رحلات التسليم
+Desk theme,مظهر الواجهة
+Dispatch & Delivery,الإرسال والتسليم
+Document Rules,قواعد المستندات
+Driver App,تطبيق السائق
+ERPNext standard,ERPNext القياسي
+Editable Lists,القوائم القابلة للتعديل
+Exports & Re-exports,التصدير وإعادة التصدير
+Finance & Tax,المالية والضرائب
+Fixed Assets,الأصول الثابتة
+General Ledger,دفتر الأستاذ العام
+Goods Receiving,استلام البضائع
+Group Companies,شركات المجموعة
+Group Members,أعضاء المجموعة
+HR & Payroll,الموارد البشرية والرواتب
+Hide ERPNext's “Getting Started” panels,إخفاء لوحات «البدء» في ERPNext
+"Hides the other app tiles (Selling, Buying, Manufacturing, GST India…). Switching it off shows them again.",يخفي مربعات التطبيقات الأخرى (المبيعات، المشتريات، التصنيع، ضريبة الهند…). إيقافه يعيد إظهارها.
+Hipersign,هايبرساين
+Home,الرئيسية
+Imports & Shipments,الاستيراد والشحنات
+Insights & Alerts,التنبيهات والرؤى
+Instead of the desktop of tiles.,بدلاً من سطح المكتب ذي المربعات.
+Inventory & Delivery,المخزون والتسليم
+Journal Entries,القيود اليومية
+KYC & Compliance,التحقق من العملاء والامتثال
+Keep the Hipersign menu on every screen it lists,إبقاء قائمة هايبرساين ظاهرة في كل شاشة تضمها
+LCs & Guarantees,الاعتمادات والضمانات
+Landed Cost & Margin,التكلفة الواصلة والهامش
+Look,المظهر
+Look & menus,المظهر والقوائم
+Menus,القوائم
+Messages,الرسائل
+Open Hipersign Home after login,فتح الصفحة الرئيسية لهايبرساين بعد تسجيل الدخول
+Order Tracker,متابعة الطلبات
+Overview,نظرة عامة
+Payments,المدفوعات
+People & Assets,الموظفون والأصول
+Pick Lists,قوائم الالتقاط
+Post-dated Cheques,الشيكات المؤجلة
+Profit and Loss,الأرباح والخسائر
+Purchase Invoices,فواتير الشراء
+Purchase Orders,أوامر الشراء
+Purchase Requests,طلبات الشراء
+Quotations,عروض الأسعار
+Sales Invoices,فواتير المبيعات
+Sales Orders,أوامر البيع
+Serial & Warranty,الأرقام التسلسلية والضمان
+Show only Hipersign ERP on the desktop,إظهار هايبرساين فقط على سطح المكتب
+Smart Reorder,إعادة الطلب الذكية
+Stock Balance,رصيد المخزون
+Stock Count,جرد المخزون
+Stock Transfers,تحويلات المخزون
+Supplier Quotations,عروض الموردين
+Suppliers,الموردون
+System Settings,إعدادات النظام
+"The colours, fonts and cards of the Hipersign prototype on every ERPNext screen. Users can still pick light or dark from their avatar menu.",ألوان وخطوط وبطاقات نموذج هايبرساين على كل شاشات ERPNext. يمكن للمستخدمين اختيار الوضع الفاتح أو الداكن من قائمة صورتهم.
+The prototype has none; Hipersign's own set-up wizard and demo data take their place.,لا يحتويها النموذج؛ يحل محلها معالج إعداد هايبرساين والبيانات التجريبية.
+"The prototype's menu — Overview, Sales, Purchasing, Inventory & Delivery, Finance & Tax, People & Assets, Admin — as one sidebar that stays on screen. Menu entries of switched-off features are left out.",قائمة النموذج — نظرة عامة، المبيعات، المشتريات، المخزون والتسليم، المالية والضرائب، الموظفون والأصول، الإدارة — في شريط جانبي واحد يبقى ظاهراً. تُستبعد عناصر الميزات المتوقفة.
+Users,المستخدمون
+VAT & Corporate Tax,ضريبة القيمة المضافة وضريبة الشركات
+Warehouse & Stock,المستودع والمخزون
+Warranty Claims,مطالبات الضمان
+Hipersign ERP,هايبرساين ERP
+Demo data switched this site to the Enterprise pack,حوّلت البيانات التجريبية هذا الموقع إلى باقة المؤسسات
+Hipersign Home,الرئيسية
+"One view of purchasing, imports, stock, sales and finance — every number below opens the records behind it.",عرض واحد للمشتريات والاستيراد والمخزون والمبيعات والمالية — كل رقم يفتح السجلات التي خلفه.
+This month,هذا الشهر
+Last month,الشهر الماضي
+Year to date,منذ بداية السنة
+All companies,كل الشركات
+Group revenue (YTD),إيرادات المجموعة (منذ بداية السنة)
+after intercompany {0},بعد استبعاد المعاملات بين الشركات {0}
+Group profit (YTD),ربح المجموعة (منذ بداية السنة)
+Group cash & bank,نقد وبنوك المجموعة
+Group receivables,ذمم المجموعة المدينة
+Revenue (local),الإيرادات (بالعملة المحلية)
+Revenue ({0}),الإيرادات ({0})
+Gross margin,هامش الربح الإجمالي
+Profit ({0}),الربح ({0})
+Cash ({0}),النقد ({0})
+Year to date · translated to {0} at average rates (cash at closing rate),منذ بداية السنة · محوّلة إلى {0} بمتوسط الأسعار (النقد بسعر الإقفال)
+The connected trading lifecycle,دورة التجارة المترابطة
+From international purchase to customer delivery — click a stage,من الشراء الدولي حتى التسليم للعميل — اضغط على أي مرحلة
+Trade Journey,رحلة التجارة
+Nothing waiting for you today.,لا شيء بانتظارك اليوم.
+Work for today,مهام اليوم
+No open alerts.,لا توجد تنبيهات مفتوحة.
+Management priority actions,إجراءات ذات أولوية للإدارة
+{0} open,{0} مفتوحة
+All insights,كل المؤشرات
+Profit — {0},الربح — {0}
+Revenue (net sales),الإيرادات (صافي المبيعات)
+Cost of goods sold (landed),تكلفة البضاعة المباعة (الواصلة)
+Gross profit,إجمالي الربح
+Operating expenses incl. depreciation,المصروفات التشغيلية شاملة الإهلاك
+Net profit before tax,صافي الربح قبل الضريبة
+Profit & loss,الأرباح والخسائر
+Monthly sales vs purchases,المبيعات مقابل المشتريات شهرياً
+Last 12 months · net,آخر 12 شهراً · صافي
+Purchases,المشتريات
+"Every document waiting for a decision, the rule that routed it and who must act. Approving here moves the source document to its next state.",كل مستند بانتظار قرار، والقاعدة التي وجّهته، ومن عليه اتخاذ الإجراء. الاعتماد هنا ينقل المستند الأصلي إلى حالته التالية.
+All document types,كل أنواع المستندات
+All approvers,كل المعتمدين
+Only items I can approve,فقط ما يمكنني اعتماده
+Refresh,تحديث
+Awaiting decision,بانتظار القرار
+Waiting on you,بانتظارك
+Value pending,القيمة المعلقة
+Oldest item,أقدم عنصر
+{0} days,{0} يوم
+Type,النوع
+Waiting for,بانتظار
+by {0} · {1} · {2} days,بواسطة {0} · {1} · {2} يوم
+Not your step,ليست خطوتك
+Nothing is waiting for you.,لا شيء بانتظارك.
+All caught up — nothing is waiting for approval.,تم إنجاز كل شيء — لا شيء بانتظار الاعتماد.
+Approval queue,قائمة الاعتمادات
+{0} shown,{0} معروضة
+Routing rules in force,قواعد التوجيه السارية
+"Thresholds, approvers and the rule that routes each document are kept in Hipersign Settings and the workflows.",الحدود والمعتمدون والقاعدة التي توجّه كل مستند محفوظة في إعدادات هايبرساين وسير العمل.
+Workflows,سير العمل
+Note (optional),ملاحظة (اختياري)
+"Early warnings from shipments, stock, margins, credit and receivables. Each shows its evidence, the rule and a recommended action.",تنبيهات مبكرة من الشحنات والمخزون والهوامش والائتمان والذمم المدينة. يعرض كل تنبيه دليله والقاعدة وإجراءً موصى به.
+Deterministic rules — no AI model connected,قواعد ثابتة — لا يوجد نموذج ذكاء اصطناعي متصل
+Consequence,الأثر
+Mark actioned,تمت المعالجة
+Dismiss,تجاهل
+Reopen,إعادة فتح
+Open source,فتح المصدر
+Open alerts,التنبيهات المفتوحة
+High severity,خطورة عالية
+Actioned,تمت معالجتها
+Rules monitored,القواعد المراقبة
+Dismissed,متجاهلة
+All,الكل
+All categories,كل الفئات
+No alerts in this view,لا توجد تنبيهات في هذا العرض
+Change the filter to see others.,غيّر عامل التصفية لرؤية غيرها.
+Open by category,المفتوحة حسب الفئة
+How alerts work,كيف تعمل التنبيهات
+Rules run on the live records each time you open this page.,تُطبّق القواعد على السجلات الحية في كل مرة تفتح فيها هذه الصفحة.
+Marking an alert actioned or dismissed sticks until the situation changes.,وضع علامة معالجة أو تجاهل على التنبيه يبقى حتى يتغير الوضع.
+You see the alerts for records you are allowed to open.,ترى التنبيهات الخاصة بالسجلات المسموح لك بفتحها.
+"Thresholds (stock, margin, reminder days) are set in Hipersign Settings.",الحدود (المخزون، الهامش، أيام التذكير) تُضبط في إعدادات هايبرساين.
+What was done? (optional),ما الذي تم؟ (اختياري)
+"Comments, @mentions, emails and WhatsApp sends kept on each record — in one inbox. Writing here adds a comment to the record, as on the form.",التعليقات والإشارات @ ورسائل البريد ورسائل WhatsApp المحفوظة على كل سجل — في صندوق وارد واحد. الكتابة هنا تضيف تعليقاً على السجل كما في النموذج.
+Mentions,الإشارات
+I'm in,أشارك فيها
+Email,بريد إلكتروني
+All records,كل السجلات
+Comment,تعليق
+No conversations in the last 60 days.,لا توجد محادثات في آخر 60 يوماً.
+No messages yet — write the first one.,لا توجد رسائل بعد — اكتب أول رسالة.
+Open record,فتح السجل
+Type @ to mention a colleague — they get a notification.,اكتب @ للإشارة إلى زميل — سيصله إشعار.
+Write a message…,اكتب رسالة…
+Loading…,جارٍ التحميل…
+Pick a conversation.,اختر محادثة.
+"One purchase followed end to end: supplier order, shipment, receipt, landed cost, the sales that used the stock, delivery and payment.",عملية شراء واحدة من البداية إلى النهاية: أمر المورد، الشحنة، الاستلام، التكلفة الواصلة، المبيعات التي استخدمت المخزون، التسليم والدفع.
+Journey of {0},رحلة {0}
+{0} of {1} stages complete,اكتملت {0} من {1} مراحل
+Open purchase order,فتح أمر الشراء
+No purchase orders yet.,لا توجد أوامر شراء بعد.
+"Freight, insurance, duty, clearing and handling spread onto the goods — the real cost of every unit, and the margin it earns against the price.",الشحن والتأمين والرسوم الجمركية والتخليص والمناولة موزعة على البضائع — التكلفة الحقيقية لكل وحدة والهامش الذي تحققه مقابل السعر.
+Landed cost vouchers,قسائم التكلفة الواصلة
+No import shipments yet.,لا توجد شحنات استيراد بعد.
+Landed unit cost,تكلفة الوحدة الواصلة
+Goods,البضائع
+Freight,الشحن
+Duty & clearing,الجمارك والتخليص
+Insurance & handling,التأمين والمناولة
+Landed cost,التكلفة الواصلة
+Import charges this month,رسوم الاستيراد هذا الشهر
+Average landed uplift,متوسط زيادة التكلفة الواصلة
+charges ÷ goods value,الرسوم ÷ قيمة البضائع
+{0} · target {1}%,{0} · المستهدف {1}%
+Items below target margin,أصناف دون الهامش المستهدف
+sold in the last 60 days,مباعة في آخر 60 يوماً
+Charges not yet in stock cost,رسوم لم تُضف بعد إلى تكلفة المخزون
+received shipments without a landed cost voucher,شحنات مستلمة بدون قسيمة تكلفة واصلة
+Shipment,الشحنة
+Insurance,التأمين
+Duty,الرسوم الجمركية
+Clearing,التخليص
+Handling & other,المناولة وأخرى
+Uplift,الزيادة
+In stock cost,في تكلفة المخزون
+Not yet,ليس بعد
+List price,سعر القائمة
+Average sold,متوسط سعر البيع
+Qty sold (60 days),الكمية المباعة (60 يوماً)
+Margin,الهامش
+(list),(القائمة)
+No stock items.,لا توجد أصناف مخزنية.
+Landed cost of a shipment,التكلفة الواصلة لشحنة
+Price helper,مساعد التسعير
+Target margin %,الهامش المستهدف %
+Pick an item to see the lowest price that keeps the margin.,اختر صنفاً لمعرفة أقل سعر يحافظ على الهامش.
+Shipments and their charges,الشحنات ورسومها
+Item margins after landed cost,هوامش الأصناف بعد التكلفة الواصلة
+"lowest first · from sales in the last 60 days, otherwise the list price",الأقل أولاً · من مبيعات آخر 60 يوماً، وإلا فسعر القائمة
+Landed cost {0} → sell at <b>{1}</b> or more to keep {2}% margin.,التكلفة الواصلة {0} ← بِع بسعر <b>{1}</b> أو أكثر للحفاظ على هامش {2}%.
+Current list price {0} gives {1}% margin.,سعر القائمة الحالي {0} يحقق هامش {1}%.
+No list price yet.,لا يوجد سعر قائمة بعد.
+Test Centre,مركز الاختبار
+"Walk through each test script on the demo data: open the screen, do the steps, compare with the expected result and record Pass, Fail or Blocked.",نفّذ كل سيناريو اختبار على البيانات التجريبية: افتح الشاشة، نفّذ الخطوات، قارن بالنتيجة المتوقعة وسجّل ناجح أو فاشل أو متوقف.
+All sections,كل الأقسام
+All results,كل النتائج
+Clear all results,مسح كل النتائج
+Clear every recorded result?,مسح كل النتائج المسجلة؟
+Tests,الاختبارات
+{0} sections,{0} أقسام
+Run,تشغيل
+Passed,ناجح
+ID,المعرّف
+Steps,الخطوات
+Expected,المتوقع
+Start,ابدأ
+No tests match.,لا توجد اختبارات مطابقة.
+Note saved,تم حفظ الملاحظة
+Add-ons & Pricing,الإضافات والأسعار
+"Optional extras for messaging, tracking, payments and compliance. Tick what the client wants — hours and cost add up, needed add-ons are included automatically.",إضافات اختيارية للمراسلة والتتبع والمدفوعات والامتثال. حدّد ما يريده العميل — تُجمع الساعات والتكلفة، وتُضاف الإضافات اللازمة تلقائياً.
+Also added: {0} (needed),أُضيف أيضاً: {0} (مطلوب)
+Also removed: {0} (needs {1}),أُزيل أيضاً: {0} (يتطلب {1})
+one of: {0},أحد: {0}
+or,أو
+combined,مجتمعة
+Needs {0} — added automatically when you tick this,يتطلب {0} — يُضاف تلقائياً عند تحديد هذا الخيار
+Remove,إزالة
+Development time,وقت التطوير
+hours,ساعات
+about 1 week at 30 h a week,حوالي أسبوع واحد بمعدل 30 ساعة أسبوعياً
+about {0} weeks at 30 h a week,حوالي {0} أسابيع بمعدل 30 ساعة أسبوعياً
+about {0}–{1} weeks at 30 h a week,حوالي {0}–{1} أسابيع بمعدل 30 ساعة أسبوعياً
+Estimated cost (excl. VAT),التكلفة التقديرية (غير شاملة VAT)
+at {0} per hour,بسعر {0} للساعة
+incl. {0}% contingency,شاملة {0}% احتياطي
+Print / PDF estimate,طباعة / تقدير PDF
+Clear,مسح
+"Third-party fees (Meta, SMS, maps, GPS subscriptions, gateways) are paid by the client directly to the provider and are not included.",رسوم الأطراف الثالثة (Meta، الرسائل النصية، الخرائط، اشتراكات GPS، بوابات الدفع) يدفعها العميل مباشرة للمزوّد وغير مشمولة.
+Nothing selected yet,لم يتم اختيار شيء بعد
+Tick the add-ons the client is interested in — hours and cost add up here.,حدّد الإضافات التي يهتم بها العميل — تُجمع الساعات والتكلفة هنا.
+Hourly rate (AED),سعر الساعة (AED)
+Contingency,الاحتياطي
+Client name (for the estimate),اسم العميل (للتقدير)
+e.g. Al Noor LLC,مثال: Al Noor LLC
+Only the Administrator or Managing Director can change the rate.,فقط المسؤول أو المدير العام يمكنه تغيير السعر.
+Search add-ons,بحث في الإضافات
+No add-ons match.,لا توجد إضافات مطابقة.
+Your selection,اختيارك
+Pricing settings,إعدادات التسعير
+Allow pop-ups to print the estimate.,اسمح بالنوافذ المنبثقة لطباعة التقدير.
+Add-on estimate,تقدير الإضافات
+Prepared for,مُعدّ لـ
+Valid for,صالح لمدة
+30 days,30 يوماً
+Add-on,الإضافة
+"Estimated cost (AED, excl. VAT)",التكلفة التقديرية (AED، غير شاملة VAT)
+Total,الإجمالي
+{0} to date,{0} حتى تاريخه
+Synced {0},تمت المزامنة {0}
+Supplier purchasing,المشتريات من الموردين
+{0} open POs,{0} أوامر شراء مفتوحة
+Import & shipment,الاستيراد والشحن
+{0} shipments open,{0} شحنات مفتوحة
+{0} at port / customs,{0} في الميناء / الجمارك
+Goods receiving,استلام البضائع
+{0} ready to receive,{0} جاهزة للاستلام
+{0} receipts this month,{0} استلامات هذا الشهر
+Warehouse & inventory,المستودعات والمخزون
+{0} items low / out,{0} أصناف منخفضة / نافدة
+Sales & orders,المبيعات والطلبات
+{0} orders to deliver,{0} طلبات للتسليم
+Dispatch & delivery,الإرسال والتسليم
+{0} notes not delivered,{0} إشعارات تسليم لم تُسلَّم
+{0} out for delivery,{0} قيد التوصيل
+Finance & visibility,المالية والرقابة
+receivable,مستحق القبض
+{0} overdue,{0} متأخرة
+Total sales (net),إجمالي المبيعات (صافي)
+{0} · {1} invoices,{0} · {1} فواتير
+Total purchases,إجمالي المشتريات
+{0} · orders placed,{0} · طلبات مسجلة
+{0}% margin after landed cost · target {1}%,هامش {0}% بعد التكلفة الواصلة · المستهدف {1}%
+Net profit (before tax),صافي الربح (قبل الضريبة)
+{0}% net margin · after {1} expenses,صافي هامش {0}% · بعد مصروفات {1}
+Stock value,قيمة المخزون
+Valued at landed cost,مقيّم بالتكلفة الواصلة
+Outstanding receivables,الذمم المدينة القائمة
+{0} open invoices,{0} فواتير مفتوحة
+Overdue receivables,الذمم المدينة المتأخرة
+{0} past due,{0} متجاوزة الاستحقاق
+Payables due ≤ 30 days,مستحقات الموردين خلال 30 يوماً
+Suppliers & service providers,الموردون ومقدمو الخدمات
+Cash & bank,النقد والبنك
+"After receipts, payments, salaries & expenses",بعد المقبوضات والمدفوعات والرواتب والمصروفات
+{0} to deposit this week · {1} bounced,{0} للإيداع هذا الأسبوع · {1} مرتجعة
+Shipments in transit,شحنات في الطريق
+{0} at port / customs / cleared,{0} في الميناء / الجمارك / مخلّصة
+Export shipments,شحنات التصدير
+{0} awaiting proof of export (0% VAT),{0} بانتظار إثبات التصدير (VAT 0%)
+Sales pipeline (CRM),فرص البيع
+{0} open leads · {1} follow-ups due,{0} عملاء محتملون مفتوحون · {1} متابعات مستحقة
+Open sales orders,أوامر بيع مفتوحة
+{0} orders incl. VAT,{0} طلبات شاملة VAT
+Pending approvals,موافقات معلقة
+"POs, orders, payments, stock, exceptions",أوامر الشراء، الطلبات، المدفوعات، المخزون، الاستثناءات
+open to-dos for you,مهام مفتوحة لك
+approvals waiting for you,موافقات بانتظارك
+unread notifications,إشعارات غير مقروءة
+lead follow-ups due,متابعات عملاء مستحقة
+cheques ready to deposit,شيكات جاهزة للإيداع
+deliveries to invoice,تسليمات بانتظار الفوترة
+bank lines to reconcile,قيود بنكية للمطابقة
+shipments to receive,شحنات للاستلام
+open warranty claims,مطالبات ضمان مفتوحة
+leave requests,طلبات إجازة
+compliance to-dos,مهام امتثال
+Workflow {0} — {1},سير العمل {0} — {1}
+Document exception,استثناء مستند
+{0} for {1} {2},{0} لـ {1} {2}
+Approve & lock before filing on EmaraTax · due {0},اعتمد وأقفل قبل التقديم على EmaraTax · الاستحقاق {0}
+Leave Application,طلب إجازة
+{0} · {1} · {2} days from {3},{0} · {1} · {2} يوم من {3}
+Expense Claim,مطالبة مصروفات
+Unknown approval,اعتماد غير معروف
+to {0},إلى {0}
+received,مستلم
+Write a message first,اكتب رسالة أولاً
+Purchase order,أمر الشراء
+Incoterm,شرط التسليم (Incoterm)
+Mode,الطريقة
+Bill of Entry,بيان الاستيراد
+{0} of {1},{0} من {1}
+Local purchase,شراء محلي
+No import shipment — a local supplier.,لا توجد شحنة استيراد — مورد محلي.
+Partly received,مستلم جزئياً
+Awaiting,بالانتظار
+Receipt,الإيصال
+No receipt yet.,لا يوجد استلام بعد.
+Not applied,غير مطبّق
+"Freight, insurance, duty, clearing, handling",الشحن، التأمين، الرسوم الجمركية، التخليص، المناولة
+Landed uplift,زيادة التكلفة الواصلة
+Landed unit cost — {0},تكلفة الوحدة الواصلة — {0}
+Landed cost voucher,قسيمة التكلفة الواصلة
+Sales orders using this stock,أوامر البيع التي تستخدم هذا المخزون
+{0} orders,{0} طلبات
+No sales after receipt yet.,لا توجد مبيعات بعد الاستلام.
+delivered,مُسلَّم
+Nothing dispatched yet.,لم يُرسل شيء بعد.
+Invoice & payment,الفاتورة والدفع
+{0} invoices,{0} فواتير
+paid,مدفوع
+Not invoiced yet.,لم تصدر فاتورة بعد.
+{0} is missing {1},{0} ينقصه {1}
+Goods are at port — each day without clearance adds demurrage and storage.,البضائع في الميناء — كل يوم بدون تخليص يضيف رسوم تأخير وتخزين.
+Chase the supplier for the original document and send it to the customs broker.,تابع مع المورد للحصول على المستند الأصلي وأرسله إلى المخلّص الجمركي.
+{0} — {1} overdue {2} days,{0} — {1} متأخرة {2} يوم
+Cash collection is behind plan.,التحصيل النقدي متأخر عن الخطة.
+Call the customer and hold new orders until paid.,اتصل بالعميل وأوقف الطلبات الجديدة حتى السداد.
+Cheque {0} from {1} bounced,الشيك {0} من {1} مرتجع
+The invoice is unpaid again and the customer's credit risk has increased.,الفاتورة غير مدفوعة مجدداً وارتفعت مخاطر ائتمان العميل.
+Collect a replacement cheque or transfer and hold new orders until settled.,احصل على شيك بديل أو تحويل وأوقف الطلبات الجديدة حتى التسوية.
+Cheque {0} from {1} is ready to deposit,الشيك {0} من {1} جاهز للإيداع
+A cheque deposited late delays cash and may go stale after six months.,إيداع الشيك متأخراً يؤخر النقد وقد يصبح الشيك متقادماً بعد ستة أشهر.
+Deposit it at the bank and mark it Deposited.,أودعه في البنك وضع عليه حالة مودَع.
+{0} is {1} in {2},{0} {1} في {2}
+out of stock,نافد من المخزون
+below reorder level,دون مستوى إعادة الطلب
+Projected,المتوقع
+Reorder level,مستوى إعادة الطلب
+Orders for this item will wait for stock.,طلبات هذا الصنف ستنتظر توفر المخزون.
+Raise a purchase order — Smart Reorder suggests quantities by supplier.,أنشئ أمر شراء — إعادة الطلب الذكية تقترح الكميات حسب المورد.
+{0} has not moved for 90 days in {1},{0} لم يتحرك منذ 90 يوماً في {1}
+Quantity,الكمية
+Cash is tied up in stock that is not selling.,النقد محتجز في مخزون لا يُباع.
+Offer it in the next promotion or move it to a branch that sells it.,اعرضه في العرض الترويجي القادم أو انقله إلى فرع يبيعه.
+{0} sold at {1}% margin — target {2}%,{0} بيع بهامش {1}% — المستهدف {2}%
+Sales (60 days),المبيعات (60 يوماً)
+Profit is lower than planned on this item.,الربح على هذا الصنف أقل من المخطط.
+Check discounts given and the landed cost; raise the list price if needed.,راجع الخصومات الممنوحة والتكلفة الواصلة، وارفع سعر القائمة إذا لزم.
+{0} is due on {1},{0} مستحق في {1}
+Return,إرجاع
+A late return or payment brings FTA penalties.,التأخر في الإقرار أو الدفع يترتب عليه غرامات من الهيئة الاتحادية للضرائب.
+Approve the return and file it on EmaraTax.,اعتمد الإقرار وقدّمه على EmaraTax.
+residence visa,تأشيرة الإقامة
+labour card,بطاقة العمل
+{0}'s {1} expires in {2} days,{1} الخاصة بـ {0} تنتهي خلال {2} يوم
+{0}'s {1} expired {2} days ago,{1} الخاصة بـ {0} انتهت منذ {2} يوم
+Employee,الموظف
+Expiry,الانتهاء
+"An expired visa, Emirates ID or labour card can lead to fines and blocks WPS salary payments.",انتهاء التأشيرة أو الهوية الإماراتية أو بطاقة العمل قد يؤدي إلى غرامات ويوقف صرف الرواتب عبر WPS.
+Start the renewal with the PRO now.,ابدأ التجديد مع مندوب العلاقات العامة الآن.
+{0} expires {1} — {2},{0} ينتهي {1} — {2}
+documents not yet presented,مستندات لم تُقدَّم بعد
+After expiry the bank will not pay under the LC.,بعد الانتهاء لن يدفع البنك بموجب خطاب الاعتماد.
+Present the documents or ask the bank for an amendment.,قدّم المستندات أو اطلب من البنك تعديلاً.
+Guarantee {0} for {1} ends {2},الضمان {0} لـ {1} ينتهي {2}
+Ends,ينتهي
+The beneficiary may call the guarantee or the bank keeps charging commission.,قد يطالب المستفيد بالضمان أو يستمر البنك في احتساب العمولة.
+Ask the beneficiary to release it or extend it with the bank.,اطلب من المستفيد الإفراج عنه أو مدّده مع البنك.
+{0} — {1} expired {2} days ago,{0} — {1} انتهى منذ {2} يوم
+{0} — {1} expires in {2} days,{0} — {1} ينتهي خلال {2} يوم
+Trading with an expired licence brings fines and can block customs and bank services.,التداول برخصة منتهية يترتب عليه غرامات وقد يوقف خدمات الجمارك والبنوك.
+Start or finish the renewal and record the new expiry date.,ابدأ التجديد أو أكمله وسجّل تاريخ الانتهاء الجديد.
+{0} due {1},{0} مستحق {1}
+{0} overdue since {1},{0} متأخر منذ {1}
+A missed statutory deadline brings penalties.,تفويت موعد نظامي يترتب عليه غرامات.
+Complete it and mark it done.,أكمله وضع عليه علامة منجز.
+{0} — trade licence expired on {1},{0} — انتهت الرخصة التجارية في {1}
+{0} — KYC blocked,{0} — اعرف عميلك محظور
+Licence expiry,انتهاء الرخصة
+New orders for this customer cannot be confirmed.,لا يمكن تأكيد طلبات جديدة لهذا العميل.
+Ask the customer for the renewed licence and update KYC.,اطلب من العميل الرخصة المجددة وحدّث اعرف عميلك.
+{0} for {1} {2} — {3},{0} لـ {1} {2} — {3}
+overdue,متأخر
+waiting for the {0},بانتظار {0}
+Document due,مستند مستحق
+The record went ahead without its document.,تم السير في السجل بدون مستنده.
+The record is waiting for the exception to be decided.,السجل بانتظار البت في الاستثناء.
+Attach the document to the record.,أرفق المستند بالسجل.
+Approve or reject the exception.,اعتمد الاستثناء أو ارفضه.
+Unknown status,حالة غير معروفة
+Unknown result,نتيجة غير معروفة
+Messaging & social media,المراسلة ووسائل التواصل الاجتماعي
+Tracking & field work,التتبع والعمل الميداني
+"Payments, compliance & more",المدفوعات والامتثال والمزيد
+WhatsApp click-to-chat,WhatsApp بنقرة للمحادثة
+"WhatsApp buttons on quotations, orders and invoices that open WhatsApp with the message and PDF link ready.",أزرار WhatsApp على عروض الأسعار والطلبات والفواتير تفتح WhatsApp والرسالة ورابط PDF جاهزان.
+None — sent from the user’s own phone (not tracked).,لا شيء — تُرسل من هاتف المستخدم الخاص (غير متتبعة).
+WhatsApp Business integration,تكامل WhatsApp Business
+"Shared WhatsApp inbox inside the ERP, linked to customers and orders; approved templates; opt-in tracking; unknown numbers become CRM leads.",صندوق وارد WhatsApp مشترك داخل النظام مرتبط بالعملاء والطلبات؛ قوالب معتمدة؛ تتبع الموافقة؛ الأرقام غير المعروفة تصبح عملاء محتملين في CRM.
+Meta per-message fees · WhatsApp Business account · template approval by Meta.,رسوم Meta لكل رسالة · حساب WhatsApp Business · اعتماد القوالب من Meta.
+Automatic WhatsApp alerts,تنبيهات WhatsApp التلقائية
+"Order confirmed, out for delivery, invoice due and payment received — sent automatically.",تأكيد الطلب، قيد التوصيل، استحقاق الفاتورة واستلام الدفعة — تُرسل تلقائياً.
+Meta per-message fees.,رسوم Meta لكل رسالة.
+Facebook Lead Ads → CRM,إعلانات Facebook للعملاء المحتملين ← CRM
+"Leads from Facebook ad forms appear instantly in CRM with source and campaign, assigned to a salesperson.",العملاء المحتملون من نماذج إعلانات Facebook يظهرون فوراً في CRM مع المصدر والحملة، ويُسندون إلى مندوب مبيعات.
+Meta Business account · Meta app review.,حساب Meta Business · مراجعة تطبيق Meta.
+Facebook Messenger inbox,صندوق وارد Facebook Messenger
+Facebook page messages answered from the ERP and linked to the lead or customer.,الرد على رسائل صفحة Facebook من النظام وربطها بالعميل المحتمل أو العميل.
+Meta app review.,مراجعة تطبيق Meta.
+Instagram DMs → inbox & CRM,رسائل Instagram ← صندوق الوارد و CRM
+Instagram business messages in the same inbox; new enquiries become leads.,رسائل Instagram التجارية في نفس صندوق الوارد؛ الاستفسارات الجديدة تصبح عملاء محتملين.
+Instagram Professional account linked to the Facebook page.,حساب Instagram احترافي مرتبط بصفحة Facebook.
+Instagram Lead Ads → CRM,إعلانات Instagram للعملاء المحتملين ← CRM
+Instagram ad-form leads into CRM with campaign source.,العملاء المحتملون من نماذج إعلانات Instagram إلى CRM مع مصدر الحملة.
+Same Meta setup as Facebook.,نفس إعداد Meta الخاص بـ Facebook.
+Snapchat Lead Ads → CRM,إعلانات Snapchat للعملاء المحتملين ← CRM
+Leads from Snapchat lead-generation ads into CRM with campaign source. (Snapchat offers no business-chat connection for software — ad leads only.),العملاء المحتملون من إعلانات Snapchat لتوليد العملاء إلى CRM مع مصدر الحملة. (لا يوفر Snapchat ربطاً للمحادثات التجارية مع البرامج — إعلانات العملاء المحتملين فقط.)
+Snap Business account.,حساب Snap Business.
+TikTok Lead Ads → CRM,إعلانات TikTok للعملاء المحتملين ← CRM
+TikTok ad-form leads into CRM.,العملاء المحتملون من نماذج إعلانات TikTok إلى CRM.
+TikTok For Business account.,حساب TikTok For Business.
+LinkedIn Lead Gen Forms → CRM,نماذج LinkedIn Lead Gen ← CRM
+B2B leads from LinkedIn ads into CRM.,عملاء محتملون B2B من إعلانات LinkedIn إلى CRM.
+LinkedIn Campaign Manager · LinkedIn approval.,LinkedIn Campaign Manager · موافقة LinkedIn.
+Website & Google Ads forms → CRM,نماذج الموقع و Google Ads ← CRM
+Website contact and quote forms create leads automatically.,نماذج التواصل وطلب عروض الأسعار في الموقع تنشئ عملاء محتملين تلقائياً.
+None.,لا شيء.
+Email inbox (Microsoft 365 / Gmail),صندوق البريد (Microsoft 365 / Gmail)
+Shared mailboxes connected; emails filed on the right customer or order; replies tracked.,صناديق بريد مشتركة متصلة؛ الرسائل تُحفظ على العميل أو الطلب الصحيح؛ الردود متتبعة.
+Existing Microsoft 365 / Google Workspace licences.,تراخيص Microsoft 365 / Google Workspace الحالية.
+SMS notifications,إشعارات الرسائل النصية
+Delivery and payment SMS through a UAE SMS provider.,رسائل نصية للتسليم والدفع عبر مزوّد رسائل نصية في الإمارات.
+SMS credits · sender ID registration.,رصيد الرسائل النصية · تسجيل اسم المرسل.
+Telephone integration,تكامل الهاتف
+"Click-to-call from the ERP, calls logged on the customer, missed-call follow-ups.",الاتصال بنقرة من النظام، تسجيل المكالمات على العميل، متابعة المكالمات الفائتة.
+Cloud phone system subscription.,اشتراك نظام هاتف سحابي.
+Vehicle GPS tracking,تتبع المركبات بـ GPS
+"Live map of delivery vehicles and trip history from the GPS devices already in the vans, shown against delivery notes.",خريطة حية لمركبات التوصيل وسجل الرحلات من أجهزة GPS الموجودة في المركبات، معروضة مقابل إشعارات التسليم.
+GPS device & tracking subscription · provider must allow data access (most do).,اشتراك جهاز وتتبع GPS · يجب أن يسمح المزوّد بالوصول إلى البيانات (معظمهم يسمح).
+Driver phone tracking (no hardware),تتبع هاتف السائق (بدون أجهزة)
+The driver app shares the phone’s location during a trip; the dispatcher sees live positions.,تطبيق السائق يشارك موقع الهاتف أثناء الرحلة؛ ويرى المُرسِل المواقع الحية.
+Google Maps usage · driver’s mobile data.,استخدام Google Maps · بيانات الجوال للسائق.
+Live delivery link for customers,رابط تتبع التوصيل للعملاء
+The customer receives a link showing “driver on the way” and the estimated arrival time.,يتلقى العميل رابطاً يعرض “السائق في الطريق” ووقت الوصول المتوقع.
+Maps usage.,استخدام الخرائط.
+Automatic arrival & proof of delivery,تسجيل الوصول وإثبات التسليم تلقائياً
+Arrival and departure at the customer site recorded by location; time-stamped on the delivery note.,تسجيل الوصول والمغادرة في موقع العميل حسب الموقع الجغرافي؛ مع ختم زمني على إشعار التسليم.
+Field staff tracking,تتبع الموظفين الميدانيين
+"Sales staff, technicians and collectors check in/out with GPS and photo; visit logs against customers and leads; daily route history; linked to attendance.",مندوبو المبيعات والفنيون والمحصّلون يسجلون الحضور والانصراف بـ GPS وصورة؛ سجلات الزيارات مقابل العملاء والعملاء المحتملين؛ سجل المسار اليومي؛ مرتبط بالحضور.
+Maps usage · staff use the mobile app.,استخدام الخرائط · الموظفون يستخدمون تطبيق الجوال.
+Field service jobs,أعمال الخدمة الميدانية
+"Technician job cards for installation and maintenance-contract visits: checklist, photos, customer signature, spare parts used.",بطاقات عمل الفنيين لزيارات التركيب وعقود الصيانة: قائمة تحقق، صور، توقيع العميل، قطع الغيار المستخدمة.
+Route planning,تخطيط المسار
+Best order of deliveries or visits for the day.,أفضل ترتيب للتوصيلات أو الزيارات خلال اليوم.
+Google Maps routing fees.,رسوم توجيه Google Maps.
+Fuel & mileage log,سجل الوقود والمسافات
+"Fuel entries, odometer readings and cost per km for each vehicle.",إدخالات الوقود وقراءات العدّاد والتكلفة لكل كم لكل مركبة.
+Online payment links,روابط الدفع الإلكتروني
+“Pay now” link on invoices; the payment is recorded automatically.,رابط “ادفع الآن” على الفواتير؛ تُسجّل الدفعة تلقائياً.
+"Payment gateway fees (Network International, Telr, Stripe…).",رسوم بوابة الدفع (Network International، Telr، Stripe…).
+UAE e-invoicing connection,ربط الفوترة الإلكترونية في الإمارات
+Invoices sent through an accredited e-invoicing provider in the national format.,إرسال الفواتير عبر مزوّد فوترة إلكترونية معتمد بالصيغة الوطنية.
+Provider subscription · mandatory in phases from 2027.,اشتراك المزوّد · إلزامي على مراحل بدءاً من 2027.
+Bank feed,ربط كشوف البنك
+Bank statements imported automatically for reconciliation.,استيراد كشوف الحساب البنكية تلقائياً للتسوية.
+Bank / open-banking provider fees.,رسوم البنك / مزوّد الخدمات المصرفية المفتوحة.
+E-commerce sync (per platform),مزامنة التجارة الإلكترونية (لكل منصة)
+"Products, stock, orders and payments synced with Shopify, WooCommerce, Amazon.ae or Noon.",مزامنة المنتجات والمخزون والطلبات والمدفوعات مع Shopify أو WooCommerce أو Amazon.ae أو Noon.
+Store or marketplace seller account.,حساب بائع في المتجر أو السوق الإلكتروني.
+Barcode labels & scanners,ملصقات الباركود والماسحات
+"Item and serial labels, handheld scanning for receiving and picking.",ملصقات الأصناف والأرقام التسلسلية، ومسح يدوي للاستلام والانتقاء.
+Label printer and scanners.,طابعة ملصقات وماسحات.
+Biometric attendance,الحضور بالبصمة
+Fingerprint or face devices feeding attendance and payroll.,أجهزة البصمة أو التعرف على الوجه تغذي الحضور والرواتب.
+Supported device (e.g. ZKTeco).,جهاز مدعوم (مثل ZKTeco).
+Management reports (Power BI / Looker),تقارير الإدارة (Power BI / Looker)
+Live dashboards on ERP data.,لوحات معلومات حية على بيانات النظام.
+Power BI / Looker licence.,ترخيص Power BI / Looker.
+AI order assistant,مساعد الطلبات بالذكاء الاصطناعي
+"Reads customer emails and WhatsApp enquiries, picks out items and quantities, checks stock and price, and drafts the quotation for review.",يقرأ رسائل العملاء واستفسارات WhatsApp، ويستخرج الأصناف والكميات، ويتحقق من المخزون والسعر، ويُعدّ مسودة عرض السعر للمراجعة.
+AI usage fees.,رسوم استخدام الذكاء الاصطناعي.
+Supplier bill scanning,مسح فواتير الموردين
+"PDF or photo bills read into purchase invoices, with duplicate, TRN, VAT and PO / goods-receipt checks.",قراءة فواتير PDF أو الصور إلى فواتير شراء، مع التحقق من التكرار والرقم الضريبي وVAT وأمر الشراء / إيصال الاستلام.
+Document-AI usage fees.,رسوم استخدام الذكاء الاصطناعي للمستندات.
+AI assistant,المساعد الذكي
+Ask questions in plain English or Arabic (“overdue invoices for Al Noor”) and draft replies.,اطرح أسئلتك بالعربية أو الإنجليزية (“الفواتير المتأخرة لـ Al Noor”) واكتب مسودات الردود.
+Branded customer app,تطبيق عملاء بعلامتك التجارية
+Customer portal as an installable app with order tracking and statements.,بوابة العملاء كتطبيق قابل للتثبيت مع تتبع الطلبات وكشوف الحساب.
+App store fees if published.,رسوم متجر التطبيقات في حال النشر.
+Full Arabic interface,واجهة عربية كاملة
+Every screen and print format in Arabic.,كل الشاشات ونماذج الطباعة باللغة العربية.
+Customs documents,مستندات الجمارك
+Slow-moving stock,مخزون بطيء الحركة
+Cheques,الشيكات
+VAT,الضريبة
+Employee documents,مستندات الموظفين
+Bank guarantees,الضمانات البنكية
+KYC & licences,اعرف عميلك والتراخيص
+Document exceptions,استثناءات المستندات
+High,عالية
+Medium,متوسطة
+Low,منخفضة
+Pass,نجح
+Fail,فشل
+Not run,لم يُنفَّذ
+Sales order,أمر البيع
+Customer group,مجموعة العملاء
+Purchasing & imports,المشتريات والاستيراد
+Service provider,مزود خدمة
+Import shipment,شحنة استيراد
+Letter of credit,اعتماد مستندي
+Bank guarantee,ضمان بنكي
+Exports,الصادرات
+Export order,أمر تصدير
+"Products, services & stock",المنتجات والخدمات والمخزون
+Purchase request,طلب شراء
+Stock item,صنف مخزني
+Stock transfer,تحويل مخزون
+Stock count,جرد المخزون
+Serial number look-up,البحث برقم التسلسل
+Warranty claim,مطالبة ضمان
+Supplier bills,فواتير الموردين
+Supplier bill,فاتورة مورد
+Journal entry,قيد يومية
+Cheque received (PDC),شيك مستلم (مؤجل)
+Cheque issued (PDC),شيك صادر (مؤجل)
+Credit note (sales return),إشعار دائن (مرتجع مبيعات)
+Debit note (purchase return),إشعار مدين (مرتجع مشتريات)
+Driver & vehicle,السائق والمركبة
+Delivery trip,رحلة توصيل
+Bank account,حساب بنكي
+Payment terms,شروط الدفع
+Credit limit request,طلب حد ائتماني
+Expense claim,مطالبة مصروفات
+Employee advance,سلفة موظف
+Leave request,طلب إجازة
+Fixed asset,أصل ثابت
+Administration,الإدارة
+"Search items, orders, customers, shipments…",ابحث عن الأصناف والطلبات والعملاء والشحنات…
+Whole group · {0} companies,المجموعة كاملة · {0} شركات
+{0} · {1} companies,{0} · {1} شركات
+Whole group,المجموعة كاملة
+companies,شركات
+Working in {0},العمل في {0}
+Showing {0} · new documents use {1},عرض {0} · المستندات الجديدة تستخدم {1}
+No records match {0},لا توجد سجلات تطابق {0}
+Search everywhere for “{0}”,ابحث في كل مكان عن «{0}»
+Form mode — click to change,وضع النموذج — انقر للتغيير
+Create new,إنشاء جديد
+{0} now opens in {1},يفتح {0} الآن في وضع {1}
+{0} new,{0} جديد
+{0} more,{0} أخرى
+Open the full list,فتح القائمة كاملة
+You're all caught up.,لا يوجد جديد.
+Mark all read,تحديد الكل كمقروء
+Back to {0},العودة إلى {0}
+Switch user,تبديل المستخدم
+Add user,إضافة مستخدم
+Manage users,إدارة المستخدمين
+Leave presentation mode,إنهاء وضع العرض
+Presentation mode,وضع العرض
+My settings,إعداداتي
+Toggle theme,تبديل المظهر
+View-only demo — look around freely; nothing you do here is saved.,عرض تجريبي للاطلاع فقط — تصفّح بحرية؛ لا يُحفظ أي شيء تفعله هنا.
+Book a demo,احجز عرضاً
+DEMO,تجريبي
+Demonstration environment,بيئة العرض التجريبي
+Pack,الباقة
+Change pack,تغيير الباقة
+Book a free demo,احجز عرضًا تجريبيًا مجانيًا
+"See Hipersign ERP running your trading business — purchasing, imports, stock, sales, exports, finance, HR and assets — with your own data in a free, personalised demo.",شاهد Hipersign ERP يدير أعمالك التجارية — المشتريات والاستيراد والمخزون والمبيعات والتصدير والمالية والموارد البشرية والأصول — ببياناتك في عرض تجريبي مجاني مخصص لك.
+Your name,اسمك
+Mobile / WhatsApp,الجوال / واتساب
+Interested in,مهتم بـ
+Preferred time,الوقت المفضل
+Send on WhatsApp,إرسال عبر واتساب
+Send by email,إرسال بالبريد الإلكتروني
+WhatsApp opened with your request — press send there,تم فتح واتساب مع طلبك — اضغط إرسال هناك
+Email opened with your request — press send there,تم فتح البريد مع طلبك — اضغط إرسال هناك
+New lead,عميل محتمل جديد
+"Company, contact and what they are interested in",الشركة وجهة الاتصال وما يهتمون به
+Company / client,الشركة / العميل
+Contact person,الشخص المسؤول
+Emirate,الإمارة
+Estimated value (AED),القيمة التقديرية (درهم)
+Expected close,الإغلاق المتوقع
+Stage,المرحلة
+Next follow-up,المتابعة التالية
+Next action,الإجراء التالي
+New customer,عميل جديد
+"Customer master — pricing group, terms and credit",بيانات العميل — مجموعة التسعير والشروط والائتمان
+Company / client name,اسم الشركة / العميل
+Decides the selling rate,تحدد سعر البيع
+Market,السوق
+Emirate / city (UAE),الإمارة / المدينة (الإمارات)
+Country (city) — export,الدولة (المدينة) — تصدير
+Invoice currency,عملة الفاتورة
+TRN,الرقم الضريبي
+15 digits — needed before the first tax invoice,15 رقمًا — مطلوب قبل أول فاتورة ضريبية
+Credit limit (AED),الحد الائتماني (درهم)
+New or higher limits go to the Finance Manager for approval,الحدود الجديدة أو الأعلى تُرسل إلى المدير المالي للموافقة
+Lead source,مصدر العميل المحتمل
+New supplier,مورد جديد
+Supplier register,سجل الموردين
+Supplier name,اسم المورد
+Supplier type,نوع المورد
+Goods suppliers appear on purchase orders; the rest are import service providers,موردو البضائع يظهرون في أوامر الشراء؛ والباقون مزودو خدمات استيراد
+Country (city),الدولة (المدينة)
+Order currency,عملة الطلب
+Default incoterm,شرط التسليم الافتراضي
+Phone / WhatsApp,الهاتف / واتساب
+TRN (UAE suppliers),الرقم الضريبي (موردو الإمارات)
+15 digits — optional,15 رقمًا — اختياري
+Supplier bank,بنك المورد
+Supplier bank IBAN,رقم الآيبان لبنك المورد
+Optional — for payments,اختياري — للمدفوعات
+New item,صنف جديد
+"Item master — pricing, HS code and barcode",بيانات الصنف — التسعير ورمز النظام المنسق والباركود
+Item name (English),اسم الصنف (إنجليزي)
+Item name (Arabic),اسم الصنف (عربي)
+Shown on bilingual documents,يظهر في المستندات ثنائية اللغة
+HS code,رمز النظام المنسق
+Used for customs and duty,يُستخدم للجمارك والرسوم
+Country of origin,بلد المنشأ
+Standard cost (AED),التكلفة القياسية (درهم)
+Standard selling price (AED),سعر البيع القياسي (درهم)
+Kept in stock,يُحفظ في المخزون
+"Untick for a service (installation, freight, labour…)",ألغِ التحديد للخدمات (تركيب، شحن، عمالة…)
+Default warehouse,المستودع الافتراضي
+New warehouse,مستودع جديد
+Stock location,موقع المخزون
+Warehouse name,اسم المستودع
+Location / address,الموقع / العنوان
+Capacity (pallet positions),السعة (مواقع المنصات)
+Warehouse in-charge,مسؤول المستودع
+New driver & vehicle,سائق ومركبة جديدان
+Delivery driver and the vehicle they drive,سائق التوصيل والمركبة التي يقودها
+Driver name,اسم السائق
+Vehicle plate,لوحة المركبة
+Vehicle type,نوع المركبة
+New employee,موظف جديد
+Employee master — salary for WPS and UAE document expiries,بيانات الموظف — الراتب لنظام حماية الأجور وانتهاء الوثائق
+Full name,الاسم الكامل
+Joining date,تاريخ الالتحاق
+Date of birth,تاريخ الميلاد
+Basic salary (AED),الراتب الأساسي (درهم)
+Housing allowance,بدل السكن
+Transport allowance,بدل المواصلات
+Other allowance,بدلات أخرى
+Salary account IBAN (WPS),آيبان حساب الراتب (حماية الأجور)
+Document expiries,انتهاء الوثائق
+Passport expiry,انتهاء جواز السفر
+New fixed asset,أصل ثابت جديد
+"Asset register — cost, custodian and renewals",سجل الأصول — التكلفة والعهدة والتجديدات
+Asset name,اسم الأصل
+Purchase date,تاريخ الشراء
+"Cost (AED, excl. VAT)",التكلفة (درهم، دون ضريبة القيمة المضافة)
+Residual value (AED),القيمة المتبقية (درهم)
+Useful life (months),العمر الإنتاجي (أشهر)
+Vehicles and renewals,المركبات والتجديدات
+Plate no. (vehicles),رقم اللوحة (للمركبات)
+Registration (Mulkiya) expiry,انتهاء الملكية
+Insurance expiry,انتهاء التأمين
+Next service,الصيانة التالية
+New contact,جهة اتصال جديدة
+A person at a customer or supplier,شخص لدى عميل أو مورد
+Contact name,اسم جهة الاتصال
+"e.g. Purchasing, Accounts, Site engineer",مثلًا: المشتريات، الحسابات، مهندس الموقع
+Receives reports & statements,يستلم التقارير وكشوف الحساب
+Primary contact,جهة الاتصال الرئيسية
+New address,عنوان جديد
+"Billing, delivery or site address",عنوان الفوترة أو التسليم أو الموقع
+Address name,اسم العنوان
+"e.g. JLT site, Main office",مثلًا: موقع أبراج بحيرات جميرا، المكتب الرئيسي
+Site contact & phone,مسؤول الموقع والهاتف
+Map pin / landmark,موقع الخريطة / معلم قريب
+New customer group,مجموعة عملاء جديدة
+"Pricing group — discount, terms and credit",مجموعة التسعير — الخصم والشروط والائتمان
+Group name,اسم المجموعة
+Discount on Standard Selling (%),الخصم على سعر البيع القياسي (%)
+Default payment terms,شروط الدفع الافتراضية
+Default credit limit (AED),الحد الائتماني الافتراضي (درهم)
+New payment terms,شروط دفع جديدة
+Advance and balance,الدفعة المقدمة والرصيد
+Template name,اسم القالب
+"e.g. 30% advance, balance 60 days",مثلًا: 30% مقدمًا، والباقي خلال 60 يومًا
+Advance (%),الدفعة المقدمة (%)
+Balance due in (days),استحقاق الرصيد خلال (أيام)
+Counted from,يُحتسب من
+New bank account,حساب بنكي جديد
+Company bank account — shown on invoices,حساب الشركة البنكي — يظهر في الفواتير
+Account name,اسم الحساب
+SWIFT / BIC,رمز السويفت
+Default account for invoices,الحساب الافتراضي للفواتير
+New service,خدمة جديدة
+{0} {1} saved,تم حفظ {0} {1}
+Lists,القوائم
+See it run your business,شاهده يدير أعمالك
+credit note,إشعار دائن
+Nothing you can create here — ask your administrator for access.,لا يوجد ما يمكنك إنشاؤه هنا — اطلب الصلاحية من مسؤول النظام.
+Open in {0} and remember it,افتح في وضع {0} وتذكّر الاختيار
+Opens a page,يفتح صفحة
+Opens in {0},يفتح في وضع {0}
+Opens the form,يفتح النموذج
+Scan a barcode or type a serial number,امسح الباركود أو اكتب رقم التسلسل
+"You will see the item, when it was received, which customer bought it and when it was delivered, whether the warranty still covers it, and any claims — and you can register a new claim from here.",سترى الصنف، ومتى تم استلامه، وأي عميل اشتراه ومتى سُلِّم، وهل لا يزال مشمولًا بالضمان، وأي مطالبات — ويمكنك تسجيل مطالبة جديدة من هنا.
+{0} days from delivery,{0} يومًا من التسليم
+In our stock,في مخزوننا
+Preview,معاينة
+showing exactly what {0} sees in the customer portal.,يعرض تمامًا ما يراه {0} في بوابة العملاء.
+Back to the ERP,العودة إلى النظام
+Statement,كشف الحساب
+Goods supplier,مورد بضائع
+Freight & Shipping,الشحن والنقل
+Customs broker,مخلّص جمركي
+Handling,المناولة
+Other services,خدمات أخرى
+Abu Dhabi,أبوظبي
+Dubai,دبي
+Sharjah,الشارقة
+Ajman,عجمان
+Umm Al Quwain,أم القيوين
+Ras Al Khaimah,رأس الخيمة
+Fujairah,الفجيرة
+Delivery period,مدة التسليم
+Warranty (months),الضمان (أشهر)
+Usual Incoterm,شرط التسليم المعتاد
+Receives statements & reports,يستلم كشوف الحساب والتقارير
+Salary (WPS),الراتب (حماية الأجور)
+Vehicle & service,المركبة والصيانة
+Plate no.,رقم اللوحة
+Fill in {0},أدخل {0}
+Missing information,معلومات ناقصة
+TRN must be 15 digits,يجب أن يتكون الرقم الضريبي من 15 رقمًا
+Check the email address,تحقق من عنوان البريد الإلكتروني
+Enter a valid mobile / WhatsApp number,أدخل رقم جوال / واتساب صحيحًا
+Enter the country for an export customer,أدخل الدولة لعميل التصدير
+{0} is already a customer,{0} عميل مسجل بالفعل
+{0} is already in the supplier register,{0} مسجل بالفعل في سجل الموردين
+Enter the standard cost and the standard selling price,أدخل التكلفة القياسية وسعر البيع القياسي
+Enter the basic salary,أدخل الراتب الأساسي
+Enter the cost,أدخل التكلفة
+Quotations & Orders,عروض الأسعار والطلبات
+VAT & E-invoicing,الضريبة والفوترة الإلكترونية
+Group & Countries,المجموعة والدول
+Company Compliance,امتثال الشركة
+Workflows & Settings,سير العمل والإعدادات
+Document Centre,مركز المستندات
+Export Shipments,شحنات التصدير
+Import Shipments,شحنات الاستيراد
+Landed Cost Vouchers,قسائم تكلفة الوصول
+Purchase Receipts,إيصالات الشراء
+Letters of Credit,الاعتمادات المستندية
+Tax Returns,الإقرارات الضريبية
+Group Consolidation,توحيد المجموعة
+Company Documents,مستندات الشركة
+Company Deadlines,مواعيد الشركة النهائية
+Document Waivers,إعفاءات المستندات
+Add-ons,الإضافات
+high,عالية
+Managing Director,المدير العام
+Administrator,مدير النظام
+Accountant,محاسب
+Finance Manager,المدير المالي
+Sales Manager,مدير المبيعات
+Sales Executive,مندوب مبيعات
+Purchase Manager,مدير المشتريات
+Buyer,مسؤول مشتريات
+Warehouse Manager,مدير المستودع
+Storekeeper,أمين مخزن
+Logistics Coordinator,منسق الخدمات اللوجستية
+HR Manager,مدير الموارد البشرية
+Print,طباعة
+Invoice date,تاريخ الفاتورة
+Balance,الرصيد
+To deliver,للتسليم
+Take photo,التقاط صورة
+Direct,مباشرة
+Accounting,المحاسبة
+Attendance,الحضور
+Leave,الإجازات
+Warehouse,المستودع
+Asset,الأصل
+Delivery note,إشعار التسليم
+Available,المتاح
+Price,السعر
+Owner,المسؤول
+Cheque,الشيك
+Claim,المطالبة
+Notifications,الإشعارات
+Cancel,إلغاء
+Submit,إرسال
+WhatsApp,واتساب
+Approval,الموافقة
+Pay,دفع
+Waiting for the {0},بانتظار {0}
+History,السجل
+Open the full form,فتح النموذج الكامل
+Nothing yet.,لا شيء بعد.
+Download for Excel,تنزيل لملف Excel
+Attach other file,إرفاق ملف آخر
+Exception {0},استثناء {0}
+Required — missing,مطلوب — غير موجود
+Attached,تم الإرفاق
+Log activity,تسجيل نشاط
+Stage after this,المرحلة بعد ذلك
+What happened,ما الذي حدث
+Lead lost,خسارة العميل المحتمل
+Mark as lost,تعليم كخاسر
+Quotation lost,خسارة عرض السعر
+Messages — {0},الرسائل — {0}
+No messages yet — write the first one below; @mention a colleague to notify them.,لا توجد رسائل بعد — اكتب أول رسالة أدناه؛ اذكر زميلًا بـ @ لإشعاره.
+All owners,جميع المسؤولين
+My leads,عملائي المحتملون
+All sources,جميع المصادر
+Search…,بحث…
+Nothing here.,لا شيء هنا.
+There is nothing to show for your role yet.,لا يوجد ما يُعرض لدورك بعد.
+{0} of {1} in this chapter,{0} من {1} في هذا الفصل
+End the tour,إنهاء الجولة
+Next: {0},التالي: {0}
+Live deal demo,عرض صفقة مباشر
+The Live deal demo is switched off. A System Manager turns it on in Hipersign Settings (demo sites only).,عرض الصفقة المباشر متوقف. يقوم مدير النظام بتشغيله من إعدادات Hipersign (لمواقع العرض فقط).
+skipped,تم التخطي
+One deal from the first enquiry to the customer's cheque. Each step creates and submits the real record — open any of them. Reset removes everything this run made.,صفقة واحدة من أول استفسار حتى شيك العميل. كل خطوة تنشئ السجل الحقيقي وتعتمده — افتح أيًا منها. إعادة الضبط تحذف كل ما أنشأه هذا التشغيل.
+Revenue (net),الإيرادات (الصافي)
+Landed cost of goods,التكلفة الواصلة للبضائع
+Gross profit — {0}%,إجمالي الربح — {0}%
+Cash in (advance + cheque),النقد الوارد (دفعة مقدمة + شيك)
+Play: {0},تشغيل: {0}
+Play all,تشغيل الكل
+Cancel and delete every record this demo run made?,إلغاء وحذف كل سجل أنشأه تشغيل العرض هذا؟
+Demo deal removed,تم حذف صفقة العرض
+Created by {0},أنشأه {0}
+"Calls, meetings and messages — newest last",المكالمات والاجتماعات والرسائل — الأحدث في الأخير
+Export sales order,أمر بيع تصدير
+Outside UAE,خارج الإمارات
+Any — chosen at delivery,أي مستودع — يُحدد عند التسليم
+Total in {0},الإجمالي بـ {0}
+No limit,بلا حد
+Tax invoice,فاتورة ضريبية
+Won,تم الفوز
+Create quotation,إنشاء عرض سعر
+Lines,البنود
+Make sales order,إنشاء أمر بيع
+Edit details,تعديل التفاصيل
+Payment schedule,جدول الدفعات
+Terms & remarks,الشروط والملاحظات
+Book export shipment,حجز شحنة تصدير
+Customer details,بيانات العميل
+Add contact,إضافة جهة اتصال
+Add address,إضافة عنوان
+Open invoices,الفواتير المفتوحة
+Credit limit,الحد الائتماني
+Quick quote,عرض سعر سريع
+Quick order,طلب سريع
+Tax invoice (EN/AR),فاتورة ضريبية (إنجليزي/عربي)
+Item details,تفاصيل الصنف
+Stock by warehouse,المخزون حسب المستودع
+Last 60 days,آخر 60 يومًا
+Stock ledger,دفتر المخزون
+Create PO,إنشاء أمر شراء
+Net total,الإجمالي الصافي
+Grand total,الإجمالي الكلي
+In words,بالكلمات
+Estimated value,القيمة التقديرية
+Quotation date,تاريخ العرض
+Valid till,صالح حتى
+Enquiry,الاستفسار
+Prepared by,أعدّه
+Estimated margin,الهامش التقديري
+Customer's PO,أمر شراء العميل
+Billing address,عنوان الفوترة
+Shipping address,عنوان الشحن
+Order date & time,تاريخ ووقت الطلب
+Delivery date,تاريخ التسليم
+Sales person,مندوب المبيعات
+Source warehouse,المستودع المصدر
+Export terms,شروط التصدير
+Customer code,رمز العميل
+Available credit,الائتمان المتاح
+Customer type,نوع العميل
+Billing currency,عملة الفوترة
+Price list,قائمة الأسعار
+Customer TRN,الرقم الضريبي للعميل
+Place of supply,مكان التوريد
+Due date,تاريخ الاستحقاق
+Delivery notes,إشعارات التسليم
+Against invoice,مقابل الفاتورة
+Item code,رمز الصنف
+Arabic description,الوصف بالعربية
+Standard selling rate,سعر البيع القياسي
+Valuation (landed) rate,سعر التقييم (الواصل)
+Margin at list price,الهامش بسعر القائمة
+Brand · model,العلامة · الطراز
+Sales unit,وحدة البيع
+Purchase unit,وحدة الشراء
+Minimum order,الحد الأدنى للطلب
+Lead time,مدة التوريد
+Average selling rate,متوسط سعر البيع
+"Manage customer orders, agreed pricing and fulfilment. Discounts, margins below landed cost and credit limits are checked before an order is confirmed.",إدارة طلبات العملاء والأسعار المتفق عليها والتنفيذ. يتم التحقق من الخصومات والهوامش دون التكلفة الواصلة والحدود الائتمانية قبل تأكيد الطلب.
+New quotation,عرض سعر جديد
+New sales order,أمر بيع جديد
+Sales — {0},المبيعات — {0}
+"{0} invoices, net of VAT",{0} فواتير، دون الضريبة
+Open orders (incl. VAT),الطلبات المفتوحة (شاملة الضريبة)
+Not yet invoiced,لم تُفوتر بعد
+Orders to deliver,طلبات للتسليم
+"Approved, stock to dispatch",معتمدة، مخزون للإرسال
+Awaiting approval,بانتظار الموافقة
+"Discount, margin or credit",خصم أو هامش أو ائتمان
+Quotation conversion,تحويل العروض
+{0} quotations open,{0} عروض مفتوحة
+Customers over limit,عملاء تجاوزوا الحد
+Exposure above credit limit,مديونية فوق الحد الائتماني
+Sales orders,أوامر البيع
+Customers & credit,العملاء والائتمان
+Over limit,فوق الحد
+Price lists & pricing rules,قوائم الأسعار وقواعد التسعير
+Price lists,قوائم الأسعار
+Pricing rules,قواعد التسعير
++{0} more,+{0} أخرى
+SO No.,رقم أمر البيع
+Order date,تاريخ الطلب
+Customer / lead,العميل / المحتمل
+Applies to,ينطبق على
+Discount / rate,الخصم / السعر
+Items priced,أصناف مسعّرة
+KYC,اعرف عميلك
+"Capture every enquiry, follow it up on time and turn it into quotations and orders — one pipeline for the whole sales team.",سجّل كل استفسار وتابعه في الوقت المناسب وحوّله إلى عروض أسعار وطلبات — مسار واحد لفريق المبيعات بأكمله.
+Open leads,العملاء المحتملون المفتوحون
+{0} pipeline value,قيمة المسار {0}
+Weighted pipeline,المسار المرجّح
+Value × stage probability,القيمة × احتمال المرحلة
+Follow-ups due,متابعات مستحقة
+{0} overdue · {1} today,{0} متأخرة · {1} اليوم
+Won — {0},الفوز — {0}
+{0} leads converted,{0} تم تحويلهم
+Win rate,نسبة الفوز
+{0} leads closed in 3 months,{0} أُغلقت خلال 3 أشهر
+Pipeline,المسار
+All leads,كل العملاء المحتملين
+Follow-ups ({0}),المتابعات ({0})
+Sources & performance,المصادر والأداء
+"Drag a card to move it to another stage, or open it to log a call, meeting or WhatsApp. Won and Lost show the last two months.",اسحب البطاقة لنقلها إلى مرحلة أخرى، أو افتحها لتسجيل مكالمة أو اجتماع أو واتساب. يعرض الفوز والخسارة آخر شهرين.
+Follow up,المتابعة
+Not set,غير محدد
+Open pipeline,المسار المفتوح
+Won value,قيمة الفوز
+Lead captured from a referral and qualified,تم تسجيل عميل محتمل من إحالة وتأهيله
+Quotation sent and accepted,تم إرسال عرض السعر وقبوله
+Customer created from the lead; order approved and stock reserved,تم إنشاء العميل من العميل المحتمل؛ واعتماد الطلب وحجز المخزون
+Purchase order placed with the supplier,تم إصدار أمر الشراء للمورد
+Letter of credit issued by the bank,أصدر البنك الاعتماد المستندي
+Goods shipped — bill of lading and freight recorded,تم شحن البضائع — تسجيل بوليصة الشحن والأجرة
+Arrived at Jebel Ali and cleared by customs (duty paid),وصلت إلى جبل علي وتم تخليصها جمركيًا (الرسوم مدفوعة)
+Goods received into the warehouse,تم استلام البضائع في المستودع
+"Freight, duty and clearing spread over the goods — the landed cost",توزيع الشحن والرسوم والتخليص على البضائع — التكلفة الواصلة
+30% advance received by bank transfer,استلام دفعة مقدمة 30% بتحويل بنكي
+Delivered to the customer's site,تم التسليم إلى موقع العميل
+Tax invoice issued; the advance is set against it,صدرت الفاتورة الضريبية؛ وتمت تسوية الدفعة المقدمة مقابلها
+Post-dated cheque received for the balance,استلام شيك مؤجل بالرصيد المتبقي
+Take the guided tour,ابدأ الجولة الإرشادية
+Contacted,تم التواصل
+Qualified,مؤهل
+Proposal,عرض
+Negotiation,تفاوض
+Lost,خسارة
+0 keeps the standard position,0 يُبقي الموضع القياسي
+A custom link needs an English label,الرابط المخصص يحتاج إلى اسم بالإنجليزية
+A menu never grants access — role permissions still decide,القائمة لا تمنح صلاحية أبدًا — صلاحيات الدور هي التي تقرر
+Add a custom link,إضافة رابط مخصص
+Add link,إضافة رابط
+Applies to everyone unless a company or role changes it,ينطبق على الجميع ما لم تغيّره شركة أو دور
+Applies to users with this role — wins over company and site,ينطبق على مستخدمي هذا الدور — يتقدّم على الشركة والموقع
+Applies when this company is selected at the top,ينطبق عند اختيار هذه الشركة في الأعلى
+Change,التغيير
+Change log,سجل التغييرات
+Chinese,الصينية
+Choose a company,اختر شركة
+Choose a role,اختر دورًا
+Choose the company this menu change applies to,اختر الشركة التي ينطبق عليها هذا التغيير في القائمة
+Choose the role this menu change applies to,اختر الدور الذي ينطبق عليه هذا التغيير في القائمة
+Company — {0},الشركة — {0}
+Custom Link,رابط مخصص
+Custom link,رابط مخصص
+Custom link · whole site,رابط مخصص · الموقع بالكامل
+Display,العرض
+Empty boxes keep the standard translation,الحقول الفارغة تُبقي الترجمة القياسية
+Enter a label and a link,أدخل اسمًا ورابطًا
+Entry type,نوع البند
+"Gone from the sidebar, + New and the top-bar search; a direct link still opens them for users who may see them",تختفي من القائمة الجانبية و«+ جديد» والبحث في الشريط العلوي؛ ويظل الرابط المباشر يفتحها للمستخدمين المصرّح لهم
+Group key (g:…) a custom link is shown under,مفتاح المجموعة (g:…) التي يظهر تحتها الرابط المخصص
+Groups and screens added by later releases appear here by themselves,المجموعات والشاشات التي تضيفها الإصدارات اللاحقة تظهر هنا تلقائيًا
+Hidden,مخفي
+Hidden screens,الشاشات المخفية
+Hidden — switch on to show,مخفي — شغّل المفتاح للإظهار
+Hipersign Menu Log,سجل قائمة Hipersign
+Hipersign Menu Override,تخصيص قائمة Hipersign
+How it is applied,كيف يُطبَّق
+Icon,الأيقونة
+Label,الاسم
+Label (Arabic),الاسم (العربية)
+Label (Chinese),الاسم (الصينية)
+Label (English),الاسم (الإنجليزية)
+"Language must be English, Arabic or Chinese",يجب أن تكون اللغة الإنجليزية أو العربية أو الصينية
+Languages,اللغات
+Leave this scope without saving your changes?,مغادرة هذا النطاق دون حفظ التغييرات؟
+Link,الرابط
+"Link — web address, /app/… or #page",الرابط — عنوان ويب أو ‎/app/…‎ أو ‎#صفحة
+Menu,القائمة
+Menu builder,منشئ القائمة
+"Menu builder change log: who changed the menu, when, and what.",سجل تغييرات منشئ القائمة: من غيّر القائمة ومتى وماذا.
+"Menu builder: one change to the Hipersign ERP menu for the whole site, one company or one role (role beats company beats site).",منشئ القائمة: تغيير واحد في قائمة Hipersign ERP للموقع بالكامل أو لشركة أو لدور (الدور يتقدّم على الشركة، والشركة على الموقع).
+Menu item,بند القائمة
+Menu key,مفتاح القائمة
+Menu reset to standard — {0},أُعيدت القائمة إلى الوضع القياسي — {0}
+Menu saved — {0} changes. Users see it the next time they load the desk.,حُفظت القائمة — {0} تغييرات. يراها المستخدمون عند تحميل سطح المكتب في المرة القادمة.
+Move down,تحريك للأسفل
+Move up,تحريك للأعلى
+New modules,الوحدات الجديدة
+No changes yet — every change to the menu is logged here.,لا توجد تغييرات بعد — يُسجَّل هنا كل تغيير في القائمة.
+Nothing changed,لم يتغيّر شيء
+Nothing to show.,لا شيء للعرض.
+Only a System Manager or the Managing Director can change the menu,لا يمكن تغيير القائمة إلا لمدير النظام أو المدير العام
+Remove every menu change for {0}? Other scopes keep theirs.,إزالة كل تغييرات القائمة لـ {0}؟ تحتفظ النطاقات الأخرى بتغييراتها.
+Remove link,إزالة الرابط
+Reset to standard,إعادة إلى الوضع القياسي
+Role — {0},الدور — {0}
+Role → company → whole site; the most specific wins,الدور ← الشركة ← الموقع بالكامل؛ الأكثر تحديدًا هو الذي يُطبَّق
+Roles,الأدوار
+Sales Executive (Chinese),مندوب مبيعات (الصينية)
+Scope,النطاق
+"Show or hide, rename in English, Arabic and Chinese, and reorder any menu group or screen — for the whole site, one company or one role. Users see the new menu the next time they load the desk.",أظهر أو أخفِ، وأعد التسمية بالإنجليزية والعربية والصينية، وأعد ترتيب أي مجموعة أو شاشة في القائمة — للموقع بالكامل أو لشركة أو لدور. يرى المستخدمون القائمة الجديدة عند تحميل سطح المكتب في المرة القادمة.
+Shown,ظاهر
+Shown — switch off to hide,ظاهر — أطفئ المفتاح للإخفاء
+Site,الموقع
+"Stable key of the menu entry: g:… for a group, the page / doctype / report / URL slug for an item, link-… for a custom link",مفتاح ثابت لبند القائمة: g:… للمجموعة، واسم الصفحة / نوع المستند / التقرير / الرابط للبند، وlink-… للرابط المخصص
+This menu entry already has a change for this scope ({0}),لهذا البند تغيير في هذا النطاق بالفعل ({0})
+Under menu group,تحت مجموعة القائمة
+Unknown scope {0},نطاق غير معروف {0}
+Unsaved changes,تغييرات غير محفوظة
+"Use a web address (https://…), a desk path (/app/…) or #page",استخدم عنوان ويب (https://…) أو مسارًا في سطح المكتب (/app/…) أو #صفحة
+"Use a web address (https://…), a desk path (/app/…) or #page for {0}",استخدم عنوان ويب (https://…) أو مسارًا في سطح المكتب (/app/…) أو #صفحة لـ {0}
+Visibility,الظهور
+"What a user in this scope sees (before role permissions), in the language you work in.",ما يراه المستخدم في هذا النطاق (قبل صلاحيات الدور)، باللغة التي تعمل بها.
+Whole site,الموقع بالكامل
+"https://…, /app/… or #page",https://… أو ‎/app/…‎ أو ‎#صفحة
+switch to hide · type a name to rename · arrows to reorder,المفتاح للإخفاء · اكتب اسمًا لإعادة التسمية · الأسهم لإعادة الترتيب
+Precedence,الأولوية
+By,بواسطة
+Manufacturing,التصنيع
+Production,الإنتاج
+Planning,التخطيط
+BOMs & routings,قوائم المواد ومسارات التصنيع
+Shop floor,أرضية المصنع
+Quality,الجودة
+Costing,التكاليف
+Production Tracker,متتبع الإنتاج
+Work Orders,أوامر العمل
+Production Plans,خطط الإنتاج
+BOMs,قوائم المواد
+Routings,مسارات التصنيع
+Operations,العمليات
+Workstations,محطات العمل
+Job Cards,بطاقات التشغيل
+Quality Inspections,فحوصات الجودة
+Inspection Templates,نماذج الفحص
+Stock Ledger,سجل المخزون
+Manufacturing Step Log,سجل خطوات التصنيع
+Production Manager,مدير الإنتاج
+QC Inspector,مفتش الجودة
+Manufacturer,مصنّع
+"BOMs and routings, production planning, work orders, shop floor job cards, quality inspection and costing",قوائم المواد ومسارات التصنيع وتخطيط الإنتاج وأوامر العمل وبطاقات التشغيل وفحص الجودة والتكاليف
+"Assemblers and factories — BOMs and routings, production planning with shortages, work orders, a shop-floor tablet view for job cards, quality inspection with test certificates and costing of actual against standard, plus purchasing, imports, serial numbers, HR and assets.",المجمِّعون والمصانع — قوائم المواد ومسارات التصنيع، تخطيط الإنتاج مع النواقص، أوامر العمل، عرض لوحي لبطاقات التشغيل، فحص الجودة مع شهادات الاختبار، ومقارنة التكلفة الفعلية بالمعيارية، بالإضافة إلى المشتريات والاستيراد والأرقام التسلسلية والموارد البشرية والأصول.
+"Bills of materials with sub-assemblies, routings by workstation, standard cost roll-up, versions and where-used.",قوائم المواد مع التجميعات الفرعية، ومسارات التصنيع حسب محطة العمل، وتجميع التكلفة المعيارية، والإصدارات وأماكن الاستخدام.
+"Sales orders and forecast → production plan → work orders and material requests, with component shortages and suggested purchase orders.",أوامر البيع والتوقعات ← خطة الإنتاج ← أوامر العمل وطلبات المواد، مع نواقص المكونات وأوامر الشراء المقترحة.
+"Tablet view for the line: job cards by workstation — start and stop, quantity, scrap and operator. Every tap updates the work order, the tracker and the cost.",عرض لوحي لخط الإنتاج: بطاقات التشغيل حسب محطة العمل — البدء والإيقاف والكمية والتالف والمشغل. كل لمسة تحدّث أمر العمل والمتتبع والتكلفة.
+"Incoming, in-process and final inspection with AQL sampling, rejects, rework and test certificates per batch.",فحص الوارد وأثناء التصنيع والنهائي بعينات AQL، والمرفوضات وإعادة التشغيل وشهادات الاختبار لكل دفعة.
+"Standard vs actual cost per work order — material, labour and overhead variances — and margin per product.",التكلفة المعيارية مقابل الفعلية لكل أمر عمل — فروقات المواد والعمالة والمصاريف غير المباشرة — والهامش لكل منتج.
+"{0} — today's work orders, output against plan, work in progress, late orders and the load on every workstation.",{0} — أوامر العمل اليوم، والإنتاج مقابل الخطة، والإنتاج تحت التشغيل، والأوامر المتأخرة وحمل كل محطة عمل.
+Today,اليوم
+Work orders,أوامر العمل
+Workstation load,حمل محطات العمل
+Stock entries,قيود المخزون
+Demand,الطلب
+Production plans,خطط الإنتاج
+Shortages,النواقص
+BOM tree & cost,شجرة قائمة المواد والتكلفة
+Versions,الإصدارات
+Where used,أماكن الاستخدام
+Incoming,الوارد
+In-process,أثناء التصنيع
+Final,النهائي
+Rejects & rework,المرفوضات وإعادة التشغيل
+Actual vs standard,الفعلي مقابل المعياري
+Work orders in process,أوامر العمل قيد التنفيذ
+Output — last day vs plan,الإنتاج — آخر يوم مقابل الخطة
+Work in progress (WIP),الإنتاج تحت التشغيل
+Late work orders,أوامر العمل المتأخرة
+Scrap rate — 60 days,نسبة التالف — 60 يومًا
+Busiest workstation,أكثر محطة عمل انشغالًا
+Open demand,الطلب المفتوح
+Planned production,الإنتاج المخطط
+Component shortages,نواقص المكونات
+Suggested purchase orders,أوامر الشراء المقترحة
+Material requests open,طلبات المواد المفتوحة
+Active BOMs,قوائم المواد الفعالة
+Components,المكونات
+Standard cost — {0},التكلفة المعيارية — {0}
+Inspections — 30 days,الفحوصات — 30 يومًا
+Pass rate,نسبة القبول
+Rejected units,الوحدات المرفوضة
+Rework open,إعادة تشغيل مفتوحة
+Test certificates,شهادات الاختبار
+Standard cost — closed WOs,التكلفة المعيارية — أوامر العمل المغلقة
+Actual cost,التكلفة الفعلية
+Material variance,فرق المواد
+Labour variance,فرق العمالة
+Overhead variance,فرق المصاريف غير المباشرة
+Orders tracked,الأوامر المتتبعة
+In production,قيد الإنتاج
+New work order,أمر عمل جديد
+New production plan,خطة إنتاج جديدة
+New BOM,قائمة مواد جديدة
+New job card,بطاقة تشغيل جديدة
+New quality inspection,فحص جودة جديد
+Manufacture entry,قيد التصنيع
+Material transfer to WIP,تحويل المواد إلى الإنتاج تحت التشغيل
+Transfer to WIP,تحويل إلى تحت التشغيل
+Run MRP,تشغيل تخطيط الاحتياجات
+Raise PO,إصدار أمر شراء
+Job ticket,بطاقة العمل
+FG label,ملصق المنتج التام
+QC certificate,شهادة الجودة
+Print BOM,طباعة قائمة المواد
+Release,إطلاق
+Close work order,إغلاق أمر العمل
+Pause,إيقاف مؤقت
+Complete,إكمال
+Scrap +1,تالف +1
+Accept,قبول
+Rework done +4,تمت إعادة التشغيل +4
+Make active,تفعيل
+Record result,تسجيل النتيجة
+Receive finished goods,استلام المنتج التام
+Issue to WIP,صرف إلى تحت التشغيل
+Run MRP and plan,تشغيل التخطيط ووضع الخطة
+Create job card,إنشاء بطاقة تشغيل
+Plan all open orders,تخطيط كل الأوامر المفتوحة
+Process — 22 steps,العملية — 22 خطوة
+Today on the floor,اليوم في المصنع
+Output vs plan — last 7 days,الإنتاج مقابل الخطة — آخر 7 أيام
+Late or on hold,متأخرة أو موقوفة
+Manufacture entries & material transfers,قيود التصنيع وتحويلات المواد
+Material availability & shortages (MRP),توفر المواد والنواقص (تخطيط الاحتياجات)
+Standard cost and margin per product,التكلفة المعيارية والهامش لكل منتج
+Work orders — actual vs standard,أوامر العمل — الفعلي مقابل المعياري
+Variance by work order,الفرق حسب أمر العمل
+Cost roll-up,تجميع التكلفة
+Routing,مسار التصنيع
+Workstation,محطة العمل
+Operation,العملية
+Operator,المشغل
+Work order,أمر العمل
+Job card,بطاقة التشغيل
+Quality inspection,فحص الجودة
+Production plan,خطة الإنتاج
+Component,المكوّن
+Product,المنتج
+Batch,الدفعة
+Scrap,تالف
+Rework,إعادة تشغيل
+Forecast,توقع
+All workstations,كل محطات العمل
+Standard cost,التكلفة المعيارية
+Demand & plan,الطلب والتخطيط
+Make,التصنيع
+Finish & ship,الإنهاء والشحن
+Bill & close,الفوترة والإغلاق
+Sales order / forecast,أمر البيع / التوقع
+"Production planning (MRP: demand, stock, open WOs)",تخطيط الإنتاج (الطلب والمخزون وأوامر العمل المفتوحة)
+"BOM & routing check (version, alternates)",مراجعة قائمة المواد والمسار (الإصدار والبدائل)
+BOM check,مراجعة القائمة
+Material availability & shortages,توفر المواد والنواقص
+Availability,التوفر
+Material req.,طلب مواد
+Purchase / import of components,شراء / استيراد المكونات
+Purchase,الشراء
+Incoming quality inspection,فحص جودة الوارد
+Incoming QC,فحص الوارد
+"Work order released (qty, due date, workstation)",إطلاق أمر العمل (الكمية والموعد ومحطة العمل)
+WO released,إطلاق الأمر
+Material issue to WIP (pick from stores),صرف المواد إلى تحت التشغيل (من المخازن)
+"Job cards per operation (cutting, SMT/assembly, wiring, testing, packing)",بطاقات تشغيل لكل عملية (القص، التركيب، التوصيل، الاختبار، التغليف)
+Job cards,بطاقات التشغيل
+"Operation start/stop, operator, time",بدء/إيقاف العملية، المشغل، الوقت
+In-process QC,فحص أثناء التصنيع
+Scrap & rework recorded,تسجيل التالف وإعادة التشغيل
+Scrap & rework,التالف وإعادة التشغيل
+Final QC & test certificate,الفحص النهائي وشهادة الاختبار
+Final QC,الفحص النهائي
+Finished goods receipt to warehouse (manufacture entry),استلام المنتج التام في المستودع (قيد التصنيع)
+FG receipt,استلام المنتج
+Batch / serial numbers & labels,الدفعات والأرقام التسلسلية والملصقات
+Batch & serials,الدفعات والتسلسل
+Packing & carton labels,التغليف وملصقات الكراتين
+Packing,التغليف
+Delivery / export shipment,التسليم / شحنة التصدير
+Production costing (actual vs standard),تكاليف الإنتاج (الفعلي مقابل المعياري)
+Variance & margin analysis,تحليل الفروقات والهامش
+Variance,الفرق
+Work order closed,إغلاق أمر العمل
+Production — Hipersign Lighting Industries,الإنتاج — هايبرساين لصناعات الإضاءة
+How it works — 22 steps,كيف يعمل — 22 خطوة
+Planning & shortages,التخطيط والنواقص
+"BOMs, routings and cost roll-up",قوائم المواد والمسارات وتجميع التكلفة
+"The work order, step by step",أمر العمل خطوة بخطوة
+Accounts Manager,مدير الحسابات
+"Every sales order and its work order through the 22 manufacturing steps — status, % and date per step, with red flags. Hover a step for who does it and the facts behind it.",كل أمر بيع وأمر العمل الخاص به عبر خطوات التصنيع الـ22 — الحالة و% والتاريخ لكل خطوة مع العلامات الحمراء. مرّر على الخطوة لمعرفة المسؤول والحقائق.
+Daily site report,تقرير الموقع اليومي
+New daily site report,تقرير موقع يومي جديد
+Own manpower,العمالة الذاتية
+Subcontractor manpower,عمالة مقاولي الباطن
+Issues & delays,المشكلات والتأخيرات
+Save report,حفظ التقرير
+Projects — {0},المشاريع — {0}
+Manufacturing — {0},التصنيع — {0}
+Quality — {0},الجودة — {0}
+Tracker,المتابعة
+In process,قيد التصنيع
+To inspect,بانتظار الفحص
+In final QC,في الفحص النهائي
+Pass rate — 30 days,نسبة القبول — 30 يومًا
+Lines…,البنود…
+Approve qty,الكمية المعتمدة
+Requested,المطلوب
+Reject all,رفض الكل
+Partly approved,معتمد جزئيًا
+partly approved,معتمد جزئيًا
+lines rejected,بنود مرفوضة
+Reason for rejected or reduced lines,سبب رفض البنود أو تخفيضها
+Approve {0} line by line,اعتماد {0} بندًا بندًا
+inspections to record,فحوصات للتسجيل
+site material requests to approve,طلبات مواد للموقع بانتظار الاعتماد
+{0} WO,{0} أمر عمل
+{0} WOs,{0} أوامر عمل
+Rejected lines,البنود المرفوضة
+Nothing waiting for inspection.,لا شيء بانتظار الفحص.
+Contract value,قيمة العقد
+Site visit,زيارة الموقع
+BOQ & estimate,جدول الكميات والتقدير
+Award,الترسية
+Contract,العقد
+Bonds,الضمانات
+Mobilise,التجهيز
+Procure,الشراء
+Deliveries,التوريدات
+Measure,القياس
+Sub claims,مطالبات الباطن
+Cost control,ضبط التكاليف
+Completion,الإنجاز
+Final acct,الحساب الختامي
+Closure,الإغلاق
+Completed,مكتمل
+Not started,لم يبدأ
+Stopped,متوقف
+Late,متأخرة
+{0} · due {1},{0} · الاستحقاق {1}
+Final QC · due {0},الفحص النهائي · الاستحقاق {0}

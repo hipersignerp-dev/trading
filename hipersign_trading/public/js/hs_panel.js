@@ -8,7 +8,9 @@ hipersign.panel.TYPES = ["Lead", "Quotation", "Sales Order", "Customer", "Sales 
 	// v1.7.0
 	"Export Shipment", "Payment Entry", "Journal Entry", "Purchase Invoice", "Employee", "Payroll Entry", "Expense Claim", "Employee Advance",
 	"Leave Application", "Bank Guarantee", "Asset", "Post Dated Cheque", "Tax Return", "Material Request", "Request for Quotation", "Stock Entry",
-	"Pick List", "Delivery Trip", "Warranty Claim", "Company Document", "Company Deadline"];
+	"Pick List", "Delivery Trip", "Warranty Claim", "Company Document", "Company Deadline",
+	// v1.8.0: Projects
+	"Project", "Progress Certificate", "Variation Order", "Subcontract Order", "Subcontract Claim", "Project BOQ"];
 hipersign.panel.has = (dt) => hipersign.panel.TYPES.includes(dt) && !((frappe.boot.hipersign || {}).no_panels);
 hipersign.panel.stack = [];
 
@@ -183,6 +185,7 @@ hipersign.panel.run = function (p, a, $btn) {
 	const done = (r) => {
 		if (r && r.message) frappe.show_alert({ message: r.message, indicator: "green" }, 5);
 		$(document).trigger("hp-changed");
+		if (r && r.open && hipersign.panel.has(r.open[0])) return hipersign.panel.open(r.open[0], r.open[1], { keep: true }); // v1.8.0: the invoice a button made
 		if (r && r.route) { hipersign.panel.close(); frappe.set_route(...r.route); } else hipersign.panel.refresh();
 	};
 	if (a.route) { hipersign.panel.close(); if (a.options) frappe.route_options = a.options; return frappe.set_route(...a.route); }

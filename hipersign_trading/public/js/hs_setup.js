@@ -10,6 +10,8 @@ hipersign.feature = (key) => {
 hipersign.PACKS = {
 	Starter: __("Small local trader, one company — quotations, orders, purchases, stock, delivery, invoices, VAT and accounts. Forms open in Quick mode; no document rules."),
 	Standard: __("Growing importer or exporter — adds CRM, imports and landed cost, exports, approvals, KYC, advances, cheques, bank reconciliation and currencies. Documents are recommended, nothing blocks."),
+	Contractor: __("Fit-out and contracting companies — projects from enquiry to profit report: BOQ and tenders, progress certificates, progress billing with advance recovery and retention, variations, subcontractors, site stock, timesheets and project costing, plus purchasing, LCs, HR and assets."),
+	Manufacturer: __("Assemblers and factories — BOMs and routings, production planning with shortages, work orders, a shop-floor tablet view for job cards, quality inspection with test certificates and costing of actual against standard, plus purchasing, imports, serial numbers, HR and assets."),
 	Enterprise: __("Groups and larger traders — everything: LCs and trade finance, company compliance, group consolidation, HR documents, fixed assets, blocking document rules with exceptions."),
 };
 
@@ -22,8 +24,8 @@ hipersign.setup_wizard = function (force) {
 			{ fieldtype: "HTML", options: `<p class="text-muted">${__("Two questions — you can change both later in Hipersign Settings → Setup & features. Nothing is deleted when you switch.")}</p>` },
 			{ fieldtype: "Select", fieldname: "company_mode", label: __("1. How many companies?"), reqd: 1, default: info.company_mode || "Single company",
 				options: [{ value: "Single company", label: __("Single company") }, { value: "Group", label: __("Multiple companies (group) — consolidation and inter-company") }] },
-			{ fieldtype: "Select", fieldname: "pack", label: __("2. Which pack?"), reqd: 1, default: ["Starter", "Standard", "Enterprise"].includes(info.pack) ? info.pack : "Standard",
-				options: ["Starter", "Standard", "Enterprise"].map((p) => ({ value: p, label: __(p) })), change() { d.set_df_property("pack_help", "options", help(d.get_value("pack"))); } },
+			{ fieldtype: "Select", fieldname: "pack", label: __("2. Which pack?"), reqd: 1, default: ["Starter", "Standard", "Contractor", "Manufacturer", "Enterprise"].includes(info.pack) ? info.pack : "Standard",
+				options: ["Starter", "Standard", "Contractor", "Manufacturer", "Enterprise"].map((p) => ({ value: p, label: __(p) })), change() { d.set_df_property("pack_help", "options", help(d.get_value("pack"))); } },
 			{ fieldtype: "HTML", fieldname: "pack_help" },
 			{ fieldtype: "Link", fieldname: "company", label: __("Main company"), options: "Company", default: frappe.defaults.get_default("company") },
 		],

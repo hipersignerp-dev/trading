@@ -42,12 +42,29 @@ FEATURES = {
 	"group": ("Group companies", "Group", "Several companies and countries, consolidation", [], ["Hipersign Group Member", "Group Trial Balance"], ["Hipersign Group Consolidation"], [], [], [], []),
 	"hr": ("HR documents & WPS", "People & assets", "Employee documents and WPS file", [], [], [], [], ["Hipersign HR"], [], []),
 	"assets": ("Fixed assets", "People & assets", "Asset register and depreciation", [], ["Asset"], [], [], [], ["Assets"], []),
+	# v1.8.0 (prototype p19): contracting and fit-out — the Projects menu group and its records
+	"projects": ("Projects & contracting", "Industries", "BOQ, progress certificates, retention, variations, subcontractors, site stock, timesheets and project costing", [],
+		["Project BOQ", "Progress Certificate", "Variation Order", "Subcontract Order", "Subcontract Claim", "Back Charge", "Daily Site Report"], [],
+		["hipersign-projects", "hipersign-boq", "hipersign-site", "hipersign-billing", "hipersign-subcontract", "hipersign-timesheets", "hipersign-costing", "project-tracker"],
+		[], ["Projects"], []),
+	# v1.8.0 (prototype p19): assemblers and factories — the Manufacturing menu group on ERPNext's BOM, Work Order, Job Card,
+	# Production Plan, Quality Inspection and Stock Entry
+	"manufacturing": ("Manufacturing", "Industries", "BOMs and routings, production planning, work orders, shop floor job cards, quality inspection and costing", [],
+		["BOM", "Work Order", "Job Card", "Production Plan", "Workstation", "Routing", "Quality Inspection", "Manufacturing Step Log"], [],
+		["hipersign-production", "hipersign-planning", "hipersign-boms", "hipersign-shopfloor", "hipersign-quality", "hipersign-mfg-costing", "production-tracker"],
+		[], ["Manufacturing"], []),
 }
-GROUPS = ["Sales", "Buying", "Stock", "Finance", "Controls", "Group", "People & assets"]
+GROUPS = ["Sales", "Buying", "Stock", "Finance", "Controls", "Group", "People & assets", "Industries"]
 STANDARD_ON = ["crm", "tracker", "exports", "rfq", "imports", "multiwh", "advances", "pdc", "recon", "fx", "approvals", "kyc"]
 PACKS = {
 	"Starter": {"on": [], "doc_level": "Off", "form_mode": "Quick", "desc": "Small local trader, one company"},
 	"Standard": {"on": STANDARD_ON, "doc_level": "Recommended", "form_mode": "Standard", "desc": "Growing importer or exporter"},
+	# v1.8.0: fit-out and contracting companies — projects, BOQ, progress billing and retention, plus the Trading parts they use
+	"Contractor": {"on": [k for k in STANDARD_ON if k != "exports"] + ["projects", "lc", "hr", "assets", "codocs"], "doc_level": "Recommended",
+		"form_mode": "Standard", "desc": "Fit-out and contracting — projects, BOQ, progress billing, retention"},
+	# v1.8.0: assemblers and factories — BOMs, work orders, shop floor, QC, plus serial numbers, HR and assets (prototype p19)
+	"Manufacturer": {"on": STANDARD_ON + ["manufacturing", "serial", "hr", "assets"], "doc_level": "Recommended", "form_mode": "Standard",
+		"desc": "Assemblers and factories — BOMs, work orders, shop floor, QC"},
 	"Enterprise": {"on": list(FEATURES), "doc_level": "Full", "form_mode": "Detailed", "desc": "Groups and larger traders — everything"},
 }
 
