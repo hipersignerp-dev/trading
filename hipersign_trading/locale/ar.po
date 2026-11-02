@@ -6126,3 +6126,153 @@ msgstr "مدير الحسابات"
 
 msgid "Every sales order and its work order through the 22 manufacturing steps — status, % and date per step, with red flags. Hover a step for who does it and the facts behind it."
 msgstr "كل أمر بيع وأمر العمل الخاص به عبر خطوات التصنيع الـ22 — الحالة و% والتاريخ لكل خطوة مع العلامات الحمراء. مرّر على الخطوة لمعرفة المسؤول والحقائق."
+
+msgid "Daily site report"
+msgstr "تقرير الموقع اليومي"
+
+msgid "New daily site report"
+msgstr "تقرير موقع يومي جديد"
+
+msgid "Own manpower"
+msgstr "العمالة الذاتية"
+
+msgid "Subcontractor manpower"
+msgstr "عمالة مقاولي الباطن"
+
+msgid "Issues & delays"
+msgstr "المشكلات والتأخيرات"
+
+msgid "Save report"
+msgstr "حفظ التقرير"
+
+msgid "Projects — {0}"
+msgstr "المشاريع — {0}"
+
+msgid "Manufacturing — {0}"
+msgstr "التصنيع — {0}"
+
+msgid "Quality — {0}"
+msgstr "الجودة — {0}"
+
+msgid "Tracker"
+msgstr "المتابعة"
+
+msgid "In process"
+msgstr "قيد التصنيع"
+
+msgid "To inspect"
+msgstr "بانتظار الفحص"
+
+msgid "In final QC"
+msgstr "في الفحص النهائي"
+
+msgid "Pass rate — 30 days"
+msgstr "نسبة القبول — 30 يومًا"
+
+msgid "Lines…"
+msgstr "البنود…"
+
+msgid "Approve qty"
+msgstr "الكمية المعتمدة"
+
+msgid "Requested"
+msgstr "المطلوب"
+
+msgid "Reject all"
+msgstr "رفض الكل"
+
+msgid "Partly approved"
+msgstr "معتمد جزئيًا"
+
+msgid "partly approved"
+msgstr "معتمد جزئيًا"
+
+msgid "lines rejected"
+msgstr "بنود مرفوضة"
+
+msgid "Reason for rejected or reduced lines"
+msgstr "سبب رفض البنود أو تخفيضها"
+
+msgid "Approve {0} line by line"
+msgstr "اعتماد {0} بندًا بندًا"
+
+msgid "inspections to record"
+msgstr "فحوصات للتسجيل"
+
+msgid "site material requests to approve"
+msgstr "طلبات مواد للموقع بانتظار الاعتماد"
+
+msgid "{0} WO"
+msgstr "{0} أمر عمل"
+
+msgid "{0} WOs"
+msgstr "{0} أوامر عمل"
+
+msgid "Rejected lines"
+msgstr "البنود المرفوضة"
+
+msgid "Nothing waiting for inspection."
+msgstr "لا شيء بانتظار الفحص."
+
+msgid "Contract value"
+msgstr "قيمة العقد"
+
+msgid "Site visit"
+msgstr "زيارة الموقع"
+
+msgid "BOQ & estimate"
+msgstr "جدول الكميات والتقدير"
+
+msgid "Award"
+msgstr "الترسية"
+
+msgid "Contract"
+msgstr "العقد"
+
+msgid "Bonds"
+msgstr "الضمانات"
+
+msgid "Mobilise"
+msgstr "التجهيز"
+
+msgid "Procure"
+msgstr "الشراء"
+
+msgid "Deliveries"
+msgstr "التوريدات"
+
+msgid "Measure"
+msgstr "القياس"
+
+msgid "Sub claims"
+msgstr "مطالبات الباطن"
+
+msgid "Cost control"
+msgstr "ضبط التكاليف"
+
+msgid "Completion"
+msgstr "الإنجاز"
+
+msgid "Final acct"
+msgstr "الحساب الختامي"
+
+msgid "Closure"
+msgstr "الإغلاق"
+
+msgid "Completed"
+msgstr "مكتمل"
+
+msgid "Not started"
+msgstr "لم يبدأ"
+
+msgid "Stopped"
+msgstr "متوقف"
+
+msgid "Late"
+msgstr "متأخرة"
+
+msgid "{0} · due {1}"
+msgstr "{0} · الاستحقاق {1}"
+
+msgid "Final QC · due {0}"
+msgstr "الفحص النهائي · الاستحقاق {0}"

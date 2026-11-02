@@ -14877,3 +14877,204 @@ msgstr "每张销售订单及其工单经历 22 个生产步骤 — 每步的状
 
 msgid "Every sales order and its work order through the 22 steps in five phases — status, % and date per step, and red flags such as a late work order, a component shortage or open rework."
 msgstr "每张销售订单及其工单经历五个阶段的 22 个步骤 — 每步的状态、% 和日期，以及工单延期、组件缺料或未完成返工等红色预警。"
+
+msgid "A daily site report cannot be dated in the future"
+msgstr "每日现场报告不能填写未来日期"
+
+msgid "Approve each line, reduce its quantity or reject it — the reason is kept on the request"
+msgstr "逐行批准、减少数量或驳回 — 原因记录在申请单上"
+
+msgid "Approve qty"
+msgstr "批准数量"
+
+msgid "Approve {0} line by line"
+msgstr "逐行审批 {0}"
+
+msgid "Daily site report"
+msgstr "每日现场报告"
+
+msgid "Deliveries, access, client instructions, safety"
+msgstr "到货、进场、业主指令、安全"
+
+msgid "Describe the work done"
+msgstr "请填写完成的工作"
+
+msgid "Everything on {0} is already ordered."
+msgstr "{0} 的所有物料均已下单。"
+
+msgid "Final QC · due {0}"
+msgstr "最终质检 · {0} 到期"
+
+msgid "Give the reason for the lines you reject or reduce."
+msgstr "请填写驳回或减少数量的原因。"
+
+msgid "In final QC"
+msgstr "最终质检中"
+
+msgid "In process"
+msgstr "生产中"
+
+msgid "Issues & delays"
+msgstr "问题与延误"
+
+msgid "Lines…"
+msgstr "逐行…"
+
+msgid "Manpower cannot be negative"
+msgstr "人数不能为负数"
+
+msgid "Manpower on site, work done and issues — Quick: project, manpower and work done; the project manager sees it the same day"
+msgstr "现场人数、完成的工作和问题 — 快速：项目、人数和完成的工作；项目经理当天即可查看"
+
+msgid "Manufacturing — {0}"
+msgstr "生产制造 — {0}"
+
+msgid "Nothing open."
+msgstr "没有未完成事项。"
+
+msgid "Nothing waiting for inspection."
+msgstr "没有待检验项目。"
+
+msgid "Over the remaining BOQ quantity — the Managing Director approves."
+msgstr "超出工程量清单剩余数量 — 由总经理审批。"
+
+msgid "Own manpower"
+msgstr "自有人员"
+
+msgid "Partly approved"
+msgstr "部分批准"
+
+msgid "partly approved"
+msgstr "部分批准"
+
+msgid "Pass rate — 30 days"
+msgstr "合格率 — 30天"
+
+msgid "Projects — {0}"
+msgstr "项目 — {0}"
+
+msgid "Quality — {0}"
+msgstr "质量 — {0}"
+
+msgid "Reason for rejected or reduced lines"
+msgstr "驳回或减少数量的原因"
+
+msgid "Reason: {0}"
+msgstr "原因：{0}"
+
+msgid "Reject all"
+msgstr "全部驳回"
+
+msgid "Requested"
+msgstr "申请数量"
+
+msgid "Save report"
+msgstr "保存报告"
+
+msgid "Subcontractor manpower"
+msgstr "分包人员"
+
+msgid "To inspect"
+msgstr "待检验"
+
+msgid "Tracker"
+msgstr "跟踪"
+
+msgid "e.g. Already in site stock; order after the client approves the sample"
+msgstr "例如：现场已有库存；业主确认样品后再下单"
+
+msgid "e.g. Floor 7 ceilings boarded; floor 5 flooring 60% laid"
+msgstr "例如：7楼吊顶封板完成；5楼地面铺设60%"
+
+msgid "inspections to record"
+msgstr "项检验待登记"
+
+msgid "lines rejected"
+msgstr "行已驳回"
+
+msgid "site material requests to approve"
+msgstr "项现场物料申请待审批"
+
+msgid "{0} WO"
+msgstr "{0} 张工单"
+
+msgid "{0} WOs"
+msgstr "{0} 张工单"
+
+msgid "{0} people"
+msgstr "{0} 人"
+
+msgid "{0} saved · {1} on site"
+msgstr "{0} 已保存 · 现场 {1}"
+
+msgid "{0} rejected — the site engineer sees the reason"
+msgstr "{0} 已驳回 — 现场工程师可看到原因"
+
+msgid "{0} approved — {1} of {2} lines; what was cut is noted with the reason"
+msgstr "{0} 已批准 — {2} 行中的 {1} 行；削减部分已连同原因记录"
+
+msgid "{0} — {1} {2} rejected"
+msgstr "{0} — {1} {2} 已驳回"
+
+msgid "{0} — {1} of {2} {3} approved"
+msgstr "{0} — {2} {3} 中批准 {1}"
+
+msgid "{0}: you can approve at most the {1} {2} requested."
+msgstr "{0}：最多只能批准申请的 {1} {2}。"
+
+msgid "{0} must be an approved purchase request."
+msgstr "{0} 必须是已批准的采购申请。"
+
+msgid "{0} already has a report for {1} — this one is added beside it."
+msgstr "{0} 在 {1} 已有报告 — 本报告将一并保存。"
+
+msgid "Rejected lines"
+msgstr "已驳回行"
+
+msgid "Lines taken out or reduced at approval, with the reason (partial approval)"
+msgstr "审批时删除或减少的行及原因（部分批准）"
+
+msgid "Site visit"
+msgstr "现场勘察"
+
+msgid "BOQ & estimate"
+msgstr "清单与估算"
+
+msgid "Award"
+msgstr "中标"
+
+msgid "Bonds"
+msgstr "保函"
+
+msgid "Mobilise"
+msgstr "进场"
+
+msgid "Procure"
+msgstr "采购"
+
+msgid "Deliveries"
+msgstr "到货"
+
+msgid "Measure"
+msgstr "计量"
+
+msgid "Sub claims"
+msgstr "分包请款"
+
+msgid "Cost control"
+msgstr "成本控制"
+
+msgid "Completion"
+msgstr "竣工"
+
+msgid "Final acct"
+msgstr "结算"
+
+msgid "Closure"
+msgstr "关闭"
+
+msgid "Not started"
+msgstr "未开始"
+
+msgid "Stopped"
+msgstr "已停止"

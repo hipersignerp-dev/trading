@@ -3714,3 +3714,53 @@ Planning & shortages,التخطيط والنواقص
 "The work order, step by step",أمر العمل خطوة بخطوة
 Accounts Manager,مدير الحسابات
 "Every sales order and its work order through the 22 manufacturing steps — status, % and date per step, with red flags. Hover a step for who does it and the facts behind it.",كل أمر بيع وأمر العمل الخاص به عبر خطوات التصنيع الـ22 — الحالة و% والتاريخ لكل خطوة مع العلامات الحمراء. مرّر على الخطوة لمعرفة المسؤول والحقائق.
+Daily site report,تقرير الموقع اليومي
+New daily site report,تقرير موقع يومي جديد
+Own manpower,العمالة الذاتية
+Subcontractor manpower,عمالة مقاولي الباطن
+Issues & delays,المشكلات والتأخيرات
+Save report,حفظ التقرير
+Projects — {0},المشاريع — {0}
+Manufacturing — {0},التصنيع — {0}
+Quality — {0},الجودة — {0}
+Tracker,المتابعة
+In process,قيد التصنيع
+To inspect,بانتظار الفحص
+In final QC,في الفحص النهائي
+Pass rate — 30 days,نسبة القبول — 30 يومًا
+Lines…,البنود…
+Approve qty,الكمية المعتمدة
+Requested,المطلوب
+Reject all,رفض الكل
+Partly approved,معتمد جزئيًا
+partly approved,معتمد جزئيًا
+lines rejected,بنود مرفوضة
+Reason for rejected or reduced lines,سبب رفض البنود أو تخفيضها
+Approve {0} line by line,اعتماد {0} بندًا بندًا
+inspections to record,فحوصات للتسجيل
+site material requests to approve,طلبات مواد للموقع بانتظار الاعتماد
+{0} WO,{0} أمر عمل
+{0} WOs,{0} أوامر عمل
+Rejected lines,البنود المرفوضة
+Nothing waiting for inspection.,لا شيء بانتظار الفحص.
+Contract value,قيمة العقد
+Site visit,زيارة الموقع
+BOQ & estimate,جدول الكميات والتقدير
+Award,الترسية
+Contract,العقد
+Bonds,الضمانات
+Mobilise,التجهيز
+Procure,الشراء
+Deliveries,التوريدات
+Measure,القياس
+Sub claims,مطالبات الباطن
+Cost control,ضبط التكاليف
+Completion,الإنجاز
+Final acct,الحساب الختامي
+Closure,الإغلاق
+Completed,مكتمل
+Not started,لم يبدأ
+Stopped,متوقف
+Late,متأخرة
+{0} · due {1},{0} · الاستحقاق {1}
+Final QC · due {0},الفحص النهائي · الاستحقاق {0}

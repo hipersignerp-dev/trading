@@ -64,6 +64,15 @@
   Chinese components, seven orders from closed to forecast, a rejected heat-sink lot, work orders running on the shop floor
   now, test certificates and the costing — all posted as real documents.
 - Fix: a group company's export invoices keep their own zero-rated VAT template (the main company's was forced on them).
+- **Closing the p19 gaps**: Home shows a **Projects** and a **Manufacturing** card (four figures that open their page, the
+  open projects / work orders below, Tracker) when the feature is on and the user may open the page; the QC Inspector gets
+  a **Quality** card first and *inspections to record* under Work for today. The top-bar search finds projects,
+  variations, subcontract orders and work orders (permissions, feature switches and menu-builder hidden screens apply).
+  **Daily site report** window (Quick / Standard / Detailed) from + New, Site & procurement and Timesheets. Site material
+  requests: approve all or **line by line** (approve, reduce or reject each line with a reason; all rejected = Rejected),
+  and **Create PO** opens the app's purchase order window with the lines still to order, linked to the request. Role
+  matrix as p19: the Quantity Surveyor no longer opens Site & procurement or Timesheets (Projects User dropped from those
+  pages) and now has Home; the project panel's *Open screen* shows only screens the user may open.
 
 ## 1.8.0 — Chinese & menu builder
 - **Simplified Chinese (中文)**: every string the app shows — pages, menus, buttons, messages, doctype and workspace labels,
