@@ -10,6 +10,31 @@ const STATUS_TONE = { Draft: "grey", "To Deliver and Bill": "blue", "To Deliver"
 	Cleared: "green", "Received at Warehouse": "green", Pending: "orange", Submitted: "blue", Stopped: "grey",
 	Applied: "orange", Issued: "grey", "Documents Presented": "blue", Accepted: "green", Paid: "green", Discrepant: "red" };
 
+// v1.7.3 (prototype p18): a total line under every table with money columns — one currency per column, rows counted
+hipersign.module.foot = function (r) {
+	if (!r.rows || r.rows.length < 2 || r.nototal) return "";
+	const SKIP = /(balance|rate|price|limit|%|margin|qty|quantity|days|stock|age)/i;
+	let any = false;
+	const f = r.cols.map((col, i) => {
+		if (SKIP.test(col.label || "")) return null;
+		const t = {}; let n = 0, ok = true;
+		r.rows.forEach((row) => {
+			const c = row.cells[i];
+			if (!ok || c === null || c === undefined || c === "") return;
+			if (typeof c !== "object" || c.money === undefined) { ok = false; return; }
+			const cur = c.currency || "";
+			t[cur] = (t[cur] || 0) + flt(c.money); n++;
+		});
+		if (!ok || !n) return null;
+		any = true;
+		// one line per currency when a list mixes them (export orders in USD beside local AED orders)
+		return Object.entries(t).map(([cur, v]) => `${cur ? hm_esc(cur) + " " : ""}${hm_esc(format_number(v, null, 2))}`).join("<br>");
+	});
+	if (!any) return "";
+	if (f[0] === null) f[0] = `${__("Total")} <span class="hsx-tcount">· ${__("{0} rows", [r.rows.length])}</span>`;
+	return `<tfoot><tr>${f.map((x, i) => `<td class="${(r.cols[i] || {}).cls || ""}">${x === null ? "" : x}</td>`).join("")}</tr></tfoot>`;
+};
+
 hipersign.module.cell = function (c) {
 	if (c === null || c === undefined || c === "") return "—";
 	if (typeof c !== "object") return hm_esc(typeof c === "number" ? format_number(c, null, c % 1 ? 2 : 0) : c);
@@ -102,13 +127,17 @@ hipersign.module.render = function (wrapper, key) {
 		let $out = v.$body.find(".hsx-mout");
 		ui.loading($out);
 		frappe.xcall("hipersign_trading.api.module.get_rows", { key, tab: st.tab, chip: st.chip[st.tab] || null, q: st.q, owner: st.owner, source: st.source }).then((r) => {
+			// v1.7.3: a tab can bring its own KPI cards (Quotations → open value, expiring, accepted…); other tabs show the page's
+			const $k = v.$body.find(".hsx-kpis"), kp = r.kpis || st.data.kpis;
+			$k.html(kp.map((k, i) => ui.kpi(Object.assign({}, k, { route: null })).replace("<button ", `<button data-k="${i}" ${r.kpis ? 'data-tabk="1"' : ""} `)).join(""));
+			st.tab_kpis = r.kpis || null;
 			if (r.board) return board($out, r.board);
 			if (r.blocks) return blocks($out, r.blocks);
 			if (r.kanban) { kanban($out, r.kanban, r.kanban_cols); if (!r.after) return; $out.append('<div class="hsx-mout2" style="margin-top:16px"></div>'); r = r.after; }
 			if ($out.find(".hsx-mout2").length) $out = $out.find(".hsx-mout2");
 			const title = r.title || (st.data.tabs.find((x) => x.key === st.tab) || {}).label;
 			$out.html(ui.card(title, r.rows.length ? `<div class="hsx-tw"><table class="hsx-t hsx-mlist"><thead><tr>${r.cols.map((c) => `<th class="${c.cls || ""}">${hm_esc(c.label)}</th>`).join("")}</tr></thead>
-				<tbody>${r.rows.map((row) => `<tr class="${row.cls || ""}" ${row.dt ? `data-dt="${hm_esc(row.dt)}" data-name="${hm_esc(row.name)}"` : ""}>${row.cells.map((c, i) => `<td class="${(r.cols[i] || {}).cls || ""}">${hipersign.module.cell(c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`
+				<tbody>${r.rows.map((row) => `<tr class="${row.cls || ""}" ${row.dt ? `data-dt="${hm_esc(row.dt)}" data-name="${hm_esc(row.name)}"` : ""}>${row.cells.map((c, i) => `<td class="${(r.cols[i] || {}).cls || ""}">${hipersign.module.cell(c)}</td>`).join("")}</tr>`).join("")}</tbody>${hipersign.module.foot(r)}</table></div>`
 				: `<div class="hsx-empty">${hm_esc(r.empty || __("Nothing here."))}</div>`, { actions: (r.actions || []).map((a, i) => `<button class="btn ${a.primary ? "btn-primary" : "btn-default"} btn-xs hsx-ra" data-i="${i}">${hm_esc(a.label)}</button>`).join(" ")
 					+ (r.rows.length ? ` <button class="btn btn-default btn-xs hsx-xl">${__("Excel")}</button>` : "") }));
 				$out.find(".hsx-ra").on("click", function () { const a = r.actions[+$(this).attr("data-i")]; frappe.route_options = a.options || null; frappe.set_route(...a.route); });
@@ -202,7 +231,8 @@ hipersign.module.render = function (wrapper, key) {
 	v.$body.on("click", ".hsx-mtabs button", function () { st.tab = $(this).attr("data-tab"); tab(); });
 	v.$body.on("click", ".hsx-chips [data-chip]", function () { st.chip[st.tab] = $(this).attr("data-chip"); tab(); });
 	v.$body.on("click", "[data-k]", function () {
-		const k = st.data.kpis[+$(this).attr("data-k")];
+		const k = ($(this).attr("data-tabk") && st.tab_kpis ? st.tab_kpis : st.data.kpis)[+$(this).attr("data-k")];
+		if (!k) return;
 		if (k.tab) { st.tab = k.tab; if (k.chip) st.chip[k.tab] = k.chip; tab(); }
 		else if (k.route) frappe.set_route(...k.route);
 	});

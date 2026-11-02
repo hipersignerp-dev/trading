@@ -152,7 +152,7 @@ def purchasing_rows(tab, chip, q=None):
 			"rows": [{"dt": "Material Request", "name": r.name, "cells": [{"code": r.name}, {"lines": items.get(r.name, [])[:3]}, frappe.utils.get_fullname(r.owner),
 				{"date": r.transaction_date}, {"date": r.schedule_date, "late": bool(r.schedule_date and getdate(r.schedule_date) < t and r.status not in ("Ordered",))},
 				{"bar": flt(r.per_ordered)} if r.docstatus == 1 else "—", {"pill": _("Draft") if r.docstatus == 0 else r.status}]} for r in rows],
-			"actions": [{"label": _("Supplier Quotation Comparison"), "route": ["query-report", "Supplier Quotation Comparison"]}] if _perm("Supplier Quotation") else []}
+			"actions": [{"label": _("Supplier Quotation Comparison"), "route": ["hipersign-compare"]}] if _perm("Supplier Quotation") else []}
 	if tab == "quotes":
 		if not _perm("Supplier Quotation"):
 			return {"cols": [], "rows": []}
@@ -167,7 +167,7 @@ def purchasing_rows(tab, chip, q=None):
 				{"date": r.transaction_date}, {"date": r.valid_till, "late": bool(r.valid_till and getdate(r.valid_till) < t)},
 				f"{cint((rfq.get(r.name) or [0, 0])[1])} {_('days')}" if (rfq.get(r.name) or [0, 0])[1] else "—",
 				{"money": r.grand_total, "currency": r.currency, "sub": _fmt_base(r, cur)}, {"pill": _("Draft") if r.docstatus == 0 else r.status}]} for r in rows],
-			"actions": [{"label": _("Compare offers"), "route": ["query-report", "Supplier Quotation Comparison"]}]}
+			"actions": [{"label": _("Compare offers"), "route": ["hipersign-compare"]}]}
 	if tab == "reorder":
 		rows = _reorder_rows(cos)
 		return {"cols": [{"label": _("Item")}, {"label": _("Supplier")}, {"label": _("Daily demand"), "cls": "num"}, {"label": _("Trend")}, {"label": _("Lead time"), "cls": "num"},

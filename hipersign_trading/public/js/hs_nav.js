@@ -94,7 +94,8 @@ hipersign.nav.brand = function () {
 	if (ours && !$h.find(".hs-brand-logo").length) {
 		$h.find(".sidebar-item-icon").hide();
 		$h.find(".title-container").hide();
-		$h.prepend(`<span class="hs-brand-logo"><img src="/assets/hipersign_trading/images/hipersign-logo.png" alt="Hipersign ERP"></span>`);
+		// v1.7.3: the wordmark when the menu is open, the square mark when it is collapsed (no squeezed logo)
+		$h.prepend(`<span class="hs-brand-logo"><img class="hs-logo-full" src="/assets/hipersign_trading/images/hipersign-logo.png" alt="Hipersign ERP"><img class="hs-logo-mark" src="/assets/hipersign_trading/images/hipersign-mark.png" alt="Hipersign ERP"></span>`);
 	} else if (!ours) {
 		$h.find(".hs-brand-logo").remove();
 		$h.find(".sidebar-item-icon, .title-container").show();

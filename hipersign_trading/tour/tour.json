@@ -97,12 +97,12 @@
    "title": "Item master",
    "text": "Brand, model and description; sales and purchase units with the conversion (1 carton = 100 Nos); weight per unit for delivery notes; warranty; minimum order; lead time and default supplier for smart reorder.",
    "route": [
-    "query-report",
-    "Stock Projected Qty"
+    "hipersign-stock"
    ],
-   "selector": ".page-form, .report-wrapper",
+   "selector": ".hsx-mout .hsx-card, .hsx-mout",
    "role": "Stock Manager",
-   "feature": null
+   "feature": null,
+   "tab": "items"
   },
   {
    "chapter": 1,
@@ -111,7 +111,7 @@
    "route": [
     "hipersign-orders"
    ],
-   "selector": ".hsx-mout",
+   "selector": ".hsx-mout .hsx-card, .hsx-mout",
    "role": "Sales Manager",
    "feature": null,
    "tab": "credit"
@@ -121,12 +121,12 @@
    "title": "Supplier master",
    "text": "Address, supplier group, lead time and website. The supplier’s lead time drives the expected arrival on new purchase orders and the reorder point of the items it supplies.",
    "route": [
-    "List",
-    "Purchase Order"
+    "hipersign-purchasing"
    ],
-   "selector": ".frappe-list",
+   "selector": ".hsx-mout .hsx-card, .hsx-mout",
    "role": "Purchase Manager",
-   "feature": null
+   "feature": null,
+   "tab": "suppliers"
   },
   {
    "chapter": 1,
@@ -171,7 +171,7 @@
    "route": [
     "hipersign-orders"
    ],
-   "selector": ".hsx-mout",
+   "selector": ".hsx-mout .hsx-card, .hsx-mout",
    "role": "Sales User",
    "feature": null,
    "tab": "quotes"
@@ -183,7 +183,7 @@
    "route": [
     "hipersign-orders"
    ],
-   "selector": ".hsx-mout",
+   "selector": ".hsx-mout .hsx-card, .hsx-mout",
    "role": "Sales Manager",
    "feature": null,
    "tab": "pricing"
@@ -195,7 +195,7 @@
    "route": [
     "hipersign-orders"
    ],
-   "selector": ".hsx-mout",
+   "selector": ".hsx-mout .hsx-card, .hsx-mout",
    "role": "Sales User",
    "feature": null,
    "tab": "orders"
@@ -207,7 +207,7 @@
    "route": [
     "hipersign-orders"
    ],
-   "selector": ".hsx-mout",
+   "selector": ".hsx-mout .hsx-card, .hsx-mout",
    "role": "Sales Manager",
    "feature": null,
    "tab": "pricing"
@@ -219,7 +219,7 @@
    "route": [
     "hipersign-orders"
    ],
-   "selector": ".hsx-kpis",
+   "selector": ".hsx-mchip, .hsx-actions, .hsx-kpis",
    "role": "Sales User",
    "feature": null
   },
@@ -239,9 +239,9 @@
    "title": "Customer portal",
    "text": "Customers see their orders, deliveries, invoices and statement, and can pay online — fewer “where is my order?” calls. (Menu → Customer Portal opens the customer's pages as a preview.)",
    "route": [
-    "hipersign-home"
+    "hipersign-portal"
    ],
-   "selector": ".hsx-body",
+   "selector": ".layout-main-section",
    "role": "Sales User",
    "feature": "portal"
   },
@@ -250,84 +250,84 @@
    "title": "Purchase requests",
    "text": "Anyone can request stock; the Purchase Manager approves it and it becomes a request for quotation or a purchase order.",
    "route": [
-    "List",
-    "Purchase Order"
+    "hipersign-purchasing"
    ],
-   "selector": ".frappe-list",
+   "selector": ".hsx-mout .hsx-card, .hsx-mout",
    "role": "Purchase User",
-   "feature": null
+   "feature": null,
+   "tab": "requests"
   },
   {
    "chapter": 3,
    "title": "Supplier quotations compared",
    "text": "Send one request to several suppliers and compare price in AED, lead time and arrival date side by side — the best offer becomes the order.",
    "route": [
-    "List",
-    "Purchase Order"
+    "hipersign-purchasing"
    ],
-   "selector": ".frappe-list",
+   "selector": ".hsx-mout .hsx-card, .hsx-mout",
    "role": "Purchase User",
-   "feature": null
+   "feature": null,
+   "tab": "quotes"
   },
   {
    "chapter": 3,
    "title": "Purchase orders in the supplier’s currency",
    "text": "USD, EUR or CNY orders with the exchange rate, incoterm and approval limits. A warning appears if a line is below the item’s minimum order or not a full carton.",
    "route": [
-    "List",
-    "Purchase Order"
+    "hipersign-purchasing"
    ],
-   "selector": ".frappe-list",
+   "selector": ".hsx-mout .hsx-card, .hsx-mout",
    "role": "Purchase User",
-   "feature": null
+   "feature": null,
+   "tab": "orders"
   },
   {
    "chapter": 3,
    "title": "Smart reorder",
    "text": "Sales trend, lead time and safety stock give a reorder point per item; suggestions are rounded to full cartons, respect the minimum order and go to the default supplier.",
    "route": [
-    "List",
-    "Purchase Order"
+    "hipersign-purchasing"
    ],
-   "selector": ".frappe-list",
+   "selector": ".hsx-mout .hsx-card, .hsx-mout",
    "role": "Purchase User",
-   "feature": null
+   "feature": null,
+   "tab": "reorder"
   },
   {
    "chapter": 4,
    "title": "Import shipments & customs",
    "text": "ETA, bill of lading, customs documents and freight, duty and clearing charges — goods cannot be received before clearance.",
    "route": [
-    "List",
-    "Import Shipment"
+    "hipersign-imports"
    ],
-   "selector": ".frappe-list",
+   "selector": ".hsx-board, .hsx-mout",
    "role": "Logistics Coordinator",
-   "feature": "imports"
+   "feature": "imports",
+   "tab": "board"
   },
   {
    "chapter": 4,
    "title": "Letters of credit & trust receipts",
    "text": "LC margin, documents presented, acceptance and maturity; trust receipt loans and their interest — linked to the shipment and the supplier invoice.",
    "route": [
-    "List",
-    "Letter of Credit"
+    "hipersign-lc"
    ],
-   "selector": ".frappe-list",
+   "selector": ".hsx-mout .hsx-card, .hsx-mout",
    "role": "Accounts Manager",
-   "feature": "lc"
+   "feature": "lc",
+   "tab": "lcs"
   },
   {
    "chapter": 4,
    "title": "Goods receiving with quality check",
    "text": "Scan, accept or reject; rejected goods go to a quarantine warehouse and back to the supplier on a debit note.",
    "route": [
-    "List",
-    "Purchase Receipt"
+    "hipersign-receiving"
    ],
-   "selector": ".frappe-list",
+   "selector": ".hsx-mout .hsx-card, .hsx-mout",
    "role": "Stock Manager",
-   "feature": null
+   "feature": null,
+   "tab": "awaiting"
   },
   {
    "chapter": 4,
@@ -345,58 +345,57 @@
    "title": "Stock across warehouses",
    "text": "Quantity and value by warehouse and showroom, with brand and model on every line.",
    "route": [
-    "query-report",
-    "Stock Projected Qty"
+    "hipersign-stock"
    ],
-   "selector": ".page-form, .report-wrapper",
+   "selector": ".hsx-mout .hsx-card, .hsx-mout",
    "role": "Stock Manager",
-   "feature": null
+   "feature": null,
+   "tab": "items"
   },
   {
    "chapter": 5,
    "title": "Stock reservations",
    "text": "Approved orders hold their stock; reservations can be released or handed to a more urgent order.",
    "route": [
-    "query-report",
-    "Stock Projected Qty"
+    "hipersign-stock"
    ],
-   "selector": ".page-form, .report-wrapper",
+   "selector": ".hsx-mout .hsx-card, .hsx-mout",
    "role": "Stock Manager",
-   "feature": null
+   "feature": null,
+   "tab": "reservations"
   },
   {
    "chapter": 5,
    "title": "Rack & bin locations",
    "text": "Every item has a bin, so pick lists send the storekeeper straight to the shelf.",
    "route": [
-    "query-report",
-    "Stock Projected Qty"
+    "hipersign-stock"
    ],
-   "selector": ".page-form, .report-wrapper",
+   "selector": ".hsx-mout .hsx-card, .hsx-mout",
    "role": "Stock Manager",
-   "feature": null
+   "feature": null,
+   "tab": "warehouses"
   },
   {
    "chapter": 5,
    "title": "Stock counts",
    "text": "Count by warehouse or bin; differences post as a stock reconciliation after the Warehouse Manager approves.",
    "route": [
-    "query-report",
-    "Stock Projected Qty"
+    "hipersign-stock"
    ],
-   "selector": ".page-form, .report-wrapper",
+   "selector": ".hsx-mout .hsx-card, .hsx-mout",
    "role": "Stock Manager",
-   "feature": null
+   "feature": null,
+   "tab": "counts"
   },
   {
    "chapter": 5,
    "title": "Serial numbers & warranty",
    "text": "Look up any serial: who bought it, on which delivery and whether it is still under warranty. Claims are tracked to the end.",
    "route": [
-    "query-report",
-    "Stock Projected Qty"
+    "serial-lookup"
    ],
-   "selector": ".page-form, .report-wrapper",
+   "selector": ".layout-main-section",
    "role": "Stock Manager",
    "feature": null
   },
@@ -405,108 +404,108 @@
    "title": "Stock ageing",
    "text": "How long stock has been sitting and what it is worth — slow movers also show up in Insights.",
    "route": [
-    "query-report",
-    "Stock Projected Qty"
+    "hipersign-stock"
    ],
-   "selector": ".page-form, .report-wrapper",
+   "selector": ".hsx-mout .hsx-card, .hsx-mout",
    "role": "Stock Manager",
-   "feature": null
+   "feature": null,
+   "tab": "ageing"
   },
   {
    "chapter": 6,
    "title": "Pick, pack & dispatch",
    "text": "Pick lists, cartons and weights, delivery trips with drivers and vehicles. Orders on advance terms stay on hold until the advance is received.",
    "route": [
-    "List",
-    "Delivery Note"
+    "hipersign-dispatch"
    ],
-   "selector": ".frappe-list",
+   "selector": ".hsx-board, .hsx-mout",
    "role": "Logistics Coordinator",
-   "feature": null
+   "feature": null,
+   "tab": "board"
   },
   {
    "chapter": 6,
    "title": "Driver app & proof of delivery",
    "text": "The driver sees the day’s stops, navigates, and captures the receiver’s signature and a photo on the phone.",
    "route": [
-    "List",
-    "Delivery Trip"
+    "hipersign-dispatch"
    ],
-   "selector": ".frappe-list",
+   "selector": ".hsx-mout .hsx-card, .hsx-mout",
    "role": "Driver",
-   "feature": "trips"
+   "feature": "trips",
+   "tab": "trips"
   },
   {
    "chapter": 7,
    "title": "Exports & re-exports",
    "text": "Export orders in the customer’s currency, booked by land, sea or air with the forwarder and documents.",
    "route": [
-    "List",
-    "Export Shipment"
+    "hipersign-exports"
    ],
-   "selector": ".frappe-list",
+   "selector": ".hsx-board, .hsx-mout",
    "role": "Sales Manager",
-   "feature": "exports"
+   "feature": "exports",
+   "tab": "board"
   },
   {
    "chapter": 7,
    "title": "Proof of export for 0% VAT",
    "text": "Each shipment lists the documents the FTA needs to support zero-rating and warns before the deadline.",
    "route": [
-    "List",
-    "Export Shipment"
+    "hipersign-exports"
    ],
-   "selector": ".frappe-list",
+   "selector": ".hsx-mout .hsx-card, .hsx-mout",
    "role": "Sales Manager",
-   "feature": "exports"
+   "feature": "exports",
+   "tab": "docs"
   },
   {
    "chapter": 7,
    "title": "Re-exports and duty refunds",
    "text": "Imported goods sent out again — the customs duty paid on import is tracked for refund.",
    "route": [
-    "List",
-    "Export Shipment"
+    "hipersign-exports"
    ],
-   "selector": ".frappe-list",
+   "selector": ".hsx-mout .hsx-card, .hsx-mout",
    "role": "Sales Manager",
-   "feature": "exports"
+   "feature": "exports",
+   "tab": "reexports"
   },
   {
    "chapter": 8,
    "title": "Receivables",
    "text": "Ageing by days past due and every open invoice with one-click receipt.",
    "route": [
-    "query-report",
-    "Accounts Receivable"
+    "hipersign-fin"
    ],
-   "selector": ".report-wrapper, .layout-main-section",
+   "selector": ".hsx-mout .hsx-card, .hsx-mout",
    "role": "Accounts User",
-   "feature": null
+   "feature": null,
+   "tab": "receivables"
   },
   {
    "chapter": 8,
    "title": "Bank charges on customer transfers",
    "text": "A customer pays AED 1,000 but the bank credits AED 980. On Receive payment, on the bank statement or on the invoice, the AED 20 is booked to bank charges and the invoice closes as Paid. Up to the limit anyone can absorb it; above it the Finance Manager decides — or the balance stays open.",
    "route": [
-    "query-report",
-    "Accounts Receivable"
+    "hipersign-fin"
    ],
-   "selector": ".report-wrapper, .layout-main-section",
+   "selector": ".hsx-mout .hsx-card, .hsx-mout",
    "role": "Accounts User",
-   "feature": null
+   "feature": null,
+   "tab": "collections"
   },
   {
    "chapter": 8,
    "title": "Customer advances",
    "text": "Advances against an order or on account sit in Customer advances until they are applied to the tax invoice — automatically when the order is invoiced. VAT on an advance is reported in the month it is received.",
    "route": [
-    "query-report",
-    "Accounts Receivable"
+    "hipersign-fin"
    ],
-   "selector": ".report-wrapper, .layout-main-section",
+   "selector": ".hsx-mout .hsx-card, .hsx-mout",
    "role": "Accounts User",
-   "feature": null
+   "feature": null,
+   "tab": "advances"
   },
   {
    "chapter": 8,
@@ -515,7 +514,7 @@
    "route": [
     "hipersign-orders"
    ],
-   "selector": ".hsx-mout",
+   "selector": ".hsx-mout .hsx-card, .hsx-mout",
    "role": "Accounts Manager",
    "feature": null,
    "tab": "orders"
@@ -525,130 +524,129 @@
    "title": "Collections",
    "text": "Reminders on WhatsApp and email by stage, with promises to pay and the customer’s history.",
    "route": [
-    "query-report",
-    "Accounts Receivable"
+    "hipersign-fin"
    ],
-   "selector": ".report-wrapper, .layout-main-section",
+   "selector": ".hsx-mout .hsx-card, .hsx-mout",
    "role": "Accounts User",
-   "feature": null
+   "feature": null,
+   "tab": "collections"
   },
   {
    "chapter": 8,
    "title": "Payables in any currency",
    "text": "Supplier bills scanned and matched to the order. Pay a EUR or CNY bill in its own currency at the day’s rate — the realised exchange gain or loss posts by itself.",
    "route": [
-    "query-report",
-    "Accounts Receivable"
+    "hipersign-fin"
    ],
-   "selector": ".report-wrapper, .layout-main-section",
+   "selector": ".hsx-mout .hsx-card, .hsx-mout",
    "role": "Accounts User",
-   "feature": null
+   "feature": null,
+   "tab": "payables"
   },
   {
    "chapter": 8,
    "title": "Post-dated cheques",
    "text": "Cheques in hand, due to deposit, cleared or bounced — with a maturity calendar feeding the cash forecast.",
    "route": [
-    "query-report",
-    "Accounts Receivable"
+    "hipersign-fin"
    ],
-   "selector": ".report-wrapper, .layout-main-section",
+   "selector": ".hsx-mout .hsx-card, .hsx-mout",
    "role": "Accounts User",
-   "feature": null
+   "feature": null,
+   "tab": "cheques"
   },
   {
    "chapter": 8,
    "title": "Bank reconciliation",
    "text": "Import the bank statement; lines match automatically and charges or unidentified receipts are booked in one click.",
    "route": [
-    "query-report",
-    "Accounts Receivable"
+    "hipersign-fin"
    ],
-   "selector": ".report-wrapper, .layout-main-section",
+   "selector": ".hsx-mout .hsx-card, .hsx-mout",
    "role": "Accounts User",
-   "feature": null
+   "feature": null,
+   "tab": "bankrec"
   },
   {
    "chapter": 8,
    "title": "Cash flow forecast",
    "text": "Receipts and payments by due date plus operating costs give next month’s closing bank balance.",
    "route": [
-    "query-report",
-    "Accounts Receivable"
+    "hipersign-fin"
    ],
-   "selector": ".report-wrapper, .layout-main-section",
+   "selector": ".hsx-mout .hsx-card, .hsx-mout",
    "role": "Accounts Manager",
-   "feature": null
+   "feature": null,
+   "tab": "cashflow"
   },
   {
    "chapter": 9,
    "title": "Accounting that posts itself",
    "text": "Every invoice, bill, payment, stock movement and payroll posts to the general ledger — trial balance and balance sheet are always up to date.",
    "route": [
-    "query-report",
-    "General Ledger"
+    "hipersign-accounts"
    ],
-   "selector": ".report-wrapper, .layout-main-section",
+   "selector": ".hsx-mout .hsx-card, .hsx-mout",
    "role": "Accounts User",
-   "feature": null
+   "feature": null,
+   "tab": "gl"
   },
   {
    "chapter": 9,
    "title": "Profit by branch, department and salesperson",
    "text": "Cost centres split revenue and costs; head-office costs can be allocated.",
    "route": [
-    "query-report",
-    "General Ledger"
+    "hipersign-accounts"
    ],
-   "selector": ".report-wrapper, .layout-main-section",
+   "selector": ".hsx-mout .hsx-card, .hsx-mout",
    "role": "Accounts User",
-   "feature": null
+   "feature": null,
+   "tab": "cc"
   },
   {
    "chapter": 9,
    "title": "Month-end currency revaluation",
    "text": "Open EUR and CNY payables and receivables are revalued at the closing rate; the unrealised gain or loss posts and reverses on the 1st. USD, OMR and SAR are pegged, so they show nil.",
    "route": [
-    "query-report",
-    "General Ledger"
+    "hipersign-accounts"
    ],
-   "selector": ".report-wrapper, .layout-main-section",
+   "selector": ".hsx-mout .hsx-card, .hsx-mout",
    "role": "Accounts Manager",
-   "feature": null
+   "feature": null,
+   "tab": "reval"
   },
   {
    "chapter": 9,
    "title": "Period closing",
    "text": "A checklist per month — VAT, journals, payroll, invoicing, revaluation — then lock the month so nothing can be posted into it.",
    "route": [
-    "query-report",
-    "General Ledger"
+    "hipersign-accounts"
    ],
-   "selector": ".report-wrapper, .layout-main-section",
+   "selector": ".hsx-mout .hsx-card, .hsx-mout",
    "role": "Accounts Manager",
-   "feature": null
+   "feature": null,
+   "tab": "closing"
   },
   {
    "chapter": 9,
    "title": "UAE VAT 201 & e-invoicing",
    "text": "The return builds itself from invoices, credit notes, purchase bills and advances — per emirate, with reverse charge on imports — then goes to the Finance Manager and EmaraTax.",
    "route": [
-    "List",
-    "Tax Return"
+    "hipersign-vat"
    ],
-   "selector": ".frappe-list",
+   "selector": ".hsx-mout .hsx-card, .hsx-mout",
    "role": "Accounts User",
-   "feature": null
+   "feature": null,
+   "tab": "return"
   },
   {
    "chapter": 9,
    "title": "Corporate tax",
    "text": "Accounting profit to taxable income with the adjustments, small-business relief check and the 9% charge.",
    "route": [
-    "List",
-    "Tax Return"
+    "hipersign-tax"
    ],
-   "selector": ".frappe-list",
+   "selector": ".hsx-mout, .hsx-kpis",
    "role": "Accounts Manager",
    "feature": null
   },
@@ -657,24 +655,24 @@
    "title": "KYC & compliance",
    "text": "Trade licences, TRN certificates and IDs with expiry dates; an expired licence blocks new orders until it is renewed.",
    "route": [
-    "List",
-    "Customer"
+    "hipersign-kyc"
    ],
-   "selector": ".frappe-list",
+   "selector": ".hsx-mout .hsx-card, .hsx-mout",
    "role": "Accounts Manager",
-   "feature": "kyc"
+   "feature": "kyc",
+   "tab": "customers"
   },
   {
    "chapter": 10,
    "title": "Eight companies, five countries",
    "text": "The group tree: two companies in the UAE, one each in Saudi Arabia, the UK and Hong Kong, three in India — each with its own currency, ownership, head and ERPNext site. Click a country or a company to view it.",
    "route": [
-    "query-report",
-    "Hipersign Group Consolidation"
+    "hipersign-group"
    ],
-   "selector": ".report-wrapper, .layout-main-section",
+   "selector": ".hsx-mout .hsx-card, .hsx-mout",
    "role": null,
-   "feature": "group"
+   "feature": "group",
+   "tab": "structure"
   },
   {
    "chapter": 10,
@@ -703,84 +701,84 @@
    "title": "Company head — UK only",
    "text": "James Whitfield sees only Hipersign Trading UK Ltd: its results, trial balance, journal and its own item list. Each company keeps a separate item list.",
    "route": [
-    "query-report",
-    "Hipersign Group Consolidation"
+    "hipersign-group"
    ],
-   "selector": ".report-wrapper, .layout-main-section",
+   "selector": ".hsx-mout .hsx-card, .hsx-mout",
    "role": null,
-   "feature": "group"
+   "feature": "group",
+   "tab": "dashboard"
   },
   {
    "chapter": 10,
    "title": "Inter-company on both sides",
    "text": "Sales to the FZE, Saudi Arabia, the UK and India and charges from the FZE and Hong Kong are booked in the other company with one click — or automatically. The reconciliation shows any difference.",
    "route": [
-    "query-report",
-    "Hipersign Group Consolidation"
+    "hipersign-group"
    ],
-   "selector": ".report-wrapper, .layout-main-section",
+   "selector": ".hsx-mout .hsx-card, .hsx-mout",
    "role": "Accounts Manager",
-   "feature": "group"
+   "feature": "group",
+   "tab": "ic"
   },
   {
    "chapter": 10,
    "title": "Consolidated statements & eliminations",
    "text": "Investments against share capital, inter-company balances and sales, unrealised profit in stock, the minority shares in Saudi Arabia (25%) and Bengaluru (40%), and the translation reserve for the pound and the rupee.",
    "route": [
-    "query-report",
-    "Hipersign Group Consolidation"
+    "hipersign-group"
    ],
-   "selector": ".report-wrapper, .layout-main-section",
+   "selector": ".hsx-mout .hsx-card, .hsx-mout",
    "role": "Accounts Manager",
-   "feature": "group"
+   "feature": "group",
+   "tab": "pl"
   },
   {
    "chapter": 11,
    "title": "HR & payroll with WPS",
    "text": "Attendance and leave flow into payroll, which is approved and exported as a WPS salary file.",
    "route": [
-    "List",
-    "Employee"
+    "hipersign-people"
    ],
-   "selector": ".frappe-list",
+   "selector": ".hsx-mout .hsx-card, .hsx-mout",
    "role": "HR Manager",
-   "feature": "hr"
+   "feature": "hr",
+   "tab": "payroll"
   },
   {
    "chapter": 11,
    "title": "Expenses & advances",
    "text": "Staff expense claims with receipts and recoverable VAT, settled against cash advances given to staff.",
    "route": [
-    "List",
-    "Employee"
+    "hipersign-people"
    ],
-   "selector": ".frappe-list",
+   "selector": ".hsx-mout .hsx-card, .hsx-mout",
    "role": "HR Manager",
-   "feature": "hr"
+   "feature": "hr",
+   "tab": "expenses"
   },
   {
    "chapter": 11,
    "title": "Documents & gratuity",
    "text": "Visas, Emirates IDs and labour cards with expiry alerts; end-of-service gratuity calculated under UAE labour law.",
    "route": [
-    "List",
-    "Employee"
+    "hipersign-people"
    ],
-   "selector": ".frappe-list",
+   "selector": ".hsx-mout .hsx-card, .hsx-mout",
    "role": "HR Manager",
-   "feature": "hr"
+   "feature": "hr",
+   "tab": "docs"
   },
   {
    "chapter": 11,
    "title": "Fixed assets & vehicles",
    "text": "Register with custodian, depreciation, service and Mulkiya/insurance renewals.",
    "route": [
-    "List",
-    "Asset"
+    "hipersign-assets"
    ],
-   "selector": ".frappe-list",
+   "selector": ".hsx-mout .hsx-card, .hsx-mout",
    "role": "HR Manager",
-   "feature": "assets"
+   "feature": "assets",
+   "tab": "register"
   },
   {
    "chapter": 12,
@@ -859,36 +857,36 @@
    "title": "Company documents register",
    "text": "Each group company’s trade licence, registrations, Ejari, civil defence, insurance policies, bank facility letters, powers of attorney and agency agreements — number, authority, expiry, owner and file. Sensitive types sit in a vault that only named roles can open.",
    "route": [
-    "List",
-    "Company Document"
+    "hipersign-codocs"
    ],
-   "selector": ".frappe-list",
+   "selector": ".hsx-mout .hsx-card, .hsx-mout",
    "role": "Managing Director",
-   "feature": "compliance"
+   "feature": "compliance",
+   "tab": "register"
   },
   {
    "chapter": 12,
    "title": "Compliance calendar",
    "text": "One month view of everything due: licence and contract expiries, VAT, corporate tax, WPS and audit deadlines per company, plus the employee, vehicle and KYC expiries already tracked elsewhere.",
    "route": [
-    "List",
-    "Company Document"
+    "hipersign-codocs"
    ],
-   "selector": ".frappe-list",
+   "selector": ".hsx-mout .hsx-card, .hsx-mout",
    "role": "Managing Director",
-   "feature": "compliance"
+   "feature": "compliance",
+   "tab": "calendar"
   },
   {
    "chapter": 12,
    "title": "Reminders by ToDo, email and WhatsApp",
    "text": "Every morning the reminder run notifies the owner at 90, 60, 30 and 7 days (set per document type) and copies the Managing Director once anything is overdue. Renewals move from Due → Submitted to the authority → Renewed, with the cost, the receipt and the new copy; the old copy is archived.",
    "route": [
-    "List",
-    "Company Document"
+    "hipersign-codocs"
    ],
-   "selector": ".frappe-list",
+   "selector": ".hsx-mout .hsx-card, .hsx-mout",
    "role": "Accounts Manager",
-   "feature": "compliance"
+   "feature": "compliance",
+   "tab": "todos"
   },
   {
    "chapter": 12,

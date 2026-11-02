@@ -363,7 +363,7 @@ def request_for_quotation(doc):
 	if doc.docstatus == 1 and _can("Supplier Quotation"):
 		acts.append(act("Record quotation", route=["Form", "Supplier Quotation", "new"]))
 	if len(quotes) > 1:
-		acts.append(act("Compare quotations", kind="primary", route=["query-report", "Supplier Quotation Comparison"], options={"request_for_quotation": doc.name, "company": doc.company}))
+		acts.append(act("Compare quotations", kind="primary", route=["hipersign-compare", doc.name]))  # v1.7.3: side by side, not the prepared report
 	p["actions"] = acts
 	return p
 

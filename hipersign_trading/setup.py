@@ -9,6 +9,7 @@ import frappe
 from hipersign_trading.constants import NEW_ROLES, SETTINGS, WEB_ROLES, WORKFLOW_ACTIONS, WORKFLOW_STATES
 
 LOGO = "/assets/hipersign_trading/images/hipersign-logo.png"
+MARK = "/assets/hipersign_trading/images/hipersign-mark.png"  # v1.7.3: square mark (tab icon, collapsed menu)
 
 
 def before_install():
@@ -34,6 +35,9 @@ def after_migrate():
 	ensure_cheque_mode()
 	default_print_formats()
 	v13_defaults(new_site=False)
+	# v1.7.3: the square mark as the browser-tab icon where the site still uses our wordmark there
+	if frappe.db.get_single_value("Website Settings", "favicon") == LOGO:
+		frappe.db.set_single_value("Website Settings", "favicon", MARK)
 	# the menu follows the app's code: rebuild the Hipersign sidebar on every migrate (v1.5 added its pages)
 	from hipersign_trading import navigation
 
@@ -322,7 +326,7 @@ def ensure_settings():
 def apply_branding():
 	"""Show Hipersign ERP instead of the platform name in the desk, login page and browser tab."""
 	for doctype, values in {
-		"Website Settings": {"app_name": "Hipersign ERP", "app_logo": LOGO, "favicon": LOGO, "splash_image": LOGO},
+		"Website Settings": {"app_name": "Hipersign ERP", "app_logo": LOGO, "favicon": MARK, "splash_image": LOGO},
 		"Navbar Settings": {"app_logo": LOGO},
 		"System Settings": {"app_name": "Hipersign ERP"},
 	}.items():
