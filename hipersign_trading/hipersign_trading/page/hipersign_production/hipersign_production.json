@@ -1,0 +1,33 @@
+{
+ "doctype": "Page",
+ "name": "hipersign-production",
+ "page_name": "hipersign-production",
+ "title": "Production",
+ "module": "Hipersign Trading",
+ "standard": "Yes",
+ "system_page": 0,
+ "icon": "",
+ "roles": [
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "Managing Director"
+  },
+  {
+   "role": "Production Manager"
+  },
+  {
+   "role": "Manufacturing Manager"
+  },
+  {
+   "role": "Demo Viewer"
+  },
+  {
+   "role": "Manufacturing User"
+  }
+ ],
+ "owner": "Administrator",
+ "creation": "2026-11-02 15:00:00",
+ "modified": "2026-11-02 15:00:00"
+}

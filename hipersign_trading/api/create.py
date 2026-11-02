@@ -420,6 +420,10 @@ def link_options(doctype, query=None):
 		filters["disabled"] = 0
 	if (q or {}).get("query") == "trip_notes":
 		return _trip_notes()
+	if str((q or {}).get("query") or "").startswith("mfg:"):  # v1.8.0: the Manufacturing windows
+		from hipersign_trading.api.create_mfg import choices
+
+		return choices(q["query"])
 	if (q or {}).get("query") == "boq_lines":  # v1.8.0: material request to site
 		from hipersign_trading.api.create_prj import boq_lines
 
@@ -448,13 +452,17 @@ SIMPLE = {"Import Shipment", "Export Shipment", "Material Request", "Stock Entry
 	"Sales Invoice"}  # Sales Invoice: only the credit note window (returns); new invoices start from the delivery (C.PICK)
 # v1.8.0: the Projects windows (api.create_prj)
 SIMPLE |= {"Project", "Project BOQ", "Task", "Timesheet", "Progress Certificate", "Variation Order", "Subcontract Order"}
+# v1.8.0: the Manufacturing windows (api.create_mfg)
+SIMPLE |= {"BOM", "Work Order", "Production Plan", "Job Card", "Quality Inspection"}
 
 
 def _prj_hook(kind, doctype, v):
 	"""v1.8.0: the Projects windows' hooks live in api.create_prj (material request to site and site transfer by their flag)."""
-	from hipersign_trading.api import create_prj
+	from hipersign_trading.api import create_mfg, create_prj
 
 	key = frappe.scrub(doctype)
+	if v.get("_mfg") or doctype in create_mfg.DOCTYPES:  # v1.8.0: Manufacturing (manufacture entry and transfer to WIP by their flag)
+		return getattr(create_mfg, f"{kind}_{key}" + (f"_{v._mfg}" if v.get("_mfg") else ""), None)
 	if doctype in ("Material Request", "Stock Entry") and v.get("_site"):
 		key += "_site"
 	elif doctype not in create_prj.DOCTYPES:
@@ -979,6 +987,10 @@ def fill_doc(kind, name, values=None):
 	values = frappe._dict(frappe.parse_json(values) if isinstance(values, str) else (values or {}))
 	if kind in _FILL:
 		return _FILL[kind](name, values)
+	if kind == "mfg_bom" and name:  # v1.8.0: a new BOM version starts from the active one's components
+		from hipersign_trading.api.create_mfg import fill_bom
+
+		return fill_bom(name, values)
 	if kind == "export_from_so" and name:
 		so = frappe.get_doc("Sales Order", name)
 		so.check_permission("read")

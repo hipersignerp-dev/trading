@@ -1,0 +1,51 @@
+{
+ "doctype": "Page",
+ "name": "production-tracker",
+ "page_name": "production-tracker",
+ "title": "Production Tracker",
+ "module": "Hipersign Trading",
+ "standard": "Yes",
+ "system_page": 0,
+ "icon": "",
+ "roles": [
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "Managing Director"
+  },
+  {
+   "role": "Production Manager"
+  },
+  {
+   "role": "Manufacturing Manager"
+  },
+  {
+   "role": "Demo Viewer"
+  },
+  {
+   "role": "Manufacturing User"
+  },
+  {
+   "role": "QC Inspector"
+  },
+  {
+   "role": "Quality Manager"
+  },
+  {
+   "role": "Accounts Manager"
+  },
+  {
+   "role": "Accounts User"
+  },
+  {
+   "role": "Sales Manager"
+  },
+  {
+   "role": "Sales User"
+  }
+ ],
+ "owner": "Administrator",
+ "creation": "2026-11-02 15:00:00",
+ "modified": "2026-11-02 15:00:00"
+}

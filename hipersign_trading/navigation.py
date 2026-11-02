@@ -64,6 +64,16 @@ NAV = [
 		("Project costing", "Page", "hipersign-costing", "chart-column", "projects", {}),
 		("Project Tracker", "Page", "project-tracker", "list-checks", "projects", {}),
 	]),
+	# v1.8.0 (prototype p19): assemblers and factories — after Projects, before Finance & Tax, as on the prototype
+	("Manufacturing", "factory", [
+		("Production", "Page", "hipersign-production", "wrench", "manufacturing", {}),
+		("Planning", "Page", "hipersign-planning", "kanban", "manufacturing", {}),
+		("BOMs & routings", "Page", "hipersign-boms", "layers", "manufacturing", {}),
+		("Shop floor", "Page", "hipersign-shopfloor", "scan-line", "manufacturing", {}),
+		("Quality", "Page", "hipersign-quality", "shield-check", "manufacturing", {}),
+		("Costing", "Page", "hipersign-mfg-costing", "calculator", "manufacturing", {}),
+		("Production Tracker", "Page", "production-tracker", "list-checks", "manufacturing", {}),
+	]),
 	("Finance & Tax", "banknote", [
 		("Finance", "Page", "hipersign-fin", "banknote", None, {}),
 		("Accounting", "Page", "hipersign-accounts", "book-open", None, {}),
@@ -135,6 +145,16 @@ NAV_SUB = {
 		("Back Charges", "DocType", "Back Charge", None)],
 	"Timesheets & labour": [("Timesheets", "DocType", "Timesheet", None), ("Tasks", "DocType", "Task", None), ("Daily Site Reports", "DocType", "Daily Site Report", None),
 		("Activity Costs", "DocType", "Activity Cost", None)],
+	# v1.8.0: Manufacturing
+	"Production": [("Work Orders", "DocType", "Work Order", None), ("Manufacturing Step Log", "DocType", "Manufacturing Step Log", None),
+		("Stock Entries", "DocType", "Stock Entry", None)],
+	"Planning": [("Production Plans", "DocType", "Production Plan", None), ("Material Requests", "DocType", "Material Request", None),
+		("Purchase Orders", "DocType", "Purchase Order", None)],
+	"BOMs & routings": [("BOMs", "DocType", "BOM", None), ("Routings", "DocType", "Routing", None), ("Operations", "DocType", "Operation", None),
+		("Workstations", "DocType", "Workstation", None)],
+	"Shop floor": [("Job Cards", "DocType", "Job Card", None)],
+	"Quality": [("Quality Inspections", "DocType", "Quality Inspection", None), ("Inspection Templates", "DocType", "Quality Inspection Template", None)],
+	"Costing": [("Work Orders", "DocType", "Work Order", None), ("Stock Ledger", "Report", "Stock Ledger", None)],
 }
 
 # count badges, as in the prototype

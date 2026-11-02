@@ -54,6 +54,8 @@ HIPERSIGN_READ = {
 	"api.create.options", "api.create.party", "api.create.rates", "api.create.link_options", "api.create_flow.prepare",
 	# v1.8.0: the Projects pages and the Project Tracker read only (api.projects.act — every Projects button — is a write)
 	"api.module.get_module", "api.module.get_rows", "api.module_prj.get_tracker", "api.panel.get_panel",
+	# v1.8.0: the Manufacturing pages, the Shop floor and the Production Tracker read only (api.manufacturing.act is a write)
+	"api.module_mfg.get_floor", "api.module_mfg.get_tracker",
 }
 
 
