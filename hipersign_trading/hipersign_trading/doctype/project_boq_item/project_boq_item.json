@@ -1,0 +1,153 @@
+{
+ "doctype": "DocType",
+ "name": "Project BOQ Item",
+ "module": "Hipersign Trading",
+ "custom": 0,
+ "engine": "InnoDB",
+ "owner": "Administrator",
+ "creation": "2026-11-02 12:00:00.000000",
+ "modified": "2026-11-02 12:00:00.000000",
+ "actions": [],
+ "links": [],
+ "states": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 0,
+ "field_order": [
+  "section",
+  "section_name",
+  "item_no",
+  "description",
+  "unit",
+  "qty",
+  "rate",
+  "amount",
+  "cb_shares",
+  "mat_share",
+  "lab_share",
+  "sub_share",
+  "plant_share",
+  "ovh_share",
+  "cost_rate",
+  "cb_progress",
+  "certified_pct",
+  "measured_pct"
+ ],
+ "fields": [
+  {
+   "fieldname": "section",
+   "fieldtype": "Data",
+   "label": "Section",
+   "in_list_view": 1,
+   "columns": 1,
+   "description": "A, B, C …"
+  },
+  {
+   "fieldname": "section_name",
+   "fieldtype": "Data",
+   "label": "Section name"
+  },
+  {
+   "fieldname": "item_no",
+   "fieldtype": "Data",
+   "label": "Item",
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "Description",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 3
+  },
+  {
+   "fieldname": "unit",
+   "fieldtype": "Data",
+   "label": "Unit",
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "qty",
+   "fieldtype": "Float",
+   "label": "Qty",
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "rate",
+   "fieldtype": "Currency",
+   "label": "Rate",
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "label": "Amount",
+   "read_only": 1,
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "cb_shares",
+   "fieldtype": "Column Break",
+   "label": "Cost build-up (% of the selling rate)"
+  },
+  {
+   "fieldname": "mat_share",
+   "fieldtype": "Percent",
+   "label": "Material %"
+  },
+  {
+   "fieldname": "lab_share",
+   "fieldtype": "Percent",
+   "label": "Labour %"
+  },
+  {
+   "fieldname": "sub_share",
+   "fieldtype": "Percent",
+   "label": "Subcontract %"
+  },
+  {
+   "fieldname": "plant_share",
+   "fieldtype": "Percent",
+   "label": "Plant %"
+  },
+  {
+   "fieldname": "ovh_share",
+   "fieldtype": "Percent",
+   "label": "Site overheads %"
+  },
+  {
+   "fieldname": "cost_rate",
+   "fieldtype": "Currency",
+   "label": "Cost rate",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cb_progress",
+   "fieldtype": "Column Break",
+   "label": "Progress"
+  },
+  {
+   "fieldname": "certified_pct",
+   "fieldtype": "Percent",
+   "label": "Certified % (last certificate)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "measured_pct",
+   "fieldtype": "Percent",
+   "label": "Measured % (cumulative, now)",
+   "in_list_view": 1,
+   "columns": 1
+  }
+ ],
+ "permissions": [],
+ "index_web_pages_for_search": 0,
+ "istable": 1,
+ "editable_grid": 1
+}

@@ -1,0 +1,384 @@
+{
+ "doctype": "DocType",
+ "name": "Progress Certificate",
+ "module": "Hipersign Trading",
+ "custom": 0,
+ "engine": "InnoDB",
+ "owner": "Administrator",
+ "creation": "2026-11-02 12:00:00.000000",
+ "modified": "2026-11-02 12:00:00.000000",
+ "actions": [],
+ "links": [],
+ "states": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1,
+ "field_order": [
+  "naming_series",
+  "project",
+  "company",
+  "customer",
+  "consultant",
+  "certificate_no",
+  "cb_1",
+  "status",
+  "period_to",
+  "measured_on",
+  "certified_on",
+  "basis",
+  "sb_lines",
+  "items",
+  "sb_money",
+  "boq_work_to_date",
+  "variations_to_date",
+  "work_to_date",
+  "previous_certified",
+  "this_period",
+  "cb_2",
+  "advance_pct",
+  "advance_recovery",
+  "retention_pct",
+  "retention",
+  "net_amount",
+  "vat_rate",
+  "vat_amount",
+  "total_due",
+  "sales_invoice",
+  "currency",
+  "remarks"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "IPC-.YYYY.-.###",
+   "default": "IPC-.YYYY.-.###",
+   "hidden": 1
+  },
+  {
+   "fieldname": "project",
+   "fieldtype": "Link",
+   "label": "Project",
+   "options": "Project",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Client",
+   "options": "Customer",
+   "fetch_from": "project.customer",
+   "read_only": 1
+  },
+  {
+   "fieldname": "consultant",
+   "fieldtype": "Data",
+   "label": "Consultant"
+  },
+  {
+   "fieldname": "certificate_no",
+   "fieldtype": "Int",
+   "label": "Certificate no.",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "cb_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Draft\nSubmitted to consultant\nCertified\nInvoiced",
+   "default": "Draft",
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "period_to",
+   "fieldtype": "Date",
+   "label": "Period to",
+   "reqd": 1
+  },
+  {
+   "fieldname": "measured_on",
+   "fieldtype": "Date",
+   "label": "Measured on"
+  },
+  {
+   "fieldname": "certified_on",
+   "fieldtype": "Date",
+   "label": "Certified on"
+  },
+  {
+   "fieldname": "basis",
+   "fieldtype": "Select",
+   "label": "Measured by",
+   "options": "% complete\nQuantity",
+   "default": "% complete"
+  },
+  {
+   "fieldname": "sb_lines",
+   "fieldtype": "Section Break",
+   "label": "Measurement"
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "BOQ lines",
+   "options": "Progress Certificate Item"
+  },
+  {
+   "fieldname": "sb_money",
+   "fieldtype": "Section Break",
+   "label": "Certificate"
+  },
+  {
+   "fieldname": "boq_work_to_date",
+   "fieldtype": "Currency",
+   "label": "BOQ work to date",
+   "options": "currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "variations_to_date",
+   "fieldtype": "Currency",
+   "label": "Variations to date",
+   "options": "currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "work_to_date",
+   "fieldtype": "Currency",
+   "label": "Work done to date",
+   "options": "currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "previous_certified",
+   "fieldtype": "Currency",
+   "label": "Less previous certificates",
+   "options": "currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "this_period",
+   "fieldtype": "Currency",
+   "label": "Work done this period",
+   "options": "currency",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "cb_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "advance_pct",
+   "fieldtype": "Percent",
+   "label": "Advance recovery %"
+  },
+  {
+   "fieldname": "advance_recovery",
+   "fieldtype": "Currency",
+   "label": "Less advance recovery",
+   "options": "currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "retention_pct",
+   "fieldtype": "Percent",
+   "label": "Retention %"
+  },
+  {
+   "fieldname": "retention",
+   "fieldtype": "Currency",
+   "label": "Less retention",
+   "options": "currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "net_amount",
+   "fieldtype": "Currency",
+   "label": "Net",
+   "options": "currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "vat_rate",
+   "fieldtype": "Percent",
+   "label": "VAT %",
+   "default": "5"
+  },
+  {
+   "fieldname": "vat_amount",
+   "fieldtype": "Currency",
+   "label": "VAT",
+   "options": "currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_due",
+   "fieldtype": "Currency",
+   "label": "Net amount due",
+   "options": "currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sales_invoice",
+   "fieldtype": "Link",
+   "label": "Progress invoice",
+   "options": "Sales Invoice",
+   "read_only": 1
+  },
+  {
+   "fieldname": "currency",
+   "fieldtype": "Link",
+   "label": "Currency",
+   "options": "Currency",
+   "hidden": 1,
+   "fetch_from": "company.default_currency"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks"
+  }
+ ],
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "Managing Director",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "Project Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "Projects Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "Quantity Surveyor",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "Accounts User",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "Accounts Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "Site Engineer",
+   "read": 1,
+   "write": 0,
+   "create": 0,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 0
+  },
+  {
+   "role": "Projects User",
+   "read": 1,
+   "write": 0,
+   "create": 0,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 0
+  },
+  {
+   "role": "Demo Viewer",
+   "read": 1,
+   "write": 0,
+   "create": 0,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 0
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "autoname": "naming_series:",
+ "naming_rule": "By \"Naming Series\" field"
+}

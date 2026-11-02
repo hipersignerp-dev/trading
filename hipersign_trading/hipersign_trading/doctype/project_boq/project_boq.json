@@ -1,0 +1,333 @@
+{
+ "doctype": "DocType",
+ "name": "Project BOQ",
+ "module": "Hipersign Trading",
+ "custom": 0,
+ "engine": "InnoDB",
+ "owner": "Administrator",
+ "creation": "2026-11-02 12:00:00.000000",
+ "modified": "2026-11-02 12:00:00.000000",
+ "actions": [],
+ "links": [],
+ "states": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1,
+ "field_order": [
+  "naming_series",
+  "title",
+  "project",
+  "customer",
+  "client_name",
+  "company",
+  "cb_1",
+  "status",
+  "revision",
+  "received_on",
+  "due_date",
+  "sb_items",
+  "items",
+  "sb_totals",
+  "total_amount",
+  "direct_cost",
+  "overhead_pct",
+  "overheads",
+  "cb_2",
+  "tender_value",
+  "margin_pct",
+  "target_margin",
+  "work_done",
+  "currency",
+  "sb_notes",
+  "notes"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "TND-.YYYY.-.###",
+   "default": "TND-.YYYY.-.###",
+   "hidden": 1
+  },
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "label": "Tender / BOQ name",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "project",
+   "fieldtype": "Link",
+   "label": "Project",
+   "options": "Project",
+   "reqd": 0,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "client_name",
+   "fieldtype": "Data",
+   "label": "Client",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "cb_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Being priced\nSubmitted\nAwarded\nLost — price\nLost — programme\nLost\nWithdrawn",
+   "default": "Being priced",
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "revision",
+   "fieldtype": "Int",
+   "label": "Revision"
+  },
+  {
+   "fieldname": "received_on",
+   "fieldtype": "Date",
+   "label": "Received on"
+  },
+  {
+   "fieldname": "due_date",
+   "fieldtype": "Date",
+   "label": "Submission due"
+  },
+  {
+   "fieldname": "sb_items",
+   "fieldtype": "Section Break",
+   "label": "Bill of quantities"
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Lines",
+   "options": "Project BOQ Item"
+  },
+  {
+   "fieldname": "sb_totals",
+   "fieldtype": "Section Break",
+   "label": "Estimate"
+  },
+  {
+   "fieldname": "total_amount",
+   "fieldtype": "Currency",
+   "label": "BOQ total",
+   "options": "currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "direct_cost",
+   "fieldtype": "Currency",
+   "label": "Direct cost",
+   "options": "currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "overhead_pct",
+   "fieldtype": "Percent",
+   "label": "Site overheads & plant %",
+   "default": "4"
+  },
+  {
+   "fieldname": "overheads",
+   "fieldtype": "Currency",
+   "label": "Site overheads & plant",
+   "options": "currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cb_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "tender_value",
+   "fieldtype": "Currency",
+   "label": "Tender / contract value",
+   "options": "currency"
+  },
+  {
+   "fieldname": "margin_pct",
+   "fieldtype": "Percent",
+   "label": "Margin %"
+  },
+  {
+   "fieldname": "target_margin",
+   "fieldtype": "Percent",
+   "label": "Target margin %",
+   "default": "17"
+  },
+  {
+   "fieldname": "work_done",
+   "fieldtype": "Currency",
+   "label": "Work done to date (measured)",
+   "options": "currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "currency",
+   "fieldtype": "Link",
+   "label": "Currency",
+   "options": "Currency",
+   "hidden": 1,
+   "fetch_from": "company.default_currency"
+  },
+  {
+   "fieldname": "sb_notes",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Small Text",
+   "label": "Notes / exclusions"
+  }
+ ],
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "Managing Director",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "Project Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "Projects Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "Quantity Surveyor",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "Site Engineer",
+   "read": 1,
+   "write": 0,
+   "create": 0,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 0
+  },
+  {
+   "role": "Accounts User",
+   "read": 1,
+   "write": 0,
+   "create": 0,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 0
+  },
+  {
+   "role": "Accounts Manager",
+   "read": 1,
+   "write": 0,
+   "create": 0,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 0
+  },
+  {
+   "role": "Projects User",
+   "read": 1,
+   "write": 0,
+   "create": 0,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 0
+  },
+  {
+   "role": "Demo Viewer",
+   "read": 1,
+   "write": 0,
+   "create": 0,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 0
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "autoname": "naming_series:",
+ "naming_rule": "By \"Naming Series\" field",
+ "title_field": "title",
+ "show_title_field_in_link": 1
+}

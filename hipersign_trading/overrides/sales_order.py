@@ -60,6 +60,9 @@ def apply_export_terms(doc, s):
 	export = is_export_customer(doc.customer)
 	doc.hs_is_export = 1 if export else 0
 	template = s.export_tax_template if export else s.local_tax_template
+	# v1.8.0: the settings' templates belong to the main company; another company of the group keeps its own
+	if template and frappe.db.get_value("Sales Taxes and Charges Template", template, "company") != doc.company:
+		template = None
 	if template and doc.taxes_and_charges != template:
 		doc.taxes_and_charges = template
 		doc.set("taxes", [])

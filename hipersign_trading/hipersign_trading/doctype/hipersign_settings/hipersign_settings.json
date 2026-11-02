@@ -6,7 +6,7 @@
  "engine": "InnoDB",
  "owner": "Administrator",
  "creation": "2026-10-21 14:30:00.000000",
- "modified": "2026-10-29 22:00:00.000000",
+ "modified": "2026-11-02 12:00:00.000000",
  "actions": [],
  "links": [],
  "states": [],
@@ -121,6 +121,8 @@
   "feat_hr",
   "cb_feat_assets",
   "feat_assets",
+  "sb_feat_industries",
+  "feat_projects",
   "tab_look",
   "sb_look",
   "desk_theme",
@@ -550,7 +552,7 @@
    "fieldname": "feature_pack",
    "fieldtype": "Select",
    "label": "Feature pack",
-   "options": "Starter\nStandard\nEnterprise\nCustom",
+   "options": "Starter\nStandard\nContractor\nEnterprise\nCustom",
    "default": "Enterprise"
   },
   {
@@ -783,6 +785,18 @@
    "label": "Fixed assets",
    "default": "1",
    "description": "Asset register and depreciation"
+  },
+  {
+   "fieldname": "sb_feat_industries",
+   "fieldtype": "Section Break",
+   "label": "Industries"
+  },
+  {
+   "fieldname": "feat_projects",
+   "fieldtype": "Check",
+   "label": "Projects & contracting",
+   "default": "0",
+   "description": "BOQ, progress certificates, retention, variations, subcontractors, site stock, timesheets and project costing"
   },
   {
    "fieldname": "tab_forms",

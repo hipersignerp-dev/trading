@@ -1,0 +1,333 @@
+{
+ "doctype": "DocType",
+ "name": "Subcontract Claim",
+ "module": "Hipersign Trading",
+ "custom": 0,
+ "engine": "InnoDB",
+ "owner": "Administrator",
+ "creation": "2026-11-02 12:00:00.000000",
+ "modified": "2026-11-02 12:00:00.000000",
+ "actions": [],
+ "links": [],
+ "states": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1,
+ "field_order": [
+  "naming_series",
+  "subcontract_order",
+  "project",
+  "supplier",
+  "company",
+  "claim_no",
+  "claim_date",
+  "cb_1",
+  "status",
+  "claimed_to_date",
+  "certified_to_date",
+  "previous_certified",
+  "this_certified",
+  "sb_2",
+  "retention_pct",
+  "retention",
+  "back_charges",
+  "net_amount",
+  "cb_2",
+  "vat_amount",
+  "total",
+  "purchase_invoice",
+  "paid_on",
+  "currency"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "SCC-.YYYY.-.###",
+   "default": "SCC-.YYYY.-.###",
+   "hidden": 1
+  },
+  {
+   "fieldname": "subcontract_order",
+   "fieldtype": "Link",
+   "label": "Subcontract order",
+   "options": "Subcontract Order",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "project",
+   "fieldtype": "Link",
+   "label": "Project",
+   "options": "Project",
+   "fetch_from": "subcontract_order.project",
+   "read_only": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "supplier",
+   "fieldtype": "Link",
+   "label": "Subcontractor",
+   "options": "Supplier",
+   "fetch_from": "subcontract_order.supplier",
+   "read_only": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1,
+   "in_standard_filter": 1,
+   "fetch_from": "subcontract_order.company"
+  },
+  {
+   "fieldname": "claim_no",
+   "fieldtype": "Int",
+   "label": "Claim no."
+  },
+  {
+   "fieldname": "claim_date",
+   "fieldtype": "Date",
+   "label": "Claim date"
+  },
+  {
+   "fieldname": "cb_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Submitted\nCertified\nPaid\nRejected",
+   "default": "Submitted",
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "claimed_to_date",
+   "fieldtype": "Currency",
+   "label": "Claimed to date (cumulative)",
+   "options": "currency",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "certified_to_date",
+   "fieldtype": "Currency",
+   "label": "Certified to date (cumulative)",
+   "options": "currency"
+  },
+  {
+   "fieldname": "previous_certified",
+   "fieldtype": "Currency",
+   "label": "Previously certified",
+   "options": "currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "this_certified",
+   "fieldtype": "Currency",
+   "label": "Certified this claim",
+   "options": "currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sb_2",
+   "fieldtype": "Section Break",
+   "label": "Payment certificate"
+  },
+  {
+   "fieldname": "retention_pct",
+   "fieldtype": "Percent",
+   "label": "Retention %"
+  },
+  {
+   "fieldname": "retention",
+   "fieldtype": "Currency",
+   "label": "Less retention",
+   "options": "currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "back_charges",
+   "fieldtype": "Currency",
+   "label": "Less back-charges",
+   "options": "currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "net_amount",
+   "fieldtype": "Currency",
+   "label": "Net",
+   "options": "currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cb_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "vat_amount",
+   "fieldtype": "Currency",
+   "label": "VAT",
+   "options": "currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total",
+   "fieldtype": "Currency",
+   "label": "Total payable",
+   "options": "currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "purchase_invoice",
+   "fieldtype": "Link",
+   "label": "Supplier bill",
+   "options": "Purchase Invoice",
+   "read_only": 1
+  },
+  {
+   "fieldname": "paid_on",
+   "fieldtype": "Date",
+   "label": "Paid on",
+   "read_only": 1
+  },
+  {
+   "fieldname": "currency",
+   "fieldtype": "Link",
+   "label": "Currency",
+   "options": "Currency",
+   "hidden": 1,
+   "fetch_from": "company.default_currency"
+  }
+ ],
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "Managing Director",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "Project Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "Projects Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "Quantity Surveyor",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "Accounts User",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "Accounts Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "Site Engineer",
+   "read": 1,
+   "write": 0,
+   "create": 0,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 0
+  },
+  {
+   "role": "Projects User",
+   "read": 1,
+   "write": 0,
+   "create": 0,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 0
+  },
+  {
+   "role": "Demo Viewer",
+   "read": 1,
+   "write": 0,
+   "create": 0,
+   "delete": 0,
+   "print": 1,
+   "email": 1,
+   "report": 1,
+   "export": 1,
+   "share": 0
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "autoname": "naming_series:",
+ "naming_rule": "By \"Naming Series\" field"
+}

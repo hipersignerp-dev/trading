@@ -4,7 +4,7 @@ frappe.ui.form.on("Hipersign Settings", {
 		frm.set_intro(frm.doc.setup_done ? __("Pack: {0} · {1} · documents {2}", [__(frm.doc.feature_pack || ""), __(frm.doc.company_mode || ""), __(frm.doc.document_level || "")])
 			: __("Set-up is not finished — choose single company or group and the pack."), frm.doc.setup_done ? "blue" : "orange");
 		frm.add_custom_button(__("Set-up wizard"), () => hipersign.setup_wizard(true), __("Set-up"));
-		["Starter", "Standard", "Enterprise"].forEach((p) =>
+		["Starter", "Standard", "Contractor", "Enterprise"].forEach((p) =>
 			frm.add_custom_button(__("Switch to {0}", [__(p)]), () => frappe.confirm(__("Set every feature switch to the {0} pack? No data is deleted.", [__(p)]),
 				() => frm.call("set_pack", { pack: p }).then(() => frm.reload_doc())), __("Pack")));
 		frm.add_custom_button(__("Load demo data"), () => hipersign.load_demo(), __("Set-up"));
@@ -16,7 +16,7 @@ frappe.ui.form.on("Hipersign Settings", {
 	// v1.5.6 (SET-04): picking a pack here applies it, like the Pack menu
 	feature_pack(frm) {
 		const p = frm.doc.feature_pack, prev = frm.__hs_pack || (frm.doc.__onload || {}).feature_pack;
-		if (!["Starter", "Standard", "Enterprise"].includes(p)) return;
+		if (!["Starter", "Standard", "Contractor", "Enterprise"].includes(p)) return;
 		frappe.confirm(__("Set every feature switch to the {0} pack? No data is deleted.", [__(p)]),
 			() => frm.save(),
 			() => frm.set_value("feature_pack", frm.__hs_pack_saved || prev || "Custom"));
