@@ -11148,3 +11148,1995 @@ msgstr "优先顺序"
 
 msgid "Stable key of the menu entry: g:… for a group, the page / doctype / report / URL slug for an item, link-… for a custom link"
 msgstr "菜单项的稳定键：菜单组为 g:…，菜单项为页面 / 单据类型 / 报表 / URL 的简写，自定义链接为 link-…"
+
+msgid " — over the remaining BOQ quantity, goes to the Managing Director"
+msgstr " — 超出剩余工程量清单数量，提交总经理审批"
+
+msgid "% complete"
+msgstr "% 完成"
+
+msgid "% done"
+msgstr "% 已完成"
+
+msgid "1. Enquiry / tender received"
+msgstr "1. 收到询价 / 招标文件"
+
+msgid "26 steps from enquiry to profit report · who does what, documents, approvals and triggers"
+msgstr "从询价到利润报告共 26 个步骤 · 分工、文件、审批与触发条件"
+
+msgid "50% at completion · balance {0}"
+msgstr "竣工时 50% · 余额 {0}"
+
+msgid "50% invoiced"
+msgstr "已开票 50%"
+
+msgid "6 phases · 26 steps · hover or tap a step for details"
+msgstr "6 个阶段 · 26 个步骤 · 悬停或点击步骤查看详情"
+
+msgid "6. Contract signed (already awarded)"
+msgstr "6. 合同已签订（已中标）"
+
+msgid "A Chinese fit-out contractor in Business Bay joins the group. Contract value, work done, certified, billed, collected, cost and margin for every project — with red flags."
+msgstr "一家位于 Business Bay 的中资装修承包商加入集团。每个项目的合同金额、已完工程、已核定、已开票、已收款、成本和毛利 — 并附预警。"
+
+msgid "A change priced for the client — negative for an omission; approved variations raise the contract"
+msgstr "为业主报价的变更 — 删减为负数；已批准的变更增加合同金额"
+
+msgid "A programme task on a project, with owner and dates"
+msgstr "项目上的一项进度计划任务，含负责人和日期"
+
+msgid "A tender or an awarded contract — Quick: name, client and value; the stage, team, terms and dates follow from defaults"
+msgstr "投标或已中标合同 — 快速：名称、业主和金额；阶段、团队、条款和日期按默认值带出"
+
+msgid "A, B, C …"
+msgstr "A、B、C …"
+
+msgid "APG"
+msgstr "预付款保函"
+
+msgid "Activity Costs"
+msgstr "作业成本"
+
+msgid "Actual"
+msgstr "实际"
+
+msgid "Actual = cost booked to the project (GL) + approved timesheets"
+msgstr "实际 = 记入项目的成本（总账）+ 已批准的工时表"
+
+msgid "Actual cost to date"
+msgstr "至今实际成本"
+
+msgid "Add at least one BOQ line with quantity and rate"
+msgstr "请至少添加一行含数量和单价的工程量清单"
+
+msgid "Add to BOQ"
+msgstr "添加到工程量清单"
+
+msgid "Advance %"
+msgstr "预付款 %"
+
+msgid "Advance invoice {0} — {1} incl. VAT"
+msgstr "预付款发票 {0} — {1}（含增值税）"
+
+msgid "Advance payment {0}% of the contract value — {1}"
+msgstr "预付款为合同金额的 {0}% — {1}"
+
+msgid "Advance received"
+msgstr "已收预付款"
+
+msgid "Advance recovery"
+msgstr "预付款扣回"
+
+msgid "Advance recovery %"
+msgstr "预付款扣回 %"
+
+msgid "Advance recovery % (contract default)"
+msgstr "预付款扣回 %（合同默认值）"
+
+msgid "Advance to recover"
+msgstr "待扣回预付款"
+
+msgid "After overheads"
+msgstr "扣除管理费后"
+
+msgid "After practical completion of the main contract"
+msgstr "主合同实际竣工后"
+
+msgid "Against a BOQ line — checked against what is left on the line; over it, the Managing Director approves"
+msgstr "对应工程量清单行 — 按该行剩余数量核对；超出部分由总经理审批"
+
+msgid "Agreed"
+msgstr "已商定"
+
+msgid "All 26 steps done"
+msgstr "26 个步骤全部完成"
+
+msgid "All projects"
+msgstr "全部项目"
+
+msgid "All projects — cost and margin"
+msgstr "全部项目 — 成本和毛利"
+
+msgid "Approve submitted"
+msgstr "批准已提交项"
+
+msgid "Approved / rejected on"
+msgstr "批准 / 驳回日期"
+
+msgid "Approved by the client — added to the contract"
+msgstr "业主已批准 — 已计入合同"
+
+msgid "Approving an omission"
+msgstr "批准删减"
+
+msgid "Approving this material request"
+msgstr "批准此物料申请"
+
+msgid "Approving timesheets"
+msgstr "审批工时表"
+
+msgid "At completion and after {0}-month DLP"
+msgstr "竣工时及 {0} 个月缺陷责任期满后"
+
+msgid "At risk"
+msgstr "有风险"
+
+msgid "Attention"
+msgstr "需关注"
+
+msgid "Average cost per hour"
+msgstr "平均每小时成本"
+
+msgid "Average tender margin"
+msgstr "平均投标毛利"
+
+msgid "Awarded"
+msgstr "已中标"
+
+msgid "BC-.YYYY.-.###"
+msgstr "BC-.YYYY.-.###"
+
+msgid "BOQ"
+msgstr "工程量清单"
+
+msgid "BOQ / tender"
+msgstr "工程量清单 / 投标"
+
+msgid "BOQ amount"
+msgstr "工程量清单金额"
+
+msgid "BOQ line"
+msgstr "工程量清单行"
+
+msgid "BOQ line {0} not found."
+msgstr "未找到工程量清单行 {0}。"
+
+msgid "BOQ lines"
+msgstr "工程量清单行"
+
+msgid "BOQ lines for a project or tender — description, unit, quantity and rate; added to the project's BOQ"
+msgstr "项目或投标的工程量清单行 — 描述、单位、数量和单价；添加到项目工程量清单"
+
+msgid "BOQ total"
+msgstr "工程量清单合计"
+
+msgid "BOQ value — contracts"
+msgstr "工程量清单金额 — 合同"
+
+msgid "BOQ work to date"
+msgstr "至今工程量清单完成工程"
+
+msgid "BOQ, progress certificates, retention, variations, subcontractors, site stock, timesheets and project costing"
+msgstr "工程量清单、期中付款证书、保留金、变更、分包商、现场库存、工时表和项目成本核算"
+
+msgid "Back Charge"
+msgstr "反索赔扣款"
+
+msgid "Back Charges"
+msgstr "反索赔扣款"
+
+msgid "Back-charge"
+msgstr "反索赔扣款"
+
+msgid "Back-charges"
+msgstr "反索赔扣款"
+
+msgid "Balance to recover"
+msgstr "待扣回余额"
+
+msgid "Bank Guarantees (bonds)"
+msgstr "银行保函（担保）"
+
+msgid "Behind programme"
+msgstr "进度滞后"
+
+msgid "Being priced"
+msgstr "报价中"
+
+msgid "Bill of quantities"
+msgstr "工程量清单"
+
+msgid "Bill of quantities — {0}"
+msgstr "工程量清单 — {0}"
+
+msgid "Billed (gross)"
+msgstr "已开票（总额）"
+
+msgid "Billed / invoiced"
+msgstr "已开票"
+
+msgid "Billed in certificate"
+msgstr "已在证书中开票"
+
+msgid "Billed {0}"
+msgstr "已开票 {0}"
+
+msgid "Book supplier bill"
+msgstr "登记供应商账单"
+
+msgid "Book the supplier bill (if not yet) and pay {0}?"
+msgstr "登记供应商账单（如尚未登记）并支付 {0}？"
+
+msgid "Budget"
+msgstr "预算"
+
+msgid "Budget margin"
+msgstr "预算毛利"
+
+msgid "Budget vs committed vs actual by cost head, the forecast to complete and the forecast margin — reviewed every month."
+msgstr "按成本科目对比预算、已承诺和实际，以及完工尚需成本和预测毛利 — 每月审查。"
+
+msgid "Budget vs committed vs actual per cost head — actual from the cost booked to the project and the approved timesheets — with the forecast to complete and the forecast margin."
+msgstr "按成本科目对比预算、已承诺和实际 — 实际取自记入项目的成本和已批准的工时表 — 并显示完工尚需成本和预测毛利。"
+
+msgid "Budget vs committed vs actual — {0}"
+msgstr "预算 vs 已承诺 vs 实际 — {0}"
+
+msgid "Budget {0} · revised contract {1}"
+msgstr "预算 {0} · 修订后合同金额 {1}"
+
+msgid "Build-up / notes"
+msgstr "单价分析 / 备注"
+
+msgid "Buy & build"
+msgstr "采购与施工"
+
+msgid "By cost head"
+msgstr "按成本科目"
+
+msgid "By our QS"
+msgstr "由我方造价工程师"
+
+msgid "By project & task"
+msgstr "按项目和任务"
+
+msgid "By the consultants"
+msgstr "由咨询工程师"
+
+msgid "Certificate"
+msgstr "证书"
+
+msgid "Certificate no."
+msgstr "证书编号"
+
+msgid "Certificates, invoices and retention"
+msgstr "证书、发票和保留金"
+
+msgid "Certified"
+msgstr "已核定"
+
+msgid "Certified % (last certificate)"
+msgstr "核定 %（上一期证书）"
+
+msgid "Certified on"
+msgstr "核定日期"
+
+msgid "Certified this claim"
+msgstr "本期申请核定额"
+
+msgid "Certified this year"
+msgstr "本年核定"
+
+msgid "Certified to date"
+msgstr "至今核定"
+
+msgid "Certified to date (cumulative)"
+msgstr "至今累计核定"
+
+msgid "Certify"
+msgstr "核定"
+
+msgid "Certifying a subcontract claim"
+msgstr "核定分包付款申请"
+
+msgid "Charged to tasks and cost heads"
+msgstr "计入任务和成本科目"
+
+msgid "Choose the employee and the project"
+msgstr "选择员工和项目"
+
+msgid "Choose the material and the quantity"
+msgstr "选择物料和数量"
+
+msgid "Choose the project"
+msgstr "选择项目"
+
+msgid "Choose the project and BOQ line"
+msgstr "选择项目和工程量清单行"
+
+msgid "Choose the project, the material and the quantity"
+msgstr "选择项目、物料和数量"
+
+msgid "Claim no."
+msgstr "申请编号"
+
+msgid "Claim → QS certification (less retention and back-charges) → payment"
+msgstr "付款申请 → 造价工程师核定（扣除保留金和反索赔扣款）→ 付款"
+
+msgid "Claimed"
+msgstr "已申请"
+
+msgid "Claimed to date"
+msgstr "至今申请"
+
+msgid "Claimed to date (cumulative)"
+msgstr "至今累计申请"
+
+msgid "Claims to certify"
+msgstr "待核定的付款申请"
+
+msgid "Clear a filter to see more projects."
+msgstr "清除筛选条件以查看更多项目。"
+
+msgid "Click a project to open it: the 120-room Business Bay hotel — AED 4.2M, 20% advance, 10% retention, two subcontractors. Click a step to see its status, % and facts; “Complete step” moves the project forward and logs who did it."
+msgstr "点击项目即可打开：Business Bay 的 120 间客房酒店 — 420 万迪拉姆，20% 预付款，10% 保留金，两家分包商。点击步骤可查看其状态、% 和相关事实；“完成步骤”推进项目并记录操作人。"
+
+msgid "Click a step to see what happens, who does it, documents and approval"
+msgstr "点击步骤查看具体内容、负责人、文件和审批"
+
+msgid "Client"
+msgstr "业主"
+
+msgid "Client approved"
+msgstr "业主已批准"
+
+msgid "Client instruction"
+msgstr "业主指令"
+
+msgid "Closed"
+msgstr "已关闭"
+
+msgid "Collected"
+msgstr "已收款"
+
+msgid "Collected / paid"
+msgstr "已收款 / 已付款"
+
+msgid "Committed"
+msgstr "已承诺"
+
+msgid "Complete & close"
+msgstr "完成并关闭"
+
+msgid "Complete step {0}"
+msgstr "完成步骤 {0}"
+
+msgid "Complete step {0} — {1}?"
+msgstr "完成步骤 {0} — {1}？"
+
+msgid "Completed"
+msgstr "已完成"
+
+msgid "Completed by"
+msgstr "完成人"
+
+msgid "Completed on"
+msgstr "完成日期"
+
+msgid "Completion date"
+msgstr "竣工日期"
+
+msgid "Consultant"
+msgstr "咨询工程师"
+
+msgid "Consultant instruction"
+msgstr "咨询工程师指令"
+
+msgid "Contract"
+msgstr "合同"
+
+msgid "Contract & security"
+msgstr "合同与担保"
+
+msgid "Contract / tender value"
+msgstr "合同 / 投标金额"
+
+msgid "Contract sales order {0} {1}"
+msgstr "合同销售订单 {0} {1}"
+
+msgid "Contract signed — the BOQ became the contract BOQ and the sales order"
+msgstr "合同已签订 — 工程量清单已转为合同工程量清单和销售订单"
+
+msgid "Contract value"
+msgstr "合同金额"
+
+msgid "Contract value (incl. variations)"
+msgstr "合同金额（含变更）"
+
+msgid "Contract value by project"
+msgstr "各项目合同金额"
+
+msgid "Contractor"
+msgstr "承包商"
+
+msgid "Cost build-up"
+msgstr "单价分析"
+
+msgid "Cost build-up (% of the selling rate)"
+msgstr "单价分析（占销售单价的 %）"
+
+msgid "Cost build-up — {0}"
+msgstr "单价分析 — {0}"
+
+msgid "Cost head"
+msgstr "成本科目"
+
+msgid "Cost rate"
+msgstr "成本单价"
+
+msgid "Cost to date"
+msgstr "至今成本"
+
+msgid "Create and submit the progress invoice for {0}?"
+msgstr "为 {0} 创建并提交进度款发票？"
+
+msgid "Create project"
+msgstr "创建项目"
+
+msgid "Created at step {0} — {1}"
+msgstr "在步骤 {0} 创建 — {1}"
+
+msgid "Crew"
+msgstr "班组"
+
+msgid "Crew on site (last working day)"
+msgstr "现场人员（最近一个工作日）"
+
+msgid "Cumulative"
+msgstr "累计"
+
+msgid "Cumulative %"
+msgstr "累计 %"
+
+msgid "Cumulative % now"
+msgstr "当前累计 %"
+
+msgid "Currently at step {0} · {1}"
+msgstr "当前处于步骤 {0} · {1}"
+
+msgid "DSR-.YYYY.-.####"
+msgstr "DSR-.YYYY.-.####"
+
+msgid "Daily Site Report"
+msgstr "施工日报"
+
+msgid "Daily Site Reports"
+msgstr "施工日报"
+
+msgid "Daily hours by project and task, overtime at 125% and labour cost; the planned % shows where each task should be today."
+msgstr "按项目和任务统计的每日工时、按 125% 计算的加班和人工成本；计划 % 显示每项任务今天应达到的进度。"
+
+msgid "Daily hours by project and task, overtime, crew and labour cost — posted to the project cost heads."
+msgstr "按项目和任务统计的每日工时、加班、班组和人工成本 — 过账到项目成本科目。"
+
+msgid "Daily site reports"
+msgstr "施工日报"
+
+msgid "Dates"
+msgstr "日期"
+
+msgid "Deducted"
+msgstr "已扣除"
+
+msgid "Deducted in claim"
+msgstr "本期申请中扣除"
+
+msgid "Deducted pro rata from progress invoices"
+msgstr "从进度款发票中按比例扣除"
+
+msgid "Deducted to date"
+msgstr "至今已扣除"
+
+msgid "Defects liability (months)"
+msgstr "缺陷责任期（月）"
+
+msgid "Deliver from"
+msgstr "发货自"
+
+msgid "Deliveries to site"
+msgstr "送至现场"
+
+msgid "Deliveries to site — 30 days"
+msgstr "送至现场 — 30 天"
+
+msgid "Direct cost"
+msgstr "直接成本"
+
+msgid "Disputed"
+msgstr "有争议"
+
+msgid "Done: {0} → next: {1}"
+msgstr "已完成：{0} → 下一步：{1}"
+
+msgid "E — Additional works"
+msgstr "E — 增加工程"
+
+msgid "ETA passed, not received"
+msgstr "已过预计到达日期，尚未收货"
+
+msgid "ETA {0} passed"
+msgstr "预计到达日期 {0} 已过"
+
+msgid "Each BOQ line is priced from material, labour, subcontract and overhead rates; the estimate summary shows cost, overheads and margin, and the tender goes out as the BOQ print."
+msgstr "每个工程量清单行按材料、人工、分包和管理费单价计价；估算汇总显示成本、管理费和毛利，投标以工程量清单打印件发出。"
+
+msgid "End"
+msgstr "结束"
+
+msgid "Estimate"
+msgstr "估算"
+
+msgid "Estimate summary — {0}"
+msgstr "估算汇总 — {0}"
+
+msgid "Estimating & BOQ"
+msgstr "估算与工程量清单"
+
+msgid "Every project on one line through the 26 process steps — status, % and date per step, with red flags. Hover a step for who does it, the documents and the facts behind the status."
+msgstr "每个项目一行，贯穿 26 个流程步骤 — 每个步骤的状态、% 和日期，并附预警。悬停在步骤上可查看负责人、文件以及状态背后的事实。"
+
+msgid "Excludes authority fees and loose furniture."
+msgstr "不含政府部门费用和活动家具。"
+
+msgid "Execution"
+msgstr "施工"
+
+msgid "Final margin"
+msgstr "最终毛利"
+
+msgid "Final value"
+msgstr "最终金额"
+
+msgid "Fit-out and contracting companies — projects from enquiry to profit report: BOQ and tenders, progress certificates, progress billing with advance recovery and retention, variations, subcontractors, site stock, timesheets and project costing, plus purchasing, LCs, HR and assets."
+msgstr "装修和工程承包公司 — 项目从询价到利润报告：工程量清单与投标、期中付款证书、含预付款扣回和保留金的进度款开票、变更、分包商、现场库存、工时表和项目成本核算，以及采购、信用证、人力资源和资产。"
+
+msgid "Fit-out and contracting projects from enquiry to profit report — contract value, progress, billing, collection, cost and margin on one screen."
+msgstr "装修和工程承包项目，从询价到利润报告 — 合同金额、进度、开票、收款、成本和毛利集中于一个界面。"
+
+msgid "Fit-out works (to be detailed in the BOQ)"
+msgstr "装修工程（详见工程量清单）"
+
+msgid "Flags"
+msgstr "预警"
+
+msgid "Forecast at completion"
+msgstr "完工预测"
+
+msgid "Forecast at completion by cost head"
+msgstr "按成本科目的完工预测"
+
+msgid "Forecast at completion {0}"
+msgstr "完工预测 {0}"
+
+msgid "Forecast cost"
+msgstr "预测成本"
+
+msgid "Forecast cost at completion"
+msgstr "完工预测成本"
+
+msgid "Forecast margin"
+msgstr "预测毛利"
+
+msgid "Forecast margin %"
+msgstr "预测毛利率 %"
+
+msgid "Forecast margin {0:.1f}% vs budget {1:.1f}% — labour and materials over budget"
+msgstr "预测毛利率 {0:.1f}%，预算为 {1:.1f}% — 人工和材料超出预算"
+
+msgid "Forecast profit"
+msgstr "预测利润"
+
+msgid "Forecast to complete"
+msgstr "完工尚需成本"
+
+msgid "From enquiry and site visit to BOQ, tender, award, bonds, advance, mobilisation, procurement, measurement, certification, invoicing, variations, completion, final account, retention release and the profit report. Open any step for who does it, the documents, the approval and the next trigger."
+msgstr "从询价和现场踏勘，到工程量清单、投标、中标、保函、预付款、进场、采购、计量、核定、开票、变更、竣工、竣工结算、保留金返还和利润报告。打开任一步骤即可查看负责人、文件、审批和下一个触发条件。"
+
+msgid "From tender to contract"
+msgstr "从投标到合同"
+
+msgid "From the estimate"
+msgstr "来自估算"
+
+msgid "From the main store (or another site) to a project's site store — charged to the project"
+msgstr "从主仓库（或其他现场）调拨到项目现场仓库 — 计入该项目"
+
+msgid "From the project"
+msgstr "来自项目"
+
+msgid "Fully released"
+msgstr "已全部返还"
+
+msgid "Half released at completion; balance after our DLP"
+msgstr "竣工时返还一半；余额在我方缺陷责任期满后返还"
+
+msgid "Handover"
+msgstr "移交"
+
+msgid "Held by client"
+msgstr "业主扣留"
+
+msgid "Hours"
+msgstr "工时"
+
+msgid "Hours and labour cost by project & task"
+msgstr "按项目和任务的工时与人工成本"
+
+msgid "Hours last 7 days"
+msgstr "最近 7 天工时"
+
+msgid "Hours of one employee on a project — site work and overtime at 125%; approved by the project manager"
+msgstr "一名员工在某项目上的工时 — 现场工作和按 125% 计算的加班；由项目经理批准"
+
+msgid "Hours — 30 days"
+msgstr "工时 — 30 天"
+
+msgid "Hours — last 30 days"
+msgstr "工时 — 最近 30 天"
+
+msgid "How it works"
+msgstr "运作方式"
+
+msgid "How it works — 26 steps"
+msgstr "运作方式 — 26 个步骤"
+
+msgid "How it works — the project process"
+msgstr "运作方式 — 项目流程"
+
+msgid "IPC-.YYYY.-.###"
+msgstr "IPC-.YYYY.-.###"
+
+msgid "IPC-{0:02d} certified"
+msgstr "IPC-{0:02d} 已核定"
+
+msgid "IPC-{0:02d} measured"
+msgstr "IPC-{0:02d} 已计量"
+
+msgid "Incl. 25% overtime premium"
+msgstr "含 25% 加班溢价"
+
+msgid "Incl. approved variations"
+msgstr "含已批准的变更"
+
+msgid "Industries"
+msgstr "行业"
+
+msgid "Instruction reference"
+msgstr "指令编号"
+
+msgid "Invoiced (incl. VAT)"
+msgstr "已开票（含增值税）"
+
+msgid "Issue"
+msgstr "问题"
+
+msgid "Issues"
+msgstr "问题"
+
+msgid "LOA"
+msgstr "中标通知书"
+
+msgid "Labour"
+msgstr "人工"
+
+msgid "Labour %"
+msgstr "人工 %"
+
+msgid "Labour cost"
+msgstr "人工成本"
+
+msgid "Labour cost — last 30 days"
+msgstr "人工成本 — 最近 30 天"
+
+msgid "Labour rate"
+msgstr "人工单价"
+
+msgid "Late deliveries"
+msgstr "延迟交货"
+
+msgid "Latest 60 lines"
+msgstr "最近 60 行"
+
+msgid "Less advance recovery"
+msgstr "减：预付款扣回"
+
+msgid "Less advance recovery ({0}%)"
+msgstr "减：预付款扣回（{0}%）"
+
+msgid "Less back-charges"
+msgstr "减：反索赔扣款"
+
+msgid "Less previous certificates"
+msgstr "减：以往各期证书"
+
+msgid "Less retention"
+msgstr "减：保留金"
+
+msgid "Less retention ({0}%)"
+msgstr "减：保留金（{0}%）"
+
+msgid "Level"
+msgstr "级别"
+
+msgid "Like the Sales Order Tracker: one row per project through all 26 steps in 6 phases, each with status, % and date, and the red flags underneath."
+msgstr "与销售订单跟踪类似：每个项目一行，贯穿 6 个阶段的全部 26 个步骤，每个步骤显示状态、% 和日期，下方列出预警。"
+
+msgid "Lost — price"
+msgstr "丢标 — 价格"
+
+msgid "Lost — programme"
+msgstr "丢标 — 工期"
+
+msgid "MEP and joinery subcontract orders, their monthly claims certified by our QS, retention and back-charges deducted on the supplier bill, then paid."
+msgstr "机电和木作分包订单，其月度付款申请由我方造价工程师核定，在供应商账单上扣除保留金和反索赔扣款，然后付款。"
+
+msgid "MEP, joinery and other packages — with retention and payment terms"
+msgstr "机电、木作及其他分包包 — 含保留金和付款条件"
+
+msgid "Main store"
+msgstr "主仓库"
+
+msgid "Manpower — own"
+msgstr "人力 — 自有"
+
+msgid "Manpower — subcontractors"
+msgstr "人力 — 分包商"
+
+msgid "Manpower: {0} own · {1} subcontractor · Work done: {2} · Issues: {3}"
+msgstr "人力：自有 {0} · 分包商 {1} · 已完工程：{2} · 问题：{3}"
+
+msgid "Margin {0:.1f}%"
+msgstr "毛利率 {0:.1f}%"
+
+msgid "Material"
+msgstr "材料"
+
+msgid "Material %"
+msgstr "材料 %"
+
+msgid "Material Requests"
+msgstr "物料申请"
+
+msgid "Material rate"
+msgstr "材料单价"
+
+msgid "Material request"
+msgstr "物料申请"
+
+msgid "Material request to site"
+msgstr "现场物料申请"
+
+msgid "Material requests"
+msgstr "物料申请"
+
+msgid "Material requests are raised against BOQ lines, turned into POs per project and cost head, received at the site store, used on the job and returned — site stock per project."
+msgstr "物料申请对应工程量清单行提出，按项目和成本科目转为采购订单，在现场仓库收货，用于施工并办理退回 — 按项目管理现场库存。"
+
+msgid "Material requests from the BOQ"
+msgstr "来自工程量清单的物料申请"
+
+msgid "Material requests from the BOQ, purchase orders per project, deliveries to site, site stock and returns — every cost lands on the right project and cost head."
+msgstr "来自工程量清单的物料申请、按项目的采购订单、送至现场、现场库存和退回 — 每项成本都计入正确的项目和成本科目。"
+
+msgid "Materials"
+msgstr "材料"
+
+msgid "Measure, bill & control"
+msgstr "计量、开票与控制"
+
+msgid "Measured"
+msgstr "已计量"
+
+msgid "Measured % (cumulative, now)"
+msgstr "计量 %（当前累计）"
+
+msgid "Measured by"
+msgstr "计量人"
+
+msgid "Measured on"
+msgstr "计量日期"
+
+msgid "Measured → sent to the consultant → certified → progress invoice: work this period, less advance recovery and retention, plus VAT. Retention held and advance still to recover are tracked per project."
+msgstr "计量 → 报送咨询工程师 → 核定 → 进度款发票：本期完成工程，减预付款扣回和保留金，加增值税。按项目跟踪业主扣留的保留金和待扣回的预付款。"
+
+msgid "Measurement"
+msgstr "计量"
+
+msgid "Measurement — {0}"
+msgstr "计量 — {0}"
+
+msgid "Mobilise & plan"
+msgstr "进场与计划"
+
+msgid "Mobilising"
+msgstr "进场中"
+
+msgid "Month end"
+msgstr "月末"
+
+msgid "Monthly claims, certified by our QS within 7 days, paid 30 days after certification · 10% retention"
+msgstr "按月申请，由我方造价工程师在 7 天内核定，核定后 30 天付款 · 10% 保留金"
+
+msgid "Monthly measurement per BOQ line, consultant certification, progress invoices less advance recovery and retention, retention release and variations."
+msgstr "按工程量清单行月度计量、咨询工程师核定、扣除预付款扣回和保留金后的进度款发票、保留金返还和变更。"
+
+msgid "Monthly progress payments on consultant certificates, 30 days · advance against APG · retention released after the DLP"
+msgstr "凭咨询工程师证书按月支付进度款，30 天 · 预付款以预付款保函担保 · 缺陷责任期满后返还保留金"
+
+msgid "Needed"
+msgstr "需求"
+
+msgid "Needed on site"
+msgstr "现场需求"
+
+msgid "Negative for an omission"
+msgstr "删减为负数"
+
+msgid "Net amount due"
+msgstr "应付净额"
+
+msgid "Net due incl. VAT"
+msgstr "应付净额（含增值税）"
+
+msgid "New BOQ"
+msgstr "新建工程量清单"
+
+msgid "New daily site report"
+msgstr "新建施工日报"
+
+msgid "New material request"
+msgstr "新建物料申请"
+
+msgid "New progress certificate"
+msgstr "新建期中付款证书"
+
+msgid "New project"
+msgstr "新建项目"
+
+msgid "New subcontract order"
+msgstr "新建分包订单"
+
+msgid "New task"
+msgstr "新建任务"
+
+msgid "New timesheet"
+msgstr "新建工时表"
+
+msgid "New variation"
+msgstr "新建变更"
+
+msgid "Next tender due"
+msgstr "下一个投标截止"
+
+msgid "Next trigger"
+msgstr "下一个触发条件"
+
+msgid "No back-charges."
+msgstr "无反索赔扣款。"
+
+msgid "No claims yet."
+msgstr "暂无付款申请。"
+
+msgid "No contracts past the advance yet."
+msgstr "暂无已过预付款阶段的合同。"
+
+msgid "No daily site reports yet."
+msgstr "暂无施工日报。"
+
+msgid "No deliveries to site yet."
+msgstr "暂无送至现场的货物。"
+
+msgid "No hours booked in the last 30 days."
+msgstr "最近 30 天未登记工时。"
+
+msgid "No material requests yet."
+msgstr "暂无物料申请。"
+
+msgid "No progress certificates yet."
+msgstr "暂无期中付款证书。"
+
+msgid "No project invoices yet."
+msgstr "暂无项目发票。"
+
+msgid "No project purchase orders yet."
+msgstr "暂无项目采购订单。"
+
+msgid "No projects match these filters"
+msgstr "没有符合这些筛选条件的项目"
+
+msgid "No projects yet — create one with New project (Projects & contracting must be switched on)."
+msgstr "暂无项目 — 请通过“新建项目”创建（须启用“项目与工程承包”）。"
+
+msgid "No red flags — all projects are on track."
+msgstr "无预警 — 所有项目均按计划进行。"
+
+msgid "No red flags — on track"
+msgstr "无预警 — 按计划进行"
+
+msgid "No retention left to release on {0}."
+msgstr "{0} 没有可返还的保留金。"
+
+msgid "No returns from site."
+msgstr "暂无现场退回。"
+
+msgid "No subcontract orders yet."
+msgstr "暂无分包订单。"
+
+msgid "No tasks yet."
+msgstr "暂无任务。"
+
+msgid "No tenders yet."
+msgstr "暂无投标。"
+
+msgid "No timesheets yet."
+msgstr "暂无工时表。"
+
+msgid "No variations."
+msgstr "无变更。"
+
+msgid "None yet"
+msgstr "暂无"
+
+msgid "Notes / exclusions"
+msgstr "备注 / 除外项"
+
+msgid "Nothing certified yet."
+msgstr "尚无核定。"
+
+msgid "Nothing in the site stores."
+msgstr "现场仓库中无库存。"
+
+msgid "Nothing is measured beyond the last certificate yet — enter the measurement on the BOQ lines (Progress & billing → Measurement); the certificate follows."
+msgstr "自上一期证书以来尚无新的计量 — 请在工程量清单行上录入计量（进度与开票 → 计量）；随后生成证书。"
+
+msgid "Now"
+msgstr "当前"
+
+msgid "Omission"
+msgstr "删减"
+
+msgid "On programme"
+msgstr "按计划进行"
+
+msgid "Open material requests"
+msgstr "未结物料申请"
+
+msgid "Open screen"
+msgstr "打开界面"
+
+msgid "Open snags"
+msgstr "未关闭的缺陷项"
+
+msgid "Order value"
+msgstr "订单金额"
+
+msgid "Order value (excl. VAT)"
+msgstr "订单金额（不含增值税）"
+
+msgid "Overhead rate"
+msgstr "管理费单价"
+
+msgid "Overtime"
+msgstr "加班"
+
+msgid "Overtime hours"
+msgstr "加班工时"
+
+msgid "POs and subcontracts"
+msgstr "采购订单和分包"
+
+msgid "Package / scope"
+msgstr "分包包 / 范围"
+
+msgid "Paid to subcontractors"
+msgstr "已付分包商"
+
+msgid "Pay {0}?"
+msgstr "支付 {0}？"
+
+msgid "Payment certificate"
+msgstr "付款证书"
+
+msgid "Pending approval"
+msgstr "待审批"
+
+msgid "Pending client"
+msgstr "待业主处理"
+
+msgid "Pending signature"
+msgstr "待签署"
+
+msgid "Pending variations (not in forecast)"
+msgstr "待定变更（未计入预测）"
+
+msgid "Planned %"
+msgstr "计划 %"
+
+msgid "Planned % is where the task should be today"
+msgstr "计划 % 表示任务今天应达到的进度"
+
+msgid "Planned {0}"
+msgstr "计划 {0}"
+
+msgid "Plant %"
+msgstr "机械设备 %"
+
+msgid "Plant & equipment"
+msgstr "机械设备"
+
+msgid "Portfolio"
+msgstr "项目组合"
+
+msgid "Preliminaries"
+msgstr "开办费"
+
+msgid "Preliminaries & general"
+msgstr "开办费及一般项目"
+
+msgid "Previous %"
+msgstr "上期 %"
+
+msgid "Previously certified"
+msgstr "以往已核定"
+
+msgid "Price the BOQ line by line from material, labour and subcontract rates, add overheads and margin, submit the tender and turn the award into the contract BOQ."
+msgstr "按材料、人工和分包单价逐行为工程量清单计价，加上管理费和毛利，提交投标，并将中标转为合同工程量清单。"
+
+msgid "Pricing"
+msgstr "计价"
+
+msgid "Print BOQ"
+msgstr "打印工程量清单"
+
+msgid "Print certificate"
+msgstr "打印证书"
+
+msgid "Print subcontract order"
+msgstr "打印分包订单"
+
+msgid "Print variation order"
+msgstr "打印变更单"
+
+msgid "Process step"
+msgstr "流程步骤"
+
+msgid "Process — 26 steps"
+msgstr "流程 — 26 个步骤"
+
+msgid "Programme note"
+msgstr "进度计划备注"
+
+msgid "Progress"
+msgstr "进度"
+
+msgid "Progress & billing"
+msgstr "进度与开票"
+
+msgid "Progress Certificate"
+msgstr "期中付款证书"
+
+msgid "Progress Certificate Item"
+msgstr "期中付款证书明细"
+
+msgid "Progress Certificates"
+msgstr "期中付款证书"
+
+msgid "Progress certificate"
+msgstr "期中付款证书"
+
+msgid "Progress certificate {0}"
+msgstr "期中付款证书 {0}"
+
+msgid "Progress certificates"
+msgstr "期中付款证书"
+
+msgid "Progress certificates (interim payment certificates)"
+msgstr "期中付款证书"
+
+msgid "Progress invoice"
+msgstr "进度款发票"
+
+msgid "Progress invoices"
+msgstr "进度款发票"
+
+msgid "Progress, advance and retention invoices"
+msgstr "进度款、预付款和保留金发票"
+
+msgid "Project / tender"
+msgstr "项目 / 投标"
+
+msgid "Project BOQ"
+msgstr "项目工程量清单"
+
+msgid "Project BOQ Item"
+msgstr "项目工程量清单明细"
+
+msgid "Project BOQs & tenders"
+msgstr "项目工程量清单与投标"
+
+msgid "Project Manager"
+msgstr "项目经理"
+
+msgid "Project Step Log"
+msgstr "项目步骤日志"
+
+msgid "Project Tracker"
+msgstr "项目跟踪"
+
+msgid "Project costing"
+msgstr "项目成本核算"
+
+msgid "Project manager"
+msgstr "项目经理"
+
+msgid "Project name"
+msgstr "项目名称"
+
+msgid "Project portfolio"
+msgstr "项目组合"
+
+msgid "Project profit — {0}"
+msgstr "项目利润 — {0}"
+
+msgid "Project purchase orders"
+msgstr "项目采购订单"
+
+msgid "Project · BOQ line"
+msgstr "项目 · 工程量清单行"
+
+msgid "Project · client"
+msgstr "项目 · 业主"
+
+msgid "Project · cost head"
+msgstr "项目 · 成本科目"
+
+msgid "Project · task"
+msgstr "项目 · 任务"
+
+msgid "Project, client or number"
+msgstr "项目、业主或编号"
+
+msgid "Projects"
+msgstr "项目"
+
+msgid "Projects & contracting"
+msgstr "项目与工程承包"
+
+msgid "Projects tracked"
+msgstr "跟踪中的项目"
+
+msgid "Projects — Golden Dragon Interiors"
+msgstr "项目 — Golden Dragon Interiors"
+
+msgid "Purchase orders per project"
+msgstr "按项目的采购订单"
+
+msgid "Qty to date"
+msgstr "至今数量"
+
+msgid "Quantity Surveyor"
+msgstr "造价工程师"
+
+msgid "Quantity surveyor"
+msgstr "造价工程师"
+
+msgid "Raise advance invoice"
+msgstr "开具预付款发票"
+
+msgid "Raise retention invoice"
+msgstr "开具保留金发票"
+
+msgid "Raise the advance invoice first (Progress & billing → Advance recovery, or the button on this step)."
+msgstr "请先开具预付款发票（进度与开票 → 预付款扣回，或此步骤上的按钮）。"
+
+msgid "Raise the advance invoice for {0}?"
+msgstr "为 {0} 开具预付款发票？"
+
+msgid "Raise the retention release invoice for {0}?"
+msgstr "为 {0} 开具保留金返还发票？"
+
+msgid "Raised on"
+msgstr "提出日期"
+
+msgid "Rate / hour"
+msgstr "每小时单价"
+
+msgid "Re-measurement"
+msgstr "重新计量"
+
+msgid "Receipt {0} recorded — {1} paid"
+msgstr "已登记收款 {0} — 已付 {1}"
+
+msgid "Receive at site"
+msgstr "现场收货"
+
+msgid "Receive what is still to come on {0} at the project's site store?"
+msgstr "将 {0} 上尚未到货的部分收入项目现场仓库？"
+
+msgid "Received in store"
+msgstr "已入库"
+
+msgid "Record certification"
+msgstr "登记核定"
+
+msgid "Record that the client rejected {0}?"
+msgstr "登记业主已驳回 {0}？"
+
+msgid "Record the client's approval of {0}?"
+msgstr "登记业主已批准 {0}？"
+
+msgid "Record the client's approval of {0}? The contract value goes up by {1}."
+msgstr "登记业主已批准 {0}？合同金额将增加 {1}。"
+
+msgid "Record the receipt of {0} against {1}?"
+msgstr "针对 {1} 登记收到 {0}？"
+
+msgid "Recorded when the project was created (already awarded)"
+msgstr "创建项目时记录（已中标）"
+
+msgid "Recording the consultant's certification"
+msgstr "登记咨询工程师的核定"
+
+msgid "Recovered"
+msgstr "已扣回"
+
+msgid "Red flag"
+msgstr "预警"
+
+msgid "Red flags"
+msgstr "预警"
+
+msgid "Red flags {0}"
+msgstr "预警 {0}"
+
+msgid "Red flags — every project"
+msgstr "预警 — 全部项目"
+
+msgid "Rejected by the client"
+msgstr "业主已驳回"
+
+msgid "Release"
+msgstr "返还"
+
+msgid "Release due"
+msgstr "应返还"
+
+msgid "Released"
+msgstr "已返还"
+
+msgid "Released after the defects period"
+msgstr "缺陷责任期满后返还"
+
+msgid "Reported by"
+msgstr "报告人"
+
+msgid "Requests"
+msgstr "申请"
+
+msgid "Retention"
+msgstr "保留金"
+
+msgid "Retention %"
+msgstr "保留金 %"
+
+msgid "Retention % (contract default)"
+msgstr "保留金 %（合同默认值）"
+
+msgid "Retention held"
+msgstr "已扣留保留金"
+
+msgid "Retention held by clients"
+msgstr "业主扣留的保留金"
+
+msgid "Retention held from subcontractors"
+msgstr "向分包商扣留的保留金"
+
+msgid "Retention invoice"
+msgstr "保留金发票"
+
+msgid "Retention invoice {0} — {1} incl. VAT"
+msgstr "保留金发票 {0} — {1}（含增值税）"
+
+msgid "Retention released — {0}"
+msgstr "保留金已返还 — {0}"
+
+msgid "Returned"
+msgstr "已退回"
+
+msgid "Returned to"
+msgstr "退回至"
+
+msgid "Returned to supplier"
+msgstr "已退回供应商"
+
+msgid "Returns from site"
+msgstr "现场退回"
+
+msgid "Revised contract"
+msgstr "修订后合同"
+
+msgid "Revised contract value"
+msgstr "修订后合同金额"
+
+msgid "Revision"
+msgstr "修订版本"
+
+msgid "SCC-.YYYY.-.###"
+msgstr "SCC-.YYYY.-.###"
+
+msgid "SCO-.YYYY.-.###"
+msgstr "SCO-.YYYY.-.###"
+
+msgid "Section"
+msgstr "分部"
+
+msgid "Section name"
+msgstr "分部名称"
+
+msgid "Selling rate"
+msgstr "销售单价"
+
+msgid "Send for signature"
+msgstr "发送签署"
+
+msgid "Send to client"
+msgstr "发送给业主"
+
+msgid "Send to consultant"
+msgstr "发送给咨询工程师"
+
+msgid "Sending a certificate to the consultant"
+msgstr "将证书发送给咨询工程师"
+
+msgid "Sent to client"
+msgstr "已发送给业主"
+
+msgid "Sent to client on"
+msgstr "发送给业主日期"
+
+msgid "Sent to the client for approval"
+msgstr "已发送给业主审批"
+
+msgid "Set the client (customer) on {0} first."
+msgstr "请先在 {0} 上设置业主（客户）。"
+
+msgid "Signed by both parties"
+msgstr "双方已签署"
+
+msgid "Signing a subcontract order"
+msgstr "签署分包订单"
+
+msgid "Site & procurement"
+msgstr "现场与采购"
+
+msgid "Site Engineer"
+msgstr "现场工程师"
+
+msgid "Site condition"
+msgstr "现场条件"
+
+msgid "Site engineer"
+msgstr "现场工程师"
+
+msgid "Site overheads"
+msgstr "现场管理费"
+
+msgid "Site overheads %"
+msgstr "现场管理费 %"
+
+msgid "Site overheads & plant"
+msgstr "现场管理费及机械设备"
+
+msgid "Site overheads & plant %"
+msgstr "现场管理费及机械设备 %"
+
+msgid "Site stock"
+msgstr "现场库存"
+
+msgid "Site stock value"
+msgstr "现场库存价值"
+
+msgid "Site transfer"
+msgstr "现场调拨"
+
+msgid "Site value"
+msgstr "现场价值"
+
+msgid "Snags"
+msgstr "缺陷项"
+
+msgid "Spent"
+msgstr "已支出"
+
+msgid "Start on site"
+msgstr "现场开工"
+
+msgid "Starts at"
+msgstr "开始于"
+
+msgid "Step"
+msgstr "步骤"
+
+msgid "Step name"
+msgstr "步骤名称"
+
+msgid "Step {0}"
+msgstr "步骤 {0}"
+
+msgid "Step {0} ({1})"
+msgstr "步骤 {0}（{1}）"
+
+msgid "Step {0} completed — {1}"
+msgstr "步骤 {0} 已完成 — {1}"
+
+msgid "Step {0} completed — {1} ({2})"
+msgstr "步骤 {0} 已完成 — {1}（{2}）"
+
+msgid "Steps {0}–{1}"
+msgstr "步骤 {0}–{1}"
+
+msgid "Stock Entries"
+msgstr "库存凭证"
+
+msgid "Subcontract"
+msgstr "分包"
+
+msgid "Subcontract %"
+msgstr "分包 %"
+
+msgid "Subcontract Claim"
+msgstr "分包付款申请"
+
+msgid "Subcontract Claims"
+msgstr "分包付款申请"
+
+msgid "Subcontract Order"
+msgstr "分包订单"
+
+msgid "Subcontract Orders"
+msgstr "分包订单"
+
+msgid "Subcontract order"
+msgstr "分包订单"
+
+msgid "Subcontract orders"
+msgstr "分包订单"
+
+msgid "Subcontract orders for MEP and joinery packages, their monthly claims, certification, retention and back-charges."
+msgstr "机电和木作分包包的分包订单、其月度付款申请、核定、保留金和反索赔扣款。"
+
+msgid "Subcontract rate"
+msgstr "分包单价"
+
+msgid "Subcontract value"
+msgstr "分包金额"
+
+msgid "Subcontractor"
+msgstr "分包商"
+
+msgid "Subcontractor claims"
+msgstr "分包商付款申请"
+
+msgid "Subcontractors"
+msgstr "分包商"
+
+msgid "Submission due"
+msgstr "提交截止"
+
+msgid "Submit tender"
+msgstr "提交投标"
+
+msgid "Submitted to consultant"
+msgstr "已报送咨询工程师"
+
+msgid "Supplier bill {0} — {1} payable"
+msgstr "供应商账单 {0} — 应付 {1}"
+
+msgid "Supplier direct"
+msgstr "供应商直送"
+
+msgid "Supplier direct — {0}"
+msgstr "供应商直送 — {0}"
+
+msgid "Surplus back to the store"
+msgstr "余料退回仓库"
+
+msgid "TND-.YYYY.-.###"
+msgstr "TND-.YYYY.-.###"
+
+msgid "Tasks"
+msgstr "任务"
+
+msgid "Tender"
+msgstr "投标"
+
+msgid "Tender / BOQ name"
+msgstr "投标 / 工程量清单名称"
+
+msgid "Tender / contract value"
+msgstr "投标 / 合同金额"
+
+msgid "Tender due date"
+msgstr "投标截止日期"
+
+msgid "Tender due {0} — {1} days left"
+msgstr "投标截止 {0} — 剩余 {1} 天"
+
+msgid "Tender print"
+msgstr "投标打印件"
+
+msgid "Tender value"
+msgstr "投标金额"
+
+msgid "Tenders & quotations"
+msgstr "投标与报价"
+
+msgid "Tenders open"
+msgstr "进行中的投标"
+
+msgid "The hotel project, step by step"
+msgstr "酒店项目，逐步演示"
+
+msgid "The material is already in {0}."
+msgstr "物料已在 {0} 中。"
+
+msgid "The measurement on the BOQ lines becomes the certificate: work this period, less advance recovery and retention, plus VAT"
+msgstr "工程量清单行上的计量生成证书：本期完成工程，减预付款扣回和保留金，加增值税"
+
+msgid "This claim"
+msgstr "本期申请"
+
+msgid "This period"
+msgstr "本期"
+
+msgid "Time impact (days)"
+msgstr "工期影响（天）"
+
+msgid "Timesheet"
+msgstr "工时表"
+
+msgid "Timesheets"
+msgstr "工时表"
+
+msgid "Timesheets & labour"
+msgstr "工时表与人工"
+
+msgid "To date"
+msgstr "至今"
+
+msgid "To project"
+msgstr "调入项目"
+
+msgid "Total BOQ · {0} lines"
+msgstr "工程量清单合计 · {0} 行"
+
+msgid "Total cost"
+msgstr "总成本"
+
+msgid "Total payable"
+msgstr "应付合计"
+
+msgid "Trade"
+msgstr "专业"
+
+msgid "VAT %"
+msgstr "增值税 %"
+
+msgid "VO-.YYYY.-.###"
+msgstr "VO-.YYYY.-.###"
+
+msgid "Value engineering"
+msgstr "价值工程"
+
+msgid "Variance"
+msgstr "差异"
+
+msgid "Variation"
+msgstr "变更"
+
+msgid "Variation Order"
+msgstr "变更单"
+
+msgid "Variation Orders"
+msgstr "变更单"
+
+msgid "Variation {0}"
+msgstr "变更 {0}"
+
+msgid "Variations"
+msgstr "变更"
+
+msgid "Variations agreed"
+msgstr "已商定的变更"
+
+msgid "Variations to date"
+msgstr "至今变更"
+
+msgid "Vehicle / driver"
+msgstr "车辆 / 司机"
+
+msgid "What happens"
+msgstr "具体内容"
+
+msgid "Where the projects are"
+msgstr "项目所处阶段"
+
+msgid "Who"
+msgstr "负责人"
+
+msgid "Win the job"
+msgstr "赢得项目"
+
+msgid "Withdrawn"
+msgstr "已撤回"
+
+msgid "Work done"
+msgstr "已完工程"
+
+msgid "Work done this period"
+msgstr "本期完成工程"
+
+msgid "Work done this period — progress certificate {0} (no. {1}), period to {2}"
+msgstr "本期完成工程 — 期中付款证书 {0}（第 {1} 期），截至 {2}"
+
+msgid "Work done to date"
+msgstr "至今完成工程"
+
+msgid "Work done to date (measured)"
+msgstr "至今完成工程（已计量）"
+
+msgid "Work this period"
+msgstr "本期工程"
+
+msgid "Work to date"
+msgstr "至今工程"
+
+msgid "Works"
+msgstr "工程"
+
+msgid "approved · {0} pending"
+msgstr "已批准 · {0} 项待处理"
+
+msgid "budget"
+msgstr "预算"
+
+msgid "budget {0}"
+msgstr "预算 {0}"
+
+msgid "contract stage — request the bonds next"
+msgstr "合同阶段 — 下一步申请保函"
+
+msgid "created — submit it for approval"
+msgstr "已创建 — 请提交审批"
+
+msgid "due"
+msgstr "到期"
+
+msgid "e.g. Dubai Hills show apartment"
+msgstr "例如：Dubai Hills 样板公寓"
+
+msgid "exp."
+msgstr "到期"
+
+msgid "exp. {0} · {1}"
+msgstr "到期 {0} · {1}"
+
+msgid "incl. approved variations"
+msgstr "含已批准的变更"
+
+msgid "incl. variations"
+msgstr "含变更"
+
+msgid "of certified claims"
+msgstr "来自已核定的付款申请"
+
+msgid "outstanding"
+msgstr "未结"
+
+msgid "over BOQ"
+msgstr "超出工程量清单"
+
+msgid "progress certificate"
+msgstr "期中付款证书"
+
+msgid "projects"
+msgstr "个项目"
+
+msgid "saved as draft"
+msgstr "已保存为草稿"
+
+msgid "sent to {0}"
+msgstr "已发送给 {0}"
+
+msgid "site"
+msgstr "现场"
+
+msgid "subcontract order"
+msgstr "分包订单"
+
+msgid "subcontractor claim"
+msgstr "分包商付款申请"
+
+msgid "submitted"
+msgstr "已提交"
+
+msgid "tender stage — price the BOQ next"
+msgstr "投标阶段 — 下一步为工程量清单计价"
+
+msgid "the consultant"
+msgstr "咨询工程师"
+
+msgid "variation"
+msgstr "变更"
+
+msgid "vs budget"
+msgstr "对比预算"
+
+msgid "{0} + subcontractors"
+msgstr "{0} + 分包商"
+
+msgid "{0} BOQ lines added to {1} · {2}"
+msgstr "已将 {0} 行工程量清单添加到 {1} · {2}"
+
+msgid "{0} POs"
+msgstr "{0} 张采购订单"
+
+msgid "{0} already has its advance invoice."
+msgstr "{0} 已开具预付款发票。"
+
+msgid "{0} approved · contract value now {1}"
+msgstr "{0} 已批准 · 合同金额现为 {1}"
+
+msgid "{0} approved — create the PO or request quotations"
+msgstr "{0} 已批准 — 创建采购订单或询价"
+
+msgid "{0} awaiting approval"
+msgstr "{0} 待审批"
+
+msgid "{0} behind programme on {1}"
+msgstr "{0} 在 {1} 上进度滞后"
+
+msgid "{0} certificate(s) with the consultant"
+msgstr "{0} 份证书在咨询工程师处"
+
+msgid "{0} certified {1} less retention {2} and back-charges {3}"
+msgstr "{0} 核定 {1}，扣除保留金 {2} 和反索赔扣款 {3}"
+
+msgid "{0} certified · {1} this period — create the progress invoice next"
+msgstr "{0} 已核定 · 本期 {1} — 下一步创建进度款发票"
+
+msgid "{0} certified, unpaid"
+msgstr "{0} 已核定未付款"
+
+msgid "{0} claim(s) to certify"
+msgstr "{0} 份付款申请待核定"
+
+msgid "{0} closed — profit report ready"
+msgstr "{0} 已关闭 — 利润报告已就绪"
+
+msgid "{0} contracts · {1} live"
+msgstr "{0} 份合同 · {1} 份进行中"
+
+msgid "{0} created · {1}"
+msgstr "已创建 {0} · {1}"
+
+msgid "{0} created — {1} incl. VAT, less advance recovery and retention"
+msgstr "已创建 {0} — {1}（含增值税），已扣除预付款扣回和保留金"
+
+msgid "{0} days waiting"
+msgstr "已等待 {0} 天"
+
+msgid "{0} days with the client"
+msgstr "在业主处 {0} 天"
+
+msgid "{0} deliveries"
+msgstr "{0} 次送货"
+
+msgid "{0} disputed"
+msgstr "{0} 项有争议"
+
+msgid "{0} flags"
+msgstr "{0} 项预警"
+
+msgid "{0} h · {1} — sent for approval"
+msgstr "{0} 小时 · {1} — 已提交审批"
+
+msgid "{0} has no BOQ yet."
+msgstr "{0} 尚无工程量清单。"
+
+msgid "{0} has no BOQ."
+msgstr "{0} 没有工程量清单。"
+
+msgid "{0} has no advance (advance % is 0)."
+msgstr "{0} 没有预付款（预付款 % 为 0）。"
+
+msgid "{0} invoice(s)"
+msgstr "{0} 张发票"
+
+msgid "{0} is already invoiced ({1})."
+msgstr "{0} 已开票（{1}）。"
+
+msgid "{0} is closed — all 26 steps are done."
+msgstr "{0} 已关闭 — 全部 26 个步骤已完成。"
+
+msgid "{0} is not in execution yet — certificates start after the budget (step 10)."
+msgstr "{0} 尚未进入施工阶段 — 证书在预算（步骤 10）之后开始。"
+
+msgid "{0} is still open — measure on it first (Progress & billing → Measurement)."
+msgstr "{0} 仍未结 — 请先在其上计量（进度与开票 → 计量）。"
+
+msgid "{0} is {1} — send it to the client first."
+msgstr "{0} 的状态为 {1} — 请先发送给业主。"
+
+msgid "{0} is {1} — send it to the consultant first."
+msgstr "{0} 的状态为 {1} — 请先发送给咨询工程师。"
+
+msgid "{0} is {1}."
+msgstr "{0} 的状态为 {1}。"
+
+msgid "{0} items on {1} sites"
+msgstr "{1} 个现场共 {0} 项物料"
+
+msgid "{0} late"
+msgstr "{0} 项延迟"
+
+msgid "{0} lines by section · qty × rate"
+msgstr "按分部列出的 {0} 行 · 数量 × 单价"
+
+msgid "{0} listed · {1} open"
+msgstr "已列出 {0} · {1} 项未结"
+
+msgid "{0} measured"
+msgstr "已计量 {0}"
+
+msgid "{0} months"
+msgstr "{0} 个月"
+
+msgid "{0} must be approved first."
+msgstr "{0} 须先获批准。"
+
+msgid "{0} must be certified by the consultant before it is invoiced."
+msgstr "{0} 须经咨询工程师核定后才能开票。"
+
+msgid "{0} must be certified first."
+msgstr "{0} 须先核定。"
+
+msgid "{0} needs the {1}."
+msgstr "{0} 需要 {1} 角色。"
+
+msgid "{0} of {1} approved"
+msgstr "{0} / {1} 已批准"
+
+msgid "{0} of {1} steps completed"
+msgstr "已完成 {0} / {1} 个步骤"
+
+msgid "{0} open claims"
+msgstr "{0} 份未结付款申请"
+
+msgid "{0} open · {1} to approve"
+msgstr "{0} 项未结 · {1} 项待批准"
+
+msgid "{0} orders · {1} active"
+msgstr "{0} 份订单 · {1} 份执行中"
+
+msgid "{0} outstanding"
+msgstr "{0} 未结"
+
+msgid "{0} outstanding · {1} overdue"
+msgstr "{0} 未结 · {1} 逾期"
+
+msgid "{0} overdue {1} days — {2} outstanding"
+msgstr "{0} 逾期 {1} 天 — 未结 {2}"
+
+msgid "{0} overtime hours"
+msgstr "{0} 加班工时"
+
+msgid "{0} paid — {1}"
+msgstr "{0} 已付款 — {1}"
+
+msgid "{0} pending client approval for {1} days ({2})"
+msgstr "{0} 待业主审批已 {1} 天（{2}）"
+
+msgid "{0} priced BOQs"
+msgstr "{0} 份已计价工程量清单"
+
+msgid "{0} prints"
+msgstr "{0} 份打印件"
+
+msgid "{0} projects at risk"
+msgstr "{0} 个项目有风险"
+
+msgid "{0} projects need attention"
+msgstr "{0} 个项目需关注"
+
+msgid "{0} red flags"
+msgstr "{0} 项预警"
+
+msgid "{0} retention held"
+msgstr "已扣留保留金 {0}"
+
+msgid "{0} sent for approval"
+msgstr "{0} 已提交审批"
+
+msgid "{0} sent to {1} for certification"
+msgstr "{0} 已发送给 {1} 核定"
+
+msgid "{0} signed — the subcontractor can mobilise"
+msgstr "{0} 已签署 — 分包商可以进场"
+
+msgid "{0} sites"
+msgstr "{0} 个现场"
+
+msgid "{0} snags open"
+msgstr "{0} 项缺陷未关闭"
+
+msgid "{0} snags still open — handover certificate on hold"
+msgstr "{0} 项缺陷仍未关闭 — 移交证书暂缓"
+
+msgid "{0} tender value"
+msgstr "投标金额 {0}"
+
+msgid "{0} timesheets approved — labour cost posted to the projects"
+msgstr "已批准 {0} 份工时表 — 人工成本已过账到项目"
+
+msgid "{0} won of {1} decided"
+msgstr "已决标 {1} 个，中标 {0} 个"
+
+msgid "{0} {1} expires {2} — ask the bank to extend"
+msgstr "{0} {1} 于 {2} 到期 — 请银行展期"
+
+msgid "{0} {1} — ETA {2} passed"
+msgstr "{0} {1} — 预计到达日期 {2} 已过"
+
+msgid "{0} {1} — {2} this period"
+msgstr "{0} {1} — 本期 {2}"
+
+msgid "{0} · due {1}"
+msgstr "{0} · {1} 到期"
+
+msgid "{0} · line {1}"
+msgstr "{0} · 第 {1} 行"
+
+msgid "{0} — claim {1}, certified this claim ({2})"
+msgstr "{0} — 付款申请 {1}，本期申请核定额（{2}）"
+
+msgid "{0} — contract works as per the contract BOQ"
+msgstr "{0} — 按合同工程量清单施工的合同工程"
+
+msgid "{0} — received at {1}"
+msgstr "{0} — 已在 {1} 收货"
+
+msgid "{0} → {1}% · this period {2}"
+msgstr "{0} → {1}% · 本期 {2}"
+
+msgid "{0}% complete"
+msgstr "已完成 {0}%"
+
+msgid "{0}% of contract value"
+msgstr "合同金额的 {0}%"
+
+msgid "{0}% of the work done"
+msgstr "已完工程的 {0}%"
+
+msgid "— my company —"
+msgstr "— 我的公司 —"

@@ -3713,3 +3713,667 @@ yrs,年
 “Pay now” link on invoices; the payment is recorded automatically.,发票上的“立即付款”链接；付款自动登记。
 Precedence,优先顺序
 "Stable key of the menu entry: g:… for a group, the page / doctype / report / URL slug for an item, link-… for a custom link",菜单项的稳定键：菜单组为 g:…，菜单项为页面 / 单据类型 / 报表 / URL 的简写，自定义链接为 link-…
+" — over the remaining BOQ quantity, goes to the Managing Director", — 超出剩余工程量清单数量，提交总经理审批
+% complete,% 完成
+% done,% 已完成
+1. Enquiry / tender received,1. 收到询价 / 招标文件
+"26 steps from enquiry to profit report · who does what, documents, approvals and triggers",从询价到利润报告共 26 个步骤 · 分工、文件、审批与触发条件
+50% at completion · balance {0},竣工时 50% · 余额 {0}
+50% invoiced,已开票 50%
+6 phases · 26 steps · hover or tap a step for details,6 个阶段 · 26 个步骤 · 悬停或点击步骤查看详情
+6. Contract signed (already awarded),6. 合同已签订（已中标）
+"A Chinese fit-out contractor in Business Bay joins the group. Contract value, work done, certified, billed, collected, cost and margin for every project — with red flags.",一家位于 Business Bay 的中资装修承包商加入集团。每个项目的合同金额、已完工程、已核定、已开票、已收款、成本和毛利 — 并附预警。
+A change priced for the client — negative for an omission; approved variations raise the contract,为业主报价的变更 — 删减为负数；已批准的变更增加合同金额
+"A programme task on a project, with owner and dates",项目上的一项进度计划任务，含负责人和日期
+"A tender or an awarded contract — Quick: name, client and value; the stage, team, terms and dates follow from defaults",投标或已中标合同 — 快速：名称、业主和金额；阶段、团队、条款和日期按默认值带出
+"A, B, C …",A、B、C …
+APG,预付款保函
+Activity Costs,作业成本
+Actual,实际
+Actual = cost booked to the project (GL) + approved timesheets,实际 = 记入项目的成本（总账）+ 已批准的工时表
+Actual cost to date,至今实际成本
+Add at least one BOQ line with quantity and rate,请至少添加一行含数量和单价的工程量清单
+Add to BOQ,添加到工程量清单
+Advance %,预付款 %
+Advance invoice {0} — {1} incl. VAT,预付款发票 {0} — {1}（含增值税）
+Advance payment {0}% of the contract value — {1},预付款为合同金额的 {0}% — {1}
+Advance received,已收预付款
+Advance recovery,预付款扣回
+Advance recovery %,预付款扣回 %
+Advance recovery % (contract default),预付款扣回 %（合同默认值）
+Advance to recover,待扣回预付款
+After overheads,扣除管理费后
+After practical completion of the main contract,主合同实际竣工后
+"Against a BOQ line — checked against what is left on the line; over it, the Managing Director approves",对应工程量清单行 — 按该行剩余数量核对；超出部分由总经理审批
+Agreed,已商定
+All 26 steps done,26 个步骤全部完成
+All projects,全部项目
+All projects — cost and margin,全部项目 — 成本和毛利
+Approve submitted,批准已提交项
+Approved / rejected on,批准 / 驳回日期
+Approved by the client — added to the contract,业主已批准 — 已计入合同
+Approving an omission,批准删减
+Approving this material request,批准此物料申请
+Approving timesheets,审批工时表
+At completion and after {0}-month DLP,竣工时及 {0} 个月缺陷责任期满后
+At risk,有风险
+Attention,需关注
+Average cost per hour,平均每小时成本
+Average tender margin,平均投标毛利
+Awarded,已中标
+BC-.YYYY.-.###,BC-.YYYY.-.###
+BOQ,工程量清单
+BOQ / tender,工程量清单 / 投标
+BOQ amount,工程量清单金额
+BOQ line,工程量清单行
+BOQ line {0} not found.,未找到工程量清单行 {0}。
+BOQ lines,工程量清单行
+"BOQ lines for a project or tender — description, unit, quantity and rate; added to the project's BOQ",项目或投标的工程量清单行 — 描述、单位、数量和单价；添加到项目工程量清单
+BOQ total,工程量清单合计
+BOQ value — contracts,工程量清单金额 — 合同
+BOQ work to date,至今工程量清单完成工程
+"BOQ, progress certificates, retention, variations, subcontractors, site stock, timesheets and project costing",工程量清单、期中付款证书、保留金、变更、分包商、现场库存、工时表和项目成本核算
+Back Charge,反索赔扣款
+Back Charges,反索赔扣款
+Back-charge,反索赔扣款
+Back-charges,反索赔扣款
+Balance to recover,待扣回余额
+Bank Guarantees (bonds),银行保函（担保）
+Behind programme,进度滞后
+Being priced,报价中
+Bill of quantities,工程量清单
+Bill of quantities — {0},工程量清单 — {0}
+Billed (gross),已开票（总额）
+Billed / invoiced,已开票
+Billed in certificate,已在证书中开票
+Billed {0},已开票 {0}
+Book supplier bill,登记供应商账单
+Book the supplier bill (if not yet) and pay {0}?,登记供应商账单（如尚未登记）并支付 {0}？
+Budget,预算
+Budget margin,预算毛利
+"Budget vs committed vs actual by cost head, the forecast to complete and the forecast margin — reviewed every month.",按成本科目对比预算、已承诺和实际，以及完工尚需成本和预测毛利 — 每月审查。
+Budget vs committed vs actual per cost head — actual from the cost booked to the project and the approved timesheets — with the forecast to complete and the forecast margin.,按成本科目对比预算、已承诺和实际 — 实际取自记入项目的成本和已批准的工时表 — 并显示完工尚需成本和预测毛利。
+Budget vs committed vs actual — {0},预算 vs 已承诺 vs 实际 — {0}
+Budget {0} · revised contract {1},预算 {0} · 修订后合同金额 {1}
+Build-up / notes,单价分析 / 备注
+Buy & build,采购与施工
+By cost head,按成本科目
+By our QS,由我方造价工程师
+By project & task,按项目和任务
+By the consultants,由咨询工程师
+Certificate,证书
+Certificate no.,证书编号
+"Certificates, invoices and retention",证书、发票和保留金
+Certified,已核定
+Certified % (last certificate),核定 %（上一期证书）
+Certified on,核定日期
+Certified this claim,本期申请核定额
+Certified this year,本年核定
+Certified to date,至今核定
+Certified to date (cumulative),至今累计核定
+Certify,核定
+Certifying a subcontract claim,核定分包付款申请
+Charged to tasks and cost heads,计入任务和成本科目
+Choose the employee and the project,选择员工和项目
+Choose the material and the quantity,选择物料和数量
+Choose the project,选择项目
+Choose the project and BOQ line,选择项目和工程量清单行
+"Choose the project, the material and the quantity",选择项目、物料和数量
+Claim no.,申请编号
+Claim → QS certification (less retention and back-charges) → payment,付款申请 → 造价工程师核定（扣除保留金和反索赔扣款）→ 付款
+Claimed,已申请
+Claimed to date,至今申请
+Claimed to date (cumulative),至今累计申请
+Claims to certify,待核定的付款申请
+Clear a filter to see more projects.,清除筛选条件以查看更多项目。
+"Click a project to open it: the 120-room Business Bay hotel — AED 4.2M, 20% advance, 10% retention, two subcontractors. Click a step to see its status, % and facts; “Complete step” moves the project forward and logs who did it.",点击项目即可打开：Business Bay 的 120 间客房酒店 — 420 万迪拉姆，20% 预付款，10% 保留金，两家分包商。点击步骤可查看其状态、% 和相关事实；“完成步骤”推进项目并记录操作人。
+"Click a step to see what happens, who does it, documents and approval",点击步骤查看具体内容、负责人、文件和审批
+Client,业主
+Client approved,业主已批准
+Client instruction,业主指令
+Closed,已关闭
+Collected,已收款
+Collected / paid,已收款 / 已付款
+Committed,已承诺
+Complete & close,完成并关闭
+Complete step {0},完成步骤 {0}
+Complete step {0} — {1}?,完成步骤 {0} — {1}？
+Completed,已完成
+Completed by,完成人
+Completed on,完成日期
+Completion date,竣工日期
+Consultant,咨询工程师
+Consultant instruction,咨询工程师指令
+Contract,合同
+Contract & security,合同与担保
+Contract / tender value,合同 / 投标金额
+Contract sales order {0} {1},合同销售订单 {0} {1}
+Contract signed — the BOQ became the contract BOQ and the sales order,合同已签订 — 工程量清单已转为合同工程量清单和销售订单
+Contract value,合同金额
+Contract value (incl. variations),合同金额（含变更）
+Contract value by project,各项目合同金额
+Contractor,承包商
+Cost build-up,单价分析
+Cost build-up (% of the selling rate),单价分析（占销售单价的 %）
+Cost build-up — {0},单价分析 — {0}
+Cost head,成本科目
+Cost rate,成本单价
+Cost to date,至今成本
+Create and submit the progress invoice for {0}?,为 {0} 创建并提交进度款发票？
+Create project,创建项目
+Created at step {0} — {1},在步骤 {0} 创建 — {1}
+Crew,班组
+Crew on site (last working day),现场人员（最近一个工作日）
+Cumulative,累计
+Cumulative %,累计 %
+Cumulative % now,当前累计 %
+Currently at step {0} · {1},当前处于步骤 {0} · {1}
+DSR-.YYYY.-.####,DSR-.YYYY.-.####
+Daily Site Report,施工日报
+Daily Site Reports,施工日报
+"Daily hours by project and task, overtime at 125% and labour cost; the planned % shows where each task should be today.",按项目和任务统计的每日工时、按 125% 计算的加班和人工成本；计划 % 显示每项任务今天应达到的进度。
+"Daily hours by project and task, overtime, crew and labour cost — posted to the project cost heads.",按项目和任务统计的每日工时、加班、班组和人工成本 — 过账到项目成本科目。
+Daily site reports,施工日报
+Dates,日期
+Deducted,已扣除
+Deducted in claim,本期申请中扣除
+Deducted pro rata from progress invoices,从进度款发票中按比例扣除
+Deducted to date,至今已扣除
+Defects liability (months),缺陷责任期（月）
+Deliver from,发货自
+Deliveries to site,送至现场
+Deliveries to site — 30 days,送至现场 — 30 天
+Direct cost,直接成本
+Disputed,有争议
+Done: {0} → next: {1},已完成：{0} → 下一步：{1}
+E — Additional works,E — 增加工程
+"ETA passed, not received",已过预计到达日期，尚未收货
+ETA {0} passed,预计到达日期 {0} 已过
+"Each BOQ line is priced from material, labour, subcontract and overhead rates; the estimate summary shows cost, overheads and margin, and the tender goes out as the BOQ print.",每个工程量清单行按材料、人工、分包和管理费单价计价；估算汇总显示成本、管理费和毛利，投标以工程量清单打印件发出。
+End,结束
+Estimate,估算
+Estimate summary — {0},估算汇总 — {0}
+Estimating & BOQ,估算与工程量清单
+"Every project on one line through the 26 process steps — status, % and date per step, with red flags. Hover a step for who does it, the documents and the facts behind the status.",每个项目一行，贯穿 26 个流程步骤 — 每个步骤的状态、% 和日期，并附预警。悬停在步骤上可查看负责人、文件以及状态背后的事实。
+Excludes authority fees and loose furniture.,不含政府部门费用和活动家具。
+Execution,施工
+Final margin,最终毛利
+Final value,最终金额
+"Fit-out and contracting companies — projects from enquiry to profit report: BOQ and tenders, progress certificates, progress billing with advance recovery and retention, variations, subcontractors, site stock, timesheets and project costing, plus purchasing, LCs, HR and assets.",装修和工程承包公司 — 项目从询价到利润报告：工程量清单与投标、期中付款证书、含预付款扣回和保留金的进度款开票、变更、分包商、现场库存、工时表和项目成本核算，以及采购、信用证、人力资源和资产。
+"Fit-out and contracting projects from enquiry to profit report — contract value, progress, billing, collection, cost and margin on one screen.",装修和工程承包项目，从询价到利润报告 — 合同金额、进度、开票、收款、成本和毛利集中于一个界面。
+Fit-out works (to be detailed in the BOQ),装修工程（详见工程量清单）
+Flags,预警
+Forecast at completion,完工预测
+Forecast at completion by cost head,按成本科目的完工预测
+Forecast at completion {0},完工预测 {0}
+Forecast cost,预测成本
+Forecast cost at completion,完工预测成本
+Forecast margin,预测毛利
+Forecast margin %,预测毛利率 %
+Forecast margin {0:.1f}% vs budget {1:.1f}% — labour and materials over budget,预测毛利率 {0:.1f}%，预算为 {1:.1f}% — 人工和材料超出预算
+Forecast profit,预测利润
+Forecast to complete,完工尚需成本
+"From enquiry and site visit to BOQ, tender, award, bonds, advance, mobilisation, procurement, measurement, certification, invoicing, variations, completion, final account, retention release and the profit report. Open any step for who does it, the documents, the approval and the next trigger.",从询价和现场踏勘，到工程量清单、投标、中标、保函、预付款、进场、采购、计量、核定、开票、变更、竣工、竣工结算、保留金返还和利润报告。打开任一步骤即可查看负责人、文件、审批和下一个触发条件。
+From tender to contract,从投标到合同
+From the estimate,来自估算
+From the main store (or another site) to a project's site store — charged to the project,从主仓库（或其他现场）调拨到项目现场仓库 — 计入该项目
+From the project,来自项目
+Fully released,已全部返还
+Half released at completion; balance after our DLP,竣工时返还一半；余额在我方缺陷责任期满后返还
+Handover,移交
+Held by client,业主扣留
+Hours,工时
+Hours and labour cost by project & task,按项目和任务的工时与人工成本
+Hours last 7 days,最近 7 天工时
+Hours of one employee on a project — site work and overtime at 125%; approved by the project manager,一名员工在某项目上的工时 — 现场工作和按 125% 计算的加班；由项目经理批准
+Hours — 30 days,工时 — 30 天
+Hours — last 30 days,工时 — 最近 30 天
+How it works,运作方式
+How it works — 26 steps,运作方式 — 26 个步骤
+How it works — the project process,运作方式 — 项目流程
+IPC-.YYYY.-.###,IPC-.YYYY.-.###
+IPC-{0:02d} certified,IPC-{0:02d} 已核定
+IPC-{0:02d} measured,IPC-{0:02d} 已计量
+Incl. 25% overtime premium,含 25% 加班溢价
+Incl. approved variations,含已批准的变更
+Industries,行业
+Instruction reference,指令编号
+Invoiced (incl. VAT),已开票（含增值税）
+Issue,问题
+Issues,问题
+LOA,中标通知书
+Labour,人工
+Labour %,人工 %
+Labour cost,人工成本
+Labour cost — last 30 days,人工成本 — 最近 30 天
+Labour rate,人工单价
+Late deliveries,延迟交货
+Latest 60 lines,最近 60 行
+Less advance recovery,减：预付款扣回
+Less advance recovery ({0}%),减：预付款扣回（{0}%）
+Less back-charges,减：反索赔扣款
+Less previous certificates,减：以往各期证书
+Less retention,减：保留金
+Less retention ({0}%),减：保留金（{0}%）
+Level,级别
+"Like the Sales Order Tracker: one row per project through all 26 steps in 6 phases, each with status, % and date, and the red flags underneath.",与销售订单跟踪类似：每个项目一行，贯穿 6 个阶段的全部 26 个步骤，每个步骤显示状态、% 和日期，下方列出预警。
+Lost — price,丢标 — 价格
+Lost — programme,丢标 — 工期
+"MEP and joinery subcontract orders, their monthly claims certified by our QS, retention and back-charges deducted on the supplier bill, then paid.",机电和木作分包订单，其月度付款申请由我方造价工程师核定，在供应商账单上扣除保留金和反索赔扣款，然后付款。
+"MEP, joinery and other packages — with retention and payment terms",机电、木作及其他分包包 — 含保留金和付款条件
+Main store,主仓库
+Manpower — own,人力 — 自有
+Manpower — subcontractors,人力 — 分包商
+Manpower: {0} own · {1} subcontractor · Work done: {2} · Issues: {3},人力：自有 {0} · 分包商 {1} · 已完工程：{2} · 问题：{3}
+Margin {0:.1f}%,毛利率 {0:.1f}%
+Material,材料
+Material %,材料 %
+Material Requests,物料申请
+Material rate,材料单价
+Material request,物料申请
+Material request to site,现场物料申请
+Material requests,物料申请
+"Material requests are raised against BOQ lines, turned into POs per project and cost head, received at the site store, used on the job and returned — site stock per project.",物料申请对应工程量清单行提出，按项目和成本科目转为采购订单，在现场仓库收货，用于施工并办理退回 — 按项目管理现场库存。
+Material requests from the BOQ,来自工程量清单的物料申请
+"Material requests from the BOQ, purchase orders per project, deliveries to site, site stock and returns — every cost lands on the right project and cost head.",来自工程量清单的物料申请、按项目的采购订单、送至现场、现场库存和退回 — 每项成本都计入正确的项目和成本科目。
+Materials,材料
+"Measure, bill & control",计量、开票与控制
+Measured,已计量
+"Measured % (cumulative, now)",计量 %（当前累计）
+Measured by,计量人
+Measured on,计量日期
+"Measured → sent to the consultant → certified → progress invoice: work this period, less advance recovery and retention, plus VAT. Retention held and advance still to recover are tracked per project.",计量 → 报送咨询工程师 → 核定 → 进度款发票：本期完成工程，减预付款扣回和保留金，加增值税。按项目跟踪业主扣留的保留金和待扣回的预付款。
+Measurement,计量
+Measurement — {0},计量 — {0}
+Mobilise & plan,进场与计划
+Mobilising,进场中
+Month end,月末
+"Monthly claims, certified by our QS within 7 days, paid 30 days after certification · 10% retention",按月申请，由我方造价工程师在 7 天内核定，核定后 30 天付款 · 10% 保留金
+"Monthly measurement per BOQ line, consultant certification, progress invoices less advance recovery and retention, retention release and variations.",按工程量清单行月度计量、咨询工程师核定、扣除预付款扣回和保留金后的进度款发票、保留金返还和变更。
+"Monthly progress payments on consultant certificates, 30 days · advance against APG · retention released after the DLP",凭咨询工程师证书按月支付进度款，30 天 · 预付款以预付款保函担保 · 缺陷责任期满后返还保留金
+Needed,需求
+Needed on site,现场需求
+Negative for an omission,删减为负数
+Net amount due,应付净额
+Net due incl. VAT,应付净额（含增值税）
+New BOQ,新建工程量清单
+New daily site report,新建施工日报
+New material request,新建物料申请
+New progress certificate,新建期中付款证书
+New project,新建项目
+New subcontract order,新建分包订单
+New task,新建任务
+New timesheet,新建工时表
+New variation,新建变更
+Next tender due,下一个投标截止
+Next trigger,下一个触发条件
+No back-charges.,无反索赔扣款。
+No claims yet.,暂无付款申请。
+No contracts past the advance yet.,暂无已过预付款阶段的合同。
+No daily site reports yet.,暂无施工日报。
+No deliveries to site yet.,暂无送至现场的货物。
+No hours booked in the last 30 days.,最近 30 天未登记工时。
+No material requests yet.,暂无物料申请。
+No progress certificates yet.,暂无期中付款证书。
+No project invoices yet.,暂无项目发票。
+No project purchase orders yet.,暂无项目采购订单。
+No projects match these filters,没有符合这些筛选条件的项目
+No projects yet — create one with New project (Projects & contracting must be switched on).,暂无项目 — 请通过“新建项目”创建（须启用“项目与工程承包”）。
+No red flags — all projects are on track.,无预警 — 所有项目均按计划进行。
+No red flags — on track,无预警 — 按计划进行
+No retention left to release on {0}.,{0} 没有可返还的保留金。
+No returns from site.,暂无现场退回。
+No subcontract orders yet.,暂无分包订单。
+No tasks yet.,暂无任务。
+No tenders yet.,暂无投标。
+No timesheets yet.,暂无工时表。
+No variations.,无变更。
+None yet,暂无
+Notes / exclusions,备注 / 除外项
+Nothing certified yet.,尚无核定。
+Nothing in the site stores.,现场仓库中无库存。
+Nothing is measured beyond the last certificate yet — enter the measurement on the BOQ lines (Progress & billing → Measurement); the certificate follows.,自上一期证书以来尚无新的计量 — 请在工程量清单行上录入计量（进度与开票 → 计量）；随后生成证书。
+Now,当前
+Omission,删减
+On programme,按计划进行
+Open material requests,未结物料申请
+Open screen,打开界面
+Open snags,未关闭的缺陷项
+Order value,订单金额
+Order value (excl. VAT),订单金额（不含增值税）
+Overhead rate,管理费单价
+Overtime,加班
+Overtime hours,加班工时
+POs and subcontracts,采购订单和分包
+Package / scope,分包包 / 范围
+Paid to subcontractors,已付分包商
+Pay {0}?,支付 {0}？
+Payment certificate,付款证书
+Pending approval,待审批
+Pending client,待业主处理
+Pending signature,待签署
+Pending variations (not in forecast),待定变更（未计入预测）
+Planned %,计划 %
+Planned % is where the task should be today,计划 % 表示任务今天应达到的进度
+Planned {0},计划 {0}
+Plant %,机械设备 %
+Plant & equipment,机械设备
+Portfolio,项目组合
+Preliminaries,开办费
+Preliminaries & general,开办费及一般项目
+Previous %,上期 %
+Previously certified,以往已核定
+"Price the BOQ line by line from material, labour and subcontract rates, add overheads and margin, submit the tender and turn the award into the contract BOQ.",按材料、人工和分包单价逐行为工程量清单计价，加上管理费和毛利，提交投标，并将中标转为合同工程量清单。
+Pricing,计价
+Print BOQ,打印工程量清单
+Print certificate,打印证书
+Print subcontract order,打印分包订单
+Print variation order,打印变更单
+Process step,流程步骤
+Process — 26 steps,流程 — 26 个步骤
+Programme note,进度计划备注
+Progress,进度
+Progress & billing,进度与开票
+Progress Certificate,期中付款证书
+Progress Certificate Item,期中付款证书明细
+Progress Certificates,期中付款证书
+Progress certificate,期中付款证书
+Progress certificate {0},期中付款证书 {0}
+Progress certificates,期中付款证书
+Progress certificates (interim payment certificates),期中付款证书
+Progress invoice,进度款发票
+Progress invoices,进度款发票
+"Progress, advance and retention invoices",进度款、预付款和保留金发票
+Project / tender,项目 / 投标
+Project BOQ,项目工程量清单
+Project BOQ Item,项目工程量清单明细
+Project BOQs & tenders,项目工程量清单与投标
+Project Manager,项目经理
+Project Step Log,项目步骤日志
+Project Tracker,项目跟踪
+Project costing,项目成本核算
+Project manager,项目经理
+Project name,项目名称
+Project portfolio,项目组合
+Project profit — {0},项目利润 — {0}
+Project purchase orders,项目采购订单
+Project · BOQ line,项目 · 工程量清单行
+Project · client,项目 · 业主
+Project · cost head,项目 · 成本科目
+Project · task,项目 · 任务
+"Project, client or number",项目、业主或编号
+Projects,项目
+Projects & contracting,项目与工程承包
+Projects tracked,跟踪中的项目
+Projects — Golden Dragon Interiors,项目 — Golden Dragon Interiors
+Purchase orders per project,按项目的采购订单
+Qty to date,至今数量
+Quantity Surveyor,造价工程师
+Quantity surveyor,造价工程师
+Raise advance invoice,开具预付款发票
+Raise retention invoice,开具保留金发票
+"Raise the advance invoice first (Progress & billing → Advance recovery, or the button on this step).",请先开具预付款发票（进度与开票 → 预付款扣回，或此步骤上的按钮）。
+Raise the advance invoice for {0}?,为 {0} 开具预付款发票？
+Raise the retention release invoice for {0}?,为 {0} 开具保留金返还发票？
+Raised on,提出日期
+Rate / hour,每小时单价
+Re-measurement,重新计量
+Receipt {0} recorded — {1} paid,已登记收款 {0} — 已付 {1}
+Receive at site,现场收货
+Receive what is still to come on {0} at the project's site store?,将 {0} 上尚未到货的部分收入项目现场仓库？
+Received in store,已入库
+Record certification,登记核定
+Record that the client rejected {0}?,登记业主已驳回 {0}？
+Record the client's approval of {0}?,登记业主已批准 {0}？
+Record the client's approval of {0}? The contract value goes up by {1}.,登记业主已批准 {0}？合同金额将增加 {1}。
+Record the receipt of {0} against {1}?,针对 {1} 登记收到 {0}？
+Recorded when the project was created (already awarded),创建项目时记录（已中标）
+Recording the consultant's certification,登记咨询工程师的核定
+Recovered,已扣回
+Red flag,预警
+Red flags,预警
+Red flags {0},预警 {0}
+Red flags — every project,预警 — 全部项目
+Rejected by the client,业主已驳回
+Release,返还
+Release due,应返还
+Released,已返还
+Released after the defects period,缺陷责任期满后返还
+Reported by,报告人
+Requests,申请
+Retention,保留金
+Retention %,保留金 %
+Retention % (contract default),保留金 %（合同默认值）
+Retention held,已扣留保留金
+Retention held by clients,业主扣留的保留金
+Retention held from subcontractors,向分包商扣留的保留金
+Retention invoice,保留金发票
+Retention invoice {0} — {1} incl. VAT,保留金发票 {0} — {1}（含增值税）
+Retention released — {0},保留金已返还 — {0}
+Returned,已退回
+Returned to,退回至
+Returned to supplier,已退回供应商
+Returns from site,现场退回
+Revised contract,修订后合同
+Revised contract value,修订后合同金额
+Revision,修订版本
+SCC-.YYYY.-.###,SCC-.YYYY.-.###
+SCO-.YYYY.-.###,SCO-.YYYY.-.###
+Section,分部
+Section name,分部名称
+Selling rate,销售单价
+Send for signature,发送签署
+Send to client,发送给业主
+Send to consultant,发送给咨询工程师
+Sending a certificate to the consultant,将证书发送给咨询工程师
+Sent to client,已发送给业主
+Sent to client on,发送给业主日期
+Sent to the client for approval,已发送给业主审批
+Set the client (customer) on {0} first.,请先在 {0} 上设置业主（客户）。
+Signed by both parties,双方已签署
+Signing a subcontract order,签署分包订单
+Site & procurement,现场与采购
+Site Engineer,现场工程师
+Site condition,现场条件
+Site engineer,现场工程师
+Site overheads,现场管理费
+Site overheads %,现场管理费 %
+Site overheads & plant,现场管理费及机械设备
+Site overheads & plant %,现场管理费及机械设备 %
+Site stock,现场库存
+Site stock value,现场库存价值
+Site transfer,现场调拨
+Site value,现场价值
+Snags,缺陷项
+Spent,已支出
+Start on site,现场开工
+Starts at,开始于
+Step,步骤
+Step name,步骤名称
+Step {0},步骤 {0}
+Step {0} ({1}),步骤 {0}（{1}）
+Step {0} completed — {1},步骤 {0} 已完成 — {1}
+Step {0} completed — {1} ({2}),步骤 {0} 已完成 — {1}（{2}）
+Steps {0}–{1},步骤 {0}–{1}
+Stock Entries,库存凭证
+Subcontract,分包
+Subcontract %,分包 %
+Subcontract Claim,分包付款申请
+Subcontract Claims,分包付款申请
+Subcontract Order,分包订单
+Subcontract Orders,分包订单
+Subcontract order,分包订单
+Subcontract orders,分包订单
+"Subcontract orders for MEP and joinery packages, their monthly claims, certification, retention and back-charges.",机电和木作分包包的分包订单、其月度付款申请、核定、保留金和反索赔扣款。
+Subcontract rate,分包单价
+Subcontract value,分包金额
+Subcontractor,分包商
+Subcontractor claims,分包商付款申请
+Subcontractors,分包商
+Submission due,提交截止
+Submit tender,提交投标
+Submitted to consultant,已报送咨询工程师
+Supplier bill {0} — {1} payable,供应商账单 {0} — 应付 {1}
+Supplier direct,供应商直送
+Supplier direct — {0},供应商直送 — {0}
+Surplus back to the store,余料退回仓库
+TND-.YYYY.-.###,TND-.YYYY.-.###
+Tasks,任务
+Tender,投标
+Tender / BOQ name,投标 / 工程量清单名称
+Tender / contract value,投标 / 合同金额
+Tender due date,投标截止日期
+Tender due {0} — {1} days left,投标截止 {0} — 剩余 {1} 天
+Tender print,投标打印件
+Tender value,投标金额
+Tenders & quotations,投标与报价
+Tenders open,进行中的投标
+"The hotel project, step by step",酒店项目，逐步演示
+The material is already in {0}.,物料已在 {0} 中。
+"The measurement on the BOQ lines becomes the certificate: work this period, less advance recovery and retention, plus VAT",工程量清单行上的计量生成证书：本期完成工程，减预付款扣回和保留金，加增值税
+This claim,本期申请
+This period,本期
+Time impact (days),工期影响（天）
+Timesheet,工时表
+Timesheets,工时表
+Timesheets & labour,工时表与人工
+To date,至今
+To project,调入项目
+Total BOQ · {0} lines,工程量清单合计 · {0} 行
+Total cost,总成本
+Total payable,应付合计
+Trade,专业
+VAT %,增值税 %
+VO-.YYYY.-.###,VO-.YYYY.-.###
+Value engineering,价值工程
+Variance,差异
+Variation,变更
+Variation Order,变更单
+Variation Orders,变更单
+Variation {0},变更 {0}
+Variations,变更
+Variations agreed,已商定的变更
+Variations to date,至今变更
+Vehicle / driver,车辆 / 司机
+What happens,具体内容
+Where the projects are,项目所处阶段
+Who,负责人
+Win the job,赢得项目
+Withdrawn,已撤回
+Work done,已完工程
+Work done this period,本期完成工程
+"Work done this period — progress certificate {0} (no. {1}), period to {2}",本期完成工程 — 期中付款证书 {0}（第 {1} 期），截至 {2}
+Work done to date,至今完成工程
+Work done to date (measured),至今完成工程（已计量）
+Work this period,本期工程
+Work to date,至今工程
+Works,工程
+approved · {0} pending,已批准 · {0} 项待处理
+budget,预算
+budget {0},预算 {0}
+contract stage — request the bonds next,合同阶段 — 下一步申请保函
+created — submit it for approval,已创建 — 请提交审批
+due,到期
+e.g. Dubai Hills show apartment,例如：Dubai Hills 样板公寓
+exp.,到期
+exp. {0} · {1},到期 {0} · {1}
+incl. approved variations,含已批准的变更
+incl. variations,含变更
+of certified claims,来自已核定的付款申请
+outstanding,未结
+over BOQ,超出工程量清单
+progress certificate,期中付款证书
+projects,个项目
+saved as draft,已保存为草稿
+sent to {0},已发送给 {0}
+site,现场
+subcontract order,分包订单
+subcontractor claim,分包商付款申请
+submitted,已提交
+tender stage — price the BOQ next,投标阶段 — 下一步为工程量清单计价
+the consultant,咨询工程师
+variation,变更
+vs budget,对比预算
+{0} + subcontractors,{0} + 分包商
+{0} BOQ lines added to {1} · {2},已将 {0} 行工程量清单添加到 {1} · {2}
+{0} POs,{0} 张采购订单
+{0} already has its advance invoice.,{0} 已开具预付款发票。
+{0} approved · contract value now {1},{0} 已批准 · 合同金额现为 {1}
+{0} approved — create the PO or request quotations,{0} 已批准 — 创建采购订单或询价
+{0} awaiting approval,{0} 待审批
+{0} behind programme on {1},{0} 在 {1} 上进度滞后
+{0} certificate(s) with the consultant,{0} 份证书在咨询工程师处
+{0} certified {1} less retention {2} and back-charges {3},{0} 核定 {1}，扣除保留金 {2} 和反索赔扣款 {3}
+{0} certified · {1} this period — create the progress invoice next,{0} 已核定 · 本期 {1} — 下一步创建进度款发票
+"{0} certified, unpaid",{0} 已核定未付款
+{0} claim(s) to certify,{0} 份付款申请待核定
+{0} closed — profit report ready,{0} 已关闭 — 利润报告已就绪
+{0} contracts · {1} live,{0} 份合同 · {1} 份进行中
+{0} created · {1},已创建 {0} · {1}
+"{0} created — {1} incl. VAT, less advance recovery and retention",已创建 {0} — {1}（含增值税），已扣除预付款扣回和保留金
+{0} days waiting,已等待 {0} 天
+{0} days with the client,在业主处 {0} 天
+{0} deliveries,{0} 次送货
+{0} disputed,{0} 项有争议
+{0} flags,{0} 项预警
+{0} h · {1} — sent for approval,{0} 小时 · {1} — 已提交审批
+{0} has no BOQ yet.,{0} 尚无工程量清单。
+{0} has no BOQ.,{0} 没有工程量清单。
+{0} has no advance (advance % is 0).,{0} 没有预付款（预付款 % 为 0）。
+{0} invoice(s),{0} 张发票
+{0} is already invoiced ({1}).,{0} 已开票（{1}）。
+{0} is closed — all 26 steps are done.,{0} 已关闭 — 全部 26 个步骤已完成。
+{0} is not in execution yet — certificates start after the budget (step 10).,{0} 尚未进入施工阶段 — 证书在预算（步骤 10）之后开始。
+{0} is still open — measure on it first (Progress & billing → Measurement).,{0} 仍未结 — 请先在其上计量（进度与开票 → 计量）。
+{0} is {1} — send it to the client first.,{0} 的状态为 {1} — 请先发送给业主。
+{0} is {1} — send it to the consultant first.,{0} 的状态为 {1} — 请先发送给咨询工程师。
+{0} is {1}.,{0} 的状态为 {1}。
+{0} items on {1} sites,{1} 个现场共 {0} 项物料
+{0} late,{0} 项延迟
+{0} lines by section · qty × rate,按分部列出的 {0} 行 · 数量 × 单价
+{0} listed · {1} open,已列出 {0} · {1} 项未结
+{0} measured,已计量 {0}
+{0} months,{0} 个月
+{0} must be approved first.,{0} 须先获批准。
+{0} must be certified by the consultant before it is invoiced.,{0} 须经咨询工程师核定后才能开票。
+{0} must be certified first.,{0} 须先核定。
+{0} needs the {1}.,{0} 需要 {1} 角色。
+{0} of {1} approved,{0} / {1} 已批准
+{0} of {1} steps completed,已完成 {0} / {1} 个步骤
+{0} open claims,{0} 份未结付款申请
+{0} open · {1} to approve,{0} 项未结 · {1} 项待批准
+{0} orders · {1} active,{0} 份订单 · {1} 份执行中
+{0} outstanding,{0} 未结
+{0} outstanding · {1} overdue,{0} 未结 · {1} 逾期
+{0} overdue {1} days — {2} outstanding,{0} 逾期 {1} 天 — 未结 {2}
+{0} overtime hours,{0} 加班工时
+{0} paid — {1},{0} 已付款 — {1}
+{0} pending client approval for {1} days ({2}),{0} 待业主审批已 {1} 天（{2}）
+{0} priced BOQs,{0} 份已计价工程量清单
+{0} prints,{0} 份打印件
+{0} projects at risk,{0} 个项目有风险
+{0} projects need attention,{0} 个项目需关注
+{0} red flags,{0} 项预警
+{0} retention held,已扣留保留金 {0}
+{0} sent for approval,{0} 已提交审批
+{0} sent to {1} for certification,{0} 已发送给 {1} 核定
+{0} signed — the subcontractor can mobilise,{0} 已签署 — 分包商可以进场
+{0} sites,{0} 个现场
+{0} snags open,{0} 项缺陷未关闭
+{0} snags still open — handover certificate on hold,{0} 项缺陷仍未关闭 — 移交证书暂缓
+{0} tender value,投标金额 {0}
+{0} timesheets approved — labour cost posted to the projects,已批准 {0} 份工时表 — 人工成本已过账到项目
+{0} won of {1} decided,已决标 {1} 个，中标 {0} 个
+{0} {1} expires {2} — ask the bank to extend,{0} {1} 于 {2} 到期 — 请银行展期
+{0} {1} — ETA {2} passed,{0} {1} — 预计到达日期 {2} 已过
+{0} {1} — {2} this period,{0} {1} — 本期 {2}
+{0} · due {1},{0} · {1} 到期
+{0} · line {1},{0} · 第 {1} 行
+"{0} — claim {1}, certified this claim ({2})",{0} — 付款申请 {1}，本期申请核定额（{2}）
+{0} — contract works as per the contract BOQ,{0} — 按合同工程量清单施工的合同工程
+{0} — received at {1},{0} — 已在 {1} 收货
+{0} → {1}% · this period {2},{0} → {1}% · 本期 {2}
+{0}% complete,已完成 {0}%
+{0}% of contract value,合同金额的 {0}%
+{0}% of the work done,已完工程的 {0}%
+— my company —,— 我的公司 —
