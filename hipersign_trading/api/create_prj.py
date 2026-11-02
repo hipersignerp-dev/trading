@@ -8,7 +8,7 @@ from frappe.utils import add_days, cint, flt, get_datetime, getdate, today
 
 from hipersign_trading.api import projects as P
 
-DOCTYPES = {"Project", "Project BOQ", "Task", "Timesheet", "Progress Certificate", "Variation Order", "Subcontract Order"}
+DOCTYPES = {"Project", "Project BOQ", "Task", "Timesheet", "Progress Certificate", "Variation Order", "Subcontract Order", "Daily Site Report"}
 
 
 def _step_logs(p, upto):
@@ -150,6 +150,26 @@ def pre_subcontract_order(doc, v, rows):
 	doc.company = frappe.db.get_value("Project", v.project, "company")
 	doc.status = "Pending signature" if v.get("_action") == "submit" else "Draft"
 	doc.order_date = today()
+
+
+def pre_daily_site_report(doc, v, rows):
+	"""v1.8.0: the daily site report — on the project's company, reported by the user unless another name is given."""
+	if not v.get("project") or not frappe.db.exists("Project", v.project):
+		frappe.throw(_("Choose the project"))
+	if not (v.get("work_done") or "").strip():
+		frappe.throw(_("Describe the work done"))
+	if cint(v.get("manpower_own")) < 0 or cint(v.get("manpower_sub")) < 0:
+		frappe.throw(_("Manpower cannot be negative"))
+	day = getdate(v.get("report_date") or today())
+	if day > getdate(today()):
+		frappe.throw(_("A daily site report cannot be dated in the future"))
+	doc.company = frappe.db.get_value("Project", v.project, "company")
+	if not v.get("reported_by"):
+		doc.reported_by = frappe.utils.get_fullname(frappe.session.user)
+	if frappe.db.exists("Daily Site Report", {"project": v.project, "report_date": day}):
+		frappe.msgprint(_("{0} already has a report for {1} — this one is added beside it.").format(v.project, frappe.utils.formatdate(day)), indicator="orange", alert=True)
+	man = cint(v.get("manpower_own")) + cint(v.get("manpower_sub"))
+	frappe.flags.hs_create_msg = _("{0} saved · {1} on site").format("{0}", _("{0} people").format(man))
 
 
 def pre_material_request_site(doc, v, rows):

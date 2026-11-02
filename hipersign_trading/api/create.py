@@ -451,7 +451,7 @@ SIMPLE = {"Import Shipment", "Export Shipment", "Material Request", "Stock Entry
 	"Credit Limit Request", "Purchase Invoice", "Payment Entry", "Warranty Claim", "Delivery Trip", "Employee Advance",
 	"Sales Invoice"}  # Sales Invoice: only the credit note window (returns); new invoices start from the delivery (C.PICK)
 # v1.8.0: the Projects windows (api.create_prj)
-SIMPLE |= {"Project", "Project BOQ", "Task", "Timesheet", "Progress Certificate", "Variation Order", "Subcontract Order"}
+SIMPLE |= {"Project", "Project BOQ", "Task", "Timesheet", "Progress Certificate", "Variation Order", "Subcontract Order", "Daily Site Report"}
 # v1.8.0: the Manufacturing windows (api.create_mfg)
 SIMPLE |= {"BOM", "Work Order", "Production Plan", "Job Card", "Quality Inspection"}
 

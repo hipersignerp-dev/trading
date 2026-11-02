@@ -236,8 +236,18 @@ frappe.provide("hipersign.projects");
 			{ f: "_vehicle", label: __("Vehicle / driver"), m: "d" },
 			{ f: "posting_date", label: __("Date"), t: "date", m: "d", def: today },
 		], actions: [{ label: __("Save draft"), action: "save" }, { label: __("Transfer"), action: "submit", primary: 1 }] },
+		// v1.8.0: the site engineer's daily report — manpower, work done and issues (Timesheets & labour → Daily site reports)
+		"Daily Site Report": { title: __("New daily site report"), sub: __("Manpower on site, work done and issues — Quick: project, manpower and work done; the project manager sees it the same day"), fields: [
+			{ f: "project", label: __("Project"), t: "select", src: L("Project", Object.assign({ hs_step: ["between", [8, 25]] }, ANY)), req: 1, m: "q", w: 2, blank: __("— choose —") },
+			{ f: "report_date", label: __("Date"), t: "date", req: 1, m: "q", def: today },
+			{ f: "manpower_own", label: __("Own manpower"), t: "number", m: "q", def: 0 },
+			{ f: "work_done", label: __("Work done"), t: "textarea", req: 1, m: "q", w: 2, ph: __("e.g. Floor 7 ceilings boarded; floor 5 flooring 60% laid") },
+			{ f: "manpower_sub", label: __("Subcontractor manpower"), t: "number", m: "s", def: 0 },
+			{ f: "issues", label: __("Issues & delays"), t: "textarea", m: "s", w: 2, ph: __("Deliveries, access, client instructions, safety") },
+			{ f: "reported_by", label: __("Reported by"), m: "d", def: () => frappe.session.user_fullname },
+		], actions: [{ label: __("Save report"), action: "save", primary: 1 }] },
 	});
-	["Project", "Project BOQ", "Task", "Timesheet", "Progress Certificate", "Variation Order", "Subcontract Order"].forEach((dt) => {
+	["Project", "Project BOQ", "Task", "Timesheet", "Progress Certificate", "Variation Order", "Subcontract Order", "Daily Site Report"].forEach((dt) => {
 		if (hipersign.fm && !hipersign.fm.COVERED.includes(dt)) hipersign.fm.COVERED.push(dt);
 	});
 
@@ -258,6 +268,7 @@ frappe.provide("hipersign.projects");
 				[__("Subcontract order"), "file", { dt: "Subcontract Order", feature: "projects" }],
 				[__("Material request to site"), "stock", { dt: "Material Request", win: "Material Request:project", feature: "projects" }],
 				[__("Site transfer"), "share", { dt: "Stock Entry", win: "Stock Entry:site", feature: "projects" }],
+				[__("Daily site report"), "file", { dt: "Daily Site Report", feature: "projects" }],
 			]]);
 			return g;
 		};

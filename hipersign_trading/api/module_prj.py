@@ -356,7 +356,8 @@ def pj_site_module():
 	return {
 		"title": _("Site & procurement"),
 		"desc": _("Material requests from the BOQ, purchase orders per project, deliveries to site, site stock and returns — every cost lands on the right project and cost head."),
-		"new": [{"label": _("Site transfer"), "doctype": "Stock Entry:site"}, {"label": _("Material request"), "doctype": "Material Request:project", "primary": 1}],
+		"new": [{"label": _("Daily site report"), "doctype": "Daily Site Report"}, {"label": _("Site transfer"), "doctype": "Stock Entry:site"},
+			{"label": _("Material request"), "doctype": "Material Request:project", "primary": 1}],
 		"kpis": [
 			kpi(_("Open material requests"), len([m for m in M if flt(m.per_received) < 100]), _("{0} awaiting approval").format(len(pend)), "blue", "list", tab="mr"),
 			kpi(_("Project purchase orders"), sum(flt(x.base_net_total) for x in PO), _("{0} open · {1} to approve").format(len([x for x in PO if flt(x.per_received) < 100]),
