@@ -13,6 +13,7 @@
   "Group companies",
   "People & assets",
   "Projects",
+  "Manufacturing",
   "Admin & go-live"
  ],
  "steps": [
@@ -900,6 +901,110 @@
   },
   {
    "chapter": 13,
+   "title": "Production — Hipersign Lighting Industries",
+   "text": "A Chinese-owned LED assembler in KEZAD joins the group: components from Shenzhen, three products, local sales and GCC exports. Work orders in process, output against plan, work in progress, late orders and the load on every workstation.",
+   "route": [
+    "hipersign-production"
+   ],
+   "selector": ".hsx-kpis",
+   "role": "Production Manager",
+   "feature": "manufacturing"
+  },
+  {
+   "chapter": 13,
+   "title": "How it works — 22 steps",
+   "text": "From the sales order and MRP through material requests, purchasing, incoming inspection, release, issue to WIP, job cards, in-process and final QC, the manufacture entry, batches, packing, delivery and invoice to costing and the closed work order. Open any step for who does it, the documents, the approval and the next trigger.",
+   "route": [
+    "hipersign-production"
+   ],
+   "selector": ".hsx-how",
+   "role": "Production Manager",
+   "feature": "manufacturing",
+   "tab": "how"
+  },
+  {
+   "chapter": 13,
+   "title": "Planning & shortages",
+   "text": "Sales orders → production plan → work orders and material requests. MRP lists the component shortages against usable stock and open purchase orders, with a suggested order and a Raise PO button.",
+   "route": [
+    "hipersign-planning"
+   ],
+   "selector": ".hsx-mout",
+   "role": "Production Manager",
+   "feature": "manufacturing",
+   "tab": "short"
+  },
+  {
+   "chapter": 13,
+   "title": "BOMs, routings and cost roll-up",
+   "text": "The BOM tree with the driver sub-assembly, the routing per workstation and the standard cost — material, labour and overhead. Versions and where-used are one tab away.",
+   "route": [
+    "hipersign-boms"
+   ],
+   "selector": ".hsx-mout",
+   "role": "Production Manager",
+   "feature": "manufacturing",
+   "tab": "tree"
+  },
+  {
+   "chapter": 13,
+   "title": "Shop floor",
+   "text": "A tablet view for each workstation: start and pause the job card, add quantities, record scrap and change the operator. Every tap updates the work order, the tracker and the cost.",
+   "route": [
+    "hipersign-shopfloor"
+   ],
+   "selector": ".hsf-grid",
+   "role": "Production Manager",
+   "feature": "manufacturing"
+  },
+  {
+   "chapter": 13,
+   "title": "Quality",
+   "text": "Incoming, in-process and final inspection with AQL sampling, rejects and rework — and a test certificate per batch, printed in English and Chinese.",
+   "route": [
+    "hipersign-quality"
+   ],
+   "selector": ".hsx-mout",
+   "role": "QC Inspector",
+   "feature": "manufacturing",
+   "tab": "fin"
+  },
+  {
+   "chapter": 13,
+   "title": "Costing",
+   "text": "Standard against actual per work order — material consumed, labour and overhead from the job cards' hours — with the variances and the margin per product.",
+   "route": [
+    "hipersign-mfg-costing"
+   ],
+   "selector": ".hsx-mout",
+   "role": "Accounts Manager",
+   "feature": "manufacturing"
+  },
+  {
+   "chapter": 13,
+   "title": "The work order, step by step",
+   "text": "Click a work order to open it: the 22 steps with status, % and facts, its operations and job cards, materials and cost. “Complete step” moves the order forward — releasing, issuing, receiving, delivering or invoicing as the step needs — and logs who did it.",
+   "route": [
+    "hipersign-production"
+   ],
+   "selector": ".hsx-mout",
+   "role": "Production Manager",
+   "feature": "manufacturing",
+   "tab": "wo"
+  },
+  {
+   "chapter": 13,
+   "title": "Production Tracker",
+   "text": "Every sales order and its work order through the 22 steps in five phases — status, % and date per step, and red flags such as a late work order, a component shortage or open rework.",
+   "route": [
+    "production-tracker"
+   ],
+   "selector": ".hsp-list",
+   "role": "Managing Director",
+   "feature": "manufacturing"
+  },
+  {
+   "chapter": 14,
    "title": "Feature packs for every size",
    "text": "Starter for a small local trader, Standard for a growing importer, Enterprise for groups. Each feature can be switched on or off per company, documents can be off, recommended or fully enforced, and Simple forms hides the optional fields. Nothing is deleted — switch back and every screen returns.",
    "route": [
@@ -911,7 +1016,7 @@
    "feature": null
   },
   {
-   "chapter": 13,
+   "chapter": 14,
    "title": "Approval rules & workflows",
    "text": "Who approves what and above which amount — change a limit and it applies to the next document.",
    "route": [
@@ -923,7 +1028,7 @@
    "feature": null
   },
   {
-   "chapter": 13,
+   "chapter": 14,
    "title": "Business rules",
    "text": "Switches such as blocking receipt before customs clearance, partial deliveries, negative stock and advance before delivery.",
    "route": [
@@ -935,7 +1040,7 @@
    "feature": null
   },
   {
-   "chapter": 13,
+   "chapter": 14,
    "title": "Document Centre",
    "text": "Every record carries typed documents — the customer LPO on a sales order, the bill of lading on a shipment, the supplier invoice on a bill. This list shows each record still missing a required file, with an Attach button right in the row.",
    "route": [
@@ -947,7 +1052,7 @@
    "feature": null
   },
   {
-   "chapter": 13,
+   "chapter": 14,
    "title": "Required documents",
    "text": "For each document choose: blocks the next step, required and flagged, or optional. A blocking rule stops, for example, a supplier payment until the supplier invoice is attached — the user attaches it on the spot and carries on. Replaced files keep their older versions and every view or change is in the audit trail.",
    "route": [
@@ -959,7 +1064,7 @@
    "feature": null
   },
   {
-   "chapter": 13,
+   "chapter": 14,
    "title": "Exceptions with approval",
    "text": "When a rule blocks a step, the user can request an exception. The approver set for that rule — Sales Manager, Purchase Manager, Warehouse Manager, Finance Manager or Managing Director — allows it once, for that record. The document is still due by a date and is chased until attached. An approver can bypass on the spot, but the reason is recorded; nobody approves their own request.",
    "route": [
@@ -971,7 +1076,7 @@
    "feature": null
   },
   {
-   "chapter": 13,
+   "chapter": 14,
    "title": "Company documents register",
    "text": "Each group company’s trade licence, registrations, Ejari, civil defence, insurance policies, bank facility letters, powers of attorney and agency agreements — number, authority, expiry, owner and file. Sensitive types sit in a vault that only named roles can open.",
    "route": [
@@ -983,7 +1088,7 @@
    "tab": "register"
   },
   {
-   "chapter": 13,
+   "chapter": 14,
    "title": "Compliance calendar",
    "text": "One month view of everything due: licence and contract expiries, VAT, corporate tax, WPS and audit deadlines per company, plus the employee, vehicle and KYC expiries already tracked elsewhere.",
    "route": [
@@ -995,7 +1100,7 @@
    "tab": "calendar"
   },
   {
-   "chapter": 13,
+   "chapter": 14,
    "title": "Reminders by ToDo, email and WhatsApp",
    "text": "Every morning the reminder run notifies the owner at 90, 60, 30 and 7 days (set per document type) and copies the Managing Director once anything is overdue. Renewals move from Due → Submitted to the authority → Renewed, with the cost, the receipt and the new copy; the old copy is archived.",
    "route": [
@@ -1007,7 +1112,7 @@
    "tab": "todos"
   },
   {
-   "chapter": 13,
+   "chapter": 14,
    "title": "Roles & permissions",
    "text": "Each role sees only its screens; add users and switch between them from the top-right menu.",
    "route": [
@@ -1019,7 +1124,7 @@
    "feature": null
   },
   {
-   "chapter": 13,
+   "chapter": 14,
    "title": "Data migration",
    "text": "Bring items, customers, suppliers, open invoices and balances across from Tally or Excel with checks before go-live.",
    "route": [
@@ -1031,7 +1136,7 @@
    "feature": null
   },
   {
-   "chapter": 13,
+   "chapter": 14,
    "title": "Test Centre",
    "text": "Step-by-step user acceptance tests for every feature, by role, with pass/fail notes.",
    "route": [
@@ -1042,7 +1147,7 @@
    "feature": null
   },
   {
-   "chapter": 13,
+   "chapter": 14,
    "title": "Add-ons & pricing",
    "text": "Optional modules and integrations such as WhatsApp Business, with clear pricing and implementation hours.",
    "route": [
@@ -1053,7 +1158,7 @@
    "feature": null
   },
   {
-   "chapter": 13,
+   "chapter": 14,
    "title": "See it run your business",
    "text": "That’s the tour. Book a personalised demo with your own data — or keep exploring: switch users from the top-right menu, or jump to any chapter of this tour again.",
    "route": [

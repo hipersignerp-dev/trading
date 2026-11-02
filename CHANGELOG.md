@@ -31,6 +31,40 @@
   restaurant — all posted as real documents.
 - Fix: a group company's sales orders keep their own VAT template (the main company's was forced on them).
 
+## 1.8.0 — Manufacturing (prototype p19): assemblers and factories from sales order to closed work order
+- **Manufacturing menu** (switch *Manufacturing*, Settings → Features → Industries) with seven pages: **Production**
+  (today on the floor, work orders, workstation load, stock entries, How it works), **Planning** (demand incl. forecast,
+  production plans, MRP shortages with *Raise PO*, material requests, component purchase orders), **BOMs & routings** (BOM
+  tree with sub-assemblies and the standard cost roll-up, versions, where used, workstations), **Shop floor** (a tablet view:
+  start / pause a job card, +10 / +50, scrap, operator, complete), **Quality** (incoming, in-process, final, rejects &
+  rework, test certificates), **Costing** (actual against standard per work order with material, labour and overhead
+  variances, margin per product) and the **Production Tracker** (every sales order through 22 steps in 5 phases).
+- **The 22-step process** is defined once (api/manufacturing.py), with the approval role per step and the red flags (late
+  work order, held for a component shortage, open rework, a material request waiting, an invoice not paid). *Complete step
+  N* on the sales order or work order panel makes what the step needs — production plan and work orders, approved material
+  requests, release, issue to WIP, finished goods receipt, delivery, invoice, close — and is logged in the **Manufacturing
+  Step Log**.
+- **Built on ERPNext's own documents**: BOM (with operations and routing), Workstation (labour and overhead as operating
+  components), Operation, Production Plan, Work Order, Job Card, Material Request, Purchase Order / Receipt, Stock Entry
+  (Material Transfer for Manufacture, Manufacture), Quality Inspection (+ templates), Batch. Finished goods are valued at
+  the materials consumed plus labour and overhead from the job cards' actual hours (credited to *Manufacturing Labour /
+  Overhead Absorbed*); WIP gets its own account on a new factory. Scrap is recorded per operation and booked as process
+  loss, also across partial receipts (the shop floor splits job cards when finished goods are received part-way).
+- Custom fields: Chinese item and workstation names, the sales order's step and forecast flag, operator and scrap on the
+  job card, stage / result / lot / rework / certificate on the quality inspection, the BOM change note, serials and picker
+  on the stock entry, the company's Chinese name. Work orders, job cards, inspections and plans number WO-, JC-, QI-, PP-.
+- **Seven create windows** (Quick / Standard / Detailed) from + New → Manufacturing and the pages: BOM, work order,
+  production plan, job card, quality inspection, manufacture entry, material transfer to WIP.
+- **Four prints in English + Chinese**: job ticket (barcodes per job card), bill of materials, QC test certificate and the
+  finished-goods label (batch, serials, QR code and barcode).
+- **Manufacturer pack** (Standard plus manufacturing, serial numbers, HR, assets); Enterprise includes Manufacturing.
+  Roles **Production Manager** and **QC Inspector**; the Demo Viewer reads the pages. Tour chapter *Manufacturing*, Test
+  Centre scripts MFG-01…11, Arabic labels and Simplified Chinese for every new string.
+- **Demo**: Hipersign Lighting Industries FZE (KEZAD, AED) joins the demo group — LED panels, high-bays and drivers from
+  Chinese components, seven orders from closed to forecast, a rejected heat-sink lot, work orders running on the shop floor
+  now, test certificates and the costing — all posted as real documents.
+- Fix: a group company's export invoices keep their own zero-rated VAT template (the main company's was forced on them).
+
 ## 1.8.0 — Chinese & menu builder
 - **Simplified Chinese (中文)**: every string the app shows — pages, menus, buttons, messages, doctype and workspace labels,
   reports, number cards, the guided tour and the Test Centre sections — in `translations/zh.csv` and `locale/zh.po`

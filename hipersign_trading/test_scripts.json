@@ -1322,6 +1322,116 @@
   ]
  },
  {
+  "id": "MFG-01",
+  "section": "Manufacturing",
+  "role": "Production Manager",
+  "steps": "Open Production. Check the KPIs and the tabs Today, Work orders, Workstation load, Stock entries and *How it works*.",
+  "expected": "WO-2026-0147 late and in final QC, WO-2026-0150 on hold for heat sinks; load bars per workstation; 22 steps in 5 phases with who, documents, approval and trigger.",
+  "route": [
+   "hipersign-production"
+  ]
+ },
+ {
+  "id": "MFG-02",
+  "section": "Manufacturing",
+  "role": "Production Manager",
+  "steps": "Planning → Shortages: *Run MRP*, then *Raise PO* on the driver PCBs. Material requests: approve MMR-2026-072.",
+  "expected": "The shortage list with usable stock, open POs and a suggested order; the PO is raised (or sent for approval) and on-order goes up; the request turns approved.",
+  "route": [
+   "hipersign-planning"
+  ]
+ },
+ {
+  "id": "MFG-03",
+  "section": "Manufacturing",
+  "role": "Production Manager",
+  "steps": "BOMs & routings: switch Panel → High-bay → Driver; open Versions and Where used for RM-CBL; print the BOM.",
+  "expected": "The driver sub-assembly expanded under the panel; standard cost = material + labour + overhead; the superseded v1 kept; the BOM prints in English and Chinese.",
+  "route": [
+   "hipersign-boms"
+  ]
+ },
+ {
+  "id": "MFG-04",
+  "section": "Manufacturing",
+  "role": "Production Manager",
+  "steps": "Shop floor: pick Assembly line 1; on the running job card press +10, Scrap +1, Pause, Start and Complete.",
+  "expected": "Quantities, scrap and time update at once; the completed card moves on and the work order, tracker and cost follow.",
+  "route": [
+   "hipersign-shopfloor"
+  ]
+ },
+ {
+  "id": "MFG-05",
+  "section": "Manufacturing",
+  "role": "QC Inspector",
+  "steps": "Quality: accept QI-2026-0307 (Incoming); Rejects & rework: *Rework done +4*; Final: print the certificate of WO-2026-0147.",
+  "expected": "The lot is released; the rework count falls; the certificate shows the tests and Passed, in English and Chinese.",
+  "route": [
+   "hipersign-quality"
+  ]
+ },
+ {
+  "id": "MFG-06",
+  "section": "Manufacturing",
+  "role": "Accounts Manager",
+  "steps": "Costing: review standard against actual and the variance chart.",
+  "expected": "The high-bay order over standard on material (the heat-sink price increase); labour and overhead from the job cards; margin per product.",
+  "route": [
+   "hipersign-mfg-costing"
+  ]
+ },
+ {
+  "id": "MFG-07",
+  "section": "Manufacturing",
+  "role": "Production Manager",
+  "steps": "Open WO-2026-0149 from Production → Work orders; walk the 22 steps; print the job ticket and the finished-goods label.",
+  "expected": "Barcodes on the job ticket and the label; Chinese product and workstation names; batch B2611-P60-01.",
+  "route": [
+   "hipersign-production"
+  ]
+ },
+ {
+  "id": "MFG-08",
+  "section": "Manufacturing",
+  "role": "Managing Director",
+  "steps": "Production Tracker: filter *In production* and *Red flags*; open MSO-2026-0221 and complete a step from its panel.",
+  "expected": "22 steps per order with status, % and date; flags for the late work order, the heat-sink shortage and the open rework; the step is logged with your name.",
+  "route": [
+   "production-tracker"
+  ]
+ },
+ {
+  "id": "MFG-09",
+  "section": "Manufacturing",
+  "role": "Production Manager",
+  "steps": "+ New → Manufacturing: BOM, Work order, Production plan, Job card, Quality inspection, Manufacture entry, Material transfer to WIP — each in Quick, Standard and Detailed.",
+  "expected": "All seven open and save; the fields grow from Quick to Detailed.",
+  "route": [
+   "hipersign-production"
+  ]
+ },
+ {
+  "id": "MFG-10",
+  "section": "Manufacturing",
+  "role": "Production Manager",
+  "steps": "New sales order for 300 high-bays → complete steps 1–22 from its panel: plan, approve the requests, order and receive, inspect, release, issue, run the job cards, final QC, receive, deliver, invoice, close.",
+  "expected": "Each step makes its document (plan, work orders, POs, receipts, transfer, job cards, manufacture entry, delivery, invoice); finished goods valued at material + labour + overhead; the work order closes.",
+  "route": [
+   "production-tracker"
+  ]
+ },
+ {
+  "id": "MFG-11",
+  "section": "Manufacturing",
+  "role": "Production Manager",
+  "steps": "Switch the pack to *Manufacturer* (Hipersign Settings → Pack) and back to Enterprise.",
+  "expected": "The Manufacturing menu group shows with the pack and Enterprise, and hides when the switch is off; nothing is deleted.",
+  "route": [
+   "hipersign-production"
+  ]
+ },
+ {
   "id": "ZH-01",
   "section": "Chinese",
   "role": "Any user",

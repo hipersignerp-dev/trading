@@ -3545,3 +3545,172 @@ Whole site,الموقع بالكامل
 switch to hide · type a name to rename · arrows to reorder,المفتاح للإخفاء · اكتب اسمًا لإعادة التسمية · الأسهم لإعادة الترتيب
 Precedence,الأولوية
 By,بواسطة
+Manufacturing,التصنيع
+Production,الإنتاج
+Planning,التخطيط
+BOMs & routings,قوائم المواد ومسارات التصنيع
+Shop floor,أرضية المصنع
+Quality,الجودة
+Costing,التكاليف
+Production Tracker,متتبع الإنتاج
+Work Orders,أوامر العمل
+Production Plans,خطط الإنتاج
+BOMs,قوائم المواد
+Routings,مسارات التصنيع
+Operations,العمليات
+Workstations,محطات العمل
+Job Cards,بطاقات التشغيل
+Quality Inspections,فحوصات الجودة
+Inspection Templates,نماذج الفحص
+Stock Ledger,سجل المخزون
+Manufacturing Step Log,سجل خطوات التصنيع
+Production Manager,مدير الإنتاج
+QC Inspector,مفتش الجودة
+Manufacturer,مصنّع
+"BOMs and routings, production planning, work orders, shop floor job cards, quality inspection and costing",قوائم المواد ومسارات التصنيع وتخطيط الإنتاج وأوامر العمل وبطاقات التشغيل وفحص الجودة والتكاليف
+"Assemblers and factories — BOMs and routings, production planning with shortages, work orders, a shop-floor tablet view for job cards, quality inspection with test certificates and costing of actual against standard, plus purchasing, imports, serial numbers, HR and assets.",المجمِّعون والمصانع — قوائم المواد ومسارات التصنيع، تخطيط الإنتاج مع النواقص، أوامر العمل، عرض لوحي لبطاقات التشغيل، فحص الجودة مع شهادات الاختبار، ومقارنة التكلفة الفعلية بالمعيارية، بالإضافة إلى المشتريات والاستيراد والأرقام التسلسلية والموارد البشرية والأصول.
+"Bills of materials with sub-assemblies, routings by workstation, standard cost roll-up, versions and where-used.",قوائم المواد مع التجميعات الفرعية، ومسارات التصنيع حسب محطة العمل، وتجميع التكلفة المعيارية، والإصدارات وأماكن الاستخدام.
+"Sales orders and forecast → production plan → work orders and material requests, with component shortages and suggested purchase orders.",أوامر البيع والتوقعات ← خطة الإنتاج ← أوامر العمل وطلبات المواد، مع نواقص المكونات وأوامر الشراء المقترحة.
+"Tablet view for the line: job cards by workstation — start and stop, quantity, scrap and operator. Every tap updates the work order, the tracker and the cost.",عرض لوحي لخط الإنتاج: بطاقات التشغيل حسب محطة العمل — البدء والإيقاف والكمية والتالف والمشغل. كل لمسة تحدّث أمر العمل والمتتبع والتكلفة.
+"Incoming, in-process and final inspection with AQL sampling, rejects, rework and test certificates per batch.",فحص الوارد وأثناء التصنيع والنهائي بعينات AQL، والمرفوضات وإعادة التشغيل وشهادات الاختبار لكل دفعة.
+"Standard vs actual cost per work order — material, labour and overhead variances — and margin per product.",التكلفة المعيارية مقابل الفعلية لكل أمر عمل — فروقات المواد والعمالة والمصاريف غير المباشرة — والهامش لكل منتج.
+"{0} — today's work orders, output against plan, work in progress, late orders and the load on every workstation.",{0} — أوامر العمل اليوم، والإنتاج مقابل الخطة، والإنتاج تحت التشغيل، والأوامر المتأخرة وحمل كل محطة عمل.
+Today,اليوم
+Work orders,أوامر العمل
+Workstation load,حمل محطات العمل
+Stock entries,قيود المخزون
+Demand,الطلب
+Production plans,خطط الإنتاج
+Shortages,النواقص
+BOM tree & cost,شجرة قائمة المواد والتكلفة
+Versions,الإصدارات
+Where used,أماكن الاستخدام
+Incoming,الوارد
+In-process,أثناء التصنيع
+Final,النهائي
+Rejects & rework,المرفوضات وإعادة التشغيل
+Actual vs standard,الفعلي مقابل المعياري
+Work orders in process,أوامر العمل قيد التنفيذ
+Output — last day vs plan,الإنتاج — آخر يوم مقابل الخطة
+Work in progress (WIP),الإنتاج تحت التشغيل
+Late work orders,أوامر العمل المتأخرة
+Scrap rate — 60 days,نسبة التالف — 60 يومًا
+Busiest workstation,أكثر محطة عمل انشغالًا
+Open demand,الطلب المفتوح
+Planned production,الإنتاج المخطط
+Component shortages,نواقص المكونات
+Suggested purchase orders,أوامر الشراء المقترحة
+Material requests open,طلبات المواد المفتوحة
+Active BOMs,قوائم المواد الفعالة
+Components,المكونات
+Standard cost — {0},التكلفة المعيارية — {0}
+Inspections — 30 days,الفحوصات — 30 يومًا
+Pass rate,نسبة القبول
+Rejected units,الوحدات المرفوضة
+Rework open,إعادة تشغيل مفتوحة
+Test certificates,شهادات الاختبار
+Standard cost — closed WOs,التكلفة المعيارية — أوامر العمل المغلقة
+Actual cost,التكلفة الفعلية
+Material variance,فرق المواد
+Labour variance,فرق العمالة
+Overhead variance,فرق المصاريف غير المباشرة
+Orders tracked,الأوامر المتتبعة
+In production,قيد الإنتاج
+New work order,أمر عمل جديد
+New production plan,خطة إنتاج جديدة
+New BOM,قائمة مواد جديدة
+New job card,بطاقة تشغيل جديدة
+New quality inspection,فحص جودة جديد
+Manufacture entry,قيد التصنيع
+Material transfer to WIP,تحويل المواد إلى الإنتاج تحت التشغيل
+Transfer to WIP,تحويل إلى تحت التشغيل
+Run MRP,تشغيل تخطيط الاحتياجات
+Raise PO,إصدار أمر شراء
+Job ticket,بطاقة العمل
+FG label,ملصق المنتج التام
+QC certificate,شهادة الجودة
+Print BOM,طباعة قائمة المواد
+Release,إطلاق
+Close work order,إغلاق أمر العمل
+Pause,إيقاف مؤقت
+Complete,إكمال
+Scrap +1,تالف +1
+Accept,قبول
+Rework done +4,تمت إعادة التشغيل +4
+Make active,تفعيل
+Record result,تسجيل النتيجة
+Receive finished goods,استلام المنتج التام
+Issue to WIP,صرف إلى تحت التشغيل
+Run MRP and plan,تشغيل التخطيط ووضع الخطة
+Create job card,إنشاء بطاقة تشغيل
+Plan all open orders,تخطيط كل الأوامر المفتوحة
+Process — 22 steps,العملية — 22 خطوة
+Today on the floor,اليوم في المصنع
+Output vs plan — last 7 days,الإنتاج مقابل الخطة — آخر 7 أيام
+Late or on hold,متأخرة أو موقوفة
+Manufacture entries & material transfers,قيود التصنيع وتحويلات المواد
+Material availability & shortages (MRP),توفر المواد والنواقص (تخطيط الاحتياجات)
+Standard cost and margin per product,التكلفة المعيارية والهامش لكل منتج
+Work orders — actual vs standard,أوامر العمل — الفعلي مقابل المعياري
+Variance by work order,الفرق حسب أمر العمل
+Cost roll-up,تجميع التكلفة
+Routing,مسار التصنيع
+Workstation,محطة العمل
+Operation,العملية
+Operator,المشغل
+Work order,أمر العمل
+Job card,بطاقة التشغيل
+Quality inspection,فحص الجودة
+Production plan,خطة الإنتاج
+Component,المكوّن
+Product,المنتج
+Batch,الدفعة
+Scrap,تالف
+Rework,إعادة تشغيل
+Forecast,توقع
+All workstations,كل محطات العمل
+Standard cost,التكلفة المعيارية
+Demand & plan,الطلب والتخطيط
+Make,التصنيع
+Finish & ship,الإنهاء والشحن
+Bill & close,الفوترة والإغلاق
+Sales order / forecast,أمر البيع / التوقع
+"Production planning (MRP: demand, stock, open WOs)",تخطيط الإنتاج (الطلب والمخزون وأوامر العمل المفتوحة)
+"BOM & routing check (version, alternates)",مراجعة قائمة المواد والمسار (الإصدار والبدائل)
+BOM check,مراجعة القائمة
+Material availability & shortages,توفر المواد والنواقص
+Availability,التوفر
+Material req.,طلب مواد
+Purchase / import of components,شراء / استيراد المكونات
+Purchase,الشراء
+Incoming quality inspection,فحص جودة الوارد
+Incoming QC,فحص الوارد
+"Work order released (qty, due date, workstation)",إطلاق أمر العمل (الكمية والموعد ومحطة العمل)
+WO released,إطلاق الأمر
+Material issue to WIP (pick from stores),صرف المواد إلى تحت التشغيل (من المخازن)
+"Job cards per operation (cutting, SMT/assembly, wiring, testing, packing)",بطاقات تشغيل لكل عملية (القص، التركيب، التوصيل، الاختبار، التغليف)
+Job cards,بطاقات التشغيل
+"Operation start/stop, operator, time",بدء/إيقاف العملية، المشغل، الوقت
+In-process QC,فحص أثناء التصنيع
+Scrap & rework recorded,تسجيل التالف وإعادة التشغيل
+Scrap & rework,التالف وإعادة التشغيل
+Final QC & test certificate,الفحص النهائي وشهادة الاختبار
+Final QC,الفحص النهائي
+Finished goods receipt to warehouse (manufacture entry),استلام المنتج التام في المستودع (قيد التصنيع)
+FG receipt,استلام المنتج
+Batch / serial numbers & labels,الدفعات والأرقام التسلسلية والملصقات
+Batch & serials,الدفعات والتسلسل
+Packing & carton labels,التغليف وملصقات الكراتين
+Packing,التغليف
+Delivery / export shipment,التسليم / شحنة التصدير
+Production costing (actual vs standard),تكاليف الإنتاج (الفعلي مقابل المعياري)
+Variance & margin analysis,تحليل الفروقات والهامش
+Variance,الفرق
+Work order closed,إغلاق أمر العمل
+Production — Hipersign Lighting Industries,الإنتاج — هايبرساين لصناعات الإضاءة
+How it works — 22 steps,كيف يعمل — 22 خطوة
+Planning & shortages,التخطيط والنواقص
+"BOMs, routings and cost roll-up",قوائم المواد والمسارات وتجميع التكلفة
+"The work order, step by step",أمر العمل خطوة بخطوة
+Accounts Manager,مدير الحسابات
+"Every sales order and its work order through the 22 manufacturing steps — status, % and date per step, with red flags. Hover a step for who does it and the facts behind it.",كل أمر بيع وأمر العمل الخاص به عبر خطوات التصنيع الـ22 — الحالة و% والتاريخ لكل خطوة مع العلامات الحمراء. مرّر على الخطوة لمعرفة المسؤول والحقائق.

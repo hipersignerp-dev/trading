@@ -4377,3 +4377,582 @@ vs budget,对比预算
 {0}% of contract value,合同金额的 {0}%
 {0}% of the work done,已完工程的 {0}%
 — my company —,— 我的公司 —
+ · material requests {0}, · 物料申请 {0}
+ · {0} material request(s), · {0} 张物料申请
+ · {0} waiting for open POs, · {0} 项等待在途采购订单
+% of capacity,占产能 %
+", {0} ETA {1}",，{0} 预计 {1} 到货
+0% — export with proof of export,0% — 出口（附出口证明）
+22 steps from sales order to closed work order,从销售订单到工单关闭的 22 个步骤
+5 phases · 22 steps · hover or tap a step for details,5 个阶段 · 22 个步骤 · 悬停或点按步骤查看详情
+A BOM that is not the default version,非默认版本的 BOM
+"A Chinese-owned LED assembler in KEZAD joins the group: components from Shenzhen, three products, local sales and GCC exports. Work orders in process, output against plan, work in progress, late orders and the load on every workstation.",一家位于 KEZAD 的中资 LED 组装厂加入集团：零部件来自深圳，三种产品，本地销售并出口海湾国家。在制工单、产量对比计划、在制品、延期工单以及各工作站负荷。
+A production plan,生产计划
+"A tablet view for each workstation: start and pause the job card, add quantities, record scrap and change the operator. Every tap updates the work order, the tracker and the cost.",每个工作站的平板视图：开始和暂停工序卡、录入数量、记录报废并更换操作员。每次点按都会更新工单、跟踪器和成本。
+Absorbed on machine hours,按机器工时分摊
+Accept,接收
+Accepting an inspection,判定检验合格
+Accounts Manager,财务经理
+Active BOMs,有效 BOM
+Actual = materials consumed + labour and overhead from the job cards' hours,实际成本 = 消耗材料 + 按工序卡工时计算的人工和制造费用
+Actual cost,实际成本
+Actual labour,实际人工
+Actual material,实际材料
+Actual overhead,实际制造费用
+Actual vs standard,实际对比标准
+Add at least one component,请至少添加一个组件
+All open sales orders without a work order,所有尚无工单的未结销售订单
+All workstations,所有工作站
+Also plan sub-assemblies (drivers),同时计划半成品（驱动电源）
+Alternate,替代
+Approving a material request,审批物料申请
+"Assemblers and factories — BOMs and routings, production planning with shortages, work orders, a shop-floor tablet view for job cards, quality inspection with test certificates and costing of actual against standard, plus purchasing, imports, serial numbers, HR and assets.",组装厂和工厂 — BOM 与工艺路线、含缺料分析的生产计划、工单、车间工序卡平板视图、带检验证书的质量检验以及实际对比标准的成本核算，另含采购、进口、序列号、人力资源和资产。
+BOM,BOM
+BOM tree & cost,BOM 结构与成本
+BOM tree — {0} · {1},BOM 结构 — {0} · {1}
+BOMs,BOM
+BOMs & routings,BOM 与工艺路线
+"BOMs and routings, production planning, work orders, shop floor job cards, quality inspection and costing",BOM 与工艺路线、生产计划、工单、车间工序卡、质量检验和成本核算
+"BOMs, routings and cost roll-up",BOM、工艺路线和成本汇总
+Batch,批次
+Bill of materials · v{0},物料清单 · v{0}
+"Bills of materials with sub-assemblies, routings by workstation, standard cost roll-up, versions and where-used.",含半成品的物料清单、按工作站的工艺路线、标准成本汇总、版本和使用位置。
+Blank: everything still to receive (the scrap is booked as process loss),留空：入库全部剩余数量（报废记为工序损耗）
+Busiest workstation,最繁忙工作站
+Cannot issue {0} — short of {1}.,无法发料 {0} — 缺少 {1}。
+Capacity h/day,产能（小时/天）
+Change note,变更说明
+Choose another filter.,请选择其他筛选条件。
+Choose the goods receipt of the lot,请选择该批货物的收货单
+Choose the goods receipt or the work order the inspection is for.,请选择检验对应的收货单或工单。
+Choose the product,请选择产品
+Choose the product and the quantity,请选择产品和数量
+Choose the work order,请选择工单
+Close work order,关闭工单
+Close {0}?,关闭 {0}？
+Closing a work order,关闭工单
+"Complete {0}? The remaining units are recorded as done, less the scrap.",完成 {0}？剩余数量扣除报废后记为已完成。
+Complete {0}? The remaining units are recorded as done.,完成 {0}？剩余数量记为已完成。
+Component,组件/物料
+Component purchase orders (imports from China),组件采购订单（自中国进口）
+Component shortages,组件缺料
+Components,组件
+Components of {0} (the active version) — change what differs; the routing is copied.,{0}（当前有效版本）的组件 — 修改不同之处；工艺路线将被复制。
+Cost roll-up,成本汇总
+Costing,成本核算
+Covered by {0},由 {0} 覆盖
+Create job card,创建工序卡
+Customer · product,客户 · 产品
+Defect / remarks,缺陷 / 备注
+Delivery note {0},发货单 {0}
+Demand,需求
+Demand — sales orders and forecast,需求 — 销售订单和预测
+Detail,明细
+Done · scrap,完成 · 报废
+Efficiency vs routing minutes,对比工艺路线工时的效率
+Every open order already has a work order.,所有未结订单都已有工单。
+FG label,成品标签
+Fails,不合格数
+Final,最终检验
+Final inspection,最终检验
+Finish & ship,完工与发运
+Finished goods warehouse,成品仓库
+Finishing,完工中
+Forecast,预测
+Forecast — in the next MRP run,预测 — 纳入下次 MRP 运算
+"From the sales order and MRP through material requests, purchasing, incoming inspection, release, issue to WIP, job cards, in-process and final QC, the manufacture entry, batches, packing, delivery and invoice to costing and the closed work order. Open any step for who does it, the documents, the approval and the next trigger.",从销售订单和 MRP，经物料申请、采购、来料检验、下达、发料至在制、工序卡、过程检验和最终检验、生产入库、批次、包装、发货和开票，到成本核算及工单关闭。打开任一步骤即可查看执行人、单据、审批和下一触发条件。
+From warehouse,来源仓库
+Hold,暂停
+Hours booked,已排工时
+How it works — 22 steps,运作方式 — 22 个步骤
+How it works — the manufacturing process,运作方式 — 生产流程
+Imported components go through Trading → Purchase Orders and Imports & Shipments,进口组件通过 贸易 → 采购订单 以及 进口与货运 处理
+"Imported from Shenzhen, Dongguan, Zhongshan, Ningbo",自深圳、东莞、中山、宁波进口
+In production,生产中
+In stock (usable),库存（可用）
+In-process,过程检验
+Include forecast orders,包含预测订单
+Incoming,来料检验
+Incoming inspection {0} is still pending.,来料检验 {0} 仍待处理。
+Incoming rejects + production scrap,来料拒收 + 生产报废
+"Incoming, in-process and final inspection with AQL sampling, rejects and rework — and a test certificate per batch, printed in English and Chinese.",按 AQL 抽样的来料、过程和最终检验，拒收和返工 — 并按批次出具中英文检验证书。
+"Incoming, in-process and final inspection with AQL sampling, rejects, rework and test certificates per batch.",按 AQL 抽样的来料、过程和最终检验，拒收、返工及按批次出具的检验证书。
+Inspection,检验
+Inspection Templates,检验模板
+Inspection type,检验类型
+Inspections — 30 days,检验 — 30 天
+Invoice {0} — {1},发票 {0} — {1}
+Issue to WIP,发料至在制
+Issued per batch,按批次出具
+Job Cards,工序卡
+Job card,工序卡
+Job ticket,工票
+"Job ticket, finished-goods label",工票、成品标签
+Keep safety stock of components,保留组件安全库存
+Labour (from routing),人工（来自工艺路线）
+Labour variance,人工差异
+Late or on hold,延期或暂停
+Late work orders,延期工单
+Live from the job cards,来自工序卡的实时数据
+Lot / batch qty,批量
+Lot / batch quantity,批量
+Lots and batches accepted first time,一次合格的批次
+MRP run — {0} work orders netted · {1} shortage(s){2},MRP 运算完成 — 已净算 {0} 张工单 · {1} 项缺料{2}
+Made in-house,自制
+Made to stock,按库存生产
+Make active,设为有效
+Manufacture,生产入库
+Manufacture entries & material transfers,生产入库单和物料转移
+Manufacture entry,生产入库
+Manufacturer,制造商
+Manufacturing,生产制造
+Manufacturing Step Log,生产步骤日志
+Manufacturing step {0} completed — {1},生产步骤 {0} 已完成 — {1}
+Material (from BOM),材料（来自 BOM）
+Material availability & shortages (MRP),物料可用性与缺料（MRP）
+Material cost — roll-up,材料成本 — 汇总
+Material request {0} ({1}) waiting for approval,物料申请 {0}（{1}）等待审批
+Material requests open,未结物料申请
+Material transfer to WIP,物料转移至在制
+Material variance,材料差异
+Material {0}% · labour & overhead {1}%,材料 {0}% · 人工与制造费用 {1}%
+"Materials issued, not yet finished",已发料、尚未完工
+Minutes,分钟
+New BOM,新建 BOM
+New job card,新建工序卡
+New production plan,新建生产计划
+New quality inspection,新建质量检验
+New version,新版本
+New work order,新建工单
+No active BOM yet — create one with New BOM.,尚无有效 BOM — 请用“新建 BOM”创建。
+No completed work orders yet.,尚无已完成的工单。
+No component purchase orders.,没有组件采购订单。
+No entries yet.,尚无单据。
+No inspections yet.,尚无检验记录。
+No job cards on this workstation,此工作站没有工序卡
+No manufacturing company in this scope yet — create a BOM and a work order (Manufacturing must be switched on).,此范围内尚无生产型公司 — 请创建 BOM 和工单（需开启“生产制造”）。
+No material requests.,没有物料申请。
+No open work orders waiting for components.,没有等待组件的未结工单。
+No orders for manufactured products.,没有自制产品的订单。
+No orders match,没有匹配的订单
+No production plans yet.,尚无生产计划。
+"No rejects, scrap or rework.",没有拒收、报废或返工。
+No sales orders to plan — every open order already has a work order.,没有需要计划的销售订单 — 所有未结订单都已有工单。
+No work orders.,没有工单。
+No workstations in use.,没有使用中的工作站。
+Not used in any BOM.,未被任何 BOM 使用。
+Nothing delivered on {0} is waiting for its invoice.,{0} 没有已发货待开票的内容。
+Nothing in process.,没有在制工单。
+Nothing late or on hold.,没有延期或暂停的工单。
+On hold — {0},暂停 — {0}
+Only {0} of {1} in stock in {2}.,{2} 中 {1} 的库存只有 {0}。
+Op,工序
+Open demand,未结需求
+"Open work orders not yet issued, against usable stock and open purchase orders",尚未发料的未结工单，对比可用库存和在途采购订单
+"Open work orders, remaining quantity × routing minutes",未结工单，剩余数量 × 工艺路线工时
+Operation,工序
+Operation {0} ({1}) has only {2} done — {3} needed.,工序 {0}（{1}）仅完成 {2} — 需要 {3}。
+Operation {0} ({1}) has {2} done on {3} — {4} needed before the finished goods are received.,工序 {0}（{1}）在 {3} 上已完成 {2} — 成品入库前需要 {4}。
+Operation {0} is not in the routing of {1},工序 {0} 不在 {1} 的工艺路线中
+Operation {0} of {1} is completed — every unit has its job card.,{1} 的工序 {0} 已完成 — 每件都有工序卡。
+Operations,工序
+Operator,操作员
+Operator on {0}: {1},{0} 的操作员：{1}
+Order {0} × {1} from {2}?,向 {2} 订购 {0} × {1}？
+"Order, customer, product or work order",订单、客户、产品或工单
+Ordered {0},下单 {0}
+Output,产量
+Output vs plan — last 7 days,产量对比计划 — 最近 7 天
+Output — last day vs plan,产量 — 上一日对比计划
+Overhead,制造费用
+Overhead (from routing),制造费用（来自工艺路线）
+Overhead variance,制造费用差异
+Pass rate,合格率
+Pause,暂停
+Pick a component.,请选择一个组件。
+Pick another workstation.,请选择其他工作站。
+Picked by,拣料人
+Plan,计划
+Plan (units),计划（件）
+Plan all open orders,计划所有未结订单
+Plan up to,计划截至
+Planned production,计划产量
+Planned start,计划开始
+Planning,生产计划
+Planning & materials,计划与物料
+Planning & shortages,计划与缺料
+Price and usage incl. scrap,价格和用量（含报废）
+Print BOM,打印 BOM
+Process — 22 steps,流程 — 22 个步骤
+Produced,已生产
+Product,产品
+Production,生产
+Production Manager,生产经理
+Production Plans,生产计划
+Production Tracker,生产跟踪
+Production plan,生产计划
+Production plans,生产计划
+Production scrap recorded on the job cards,工序卡上记录的生产报废
+Production — Hipersign Lighting Industries,生产 — Hipersign Lighting Industries
+QC Inspector,质检员
+QC certificate,质检证书
+Qty per unit,单位用量
+Quality,质量
+Quality Inspections,质量检验
+Quality inspection,质量检验
+Quantity (blank: what is left),数量（留空：剩余数量）
+Quantity made (good units),生产数量（合格品）
+Quantity to issue (% of the work order),发料数量（占工单的 %）
+"Quick: pick the sales orders — MRP proposes work orders and material requests. Standard adds the horizon and warehouse; Detailed forecast, safety stock and sub-assemblies.",快速：选择销售订单 — MRP 建议工单和物料申请。标准模式增加计划期和仓库；详细模式增加预测、安全库存和半成品。
+Quick: product and components with quantities — routing copied from the active version. Standard adds the change note; Detailed the routing.,快速：产品及组件和数量 — 工艺路线复制自当前有效版本。标准模式增加变更说明；详细模式增加工艺路线。
+"Quick: product and quantity — BOM, routing, workstations and due date from defaults. Standard adds the sales order and dates; Detailed the BOM version and warehouse.",快速：产品和数量 — BOM、工艺路线、工作站和交期取默认值。标准模式增加销售订单和日期；详细模式增加 BOM 版本和仓库。
+"Quick: type, reference, sample size and fails — the result follows AQL. Standard adds the item and lot; Detailed the defect and rework.",快速：类型、参考单据、样本量和不合格数 — 结果按 AQL 判定。标准模式增加物料和批量；详细模式增加缺陷和返工。
+Quick: work order and operation — workstation from the routing. Standard adds the operator; Detailed the planned start and remarks.,快速：工单和工序 — 工作站取自工艺路线。标准模式增加操作员；详细模式增加计划开始时间和备注。
+Quick: work order and quantity made — WIP is consumed and finished goods received at material + labour and overhead. Standard adds the batch and date; Detailed the serial range and warehouse.,快速：工单和生产数量 — 消耗在制品，成品按材料 + 人工和制造费用入库。标准模式增加批次和日期；详细模式增加序列号范围和仓库。
+Quick: work order — every component of the BOM is picked for the full quantity. Standard shows the stores; Detailed a partial quantity and the picker.,快速：工单 — 按全部数量拣选 BOM 的所有组件。标准模式显示仓库；详细模式可部分发料并填写拣料人。
+Raise PO,下采购单
+Raw material warehouse,原材料仓库
+Receive finished goods,成品入库
+Receive {0} into the components store?,将 {0} 收入组件仓？
+Record result,记录结果
+"Record the final inspection of {0} first (Quality → New quality inspection, Final).",请先记录 {0} 的最终检验（质量 → 新建质量检验，最终检验）。
+Recording rework,记录返工
+Reject {0}?,拒收 {0}？
+Rejected units,拒收数量
+Rejects & rework,拒收与返工
+"Rejects, scrap & rework",拒收、报废与返工
+Release {0} first (it is a draft).,请先下达 {0}（目前为草稿）。
+Release {0} first.,请先下达 {0}。
+Release {0} to the shop floor?,将 {0} 下达到车间？
+Releasing a work order,下达工单
+Rework,返工
+Rework done +4,返工完成 +4
+Rework open,未完成返工
+Rework open on {0} — {1} of {2} units still to rework,{0} 有未完成返工 — {2} 件中仍有 {1} 件待返工
+Rework: {0} of {1} done,返工：已完成 {0} / {1}
+Routing,工艺路线
+Routings,工艺路线
+Run MRP,运行 MRP
+Run MRP and plan,运行 MRP 并计划
+"Sales orders and forecast → production plan → work orders and material requests, with component shortages and suggested purchase orders.",销售订单和预测 → 生产计划 → 工单和物料申请，并显示组件缺料和建议采购订单。
+Sales orders → production plan → work orders + material requests,销售订单 → 生产计划 → 工单 + 物料申请
+"Sales orders → production plan → work orders and material requests. MRP lists the component shortages against usable stock and open purchase orders, with a suggested order and a Raise PO button.",销售订单 → 生产计划 → 工单和物料申请。MRP 对比可用库存和在途采购订单列出组件缺料，并给出建议采购量和“下采购单”按钮。
+Sample,样本
+Sample size,样本量
+Sample {0} — no defects,样本 {0} — 无缺陷
+Save as pending,保存为待处理
+Scrap,报废
+Scrap +1,报废 +1
+Scrap rate — 60 days,报废率 — 60 天
+Scrap recorded on {0} — {1} on this operation,已在 {0} 记录报废 — 本工序共 {1}
+Selling price,销售价格
+Serial numbers from,起始序列号
+Set a default supplier on {0} first.,请先为 {0} 设置默认供应商。
+Shop floor,车间
+Short now,当前缺料
+Short of {0} ({1}),缺少 {0}（{1}）
+Shortage after POs,扣除采购订单后缺料
+Shortages,缺料
+Since,起始日期
+"Standard against actual per work order — material consumed, labour and overhead from the job cards' hours — with the variances and the margin per product.",每张工单的标准对比实际 — 消耗材料、按工序卡工时计算的人工和制造费用 — 以及差异和各产品毛利。
+Standard cost,标准成本
+Standard cost and margin per product,各产品标准成本和毛利
+Standard cost per unit,单位标准成本
+Standard cost — closed WOs,标准成本 — 已关闭工单
+Standard cost — {0},标准成本 — {0}
+Standard margin,标准毛利
+"Standard vs actual cost per work order — material, labour and overhead variances — and margin per product.",每张工单的标准与实际成本 — 材料、人工和制造费用差异 — 以及各产品毛利。
+Start → due,开始 → 交期
+Std cost,标准成本
+Std cost value,标准成本金额
+Still short of {0} — receive the purchase order first.,仍缺少 {0} — 请先收货采购订单。
+Stock Ledger,库存台账
+Stock entries,库存单据
+"Sub-assemblies expanded, cost per unit",已展开半成品，单位成本
+Suggested PO,建议采购单
+Suggested purchase orders,建议采购订单
+Superseded,已替代
+Supplier reject,供应商拒收
+"Tablet view for the line: job cards by workstation — start and stop, quantity, scrap and operator. Every tap updates the work order, the tracker and the cost.",生产线平板视图：按工作站显示工序卡 — 开始和停止、数量、报废和操作员。每次点按都会更新工单、跟踪器和成本。
+Test certificates,检验证书
+"The BOM tree with the driver sub-assembly, the routing per workstation and the standard cost — material, labour and overhead. Versions and where-used are one tab away.",含驱动半成品的 BOM 结构、各工作站工艺路线和标准成本 — 材料、人工和制造费用。版本和使用位置就在相邻标签页。
+"The work order, step by step",工单，逐步推进
+Time,工时
+To warehouse,目标仓库
+Today on the floor,今日车间
+Transfer to WIP,转移至在制
+Unit cost,单位成本
+Units on open work orders,未结工单数量
+Units received to finished goods,已入成品库数量
+Units rejected,拒收数量
+Units to finished goods · Friday off,入成品库数量 · 周五休息
+Units to rework,待返工数量
+Units waiting for rework,等待返工的数量
+Variance by work order,各工单差异
+Version,版本
+Versions,版本
+Waiting for {0},等待 {0}
+Where used,使用位置
+Where used — {0},使用位置 — {0}
+Which products are affected by a component change or shortage,组件变更或缺料会影响哪些产品
+Work Orders,工单
+Work in progress (WIP),在制品（WIP）
+Work order,工单
+Work order cannot start before the components arrive,组件到货前工单无法开工
+Work orders,工单
+Work orders in process,在制工单
+Work orders — actual vs standard,工单 — 实际对比标准
+Workstation,工作站
+Workstation load,工作站负荷
+Workstation load — next 3 working days,工作站负荷 — 未来 3 个工作日
+Workstations,工作站
+e.g. alternate diffuser from a second supplier,例如：第二供应商的替代扩散板
+excl. VAT,不含增值税
+export,出口
+export 0% VAT,出口 0% 增值税
+forecast,预测
+inspection,检验
+job card,工序卡
+late,延期
+no operator yet,尚无操作员
+of,/
+op,工序
+operations,道工序
+pending,待处理
+production plan,生产计划
+released,已下达
+routing,工艺路线
+running,进行中
+saved as a draft,已保存为草稿
+started {0},{0} 开始
+sub-assembly,半成品
+vs standard,对比标准
+work order,工单
+{0} accepted — lot released to stores,{0} 合格 — 该批已放行入库
+{0} active — standard cost now {1},{0} 已生效 — 标准成本现为 {1}
+{0} approved · {1} sent to {2},{0} 已批准 · {1} 已发送给 {2}
+{0} approved — the buyer orders it next,{0} 已批准 — 下一步由采购员下单
+{0} closed,{0} 已关闭
+{0} completed — {1} good · {2} scrap,{0} 已完成 — 合格 {1} · 报废 {2}
+{0} components,{0} 种组件
+{0} components from Shenzhen / Ningbo,{0} 种组件来自深圳 / 宁波
+{0} created for {1} op {2},已为 {1} 工序 {2} 创建 {0}
+{0} has no BOM yet — add its components.,{0} 尚无 BOM — 请添加其组件。
+{0} has no active BOM.,{0} 没有有效的 BOM。
+{0} has no job card for operation {1} yet — release it first.,{0} 的工序 {1} 尚无工序卡 — 请先下达。
+{0} has no work order yet — complete the planning step.,{0} 尚无工单 — 请完成计划步骤。
+{0} inspection,{0}
+"{0} is a forecast — confirm it as a sales order first, then plan it.",{0} 是预测 — 请先确认为销售订单再计划。
+{0} is a forecast — confirm it as a sales order first.,{0} 是预测 — 请先确认为销售订单。
+{0} is already completed.,{0} 已完成。
+{0} is already decided.,{0} 已有结论。
+{0} is already fully produced.,{0} 已全部生产完成。
+{0} is closed — all {1} steps are done.,{0} 已关闭 — 全部 {1} 个步骤已完成。
+{0} is made to stock — its steps follow the work order's own status.,{0} 为按库存生产 — 其步骤跟随工单自身状态。
+{0} is not confirmed yet — a forecast is planned once it is a sales order.,{0} 尚未确认 — 预测在成为销售订单后才能计划。
+{0} is the open job card of {1} op {2} — {3},{0} 是 {1} 工序 {2} 的未完成工序卡 — {3}
+{0} is {1} — receive the finished goods first.,{0} 状态为 {1} — 请先办理成品入库。
+{0} job cards,{0} 张工序卡
+"{0} late — due {1}, {2} still to finish",{0} 延期 — 交期 {1}，仍有 {2} 待完成
+{0} material request(s) approved,已批准 {0} 张物料申请
+{0} not yet paid — {1} outstanding,{0} 尚未付款 — 未收 {1}
+{0} of {1} done,已完成 {0} / {1}
+{0} of {1} requests approved,已批准 {0} / {1} 张申请
+{0} operations,{0} 道工序
+{0} orders incl. forecast,{0} 张订单（含预测）
+{0} orders need attention,{0} 张订单需要关注
+{0} patrol checks,{0} 次巡检
+{0} paused — time logged,{0} 已暂停 — 工时已记录
+{0} per unit,每件 {0}
+{0} per unit · {1},每件 {0} · {1}
+{0} rejected,{0} 已拒收
+{0} released or planned,{0} 已下达或计划中
+{0} released — {1} job cards,{0} 已下达 — {1} 张工序卡
+{0} released — {1} job cards for the shop floor,{0} 已下达 — 车间有 {1} 张工序卡
+{0} saved as a draft,{0} 已保存为草稿
+{0} scrap,报废 {0}
+{0} scrap · {1} rework,报废 {0} · 返工 {1}
+{0} short,缺 {0}
+{0} started{1},{0} 已开始{1}
+{0} units ({1}%),{0} 件（{1}%）
+{0} units scrapped,报废 {0} 件
+{0} units to finish,{0} 件待完成
+{0} versions kept,保留 {0} 个版本
+{0} work orders,{0} 张工单
+"{0} · by air, 7 days",{0} · 空运，7 天
+{0} · cert {1},{0} · 证书 {1}
+{0} · positive = over standard,{0} · 正数 = 超出标准
+{0} · produced {1} · scrap {2},{0} · 已生产 {1} · 报废 {2}
+{0} · {1} fails,{0} · 不合格 {1}
+{0} · {1} of {2} done,{0} · 已完成 {1} / {2}
+{0} × {1} · ETA {2},{0} × {1} · 预计到货 {2}
+{0} × {1} · batch {2},{0} × {1} · 批次 {2}
+{0} — components issued to WIP,{0} — 组件已发料至在制
+{0} — received into {1},{0} — 已收入 {1}
+"{0} — today's work orders, output against plan, work in progress, late orders and the load on every workstation.",{0} — 今日工单、产量对比计划、在制品、延期订单以及各工作站负荷。
+{0} — work order closed,{0} — 工单已关闭
+{0} — work orders {1},{0} — 工单 {1}
+"{0} — {1} (sample {2}, {3} fails)",{0} — {1}（样本 {2}，不合格 {3}）
+{0} — {1} components issued to WIP for {2},{0} — 已为 {2} 发料 {1} 种组件至在制
+{0} — {1} received to finished goods,{0} — {1} 已入成品库
+{0} — {1} short,{0} — 缺 {1}
+{0} — {1} work order(s) proposed ({2}),{0} — 建议 {1} 张工单（{2}）
+{0} — {1} × {2} from {3} ({4}),{0} — 向 {3} 采购 {1} × {2}（{4}）
+{0} — {1} × {2} to finished goods · {3},{0} — {1} × {2} 入成品库 · {3}
+{0}% loaded · next 3 days,负荷 {0}% · 未来 3 天
+{0}: all {1} units are done or scrapped.,{0}：全部 {1} 件已完成或报废。
+{0}: done and scrap cannot pass the {1} units of the operation.,{0}：完成数和报废数不能超过该工序的 {1} 件。
+{0}: every component is already issued to WIP.,{0}：所有组件均已发料至在制。
+{0}: {1} done and {2} lost is more than the {3} units of the job card.,{0}：完成 {1}、损耗 {2}，超过工序卡的 {3} 件。
+— components store —,— 组件仓 —
+— copy the routing of the active version —,— 复制当前有效版本的工艺路线 —
+— finished goods store —,— 成品仓 —
+— from the reference —,— 取自参考单据 —
+— make to stock —,— 按库存生产 —
+— operator —,— 操作员 —
+— the active default —,— 当前默认版本 —
+— work in progress —,— 在制品 —
+Sales order / forecast,销售订单 / 预测
+A confirmed sales order (local or export) or a sales forecast creates the demand for a finished product.,已确认的销售订单（本地或出口）或销售预测形成对成品的需求。
+"Sales order, forecast",销售订单、预测
+Sales Manager (price and credit),销售经理（价格与信用）
+Order confirmed → production planning,订单确认 → 生产计划
+"Production planning (MRP: demand, stock, open WOs)",生产计划（MRP：需求、库存、未结工单）
+MRP nets demand against finished stock and open work orders and proposes work orders and material requests.,MRP 将需求与成品库存和未结工单进行净算，并建议工单和物料申请。
+Production Planner,生产计划员
+Plan submitted → BOM check,计划提交 → BOM 核对
+"BOM & routing check (version, alternates)",BOM 与工艺路线核对（版本、替代料）
+BOM check,BOM 核对
+The active BOM version and routing are confirmed; alternate components are allowed only where approved.,确认当前有效的 BOM 版本和工艺路线；替代组件仅在批准后方可使用。
+Production Engineer,生产工程师
+"BOM, routing",BOM、工艺路线
+Production Manager for a new version,新版本由生产经理批准
+BOM confirmed → availability check,BOM 确认 → 可用性检查
+Material availability & shortages,物料可用性与缺料
+Availability,可用性
+"Components required vs stock, reserved and on order; shortages are listed with suggested purchase orders.",所需组件对比库存、已预留和在途数量；列出缺料并给出建议采购订单。
+Shortage report,缺料报告
+Shortages found → material requests,发现缺料 → 物料申请
+Material req.,物料申请
+"Material requests for the shortages, with the date needed on the line.",针对缺料提交物料申请，并在明细行注明需求日期。
+Approved → purchasing,批准 → 采购
+Purchase / import of components,组件采购 / 进口
+Purchase,采购
+"Purchasing orders from the Shenzhen suppliers (sea or air) through Trading purchasing, imports and landed cost.",通过贸易模块的采购、进口和到岸成本向深圳供应商下单（海运或空运）。
+"Purchase order, import shipment",采购订单、进口货运
+Purchase Manager / Finance Manager by amount,按金额由采购经理 / 财务经理审批
+Goods received → incoming QC,收货 → 来料检验
+Incoming quality inspection,来料质量检验
+Incoming QC,来料检验
+"Each component lot is sampled (AQL) and accepted, rejected or accepted with deviation before it goes to stores.",每批组件按 AQL 抽样，入库前判定合格、拒收或让步接收。
+Incoming inspection report,来料检验报告
+QC Manager for deviations,让步接收由质量经理批准
+Lot accepted → available for issue,批次合格 → 可发料
+"Work order released (qty, due date, workstation)",工单下达（数量、交期、工作站）
+WO released,工单下达
+"The work order is released with quantity, due date, BOM, routing and the planned workstations.",工单下达，包括数量、交期、BOM、工艺路线和计划工作站。
+Released → material issue,下达 → 发料
+Material issue to WIP (pick from stores),发料至在制（仓库拣料）
+Stores pick the components and transfer them to the work-in-progress warehouse.,仓库拣选组件并转移到在制品仓库。
+Issued → job cards start,已发料 → 工序卡开工
+"Job cards per operation (cutting, SMT/assembly, wiring, testing, packing)",按工序的工序卡（切割、SMT/装配、接线、测试、包装）
+Job cards,工序卡
+"One job card per operation and workstation, printed with a barcode for the shop floor.",每道工序和工作站一张工序卡，打印条码供车间使用。
+Production Supervisor,生产主管
+"Job cards, job ticket",工序卡、工票
+Job card started on the tablet,在平板上开始工序卡
+"Operation start/stop, operator, time",工序开始/停止、操作员、工时
+"Operators start and stop each job card on the tablet; quantity, time and operator are recorded.",操作员在平板上开始和停止每张工序卡；记录数量、工时和操作员。
+Job card time logs,工序卡工时记录
+Supervisor,主管
+Quantity done → next operation,完成数量 → 下一道工序
+In-process QC,过程检验
+Patrol inspections at wiring and burn-in; failures go to rework.,在接线和老化工序进行巡检；不合格品转返工。
+In-process inspection,过程检验
+Passed → next operation,合格 → 下一道工序
+Scrap & rework recorded,记录报废与返工
+Scrap & rework,报废与返工
+Scrap and rework quantities with the reason are recorded on the job card and costed.,在工序卡上记录报废和返工数量及原因，并计入成本。
+"Scrap note, rework order",报废单、返工单
+Production Manager above 2% scrap,报废超过 2% 由生产经理批准
+Recorded → final QC,已记录 → 最终检验
+Final QC & test certificate,最终检验与检验证书
+Final QC,最终检验
+"Final inspection (AQL 1.0), photometric and safety tests; the test certificate is issued per batch.",最终检验（AQL 1.0）、光度和安全测试；按批次出具检验证书。
+"Final inspection, QC certificate",最终检验、质检证书
+QC Manager,质量经理
+Accepted → finished goods receipt,合格 → 成品入库
+Finished goods receipt to warehouse (manufacture entry),成品入库（生产入库单）
+FG receipt,成品入库
+The manufacture entry consumes WIP and receives finished goods at standard cost.,生产入库单消耗在制品并按标准成本接收成品。
+Received → batch and serials,已入库 → 批次与序列号
+Batch / serial numbers & labels,批次 / 序列号与标签
+Batch & serials,批次与序列号
+Batch and serial numbers are allocated and printed on the product labels for warranty tracking.,分配批次和序列号并打印在产品标签上，用于质保追溯。
+"Batch, serial numbers, labels",批次、序列号、标签
+Labelled → packing,已贴标 → 包装
+Packing & carton labels,包装与外箱标签
+Packing,包装
+"Products are packed, cartons labelled with item, quantity, batch and barcode.",产品装箱，外箱标签注明物料、数量、批次和条码。
+Packer,包装工
+"Carton labels, packing list",外箱标签、装箱单
+Packed → delivery,已包装 → 发货
+Delivery / export shipment,发货 / 出口货运
+Local delivery note or export shipment to the GCC with certificate of origin.,本地发货单或附原产地证书出口至海湾国家。
+"Delivery note, export documents",发货单、出口单据
+Delivered → invoice,已发货 → 开票
+"Tax invoice (5% VAT locally, 0% for exports with proof of export).",税务发票（本地 5% 增值税，出口凭出口证明为 0%）。
+Invoiced → costing,已开票 → 成本核算
+Production costing (actual vs standard),生产成本核算（实际对比标准）
+"Actual material, labour and overhead from the work order compared with the standard cost.",将工单的实际材料、人工和制造费用与标准成本进行比较。
+Cost Accountant,成本会计
+Work order cost sheet,工单成本表
+Costed → variance analysis,已核算 → 差异分析
+Variance & margin analysis,差异与毛利分析
+"Material, labour and overhead variances explained; margin per product and order reviewed.",解释材料、人工和制造费用差异；审核各产品和订单的毛利。
+Finance Manager · Production Manager,财务经理 · 生产经理
+Variance report,差异报告
+Reviewed → close work order,已审核 → 关闭工单
+Work order closed,工单关闭
+The work order is closed and variances are posted to the accounts.,工单关闭，差异过账到会计科目。
+Closed work order,已关闭工单
+Demand & plan,需求与计划
+Make,生产
+Bill & close,开票与关闭
+Item name (Chinese),物料名称（中文）
+"Printed on the job ticket, BOM, QC certificate and finished-goods label",打印在工票、BOM、质检证书和成品标签上
+Workstation name (Chinese),工作站名称（中文）
+Printed on the job ticket,打印在工票上
+Manufacturing step,生产步骤
+Steps of the manufacturing process completed for this order (0–22),本订单已完成的生产流程步骤（0–22）
+Forecast (not yet confirmed),预测（尚未确认）
+A sales forecast kept as a draft order — planned in the next MRP run,以草稿订单保存的销售预测 — 纳入下次 MRP 运算
+On hold — reason,暂停 — 原因
+"Why the work order cannot start (shortage, machine down)",工单无法开工的原因（缺料、设备故障）
+First serial number printed on the finished-goods labels,成品标签上打印的第一个序列号
+"Hipersign — AQL, rework and certificate",Hipersign — AQL、返工与证书
+Inspection stage,检验阶段
+Accepted with deviation,让步接收
+Fails in the sample,样本中的不合格数
+Rework done,返工完成
+Test certificate no.,检验证书编号
+Who runs this operation on the shop floor,车间中执行此工序的人员
+Scrap recorded,已记录报废
+Units scrapped on this operation (the shop floor's Scrap +1) — booked as process loss,此工序报废的数量（车间的“报废 +1”）— 记为工序损耗
+What changed in this version (printed on the BOM),此版本的变更内容（打印在 BOM 上）
+Company name (Chinese),公司名称（中文）
+Printed on the English + Chinese manufacturing documents,打印在中英文生产单据上
+Hipersign Job Ticket,Hipersign 工票
+Hipersign Bill of Materials,Hipersign 物料清单
+Hipersign QC Certificate,Hipersign 质检证书
+Hipersign Finished Goods Label,Hipersign 成品标签
+Manufacturing Labour Absorbed,生产人工分摊
+Manufacturing Overhead Absorbed,生产制造费用分摊
+Work In Progress,在制品
+Components Store,组件仓
+Finished Goods,成品
+Export Staging,出口待运区
+Rejected Stock,拒收品仓
+"Click a work order to open it: the 22 steps with status, % and facts, its operations and job cards, materials and cost. “Complete step” moves the order forward — releasing, issuing, receiving, delivering or invoicing as the step needs — and logs who did it.",点击工单即可打开：22 个步骤及其状态、% 和事实，工序和工序卡、物料和成本。“完成步骤”推进订单 — 按步骤需要下达、发料、入库、发货或开票 — 并记录操作人。
+"Every sales order and its work order through the 22 manufacturing steps — status, % and date per step, with red flags. Hover a step for who does it and the facts behind it.",每张销售订单及其工单经历 22 个生产步骤 — 每步的状态、% 和日期，并显示红色预警。将鼠标悬停在步骤上可查看执行人及相关事实。
+"Every sales order and its work order through the 22 steps in five phases — status, % and date per step, and red flags such as a late work order, a component shortage or open rework.",每张销售订单及其工单经历五个阶段的 22 个步骤 — 每步的状态、% 和日期，以及工单延期、组件缺料或未完成返工等红色预警。
