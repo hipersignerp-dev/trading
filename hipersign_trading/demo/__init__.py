@@ -92,6 +92,10 @@ def load():
 
 		for step in v170.STEPS:
 			run(step, ctx)
+		from hipersign_trading.demo import v180
+
+		for step in v180.STEPS:  # v1.8.0: Golden Dragon Interiors LLC — the Projects demo
+			run(step, ctx)
 	finally:
 		resume_workflows(paused)
 		frappe.flags.hs_apply_credit_limit = False
