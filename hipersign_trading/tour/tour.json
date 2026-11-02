@@ -12,6 +12,7 @@
   "Accounting & tax",
   "Group companies",
   "People & assets",
+  "Projects",
   "Admin & go-live"
  ],
  "steps": [
@@ -782,6 +783,123 @@
   },
   {
    "chapter": 12,
+   "title": "Projects — Golden Dragon Interiors",
+   "text": "A Chinese fit-out contractor in Business Bay joins the group. Contract value, work done, certified, billed, collected, cost and margin for every project — with red flags.",
+   "route": [
+    "hipersign-projects"
+   ],
+   "selector": ".hsx-kpis",
+   "role": "Project Manager",
+   "feature": "projects"
+  },
+  {
+   "chapter": 12,
+   "title": "How it works — 26 steps",
+   "text": "From enquiry and site visit to BOQ, tender, award, bonds, advance, mobilisation, procurement, measurement, certification, invoicing, variations, completion, final account, retention release and the profit report. Open any step for who does it, the documents, the approval and the next trigger.",
+   "route": [
+    "hipersign-projects"
+   ],
+   "tab": "how",
+   "selector": ".hsx-how",
+   "role": "Project Manager",
+   "feature": "projects"
+  },
+  {
+   "chapter": 12,
+   "title": "The hotel project, step by step",
+   "text": "Click a project to open it: the 120-room Business Bay hotel — AED 4.2M, 20% advance, 10% retention, two subcontractors. Click a step to see its status, % and facts; “Complete step” moves the project forward and logs who did it.",
+   "route": [
+    "hipersign-projects"
+   ],
+   "tab": "port",
+   "selector": ".hsx-mout",
+   "role": "Project Manager",
+   "feature": "projects"
+  },
+  {
+   "chapter": 12,
+   "title": "Estimating & BOQ",
+   "text": "Each BOQ line is priced from material, labour, subcontract and overhead rates; the estimate summary shows cost, overheads and margin, and the tender goes out as the BOQ print.",
+   "route": [
+    "hipersign-boq"
+   ],
+   "selector": ".hsx-mout",
+   "role": "Quantity Surveyor",
+   "feature": "projects"
+  },
+  {
+   "chapter": 12,
+   "title": "Site & procurement",
+   "text": "Material requests are raised against BOQ lines, turned into POs per project and cost head, received at the site store, used on the job and returned — site stock per project.",
+   "route": [
+    "hipersign-site"
+   ],
+   "tab": "mr",
+   "selector": ".hsx-mout",
+   "role": "Site Engineer",
+   "feature": "projects"
+  },
+  {
+   "chapter": 12,
+   "title": "Certificates, invoices and retention",
+   "text": "Measured → sent to the consultant → certified → progress invoice: work this period, less advance recovery and retention, plus VAT. Retention held and advance still to recover are tracked per project.",
+   "route": [
+    "hipersign-billing"
+   ],
+   "tab": "ipc",
+   "selector": ".hsx-mout",
+   "role": "Quantity Surveyor",
+   "feature": "projects"
+  },
+  {
+   "chapter": 12,
+   "title": "Subcontractors",
+   "text": "MEP and joinery subcontract orders, their monthly claims certified by our QS, retention and back-charges deducted on the supplier bill, then paid.",
+   "route": [
+    "hipersign-subcontract"
+   ],
+   "tab": "claims",
+   "selector": ".hsx-mout",
+   "role": "Project Manager",
+   "feature": "projects"
+  },
+  {
+   "chapter": 12,
+   "title": "Timesheets & labour",
+   "text": "Daily hours by project and task, overtime at 125% and labour cost; the planned % shows where each task should be today.",
+   "route": [
+    "hipersign-timesheets"
+   ],
+   "tab": "task",
+   "selector": ".hsx-mout",
+   "role": "Site Engineer",
+   "feature": "projects"
+  },
+  {
+   "chapter": 12,
+   "title": "Project costing",
+   "text": "Budget vs committed vs actual per cost head — actual from the cost booked to the project and the approved timesheets — with the forecast to complete and the forecast margin.",
+   "route": [
+    "hipersign-costing"
+   ],
+   "tab": "heads",
+   "selector": ".hsx-mout",
+   "role": "Project Manager",
+   "feature": "projects"
+  },
+  {
+   "chapter": 12,
+   "title": "Project Tracker",
+   "text": "Like the Sales Order Tracker: one row per project through all 26 steps in 6 phases, each with status, % and date, and the red flags underneath.",
+   "route": [
+    "project-tracker"
+   ],
+   "selector": ".hsp-trk",
+   "role": "Managing Director",
+   "feature": "projects"
+  },
+  {
+   "chapter": 13,
    "title": "Feature packs for every size",
    "text": "Starter for a small local trader, Standard for a growing importer, Enterprise for groups. Each feature can be switched on or off per company, documents can be off, recommended or fully enforced, and Simple forms hides the optional fields. Nothing is deleted — switch back and every screen returns.",
    "route": [
@@ -793,7 +911,7 @@
    "feature": null
   },
   {
-   "chapter": 12,
+   "chapter": 13,
    "title": "Approval rules & workflows",
    "text": "Who approves what and above which amount — change a limit and it applies to the next document.",
    "route": [
@@ -805,7 +923,7 @@
    "feature": null
   },
   {
-   "chapter": 12,
+   "chapter": 13,
    "title": "Business rules",
    "text": "Switches such as blocking receipt before customs clearance, partial deliveries, negative stock and advance before delivery.",
    "route": [
@@ -817,7 +935,7 @@
    "feature": null
   },
   {
-   "chapter": 12,
+   "chapter": 13,
    "title": "Document Centre",
    "text": "Every record carries typed documents — the customer LPO on a sales order, the bill of lading on a shipment, the supplier invoice on a bill. This list shows each record still missing a required file, with an Attach button right in the row.",
    "route": [
@@ -829,7 +947,7 @@
    "feature": null
   },
   {
-   "chapter": 12,
+   "chapter": 13,
    "title": "Required documents",
    "text": "For each document choose: blocks the next step, required and flagged, or optional. A blocking rule stops, for example, a supplier payment until the supplier invoice is attached — the user attaches it on the spot and carries on. Replaced files keep their older versions and every view or change is in the audit trail.",
    "route": [
@@ -841,7 +959,7 @@
    "feature": null
   },
   {
-   "chapter": 12,
+   "chapter": 13,
    "title": "Exceptions with approval",
    "text": "When a rule blocks a step, the user can request an exception. The approver set for that rule — Sales Manager, Purchase Manager, Warehouse Manager, Finance Manager or Managing Director — allows it once, for that record. The document is still due by a date and is chased until attached. An approver can bypass on the spot, but the reason is recorded; nobody approves their own request.",
    "route": [
@@ -853,7 +971,7 @@
    "feature": null
   },
   {
-   "chapter": 12,
+   "chapter": 13,
    "title": "Company documents register",
    "text": "Each group company’s trade licence, registrations, Ejari, civil defence, insurance policies, bank facility letters, powers of attorney and agency agreements — number, authority, expiry, owner and file. Sensitive types sit in a vault that only named roles can open.",
    "route": [
@@ -865,7 +983,7 @@
    "tab": "register"
   },
   {
-   "chapter": 12,
+   "chapter": 13,
    "title": "Compliance calendar",
    "text": "One month view of everything due: licence and contract expiries, VAT, corporate tax, WPS and audit deadlines per company, plus the employee, vehicle and KYC expiries already tracked elsewhere.",
    "route": [
@@ -877,7 +995,7 @@
    "tab": "calendar"
   },
   {
-   "chapter": 12,
+   "chapter": 13,
    "title": "Reminders by ToDo, email and WhatsApp",
    "text": "Every morning the reminder run notifies the owner at 90, 60, 30 and 7 days (set per document type) and copies the Managing Director once anything is overdue. Renewals move from Due → Submitted to the authority → Renewed, with the cost, the receipt and the new copy; the old copy is archived.",
    "route": [
@@ -889,7 +1007,7 @@
    "tab": "todos"
   },
   {
-   "chapter": 12,
+   "chapter": 13,
    "title": "Roles & permissions",
    "text": "Each role sees only its screens; add users and switch between them from the top-right menu.",
    "route": [
@@ -901,7 +1019,7 @@
    "feature": null
   },
   {
-   "chapter": 12,
+   "chapter": 13,
    "title": "Data migration",
    "text": "Bring items, customers, suppliers, open invoices and balances across from Tally or Excel with checks before go-live.",
    "route": [
@@ -913,7 +1031,7 @@
    "feature": null
   },
   {
-   "chapter": 12,
+   "chapter": 13,
    "title": "Test Centre",
    "text": "Step-by-step user acceptance tests for every feature, by role, with pass/fail notes.",
    "route": [
@@ -924,7 +1042,7 @@
    "feature": null
   },
   {
-   "chapter": 12,
+   "chapter": 13,
    "title": "Add-ons & pricing",
    "text": "Optional modules and integrations such as WhatsApp Business, with clear pricing and implementation hours.",
    "route": [
@@ -935,7 +1053,7 @@
    "feature": null
   },
   {
-   "chapter": 12,
+   "chapter": 13,
    "title": "See it run your business",
    "text": "That’s the tour. Book a personalised demo with your own data — or keep exploring: switch users from the top-right menu, or jump to any chapter of this tour again.",
    "route": [

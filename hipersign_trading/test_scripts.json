@@ -1200,5 +1200,125 @@
   "route": [
    "hipersign-vat"
   ]
+ },
+ {
+  "id": "PRJ-01",
+  "section": "Projects",
+  "role": "Project Manager",
+  "steps": "Open Projects. Check the KPIs; chips Execution, Handover and At risk; open the *How it works* and *Red flags* tabs.",
+  "expected": "Five projects at different stages with a total line; 26 steps in 6 phases with who, documents, approval and next trigger; red flags open their record.",
+  "route": [
+   "hipersign-projects"
+  ]
+ },
+ {
+  "id": "PRJ-02",
+  "section": "Projects",
+  "role": "Project Manager",
+  "steps": "Click PRJ-2026-014 (Business Bay hotel). In *Process — 26 steps* click steps 1, 7, 17 and 19 and use ‹ › to walk through all 26.",
+  "expected": "Each step shows status, %, date, what happens, who, documents, approval and the next trigger; steps 7, 18 and 19 are red (APG expiring, overdue invoice, variation waiting 38 days).",
+  "route": [
+   "hipersign-projects"
+  ]
+ },
+ {
+  "id": "PRJ-03",
+  "section": "Projects",
+  "role": "Project Manager",
+  "steps": "+ New → Projects → Project. Switch Quick → Standard → Detailed; create “Dubai Hills show apartment”, client Hills Living LLC (or any client), AED 650,000.",
+  "expected": "Quick shows 3 fields, Detailed 17; values are kept when switching; the project starts at step 1 with a tender (BOQ) in Estimating & BOQ.",
+  "route": [
+   "hipersign-projects"
+  ]
+ },
+ {
+  "id": "PRJ-04",
+  "section": "Projects",
+  "role": "Quantity Surveyor",
+  "steps": "Estimating & BOQ: chip 019 · Al Barsha clinic; check *Cost build-up*; open the project and *Complete step 4* (as the Managing Director). Print the BOQ.",
+  "expected": "BOQ total AED 980,000 with section totals; the tender moves to Submitted; the BOQ print is bilingual (English · Arabic).",
+  "route": [
+   "hipersign-boq"
+  ]
+ },
+ {
+  "id": "PRJ-05",
+  "section": "Projects",
+  "role": "Site Engineer",
+  "steps": "Site & procurement: *Approve* PMR-2026-034 (as the Project Manager), *Create PO* with a supplier and rate, approve the PO, then *Receive at site*.",
+  "expected": "Request → Approved → Ordered → Delivered; a receipt into the project's site store; site stock goes up; the PO carries the project and the Materials cost head.",
+  "route": [
+   "hipersign-site"
+  ]
+ },
+ {
+  "id": "PRJ-06",
+  "section": "Projects",
+  "role": "Quantity Surveyor",
+  "steps": "Progress & billing → Measurement (014 · Business Bay hotel): raise B3 to 50%. Progress certificates: *Record certification* on IPC-014-08, then *Create invoice*.",
+  "expected": "The certificate follows the measurement; the invoice = work this period − 20% advance recovery − 10% retention + 5% VAT, posted Cr Contract Revenue, Dr Advances from Customers, Dr Retention Receivable.",
+  "route": [
+   "hipersign-billing"
+  ]
+ },
+ {
+  "id": "PRJ-07",
+  "section": "Projects",
+  "role": "Quantity Surveyor",
+  "steps": "Variations: *Send to client* on VO-014-05, then *Client approved* on VO-014-03.",
+  "expected": "The revised contract rises by AED 96,000 (a line is added to the contract sales order); the red flag on step 19 clears.",
+  "route": [
+   "hipersign-billing"
+  ]
+ },
+ {
+  "id": "PRJ-08",
+  "section": "Projects",
+  "role": "Project Manager",
+  "steps": "Subcontractors → Claims: *Certify* SCC-2026-007-06, then *Pay* it. Check the Retention and Back-charges tabs.",
+  "expected": "Certified less 10% retention and the agreed back-charge; the supplier bill posts Retention Payable and is paid; the disputed back-charge stays visible.",
+  "route": [
+   "hipersign-subcontract"
+  ]
+ },
+ {
+  "id": "PRJ-09",
+  "section": "Projects",
+  "role": "Site Engineer",
+  "steps": "Timesheets & labour: *Approve submitted* (as the Project Manager); + New → Timesheet in Quick mode for Zhang Wei, 9 hours; check *By project & task*.",
+  "expected": "Approved hours add labour cost to the project; tasks show planned % against actual.",
+  "route": [
+   "hipersign-timesheets"
+  ]
+ },
+ {
+  "id": "PRJ-10",
+  "section": "Projects",
+  "role": "Project Manager",
+  "steps": "Project costing (014): compare budget, committed, actual and forecast per cost head; open *All projects*.",
+  "expected": "Labour and materials forecast over budget; forecast margin below the budget margin; actual = cost booked to the project + approved timesheets.",
+  "route": [
+   "hipersign-costing"
+  ]
+ },
+ {
+  "id": "PRJ-11",
+  "section": "Projects",
+  "role": "Managing Director",
+  "steps": "Project Tracker: hover steps in each phase; filter *Red flags*; click a flag.",
+  "expected": "One row per project with 26 steps (status, % and date) in 6 phases; flags open the right record.",
+  "route": [
+   "project-tracker"
+  ]
+ },
+ {
+  "id": "PRJ-12",
+  "section": "Projects",
+  "role": "Accountant",
+  "steps": "Print the BOQ, a progress certificate, a progress invoice, the retention invoice of PRJ-2025-009, a variation order and a subcontract order.",
+  "expected": "Navy letterhead; English with Arabic labels; amounts match the screens.",
+  "route": [
+   "hipersign-billing"
+  ]
  }
 ]

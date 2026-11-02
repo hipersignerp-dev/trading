@@ -1,5 +1,36 @@
 # Changelog
 
+## 1.8.0 — Projects (prototype p19): contracting and fit-out from enquiry to profit report
+- **Projects menu** (switch *Projects & contracting*, Settings → Features → Industries) with eight pages: **Projects**
+  (portfolio, How it works, red flags), **Estimating & BOQ** (BOQ by section, cost build-up, tenders & quotations),
+  **Site & procurement** (material requests against BOQ lines, project POs, deliveries to site, site stock, returns),
+  **Progress & billing** (certificates, measurement typed per BOQ line, progress / advance / retention invoices, retention,
+  advance recovery, variations), **Subcontractors** (orders, claims, retention, back-charges), **Timesheets & labour**,
+  **Project costing** (budget vs committed vs actual vs forecast per cost head) and the **Project Tracker** (every project
+  through 26 steps in 6 phases with status, % and date per step and its red flags).
+- **The 26-step process** is defined once (api/projects.py). The project panel shows the stepper with what happens, who,
+  documents, approval and trigger per step, the money, terms, bonds, red flags and prints; *Complete step N* checks the
+  step's approval role and is logged (Project Step Log: who and when). Contract signed creates the contract sales order.
+- **Money that posts**: advance invoice (Cr Advances from Customers + VAT); progress certificate → progress invoice = work
+  this period less advance recovery and retention, plus 5% VAT on the net (deductions as tax-table rows, so no negative
+  rates); retention release invoice; approved variations raise the revised contract (and add a line to the contract order);
+  subcontract claim → certified → supplier bill less retention (Retention Payable) and agreed back-charges, plus VAT;
+  project material request → PO → receipt at the project's site store; cost by head from the GL and approved timesheets.
+- **New records**: Project BOQ (lines with cost build-up and progress), Progress Certificate, Variation Order, Subcontract
+  Order, Subcontract Claim, Back Charge, Daily Site Report, Project Step Log; contract fields on Project, bond type and
+  status on Bank Guarantee, project on material requests and purchase orders.
+- **Nine create windows** (Quick / Standard / Detailed) from + New → Projects and the pages: project, BOQ lines, task,
+  timesheet, progress certificate, variation, subcontract order, material request to site, site transfer.
+- **Six prints** (English + Arabic): BOQ / tender, interim payment certificate, progress invoice, retention invoice,
+  variation order, subcontract order.
+- **Contractor pack** (Standard without exports, plus projects, LCs, advances, HR, assets, company compliance); Enterprise
+  includes Projects. Roles **Project Manager**, **Quantity Surveyor**, **Site Engineer**; the Demo Viewer reads the pages.
+  Tour chapter *Projects*, Test Centre scripts PRJ-01…12, Arabic labels.
+- **Demo**: Golden Dragon Interiors LLC (Business Bay, AED) joins the demo group with the prototype's five projects — the
+  AED 4.2M Business Bay hotel in execution, villas mobilising, DIFC office in handover, a clinic tender and a closed
+  restaurant — all posted as real documents.
+- Fix: a group company's sales orders keep their own VAT template (the main company's was forced on them).
+
 ## 1.7.3 — the 2 Nov review: every New in the new window, prints as on the prototype
 - **Every "New" opens the create window** with Quick / Standard / Detailed — from + New and from each list's Add: supplier bill
   (match to the order or goods receipt, lines and VAT), debit note, receive payment (oldest invoices first, bank charges),

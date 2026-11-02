@@ -1673,3 +1673,117 @@ Qualified,مؤهل
 Proposal,عرض
 Negotiation,تفاوض
 Lost,خسارة
+Projects,المشاريع
+Estimating & BOQ,التقدير وجدول الكميات
+Site & procurement,الموقع والمشتريات
+Progress & billing,الإنجاز والفوترة
+Subcontractors,مقاولو الباطن
+Timesheets & labour,ساعات العمل والعمالة
+Project costing,تكاليف المشاريع
+Project Tracker,متابعة المشاريع
+Portfolio,المحفظة
+How it works,كيف يعمل
+Red flags,تنبيهات حمراء
+Bill of quantities,جدول الكميات
+Cost build-up,بناء التكلفة
+Tenders & quotations,المناقصات وعروض الأسعار
+Material requests,طلبات المواد
+Deliveries to site,التوريد للموقع
+Site stock,مخزون الموقع
+Returns,المرتجعات
+Progress certificates,شهادات الإنجاز
+Measurement,القياس
+Progress invoices,فواتير الإنجاز
+Retention,المحتجزات
+Advance recovery,استرداد الدفعة المقدمة
+Variations,أوامر التغيير
+Subcontract orders,أوامر مقاولي الباطن
+Claims,المطالبات
+Back-charges,الخصومات
+Timesheets,سجلات الدوام
+By project & task,حسب المشروع والمهمة
+Crew,الطاقم
+Daily site reports,التقارير اليومية للموقع
+By cost head,حسب بند التكلفة
+All projects,كل المشاريع
+New project,مشروع جديد
+New progress certificate,شهادة إنجاز جديدة
+New variation,أمر تغيير جديد
+Win the job,الفوز بالمشروع
+Contract & security,العقد والضمانات
+Mobilise & plan,التجهيز والتخطيط
+Buy & build,الشراء والتنفيذ
+"Measure, bill & control",القياس والفوترة والرقابة
+Complete & close,الإنجاز والإغلاق
+Contractor,مقاول
+Tender,مناقصة
+Mobilising,التجهيز
+Execution,التنفيذ
+Handover,التسليم
+At risk,معرّض للخطر
+Purchase orders,أوامر الشراء
+New BOQ,جدول كميات جديد
+New subcontract order,أمر مقاولة باطن جديد
+New timesheet,سجل دوام جديد
+New task,مهمة جديدة
+Material request,طلب مواد
+Material request to site,طلب مواد للموقع
+Site transfer,تحويل للموقع
+Progress certificate,شهادة إنجاز
+Variation,أمر تغيير
+Subcontract order,أمر مقاولة باطن
+Complete step {0},إكمال الخطوة {0}
+Record certification,تسجيل الاعتماد
+Send to consultant,إرسال للاستشاري
+Send to client,إرسال للعميل
+Client approved,اعتمد العميل
+Receive at site,استلام في الموقع
+Certify,اعتماد
+Retention invoice,فاتورة المحتجزات
+Raise advance invoice,إصدار فاتورة الدفعة المقدمة
+Raise retention invoice,إصدار فاتورة المحتجزات
+Approve submitted,اعتماد المقدَّم
+Signed by both parties,موقَّع من الطرفين
+Print BOQ,طباعة جدول الكميات
+Process — 26 steps,العملية — 26 خطوة
+Project portfolio,محفظة المشاريع
+Closed,مغلق
+Project,المشروع
+Projects & contracting,المشاريع والمقاولات
+Industries,القطاعات
+Project Manager,مدير المشروع
+Quantity Surveyor,مهندس الكميات
+Site Engineer,مهندس الموقع
+Contract value (incl. variations),قيمة العقد (شاملة أوامر التغيير)
+Work done,الأعمال المنجزة
+Certified,المعتمد
+Collected,المحصَّل
+Cost to date,التكلفة حتى تاريخه
+Forecast at completion,التكلفة المتوقعة عند الإنجاز
+Forecast margin,الهامش المتوقع
+Budget,الموازنة
+Committed,الملتزم به
+Actual cost to date,التكلفة الفعلية حتى تاريخه
+Contract value by project,قيمة العقد حسب المشروع
+Where the projects are,أين وصلت المشاريع
+Project BOQ,جدول كميات المشروع
+Progress Certificate,شهادة إنجاز
+Variation Order,أمر تغيير
+Subcontract Order,أمر مقاولة باطن
+Subcontract Claim,مطالبة مقاول باطن
+Back Charge,خصم على المقاول
+Daily Site Report,تقرير الموقع اليومي
+Project Step Log,سجل خطوات المشروع
+Being priced,قيد التسعير
+Awarded,تمت الترسية
+Pending client,بانتظار العميل
+Submitted to consultant,لدى الاستشاري
+Invoiced,مفوتر
+Pending signature,بانتظار التوقيع
+Materials,المواد
+Labour,العمالة
+Subcontract,مقاولات الباطن
+Plant & equipment,المعدات
+Site overheads,مصاريف الموقع
+Open screen,فتح الشاشة
+Tender print,طباعة العطاء
