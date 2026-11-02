@@ -1,0 +1,45 @@
+{
+ "doctype": "Page",
+ "name": "project-tracker",
+ "page_name": "project-tracker",
+ "title": "Project Tracker",
+ "module": "Hipersign Trading",
+ "standard": "Yes",
+ "system_page": 0,
+ "icon": "",
+ "roles": [
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "Managing Director"
+  },
+  {
+   "role": "Project Manager"
+  },
+  {
+   "role": "Projects Manager"
+  },
+  {
+   "role": "Demo Viewer"
+  },
+  {
+   "role": "Quantity Surveyor"
+  },
+  {
+   "role": "Site Engineer"
+  },
+  {
+   "role": "Accounts Manager"
+  },
+  {
+   "role": "Accounts User"
+  },
+  {
+   "role": "Projects User"
+  }
+ ],
+ "owner": "Administrator",
+ "creation": "2026-11-02 12:00:00",
+ "modified": "2026-11-02 12:00:00"
+}

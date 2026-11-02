@@ -52,6 +52,17 @@ NAV = [
 		("Dispatch & Delivery", "Page", "hipersign-dispatch", "truck", None, {}),
 		("Driver App", "URL", "/driver", "map-pin", "trips", {}),
 	]),
+	# v1.8.0 (prototype p19): contracting and fit-out — before Finance & Tax, as on the prototype
+	("Projects", "hard-hat", [
+		("Projects", "Page", "hipersign-projects", "gantt-chart", "projects", {}),
+		("Estimating & BOQ", "Page", "hipersign-boq", "calculator", "projects", {}),
+		("Site & procurement", "Page", "hipersign-site", "hard-hat", "projects", {}),
+		("Progress & billing", "Page", "hipersign-billing", "receipt", "projects", {}),
+		("Subcontractors", "Page", "hipersign-subcontract", "briefcase", "projects", {}),
+		("Timesheets & labour", "Page", "hipersign-timesheets", "clock", "projects", {}),
+		("Project costing", "Page", "hipersign-costing", "chart-column", "projects", {}),
+		("Project Tracker", "Page", "project-tracker", "list-checks", "projects", {}),
+	]),
 	("Finance & Tax", "banknote", [
 		("Finance", "Page", "hipersign-fin", "banknote", None, {}),
 		("Accounting", "Page", "hipersign-accounts", "book-open", None, {}),
@@ -111,6 +122,17 @@ NAV_SUB = {
 		("Document Rules", "DocType", "Hipersign Document Rule", None), ("Editable Lists", "DocType", "Hipersign List Value", None),
 		("Users", "DocType", "User", None), ("System Settings", "DocType", "System Settings", None)],
 	"Document Centre": [("Missing Documents", "Report", "Missing Documents", None), ("Document Waivers", "DocType", "Document Waiver", None)],
+	# v1.8.0: Projects
+	"Projects": [("Projects", "DocType", "Project", None), ("Project Step Log", "DocType", "Project Step Log", None), ("Bank Guarantees (bonds)", "DocType", "Bank Guarantee", None)],
+	"Estimating & BOQ": [("Project BOQs & tenders", "DocType", "Project BOQ", None)],
+	"Site & procurement": [("Material Requests", "DocType", "Material Request", None), ("Purchase Orders", "DocType", "Purchase Order", None),
+		("Stock Entries", "DocType", "Stock Entry", None)],
+	"Progress & billing": [("Progress Certificates", "DocType", "Progress Certificate", None), ("Variation Orders", "DocType", "Variation Order", None),
+		("Sales Invoices", "DocType", "Sales Invoice", None)],
+	"Subcontractors": [("Subcontract Orders", "DocType", "Subcontract Order", None), ("Subcontract Claims", "DocType", "Subcontract Claim", None),
+		("Back Charges", "DocType", "Back Charge", None)],
+	"Timesheets & labour": [("Timesheets", "DocType", "Timesheet", None), ("Tasks", "DocType", "Task", None), ("Daily Site Reports", "DocType", "Daily Site Report", None),
+		("Activity Costs", "DocType", "Activity Cost", None)],
 }
 
 # count badges, as in the prototype

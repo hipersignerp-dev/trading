@@ -844,7 +844,7 @@ frappe.provide("hipersign.cm");
 		preset = preset || {};
 		const covered = hipersign.fm && hipersign.fm.COVERED.includes(dt);
 		let mode = (covered && hipersign.fm.mode(dt)) || "Standard";
-		const v = Object.assign({}, preset), opt = {};
+		const v = Object.assign({}, spec.preset || {}, preset), opt = {}; // v1.8.0: a window may carry fixed values (_site: material request to site)
 		spec.fields.forEach((df) => { if (v[df.f] === undefined && df.def !== undefined) v[df.f] = typeof df.def === "function" ? df.def() : df.def; });
 		const R = spec.rows, rows = [];
 		if (R) { (preset.rows || []).forEach((r) => rows.push(Object.assign({}, r))); while (rows.length < R.n) rows.push({}); }

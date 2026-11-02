@@ -420,6 +420,10 @@ def link_options(doctype, query=None):
 		filters["disabled"] = 0
 	if (q or {}).get("query") == "trip_notes":
 		return _trip_notes()
+	if (q or {}).get("query") == "boq_lines":  # v1.8.0: material request to site
+		from hipersign_trading.api.create_prj import boq_lines
+
+		return boq_lines()
 	if (q or {}).get("query") == "hipersign_trading.api.crm.sales_users":
 		from hipersign_trading.api.crm import sales_users
 
@@ -442,6 +446,20 @@ SIMPLE = {"Import Shipment", "Export Shipment", "Material Request", "Stock Entry
 	# v1.7.3
 	"Credit Limit Request", "Purchase Invoice", "Payment Entry", "Warranty Claim", "Delivery Trip", "Employee Advance",
 	"Sales Invoice"}  # Sales Invoice: only the credit note window (returns); new invoices start from the delivery (C.PICK)
+# v1.8.0: the Projects windows (api.create_prj)
+SIMPLE |= {"Project", "Project BOQ", "Task", "Timesheet", "Progress Certificate", "Variation Order", "Subcontract Order"}
+
+
+def _prj_hook(kind, doctype, v):
+	"""v1.8.0: the Projects windows' hooks live in api.create_prj (material request to site and site transfer by their flag)."""
+	from hipersign_trading.api import create_prj
+
+	key = frappe.scrub(doctype)
+	if doctype in ("Material Request", "Stock Entry") and v.get("_site"):
+		key += "_site"
+	elif doctype not in create_prj.DOCTYPES:
+		return None
+	return getattr(create_prj, f"{kind}_{key}", None)
 
 
 @frappe.whitelist()
@@ -457,10 +475,15 @@ def save_doc(doctype, values, rows=None, action="save"):
 	defaults = {k: doc.get(k) for k in v}
 	if meta.has_field("company"):
 		doc.company = v.get("company") or _company()
-	pre = globals().get("_pre_" + frappe.scrub(doctype))
+	v._action = action
+	frappe.flags.hs_create_msg = None
+	pre = _prj_hook("pre", doctype, v) or globals().get("_pre_" + frappe.scrub(doctype))
 	if pre:
 		# v1.7.3: a hook may hand back the document ERPNext's own mapper made (bill from an order, debit note, receipt)
 		doc = pre(doc, v, rows) or doc
+	if doc.flags.get("hs_done"):  # v1.8.0: the hook saved an existing record (BOQ lines added to the project's BOQ)
+		d = doc.flags.hs_done
+		return {"doctype": d.doctype, "name": d.name, "message": frappe.flags.hs_create_msg or _("{0} {1} saved").format(_(d.doctype), d.name)}
 	for k, val in v.items():
 		if val in (None, "") or k.startswith("_"):
 			continue
@@ -479,11 +502,11 @@ def save_doc(doctype, values, rows=None, action="save"):
 		except Exception:
 			frappe.clear_last_message()
 	doc.insert()
-	after = globals().get("_after_" + frappe.scrub(doctype))
+	after = _prj_hook("after", doctype, v) or globals().get("_after_" + frappe.scrub(doctype))
 	if after:
 		after(doc, v, rows)
 	label = _("Debit Note") if doctype == "Purchase Invoice" and doc.get("is_return") else _(doctype)
-	msg = _("{0} {1} saved").format(label, doc.name)
+	msg = (frappe.flags.hs_create_msg or "").replace("{0}", doc.name) or _("{0} {1} saved").format(label, doc.name)
 	needs = None
 	if action == "submit" and meta.is_submittable:
 		from hipersign_trading.doc_rules import DocumentNeeded

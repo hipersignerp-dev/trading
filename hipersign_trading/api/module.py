@@ -377,6 +377,12 @@ def crm_rows(tab, chip, q=None, owner=None, source=None):
 # ---------------------------------------------------------------- API
 @frappe.whitelist()
 def get_module(key, owner=None, source=None):
+	if key.startswith("pj_"):  # v1.8.0: the Projects pages
+		from hipersign_trading.api import module_prj
+
+		if key not in module_prj.KEYS:
+			frappe.throw(_("Unknown module"))
+		return getattr(module_prj, key + "_module")()
 	if key in MORE:
 		from hipersign_trading.api import module_more
 
@@ -426,6 +432,12 @@ def get_module(key, owner=None, source=None):
 
 @frappe.whitelist()
 def get_rows(key, tab, chip=None, q=None, owner=None, source=None):
+	if key.startswith("pj_"):  # v1.8.0: the Projects pages
+		from hipersign_trading.api import module_prj
+
+		if key not in module_prj.KEYS:
+			frappe.throw(_("Unknown module"))
+		return getattr(module_prj, key + "_rows")(tab, chip or None, q or None)
 	if key in MORE:
 		from hipersign_trading.api import module_more
 
