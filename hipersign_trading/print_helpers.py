@@ -15,7 +15,14 @@ def hs_company(company=None):
 		)
 		if addr:
 			a = frappe.get_cached_doc("Address", addr)
-			address = ", ".join(x for x in [a.address_line1, a.address_line2, a.city, a.country] if x)
+			parts = []
+			for x in [a.address_line1, a.address_line2, a.city, a.country]:
+				x = (x or "").strip()
+				if x == "United Arab Emirates":
+					x = "UAE"  # as printed on the prototype's documents
+				if x and x not in parts:
+					parts.append(x)
+			address = ", ".join(parts)
 	return frappe._dict(
 		name=company or "",
 		name_ar=(c and c.get("company_name_in_arabic")) or "",
@@ -45,6 +52,8 @@ def hs_default_bank(currency=None, company=None):
 		fields=["bank", "account_name", "iban", "is_default", "account"],
 		order_by="is_default desc",
 	)
+	for r in rows:  # SWIFT / BIC sits on the Bank master
+		r.swift = (r.bank and frappe.db.get_value("Bank", r.bank, "swift_number")) or ""
 	if currency:
 		for r in rows:
 			acc_cur = r.account and frappe.db.get_value("Account", r.account, "account_currency")

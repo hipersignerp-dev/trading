@@ -94,7 +94,8 @@ frappe.pages["hipersign-messages"].on_page_load = function (wrapper) {
 						"Import Shipment", "Export Shipment", "Delivery Note", "Sales Invoice", "Purchase Invoice", "Payment Entry", "Letter of Credit", "Item",
 						"Post Dated Cheque", "Material Request", "Purchase Receipt", "Employee", "Asset", "Tax Return", "Warranty Claim"]] } }) },
 				{ fieldtype: "Dynamic Link", fieldname: "name", label: __("Record"), options: "doctype", reqd: 1 },
-				{ fieldtype: "Comment", fieldname: "text", label: __("Message"), enable_mentions: 1, reqd: 1 },
+				// v1.7.3: a Comment control cannot start inside a dialog in Frappe 16 ("Invalid Quill container"); the text editor can, with @mentions
+				{ fieldtype: "Text Editor", fieldname: "text", label: __("Message"), enable_mentions: 1, reqd: 1 },
 			],
 			primary_action_label: __("Send"),
 			primary_action(val) {

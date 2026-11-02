@@ -106,6 +106,31 @@ def _items_text(doctype, names):
 	return {k: v[:2] + ([_("+{0} more").format(len(v) - 2)] if len(v) > 2 else []) for k, v in out.items()}
 
 
+def _quote_kpis(co, end, cur):
+	"""v1.7.3 (prototype p18): the Quotations tab's own overview — open value and count, expiring, past validity, accepted, conversion, average."""
+	t = getdate(today())
+	open_f = {"company": co, "docstatus": 1, "status": ["in", ["Open", "Replied", "Partially Ordered"]]}
+	opens = frappe.get_all("Quotation", filters=open_f, fields=["base_net_total", "valid_till"])
+	wk = [r for r in opens if r.valid_till and t <= getdate(r.valid_till) <= getdate(add_days(t, 7))]
+	past = [r for r in opens if r.valid_till and getdate(r.valid_till) < t]
+	month = {"company": co, "docstatus": 1, "status": "Ordered", "transaction_date": [">=", t.replace(day=1)]}
+	won_m = frappe.get_all("Quotation", filters=month, fields=["base_net_total"])
+	q90 = {"company": co, "docstatus": 1, "transaction_date": ["between", [add_days(end, -90), end]]}
+	n90 = _count("Quotation", q90)
+	won90 = _count("Quotation", dict(q90, status="Ordered"))
+	lost90 = _count("Quotation", dict(q90, status="Lost"))
+	all_q = frappe.get_all("Quotation", filters={"company": co, "docstatus": 1}, fields=["base_net_total"])
+	avg = sum(flt(r.base_net_total) for r in all_q) / len(all_q) if all_q else 0
+	return [
+		kpi(_("Open quotations"), sum(flt(r.base_net_total) for r in opens), _("{0} quotations, excl. VAT").format(len(opens)), "blue", "file-text", True, cur, tab="quotes", chip="open"),
+		kpi(_("Expiring in 7 days"), len(wk), _("{0} to follow up").format(frappe.format(sum(flt(r.base_net_total) for r in wk), {"fieldtype": "Currency", "options": cur})), "amber", "clock", tab="quotes", chip="open"),
+		kpi(_("Past validity, still open"), len(past), _("Extend or mark lost"), "red", "triangle-alert", tab="quotes", chip="open"),
+		kpi(_("Accepted this month"), len(won_m), _("{0} turned into orders").format(frappe.format(sum(flt(r.base_net_total) for r in won_m), {"fieldtype": "Currency", "options": cur})), "green", "check", tab="quotes", chip="ordered"),
+		kpi(_("Quotation conversion"), f"{round(won90 / n90 * 100) if n90 else 0}%", _("{0} won · {1} lost (90 days)").format(won90, lost90), "violet", "trending-up", tab="quotes", chip="ordered"),
+		kpi(_("Average quotation"), avg, _("{0} quotations in total").format(len(all_q)), "blue", "chart-column", True, cur),
+	]
+
+
 def sales_rows(tab, chip, q=None):
 	cos, start, end, label, cur = _scope()
 	co = ["in", cos]
@@ -135,7 +160,7 @@ def sales_rows(tab, chip, q=None):
 		rows = frappe.get_list("Quotation", filters=f, or_filters=or_f, fields=_fields("Quotation", ["name", "party_name", "customer_name", "quotation_to",
 			"transaction_date", "valid_till", "status", "docstatus", "grand_total", "currency", "hs_subject"]), order_by="transaction_date desc, creation desc", limit=200)
 		items = _items_text("Quotation", [r.name for r in rows])
-		return {"cols": [{"label": _("Quotation")}, {"label": _("Customer / lead")}, {"label": _("Items")}, {"label": _("Date")}, {"label": _("Valid till")},
+		return {"kpis": _quote_kpis(co, end, cur), "cols": [{"label": _("Quotation")}, {"label": _("Customer / lead")}, {"label": _("Items")}, {"label": _("Date")}, {"label": _("Valid till")},
 			{"label": _("Status")}, {"label": _("Value"), "cls": "num"}],
 			"rows": [{"dt": "Quotation", "name": r.name, "cells": [
 				{"code": r.name}, {"main": r.customer_name or r.party_name, "sub": " · ".join(x for x in [_(r.quotation_to), r.hs_subject] if x)},

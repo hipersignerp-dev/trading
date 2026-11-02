@@ -199,3 +199,12 @@ body.hp-open .hp-backdrop { display: block; }
 
 .hsx-mlist tr.hsx-grp-row td { background: #f8fafc; font-weight: 600; }
 [data-theme="dark"] .hsx-mlist tr.hsx-grp-row td { background: #0b1220; }
+
+/* v1.7.3 (prototype p18): the total line under money tables */
+.hsx-t tfoot td { font-weight: 700; background: #f8fafc; border-top: 1px solid #e5e7eb; white-space: nowrap; }
+.hsx-t tfoot .hsx-tcount { font-weight: 400; color: #6b7280; }
+[data-theme="dark"] .hsx-t tfoot td { background: #0f172a; border-color: #1f2937; }
+/* v1.7.3: supplier quotation comparison */
+.hsc-cmp td.hsc-best { background: #f0fdf4; }
+.hsc-cmp th small, .hsc-cmp td small { font-weight: 400; }
+[data-theme="dark"] .hsc-cmp td.hsc-best { background: #052e16; }

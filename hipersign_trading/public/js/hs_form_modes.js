@@ -9,7 +9,9 @@ hipersign.fm.COVERED = ["Quotation", "Sales Order", "Purchase Order", "Sales Inv
 	"Journal Entry", "Post Dated Cheque", "Credit Limit Request", "Tax Return",
 	"Employee", "Leave Application", "Expense Claim", "Asset", "Company Document",
 	// quick cards only
-	"Address", "Contact", "Customer Group", "Payment Terms Template", "Bank Account", "Driver"];
+	"Address", "Contact", "Customer Group", "Payment Terms Template", "Bank Account", "Driver",
+	// v1.7.3: the create modal's new windows and cards
+	"Employee Advance", "Currency Exchange", "User"];
 // fields hidden in Standard (Detailed shows them all)
 hipersign.fm.OPTIONAL = {
 	Quotation: ["hs_enquiry_ref", "hs_enquiry_date", "order_type", "incoterm", "named_place", "campaign", "source", "letter_head", "select_print_heading",
@@ -165,8 +167,8 @@ hipersign.fm.COVERED.forEach((dt) => frappe.ui.form.on(dt, {
 		const cur = hipersign.fm.mode(dt);
 		hipersign.fm.MODES.forEach((m) => {
 			if (m === "Quick" && !hipersign.fm.quick_kinds.includes(dt)) return;
-			// a saved master is edited on its form; the card only makes new records
-			if (m === "Quick" && hipersign.qc && hipersign.qc.has(dt) && !frm.is_new()) return;
+			// a saved record is edited on its form; the card / create window only makes new records (v1.7.3: every window)
+			if (m === "Quick" && hipersign.cm && hipersign.cm.covers(dt) && !frm.is_new()) return;
 			frm.add_custom_button((m === cur ? "✓ " : "") + __(m), () => {
 				hipersign.fm.remember(dt, m).then(() => {
 					if (m === "Quick") {
@@ -189,9 +191,16 @@ hipersign.fm.from_form = (frm) => ({
 
 // ---------------------------------------------------------------- the Quick dialogs
 hipersign.fm.quick_kinds = ["Quotation", "Sales Order", "Purchase Order", "Sales Invoice", "Payment Entry", "Customer", "Item", "Lead",
-	"Supplier", "Warehouse", "Employee", "Asset", "Address", "Contact", "Customer Group", "Payment Terms Template", "Bank Account", "Driver"];
+	"Supplier", "Warehouse", "Employee", "Asset", "Address", "Contact", "Customer Group", "Payment Terms Template", "Bank Account", "Driver",
+	// v1.7.3: the create modal's windows ("Quick" on a new full form goes back to the window)
+	"Purchase Invoice", "Credit Limit Request", "Warranty Claim", "Delivery Trip", "Employee Advance", "Currency Exchange", "User",
+	"Material Request", "Stock Entry", "Stock Reconciliation", "Journal Entry", "Post Dated Cheque", "Expense Claim", "Leave Application",
+	"Import Shipment", "Export Shipment", "Letter of Credit", "Bank Guarantee", "Company Document", "Delivery Note", "Purchase Receipt"];
 
 hipersign.fm.quick = function (dt, v) {
+	// v1.7.3: every doctype the create modal covers opens its window (the old Frappe quick dialogs are only the fallback)
+	if (hipersign.cm && hipersign.cm.has(dt)) return hipersign.cm.new(dt, v || {});
+	if (hipersign.cm && hipersign.cm.PICK && hipersign.cm.PICK[dt]) return hipersign.cm.pick(dt, {});
 	if (hipersign.qc && hipersign.qc.has(dt)) return hipersign.qc.open(dt, { values: v || {} });
 	if (dt === "Sales Invoice") return hipersign.fm.quick_invoice();
 	if (dt === "Payment Entry") return hipersign.fm.quick_receive(v);

@@ -41,7 +41,7 @@ WRITE_METHODS = {
 
 # Hipersign methods that change nothing (or only the viewer's own session and view)
 HIPERSIGN_READ = {
-	"alerts.get_alerts", "api.approvals.get_approvals", "api.centre.get_addons", "api.centre.get_tests", "api.dashboard.gross_profit",
+	"alerts.get_alerts", "api.compare.open_rfqs", "api.compare.rfq_compare", "api.approvals.get_approvals", "api.centre.get_addons", "api.centre.get_tests", "api.dashboard.gross_profit",
 	"api.dashboard.net_profit", "api.docs.doc_info", "api.docs.document_types", "api.docs.ruled_doctypes", "api.driver.my_stops",
 	"api.group.trial_balance", "api.home.get_home", "api.journey.chain", "api.journey.purchase_orders", "api.landed.get_landed",
 	"api.landed.get_stack", "api.landed.price_helper", "api.messages.conversations", "api.messages.thread", "api.nav.counts",

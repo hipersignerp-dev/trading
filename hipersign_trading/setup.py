@@ -9,6 +9,7 @@ import frappe
 from hipersign_trading.constants import NEW_ROLES, SETTINGS, WEB_ROLES, WORKFLOW_ACTIONS, WORKFLOW_STATES
 
 LOGO = "/assets/hipersign_trading/images/hipersign-logo.png"
+MARK = "/assets/hipersign_trading/images/hipersign-mark.png"  # v1.7.3: square mark (tab icon, collapsed menu)
 
 
 def before_install():
@@ -34,6 +35,9 @@ def after_migrate():
 	ensure_cheque_mode()
 	default_print_formats()
 	v13_defaults(new_site=False)
+	# v1.7.3: the square mark as the browser-tab icon where the site still uses our wordmark there
+	if frappe.db.get_single_value("Website Settings", "favicon") == LOGO:
+		frappe.db.set_single_value("Website Settings", "favicon", MARK)
 	# the menu follows the app's code: rebuild the Hipersign sidebar on every migrate (v1.5 added its pages)
 	from hipersign_trading import navigation
 
@@ -43,14 +47,18 @@ def after_migrate():
 # v1.6.0 (QTN-01): ERPNext 16 makes its "… with Item Image" formats the default, so Print, Email and the WhatsApp link
 # sent the English-only ERPNext layout. Our bilingual formats become the default unless the site chose its own.
 PRINT_DEFAULTS = {"Quotation": "Hipersign Quotation", "Sales Order": "Hipersign Order Confirmation", "Sales Invoice": "Hipersign Tax Invoice",
-	"Delivery Note": "Hipersign Delivery Note", "Purchase Order": "Hipersign Purchase Order"}
+	"Delivery Note": "Hipersign Delivery Note", "Purchase Order": "Hipersign Purchase Order",
+	# v1.7.3: the other documents the prototype prints (Salary Slip only where HRMS is installed)
+	"Purchase Receipt": "Hipersign Goods Receipt Note", "Payment Entry": "Hipersign Payment Voucher",
+	"Delivery Trip": "Hipersign Delivery Trip Sheet", "Export Shipment": "Hipersign Packing List", "Salary Slip": "Hipersign Payslip",
+	"Request for Quotation": "Hipersign Request for Quotation", "Pick List": "Hipersign Pick List"}
 
 
 def default_print_formats():
 	from frappe.custom.doctype.property_setter.property_setter import make_property_setter
 
 	for dt, pf in PRINT_DEFAULTS.items():
-		if not frappe.db.exists("Print Format", pf):
+		if not frappe.db.exists("Print Format", pf) or not frappe.db.exists("DocType", dt):
 			continue
 		current = frappe.get_meta(dt).default_print_format
 		if current == pf:
@@ -322,7 +330,7 @@ def ensure_settings():
 def apply_branding():
 	"""Show Hipersign ERP instead of the platform name in the desk, login page and browser tab."""
 	for doctype, values in {
-		"Website Settings": {"app_name": "Hipersign ERP", "app_logo": LOGO, "favicon": LOGO, "splash_image": LOGO},
+		"Website Settings": {"app_name": "Hipersign ERP", "app_logo": LOGO, "favicon": MARK, "splash_image": LOGO},
 		"Navbar Settings": {"app_logo": LOGO},
 		"System Settings": {"app_name": "Hipersign ERP"},
 	}.items():

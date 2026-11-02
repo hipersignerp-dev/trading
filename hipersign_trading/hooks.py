@@ -52,7 +52,7 @@ app_include_js = [
 ]
 
 website_context = {
-	"favicon": "/assets/hipersign_trading/images/hipersign-logo.png",
+	"favicon": "/assets/hipersign_trading/images/hipersign-mark.png",
 	"splash_image": "/assets/hipersign_trading/images/hipersign-logo.png",
 }
 

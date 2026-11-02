@@ -125,7 +125,7 @@ frappe.pages["hipersign-home"].on_page_load = function (wrapper) {
 		st.label = d.period.label;
 		st.scope_label = d.scope_label;
 		v.$actions.html(`<button class="btn btn-default btn-sm hsx-tour">${frappe.utils.icon("map-pin", "sm")} ${__("Take the guided tour")}</button>`
-			+ ((frappe.boot.hipersign || {}).deal_demo ? ` <button class="btn btn-default btn-sm hsx-deal">${frappe.utils.icon("play", "sm")} ${__("Live deal demo")}</button>` : "")
+			// v1.7.3: the Live deal demo button is gone (prototype p18); the guided tour stays
 			+ ` <span class="hsx-chip">${ui.esc(d.period.label)}</span>`);
 		v.$actions.find(".hsx-tour").on("click", () => hipersign.tour.start());
 		v.$actions.find(".hsx-deal").on("click", () => hipersign.deal && hipersign.deal.open());

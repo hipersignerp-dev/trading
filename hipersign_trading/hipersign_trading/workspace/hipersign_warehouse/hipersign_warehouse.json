@@ -282,11 +282,11 @@
   {
    "type": "Link",
    "label": "Supplier Quotation Comparison",
-   "link_type": "Report",
-   "link_to": "Supplier Quotation Comparison",
+   "link_type": "Page",
+   "link_to": "hipersign-compare",
    "hidden": 0,
    "onboard": 0,
-   "is_query_report": 1,
+   "is_query_report": 0,
    "dependencies": "",
    "link_count": 0
   },
