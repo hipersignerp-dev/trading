@@ -22,6 +22,7 @@ def before_migrate():
 
 def after_install():
 	ensure_settings()
+	ensure_languages()
 	default_print_formats()
 	apply_branding()
 	set_credit_controller()
@@ -32,6 +33,7 @@ def after_install():
 
 def after_migrate():
 	ensure_settings()
+	ensure_languages()
 	ensure_cheque_mode()
 	default_print_formats()
 	v13_defaults(new_site=False)
@@ -42,6 +44,30 @@ def after_migrate():
 	from hipersign_trading import navigation
 
 	navigation.apply()
+
+
+# v1.8.0: the top bar switches between English, Arabic and Simplified Chinese — make sure both Language records exist
+LANGUAGES = (("ar", "العربية"), ("zh", "简体中文"))
+
+
+def ensure_languages():
+	if not frappe.db.table_exists("Language"):
+		return
+	for code, name in LANGUAGES:
+		try:
+			if frappe.db.exists("Language", code):
+				if frappe.get_meta("Language").has_field("enabled") and not frappe.db.get_value("Language", code, "enabled"):
+					frappe.db.set_value("Language", code, "enabled", 1, update_modified=False)
+				continue
+			doc = frappe.new_doc("Language")
+			doc.language_code = code
+			doc.language_name = name
+			if doc.meta.has_field("enabled"):
+				doc.enabled = 1
+			doc.flags.ignore_permissions = True
+			doc.insert()
+		except Exception:
+			frappe.log_error(title=f"Hipersign: Language {code}")
 
 
 # v1.6.0 (QTN-01): ERPNext 16 makes its "… with Item Image" formats the default, so Print, Email and the WhatsApp link
