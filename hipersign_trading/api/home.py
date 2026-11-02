@@ -320,6 +320,9 @@ def work_today(company):
 	if not set(frappe.get_roles()) & {"HR User", "HR Manager", "System Manager"}:
 		leave["leave_approver"] = u
 	add("Leave Application", leave, _("leave requests"), ["List", "Leave Application"], {"status": "Open"}, feature="hr")
+	# v1.8.0: the QC Inspector's and the site's work (Manufacturing / Projects switched on)
+	add("Quality Inspection", {"docstatus": 0, "hs_qc_stage": ["is", "set"]}, _("inspections to record"), ["hipersign-quality"], feature="manufacturing")
+	add("Material Request", _co({"docstatus": 0, "hs_project": ["is", "set"]}, company), _("site material requests to approve"), ["hipersign-site"], {"hs_tab": "mr"}, feature="projects")
 	if feature_on("codocs") and can_read("Company Document"):
 		add("ToDo", {"status": "Open", "reference_type": ["in", ["Company Document", "Company Deadline"]]}, _("compliance to-dos"), ["List", "ToDo"], {"status": "Open"})
 	return rows
@@ -399,4 +402,6 @@ def get_home(period=None, company=None, country=None):
 		"pl": pl_block(company, start, end) if finance else None,
 		"monthly": monthly(company) if finance or _route_ok(["List", "Sales Invoice"]) else None,
 		"target_margin": flt(settings().get("target_margin")) or 20,
+		# v1.8.0 (prototype p19): the Projects / Manufacturing cards (Quality for the QC Inspector)
+		"modules": __import__("hipersign_trading.api.home_modules", fromlist=["x"]).modules(),
 	}

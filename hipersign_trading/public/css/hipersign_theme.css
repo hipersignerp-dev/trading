@@ -559,3 +559,24 @@ html.hs-lang-zh {
 html.hs-lang-zh body, html.hs-lang-zh input, html.hs-lang-zh select, html.hs-lang-zh textarea, html.hs-lang-zh button { font-family: var(--hs-font); }
 /* Chinese reads better without the theme's upper-case letter spacing on section labels */
 html.hs-lang-zh .hsm-pv-g, html.hs-lang-zh .hsm-row.hsm-head, html.hs-lang-zh .hsm-row.hsm-g .hsm-n b { letter-spacing: 0; }
+
+/* v1.8.0 (prototype p19): the industry modules on Home — Projects, Manufacturing (Quality for the QC Inspector) */
+.hsx-mods { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; margin-top: 16px; }
+.hsx-mods.c2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.hsx-mods > .hsx-card { margin-top: 0 !important; }
+.hsx-mk { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-bottom: 10px; }
+.hsx-mk button { border: 1px solid var(--x-line); border-radius: 10px; background: var(--x-surface-2); padding: 8px 10px; text-align: start; cursor: pointer; color: var(--x-ink);
+	display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.hsx-mk button[disabled] { cursor: default; }
+.hsx-mk button:not([disabled]):hover { border-color: var(--x-blue); }
+.hsx-mk span { font-size: 11px; color: var(--x-muted); font-weight: 600; }
+.hsx-mk b { font-size: 16px; font-variant-numeric: tabular-nums; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hsx-mk b.neg { color: var(--x-red); }
+.hsx-mrow { display: grid; grid-template-columns: minmax(0, 1fr) 140px 28px; gap: 10px; align-items: center; width: 100%; border: 0; border-top: 1px solid var(--x-line-2);
+	background: none; padding: 7px 2px; text-align: start; cursor: pointer; color: var(--x-ink); font-size: 12.5px; }
+.hsx-mrow:hover { background: var(--x-surface-2); }
+.hsx-mrow .t { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.hsx-mrow .t small { display: block; color: var(--x-muted); overflow: hidden; text-overflow: ellipsis; }
+.hsx-mrow .hp-bar { width: 100%; }
+@media (max-width: 991px) { .hsx-mods.c2 { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 640px) { .hsx-mk { grid-template-columns: repeat(2, minmax(0, 1fr)); } .hsx-mrow { grid-template-columns: minmax(0, 1fr) 80px 24px; } }

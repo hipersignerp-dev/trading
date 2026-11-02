@@ -69,6 +69,7 @@ frappe.pages["hipersign-home"].on_page_load = function (wrapper) {
 	}
 
 	function lifecycle(stages, cur) {
+		if (!stages.length) return ""; // v1.8.0: a user with no trading screens (the QC Inspector) gets no empty strip
 		const html = stages
 			.map((s) => {
 				const big = s.big_is_money ? money(s.big, cur) + (s.big_suffix ? " " + ui.esc(s.big_suffix) : "") : ui.esc(s.big);
@@ -121,6 +122,29 @@ frappe.pages["hipersign-home"].on_page_load = function (wrapper) {
 		);
 	}
 
+	// v1.8.0 (prototype p19): Projects / Manufacturing (Quality for the QC Inspector) — four figures, then the open work
+	function modules(mods) {
+		if (!mods || !mods.length) return "";
+		const val = (k) => (k.money ? ui.money(k.value, k.currency, true) : ui.esc(k.value));
+		const card = (m) => {
+			const kp = `<div class="hsx-mk">${m.kpis.map((k) => `<button type="button"${k.route ? ui.route_attr(k.route, k.options) : " disabled"}><span>${ui.esc(k.label)}</span>
+				<b class="${k.neg ? "neg" : ""}">${val(k)}</b></button>`).join("")}</div>`;
+			const rows = m.rows.length
+				? m.rows.map((r) => `<button type="button" class="hsx-mrow" data-hs-open="${ui.esc(r.doctype)}" data-name="${ui.esc(r.name)}"><span class="t"><b>${ui.esc(r.title)}</b><small>${ui.esc(r.sub)}</small></span>
+					${r.pct === null || r.pct === undefined ? "<span></span>" : `<span class="hp-bar"><span style="width:${Math.min(100, r.pct)}%;${r.pct < 100 ? "background:var(--x-blue)" : ""}"></span></span>`}
+					<span>${r.flags ? ui.pill(String(r.flags), "red") : r.alert ? ui.pill("!", "red") : ""}</span></button>`).join("")
+				: `<div class="hsx-empty">${ui.esc(m.empty || __("Nothing open."))}</div>`;
+			return ui.card(m.title, kp + rows, { icon: m.icon,
+				actions: m.tracker ? `<button class="btn btn-xs btn-default"${ui.route_attr(m.tracker.route)}>${__("Tracker")}</button>` : "" });
+		};
+		return `<div class="hsx-mods ${mods.length > 1 ? "c2" : ""}">${mods.map(card).join("")}</div>`;
+	}
+	v.$body.on("click", "[data-hs-open]", function () {
+		const dt = $(this).attr("data-hs-open"), name = $(this).attr("data-name");
+		if (hipersign.panel && hipersign.panel.has && hipersign.panel.has(dt)) hipersign.panel.open(dt, name);
+		else frappe.set_route("Form", dt, name);
+	});
+
 	function render(d) {
 		st.label = d.period.label;
 		st.scope_label = d.scope_label;
@@ -131,11 +155,15 @@ frappe.pages["hipersign-home"].on_page_load = function (wrapper) {
 		v.$actions.find(".hsx-deal").on("click", () => hipersign.deal && hipersign.deal.open());
 		const cur = d.currency;
 		const k = d.kpis.map((x) => Object.assign({ currency: cur }, x));
+		// v1.8.0: someone who works only in a module (no trading figures) sees the module first
+		const first = !k.length;
 		v.$body.html(
 			group(d.group) +
+				(first ? modules(d.modules) : "") +
 				lifecycle(d.lifecycle, cur) +
 				`<div class="hsx-grid2">${work(d.work)}${alerts(d.alerts)}</div>` +
-				`<div class="hsx-kpis">${k.map(ui.kpi).join("")}</div>` +
+				(k.length ? `<div class="hsx-kpis">${k.map(ui.kpi).join("")}</div>` : "") +
+				(first ? "" : modules(d.modules)) +
 				(d.monthly || d.pl
 					? `<div class="${d.monthly && d.pl ? "hsx-grid2" : ""}">${d.monthly ? ui.card(__("Monthly sales vs purchases"), `<div class="hsx-chart"></div>`, { icon: "chart", sub: __("Last 12 months · net") }) : ""}${d.pl ? pl(d.pl, cur, d.target_margin) : ""}</div>`
 					: "")
