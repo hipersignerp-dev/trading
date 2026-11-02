@@ -17,6 +17,15 @@ def _print_url(dt, name, fmt):
 	return f"/printview?doctype={frappe.utils.quote(dt)}&name={frappe.utils.quote(name)}&format={frappe.utils.quote(fmt)}"
 
 
+def _page_ok(page):
+	ok = getattr(frappe.local, "hs_page_ok", None)
+	if ok is None:
+		ok = frappe.local.hs_page_ok = {}
+	if page not in ok:
+		ok[page] = bool(frappe.db.exists("Page", page)) and frappe.get_cached_doc("Page", page).is_permitted()
+	return ok[page]
+
+
 def _step_buttons(p, F):
 	"""The buttons under each step of the stepper: open the screen for it, raise the document it needs, complete it."""
 	b = {}
@@ -26,7 +35,7 @@ def _step_buttons(p, F):
 	bq = P.boq(p.name)
 	for i in range(26):
 		row = []
-		if i in go:
+		if i in go and _page_ok(go[i][0]):  # v1.8.0: only a screen the user may open (no Site & procurement for the QS)
 			row.append(act(_("Open screen"), route=go[i]))
 		if i == 3 and bq:
 			row.append(act(_("Tender print"), url=_print_url("Project BOQ", bq.name, PF["Project BOQ"])))
