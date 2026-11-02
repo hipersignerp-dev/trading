@@ -175,6 +175,29 @@ hipersign.qc.CARDS = {
 		{ fieldname: "currency", label: __("Currency"), fieldtype: "Link", options: "Currency", default: "AED", nodoc: 1 },
 		{ fieldname: "is_default", label: __("Default account for invoices"), fieldtype: "Check" },
 	] },
+	// v1.7.3: the + New menu's Currency and User (both used to open the full form)
+	"Currency Exchange": { title: __("New currency rate"), sub: __("The exchange rate documents in that currency use from this date"), fields: [
+		{ fieldname: "from_currency", label: __("From currency"), fieldtype: "Link", options: "Currency", reqd: 1, default: "USD", get_query: () => ({ filters: { enabled: 1 } }) },
+		{ fieldname: "to_currency", label: __("To currency"), fieldtype: "Link", options: "Currency", reqd: 1, default: "AED", get_query: () => ({ filters: { enabled: 1 } }) },
+		{ fieldtype: "Column Break" },
+		{ fieldname: "exchange_rate", label: __("Rate (1 from-currency = ? to-currency)"), fieldtype: "Float", reqd: 1, placeholder: "3.6725" },
+		{ fieldname: "date", label: __("From date"), fieldtype: "Date", reqd: 1, default_fn: () => frappe.datetime.get_today() },
+		{ fieldname: "for_buying", label: __("Use for buying"), fieldtype: "Check", default: 1 },
+		{ fieldname: "for_selling", label: __("Use for selling"), fieldtype: "Check", default: 1 },
+	] },
+	User: { title: __("New user"), sub: __("A login for a member of staff — the role decides what they see"), fields: [
+		{ fieldname: "first_name", label: __("First name"), fieldtype: "Data", reqd: 1, name_field: 1 },
+		{ fieldname: "last_name", label: __("Last name"), fieldtype: "Data" },
+		{ fieldname: "email", label: __("Email (login)"), fieldtype: "Data", options: "Email", reqd: 1, placeholder: "name@company.com" },
+		{ fieldtype: "Column Break" },
+		{ fieldname: "role", label: __("Role"), fieldtype: "Select", reqd: 1, default: "Sales User", nodoc: 1,
+			options: [["Sales User", __("Sales Executive")], ["Sales Manager", __("Sales Manager")], ["Purchase User", __("Buyer")], ["Purchase Manager", __("Purchase Manager")],
+				["Stock User", __("Storekeeper")], ["Stock Manager", __("Warehouse Manager")], ["Accounts User", __("Accountant")], ["Accounts Manager", __("Finance Manager")],
+				["HR Manager", __("HR Manager")], ["Logistics Coordinator", __("Logistics")], ["Driver", __("Driver")], ["Managing Director", __("Managing Director")],
+				["System Manager", __("Administrator")]] },
+		{ fieldname: "mobile_no", label: __("Mobile"), fieldtype: "Data", options: "Phone" },
+		{ fieldname: "send_welcome_email", label: __("Send the welcome email"), fieldtype: "Check", default: 1, nodoc: 1 },
+	] },
 };
 
 hipersign.qc.has = (dt) => !!hipersign.qc.CARDS[dt];

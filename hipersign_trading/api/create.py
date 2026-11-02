@@ -13,7 +13,7 @@ Everything is read and written with the user's own permissions.
 
 import frappe
 from frappe import _
-from frappe.utils import add_days, cint, flt, getdate, today
+from frappe.utils import add_days, cint, flt, get_datetime, getdate, nowtime, today
 
 from hipersign_trading.api.quick import _rate_preview, _submit
 from hipersign_trading.utils import user_company
@@ -153,7 +153,8 @@ def _apply_tax(doc, company, buying, party):
 	"""Fill the VAT rows when ERPNext's own rules (tax rule, party template) left the document without taxes."""
 	if doc.get("taxes"):
 		return
-	tpl = _tax_template(company, buying, party)
+	# v1.7.3: a template picked on the form (Detailed mode) wins over the company's default
+	tpl = doc.get("taxes_and_charges") or _tax_template(company, buying, party)
 	if not tpl:
 		return
 	from erpnext.controllers.accounts_controller import get_taxes_and_charges
@@ -325,6 +326,7 @@ def save(kind, values, lines=None, action="save"):
 		doc.set("terms" if kind == "quotation" else "remarks" if doc.meta.has_field("remarks") else "terms", values.remarks)
 	if values.get("terms_text") and doc.meta.has_field("terms"):
 		doc.terms = values.terms_text
+	_extra_fields(doc, values)
 	_lines(doc, lines, kind, need)
 	if values.get("sales_person") and doc.meta.has_field("sales_team"):
 		doc.append("sales_team", {"sales_person": values.sales_person, "allocated_percentage": 100})
@@ -354,6 +356,34 @@ def save(kind, values, lines=None, action="save"):
 			needs = frappe.utils.strip_html(str(e))
 			msg = _("{0} {1} saved as a draft — attach the document needed, then submit").format(_(dt), doc.name)
 	return {"doctype": dt, "name": doc.name, "message": msg, "needs_documents": needs, "state": doc.get("workflow_state") or ("Submitted" if doc.docstatus == 1 else "Draft")}
+
+
+# v1.7.3: values the form handles itself (not fields of the same name)
+_HANDLED = {"party", "price_list", "payment_terms", "remarks", "terms_text", "shipping_address", "billing_address", "sales_person", "record_as",
+	"items", "name", "doctype", "docstatus", "owner", "creation", "modified", "modified_by"}
+
+
+def _cast(df, val):
+	"""A form value as the field's type (the modal sends text)."""
+	if df.fieldtype == "Check":
+		return cint(val)
+	if df.fieldtype in ("Int",):
+		return cint(val)
+	if df.fieldtype in ("Float", "Currency", "Percent"):
+		return flt(val)
+	return val
+
+
+def _extra_fields(doc, values):
+	"""v1.7.3: Detailed mode — the other fields the user filled (project, tax template, letter head …) go onto the
+	field of the same name, unless the form already set it."""
+	for k, val in values.items():
+		if k in _HANDLED or k.startswith(("_", "new_")) or val in (None, ""):
+			continue
+		df = doc.meta.get_field(k)
+		if not df or df.read_only or df.fieldtype in ("Table", "Table MultiSelect", "Section Break", "Column Break", "Tab Break", "HTML", "Button"):
+			continue
+		doc.set(k, _cast(df, val))
 
 
 def _new_prospect(v):
@@ -388,6 +418,8 @@ def link_options(doctype, query=None):
 	meta = frappe.get_meta(doctype)
 	if meta.has_field("disabled") and "disabled" not in filters:
 		filters["disabled"] = 0
+	if (q or {}).get("query") == "trip_notes":
+		return _trip_notes()
 	if (q or {}).get("query") == "hipersign_trading.api.crm.sales_users":
 		from hipersign_trading.api.crm import sales_users
 
@@ -406,7 +438,9 @@ def link_options(doctype, query=None):
 
 # ---------------------------------------------------------------- v1.7.0 part 2: the other create forms (one save for all)
 SIMPLE = {"Import Shipment", "Export Shipment", "Material Request", "Stock Entry", "Stock Reconciliation", "Journal Entry", "Post Dated Cheque",
-	"Expense Claim", "Leave Application", "Letter of Credit", "Bank Guarantee", "Company Document"}
+	"Expense Claim", "Leave Application", "Letter of Credit", "Bank Guarantee", "Company Document",
+	# v1.7.3
+	"Credit Limit Request", "Purchase Invoice", "Payment Entry", "Warranty Claim", "Delivery Trip", "Employee Advance"}
 
 
 @frappe.whitelist()
@@ -418,27 +452,37 @@ def save_doc(doctype, values, rows=None, action="save"):
 	rows = [r for r in (frappe.parse_json(rows) if isinstance(rows, str) else (rows or [])) if any(x not in (None, "", 0, "0") for x in r.values())]
 	doc = frappe.new_doc(doctype)
 	meta = doc.meta
+	# v1.7.3: the doctype's own defaults (today's date, a ticked box) — a value the user typed replaces them
+	defaults = {k: doc.get(k) for k in v}
 	if meta.has_field("company"):
 		doc.company = v.get("company") or _company()
 	pre = globals().get("_pre_" + frappe.scrub(doctype))
 	if pre:
-		pre(doc, v, rows)
+		# v1.7.3: a hook may hand back the document ERPNext's own mapper made (bill from an order, debit note, receipt)
+		doc = pre(doc, v, rows) or doc
 	for k, val in v.items():
 		if val in (None, "") or k.startswith("_"):
 			continue
 		df = meta.get_field(k)
-		if df and df.fieldtype not in ("Table", "Table MultiSelect") and not doc.get(k):
-			doc.set(k, val)
+		if not df or df.fieldtype in ("Table", "Table MultiSelect") or df.read_only:
+			continue
+		cur = doc.get(k)
+		if not cur or (not doc.flags.hs_ready and defaults.get(k) not in (None, "") and str(cur) == str(defaults.get(k))):
+			doc.set(k, _cast(df, val))
 	post = globals().get("_post_" + frappe.scrub(doctype))
 	if post:
 		post(doc, v, rows)
-	if hasattr(doc, "set_missing_values"):
+	if hasattr(doc, "set_missing_values") and not doc.flags.hs_ready:
 		try:
 			doc.set_missing_values()
 		except Exception:
 			frappe.clear_last_message()
 	doc.insert()
-	msg = _("{0} {1} saved").format(_(doctype), doc.name)
+	after = globals().get("_after_" + frappe.scrub(doctype))
+	if after:
+		after(doc, v, rows)
+	label = _("Debit Note") if doctype == "Purchase Invoice" and doc.get("is_return") else _(doctype)
+	msg = _("{0} {1} saved").format(label, doc.name)
 	needs = None
 	if action == "submit" and meta.is_submittable:
 		from hipersign_trading.doc_rules import DocumentNeeded
@@ -446,12 +490,12 @@ def save_doc(doctype, values, rows=None, action="save"):
 		frappe.db.savepoint("hs_simple_submit")
 		try:
 			doc = _submit(doc)
-			msg = _("{0} {1} · {2}").format(_(doctype), doc.name, _(doc.get("workflow_state") or ("Submitted" if doc.docstatus == 1 else "Draft")))
+			msg = _("{0} {1} · {2}").format(label, doc.name, _(doc.get("workflow_state") or ("Submitted" if doc.docstatus == 1 else "Draft")))
 		except DocumentNeeded as e:
 			frappe.db.rollback(save_point="hs_simple_submit")
 			frappe.local.message_log = []
 			needs = frappe.utils.strip_html(str(e))
-			msg = _("{0} {1} saved as a draft — attach the document needed, then submit").format(_(doctype), doc.name)
+			msg = _("{0} {1} saved as a draft — attach the document needed, then submit").format(label, doc.name)
 	return {"doctype": doctype, "name": doc.name, "message": msg, "needs_documents": needs}
 
 
@@ -470,7 +514,7 @@ def _pre_export_shipment(doc, v, rows):
 
 def _pre_material_request(doc, v, rows):
 	doc.material_request_type = "Purchase"
-	doc.transaction_date = today()
+	doc.transaction_date = v.get("transaction_date") or today()
 	need = v.get("schedule_date") or add_days(today(), 7)
 	for r in rows:
 		if r.get("item_code") and flt(r.get("qty")) > 0:
@@ -503,10 +547,13 @@ def _pre_stock_reconciliation(doc, v, rows):
 		frappe.throw(_("Enter the item, warehouse and counted quantity"))
 	if v.get("_reason") and doc.meta.has_field("remarks"):
 		doc.remarks = v._reason
+	# v1.7.3: a count dated in the past (Detailed mode)
+	if v.get("posting_date") and getdate(v.posting_date) != getdate(today()):
+		doc.set_posting_time = 1
 
 
 def _pre_journal_entry(doc, v, rows):
-	doc.voucher_type = "Journal Entry"
+	doc.voucher_type = v.get("voucher_type") or "Journal Entry"
 	doc.posting_date = v.get("posting_date") or today()
 	doc.user_remark = v.get("user_remark")
 	dr = cr = 0
@@ -536,12 +583,12 @@ def _pre_post_dated_cheque(doc, v, rows):
 		doc.company = inv.company
 		doc.reference_doctype, doc.reference_name = inv_dt, v._invoice
 	doc.direction = v.get("direction") or "Received"
-	doc.received_on = today()
+	doc.received_on = v.get("received_on") or today()
 	doc.status = "In Hand" if doc.direction == "Received" else "Issued"
 
 
 def _pre_expense_claim(doc, v, rows):
-	doc.posting_date = today()
+	doc.posting_date = v.get("posting_date") or today()
 	for r in rows:
 		if r.get("expense_type") and flt(r.get("amount")) > 0:
 			acc = frappe.db.get_value("Expense Claim Account", {"parent": r["expense_type"], "company": doc.company}, "default_account") \
@@ -554,19 +601,19 @@ def _pre_expense_claim(doc, v, rows):
 	emp = frappe.db.get_value("Employee", v.get("employee"), ["expense_approver", "reports_to", "company"], as_dict=True) if v.get("employee") else None
 	if emp:
 		doc.company = emp.company or doc.company
-		doc.expense_approver = emp.expense_approver or (frappe.db.get_value("Employee", emp.reports_to, "user_id") if emp.reports_to else None)
+		doc.expense_approver = v.get("expense_approver") or emp.expense_approver or (frappe.db.get_value("Employee", emp.reports_to, "user_id") if emp.reports_to else None)
 	doc.remark = v.get("_purpose")
 	doc.currency = doc.currency or frappe.get_cached_value("Company", doc.company, "default_currency")
 	doc.exchange_rate = doc.exchange_rate or 1
 
 
 def _pre_leave_application(doc, v, rows):
-	doc.posting_date = today()
+	doc.posting_date = v.get("posting_date") or today()
 	doc.status = "Open"
 	emp = frappe.db.get_value("Employee", v.get("employee"), ["leave_approver", "reports_to", "company"], as_dict=True) if v.get("employee") else None
 	if emp:
 		doc.company = emp.company or doc.company
-		doc.leave_approver = emp.leave_approver or (frappe.db.get_value("Employee", emp.reports_to, "user_id") if emp.reports_to else None)
+		doc.leave_approver = v.get("leave_approver") or emp.leave_approver or (frappe.db.get_value("Employee", emp.reports_to, "user_id") if emp.reports_to else None)
 
 
 def _pre_letter_of_credit(doc, v, rows):
@@ -601,6 +648,275 @@ def _pre_bank_guarantee(doc, v, rows):
 		doc.name_of_beneficiary = frappe.db.get_value("Customer", v.customer, "customer_name")
 
 
+# ---------------------------------------------------------------- v1.7.3: credit limit, supplier bill, debit note, receipt, warranty, trip, advance
+def _pre_credit_limit_request(doc, v, rows):
+	doc.company = v.get("company") or doc.company
+	if flt(v.get("requested_limit")) < 0:
+		frappe.throw(_("Credit limit cannot be negative"))
+
+
+def _bill_mapped(src):
+	"""The supplier bill ERPNext makes from a purchase order or a goods receipt (not saved)."""
+	if frappe.db.exists("Purchase Order", src):
+		from erpnext.buying.doctype.purchase_order.purchase_order import make_purchase_invoice
+
+		sdt = "Purchase Order"
+	elif frappe.db.exists("Purchase Receipt", src):
+		from erpnext.stock.doctype.purchase_receipt.purchase_receipt import make_purchase_invoice
+
+		sdt = "Purchase Receipt"
+	else:
+		frappe.throw(_("{0} is not a purchase order or goods receipt").format(src))
+	frappe.get_doc(sdt, src).check_permission("read")
+	return make_purchase_invoice(src), sdt
+
+
+def _taxes_rate(doc):
+	return flt(sum(flt(t.rate) for t in (doc.get("taxes") or []) if t.charge_type == "On Net Total"))
+
+
+def _supplier_due(supplier, company, posting_date=None, bill_date=None):
+	from erpnext.accounts.party import get_due_date
+
+	try:
+		return get_due_date(posting_date or today(), "Supplier", supplier, company, bill_date or posting_date or today())
+	except Exception:
+		frappe.clear_last_message()
+		return None
+
+
+def _pre_purchase_invoice(doc, v, rows):
+	"""Supplier bill — matched to its purchase order / goods receipt (ERPNext's mapper), or typed lines; the company's VAT."""
+	if cint(v.get("is_return")) or v.get("_return_against"):
+		return _debit_note(v, rows)
+	if v.get("_source"):
+		doc, sdt = _bill_mapped(v._source)
+		want = {cint(r["_i"]): r for r in rows if r.get("_i") not in (None, "")}
+		keep = []
+		for i, row in enumerate(doc.items):
+			r = want.get(i)
+			if not r or flt(r.get("qty")) <= 0:
+				continue
+			row.qty = flt(r["qty"])
+			if r.get("rate") not in (None, ""):
+				row.rate = flt(r["rate"])
+			keep.append((row, r))
+		doc.set("items", [k[0] for k in keep])
+		for r in rows:
+			if r.get("_i") in (None, "") and r.get("item_code") and flt(r.get("qty")) > 0:
+				keep.append((doc.append("items", {"item_code": r["item_code"], "qty": flt(r["qty"]), "rate": flt(r.get("rate"))}), r))
+	else:
+		if not v.get("supplier"):
+			frappe.throw(_("Choose the supplier"))
+		doc.supplier = v.supplier
+		keep = []
+		for r in rows:
+			if r.get("item_code") and flt(r.get("qty")) > 0:
+				keep.append((doc.append("items", {"item_code": r["item_code"], "qty": flt(r["qty"]), "rate": flt(r.get("rate"))}), r))
+	if not doc.get("items"):
+		frappe.throw(_("Add at least one line with an item and a quantity"))
+	if not v.get("bill_no"):
+		frappe.throw(_("Enter the supplier's bill number"))
+	company = doc.company = doc.company or v.get("company") or _company()
+	doc.bill_no = v.bill_no
+	doc.bill_date = v.get("bill_date") or today()
+	doc.posting_date = v.get("posting_date") or today()
+	if getdate(doc.posting_date) != getdate(today()):
+		doc.set_posting_time = 1
+	for f in ("currency", "payment_terms_template", "taxes_and_charges", "update_stock", "set_warehouse", "cost_center", "project"):
+		if v.get(f) not in (None, ""):
+			doc.set(f, cint(v[f]) if f == "update_stock" else v[f])
+	if v.get("taxes_and_charges"):
+		doc.set("taxes", [])
+	doc.run_method("set_missing_values")
+	# ERPNext re-prices the lines from the price list; keep the bill's own rates and quantities
+	for row, r in keep:
+		row.qty = flt(r["qty"])
+		if r.get("rate") not in (None, ""):
+			row.rate = flt(r["rate"])
+			row.price_list_rate = row.price_list_rate or row.rate
+			row.discount_percentage = 0
+	_apply_tax(doc, company, True, doc.supplier)
+	if v.get("due_date"):
+		auto = _supplier_due(doc.supplier, company, doc.posting_date, doc.bill_date)
+		if not auto or getdate(auto) != getdate(v.due_date):
+			doc.payment_terms_template = None
+		doc.due_date = v.due_date
+		doc.set("payment_schedule", [])
+	doc.calculate_taxes_and_totals()
+	doc.flags.hs_ready = True
+	return doc
+
+
+def _debit_note(v, rows):
+	"""Debit note (purchase return) against a submitted supplier bill — ERPNext's make_debit_note, the quantities returned."""
+	from erpnext.accounts.doctype.purchase_invoice.purchase_invoice import make_debit_note
+
+	src = v.get("_return_against")
+	if not src:
+		frappe.throw(_("Choose the supplier bill"))
+	frappe.get_doc("Purchase Invoice", src).check_permission("read")
+	dn = make_debit_note(src)
+	want = {cint(r["_i"]): r for r in rows if r.get("_i") not in (None, "")}
+	keep = []
+	for i, row in enumerate(dn.items):
+		r = want.get(i)
+		q = abs(flt(r.get("qty"))) if r else 0
+		if q <= 0:
+			continue
+		if q > abs(flt(row.qty)) + 0.0001:
+			frappe.throw(_("{0}: only {1} can be returned").format(row.item_name or row.item_code, abs(flt(row.qty))))
+		row.qty = -q
+		row.stock_qty = -q * flt(row.conversion_factor or 1)
+		if row.get("received_qty"):
+			row.received_qty = -q
+		keep.append(row)
+	if not keep:
+		frappe.throw(_("Enter the quantity returned on at least one line"))
+	dn.set("items", keep)
+	for f in ("hs_return_reason", "hs_supplier_rma", "remarks", "cost_center", "project"):
+		if v.get(f) and dn.meta.has_field(f):
+			dn.set(f, v[f])
+	if v.get("posting_date"):
+		dn.posting_date = v.posting_date
+		if getdate(v.posting_date) != getdate(today()):
+			dn.set_posting_time = 1
+	dn.run_method("set_missing_values")
+	dn.calculate_taxes_and_totals()
+	dn.flags.hs_ready = True
+	return dn
+
+
+def _bank_charges_account(company):
+	for like in ("Bank Charges%", "%Bank Charges%", "%bank%charge%"):
+		acc = frappe.db.get_value("Account", {"company": company, "is_group": 0, "root_type": "Expense", "account_name": ["like", like]}, "name")
+		if acc:
+			return acc
+
+
+def _pre_payment_entry(doc, v, rows):
+	"""Receive payment — quick_receive's receipt (oldest invoices first), then the account, dates and bank charges."""
+	from hipersign_trading.api.quick import receive_entry
+
+	if not v.get("customer"):
+		frappe.throw(_("Choose the customer"))
+	pe = receive_entry(v.customer, v.get("amount"), v.get("mode_of_payment"), v.get("reference_no"), v.get("company"))
+	if v.get("paid_to"):
+		pe.paid_to = v.paid_to
+		pe.paid_to_account_currency = frappe.get_cached_value("Account", v.paid_to, "account_currency")
+	if v.get("posting_date"):
+		pe.posting_date = v.posting_date
+	pe.reference_date = v.get("reference_date") or pe.posting_date or today()
+	for f in ("cost_center", "project"):
+		if v.get(f):
+			pe.set(f, v[f])
+	if v.get("remarks"):
+		pe.custom_remarks = 1
+		pe.remarks = v.remarks
+	charges = flt(v.get("_bank_charges"))
+	if charges > 0:
+		acc = _bank_charges_account(pe.company)
+		if not acc:
+			frappe.throw(_("No bank charges expense account in {0}").format(pe.company))
+		if charges >= flt(pe.paid_amount):
+			frappe.throw(_("Bank charges must be less than the amount received"))
+		pe.paid_amount = flt(pe.paid_amount) - charges
+		pe.received_amount = flt(pe.received_amount) - charges
+		pe.append("deductions", {"account": acc, "cost_center": v.get("cost_center") or frappe.get_cached_value("Company", pe.company, "cost_center"),
+			"amount": charges, "description": _("Bank charges")})
+	pe.setup_party_account_field()
+	pe.set_missing_values()
+	pe.set_exchange_rate()
+	pe.set_amounts()
+	pe.flags.hs_ready = True
+	return pe
+
+
+def _serial_info(serial_no):
+	sn = frappe.db.get_value("Serial No", serial_no, ["item_code", "item_name", "customer", "warranty_expiry_date", "amc_expiry_date", "status",
+		"reference_doctype", "reference_name"], as_dict=True) or frappe._dict()
+	if sn.warranty_expiry_date:
+		sn.state = "Under Warranty" if getdate(sn.warranty_expiry_date) >= getdate(today()) else "Out of Warranty"
+	elif sn.amc_expiry_date and getdate(sn.amc_expiry_date) >= getdate(today()):
+		sn.state = "Under AMC"
+	return sn
+
+
+def _pre_warranty_claim(doc, v, rows):
+	doc.status = "Open"
+	doc.complaint_date = v.get("complaint_date") or today()
+	if v.get("serial_no"):
+		sn = _serial_info(v.serial_no)
+		doc.item_code = v.get("item_code") or sn.item_code
+		doc.customer = v.get("customer") or sn.customer
+		doc.warranty_expiry_date = v.get("warranty_expiry_date") or sn.warranty_expiry_date
+		doc.amc_expiry_date = v.get("amc_expiry_date") or sn.amc_expiry_date
+		doc.warranty_amc_status = v.get("warranty_amc_status") or sn.get("state")
+	if not (v.get("customer") or doc.customer):
+		frappe.throw(_("Choose the customer"))
+
+
+def _trip_notes():
+	"""Delivery notes ready to dispatch: submitted, not a return, not on a delivery trip yet."""
+	dn = frappe.qb.DocType("Delivery Note")
+	q = (frappe.qb.from_(dn).select(dn.name, dn.customer_name, dn.posting_date).where(dn.docstatus == 1).where(dn.is_return == 0)
+		.orderby(dn.posting_date, order=frappe.qb.desc).limit(LIMIT))
+	if frappe.get_meta("Delivery Note").has_field("hs_delivery_status"):
+		q = q.where(dn.hs_delivery_status.isnull() | dn.hs_delivery_status.isin(["", "Ready to Dispatch"]))
+	company = _company()
+	if company:
+		q = q.where(dn.company == company)
+	on_trip = set(frappe.db.sql_list("""select ds.delivery_note from `tabDelivery Stop` ds join `tabDelivery Trip` dt on dt.name = ds.parent
+		where dt.docstatus < 2 and ifnull(ds.delivery_note, '') != ''"""))
+	return [{"name": r[0], "label": f"{r[0]} — {r[1]}"} for r in q.run() if r[0] not in on_trip and frappe.has_permission("Delivery Note", "read", r[0])]
+
+
+def _dn_stop(name):
+	d = frappe.db.get_value("Delivery Note", name, ["customer", "customer_name", "shipping_address_name", "customer_address", "contact_person"], as_dict=True)
+	if not d:
+		return {}
+	addr = d.shipping_address_name or d.customer_address
+	label = ", ".join(x for x in (frappe.db.get_value("Address", addr, ["address_line1", "city"]) or []) if x) if addr else ""
+	return {"customer": d.customer, "_customer": d.customer_name or d.customer, "address": addr, "_address": label or addr or _("No address"), "contact": d.contact_person}
+
+
+def _pre_delivery_trip(doc, v, rows):
+	t = (v.get("_departure_time") or nowtime()[:5])[:5]
+	doc.departure_time = get_datetime(f"{v.get('_departure_date') or today()} {t}:00")
+	doc.driver = v.get("driver")
+	doc.vehicle = v.get("vehicle")
+	for r in rows:
+		if not r.get("delivery_note"):
+			continue
+		st = _dn_stop(r["delivery_note"])
+		if not st.get("address"):
+			frappe.throw(_("{0} has no delivery address — add one on the delivery note").format(r["delivery_note"]))
+		doc.append("delivery_stops", {"delivery_note": r["delivery_note"], "customer": st["customer"], "address": st["address"], "contact": st.get("contact")})
+	if not doc.get("delivery_stops"):
+		frappe.throw(_("Add at least one delivery note as a stop"))
+
+
+def _after_delivery_trip(doc, v, rows):
+	if v.get("_route_note"):
+		doc.add_comment("Comment", _("Route: {0}").format(v._route_note))
+
+
+def _pre_employee_advance(doc, v, rows):
+	emp = frappe.db.get_value("Employee", v.get("employee"), ["company"], as_dict=True) if v.get("employee") else None
+	if emp and emp.company:
+		doc.company = emp.company
+	doc.posting_date = v.get("posting_date") or today()
+	doc.currency = v.get("currency") or frappe.get_cached_value("Company", doc.company, "default_currency")
+	doc.exchange_rate = 1 if doc.currency == frappe.get_cached_value("Company", doc.company, "default_currency") else (doc.get("exchange_rate") or 1)
+	doc.advance_amount = flt(v.get("advance_amount"))
+	if doc.advance_amount <= 0:
+		frappe.throw(_("Enter the advance amount"))
+	doc.repay_unclaimed_amount_from_salary = cint(v.get("repay_unclaimed_amount_from_salary"))
+	# the company's default, else a receivable "Employee Advances" account (HRMS asks for one on submit when neither exists)
+	doc.advance_account = v.get("advance_account") or frappe.get_cached_value("Company", doc.company, "default_employee_advance_account") \
+		or frappe.db.get_value("Account", {"company": doc.company, "is_group": 0, "account_type": "Receivable", "account_name": ["like", "%Employee Advance%"]}, "name")
+
+
 @frappe.whitelist()
 def submit_saved(doctype, name):
 	"""v1.7.2: submit a record the create modal saved a moment ago, once its attached documents are in
@@ -629,9 +945,13 @@ def _mode(v):
 
 
 @frappe.whitelist()
-def fill_doc(kind, name):
-	"""v1.7.2: what the prototype fills in when the source document is picked on a create form."""
+def fill_doc(kind, name, values=None):
+	"""v1.7.2: what the prototype fills in when the source document is picked on a create form.
+	v1.7.3: also the other values on the form (values), the lines to fill in (rows) and values that always follow the pick (force)."""
 	out, note = {}, ""
+	values = frappe._dict(frappe.parse_json(values) if isinstance(values, str) else (values or {}))
+	if kind in _FILL:
+		return _FILL[kind](name, values)
 	if kind == "export_from_so" and name:
 		so = frappe.get_doc("Sales Order", name)
 		so.check_permission("read")
@@ -665,3 +985,137 @@ def stock_now(item_code):
 	if not item_code or not whs:
 		return 0
 	return flt(frappe.db.sql("select sum(actual_qty) from `tabBin` where item_code=%s and warehouse in %s", (item_code, tuple(whs)))[0][0])
+
+
+# ---------------------------------------------------------------- v1.7.3: what the new windows fill in
+def _money(v, ccy=None):
+	from frappe.utils import fmt_money
+
+	return fmt_money(flt(v), 2, ccy or frappe.get_cached_value("Company", _company(), "default_currency"))
+
+
+def _fill_credit(name, v):
+	if not name:
+		return {"values": {}, "note": ""}
+	from erpnext.selling.doctype.customer.customer import get_credit_limit
+
+	frappe.get_doc("Customer", name).check_permission("read")
+	company = v.get("company") or _company()
+	limit = flt(get_credit_limit(name, company))
+	overdue = flt(frappe.db.sql("""select sum(outstanding_amount * conversion_rate) from `tabSales Invoice` where customer=%s and company=%s and docstatus=1
+		and outstanding_amount > 0 and due_date < %s""", (name, company, today()))[0][0])
+	exp = _exposure(name, company)
+	note = _("Current limit {0} · exposure {1} · overdue {2}").format(_money(limit) if limit else _("not set"), _money(exp), _money(overdue))
+	return {"values": {"_current_limit": limit}, "force": ["_current_limit"], "note": note}
+
+
+def _fill_supplier_bill(name, v):
+	if not name:
+		return {"values": {}, "note": ""}
+	frappe.get_doc("Supplier", name).check_permission("read")
+	company = v.get("company") or _company()
+	s = frappe.db.get_value("Supplier", name, ["payment_terms", "tax_id", "default_currency"], as_dict=True)
+	due = _supplier_due(name, company, v.get("posting_date"), v.get("bill_date"))
+	vat = _vat_rate(company, True, name)
+	note = " · ".join(x for x in [_("Terms: {0}").format(s.payment_terms) if s.payment_terms else _("No payment terms"),
+		_("TRN {0}").format(s.tax_id) if s.tax_id else _("No TRN on file"), _("VAT {0}%").format(vat)] if x)
+	return {"values": {"due_date": str(due) if due else None, "_vat_rate": vat}, "force": ["_vat_rate"], "note": note}
+
+
+def _fill_bill_source(name, v):
+	if not name:
+		return {"values": {}, "note": ""}
+	pi, sdt = _bill_mapped(name)
+	if not pi.get("items"):
+		return {"values": {}, "rows": [], "note": _("Everything on {0} is already billed").format(name)}
+	company = pi.company or _company()
+	vat = _taxes_rate(pi) if pi.get("taxes") else _vat_rate(company, True, pi.supplier)
+	rows = [{"_i": i, "item_code": r.item_code, "qty": flt(r.qty), "rate": flt(r.rate)} for i, r in enumerate(pi.items)]
+	due = _supplier_due(pi.supplier, company, v.get("posting_date"), v.get("bill_date"))
+	note = _("{0} · {1} · {2} lines to bill · {3}").format(_(sdt), pi.supplier_name or pi.supplier, len(rows), _money(sum(r["qty"] * r["rate"] for r in rows), pi.currency))
+	return {"values": {"supplier": pi.supplier, "currency": pi.currency, "due_date": str(due) if due else None, "_vat_rate": vat},
+		"force": ["supplier", "currency", "_vat_rate"], "rows": rows, "note": note}
+
+
+def _fill_debit(name, v):
+	if not name:
+		return {"values": {}, "rows": [], "note": ""}
+	from erpnext.accounts.doctype.purchase_invoice.purchase_invoice import make_debit_note
+
+	src = frappe.get_doc("Purchase Invoice", name)
+	src.check_permission("read")
+	dn = make_debit_note(name)
+	rows = [{"_i": i, "item_code": r.item_code, "_item": f"{r.item_code} — {r.item_name}" if r.item_name and r.item_name != r.item_code else r.item_code,
+		"_can": abs(flt(r.qty)), "qty": abs(flt(r.qty)), "rate": flt(r.rate)} for i, r in enumerate(dn.items) if abs(flt(r.qty)) > 0]
+	note = _("{0} · bill {1} · {2} · {3}").format(src.supplier_name or src.supplier, src.bill_no or "—", frappe.format(src.posting_date, "Date"), _money(src.grand_total, src.currency))
+	if not rows:
+		note = _("Everything on {0} has already been returned").format(name)
+	return {"values": {"_vat_rate": _taxes_rate(src)}, "force": ["_vat_rate"], "rows": rows, "note": note}
+
+
+def _fill_receivable(name, v):
+	from hipersign_trading.api.quick import open_invoices
+
+	customer = v.get("customer")
+	if not customer:
+		return {"values": {}, "note": ""}
+	frappe.get_doc("Customer", customer).check_permission("read")
+	invs = open_invoices(customer, v.get("company"))
+	owed = sum(flt(i.outstanding_amount) for i in invs)
+	if not [i for i in invs if flt(i.outstanding_amount) > 0]:
+		return {"values": {"amount": 0}, "note": _("{0} has no open invoices — record an advance on the full payment form.").format(customer)}
+	amount = flt(v.get("amount")) if v.get("amount") not in (None, "") and name != customer else owed
+	left = amount - sum(flt(i.outstanding_amount) for i in invs if flt(i.outstanding_amount) < 0)
+	parts = []
+	for i in invs:
+		if flt(i.outstanding_amount) < 0:
+			parts.append(_("{0} credit note {1}").format(i.name, _money(i.outstanding_amount, i.currency)))
+			continue
+		if left <= 0.005:
+			break
+		a = min(left, flt(i.outstanding_amount))
+		parts.append(f"{i.name} {_money(a, i.currency)}" + (" " + _("(part)") if a < flt(i.outstanding_amount) - 0.005 else ""))
+		left -= a
+	note = _("Owes {0} on {1} invoice(s). Applied oldest first: {2}").format(_money(owed), len([i for i in invs if flt(i.outstanding_amount) > 0]), " · ".join(parts))
+	if amount > owed + 0.005:
+		note += " — " + _("more than the customer owes; record the extra as an advance on the full payment form.")
+	return {"values": {"amount": owed}, "note": note}
+
+
+def _fill_serial(name, v):
+	if not name:
+		return {"values": {}, "note": ""}
+	frappe.get_doc("Serial No", name).check_permission("read")
+	sn = _serial_info(name)
+	out = {"customer": sn.customer, "item_code": sn.item_code, "warranty_expiry_date": str(sn.warranty_expiry_date) if sn.warranty_expiry_date else None,
+		"amc_expiry_date": str(sn.amc_expiry_date) if sn.amc_expiry_date else None, "warranty_amc_status": sn.get("state")}
+	note = " · ".join(x for x in [sn.item_name or sn.item_code, _("with {0}").format(sn.customer) if sn.customer else _("not delivered to a customer"),
+		f"{_(sn.reference_doctype)} {sn.reference_name}" if sn.reference_name else "",
+		_("warranty until {0}").format(frappe.format(sn.warranty_expiry_date, "Date")) if sn.warranty_expiry_date else _("no warranty date"), _(sn.get("state") or "")] if x)
+	return {"values": {k: x for k, x in out.items() if x}, "force": [k for k, x in out.items() if x], "note": note}
+
+
+def _fill_driver(name, v):
+	if not name:
+		return {"values": {}, "note": ""}
+	frappe.get_doc("Driver", name).check_permission("read")
+	veh = frappe.db.get_value("Delivery Trip", {"driver": name, "docstatus": ["<", 2]}, "vehicle", order_by="creation desc")
+	if not veh:
+		for c in frappe.get_all("Comment", filters={"reference_doctype": "Driver", "reference_name": name}, pluck="content", order_by="creation desc"):
+			plate = frappe.utils.strip_html(c or "").replace("Drives", "").strip()
+			if plate and frappe.db.exists("Vehicle", plate):
+				veh = plate
+				break
+	mobile = frappe.db.get_value("Driver", name, "cell_number")
+	return {"values": {"vehicle": veh} if veh else {}, "note": " · ".join(x for x in [_("Mobile {0}").format(mobile) if mobile else "", _("Usually drives {0}").format(veh) if veh else ""] if x)}
+
+
+def _fill_trip_stop(name, v):
+	if not name:
+		return {"values": {"customer": "", "_customer": "", "address": "", "_address": ""}}
+	frappe.get_doc("Delivery Note", name).check_permission("read")
+	return {"values": _dn_stop(name)}
+
+
+_FILL = {"credit_of_customer": _fill_credit, "supplier_bill": _fill_supplier_bill, "bill_source": _fill_bill_source, "debit_from_bill": _fill_debit,
+	"receivable": _fill_receivable, "serial_claim": _fill_serial, "driver_vehicle": _fill_driver, "trip_stop": _fill_trip_stop}

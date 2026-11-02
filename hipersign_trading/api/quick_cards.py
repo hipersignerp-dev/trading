@@ -12,7 +12,9 @@ from frappe.utils import cint, flt, getdate, today
 from hipersign_trading.utils import user_company
 
 CARDS = ("Lead", "Customer", "Supplier", "Item", "Address", "Contact", "Warehouse", "Employee", "Asset", "Customer Group",
-	"Payment Terms Template", "Bank Account", "Driver")
+	"Payment Terms Template", "Bank Account", "Driver",
+	# v1.7.3
+	"Currency Exchange", "User")
 
 
 def _v(values, key, default=None):
@@ -407,8 +409,37 @@ def _bank_account(v, *_a):
 		"company": company, "account": gl, "is_default": cint(v.get("is_default"))}).insert()
 
 
+# ---------------------------------------------------------------- v1.7.3: currency rate and user
+def _currency_exchange(v, *_a):
+	_need(v, "from_currency", "to_currency", "exchange_rate")
+	if v.from_currency == v.to_currency:
+		frappe.throw(_("Choose two different currencies"))
+	if flt(v.exchange_rate) <= 0:
+		frappe.throw(_("Enter the exchange rate"))
+	return frappe.get_doc({"doctype": "Currency Exchange", "date": _v(v, "date", today()), "from_currency": v.from_currency, "to_currency": v.to_currency,
+		"exchange_rate": flt(v.exchange_rate), "for_buying": cint(v.get("for_buying", 1)), "for_selling": cint(v.get("for_selling", 1))}).insert()
+
+
+def _user(v, *_a):
+	frappe.only_for("System Manager")
+	_need(v, "first_name", "email", "role")
+	_check_email(v.email)
+	email = v.email.strip().lower()
+	if frappe.db.exists("User", email):
+		frappe.throw(_("{0} already has a user").format(email))
+	if not frappe.db.exists("Role", v.role):
+		frappe.throw(_("Unknown role {0}").format(v.role))
+	u = frappe.get_doc({"doctype": "User", "email": email, "first_name": v.first_name, "last_name": _v(v, "last_name"), "mobile_no": _v(v, "mobile_no"),
+		"user_type": "System User", "send_welcome_email": cint(v.get("send_welcome_email")), "roles": [{"role": v.role}]})
+	if v.role != "Employee" and frappe.db.exists("Role", "Employee"):
+		u.append("roles", {"role": "Employee"})
+	u.insert()
+	return u
+
+
 CARD_FN = {
 	"Lead": _lead, "Customer": _customer, "Supplier": _supplier, "Item": _item, "Address": _address_, "Contact": _contact_,
 	"Warehouse": _warehouse, "Employee": _employee, "Asset": _asset, "Customer Group": _customer_group,
 	"Payment Terms Template": _payment_terms_template, "Bank Account": _bank_account, "Driver": _driver,
+	"Currency Exchange": _currency_exchange, "User": _user,
 }

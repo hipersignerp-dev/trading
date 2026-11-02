@@ -34,8 +34,8 @@ hipersign.create.GROUPS = () => [
 		[__("Stock item"), "stock", { dt: "Item", values: { is_stock_item: 1 } }],
 		[__("Service"), "tool", { dt: "Item", values: { is_stock_item: 0 }, kind: "service" }],
 		[__("Warehouse"), "organization", { dt: "Warehouse" }],
-		[__("Stock transfer"), "stock", { dt: "Stock Entry", values: { stock_entry_type: "Material Transfer", purpose: "Material Transfer" }, full: 1 }],
-		[__("Stock count"), "list", { dt: "Stock Reconciliation", full: 1 }],
+		[__("Stock transfer"), "stock", { dt: "Stock Entry", values: { stock_entry_type: "Material Transfer", purpose: "Material Transfer" } }],
+		[__("Stock count"), "list", { dt: "Stock Reconciliation" }],
 	]],
 	[__("Warranty"), [
 		[__("Serial number look-up"), "search", { route: ["serial-lookup"], feature: "serial" }],
@@ -52,11 +52,11 @@ hipersign.create.GROUPS = () => [
 	]],
 	[__("Returns"), [
 		[__("Credit note (sales return)"), "file", { dt: "Sales Invoice", values: { is_return: 1 }, full: 1, label: "Credit note" }],
-		[__("Debit note (purchase return)"), "file", { dt: "Purchase Invoice", values: { is_return: 1 }, full: 1, label: "Debit note" }],
+		[__("Debit note (purchase return)"), "file", { dt: "Purchase Invoice", values: { is_return: 1 }, label: "Debit note" }],
 	]],
 	[__("Delivery"), [
 		[__("Driver & vehicle"), "users", { dt: "Driver", feature: "trips" }],
-		[__("Delivery trip"), "share", { dt: "Delivery Trip", feature: "trips", full: 1 }],
+		[__("Delivery trip"), "share", { dt: "Delivery Trip", feature: "trips" }],
 	]],
 	[__("Finance"), [
 		[__("Invoice"), "file", { dt: "Sales Invoice" }],
@@ -95,11 +95,15 @@ hipersign.create.has_modes = (dt) => hipersign.fm && (hipersign.fm.COVERED || []
 hipersign.create.open = function (a, mode) {
 	if (a.route) return frappe.set_route(...a.route);
 	const values = Object.assign({}, a.values || {});
-	// v1.5.6: credit / debit notes and other preset documents always open the full form with their values set,
-	// so "Is Return" stays ticked (the quick dialog used to drop it)
-	if (a.full || !hipersign.create.has_modes(a.dt)) return hipersign.create.new_doc(a.dt, values);
-	if (mode) return hipersign.fm.remember(a.dt, mode).then(() => hipersign.fm.new(a.dt, values));
-	return hipersign.fm.new(a.dt, values);
+	// v1.5.6: an entry marked full (the credit note, the export order) opens the full form with its values set
+	if (a.full) return hipersign.create.new_doc(a.dt, values);
+	// v1.7.3: every doctype the create modal covers opens its window first (stock transfer, stock count, supplier bill,
+	// debit note, delivery trip …) — with or without a Quick / Standard / Detailed default
+	const modal = hipersign.cm && hipersign.cm.covers && hipersign.cm.covers(a.dt);
+	if (!modal && !hipersign.create.has_modes(a.dt)) return hipersign.create.new_doc(a.dt, values);
+	const go = () => (modal ? hipersign.cm.new(a.dt, values) : hipersign.fm.new(a.dt, values));
+	if (mode && hipersign.create.has_modes(a.dt)) return hipersign.fm.remember(a.dt, mode).then(go);
+	return go();
 };
 
 hipersign.create.new_doc = function (dt, values) {

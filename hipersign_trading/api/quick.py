@@ -23,6 +23,8 @@ COVERED = [
 	"Employee", "Leave Application", "Expense Claim", "Asset", "Company Document",
 	# quick cards only (no Standard / Detailed split)
 	"Address", "Contact", "Customer Group", "Payment Terms Template", "Bank Account", "Driver",
+	# v1.7.3: the create modal's new windows and cards
+	"Employee Advance", "Currency Exchange", "User",
 ]
 PACK_MODE = {"Starter": "Quick", "Standard": "Standard", "Enterprise": "Detailed"}
 MODES = ("Quick", "Standard", "Detailed")
@@ -289,6 +291,15 @@ def open_invoices(customer, company=None, credit_notes=1):
 @frappe.whitelist()
 def quick_receive(customer, amount, mode_of_payment=None, reference_no=None, company=None):
 	"""One Payment Entry, applied to the customer's oldest invoices first."""
+	pe = receive_entry(customer, amount, mode_of_payment, reference_no, company)
+	pe.insert()
+	pe = _submit(pe)
+	return {"name": pe.name, "message": _("Payment {0} · {1} invoice(s)").format(pe.name, len(pe.references))}
+
+
+def receive_entry(customer, amount, mode_of_payment=None, reference_no=None, company=None):
+	"""v1.7.3: the receipt quick_receive makes — oldest invoices first, credit notes netted off — not yet saved, so the
+	create modal's Receive payment window (api.create.save_doc) can add the account, dates and bank charges."""
 	from erpnext.accounts.doctype.payment_entry.payment_entry import get_payment_entry
 
 	amount = flt(amount)
@@ -324,6 +335,4 @@ def quick_receive(customer, amount, mode_of_payment=None, reference_no=None, com
 			pe.paid_to = acc
 	pe.reference_no = reference_no or _("Quick receipt")
 	pe.reference_date = today()
-	pe.insert()
-	pe = _submit(pe)
-	return {"name": pe.name, "message": _("Payment {0} · {1} invoice(s)").format(pe.name, len(pe.references))}
+	return pe

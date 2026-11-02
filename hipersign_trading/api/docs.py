@@ -66,15 +66,16 @@ def document_types():
 
 
 @frappe.whitelist()
-def new_doc_rules(doctype):
-	"""v1.7.2: the documents a new record asks for — the create modal's "Attach documents" box (the prototype's)."""
+def new_doc_rules(doctype, is_return=0):
+	"""v1.7.2: the documents a new record asks for — the create modal's "Attach documents" box (the prototype's).
+	v1.7.3: a return (the debit note window) also gets the rules for returns only."""
 	from hipersign_trading.doc_rules import effective, rules_for
 
 	frappe.has_permission(doctype, "create", throw=True)
 	out = []
 	for r in rules_for(doctype):
 		lv = effective(r.level)
-		if lv == "Off" or r.only_returns:
+		if lv == "Off" or (r.only_returns and not frappe.utils.cint(is_return)):
 			continue
 		out.append({"type": r.document_type, "level": lv, "min_amount": frappe.utils.flt(r.min_amount), "note": r.note or "",
 			"when": r.when_value or ""})
