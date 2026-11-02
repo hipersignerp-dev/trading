@@ -1260,7 +1260,7 @@ def manufacture(wo_name, qty=None, batch=None, serial_from=None, posting_date=No
 				r.qty = r.transfer_qty = q
 	b = None
 	if frappe.get_cached_value("Item", w.production_item, "has_batch_no"):
-		b = batch or f"B{getdate(posting_date or today()).strftime('%y%m')}-{w.production_item.split('-')[-1][:4]}-{frappe.db.count('Batch', {'item': w.production_item}) + 1:02d}"
+		b = batch or f"B{getdate(posting_date or today()).strftime('%y%m')}-{batch_code(w.production_item)}-{frappe.db.count('Batch', {'item': w.production_item}) + 1:02d}"
 		if not frappe.db.exists("Batch", b):
 			frappe.get_doc({"doctype": "Batch", "batch_id": b, "item": w.production_item, "manufacturing_date": posting_date or today(),
 				"reference_doctype": "Work Order", "reference_name": wo_name}).insert(ignore_permissions=True)
@@ -1275,6 +1275,17 @@ def manufacture(wo_name, qty=None, batch=None, serial_from=None, posting_date=No
 	se.submit()
 	clear_cache()
 	return se
+
+
+def batch_code(item):
+	"""The product part of a batch number, as on the prototype: FG-P6060 → P60, FG-HB150 → HB, SA-DRV40 → DR."""
+	import re
+
+	m = re.match(r"([A-Z]+)(\d*)", item.split("-")[-1].upper())
+	if not m:
+		return item[-3:].upper()
+	letters, digits = m.groups()
+	return letters + digits[:2] if len(letters) == 1 else letters[:2]
 
 
 def deliver(so_name, posting_date=None, name=None, warehouse=None):

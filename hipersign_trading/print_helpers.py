@@ -122,8 +122,9 @@ _C128 = ("212222 222122 222221 121223 121322 131222 122213 122312 132212 221213 
 	"411212 421112 421211 212141 214121 412121 111143 111341 131141 114113 114311 411113 411311 113141 114131 311141 411131 211412 211214 211232 2331112").split()
 
 
-def hs_barcode(text, height=34, module=1.4):
-	"""A Code 128 (B) barcode as inline SVG — the job ticket, the job cards and the finished-goods label carry one."""
+def hs_barcode(text, height=34, module=1.4, width=None):
+	"""A Code 128 (B) barcode as inline SVG — the job ticket, the job cards and the finished-goods label carry one
+	(width: the printed width in px, the bars scaled to it)."""
 	text = "".join(ch for ch in str(text or "") if 32 <= ord(ch) <= 126)
 	codes = [104] + [ord(ch) - 32 for ch in text]
 	check = (codes[0] + sum(i * c for i, c in enumerate(codes[1:], 1))) % 103
@@ -135,10 +136,11 @@ def hs_barcode(text, height=34, module=1.4):
 			if i % 2 == 0:
 				bars.append(f'<rect x="{x:.2f}" y="0" width="{w:.2f}" height="{height}"/>')
 			x += w
-	width = x + 10 * module
-	return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{width:.0f}" height="{height + 13}" viewBox="0 0 {width:.2f} {height + 13}" class="bc">'
+	full = x + 10 * module
+	w = flt(width) or full
+	return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{w:.0f}" height="{(height + 13) * w / full:.0f}" viewBox="0 0 {full:.2f} {height + 13}" class="bc">'
 		f'<rect width="100%" height="100%" fill="#fff"/><g fill="#0f1b3d">{"".join(bars)}</g>'
-		f'<text x="{width / 2:.2f}" y="{height + 11}" font-size="10" text-anchor="middle" font-family="monospace" fill="#0f1b3d">{frappe.utils.escape_html(text)}</text></svg>')
+		f'<text x="{full / 2:.2f}" y="{height + 11}" font-size="10" text-anchor="middle" font-family="monospace" fill="#0f1b3d">{frappe.utils.escape_html(text)}</text></svg>')
 
 
 def hs_qr(text, size=96):
@@ -173,7 +175,7 @@ def hs_job_ticket(wo):
 		ws = M.ws_rates(o.ws)
 		opr = frappe.db.get_value("Employee", o.jc.hs_operator, "employee_name") if o.jc and o.jc.hs_operator else ""
 		ops.append(frappe._dict(no=o.idx * 10, name=o.op, ws=ws.workstation_name, ws_zh=ws.get("hs_name_zh") or "", minutes=o.mins_unit * f.qty, operator=opr,
-			done=o.done if o.jc else None, scrap=o.scrap if o.jc else None, jc=o.jc.name if o.jc else "", barcode=hs_barcode(o.jc.name, 20, 1) if o.jc else ""))
+			done=o.done if o.jc else None, scrap=o.scrap if o.jc else None, jc=o.jc.name if o.jc else ""))
 	comps = [frappe._dict(code=r.item_code, name=M.item_info(r.item_code).item_name, zh=_zh(r.item_code), qty=flt(r.required_qty), uom=frappe.db.get_value("Item", r.item_code, "stock_uom"),
 		issued=flt(r.transferred_qty)) for r in w.required_items]
 	so = frappe.db.get_value("Sales Order", w.sales_order, ["name", "customer_name"], as_dict=True) if w.sales_order else None
@@ -218,13 +220,19 @@ def hs_fg_label(wo):
 	se = frappe.db.sql("""select sed.batch_no, se.hs_serial_from, se.posting_date from `tabStock Entry Detail` sed join `tabStock Entry` se on se.name = sed.parent
 		where se.work_order = %s and se.docstatus = 1 and se.purpose = 'Manufacture' and sed.is_finished_item = 1 order by se.posting_date desc limit 1""", w.name, as_dict=True)
 	today = frappe.utils.getdate()
-	code = w.production_item.split("-")[-1][:3]
+	from hipersign_trading.api.manufacturing import batch_code
+
+	code = batch_code(w.production_item)
 	batch = (se[0].batch_no if se else "") or f"B{today.strftime('%y%m')}-{code}-{w.name[-2:]}"
 	serial = (se[0].hs_serial_from if se else "") or f"HLI-{code}-{today.strftime('%y%m%d')}0001"
 	per = 1
 	for r in w.required_items:
 		if "carton" in (frappe.db.get_value("Item", r.item_code, "item_name") or "").lower() and flt(r.required_qty):
 			per = max(1, round(flt(w.qty) / flt(r.required_qty)))
+	addr = frappe.db.get_value("Dynamic Link", {"link_doctype": "Company", "link_name": w.company, "parenttype": "Address"}, "parent")
+	city = frappe.db.get_value("Address", addr, "city") if addr else ""
+	zone = "KEZAD" if addr and "KEZAD" in (frappe.db.get_value("Address", addr, "address_line1") or "") else ""
 	return frappe._dict(item=w.production_item, name=w.item_name or frappe.db.get_value("Item", w.production_item, "item_name"), zh=_zh(w.production_item), batch=batch,
+		maker=" · ".join(x for x in [w.company, ", ".join(y for y in [zone, city] if y)] if x).upper(),
 		serial=serial, per=per, qr=hs_qr(serial, 104), barcode=hs_barcode(f"{w.production_item}-{batch}", 38, 1.3), company=w.company,
 		date=se[0].posting_date if se else today)
