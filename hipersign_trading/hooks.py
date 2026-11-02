@@ -72,6 +72,8 @@ override_doctype_class = {
 	"Supplier": "hipersign_trading.overrides.party_dashboard.HipersignSupplier",
 }
 
+	# v1.8.0: a partial manufacture entry keeps its own process loss (overrides/stock_entry_mfg.py)
+	"Stock Entry": "hipersign_trading.overrides.stock_entry_mfg.HipersignStockEntry",
 before_request = ["hipersign_trading.demo_access.before_request", "hipersign_trading.overrides.user.driver_redirect"]
 
 # ---------------------------------------------------------------- fixtures

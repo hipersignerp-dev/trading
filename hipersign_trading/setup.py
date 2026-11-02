@@ -80,7 +80,9 @@ PRINT_DEFAULTS = {"Quotation": "Hipersign Quotation", "Sales Order": "Hipersign 
 	"Request for Quotation": "Hipersign Request for Quotation", "Pick List": "Hipersign Pick List",
 	# v1.8.0: the project prints (progress and retention invoices are chosen on the Projects screens)
 	"Project BOQ": "Hipersign BOQ Tender", "Progress Certificate": "Hipersign Interim Payment Certificate", "Variation Order": "Hipersign Variation Order",
-	"Subcontract Order": "Hipersign Subcontract Order"}
+	"Subcontract Order": "Hipersign Subcontract Order",
+	# v1.8.0: the manufacturing prints (the finished-goods label is chosen on the work order)
+	"Work Order": "Hipersign Job Ticket", "BOM": "Hipersign Bill of Materials", "Quality Inspection": "Hipersign QC Certificate"}
 
 
 def default_print_formats():
@@ -120,6 +122,7 @@ def v13_defaults(new_site):
 	stock_can_read_addresses()
 	stock_can_log_warranty_claims()
 	projects_roles_can_work()
+	manufacturing_roles_can_work()
 
 
 # v1.5.6: ERPNext 16 reads the customer's invoices when the Customer form opens (the dashboard totals) with the user's own
@@ -249,11 +252,41 @@ PROJECT_PERMS = {
 }
 
 
+# v1.8.0: what the Manufacturing roles (prototype p19) need — the production manager plans, releases, issues, runs the shop
+# floor and receives finished goods; the QC inspector inspects incoming lots, operations and batches; the demo viewer reads.
+_PM, _QC, _DV = "Production Manager", "QC Inspector", "Demo Viewer"
+MFG_PERMS = {
+	"BOM": {_PM: "rwcs", _QC: "r", _DV: "r", "Managing Director": "r", "Accounts Manager": "r"},
+	"Routing": {_PM: "rwc", _DV: "r"}, "Operation": {_PM: "rwc", _QC: "r", _DV: "r"}, "Workstation": {_PM: "rwc", _QC: "r", _DV: "r"},
+	"Workstation Operating Component": {_PM: "r", _DV: "r"},
+	"Work Order": {_PM: "rwcs", _QC: "r", _DV: "r", "Managing Director": "r", "Accounts Manager": "r", "Accounts User": "r", "Sales Manager": "r", "Stock User": "r"},
+	"Job Card": {_PM: "rwcs", _QC: "r", _DV: "r", "Manufacturing User": "rwcs", "Managing Director": "r"},
+	"Production Plan": {_PM: "rwcs", _DV: "r", "Managing Director": "r", "Purchase Manager": "r"},
+	"Quality Inspection": {_PM: "r", _QC: "rwcs", _DV: "r", "Managing Director": "r"},
+	"Quality Inspection Template": {_PM: "r", _QC: "rwc", _DV: "r"}, "Quality Inspection Parameter": {_PM: "r", _QC: "rwc", _DV: "r"},
+	"Stock Entry": {_PM: "rwcs", _QC: "r", _DV: "r"}, "Material Request": {_PM: "rwcs", _DV: "r"},
+	"Purchase Order": {_PM: "rwc", _DV: "r"}, "Purchase Receipt": {_PM: "r", _QC: "r", _DV: "r"},
+	"Sales Order": {_PM: "r", _QC: "r", _DV: "r"}, "Delivery Note": {_PM: "r", _DV: "r"}, "Sales Invoice": {_PM: "r"},
+	"Batch": {_PM: "rwc", _QC: "r", _DV: "r"}, "Item": {_PM: "rw", _QC: "r", _DV: "r"}, "Warehouse": {_PM: "r", _QC: "r", _DV: "r"},
+	"Bin": {_PM: "r", _QC: "r", _DV: "r"}, "Customer": {_PM: "r", _QC: "r"}, "Supplier": {_PM: "r", _QC: "r"},
+	"Employee": {_PM: "r", _QC: "r"}, "Company": {_PM: "r", _QC: "r"}, "UOM": {_PM: "r", _QC: "r"},
+	"Stock Ledger Entry": {_PM: "r", _DV: "r"},
+}
+
+
+def manufacturing_roles_can_work():
+	_grant(MFG_PERMS)
+
+
 def projects_roles_can_work():
+	_grant(PROJECT_PERMS)
+
+
+def _grant(table):
 	from frappe.permissions import add_permission, update_permission_property
 
 	ptype = {"r": ("read", "print", "report", "export"), "w": ("write",), "c": ("create",), "s": ("submit",)}
-	for dt, roles in PROJECT_PERMS.items():
+	for dt, roles in table.items():
 		if not frappe.db.exists("DocType", dt):
 			continue
 		changed = False

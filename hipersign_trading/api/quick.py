@@ -27,8 +27,10 @@ COVERED = [
 	"Employee Advance", "Currency Exchange", "User",
 	# v1.8.0: the Projects windows
 	"Project", "Project BOQ", "Task", "Timesheet", "Progress Certificate", "Variation Order", "Subcontract Order",
+	# v1.8.0: the Manufacturing windows
+	"BOM", "Work Order", "Production Plan", "Job Card", "Quality Inspection",
 ]
-PACK_MODE = {"Starter": "Quick", "Standard": "Standard", "Contractor": "Standard", "Enterprise": "Detailed"}
+PACK_MODE = {"Starter": "Quick", "Standard": "Standard", "Contractor": "Standard", "Manufacturer": "Standard", "Enterprise": "Detailed"}
 MODES = ("Quick", "Standard", "Detailed")
 
 

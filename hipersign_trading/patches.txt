@@ -9,3 +9,4 @@ hipersign_trading.patches.v1_4.look_and_menus
 hipersign_trading.patches.v1_5.company_default
 hipersign_trading.patches.v1_5.home_page
 hipersign_trading.patches.v1_8.projects_switch
+hipersign_trading.patches.v1_8.manufacturing_switch
