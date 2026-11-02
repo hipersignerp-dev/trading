@@ -212,6 +212,8 @@ body.hp-open .hp-backdrop { display: block; }
 .hsm-scope { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
 .hsm-scope select { width: auto; min-width: 200px; }
 .hsm-grid { grid-template-columns: minmax(0, 2.1fr) minmax(0, 1fr); align-items: start; }
+.hsm-side { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.hsm-side > .hsx-card { margin: 0 !important; }
 .hsm-tree { max-height: 72vh; overflow: auto; margin: -4px -4px 0; }
 .hsm-row { display: grid; grid-template-columns: 40px minmax(150px, 1fr) minmax(0, 1.9fr) auto; gap: 10px; align-items: center; padding: 6px 4px;
 	border-bottom: 1px solid var(--x-line-2); }

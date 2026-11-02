@@ -103,7 +103,7 @@ frappe.pages["hipersign-menu"].on_page_load = function (wrapper) {
 			__("No changes yet — every change to the menu is logged here.")), { icon: "activity" });
 		const top = $(wrapper).find(".hsm-tree").scrollTop();
 		v.$body.html(scopeBar() + `<div class="hsx-grid2 hsm-grid">${ui.card(`${__("Menu")} — ${st.data.scope_label}`, `<div class="hsm-tree">${head}${tree}</div>`,
-			{ icon: "menu", sub: __("switch to hide · type a name to rename · arrows to reorder") })}<div class="hsx-stack">${pv}${add}${help}</div></div>${log}`);
+			{ icon: "menu", sub: __("switch to hide · type a name to rename · arrows to reorder") })}<div class="hsm-side">${pv}${add}${help}</div></div>${log}`);
 		$(wrapper).find(".hsm-tree").scrollTop(top || 0);
 	}
 
