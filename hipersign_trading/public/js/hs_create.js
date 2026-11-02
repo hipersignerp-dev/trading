@@ -208,7 +208,7 @@ frappe.provide("hipersign.cm");
 		(preset.items || []).forEach((r) => st.lines.push({ item_code: r.item_code, qty: r.qty, rate: r.rate, discount: r.discount }));
 		while (st.lines.length < 3) st.lines.push({});
 		spec.fields.forEach((df) => { if (st.v[df.f] === undefined && df.def !== undefined) st.v[df.f] = typeof df.def === "function" ? df.def() : df.def; });
-		const sh = C.shell({ title: spec.title, sub: spec.sub, mode, modes: 1, wide: 1,
+		const sh = C.shell({ title: kind === "sales_order" && +preset.hs_is_export ? __("New export order") : spec.title, sub: kind === "sales_order" && +preset.hs_is_export ? __("Foreign customer, currency and incoterm — zero-rated, export shipment follows") : spec.sub, mode, modes: 1, wide: 1,
 			onMode: (m) => { read(); mode = m; sh.setMode(m); hipersign.fm && hipersign.fm.remember(dt, m); draw(); } });
 		const att = C.attach(sh, dt);
 		sh.$body.html(`<div class="hsc-loading">${__("Loading…")}</div>`);
@@ -777,6 +777,18 @@ frappe.provide("hipersign.cm");
 			{ f: "rate", label: __("Rate"), t: "ro", n: 1 }], n: 0, fixed: 1, net: ["qty", "rate"], total: __("Debit note total") },
 			full: () => ({ is_return: 1 }),
 			actions: [{ label: __("Save draft"), action: "save" }, { label: __("Submit debit note"), action: "submit", primary: 1 }] },
+		// v1.7.3: a credit note (sales return) against a tax invoice — the same shape as the debit note
+		"Sales Invoice:return": { doctype: "Sales Invoice", title: __("New credit note"), sub: __("Sales return against a tax invoice — the quantities the customer sent back"), fields: [
+			{ f: "_return_against", label: __("Tax invoice"), t: "select", src: L("Sales Invoice", { docstatus: 1, is_return: 0 }), req: 1, m: "q", w: 2, fill: "credit_from_invoice" },
+			{ f: "hs_return_reason", label: __("Reason"), t: "select", opts: "@meta", m: "q", req: 1, def: "Damaged in transit" },
+			{ f: "posting_date", label: __("Date"), t: "date", m: "s", def: today },
+			{ f: "cost_center", label: __("Cost centre"), t: "select", src: L("Cost Center", { is_group: 0 }), m: "d" },
+			{ f: "project", label: __("Project"), t: "select", src: L("Project"), m: "d" },
+			{ f: "remarks", label: __("Remarks"), t: "textarea", m: "d", w: 2 },
+		], rows: { cols: [{ f: "_item", label: __("Item"), t: "ro", w: 3 }, { f: "_can", label: __("Can return"), t: "ro", n: 1 }, { f: "qty", label: __("Return qty"), t: "number" },
+			{ f: "rate", label: __("Rate"), t: "ro", n: 1 }], n: 0, fixed: 1, net: ["qty", "rate"], total: __("Credit note total") },
+			full: () => ({ is_return: 1 }),
+			actions: [{ label: __("Save draft"), action: "save" }, { label: __("Submit credit note"), action: "submit", primary: 1 }] },
 		"Payment Entry": { title: __("Receive payment"), sub: __("Applied to the customer's open invoices, oldest first"), fields: [
 			{ f: "customer", label: __("Customer"), t: "select", src: L("Customer", { disabled: 0 }), req: 1, m: "q", w: 2, blank: __("— choose —"), fill: "receivable" },
 			{ f: "amount", label: __("Amount received"), t: "number", req: 1, m: "q", fill: "receivable" },
@@ -1023,6 +1035,7 @@ frappe.provide("hipersign.cm");
 		values = values || {};
 		// v1.7.3: a debit note is a supplier bill with "Is Return"; a payment to a supplier or a transfer stays on the full form
 		if (dt === "Purchase Invoice" && +values.is_return) return C.doc("Purchase Invoice:return", values);
+		if (dt === "Sales Invoice" && +values.is_return) return C.doc("Sales Invoice:return", values);
 		if (dt === "Payment Entry") {
 			if ((values.payment_type && values.payment_type !== "Receive") || (values.party_type && values.party_type !== "Customer")) return hipersign.create.new_doc(dt, values);
 			if (values.party && !values.customer) values = Object.assign({}, values, { customer: values.party });

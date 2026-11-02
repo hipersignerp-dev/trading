@@ -301,7 +301,7 @@ def save(kind, values, lines=None, action="save"):
 		doc.shipping_address_name = values.get("shipping_address") or None
 		doc.customer_address = values.get("billing_address") or None
 		doc.set_warehouse = values.get("set_warehouse") or None
-		for f in ("incoterm", "named_place", "hs_payment_method", "hs_shipment_mode"):
+		for f in ("incoterm", "named_place", "hs_payment_method", "hs_shipment_mode", "hs_is_export"):  # v1.7.3: + New → Export order
 			if values.get(f) and doc.meta.has_field(f):
 				doc.set(f, values[f])
 	elif kind == "purchase_order":
@@ -440,7 +440,8 @@ def link_options(doctype, query=None):
 SIMPLE = {"Import Shipment", "Export Shipment", "Material Request", "Stock Entry", "Stock Reconciliation", "Journal Entry", "Post Dated Cheque",
 	"Expense Claim", "Leave Application", "Letter of Credit", "Bank Guarantee", "Company Document",
 	# v1.7.3
-	"Credit Limit Request", "Purchase Invoice", "Payment Entry", "Warranty Claim", "Delivery Trip", "Employee Advance"}
+	"Credit Limit Request", "Purchase Invoice", "Payment Entry", "Warranty Claim", "Delivery Trip", "Employee Advance",
+	"Sales Invoice"}  # Sales Invoice: only the credit note window (returns); new invoices start from the delivery (C.PICK)
 
 
 @frappe.whitelist()
@@ -1056,6 +1057,62 @@ def _fill_debit(name, v):
 	return {"values": {"_vat_rate": _taxes_rate(src)}, "force": ["_vat_rate"], "rows": rows, "note": note}
 
 
+def _pre_sales_invoice(doc, v, rows):
+	"""v1.7.3: credit note (sales return) against a submitted tax invoice — ERPNext's make_sales_return, the quantities returned."""
+	from erpnext.accounts.doctype.sales_invoice.sales_invoice import make_sales_return
+
+	src = v.get("_return_against")
+	if not src:
+		frappe.throw(_("Choose the tax invoice the credit note is against"))
+	frappe.get_doc("Sales Invoice", src).check_permission("read")
+	cn = make_sales_return(src)
+	want = {cint(r["_i"]): r for r in rows if r.get("_i") not in (None, "")}
+	keep = []
+	for i, row in enumerate(cn.items):
+		r = want.get(i)
+		q = abs(flt(r.get("qty"))) if r else 0
+		if q <= 0:
+			continue
+		if q > abs(flt(row.qty)) + 0.0001:
+			frappe.throw(_("{0}: only {1} can be returned").format(row.item_name or row.item_code, abs(flt(row.qty))))
+		row.qty = -q
+		row.stock_qty = -q * flt(row.conversion_factor or 1)
+		keep.append(row)
+	if not keep:
+		frappe.throw(_("Enter the quantity returned on at least one line"))
+	cn.set("items", keep)
+	if cn.meta.has_field("update_outstanding_for_self"):
+		cn.update_outstanding_for_self = 0
+	for f in ("hs_return_reason", "remarks", "cost_center", "project"):
+		if v.get(f) and cn.meta.has_field(f):
+			cn.set(f, v[f])
+	if v.get("posting_date"):
+		cn.posting_date = v.posting_date
+		if getdate(v.posting_date) != getdate(today()):
+			cn.set_posting_time = 1
+	cn.run_method("set_missing_values")
+	cn.calculate_taxes_and_totals()
+	cn.flags.hs_ready = True
+	return cn
+
+
+def _fill_credit_note(name, v):
+	if not name:
+		return {"values": {}, "rows": [], "note": ""}
+	from erpnext.accounts.doctype.sales_invoice.sales_invoice import make_sales_return
+
+	src = frappe.get_doc("Sales Invoice", name)
+	src.check_permission("read")
+	cn = make_sales_return(name)
+	rows = [{"_i": i, "item_code": r.item_code, "_item": f"{r.item_code} — {r.item_name}" if r.item_name and r.item_name != r.item_code else r.item_code,
+		"_can": abs(flt(r.qty)), "qty": abs(flt(r.qty)), "rate": flt(r.rate)} for i, r in enumerate(cn.items) if abs(flt(r.qty)) > 0]
+	note = _("{0} · {1} · {2} · outstanding {3}").format(src.customer_name or src.customer, frappe.format(src.posting_date, "Date"), _money(src.grand_total, src.currency),
+		_money(src.outstanding_amount, src.currency))
+	if not rows:
+		note = _("Everything on {0} has already been credited").format(name)
+	return {"values": {"_vat_rate": _taxes_rate(src)}, "force": ["_vat_rate"], "rows": rows, "note": note}
+
+
 def _fill_receivable(name, v):
 	from hipersign_trading.api.quick import open_invoices
 
@@ -1120,5 +1177,5 @@ def _fill_trip_stop(name, v):
 	return {"values": _dn_stop(name)}
 
 
-_FILL = {"credit_of_customer": _fill_credit, "supplier_bill": _fill_supplier_bill, "bill_source": _fill_bill_source, "debit_from_bill": _fill_debit,
+_FILL = {"credit_of_customer": _fill_credit, "supplier_bill": _fill_supplier_bill, "bill_source": _fill_bill_source, "debit_from_bill": _fill_debit, "credit_from_invoice": _fill_credit_note,
 	"receivable": _fill_receivable, "serial_claim": _fill_serial, "driver_vehicle": _fill_driver, "trip_stop": _fill_trip_stop}

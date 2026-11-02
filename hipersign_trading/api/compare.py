@@ -18,7 +18,8 @@ def _aed(amount, currency, company):
 @frappe.whitelist()
 def open_rfqs():
 	"""RFQs with at least one supplier quotation — the page's start list."""
-	frappe.has_permission("Supplier Quotation", "read", throw=True)
+	if not frappe.has_permission("Supplier Quotation", "read"):
+		return []
 	rows = frappe.db.sql("""select sqi.request_for_quotation rfq, count(distinct sq.name) quotes, max(sq.transaction_date) last
 		from `tabSupplier Quotation Item` sqi join `tabSupplier Quotation` sq on sq.name = sqi.parent
 		where sq.docstatus < 2 and ifnull(sqi.request_for_quotation, '') != '' group by sqi.request_for_quotation order by last desc limit 50""", as_dict=True)

@@ -13,6 +13,9 @@
   and in AED, lead time and terms, best price marked, award per item → purchase orders. Replaces ERPNext's prepared report.
 - **Quotations tab overview** (prototype p18): open value and count, expiring in 7 days, past validity, accepted this month,
   conversion, average. **Totals** under every money table on the module pages (one line per currency when mixed).
+- **Credit note** window (sales return against a tax invoice, quantities returned, reason) and **Export order** opens the order
+  window flagged as export; Trade Journey and Landed Cost no longer offered to Sales Managers (no purchase access), comparison page
+  not offered to Finance.
 - New message works again (the editor could not start in the dialog). Collapsed menu shows the square Hipersign mark; it is
   also the browser-tab icon. The guided tour points at the 1.7 pages and tabs. Live deal demo button removed.
 

@@ -26,7 +26,7 @@ hipersign.create.GROUPS = () => [
 		[__("Bank guarantee"), "file", { dt: "Bank Guarantee", feature: "lc" }],
 	]],
 	[__("Exports"), [
-		[__("Export order"), "globe", { dt: "Sales Order", values: { hs_is_export: 1 }, feature: "exports", full: 1 }],
+		[__("Export order"), "globe", { dt: "Sales Order", values: { hs_is_export: 1 }, feature: "exports" }],
 		[__("Export shipment"), "share", { dt: "Export Shipment", feature: "exports" }],
 	]],
 	[__("Products, services & stock"), [
@@ -51,7 +51,7 @@ hipersign.create.GROUPS = () => [
 		[__("Cheque issued (PDC)"), "money-coins-1", { dt: "Post Dated Cheque", values: { direction: "Issued" }, feature: "pdc" }],
 	]],
 	[__("Returns"), [
-		[__("Credit note (sales return)"), "file", { dt: "Sales Invoice", values: { is_return: 1 }, full: 1, label: "Credit note" }],
+		[__("Credit note (sales return)"), "file", { dt: "Sales Invoice", values: { is_return: 1 }, label: "Credit note" }],
 		[__("Debit note (purchase return)"), "file", { dt: "Purchase Invoice", values: { is_return: 1 }, label: "Debit note" }],
 	]],
 	[__("Delivery"), [
