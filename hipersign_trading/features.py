@@ -54,7 +54,7 @@ PACKS = {
 	"Starter": {"on": [], "doc_level": "Off", "form_mode": "Quick", "desc": "Small local trader, one company"},
 	"Standard": {"on": STANDARD_ON, "doc_level": "Recommended", "form_mode": "Standard", "desc": "Growing importer or exporter"},
 	# v1.8.0: fit-out and contracting companies — projects, BOQ, progress billing and retention, plus the Trading parts they use
-	"Contractor": {"on": [k for k in STANDARD_ON if k != "exports"] + ["projects", "lc", "advances", "hr", "assets", "codocs"], "doc_level": "Recommended",
+	"Contractor": {"on": [k for k in STANDARD_ON if k != "exports"] + ["projects", "lc", "hr", "assets", "codocs"], "doc_level": "Recommended",
 		"form_mode": "Standard", "desc": "Fit-out and contracting — projects, BOQ, progress billing, retention"},
 	"Enterprise": {"on": list(FEATURES), "doc_level": "Full", "form_mode": "Detailed", "desc": "Groups and larger traders — everything"},
 }

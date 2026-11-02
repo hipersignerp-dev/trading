@@ -57,13 +57,14 @@
 .hsp-open { font-weight: 700; cursor: pointer; }
 .hsp-pay { height: 5px; background: var(--x-line-2); border-radius: 3px; margin: 10px 0; display: flex; overflow: hidden; }
 .hsp-pay i { display: block; height: 100%; background: var(--x-green); } .hsp-pay i.inv { background: var(--x-amber); }
-.hsp-ptk { display: grid; grid-template-columns: 5fr 3fr 2fr 5fr 6fr 5fr; gap: 8px; }
+.hsp-ptk { display: grid; grid-template-columns: 5fr 3.2fr 2.4fr 5fr 6fr 5fr; gap: 6px; }
 @media (max-width: 1100px) { .hsp-ptk { grid-template-columns: 1fr 1fr; } }
 .hsp-ptk-ph { border: 1px solid var(--x-line); border-radius: 9px; padding: 6px; min-width: 0; }
 .hsp-ptk-ph.done { border-color: color-mix(in srgb, var(--x-green) 35%, var(--x-line)); }
 .hsp-ptk-ph.cur { border-color: color-mix(in srgb, var(--x-blue) 45%, var(--x-line)); }
 .hsp-ptk-ph.late { border-color: color-mix(in srgb, var(--x-red) 55%, var(--x-line)); }
-.hsp-ptk-h { display: flex; justify-content: space-between; gap: 4px; align-items: center; font-size: 11px; margin-bottom: 5px; }
+.hsp-ptk-h { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2px 4px; align-items: center; font-size: 10.5px; line-height: 1.25; margin-bottom: 5px; }
+.hsp-ptk-h .hsx-pill { font-size: 10px; padding: 1px 6px; }
 .hsp-ptk-s { display: grid; gap: 3px; }
 .hsp-stg { position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 1px; font-size: 10.5px; padding: 3px 1px; border-radius: 6px; min-width: 0; cursor: default; }
 .hsp-stg b { font-weight: 600; color: var(--x-ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }

@@ -23,7 +23,7 @@ frappe.provide("hipersign.projects");
 		const st = s.steps[sel], x = s.states[sel];
 		const btns = (s.buttons || {})[sel] || [];
 		const detail = `<div class="hsp-detail"><div class="hsp-dh"><span class="hsp-dot st-${x.st}">${x.st === "done" ? "✓" : sel + 1}</span><div style="flex:1;min-width:0"><b>${sel + 1}. ${esc(st.name)}</b>
-			<div class="small text-muted"><span class="hsx-pill ${TONE[x.st]}">${esc(LABEL[x.st])}</span> · ${Math.round(x.pct || 0)}%${x.date ? " · " + esc(fd(x.date)) : ""}${x.tag ? " · " + esc(x.tag) : ""}${x.by ? " · " + esc(x.by) : ""}</div></div>
+			<div class="small text-muted"><span class="hsx-pill ${TONE[x.st]}">${esc(LABEL[x.st])}</span> · ${Math.round(x.pct || 0)}%${x.date ? " · " + esc(fd(x.date)) : ""}${x.tag ? " · " + esc(x.tag) : ""}${x.by && x.st === "done" ? " · " + esc(x.by) : ""}</div></div>
 			<span>${sel > 0 ? `<button type="button" class="btn btn-default btn-xs" data-ps="${sel - 1}" data-k="${k}">‹</button>` : ""} ${sel < s.steps.length - 1 ? `<button type="button" class="btn btn-default btn-xs" data-ps="${sel + 1}" data-k="${k}">›</button>` : ""}</span></div>
 			<div class="hsp-kv"><div><span>${__("What happens")}</span><span>${esc(st.what)}</span></div><div><span>${__("Who")}</span><span>${esc(st.who)}</span></div>
 			<div><span>${__("Documents")}</span><span>${esc(st.docs)}</span></div><div><span>${__("Approval")}</span><span>${esc(st.approval)}</span></div>
@@ -142,7 +142,9 @@ frappe.provide("hipersign.projects");
 	const L = (dt, filters, extra) => Object.assign({ dt, filters: filters || {} }, extra || {});
 	const today = () => frappe.datetime.get_today();
 	const plus = (n) => frappe.datetime.add_days(today(), n);
-	const OPEN = L("Project", { hs_step: ["<", 26], hs_contract_value: [">", 0] });
+	// projects, their people and stores may sit in another company of the group than the user's own (company: is set lifts the default)
+	const ANY = { company: ["is", "set"] };
+	const OPEN = L("Project", Object.assign({ hs_step: ["<", 26], hs_contract_value: [">", 0] }, ANY));
 	Object.assign(C.DOCS, {
 		Project: { title: __("New project"), sub: __("A tender or an awarded contract — Quick: name, client and value; the stage, team, terms and dates follow from defaults"), fields: [
 			{ f: "project_name", label: __("Project name"), req: 1, m: "q", w: 2, ph: __("e.g. Dubai Hills show apartment") },
@@ -181,16 +183,16 @@ frappe.provide("hipersign.projects");
 			{ f: "progress", label: __("% done"), t: "number", m: "d", def: 0 },
 		], actions: [{ label: __("Save"), action: "save", primary: 1 }] },
 		Timesheet: { title: __("New timesheet"), sub: __("Hours of one employee on a project — site work and overtime at 125%; approved by the project manager"), fields: [
-			{ f: "employee", label: __("Employee"), t: "select", src: L("Employee", { status: "Active" }), req: 1, m: "q", blank: __("— choose —") },
+			{ f: "employee", label: __("Employee"), t: "select", src: L("Employee", Object.assign({ status: "Active" }, ANY)), req: 1, m: "q", blank: __("— choose —") },
 			{ f: "_project", label: __("Project"), t: "select", src: OPEN, req: 1, m: "q", blank: __("— choose —") },
 			{ f: "_hours", label: __("Hours"), t: "number", m: "q", def: 8 },
 			{ f: "_date", label: __("Date"), t: "date", m: "s", def: today },
-			{ f: "_task", label: __("Task"), t: "select", src: L("Task", { status: ["not in", ["Completed", "Cancelled"]] }), m: "s", blank: "—" },
+			{ f: "_task", label: __("Task"), t: "select", src: L("Task", Object.assign({ status: ["not in", ["Completed", "Cancelled"]] }, ANY)), m: "s", blank: "—" },
 			{ f: "_ot", label: __("Overtime hours"), t: "number", m: "d", def: 0 },
 			{ f: "note", label: __("Work done"), t: "textarea", m: "d", w: 2 },
 		], actions: [{ label: __("Submit for approval"), action: "save", primary: 1 }] },
 		"Progress Certificate": { title: __("New progress certificate"), sub: __("The measurement on the BOQ lines becomes the certificate: work this period, less advance recovery and retention, plus VAT"), fields: [
-			{ f: "project", label: __("Project"), t: "select", src: L("Project", { hs_step: ["between", [10, 25]] }), req: 1, m: "q", w: 2, blank: __("— choose —") },
+			{ f: "project", label: __("Project"), t: "select", src: L("Project", Object.assign({ hs_step: ["between", [10, 25]] }, ANY)), req: 1, m: "q", w: 2, blank: __("— choose —") },
 			{ f: "period_to", label: __("Period to"), t: "date", m: "q", def: () => frappe.datetime.month_end() },
 			{ f: "basis", label: __("Measured by"), t: "select", opts: "@meta", m: "s", def: "% complete" },
 			{ f: "consultant", label: __("Consultant"), m: "s", ph: __("From the project") },
@@ -227,7 +229,7 @@ frappe.provide("hipersign.projects");
 			{ f: "_note", label: __("Notes"), t: "textarea", m: "d", w: 2 },
 		], actions: [{ label: __("Send for approval"), action: "save", primary: 1 }] },
 		"Stock Entry:site": { doctype: "Stock Entry", preset: { _site: 1 }, title: __("Site transfer"), sub: __("From the main store (or another site) to a project's site store — charged to the project"), fields: [
-			{ f: "from_warehouse", label: __("From"), t: "select", src: L("Warehouse", { is_group: 0 }), req: 1, m: "q" },
+			{ f: "from_warehouse", label: __("From"), t: "select", src: L("Warehouse", Object.assign({ is_group: 0 }, ANY)), req: 1, m: "q" },
 			{ f: "project", label: __("To project"), t: "select", src: OPEN, req: 1, m: "q", blank: __("— choose —") },
 			{ f: "item_code", label: __("Material"), t: "select", src: L("Item", { disabled: 0, is_stock_item: 1 }), req: 1, m: "q", blank: __("— choose —") },
 			{ f: "qty", label: __("Quantity"), t: "number", req: 1, m: "q" },

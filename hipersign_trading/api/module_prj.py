@@ -79,8 +79,8 @@ def pj_home_module():
 		"new": [{"label": _("New project"), "doctype": "Project", "primary": 1}],
 		"links": [[_("Project Tracker"), ["project-tracker"]]],
 		"kpis": [
-			kpi(_("Contract value (incl. variations)"), rev, _("{0} contracts · {1} live").format(len(con), len(live)), "navy", "file-signature", True, cur, ["project-tracker"]),
-			kpi(_("Work done"), f"{done / rev * 100:.0f}%" if rev else "0%", _("{0} measured").format(frappe.format(done, {"fieldtype": "Currency", "options": cur})), "blue", "gantt-chart"),
+			kpi(_("Contract value (incl. variations)"), rev, _("{0} contracts · {1} live").format(len(con), len(live)), "navy", "file-text", True, cur, ["project-tracker"]),
+			kpi(_("Work done"), f"{done / rev * 100:.0f}%" if rev else "0%", _("{0} measured").format(frappe.format(done, {"fieldtype": "Currency", "options": cur})), "blue", "chart-gantt"),
 			kpi(_("Certified"), sum(f.certified for f in F), _("By the consultants"), "violet", "check", True, cur, ["hipersign-billing"]),
 			kpi(_("Collected"), sum(f.collected for f in F), _("{0} outstanding · {1} overdue").format(_m(sum(f.out for f in F), cur), _m(sum(f.overdue for f in F), cur)),
 				"green", "banknote", True, cur, ["hipersign-billing"]),
@@ -787,7 +787,7 @@ def _cost_kpis(pj):
 	cur = F.currency
 	return [
 		kpi(_("Budget"), C.budget, _("From the estimate"), "navy", "calculator", True, cur),
-		kpi(_("Committed"), C.committed, _("POs and subcontracts"), "violet", "file-signature", True, cur),
+		kpi(_("Committed"), C.committed, _("POs and subcontracts"), "violet", "file-text", True, cur),
 		kpi(_("Actual cost to date"), C.actual, _("{0}% of the work done").format(round(F.pct)), "blue", "banknote", True, cur),
 		kpi(_("Forecast at completion"), C.fac, ("+" if C.fac > C.budget else "") + _m(C.fac - C.budget, cur) + " " + _("vs budget"), "red" if C.fac > C.budget else "green", "trending-up", True, cur),
 		kpi(_("Forecast margin"), _pct(F.margin), _("Budget {0} · revised contract {1}").format(_pct(F.bud_margin), _m(F.rev, cur)), "amber" if F.margin < F.bud_margin - 1 else "green", "chart-column"),
@@ -857,7 +857,7 @@ def get_tracker(filter=None, q=None):
 		"phases": [{"name": _(a), "a": b, "b": c} for a, b, c in P.PHASES],
 		"counts": {"all": len(names), "open": len([f for f in allf if f.step < 26]), "flags": len([n for n in names if P.flags(n)])},
 		"kpis": [kpi(_("Projects tracked"), len(names), _("{0} open").format(len([f for f in allf if f.step < 26])), "blue", "list"),
-			kpi(_("Contract value"), sum(f.rev for f in allf), _("Incl. approved variations"), "navy", "file-signature", True, cur),
+			kpi(_("Contract value"), sum(f.rev for f in allf), _("Incl. approved variations"), "navy", "file-text", True, cur),
 			kpi(_("Certified"), sum(f.certified for f in allf), _("{0}% of contract value").format(round(sum(f.certified for f in allf) / sum(f.rev for f in allf) * 100) if sum(f.rev for f in allf) else 0),
 				"violet", "check", True, cur),
 			kpi(_("Collected"), sum(f.collected for f in allf), _("{0} retention held").format(_m(sum(f.ret_held for f in allf), cur)), "green", "banknote", True, cur),

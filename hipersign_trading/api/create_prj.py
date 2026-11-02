@@ -68,7 +68,7 @@ def pre_project_boq(doc, v, rows):
 			b.set(f, v.get(f))
 	if name:
 		b.save()
-		doc.flags.hs_done = b
+		b.flags.hs_done = b
 	if cint(p.hs_step) < 5:
 		frappe.flags.hs_boq_contract = p.name
 	total = sum(flt(r["qty"]) * flt(r["rate"]) for r in lines)

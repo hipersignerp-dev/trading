@@ -661,9 +661,13 @@ def project_names(cos=None, include_closed=True):
 	f = {"hs_contract_value": [">", 0]}
 	if not include_closed:
 		f["hs_step"] = ["<", 26]
-	rows = frappe.get_list("Project", filters=dict(f, company=["in", cos]) if cos else f, fields=["name"], order_by="hs_step desc, name asc", limit_page_length=0)
+	fields = ["name", "hs_step", "hs_contract_value"]
+	rows = frappe.get_list("Project", filters=dict(f, company=["in", cos]) if cos else f, fields=fields, limit_page_length=0)
 	if not rows and cos:
-		rows = frappe.get_list("Project", filters=f, fields=["name"], order_by="hs_step desc, name asc", limit_page_length=0)
+		rows = frappe.get_list("Project", filters=f, fields=fields, limit_page_length=0)
+	# live work first (execution, mobilising, handover), then tenders, then closed — largest first
+	rank = {"Execution": 0, "Mobilising": 1, "Handover": 2, "Tender": 3, "Closed": 4}
+	rows.sort(key=lambda r: (rank[status_of(r.hs_step)], -flt(r.hs_contract_value), r.name))
 	return [r.name for r in rows]
 
 
@@ -919,11 +923,18 @@ def measure(project_name, item_no, pct):
 	if not row:
 		frappe.throw(_("BOQ line {0} not found.").format(item_no))
 	v = min(100, max(flt(row.certified_pct), flt(pct)))
+	# one line at a time (two quick edits must not collide on the whole BOQ's timestamp)
+	frappe.db.set_value("Project BOQ Item", row.name, "measured_pct", v, update_modified=False)
 	row.measured_pct = v
-	b.save()
+	b.db_set("work_done", flt(sum(flt(r.amount) * flt(r.measured_pct) / 100 for r in b.items), 2))
 	clear_cache()
 	for c in frappe.get_all("Progress Certificate", filters={"project": project_name, "status": ["in", ["Draft", "Submitted to consultant"]]}, pluck="name"):
-		frappe.get_doc("Progress Certificate", c).save()
+		for attempt in range(3):  # a second edit a moment ago may be recalculating the same certificate
+			try:
+				frappe.get_doc("Progress Certificate", c).save()
+				break
+			except frappe.TimestampMismatchError:
+				frappe.clear_last_message()
 	return {"message": _("{0} → {1}% · this period {2}").format(item_no, f"{v:g}", _money(flt(row.amount) * (v - flt(row.certified_pct)) / 100))}
 
 

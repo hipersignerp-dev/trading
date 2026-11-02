@@ -347,6 +347,7 @@ def v180_projects(c):
 		v.insert(ignore_permissions=True, set_name=vo)
 	for pj in (H, V, O, C, R):
 		P.update_revised_contract(pj)
+	_series()
 	# contract sales orders (step 6 done)
 	from hipersign_trading.api.projects import item
 
@@ -366,6 +367,12 @@ def v180_projects(c):
 		so.insert(ignore_permissions=True)
 		so.submit()
 		frappe.db.set_value("Project", pid, "sales_order", so.name, update_modified=False)
+
+
+def _series():
+	"""New records continue after the demo's own numbers (PRJ-2026-020, TND-2026-032, SCO-2026-012, BC-2026-017)."""
+	for prefix, cur in (("PRJ-2026-", 19), ("PRJ-2025-", 9), ("TND-2026-", 31), ("TND-2025-", 44), ("TND-2024-", 12), ("SCO-2026-", 11), ("SCO-2025-", 21), ("BC-2026-", 16)):
+		frappe.db.sql("insert into `tabSeries` (name, current) values (%s, %s) on duplicate key update current = greatest(current, %s)", (prefix, cur, cur))
 
 
 def v180_bonds(c):

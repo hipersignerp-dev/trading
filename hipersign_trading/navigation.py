@@ -54,7 +54,7 @@ NAV = [
 	]),
 	# v1.8.0 (prototype p19): contracting and fit-out — before Finance & Tax, as on the prototype
 	("Projects", "hard-hat", [
-		("Projects", "Page", "hipersign-projects", "gantt-chart", "projects", {}),
+		("Projects", "Page", "hipersign-projects", "chart-gantt", "projects", {}),
 		("Estimating & BOQ", "Page", "hipersign-boq", "calculator", "projects", {}),
 		("Site & procurement", "Page", "hipersign-site", "hard-hat", "projects", {}),
 		("Progress & billing", "Page", "hipersign-billing", "receipt", "projects", {}),
@@ -66,7 +66,7 @@ NAV = [
 	("Finance & Tax", "banknote", [
 		("Finance", "Page", "hipersign-fin", "banknote", None, {}),
 		("Accounting", "Page", "hipersign-accounts", "book-open", None, {}),
-		("LCs & Guarantees", "Page", "hipersign-lc", "file-signature", "lc", {}),
+		("LCs & Guarantees", "Page", "hipersign-lc", "file-text", "lc", {}),
 		("VAT & E-invoicing", "Page", "hipersign-vat", "percent", None, {}),
 		("Corporate Tax", "Page", "hipersign-tax", "landmark", "ctax", {}),
 		("Group & Countries", "Page", "hipersign-group", "building-2", "group", {}),
