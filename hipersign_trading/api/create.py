@@ -774,6 +774,9 @@ def _debit_note(v, rows):
 	if not keep:
 		frappe.throw(_("Enter the quantity returned on at least one line"))
 	dn.set("items", keep)
+	# the returned amount comes off the supplier bill's outstanding (not a separate open debit)
+	if dn.meta.has_field("update_outstanding_for_self"):
+		dn.update_outstanding_for_self = 0
 	for f in ("hs_return_reason", "hs_supplier_rma", "remarks", "cost_center", "project"):
 		if v.get(f) and dn.meta.has_field(f):
 			dn.set(f, v[f])
