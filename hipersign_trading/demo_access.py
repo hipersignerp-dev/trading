@@ -56,6 +56,8 @@ HIPERSIGN_READ = {
 	"api.module.get_module", "api.module.get_rows", "api.module_prj.get_tracker", "api.panel.get_panel",
 	# v1.8.0: the Manufacturing pages, the Shop floor and the Production Tracker read only (api.manufacturing.act is a write)
 	"api.module_mfg.get_floor", "api.module_mfg.get_tracker",
+	# v1.8.0: the material request line review and the Create PO window read before anything is saved
+	"api.projects.mr_lines", "api.projects.mr_po_preset",
 }
 
 

@@ -254,8 +254,17 @@ def pj_boq_rows(tab, chip, q=None):
 def _mrs(names):
 	if not names or not _perm("Material Request"):
 		return []
-	return frappe.get_list("Material Request", filters={"hs_project": ["in", names], "docstatus": ["<", 2]}, fields=["name", "hs_project", "transaction_date", "schedule_date",
-		"docstatus", "per_ordered", "per_received", "owner", "hs_over_boq"], order_by="transaction_date desc, name desc", limit_page_length=0)
+	# v1.8.0: a request rejected at approval stays on the list (cancelled, with the rejected lines and the reason)
+	rows = frappe.get_list("Material Request", filters={"hs_project": ["in", names]}, fields=["name", "hs_project", "transaction_date", "schedule_date",
+		"docstatus", "per_ordered", "per_received", "owner", "hs_over_boq", "hs_rejected_lines", "material_request_type"], order_by="transaction_date desc, name desc", limit_page_length=0)
+	rows = [m for m in rows if m.docstatus < 2 or m.hs_rejected_lines]
+	# a purchase order raised from the request (still a draft waiting for approval) counts as ordered
+	po = {}
+	for r in frappe.get_all("Purchase Order Item", filters={"material_request": ["in", [m.name for m in rows] or [""]], "docstatus": ["<", 2]}, fields=["material_request", "parent"]):
+		po.setdefault(r.material_request, r.parent)
+	for m in rows:
+		m.po = po.get(m.name)
+	return rows
 
 
 def _pos(names):
@@ -335,11 +344,13 @@ def _site_stock(names):
 
 
 def _mr_state(m):
+	if m.docstatus == 2:
+		return _("Rejected"), "red"
 	if m.docstatus == 0:
 		return _("Pending approval"), "orange"
 	if flt(m.per_received) >= 100:
 		return _("Delivered"), "green"
-	if flt(m.per_ordered) > 0:
+	if flt(m.per_ordered) > 0 or m.get("po"):
 		return _("Ordered"), "blue"
 	return _("Approved"), "blue"
 
@@ -347,7 +358,7 @@ def _mr_state(m):
 def pj_site_module():
 	names = _names()
 	cur = _cur(names)
-	M, PO = _mrs(names), _pos(names)
+	M, PO = [m for m in _mrs(names) if m.docstatus < 2], _pos(names)
 	DL = _deliveries(names)
 	ST = _site_stock(names)
 	late = [x for x in PO if x.docstatus == 1 and x.schedule_date and getdate(x.schedule_date) < getdate(today()) and flt(x.per_received) < 100]
@@ -376,18 +387,27 @@ def pj_site_rows(tab, chip, q=None):
 	cur = _cur(names)
 	if tab == "mr":
 		M = _mrs(names)
-		items = {}
+		items, n_lines = {}, {}
 		for r in frappe.get_all("Material Request Item", filters={"parent": ["in", [m.name for m in M] or [""]]}, fields=["parent", "item_name", "qty", "uom", "hs_boq_item"], order_by="idx asc"):
 			items.setdefault(r.parent, r)
+			n_lines[r.parent] = n_lines.get(r.parent, 0) + 1
 		rows = []
 		for m in M:
 			it = items.get(m.name) or frappe._dict()
 			st, tone = _mr_state(m)
-			act = _btn(_("Approve"), "mr_approve", m.name, True) if m.docstatus == 0 else \
-				{"button": _("Create PO"), "make": "erpnext.stock.doctype.material_request.material_request.make_purchase_order", "source": m.name} if m.docstatus == 1 and flt(m.per_ordered) < 100 else ""
+			# v1.8.0: approve all, or line by line (approve, reduce or reject each line with a reason); Create PO opens the app's order window
+			act = {"buttons": [_btn(_("Approve"), "mr_approve", m.name, True), {"button": _("Lines…"), "js": "mr_review", "name": m.name}]} if m.docstatus == 0 else \
+				{"button": _("Create PO"), "make": "erpnext.stock.doctype.material_request.material_request.make_purchase_order", "source": m.name} \
+				if m.docstatus == 1 and m.material_request_type == "Purchase" and flt(m.per_ordered) < 100 and not m.po else ""
+			sub = _("over BOQ") if m.hs_over_boq else None
+			if m.hs_rejected_lines:
+				sub = _("lines rejected") if m.docstatus == 2 else _("partly approved")
+			elif m.po and m.docstatus == 1:
+				sub = m.po
 			rows.append({"dt": "Material Request", "name": m.name, "cells": [{"main": m.name, "sub": f"{frappe.utils.formatdate(m.transaction_date)} · {frappe.utils.get_fullname(m.owner)}"},
 				{"main": P.project(m.hs_project).project_name, "sub": _("{0} · line {1}").format(m.hs_project, it.hs_boq_item or "—")}, it.item_name or "—",
-				f"{flt(it.qty):,.0f} {it.uom or ''}", {"date": m.schedule_date}, {"pill": st, "tone": tone, **({"sub": _("over BOQ")} if m.hs_over_boq else {})}, act]})
+				f"{flt(it.qty):,.0f} {it.uom or ''}" + (f" (+{n_lines[m.name] - 1})" if n_lines.get(m.name, 0) > 1 else ""), {"date": m.schedule_date},
+				{"pill": st, "tone": tone, **({"sub": sub} if sub else {})}, act]})
 		return {"title": _("Material requests from the BOQ"), "nototal": 1, "cols": [{"label": _("Request")}, {"label": _("Project · BOQ line")}, {"label": _("Material")}, {"label": _("Qty")},
 			{"label": _("Needed")}, {"label": _("Status")}, {"label": ""}], "rows": rows, "empty": _("No material requests yet."),
 			"actions": [{"label": _("New material request"), "new": "Material Request:project", "primary": 1}]}

@@ -44,9 +44,11 @@ def _company():
 
 
 @frappe.whitelist()
-def options(kind):
-	"""Choice lists for one form."""
-	company = _company()
+def options(kind, company=None):
+	"""Choice lists for one form. v1.8.0: a window opened from a document of another company of the group (Create PO from
+	a project's material request) passes that company."""
+	if not company or not frappe.db.exists("Company", company) or not frappe.has_permission("Company", "read", company):
+		company = _company()
 	ccy = frappe.get_cached_value("Company", company, "default_currency") if company else "AED"
 	o = {"company": company, "currency": ccy, "today": today()}
 	selling = kind in ("quotation", "sales_order", "delivery_note", "invoice", "receive_payment", "lead", "customer")
@@ -250,6 +252,13 @@ def _lines(doc, lines, kind, need):
 			row["schedule_date"] = need
 		if r.get("warehouse"):
 			row["warehouse"] = r["warehouse"]
+		# v1.8.0: Create PO from a material request — the order line stays linked to the request line (ordered quantity, project)
+		if kind == "purchase_order" and r.get("material_request_item"):
+			mri = frappe.db.get_value("Material Request Item", r["material_request_item"], ["parent", "item_code", "project", "warehouse"], as_dict=True)
+			if mri and mri.item_code == r["item_code"] and frappe.has_permission("Material Request", "read", mri.parent):
+				row.update({"material_request": mri.parent, "material_request_item": r["material_request_item"], "warehouse": r.get("warehouse") or mri.warehouse})
+				if mri.project:
+					row["project"] = mri.project
 		doc.append("items", row)
 	if not doc.get("items"):
 		frappe.throw(_("Add at least one line with an item and a quantity"))

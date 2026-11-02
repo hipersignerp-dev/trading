@@ -280,6 +280,50 @@ frappe.provide("hipersign.projects");
 	}
 })();
 
+// ---------------------------------------------------------------- v1.8.0: material requests — approve line by line, Create PO in the app's window
+(function () {
+	const P = hipersign.projects, C = hipersign.cm;
+	if (!C || P.mr_review) return;
+	const esc = (s) => frappe.utils.escape_html(s == null ? "" : String(s));
+	// each line: approve at the requested quantity, a smaller one, or reject it; a reason goes with what is cut
+	P.mr_review = function (name, done) {
+		frappe.xcall("hipersign_trading.api.projects.mr_lines", { name }).then((m) => {
+			if (m.docstatus !== 0) return frappe.msgprint(__("{0} is already decided.", [name]));
+			const sh = C.shell({ title: __("Approve {0} line by line", [name]), sub: __("Approve each line, reduce its quantity or reject it — the reason is kept on the request"), wide: 1 });
+			sh.$body.html(`${m.over_boq ? `<div class="hsc-note">${__("Over the remaining BOQ quantity — the Managing Director approves.")}</div>` : ""}
+				<div class="hsc-lines"><table><thead><tr><th>${__("BOQ line")}</th><th>${__("Material")}</th><th class="c-n">${__("Requested")}</th><th class="c-n">${__("Approve qty")}</th><th>${__("Reject")}</th></tr></thead>
+				<tbody>${m.lines.map((r, i) => `<tr data-k="${i}"><td>${esc(r.boq || "—")}</td><td><b>${esc(r.item_name)}</b><br><small class="text-muted">${esc(r.item_code)}</small></td>
+					<td class="c-n">${format_number(r.qty, null, r.qty % 1 ? 2 : 0)} ${esc(r.uom)}</td><td><input class="f-q" type="number" min="0" step="any" max="${r.qty}" value="${r.qty}"></td>
+					<td><label style="display:flex;gap:6px;align-items:center;margin:0"><input type="checkbox" class="f-x"> ${__("Reject")}</label></td></tr>`).join("")}</tbody></table></div>
+				<div class="hsc-grid">${C.field({ f: "reason", label: __("Reason for rejected or reduced lines"), t: "textarea", w: 2, rows: 2, ph: __("e.g. Already in site stock; order after the client approves the sample") }, "")}</div>`);
+			sh.$body.on("change", ".f-x", function () { $(this).closest("tr").find(".f-q").prop("disabled", this.checked); });
+			const lines = () => sh.$body.find("tr[data-k]").get().map((tr) => { const r = m.lines[+$(tr).data("k")]; const x = $(tr).find(".f-x").prop("checked");
+				return { name: r.name, qty: x ? 0 : $(tr).find(".f-q").val(), reject: x ? 1 : 0 }; });
+			const go = (ls, btn) => {
+				$(btn).prop("disabled", true);
+				frappe.xcall("hipersign_trading.api.projects.act", { action: "mr_review", name, args: { lines: ls, reason: sh.$body.find("[data-f=reason]").val() } }).then((r) => {
+					sh.close();
+					frappe.show_alert({ message: (r && r.message) || __("Done"), indicator: "green" }, 7);
+					done && done(r);
+				}).catch(() => {}).finally(() => $(btn).prop("disabled", false));
+			};
+			sh.$fr.html(`<button type="button" class="btn btn-default hsc-cancel">${__("Cancel")}</button><button type="button" class="btn btn-danger hsc-rej">${__("Reject all")}</button>
+				<button type="button" class="btn btn-primary hsc-ok">${frappe.utils.icon("check", "xs")} ${__("Approve")}</button>`);
+			sh.$fr.on("click", ".hsc-cancel", sh.close);
+			sh.$fr.on("click", ".hsc-rej", function () { go(m.lines.map((r) => ({ name: r.name, qty: 0, reject: 1 })), this); });
+			sh.$fr.on("click", ".hsc-ok", function () { go(lines(), this); });
+		});
+	};
+	// "Create PO" on an approved material request opens the purchase order window with its lines (not the full form)
+	const MR_PO = "erpnext.stock.doctype.material_request.material_request.make_purchase_order";
+	const _make = C.make;
+	C.make = function (method, source, done) {
+		if (method !== MR_PO || (frappe.boot.hipersign || {}).no_create_modal) return _make.apply(this, arguments);
+		frappe.xcall("hipersign_trading.api.projects.mr_po_preset", { name: source }).then((preset) => C.open("purchase_order", preset));
+		return true;
+	};
+})();
+
 // the ERPNext lists of the Projects records open their page (the page's menu keeps the classic list)
 if (hipersign.nav && hipersign.nav.LIST_PAGE) Object.assign(hipersign.nav.LIST_PAGE, {
 	"Progress Certificate": ["hipersign-billing", "ipc"], "Variation Order": ["hipersign-billing", "vo"], "Project BOQ": ["hipersign-boq", "tend"],

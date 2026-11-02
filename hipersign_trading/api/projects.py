@@ -1091,6 +1091,99 @@ def _a_mr_approve(name, a):
 	return {"message": _("{0} approved — create the PO or request quotations").format(name)}
 
 
+def _a_mr_review(name, a):
+	"""v1.8.0: partial approval — each line approved at its quantity (or less) or rejected; a reason is needed for what is cut.
+	The rest is approved (submitted); when nothing is left the request is rejected (closed and kept, with the reason)."""
+	m = frappe.get_doc("Material Request", name)
+	if m.docstatus != 0:
+		frappe.throw(_("{0} is already decided.").format(name))
+	m.check_permission("submit")
+	_need([MD] if m.get("hs_over_boq") else [PM, MD, BUY], _("Approving this material request"))
+	lines = a.get("lines") or []
+	if isinstance(lines, str):
+		lines = frappe.parse_json(lines)
+	want = {str(x.get("name")): x for x in lines}
+	reason = (a.get("reason") or "").strip()
+	keep, notes, total = [], [], len(m.items)
+	for r in m.items:
+		x = want.get(r.name) or {}
+		q = flt(r.qty) if cint(x.get("reject")) == 0 and x.get("qty") in (None, "") else (0 if cint(x.get("reject")) else flt(x.get("qty")))
+		ref = f"{r.get('hs_boq_item') + ' · ' if r.get('hs_boq_item') else ''}{r.item_name or r.item_code}"
+		if q > flt(r.qty) + 1e-6:
+			frappe.throw(_("{0}: you can approve at most the {1} {2} requested.").format(ref, f"{flt(r.qty):g}", r.uom))
+		if q <= 0:
+			notes.append(_("{0} — {1} {2} rejected").format(ref, f"{flt(r.qty):g}", r.uom))
+			continue
+		if q < flt(r.qty):
+			notes.append(_("{0} — {1} of {2} {3} approved").format(ref, f"{q:g}", f"{flt(r.qty):g}", r.uom))
+			r.qty = q
+			r.stock_qty = q * flt(r.conversion_factor or 1)
+		keep.append(r)
+	if notes and not reason:
+		frappe.throw(_("Give the reason for the lines you reject or reduce."))
+	text = "\n".join(notes + ([_("Reason: {0}").format(reason)] if notes else [])) or None
+	if not keep:
+		m.hs_rejected_lines = text
+		m.flags.ignore_permissions = True
+		m.submit()
+		m.cancel()
+		m.add_comment("Comment", _("Rejected") + "<br>" + frappe.utils.escape_html(text or "").replace("\n", "<br>"))
+		return {"message": _("{0} rejected — the site engineer sees the reason").format(name)}
+	for i, r in enumerate(keep, 1):
+		r.idx = i
+	m.set("items", keep)
+	m.hs_rejected_lines = text
+	m.save()
+	m.submit()
+	if text:
+		m.add_comment("Comment", _("Partly approved") + "<br>" + frappe.utils.escape_html(text).replace("\n", "<br>"))
+		return {"message": _("{0} approved — {1} of {2} lines; what was cut is noted with the reason").format(name, len(keep), total)}
+	return {"message": _("{0} approved — create the PO or request quotations").format(name)}
+
+
+@frappe.whitelist()
+def mr_lines(name):
+	"""The lines of a material request waiting for approval (the partial approval window)."""
+	m = frappe.get_doc("Material Request", name)
+	m.check_permission("read")
+	return {"name": m.name, "project": m.get("hs_project"), "over_boq": cint(m.get("hs_over_boq")), "docstatus": m.docstatus,
+		"lines": [{"name": r.name, "item_code": r.item_code, "item_name": r.item_name, "boq": r.get("hs_boq_item"), "qty": flt(r.qty), "uom": r.uom,
+			"need": str(r.schedule_date or "")} for r in m.items]}
+
+
+@frappe.whitelist()
+def mr_po_preset(name):
+	""""Create PO" from an approved material request: what the app's purchase order window opens with — the lines still to
+	order (linked to the request), the supplier who last supplied them, the request's company, project and date needed."""
+	m = frappe.get_doc("Material Request", name)
+	m.check_permission("read")
+	frappe.has_permission("Purchase Order", "create", throw=True)
+	if m.docstatus != 1 or m.material_request_type != "Purchase":
+		frappe.throw(_("{0} must be an approved purchase request.").format(name))
+	items, sup = [], None
+	for r in m.items:
+		left = flt(r.stock_qty) - flt(r.ordered_qty)
+		if left <= 0:
+			continue
+		last = frappe.db.sql("""select po.supplier, pi.rate from `tabPurchase Order Item` pi join `tabPurchase Order` po on po.name = pi.parent
+			where pi.item_code = %s and po.company = %s and po.docstatus = 1 order by po.transaction_date desc, po.creation desc limit 1""", (r.item_code, m.company), as_dict=True)
+		if last and not sup:
+			sup = last[0].supplier
+		if not sup:
+			sup = frappe.db.get_value("Item Default", {"parent": r.item_code, "company": m.company}, "default_supplier")
+		rate = flt(last[0].rate) if last else flt(frappe.db.get_value("Item", r.item_code, "last_purchase_rate")) or flt(frappe.db.get_value("Item", r.item_code, "valuation_rate"))
+		items.append({"item_code": r.item_code, "item_name": r.item_name, "qty": flt(left / flt(r.conversion_factor or 1), 3), "rate": rate or None, "warehouse": r.warehouse,
+			"project": r.get("project") or m.get("hs_project"), "material_request": m.name, "material_request_item": r.name})
+	if not items:
+		frappe.throw(_("Everything on {0} is already ordered.").format(name))
+	need = max((getdate(r.schedule_date) for r in m.items if r.schedule_date), default=None)
+	out = {"company": m.company, "items": items, "schedule_date": str(need) if need and need >= getdate(today()) else None, "_mr": m.name,
+		"project": m.get("hs_project") or None}
+	if sup:
+		out["party"] = sup
+	return {k: v for k, v in out.items() if v is not None}
+
+
 def _a_po_receive(name, a):
 	"""Receive a project PO at the project's site store (what is still to come)."""
 	from erpnext.buying.doctype.purchase_order.purchase_order import make_purchase_receipt
@@ -1128,7 +1221,7 @@ ACTIONS = {
 	"step": _a_step, "measure": _a_measure, "ipc_submit": _a_ipc_submit, "ipc_certify": _a_ipc_certify, "ipc_invoice": _a_ipc_invoice,
 	"advance_invoice": _a_advance_invoice, "retention_invoice": _a_retention_invoice, "receive": _a_receive,
 	"vo_submit": lambda n, a: _a_vo(n, a, "Pending client"), "vo_approve": lambda n, a: _a_vo(n, a, "Approved"), "vo_reject": lambda n, a: _a_vo(n, a, "Rejected"),
-	"claim_certify": _a_claim_certify, "claim_bill": _a_claim_bill, "claim_pay": _a_claim_pay, "sco_sign": _a_sco_sign, "mr_approve": _a_mr_approve,
+	"claim_certify": _a_claim_certify, "claim_bill": _a_claim_bill, "claim_pay": _a_claim_pay, "sco_sign": _a_sco_sign, "mr_approve": _a_mr_approve, "mr_review": _a_mr_review,
 	"po_receive": _a_po_receive, "timesheets": _a_timesheets,
 }
 

@@ -39,6 +39,9 @@ hipersign.module.cell = function (c) {
 	if (c === null || c === undefined || c === "") return "—";
 	if (typeof c !== "object") return hm_esc(typeof c === "number" ? format_number(c, null, c % 1 ? 2 : 0) : c);
 	if (c.code) return `<span class="hsx-code">${hm_esc(c.code)}</span>`;
+	// v1.8.0: several buttons in one cell (Approve · Lines…); a button that opens a window of the module's script (c.js)
+	if (c.buttons) return `<span style="display:inline-flex;gap:4px;flex-wrap:nowrap">${c.buttons.map(hipersign.module.cell).join("")}</span>`;
+	if (c.button && c.js) return `<button class="btn btn-xs btn-default hsx-cbtn" data-pjs="${hm_esc(c.js)}" data-pname="${hm_esc(c.name)}" style="white-space:nowrap">${hm_esc(c.button)}</button>`;
 	// v1.8.0: a button that runs a Projects action (hipersign_trading.api.projects.act), and a number typed in place (the measurement)
 	if (c.button && c.act) return `<button class="btn btn-xs ${c.primary ? "btn-primary" : "btn-default"} hsx-cbtn" data-pact="${hm_esc(c.act)}" data-pname="${hm_esc(c.name)}"
 		${c.method ? `data-pmethod="${hm_esc(c.method)}"` : ""} data-pargs="${hm_esc(JSON.stringify(c.args || {}))}" ${c.confirm ? `data-pconfirm="${hm_esc(c.confirm)}"` : ""} style="white-space:nowrap">${hm_esc(c.button)}</button>`;
@@ -295,10 +298,15 @@ hipersign.module.render = function (wrapper, key) {
 	};
 	v.$body.on("change", ".hsx-cin", function () { pact($(this), { pct: flt($(this).val()) }); });
 	v.$body.on("click", ".hsx-cbtn[data-pact]", function (e) { e.stopPropagation(); e.stopImmediatePropagation(); pact($(this)); });
+	v.$body.on("click", ".hsx-cbtn[data-pjs]", function (e) {
+		e.stopPropagation(); e.stopImmediatePropagation();
+		const fn = (hipersign.projects || {})[$(this).attr("data-pjs")];
+		if (fn) fn($(this).attr("data-pname"), () => { load(); $(document).trigger("hs-projects-changed"); });
+	});
 	v.$body.on("click", ".hsx-cbtn", function (e) {
 		e.stopPropagation();
 		const $b = $(this);
-		if ($b.attr("data-pact")) return;
+		if ($b.attr("data-pact") || $b.attr("data-pjs")) return;
 		if ($b.attr("data-ldt")) return open($b.attr("data-ldt"), $b.attr("data-lname"));
 		if ($b.attr("data-make") === "wps") return window.open("/api/method/hipersign_trading.api.wps.download_sif?payroll_entry=" + encodeURIComponent($b.attr("data-source")));
 		// v1.7.0: deliver / receive / pay / invoice open the prototype's modal; the page reloads its rows after

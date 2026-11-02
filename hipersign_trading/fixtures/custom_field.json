@@ -1883,6 +1883,21 @@
  },
  {
   "doctype": "Custom Field",
+  "name": "Material Request-hs_rejected_lines",
+  "dt": "Material Request",
+  "fieldname": "hs_rejected_lines",
+  "fieldtype": "Small Text",
+  "module": "Hipersign Trading",
+  "is_system_generated": 0,
+  "label": "Rejected lines",
+  "insert_after": "hs_over_boq",
+  "read_only": 1,
+  "allow_on_submit": 1,
+  "no_copy": 1,
+  "description": "Lines taken out or reduced at approval, with the reason (partial approval)"
+ },
+ {
+  "doctype": "Custom Field",
   "name": "Material Request Item-hs_boq_item",
   "dt": "Material Request Item",
   "fieldname": "hs_boq_item",
