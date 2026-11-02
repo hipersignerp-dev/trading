@@ -1320,5 +1320,196 @@
   "route": [
    "hipersign-billing"
   ]
+ },
+ {
+  "id": "ZH-01",
+  "section": "Chinese",
+  "role": "Any user",
+  "steps": "Top bar → language button → *中文*",
+  "expected": "The page reloads in Simplified Chinese; the button shows 中; User → Language is zh",
+  "route": [
+   "hipersign-home"
+  ]
+ },
+ {
+  "id": "ZH-02",
+  "section": "Chinese",
+  "role": "Sales Executive (Chinese)",
+  "steps": "Open the menu, Home, Quotations & Orders and a Sales Order",
+  "expected": "Menu groups, page titles, tabs, buttons and messages in Chinese (销售, 报价单与订单 …); ERPNext's own labels in Chinese",
+  "route": [
+   "hipersign-orders"
+  ]
+ },
+ {
+  "id": "ZH-03",
+  "section": "Chinese",
+  "role": "Any user",
+  "steps": "Language 中文 → look at the menu, a list and a form",
+  "expected": "Chinese text uses the CJK font (PingFang SC / Microsoft YaHei / Noto Sans SC); left-to-right layout",
+  "route": [
+   "hipersign-home"
+  ]
+ },
+ {
+  "id": "ZH-04",
+  "section": "Chinese",
+  "role": "Any user",
+  "steps": "Language 中文 → + New → Create new panel; search with “/”",
+  "expected": "Group names and entries in Chinese; search placeholder in Chinese",
+  "route": [
+   "hipersign-home"
+  ]
+ },
+ {
+  "id": "ZH-05",
+  "section": "Chinese",
+  "role": "Managing Director",
+  "steps": "Language 中文 → Home → start the guided tour",
+  "expected": "Tour chapters and step texts in Chinese",
+  "route": [
+   "hipersign-home"
+  ]
+ },
+ {
+  "id": "ZH-06",
+  "section": "Chinese",
+  "role": "Any user",
+  "steps": "中文 → language button → *العربية*, then → *English*",
+  "expected": "Arabic: right to left, Arabic labels; English: left to right; no Chinese font left behind",
+  "route": [
+   "hipersign-home"
+  ]
+ },
+ {
+  "id": "ZH-07",
+  "section": "Chinese",
+  "role": "Administrator",
+  "steps": "bench migrate on a site without the zh or ar Language record",
+  "expected": "Language records ar (العربية) and zh (简体中文) exist and are enabled after migrate",
+  "route": [
+   "List",
+   "Language"
+  ]
+ },
+ {
+  "id": "MENU-01",
+  "section": "Menu builder",
+  "role": "Administrator",
+  "steps": "Admin → Menu builder",
+  "expected": "Page opens with the scope switch (Whole site / Company / Role), every menu group and screen with a switch, three name boxes (English / العربية / 中文), arrows, Preview, Add a custom link and Change log",
+  "route": [
+   "hipersign-menu"
+  ]
+ },
+ {
+  "id": "MENU-02",
+  "section": "Menu builder",
+  "role": "Sales Executive",
+  "steps": "Open */app/hipersign-menu*",
+  "expected": "Not permitted — only System Manager and Managing Director open the builder",
+  "route": [
+   "hipersign-menu"
+  ]
+ },
+ {
+  "id": "MENU-03",
+  "section": "Menu builder",
+  "role": "Administrator",
+  "steps": "Whole site → switch off *Customer Portal* → Save → reload as a Sales Manager",
+  "expected": "Customer Portal is gone from the menu; the Change log shows “Hide “Customer Portal”” with the user and time",
+  "route": [
+   "hipersign-menu"
+  ]
+ },
+ {
+  "id": "MENU-04",
+  "section": "Menu builder",
+  "role": "Administrator",
+  "steps": "Whole site → rename *CRM & Leads*: English “Leads”, 中文 “线索” → Save → reload in English, then in 中文",
+  "expected": "Menu shows “Leads” in English, “线索” in Chinese; Arabic (no Arabic name) shows “Leads”; the sub-lists and the count badge still work",
+  "route": [
+   "hipersign-menu"
+  ]
+ },
+ {
+  "id": "MENU-05",
+  "section": "Menu builder",
+  "role": "Administrator",
+  "steps": "Move *Admin* to the top with the arrows; move *Order Tracker* first in Sales → Save → reload",
+  "expected": "Preview and the sidebar show the new order",
+  "route": [
+   "hipersign-menu"
+  ]
+ },
+ {
+  "id": "MENU-06",
+  "section": "Menu builder",
+  "role": "Administrator",
+  "steps": "Add a custom link “Supplier portal” (中文 供应商门户) → https://example.com under Purchasing → Save",
+  "expected": "The link shows at the end of Purchasing and opens the address; it can be moved, hidden or removed",
+  "route": [
+   "hipersign-menu"
+  ]
+ },
+ {
+  "id": "MENU-07",
+  "section": "Menu builder",
+  "role": "Administrator",
+  "steps": "Whole site: hide *Imports & Shipments*. Role → Purchase Manager: switch it on → Save → reload as Buyer and as Purchase Manager",
+  "expected": "Buyer: hidden. Purchase Manager: shown (role beats whole site)",
+  "route": [
+   "hipersign-menu"
+  ]
+ },
+ {
+  "id": "MENU-08",
+  "section": "Menu builder",
+  "role": "Administrator",
+  "steps": "Company → choose a company → hide *Exports & Re-exports* → Save; users working in that company reload",
+  "expected": "Hidden for that company only; other companies keep it (company beats whole site, role beats company)",
+  "route": [
+   "hipersign-menu"
+  ]
+ },
+ {
+  "id": "MENU-09",
+  "section": "Menu builder",
+  "role": "Administrator",
+  "steps": "Hide *HR & Payroll* → reload → + New, and search an employee name in the top bar",
+  "expected": "Employee, Expense claim and Leave request are gone from + New; employees no longer come up in the top-bar search; the list still opens from a direct link for users who may read it",
+  "route": [
+   "hipersign-menu"
+  ]
+ },
+ {
+  "id": "MENU-10",
+  "section": "Menu builder",
+  "role": "Administrator",
+  "steps": "Role scope → *Reset to standard* → confirm",
+  "expected": "Only that role's changes are removed; whole-site and company changes stay; the log shows “Reset to standard”",
+  "route": [
+   "hipersign-menu"
+  ]
+ },
+ {
+  "id": "MENU-11",
+  "section": "Menu builder",
+  "role": "Administrator",
+  "steps": "Hide a screen whose role the user lacks, then show it at role level for that user's role",
+  "expected": "The menu never grants access: a screen the role may not open stays out of the menu",
+  "route": [
+   "hipersign-menu"
+  ]
+ },
+ {
+  "id": "MENU-12",
+  "section": "Menu builder",
+  "role": "Administrator",
+  "steps": "After installing a release with a new menu group (e.g. Projects) → Admin → Menu builder",
+  "expected": "The new group and its screens are listed and can be hidden, renamed and moved with no other change",
+  "route": [
+   "hipersign-menu"
+  ]
  }
 ]

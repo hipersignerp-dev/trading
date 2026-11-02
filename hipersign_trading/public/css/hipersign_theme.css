@@ -548,3 +548,14 @@ html.hs-theme.hs-topbar-on[dir="rtl"] .dropdown-notifications { right: auto !imp
 	html.hs-theme .hs-tb-search span, html.hs-theme .hs-tb-search kbd, html.hs-theme .hs-tb-company, html.hs-theme .hs-tb-ut,
 	html.hs-theme .hs-tb-new span, html.hs-theme .hs-tb-userbtn > svg { display: none; }
 }
+
+/* ================================================================ v1.8.0 — Simplified Chinese (User language zh)
+   hs_nav.js adds html.hs-lang-zh; a CJK font stack for every screen (with or without the Hipersign theme). */
+html.hs-lang-zh {
+	--hs-font: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", "Hiragino Sans GB", "Source Han Sans SC", "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+	--hs-brand: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", "Lexend", ui-sans-serif, sans-serif;
+	--font-stack: var(--hs-font);
+}
+html.hs-lang-zh body, html.hs-lang-zh input, html.hs-lang-zh select, html.hs-lang-zh textarea, html.hs-lang-zh button { font-family: var(--hs-font); }
+/* Chinese reads better without the theme's upper-case letter spacing on section labels */
+html.hs-lang-zh .hsm-pv-g, html.hs-lang-zh .hsm-row.hsm-head, html.hs-lang-zh .hsm-row.hsm-g .hsm-n b { letter-spacing: 0; }

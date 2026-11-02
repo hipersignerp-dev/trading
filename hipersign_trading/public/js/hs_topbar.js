@@ -79,6 +79,8 @@ hipersign.create.GROUPS = () => [
 hipersign.create.allowed = function (a) {
 	const info = (frappe.boot && frappe.boot.hipersign) || {};
 	if (a.feature && info.features && info.features[a.feature] === false) return false;
+	// v1.8.0: a screen hidden with the menu builder takes its documents out of + New
+	if (a.dt && (info.menu_hidden_dts || []).includes(a.dt)) return false;
 	if (a.admin && !frappe.user.has_role("System Manager")) return false;
 	if (a.route) return true;
 	if (!frappe.boot.user.can_create || !a.dt) return false;
@@ -148,6 +150,18 @@ hipersign.topbar.sync = function () {
 	$(".hs-banners").toggle(!hide);
 };
 
+// ---------------------------------------------------------------- v1.8.0: the language switch (prototype p19)
+// [code, name in its own language, button mark, line under it] — shown in their own script, never translated
+hipersign.topbar.LANGS = [
+	["en", "English", "EN", "English"],
+	["ar", "العربية", "ع", "Arabic · right to left"],
+	["zh", "中文", "中", "Simplified Chinese · 简体中文"],
+];
+hipersign.topbar.lang_now = function () {
+	const l = (frappe.boot.lang || "en").toLowerCase();
+	return hipersign.topbar.LANGS.find(([k]) => l === k || l.startsWith(k + "-")) || hipersign.topbar.LANGS[0];
+};
+
 // ---------------------------------------------------------------- render
 hipersign.topbar.render = function () {
 	if (!document.documentElement.classList.contains("hs-theme") || frappe.session.user === "Guest") return;
@@ -158,7 +172,7 @@ hipersign.topbar.render = function () {
 	if (!$host.length) return;
 	if ($host.find(".hs-topbar").length) return hipersign.topbar.sync();
 	const name = frappe.user.full_name ? frappe.user.full_name() : frappe.session.user;
-	const ar = (frappe.boot.lang || "en").startsWith("ar");
+	const lang_now = hipersign.topbar.lang_now();
 	$host.addClass("hs-topbar-host").html(`
 		<div class="hs-topbar">
 			<button type="button" class="hs-tb-icon hs-tb-menu" title="${hs_esc(__("Menu"))}" aria-label="${hs_esc(__("Menu"))}">${hs_icon("menu")}</button>
@@ -185,7 +199,13 @@ hipersign.topbar.render = function () {
 				<button type="button" class="btn btn-primary hs-tb-new" aria-haspopup="true" aria-expanded="false">${hs_icon("add")}<span>${hs_esc(__("New"))}</span></button>
 				<div class="hs-tb-panel hs-tb-create" hidden></div>
 			</div>
-			<button type="button" class="hs-tb-icon hs-tb-lang" title="${hs_esc(ar ? "English" : "العربية")}">${ar ? "EN" : "ع"}</button>
+			<div class="dropdown hs-tb-langwrap">
+				<button type="button" class="hs-tb-icon hs-tb-lang" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Language · اللغة · 语言" aria-label="Language · اللغة · 语言">${hs_esc(lang_now[2])}</button>
+				<div class="dropdown-menu dropdown-menu-right hs-tb-menu-list hs-tb-langs">
+					<div class="hs-tb-sec">Language · 语言 · اللغة</div>
+					${hipersign.topbar.LANGS.map(([k, l, m, sub]) => `<a class="dropdown-item hs-tb-setlang ${k === lang_now[0] ? "active" : ""}" data-lang="${k}" lang="${k}"><span class="hs-tb-lmark">${hs_esc(m)}</span><span><b>${hs_esc(l)}</b><small>${hs_esc(sub)}</small></span></a>`).join("")}
+				</div>
+			</div>
 			<div class="hs-tb-bellwrap">
 				<button type="button" class="hs-tb-icon hs-tb-bell" title="${hs_esc(__("Notifications"))}">${hs_icon("notification")}<span class="hs-tb-dot" hidden></span></button>
 				<div class="hs-tb-panel hs-tb-notif" hidden></div>
@@ -580,8 +600,10 @@ $(document).on("click", (e) => {
 	}
 });
 
-$(document).on("click", ".hs-topbar .hs-tb-lang", () => {
-	const to = (frappe.boot.lang || "en").startsWith("ar") ? "en" : "ar";
+$(document).on("click", ".hs-topbar .hs-tb-setlang", function (e) {
+	e.preventDefault();
+	const to = $(this).attr("data-lang");
+	if (to === hipersign.topbar.lang_now()[0]) return;
 	frappe.xcall("hipersign_trading.api.ui.set_language", { language: to }).then(() => window.location.reload());
 });
 $(document).on("click", ".hs-topbar .hs-tb-switch, .hs-topbar .hs-tb-back", function (e) {

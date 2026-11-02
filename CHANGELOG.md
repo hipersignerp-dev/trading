@@ -31,6 +31,25 @@
   restaurant — all posted as real documents.
 - Fix: a group company's sales orders keep their own VAT template (the main company's was forced on them).
 
+## 1.8.0 — Chinese & menu builder
+- **Simplified Chinese (中文)**: every string the app shows — pages, menus, buttons, messages, doctype and workspace labels,
+  reports, number cards, the guided tour and the Test Centre sections — in `translations/zh.csv` and `locale/zh.po`
+  (language code `zh`, alongside ERPNext's own Chinese). 3,715 strings, 100% of what `tools/i18n_extract.py` finds:
+  1,043 from the approved prototype (p19), 2,672 translated for this release. The print formats stay English + Arabic.
+- **Language switch** in the top bar: English / العربية / 中文. It sets the user's language and reloads; Arabic keeps the
+  right-to-left layout, Chinese uses a CJK font stack (PingFang SC, Microsoft YaHei, Noto Sans SC) only when chosen.
+  Migrate makes sure the Language records `ar` and `zh` exist and are enabled.
+- **Menu builder** (Admin → Menu builder, System Manager and Managing Director): show or hide, rename in English, Arabic
+  and Chinese, and reorder every menu group and screen, and add custom links (web address, /app/… or #page) — for the
+  whole site, one company or one role. Role beats company beats site, field by field. Live preview, Save, Reset to
+  standard per scope and a change log (who, when, what). Stored in **Hipersign Menu Override**, logged in
+  **Hipersign Menu Log**. Applied when the desk loads, on top of the feature packs; a hidden screen also leaves + New and
+  the top-bar search. A menu never grants access — role permissions still decide.
+- NAV groups and items have stable keys (`g:<group>`, the target's slug), so groups added later (Projects, Manufacturing)
+  appear in the builder with no other change.
+- Test Centre: ZH-01…07 and MENU-01…12. Arabic labels for the builder and the language switch.
+- Tools (no bench needed): `tools/i18n_extract.py`, `tools/i18n_build.py check zh`, `tools/test_menu.py`.
+
 ## 1.7.3 — the 2 Nov review: every New in the new window, prints as on the prototype
 - **Every "New" opens the create window** with Quick / Standard / Detailed — from + New and from each list's Add: supplier bill
   (match to the order or goods receipt, lines and VAT), debit note, receive payment (oldest invoices first, bank charges),

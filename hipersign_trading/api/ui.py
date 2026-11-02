@@ -120,8 +120,13 @@ def set_period(period):
 
 @frappe.whitelist(methods=["POST"])
 def set_language(language):
-	if language not in ("en", "ar"):
-		frappe.throw(_("Language must be English or Arabic"))
+	"""v1.8.0: English, Arabic (right to left) or Simplified Chinese — the top bar's language switch."""
+	if language not in ("en", "ar", "zh"):
+		frappe.throw(_("Language must be English, Arabic or Chinese"))
+	if language != "en" and not frappe.db.exists("Language", language):
+		from hipersign_trading.setup import ensure_languages
+
+		ensure_languages()
 	frappe.db.set_value("User", frappe.session.user, "language", language)
 	frappe.clear_cache(user=frappe.session.user)
 	return language
@@ -161,8 +166,15 @@ def search(q, limit=12):
 		return []
 	out = []
 	like = f"%{q}%"
+	# v1.8.0: screens hidden with the menu builder are left out of the search too
+	from hipersign_trading.menu import hidden_dts_for_user
+
+	try:
+		menu_hidden = set(hidden_dts_for_user())
+	except Exception:
+		menu_hidden = set()
 	for dt, label, fields, title, extra in SEARCH:
-		if len(out) >= limit or not frappe.db.exists("DocType", dt) or not can_read(dt):
+		if len(out) >= limit or dt in menu_hidden or not frappe.db.exists("DocType", dt) or not can_read(dt):
 			continue
 		meta = frappe.get_meta(dt)
 		fields = [f for f in fields if meta.has_field(f)]
