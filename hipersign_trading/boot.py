@@ -30,6 +30,13 @@ def boot_session(bootinfo):
 
 		info["nav_sub"] = sub_items()
 		info["nav_badges"] = list(NAV_BADGES)
+		# v1.8.0: the menu builder's changes for this user (role > company > site) on top of the feature packs
+		try:
+			from hipersign_trading.menu import boot as menu_boot
+
+			menu_boot(bootinfo, info)
+		except Exception:
+			frappe.log_error(title="Hipersign menu builder (boot)")
 		bootinfo.hipersign = info
 		from hipersign_trading.demo_access import boot as demo_boot
 

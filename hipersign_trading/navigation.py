@@ -12,6 +12,7 @@ rework). On a desk without those doctypes nothing happens.
 """
 
 import json
+import re
 
 import frappe
 
@@ -68,6 +69,7 @@ NAV = [
 	]),
 	("Admin", "sliders-horizontal", [
 		("Workflows & Settings", "DocType", "Hipersign Settings", "sliders-horizontal", None, {}),
+		("Menu builder", "Page", "hipersign-menu", "menu", None, {}),  # v1.8.0
 		("Document Centre", "Report", "Missing Documents", "file-warning", None, {}),
 		("Data Migration", "DocType", "Data Import", "upload", None, {}),
 		("Test Centre", "Page", "hipersign-tests", "flask-conical", None, {}),
@@ -139,35 +141,75 @@ def _on(s, feature):
 	return bool(s.get(field(feature)))
 
 
-def sidebar_items(s=None):
-	"""The rows of the Hipersign ERP sidebar for the features switched on, skipping anything this site lacks."""
-	s = s or _s()
-	rows = []
+def slug(s):
+	"""A stable key from a label or a target: "Finance & Tax" → "finance-tax", "/driver" → "driver"."""
+	return re.sub(r"[^a-z0-9]+", "-", (s or "").lower()).strip("-")
+
+
+def group_key(group, extra=None):
+	"""v1.8.0: stable key of a NAV group — used by the menu builder (Hipersign Menu Override.item_key)."""
+	return (extra or {}).get("key") or "g:" + slug(group)
+
+
+def item_key(ltype, target, extra=None):
+	"""v1.8.0: stable key of a NAV item — its target (page name, doctype, report or URL), unless extra["key"] sets one.
+	New NAV groups and items (Projects, Manufacturing …) get keys this way with no other change."""
+	return (extra or {}).get("key") or slug(target)
+
+
+def nav_groups(s=None, check=True):
+	"""The menu as data: [{key, label, icon, items: [{key, label, link_type, target, icon, feature}]}] for the features
+	switched on, skipping anything this site lacks (check=False: every NAV entry, for the menu builder)."""
+	s = s if s is not None else (_s() if check else None)
+	out = []
 	for group, gicon, links in NAV:
-		kept = []
+		items = []
 		for label, ltype, target, icon, feature, extra in links:
-			if not _on(s, feature):
+			if check and not _on(s, feature):
 				continue
-			if ltype in LINK_DOCTYPE and not frappe.db.exists(LINK_DOCTYPE[ltype], target):
+			if check and ltype in LINK_DOCTYPE and not frappe.db.exists(LINK_DOCTYPE[ltype], target):
 				continue
-			row = {"type": "Link", "label": label, "link_type": ltype, "icon": icon, "child": 1, "indent": 0, "collapsible": 1}
-			if ltype == "URL":
-				row["url"] = target
+			items.append({"key": item_key(ltype, target, extra), "label": label, "link_type": ltype, "target": target, "icon": icon,
+				"feature": feature, "extra": extra})
+		out.append({"key": group_key(group), "label": group, "icon": gicon, "items": items})
+	return out
+
+
+def rows_from_groups(groups):
+	"""Workspace Sidebar rows from nav_groups(): the first Overview link on top (what the desktop tile opens), then a
+	section per group. Rows carry "hs_key" (dropped when the sidebar is saved; used by the boot-time menu overrides)."""
+	rows = []
+	has_filters = None
+	for g in groups:
+		kept = []
+		for it in g["items"]:
+			row = {"type": "Link", "label": it["label"], "link_type": it["link_type"], "icon": it["icon"], "child": 1, "indent": 0,
+				"collapsible": 1, "hs_key": it["key"]}
+			if it["link_type"] == "URL":
+				row["url"] = it["target"]
 			else:
-				row["link_to"] = target
-			if extra.get("filters") and frappe.get_meta("Workspace Sidebar Item").has_field("filters"):
-				row["filters"] = json.dumps(extra["filters"])
+				row["link_to"] = it["target"]
+			if (it.get("extra") or {}).get("filters"):
+				if has_filters is None:
+					has_filters = frappe.get_meta("Workspace Sidebar Item").has_field("filters")
+				if has_filters:
+					row["filters"] = json.dumps(it["extra"]["filters"])
 			kept.append(row)
 		if not kept:
 			continue
-		if group == "Overview":
+		if g["key"] == "g:overview":
 			# the first link is what the desktop tile opens: Home, at the top, outside any section
-			first = dict(kept[0], child=0)
-			rows.append(first)
+			rows.append(dict(kept[0], child=0))
 			kept = kept[1:]
-		rows.append({"type": "Section Break", "label": group, "icon": gicon, "indent": 1, "collapsible": 1, "keep_closed": 0 if group in ("Overview", "Sales") else 1})
+		rows.append({"type": "Section Break", "label": g["label"], "icon": g["icon"], "indent": 1, "collapsible": 1,
+			"keep_closed": 0 if g["key"] in ("g:overview", "g:sales") else 1, "hs_key": g["key"]})
 		rows.extend(kept)
 	return rows
+
+
+def sidebar_items(s=None):
+	"""The rows of the Hipersign ERP sidebar for the features switched on, skipping anything this site lacks."""
+	return rows_from_groups(nav_groups(s or _s()))
 
 
 def _route(ltype, target):
