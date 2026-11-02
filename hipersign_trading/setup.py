@@ -47,14 +47,18 @@ def after_migrate():
 # v1.6.0 (QTN-01): ERPNext 16 makes its "… with Item Image" formats the default, so Print, Email and the WhatsApp link
 # sent the English-only ERPNext layout. Our bilingual formats become the default unless the site chose its own.
 PRINT_DEFAULTS = {"Quotation": "Hipersign Quotation", "Sales Order": "Hipersign Order Confirmation", "Sales Invoice": "Hipersign Tax Invoice",
-	"Delivery Note": "Hipersign Delivery Note", "Purchase Order": "Hipersign Purchase Order"}
+	"Delivery Note": "Hipersign Delivery Note", "Purchase Order": "Hipersign Purchase Order",
+	# v1.7.3: the other documents the prototype prints (Salary Slip only where HRMS is installed)
+	"Purchase Receipt": "Hipersign Goods Receipt Note", "Payment Entry": "Hipersign Payment Voucher",
+	"Delivery Trip": "Hipersign Delivery Trip Sheet", "Export Shipment": "Hipersign Packing List", "Salary Slip": "Hipersign Payslip",
+	"Request for Quotation": "Hipersign Request for Quotation", "Pick List": "Hipersign Pick List"}
 
 
 def default_print_formats():
 	from frappe.custom.doctype.property_setter.property_setter import make_property_setter
 
 	for dt, pf in PRINT_DEFAULTS.items():
-		if not frappe.db.exists("Print Format", pf):
+		if not frappe.db.exists("Print Format", pf) or not frappe.db.exists("DocType", dt):
 			continue
 		current = frappe.get_meta(dt).default_print_format
 		if current == pf:
