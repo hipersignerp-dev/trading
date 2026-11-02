@@ -72,10 +72,10 @@ boot_session = "hipersign_trading.boot.boot_session"
 override_doctype_class = {
 	"Customer": "hipersign_trading.overrides.party_dashboard.HipersignCustomer",
 	"Supplier": "hipersign_trading.overrides.party_dashboard.HipersignSupplier",
-}
-
 	# v1.8.0: a partial manufacture entry keeps its own process loss (overrides/stock_entry_mfg.py)
 	"Stock Entry": "hipersign_trading.overrides.stock_entry_mfg.HipersignStockEntry",
+}
+
 before_request = ["hipersign_trading.demo_access.before_request", "hipersign_trading.overrides.user.driver_redirect"]
 
 # ---------------------------------------------------------------- fixtures
@@ -218,5 +218,13 @@ jinja = {
 		# v1.8.0: the project prints (BOQ, certificate, progress / retention invoice, variation, subcontract order)
 		"hipersign_trading.print_helpers.hs_project_info",
 		"hipersign_trading.print_helpers.hs_boq_sections",
+		# v1.8.0: the manufacturing prints (job ticket, BOM, QC certificate, finished-goods label — English + Chinese)
+		"hipersign_trading.print_helpers.hs_barcode",
+		"hipersign_trading.print_helpers.hs_qr",
+		"hipersign_trading.print_helpers.hs_company_zh",
+		"hipersign_trading.print_helpers.hs_job_ticket",
+		"hipersign_trading.print_helpers.hs_bom_print",
+		"hipersign_trading.print_helpers.hs_qc_print",
+		"hipersign_trading.print_helpers.hs_fg_label",
 	]
 }
