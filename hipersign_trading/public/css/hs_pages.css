@@ -226,6 +226,7 @@ body.hp-open .hp-backdrop { display: block; }
 .hsm-n { display: flex; align-items: center; gap: 7px; min-width: 0; flex-wrap: wrap; color: var(--x-ink); }
 .hsm-n b { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 100%; }
 .hsm-n small { flex-basis: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.hsm-n > svg, .hsm-pv-i > svg { margin: 0 !important; flex: none; }
 .hsm-ins { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
 .hsm-btns { display: inline-flex; gap: 4px; }
 .hsm-btns .btn { padding: 2px 6px; line-height: 1; }
