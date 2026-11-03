@@ -229,8 +229,9 @@ frappe.provide("hipersign.projects");
 			{ f: "_note", label: __("Notes"), t: "textarea", m: "d", w: 2 },
 		], actions: [{ label: __("Send for approval"), action: "save", primary: 1 }] },
 		"Stock Entry:site": { doctype: "Stock Entry", preset: { _site: 1 }, title: __("Site transfer"), sub: __("From the main store (or another site) to a project's site store — charged to the project"), fields: [
-			{ f: "from_warehouse", label: __("From"), t: "select", src: L("Warehouse", Object.assign({ is_group: 0 }, ANY)), req: 1, m: "q" },
 			{ f: "project", label: __("To project"), t: "select", src: OPEN, req: 1, m: "q", blank: __("— choose —") },
+			// v1.8.2: blank = the project company's main store (a store of another company is refused on save)
+			{ f: "from_warehouse", label: __("From"), t: "select", src: L("Warehouse", Object.assign({ is_group: 0 }, ANY)), m: "q", blank: __("Main store of the project's company") },
 			{ f: "item_code", label: __("Material"), t: "select", src: L("Item", { disabled: 0, is_stock_item: 1 }), req: 1, m: "q", blank: __("— choose —") },
 			{ f: "qty", label: __("Quantity"), t: "number", req: 1, m: "q" },
 			{ f: "_vehicle", label: __("Vehicle / driver"), m: "d" },

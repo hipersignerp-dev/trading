@@ -209,6 +209,8 @@ def pre_stock_entry_site(doc, v, rows):
 	doc.stock_entry_type = doc.purpose = "Material Transfer"
 	doc.project = p.name
 	src = v.get("from_warehouse") or P.main_store(p.company)
+	if frappe.get_cached_value("Warehouse", src, "company") != p.company:  # v1.8.2
+		frappe.throw(_("{0} belongs to another company — {1} can only take stock from its own stores.").format(src, p.company))
 	dst = P.site_warehouse(p)
 	if src == dst:
 		frappe.throw(_("The material is already in {0}.").format(dst))

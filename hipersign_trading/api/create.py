@@ -265,18 +265,22 @@ def _lines(doc, lines, kind, need):
 
 
 def _keep_rates(doc, lines):
-	"""ERPNext re-prices lines on set_missing_values; keep the rate and discount the user typed."""
+	"""ERPNext re-prices lines on set_missing_values; keep the rate and discount the user typed.
+	v1.8.2: the typed rate is the price before the line discount — it becomes the line's price-list rate, so a typed rate
+	with a discount saves as rate × (1 − discount), exactly as the window showed (before, ERPNext's list price was kept)."""
 	typed = [r for r in lines if r.get("item_code") and flt(r.get("qty")) > 0]
 	for row, r in zip(doc.items, typed):
-		if r.get("rate") not in (None, "") and flt(r["rate"]) != flt(row.rate):
-			row.price_list_rate = row.price_list_rate or flt(r["rate"])
-			row.rate = flt(r["rate"])
-			row.discount_percentage = 0
-			row.margin_type = None
-		if flt(r.get("discount")):
-			row.discount_percentage = flt(r["discount"])
-			if flt(row.price_list_rate):
-				row.rate = flt(row.price_list_rate) * (1 - flt(r["discount"]) / 100)
+		has_rate = r.get("rate") not in (None, "")
+		disc = flt(r.get("discount"))
+		if not has_rate and not disc:
+			continue
+		base = flt(r["rate"]) if has_rate else (flt(row.price_list_rate) or flt(row.rate))
+		row.price_list_rate = base
+		row.discount_percentage = disc
+		row.discount_amount = 0
+		row.margin_type = None
+		row.margin_rate_or_amount = 0
+		row.rate = base * (1 - disc / 100)
 
 
 @frappe.whitelist()
@@ -567,6 +571,10 @@ def _pre_material_request(doc, v, rows):
 def _pre_stock_entry(doc, v, rows):
 	doc.stock_entry_type = "Material Transfer"
 	doc.purpose = "Material Transfer"
+	if v.get("from_warehouse") and v.get("from_warehouse") == v.get("to_warehouse"):
+		frappe.throw(_("From and To are the same warehouse — choose where the stock goes."))  # v1.8.2
+	if any(r.get("item_code") and flt(r.get("qty")) < 0 for r in rows):
+		frappe.throw(_("Quantities must be more than zero."))
 	for r in rows:
 		if r.get("item_code") and flt(r.get("qty")) > 0:
 			doc.append("items", {"item_code": r["item_code"], "qty": flt(r["qty"]), "s_warehouse": v.get("from_warehouse"), "t_warehouse": v.get("to_warehouse")})

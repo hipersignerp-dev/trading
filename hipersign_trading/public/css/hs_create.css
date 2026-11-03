@@ -1,9 +1,9 @@
 /* Hipersign ERP v1.7.0 — the prototype's create modal (hs_create.js) */
 .hsc-ov { position: fixed; inset: 0; z-index: 1040; background: rgba(15, 23, 42, .45); display: flex; align-items: flex-start; justify-content: center;
-	padding: 40px 16px 60px; overflow-y: auto; opacity: 0; transition: opacity .15s; }
+	padding: 40px 16px 0; overflow-y: auto; opacity: 0; transition: opacity .15s; }
 .hsc-ov.show { opacity: 1; }
 .hsc-modal { background: #fff; color: #111827; width: 720px; max-width: 100%; border-radius: 16px; box-shadow: 0 24px 60px rgba(15, 23, 42, .28);
-	display: flex; flex-direction: column; font-size: 14px; }
+	display: flex; flex-direction: column; font-size: 14px; margin-bottom: 60px; } /* v1.8.2: space below as a margin — the sticky buttons sit on the screen edge with nothing showing under them */
 /* v1.7.2: the whole form shows, as on the prototype — the page behind scrolls, the buttons stay in view */
 .hsc-modal.hsc-wide { width: 1000px; }
 .hsc-head { display: flex; justify-content: space-between; align-items: flex-start; padding: 22px 24px 16px; border-bottom: 1px solid #eef0f3; }
@@ -103,3 +103,7 @@
 [data-theme="dark"] .hsc-att-h { color: #e5e7eb; }
 /* v1.8.0: tick boxes inside a line table (the material request line review) keep their own size */
 .hsc-lines input[type="checkbox"] { width: 16px; height: 16px; padding: 0; margin: 0; box-shadow: none; flex: none; }
+
+/* v1.8.2: tick boxes in windows and quick cards — the field style (padding, background) hid the tick; use the native box */
+.hsc-f input[type="checkbox"], .hsc-chk input, .hsc-modal input[type="checkbox"] { -webkit-appearance: checkbox !important; appearance: auto !important;
+	width: 16px !important; height: 16px !important; padding: 0 !important; margin: 0; flex: none; accent-color: #2563eb; background-image: none; }
