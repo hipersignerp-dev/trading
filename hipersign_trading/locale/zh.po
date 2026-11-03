@@ -15078,3 +15078,6 @@ msgstr "未开始"
 
 msgid "Stopped"
 msgstr "已停止"
+
+msgid "HR Officer"
+msgstr "人事专员"

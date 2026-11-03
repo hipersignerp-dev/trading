@@ -82,7 +82,12 @@ hipersign.create.allowed = function (a) {
 	// v1.8.0: a screen hidden with the menu builder takes its documents out of + New
 	if (a.dt && (info.menu_hidden_dts || []).includes(a.dt)) return false;
 	if (a.admin && !frappe.user.has_role("System Manager")) return false;
-	if (a.route) return true;
+	// v1.8.2: a screen entry only for users who may open it (page_info lists the pages this user may open)
+	if (a.route) {
+		const [r0, r1] = a.route;
+		if (r0 === "Tree" || r0 === "List") return frappe.model.can_read(r1);
+		return !frappe.boot.page_info || !!frappe.boot.page_info[r0];
+	}
 	if (!frappe.boot.user.can_create || !a.dt) return false;
 	return frappe.boot.user.can_create.includes(a.dt);
 };
@@ -118,10 +123,12 @@ hipersign.create.new_doc = function (dt, values) {
 
 // ---------------------------------------------------------------- roles shown under the user's name
 hipersign.topbar.ROLES = [
-	["Managing Director", "Managing Director"], ["Accounts Manager", "Finance Manager"], ["Sales Manager", "Sales Manager"],
-	["Purchase Manager", "Purchase Manager"], ["Stock Manager", "Warehouse Manager"], ["HR Manager", "HR Manager"],
+	// v1.8.2: the view-only demo first; the Projects and Manufacturing roles before the general Buying/Stock ones they also hold
+	["Demo Viewer", "View-only demo"], ["Managing Director", "Managing Director"], ["Production Manager", "Production Manager"], ["QC Inspector", "QC Inspector"],
+	["Project Manager", "Project Manager"], ["Quantity Surveyor", "Quantity Surveyor"], ["Site Engineer", "Site Engineer"], ["Accounts Manager", "Finance Manager"], ["Sales Manager", "Sales Manager"],
+	["Purchase Manager", "Purchase Manager"], ["Stock Manager", "Warehouse Manager"], ["HR Manager", "HR Manager"], ["HR User", "HR Officer"],
 	["Logistics Coordinator", "Logistics"], ["Accounts User", "Accountant"], ["Sales User", "Sales Executive"],
-	["Purchase User", "Buyer"], ["Stock User", "Storekeeper"], ["Driver", "Driver"], ["Demo Viewer", "View-only demo"], ["System Manager", "Administrator"],
+	["Purchase User", "Buyer"], ["Stock User", "Storekeeper"], ["Driver", "Driver"], ["System Manager", "Administrator"],
 ];
 
 hipersign.topbar.role = function () {
@@ -350,7 +357,7 @@ hipersign.topbar.create_panel = function () {
 		hipersign.topbar._entries[k] = a;
 		return `<button type="button" class="hs-tb-item" data-k="${k++}">${hs_icon(icon)}<span>${hs_esc(l)}</span>${a.full ? "" : chip(a.dt)}</button>`;
 	}).join("")}</div>`).join("");
-	return `<div class="hs-tb-ph"><b>${hs_esc(__("Create new"))}</b><a class="hs-tb-allnew">${hs_esc(__("All"))} ${hs_icon("right", "xs")}</a></div><div class="hs-tb-pb">${html}</div>`;
+	return `<div class="hs-tb-ph"><b>${hs_esc(__("Create new"))}</b>${!frappe.boot.page_info || frappe.boot.page_info["hipersign-create"] ? `<a class="hs-tb-allnew">${hs_esc(__("All"))} ${hs_icon("right", "xs")}</a>` : ""}</div><div class="hs-tb-pb">${html}</div>`;
 };
 
 hipersign.topbar.toggle_panel = function (cls, html) {

@@ -6276,3 +6276,9 @@ msgstr "{0} · الاستحقاق {1}"
 
 msgid "Final QC · due {0}"
 msgstr "الفحص النهائي · الاستحقاق {0}"
+
+msgid "HR Officer"
+msgstr "مسؤول الموارد البشرية"
+
+msgid "View-only demo"
+msgstr "عرض تجريبي للقراءة فقط"

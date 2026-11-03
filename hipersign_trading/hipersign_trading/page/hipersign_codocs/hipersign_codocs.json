@@ -22,9 +22,21 @@
   },
   {
    "role": "Demo Viewer"
+  },
+  {
+   "role": "Purchase Manager"
+  },
+  {
+   "role": "Sales Manager"
+  },
+  {
+   "role": "Logistics Coordinator"
+  },
+  {
+   "role": "Stock Manager"
   }
  ],
  "owner": "Administrator",
  "creation": "2026-10-30 14:00:00",
- "modified": "2026-10-30 14:00:00"
+ "modified": "2026-11-03 15:00:00.000000"
 }

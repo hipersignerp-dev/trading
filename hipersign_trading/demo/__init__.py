@@ -100,6 +100,10 @@ def load():
 
 		for step in v180_mfg.STEPS:  # v1.8.0: Hipersign Lighting Industries FZE — the Manufacturing demo
 			run(step, ctx)
+		from hipersign_trading.demo import v182
+
+		for step in v182.STEPS:  # v1.8.2: each demo user in their own company
+			run(step, ctx)
 	finally:
 		resume_workflows(paused)
 		frappe.flags.hs_apply_credit_limit = False
