@@ -6,6 +6,7 @@ board). Everything is read with the user's own permissions (frappe.get_list).
 """
 
 import frappe
+from hipersign_trading.utils import base_outstanding as _base_os  # v1.8.2
 from frappe import _
 from frappe.utils import add_days, add_months, cint, flt, getdate, today
 
@@ -205,8 +206,8 @@ def _over_limit(cos):
 		return []
 	bal = {}
 	for r in frappe.get_all("Sales Invoice", filters={"docstatus": 1, "company": ["in", cos], "customer": ["in", [l.parent for l in limits]], "outstanding_amount": ["!=", 0]},
-			fields=["customer", "company", "outstanding_amount", "conversion_rate"]):
-		bal[(r.customer, r.company)] = bal.get((r.customer, r.company), 0) + flt(r.outstanding_amount) * flt(r.conversion_rate or 1)
+			fields=["customer", "company", "outstanding_amount", "conversion_rate", "currency", "party_account_currency"]):
+		bal[(r.customer, r.company)] = bal.get((r.customer, r.company), 0) + _base_os(r)
 	for l in limits:
 		if bal.get((l.parent, l.company), 0) > flt(l.credit_limit):
 			out.append(l.parent)
@@ -228,8 +229,8 @@ def _credit_rows(cos, chip, q):
 	out, overdue = {}, {}
 	if _perm("Sales Invoice"):
 		for r in frappe.get_all("Sales Invoice", filters={"docstatus": 1, "company": ["in", cos], "customer": ["in", names], "outstanding_amount": ["!=", 0]},
-				fields=["customer", "outstanding_amount", "conversion_rate", "due_date"]):
-			r.o = flt(r.outstanding_amount) * flt(r.conversion_rate or 1)
+				fields=["customer", "outstanding_amount", "conversion_rate", "due_date", "company", "currency", "party_account_currency"]):
+			r.o = _base_os(r)
 			out[r.customer] = out.get(r.customer, 0) + flt(r.o)
 			if r.due_date and getdate(r.due_date) < getdate(today()) and flt(r.o) > 0:
 				overdue[r.customer] = overdue.get(r.customer, 0) + flt(r.o)

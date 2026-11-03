@@ -63,3 +63,17 @@ def can_read(doctype, name=None):
 	finally:
 		if log is not None:
 			del frappe.local.message_log[n:]
+
+
+def base_outstanding(r):
+	"""v1.8.2: an invoice's outstanding in the company currency. ERPNext keeps outstanding_amount in the party account's
+	currency — AED for a USD invoice booked to an AED debtors account (already base), EUR for a bill on a EUR creditors
+	account (needs the rate)."""
+	import frappe
+	from frappe.utils import flt
+
+	co_cur = frappe.get_cached_value("Company", r.get("company"), "default_currency") if r.get("company") else None
+	pac = r.get("party_account_currency") or r.get("currency")
+	if not co_cur or pac == co_cur:
+		return flt(r.get("outstanding_amount"))
+	return flt(r.get("outstanding_amount")) * flt(r.get("conversion_rate") or 1)

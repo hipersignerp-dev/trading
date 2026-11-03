@@ -5,6 +5,7 @@ Same shape as api/module.py (get_module / get_rows dispatch there). Read with th
 """
 
 import frappe
+from hipersign_trading.utils import base_outstanding as _base_os  # v1.8.2
 from frappe import _
 from frappe.utils import cint, flt, getdate, today
 
@@ -199,8 +200,8 @@ def purchasing_rows(tab, chip, q=None):
 				open_v[r.supplier] = open_v.get(r.supplier, 0) + flt(r.base_grand_total) * (100 - flt(r.per_received)) / 100
 		if _perm("Purchase Invoice"):
 			for r in frappe.get_all("Purchase Invoice", filters={"supplier": ["in", names], "docstatus": 1, "outstanding_amount": ["!=", 0], "company": co},
-					fields=["supplier", "outstanding_amount", "conversion_rate"]):
-				payable[r.supplier] = payable.get(r.supplier, 0) + flt(r.outstanding_amount) * flt(r.conversion_rate or 1)
+					fields=["supplier", "outstanding_amount", "conversion_rate", "company", "currency", "party_account_currency"]):
+				payable[r.supplier] = payable.get(r.supplier, 0) + _base_os(r)
 		return {"cols": [{"label": _("Supplier")}, {"label": _("Type")}, {"label": _("Currency")}, {"label": _("Terms")}, {"label": _("Incoterm")},
 			{"label": _("Lead time"), "cls": "num"}, {"label": _("Open orders"), "cls": "num"}, {"label": _("Payable"), "cls": "num"}],
 			"rows": [{"dt": "Supplier", "name": s.name, "cells": [{"main": s.supplier_name, "sub": s.country or ""}, _(s.hs_supplier_kind or s.supplier_group or "") or "—",
@@ -705,7 +706,7 @@ def _invoices(cos, filters=None):
 	f = {"company": ["in", cos], "docstatus": 1, "is_return": 0}
 	f.update(filters or {})
 	return frappe.get_list("Sales Invoice", filters=f, fields=["name", "customer", "customer_name", "posting_date", "due_date", "grand_total", "outstanding_amount",
-		"currency", "conversion_rate", "base_grand_total", "base_net_total", "status"], order_by="posting_date desc", limit=500)
+		"currency", "conversion_rate", "base_grand_total", "base_net_total", "status", "company", "party_account_currency"], order_by="posting_date desc", limit=500)
 
 
 def _to_bill(cos):
@@ -740,12 +741,12 @@ def finance_module():
 	t = getdate(today())
 	inv_p = _invoices(cos, {"posting_date": ["between", [start, end]]})
 	open_inv = _invoices(cos, {"outstanding_amount": [">", 0]})
-	base = lambda r: flt(r.outstanding_amount) * flt(r.conversion_rate or 1)
+	from hipersign_trading.utils import base_outstanding as base  # v1.8.2: outstanding is already in the party account currency
 	overdue = [r for r in open_inv if r.due_date and getdate(r.due_date) < t]
 	pay = frappe.get_list("Purchase Invoice", filters={"company": ["in", cos], "docstatus": 1, "outstanding_amount": [">", 0]},
-		fields=["outstanding_amount", "conversion_rate", "due_date"], limit_page_length=0) if _perm("Purchase Invoice") else []
-	pay_total = sum(flt(p.outstanding_amount) * flt(p.conversion_rate or 1) for p in pay)
-	pay_30 = sum(flt(p.outstanding_amount) * flt(p.conversion_rate or 1) for p in pay if p.due_date and getdate(p.due_date) <= frappe.utils.add_days(t, 30))
+		fields=["outstanding_amount", "conversion_rate", "due_date", "company", "currency", "party_account_currency"], limit_page_length=0) if _perm("Purchase Invoice") else []
+	pay_total = sum(base(p) for p in pay)
+	pay_30 = sum(base(p) for p in pay if p.due_date and getdate(p.due_date) <= frappe.utils.add_days(t, 30))
 	cash = None
 	if set(frappe.get_roles()) & FIN_ROLES:
 		from hipersign_trading.api.home import ledger

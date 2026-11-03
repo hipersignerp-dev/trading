@@ -79,14 +79,19 @@ def build_row(so):
 		as_dict=True,
 	)
 	invs = frappe.db.sql(
-		"""select distinct si.name, si.posting_date, si.due_date, si.grand_total, si.outstanding_amount, si.total_advance
+		"""select distinct si.name, si.posting_date, si.due_date, si.grand_total, si.outstanding_amount, si.total_advance,
+		si.currency, si.party_account_currency, si.conversion_rate
 		from `tabSales Invoice` si join `tabSales Invoice Item` sii on sii.parent = si.name
 		where sii.sales_order=%s and si.docstatus=1""",
 		name,
 		as_dict=True,
 	)
 	value = flt(so.grand_total)
-	inv_paid = sum(flt(i.grand_total) - flt(i.outstanding_amount) for i in invs)
+	# v1.8.2: outstanding is kept in the party account's currency (AED on a USD invoice) — bring it back to the order's currency
+	for i in invs:
+		if i.party_account_currency and i.party_account_currency != i.currency and flt(i.conversion_rate):
+			i.outstanding_amount = flt(i.outstanding_amount) / flt(i.conversion_rate)
+	inv_paid = sum(max(0, flt(i.grand_total) - flt(i.outstanding_amount)) for i in invs)
 	unallocated_adv = max(0, flt(so.advance_paid) - sum(flt(i.total_advance) for i in invs))
 	paid = min(value, inv_paid + unallocated_adv) if invs else min(value, flt(so.advance_paid))
 	overdue = sum(

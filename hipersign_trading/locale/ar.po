@@ -14778,3 +14778,9 @@ msgstr "— الإنتاج تحت التشغيل —"
 
 msgid "…and up to % of the invoice"
 msgstr "…وحتى % من الفاتورة"
+
+msgid "Expired notice"
+msgstr "إشعار انتهاء"
+
+msgid "{0}-day notice"
+msgstr "إشعار قبل {0} يومًا"

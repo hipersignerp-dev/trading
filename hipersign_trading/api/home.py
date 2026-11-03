@@ -153,6 +153,18 @@ def _sum(dt, field, filters):
 		return 0.0
 
 
+def _sum_os(dt, filters):
+	"""v1.8.2: outstanding in the company currency (ERPNext keeps it in the party account's currency — a EUR bill on a EUR
+	creditors account counted as 1,800 instead of AED 7,704)."""
+	from hipersign_trading.utils import base_outstanding
+
+	try:
+		rows = frappe.get_all(dt, filters=filters, fields=["outstanding_amount", "conversion_rate", "company", "currency", "party_account_currency"], limit_page_length=0)
+	except Exception:
+		return 0.0
+	return sum(base_outstanding(r) for r in rows)
+
+
 def _co(f, company):
 	if company:
 		f = dict(f, company=company)
@@ -191,8 +203,8 @@ def lifecycle(company, start, end):
 			"big": _("{0} notes not delivered").format(_count("Delivery Note", _co({"docstatus": 1, "hs_delivery_status": ["in", ["", "Ready to Dispatch", "Out for Delivery", "Failed"]]}, company))),
 			"small": _("{0} out for delivery").format(_count("Delivery Note", _co({"docstatus": 1, "hs_delivery_status": "Out for Delivery"}, company))),
 			"route": ["hipersign-dispatch"]},
-		{"n": "07", "icon": "banknote", "title": _("Finance & visibility"), "big": _sum("Sales Invoice", "outstanding_amount", ar), "big_is_money": 1, "big_suffix": _("receivable"),
-			"small": _("{0} overdue").format(money(_sum("Sales Invoice", "outstanding_amount", dict(ar, due_date=["<", today()])), precision=0)),
+		{"n": "07", "icon": "banknote", "title": _("Finance & visibility"), "big": _sum_os("Sales Invoice", ar), "big_is_money": 1, "big_suffix": _("receivable"),
+			"small": _("{0} overdue").format(money(_sum_os("Sales Invoice", dict(ar, due_date=["<", today()])), precision=0)),
 			"route": ["query-report", "Accounts Receivable"]},
 	]
 
@@ -237,9 +249,9 @@ def kpis(company, start, end, label):
 		{"label": _("Gross profit"), "icon": "trending-up", "value": led["gross"], "money": 1, "sub": _("{0}% margin after landed cost · target {1}%").format(round(gm, 1), round(target)), "tone": "green" if gm >= target else "amber", "route": ["query-report", "Gross Profit"]},
 		{"label": _("Net profit (before tax)"), "icon": "chart", "value": led["profit"], "money": 1, "sub": _("{0}% net margin · after {1} expenses").format(round(nm, 1), money(led["opex"], precision=0)), "tone": "green" if led["profit"] >= 0 else "red", "route": ["query-report", "Profit and Loss Statement"]},
 		{"label": _("Stock value"), "icon": "package", "value": led["stock"], "money": 1, "sub": _("Valued at landed cost"), "tone": "blue", "route": ["query-report", "Stock Projected Qty"]},
-		{"label": _("Outstanding receivables"), "icon": "clock", "value": _sum("Sales Invoice", "outstanding_amount", ar), "money": 1, "sub": _("{0} open invoices").format(_count("Sales Invoice", ar)), "tone": "blue", "route": ["query-report", "Accounts Receivable"]},
-		{"label": _("Overdue receivables"), "icon": "circle-alert", "value": _sum("Sales Invoice", "outstanding_amount", overdue), "money": 1, "sub": _("{0} past due").format(_count("Sales Invoice", overdue)), "tone": "red", "route": ["List", "Sales Invoice"], "options": {"status": "Overdue"}},
-		{"label": _("Payables due ≤ 30 days"), "icon": "receipt", "value": _sum("Purchase Invoice", "outstanding_amount", pay30), "money": 1, "sub": _("Suppliers & service providers"), "tone": "amber", "route": ["query-report", "Accounts Payable"]},
+		{"label": _("Outstanding receivables"), "icon": "clock", "value": _sum_os("Sales Invoice", ar), "money": 1, "sub": _("{0} open invoices").format(_count("Sales Invoice", ar)), "tone": "blue", "route": ["query-report", "Accounts Receivable"]},
+		{"label": _("Overdue receivables"), "icon": "circle-alert", "value": _sum_os("Sales Invoice", overdue), "money": 1, "sub": _("{0} past due").format(_count("Sales Invoice", overdue)), "tone": "red", "route": ["List", "Sales Invoice"], "options": {"status": "Overdue"}},
+		{"label": _("Payables due ≤ 30 days"), "icon": "receipt", "value": _sum_os("Purchase Invoice", pay30), "money": 1, "sub": _("Suppliers & service providers"), "tone": "amber", "route": ["query-report", "Accounts Payable"]},
 		{"label": _("Cash & bank"), "icon": "banknote", "value": led["cash"], "money": 1, "sub": _("After receipts, payments, salaries & expenses"), "tone": "green", "route": ["query-report", "General Ledger"]},
 		{"label": _("Post-dated cheques in hand"), "icon": "wallet", "value": _sum("Post Dated Cheque", "amount", pdc), "money": 1,
 			"sub": _("{0} to deposit this week · {1} bounced").format(_count("Post Dated Cheque", dict(pdc, status="In Hand", cheque_date=["<=", add_days(today(), 7)])),

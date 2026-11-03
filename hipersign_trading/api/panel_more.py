@@ -426,7 +426,7 @@ def company_document(doc):
 		("Expires", pill(f"{d(doc.expiry_date)} · " + (_("{0} days ago").format(-left) if left < 0 else _("{0} days").format(left)), tone) if left is not None else _("No expiry")),
 		("Owner", frappe.utils.get_fullname(doc.responsible_user) if doc.responsible_user else ""), ("Renewal", _(doc.renewal_status or "")),
 		("Renewal cost", money(doc.renewal_cost) if doc.renewal_cost else ""))
-	p["sections"] = [section("Notes", kv(("Notes", doc.notes), ("Last reminder", d(doc.last_reminder)), ("File", _("On file") if doc.attachment else _("Missing"))))]
+	p["sections"] = [section("Notes", kv(("Notes", doc.notes), ("Last reminder", _last_reminder(doc.last_reminder)), ("File", _("On file") if doc.attachment else _("Missing"))))]
 	acts = [act("Edit", route=["Form", "Company Document", doc.name])] if p["can_edit"] else []
 	if doc.attachment:
 		acts.append(act("Open file", url=doc.attachment))
@@ -527,3 +527,18 @@ def action(doc, action, args):
 		doc.submit()
 		return {"message": _("{0} {1}").format(doc.name, _(dec.lower()))}
 	return None
+
+
+def _last_reminder(v):
+	"""v1.8.2: the field holds the reminder stage sent ("90", "30", "expired"), not a date (the panel crashed on "expired")."""
+	if not v:
+		return ""
+	s = str(v)
+	if s == "expired":
+		return _("Expired notice")
+	if s.isdigit():
+		return _("{0}-day notice").format(s)
+	try:
+		return d(frappe.utils.getdate(v))
+	except Exception:
+		return _(s)

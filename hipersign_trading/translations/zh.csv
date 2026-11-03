@@ -5024,3 +5024,11 @@ Closure,关闭
 Not started,未开始
 Stopped,已停止
 HR Officer,人事专员
+Expired notice,到期通知
+{0}-day notice,{0} 天提醒
+From and To are the same warehouse — choose where the stock goes.,调出和调入是同一个仓库 — 请选择货物要去的仓库。
+Main store of the project's company,项目所属公司的主仓库
+Quantities must be more than zero.,数量必须大于零。
+{0} belongs to another company — {1} can only take stock from its own stores.,{0} 属于另一家公司 — {1} 只能从自己的仓库调货。
+"{0} has done {1} of {2} units — complete it first, then this operation.","{0} 已完成 {1}/{2} 件 — 请先完成该工序,再完成本工序。"
+{0} has done {1} units — this operation cannot run ahead of it.,{0} 已完成 {1} 件 — 本工序不能超前于它。
