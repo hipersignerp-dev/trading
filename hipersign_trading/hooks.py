@@ -195,6 +195,13 @@ scheduler_events = {
 }
 
 # ---------------------------------------------------------------- customer portal (/me)
+# v1.8.2: ERPNext's own portal lists (/orders and /invoices crashed on our portal template) lead to the Hipersign portal
+website_redirects = [
+	{"source": "/orders", "target": "/portal?tab=orders"},
+	{"source": "/invoices", "target": "/portal?tab=invoices"},
+	{"source": "/quotations", "target": "/portal?tab=quotations"},
+]
+
 portal_menu_items = [
 	{"title": "Statement of account", "route": "/statement", "role": "Customer"},
 	{"title": "Warranty", "route": "/warranty", "role": "Customer"},
