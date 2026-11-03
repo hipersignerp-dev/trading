@@ -57,7 +57,7 @@
 .hsp-open { font-weight: 700; cursor: pointer; }
 .hsp-pay { height: 5px; background: var(--x-line-2); border-radius: 3px; margin: 10px 0; display: flex; overflow: hidden; }
 .hsp-pay i { display: block; height: 100%; background: var(--x-green); } .hsp-pay i.inv { background: var(--x-amber); }
-.hsp-ptk { display: grid; grid-template-columns: 5fr 3.2fr 2.4fr 5fr 6fr 5fr; gap: 6px; }
+.hsp-ptk { display: grid; grid-template-columns: var(--hsp-cols, repeat(auto-fit, minmax(0, 1fr))); gap: 6px; } /* v1.8.2: each phase as wide as its steps (Manufacturing has 5 phases, Projects 6) */
 @media (max-width: 1100px) { .hsp-ptk { grid-template-columns: 1fr 1fr; } }
 .hsp-ptk-ph { border: 1px solid var(--x-line); border-radius: 9px; padding: 6px; min-width: 0; }
 .hsp-ptk-ph.done { border-color: color-mix(in srgb, var(--x-green) 35%, var(--x-line)); }

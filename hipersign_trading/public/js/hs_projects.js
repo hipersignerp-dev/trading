@@ -36,7 +36,7 @@ frappe.provide("hipersign.projects");
 
 	// the tracker row: one card per project with the phases, each step's status, % and date, and a pop-up per step
 	P.phase_html = function (steps, phases, states) {
-		return `<div class="hsp-ptk">${phases.map((ph, pi) => {
+		return `<div class="hsp-ptk" style="--hsp-cols:${phases.map((ph) => `minmax(0,${Math.max(ph.b - ph.a, 3)}fr)`).join(" ")}">${phases.map((ph, pi) => {
 			const xs = states.slice(ph.a, ph.b), dn = xs.filter((x) => x.st === "done").length, late = xs.some((x) => x.st === "late"), cur = xs.some((x) => x.st === "cur");
 			const pct = xs.reduce((a, x) => a + (x.pct || 0), 0) / xs.length;
 			const badge = late ? `<span class="hsx-pill red">${__("Attention")}</span>` : dn === xs.length ? `<span class="hsx-pill green">${__("Done")}</span>`
