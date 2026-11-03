@@ -151,6 +151,9 @@ html.hs-theme .body-sidebar .user-section, html.hs-theme .body-sidebar .sidebar-
 	color: var(--hs-navy-ink);
 }
 html.hs-theme .body-sidebar .sidebar-user *, html.hs-theme .body-sidebar .user-section * { color: var(--hs-navy-ink); }
+/* v1.8.1: Frappe 16.30+ puts the user button at the foot of the sidebar (.body-sidebar-bottom .sidebar-user-button) */
+html.hs-theme .body-sidebar .body-sidebar-bottom { border-top: 1px solid rgba(255, 255, 255, .08); }
+html.hs-theme .body-sidebar .sidebar-user-button, html.hs-theme .body-sidebar .sidebar-user-button * { color: var(--hs-navy-ink) !important; }
 html.hs-theme .body-sidebar input, html.hs-theme .body-sidebar .search-bar, html.hs-theme .body-sidebar .sidebar-search {
 	background: rgba(255, 255, 255, .06) !important; color: #fff !important; border-color: transparent !important;
 }
