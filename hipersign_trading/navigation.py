@@ -7,8 +7,14 @@ every page it lists, so the menu stays put the way it does in the prototype.
 Optionally (Hipersign Settings → Look & menus) every other desktop tile is hidden; the ones we hide are remembered
 and shown again when the option is switched off or the app is uninstalled.
 
-Works with the Frappe 16 desk model that has Desktop Icon + Workspace Sidebar (Frappe 16.x up to the sidebar
-rework). On a desk without those doctypes nothing happens.
+Works with both Frappe 16 desk models:
+  · up to 16.29 — Desktop Icon + Workspace Sidebar: we write the "Hipersign ERP" Workspace Sidebar;
+  · 16.30 and later — per-module "Sidebar" documents (v1.8.1): we write a Sidebar named "Hipersign ERP" (module Hipersign
+    Trading, not standard, so no app file backs it and migrate never reaps it). Frappe's upgrade merges the old Workspace
+    Sidebars of our module into one Sidebar ("Hipersign Trading", frozen at the day of the upgrade); we replace that one
+    with ours, so the module has one sidebar and it follows the code. A site's own changes to it are Custom Sidebar
+    layers, which Frappe keeps and applies on top.
+On a desk with neither model nothing happens.
 """
 
 import json
@@ -21,6 +27,10 @@ from hipersign_trading.features import field
 SETTINGS = "Hipersign Settings"
 SIDEBAR = "Hipersign ERP"
 TILE = "Hipersign ERP"
+MODULE = "Hipersign Trading"
+# v1.8.1: the Workspace Sidebars of our module on Frappe ≤16.29 — what Frappe ≥16.30 merges into one converted Sidebar
+LEGACY_SIDEBARS = ("Hipersign ERP", "Hipersign Documents", "Hipersign Finance", "Hipersign HR", "Hipersign Sales", "Hipersign Trading",
+	"Hipersign Warehouse")
 LOGO = "/assets/hipersign_trading/images/hipersign-logo.png"
 
 # v1.5.6: the prototype's menu — its 32 entries, names and order. Each module entry opens its page (or, until the page
@@ -163,14 +173,28 @@ NAV_BADGES = ("Messages", "Approvals", "Insights & Alerts", "CRM & Leads")
 LINK_DOCTYPE = {"DocType": "DocType", "Report": "Report", "Page": "Page", "Workspace": "Workspace"}
 
 
-def supported():
-	"""Frappe 16 up to the sidebar rework (16.29 is what the Hipersign servers run). Later Frappe 16 releases
-	replace Workspace Sidebar with per-module “Sidebar” documents and archive the old ones: there the menu is
-	left to Frappe (the theme still applies)."""
+def model():
+	"""v1.8.1: which desk menu model this Frappe has —
+	"sidebar": Frappe 16.30+ (per-module Sidebar documents; Workspace Sidebar is only an archive there),
+	"workspace_sidebar": Frappe 16 up to 16.29 (Workspace Sidebar + Desktop Icon), or None (neither: the menu is left to Frappe)."""
 	if frappe.db.exists("DocType", "Sidebar"):
-		return False
-	return frappe.db.table_exists("Workspace Sidebar") and frappe.db.table_exists("Desktop Icon") \
-		and frappe.get_meta("Workspace Sidebar").has_field("items")
+		if frappe.db.table_exists("Sidebar") and frappe.db.table_exists("Sidebar Item") and frappe.get_meta("Sidebar").has_field("items"):
+			return "sidebar"
+		return None
+	if frappe.db.table_exists("Workspace Sidebar") and frappe.db.table_exists("Desktop Icon") \
+		and frappe.get_meta("Workspace Sidebar").has_field("items"):
+		return "workspace_sidebar"
+	return None
+
+
+def supported():
+	"""Whether the app manages the desk menu here (v1.8.1: on both Frappe 16 menu models)."""
+	return model() is not None
+
+
+def item_doctype():
+	"""The child doctype of the sidebar rows on this Frappe."""
+	return "Sidebar Item" if model() == "sidebar" else "Workspace Sidebar Item"
 
 
 def _s():
@@ -233,7 +257,7 @@ def rows_from_groups(groups):
 				row["link_to"] = it["target"]
 			if (it.get("extra") or {}).get("filters"):
 				if has_filters is None:
-					has_filters = frappe.get_meta("Workspace Sidebar Item").has_field("filters")
+					has_filters = frappe.get_meta(item_doctype()).has_field("filters")
 				if has_filters:
 					row["filters"] = json.dumps(it["extra"]["filters"])
 			kept.append(row)
@@ -241,7 +265,8 @@ def rows_from_groups(groups):
 			continue
 		if g["key"] == "g:overview":
 			# the first link is what the desktop tile opens: Home, at the top, outside any section
-			rows.append(dict(kept[0], child=0))
+			# (v1.8.1: at the very top even when the menu builder moves another group above Overview)
+			rows.insert(0, dict(kept[0], child=0))
 			kept = kept[1:]
 		rows.append({"type": "Section Break", "label": g["label"], "icon": g["icon"], "indent": 1, "collapsible": 1,
 			"keep_closed": 0 if g["key"] in ("g:overview", "g:sales") else 1, "hs_key": g["key"]})
@@ -292,9 +317,12 @@ def sub_items():
 
 
 def ensure_sidebar(s=None):
-	if not supported():
+	m = model()
+	if not m:
 		return
 	s = s or _s()
+	if m == "sidebar":
+		return ensure_module_sidebar(s)
 	meta = frappe.get_meta("Workspace Sidebar Item")
 	items = [{k: v for k, v in r.items() if meta.has_field(k) or k in ("type",)} for r in sidebar_items(s)]
 	if frappe.db.exists("Workspace Sidebar", SIDEBAR):
@@ -311,6 +339,92 @@ def ensure_sidebar(s=None):
 	doc.flags.ignore_links = True
 	doc.flags.ignore_permissions = True
 	doc.save() if not doc.is_new() else doc.insert()
+
+
+# ---------------------------------------------------------------- v1.8.1: Frappe 16.30+ (Sidebar documents)
+SYSTEM_WRITE_FLAGS = ("in_import", "in_fixtures", "in_migrate", "in_install", "in_patch")
+ROW_FIELDS = ("type", "label", "link_type", "link_to", "url", "icon", "child", "indent", "collapsible", "keep_closed", "filters")
+
+
+class _system_write:
+	"""A Sidebar belongs to its app: Frappe lets it be written only in developer mode or while the system places app
+	content (install, migrate, patch). Install and migrate already say so; a settings save (feature switches) is the
+	app placing its own menu too, so it is marked the same way for the duration of the write."""
+
+	def __enter__(self):
+		self.set = not any(frappe.flags.get(f) for f in SYSTEM_WRITE_FLAGS)
+		if self.set:
+			frappe.flags.in_patch = True
+		return self
+
+	def __exit__(self, *exc):
+		if self.set:
+			frappe.flags.in_patch = False
+		return False
+
+
+def _row_sig(rows):
+	def val(r, f):
+		if f in ("child", "indent", "collapsible", "keep_closed"):
+			return int(r.get(f) or 0)
+		if f in ("link_type", "link_to", "url") and r.get("type") != "Link":
+			return None  # a section break links nowhere (the column default says DocType)
+		return r.get(f) or None
+
+	return [tuple(val(r, f) for f in ROW_FIELDS) for r in rows]
+
+
+def converted_sidebars():
+	"""Sidebars Frappe made of our module's old Workspace Sidebars on its upgrade (not standard, merged from ours)."""
+	out = []
+	for r in frappe.get_all("Sidebar", filters={"module": MODULE, "standard": 0, "name": ["!=", SIDEBAR]}, fields=["name", "merged_from"]):
+		merged = r.merged_from or ""
+		if r.name in LEGACY_SIDEBARS or any(n in merged for n in LEGACY_SIDEBARS):
+			out.append(r.name)
+	return out
+
+
+def drop_converted(keys=()):
+	"""Remove the converted sidebars: ours replaces them. Rows that are not in our menu are written to the Error Log
+	(title "Hipersign menu: converted sidebar replaced") — and stay in Frappe's Workspace Sidebar archive."""
+	for name in converted_sidebars():
+		doc = frappe.get_doc("Sidebar", name)
+		extra = [{f: r.get(f) for f in ("type", "label", "link_type", "link_to", "url")} for r in doc.items
+			if r.type == "Link" and (r.link_type, r.link_to or r.url) not in keys]
+		if extra:
+			frappe.log_error(title="Hipersign menu: converted sidebar replaced",
+				message=f"Frappe's converted sidebar “{name}” (merged from {doc.merged_from}) was replaced by “{SIDEBAR}”. "
+				"Rows that were not in the Hipersign menu (still in the Workspace Sidebar archive):\n" + json.dumps(extra, indent=1))
+		frappe.delete_doc("Sidebar", name, ignore_permissions=True, force=True)
+
+
+def ensure_module_sidebar(s):
+	"""Frappe 16.30+: our module's one Sidebar, "Hipersign ERP", from nav_groups() — rebuilt on install, migrate and
+	settings change. Unchanged rows are not written again."""
+	meta = frappe.get_meta("Sidebar Item")
+	rows = [{k: v for k, v in r.items() if meta.has_field(k) or k == "type"} for r in sidebar_items(s)]
+	keys = {(r.get("link_type"), r.get("link_to") or r.get("url")) for r in rows}
+	with _system_write():
+		drop_converted(keys)
+		if frappe.db.exists("Sidebar", SIDEBAR):
+			doc = frappe.get_doc("Sidebar", SIDEBAR)
+			same = _row_sig(rows) == _row_sig([r.as_dict() for r in doc.items]) and doc.module == MODULE \
+				and doc.app == "hipersign_trading" and doc.header_icon == "house" and not doc.standard
+			if same:
+				return
+			doc.set("items", [])
+		else:
+			doc = frappe.new_doc("Sidebar")
+			doc.title = SIDEBAR
+		doc.module = MODULE
+		doc.app = "hipersign_trading"
+		doc.header_icon = "house"
+		doc.standard = 0
+		for r in rows:
+			doc.append("items", r)
+		doc.flags.ignore_links = True
+		doc.flags.ignore_permissions = True
+		doc.save() if not doc.is_new() else doc.insert()
 
 
 def ensure_tile():
@@ -424,7 +538,9 @@ def remove():
 			frappe.db.set_single_value("System Settings", "enable_onboarding", 1)
 	except Exception:
 		pass
-	for dt, name in (("Desktop Icon", TILE), ("Workspace Sidebar", SIDEBAR)):
-		if frappe.db.exists(dt, name):
-			frappe.delete_doc(dt, name, ignore_permissions=True, force=True)
+	sidebar_dt = "Sidebar" if model() == "sidebar" else "Workspace Sidebar"
+	with _system_write():
+		for dt, name in (("Desktop Icon", TILE), (sidebar_dt, SIDEBAR)):
+			if frappe.db.exists(dt, name):
+				frappe.delete_doc(dt, name, ignore_permissions=True, force=True)
 	frappe.cache.delete_key("desktop_icons")

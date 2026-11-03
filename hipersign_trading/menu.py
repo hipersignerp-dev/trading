@@ -252,10 +252,97 @@ def hidden_dts_for_user():
 	return hidden_doctypes(apply(navigation.nav_groups(), eff, keep_hidden=True), navigation.NAV_SUB)
 
 
+def _sidebar_payload(bootinfo):
+	"""v1.8.1: this user's copy of the Hipersign ERP sidebar in the boot info, and how to put a changed one back.
+	Frappe 16.30+ sends `module_sidebars` (keyed by the Sidebar's name); up to 16.29 `workspace_sidebar_item`
+	(keyed by the lowercased title)."""
+	from hipersign_trading import navigation
+
+	get = bootinfo.get if hasattr(bootinfo, "get") else (lambda k: None)
+	for attr, key in (("module_sidebars", navigation.SIDEBAR), ("workspace_sidebar_item", navigation.SIDEBAR.lower())):
+		sbs = get(attr)
+		if isinstance(sbs, dict) and isinstance(sbs.get(key), dict):
+			return attr, key, sbs
+	return None, None, None
+
+
+def _row_id(it):
+	return (it.get("link_type"), it.get("link_to") or it.get("url"))
+
+
+def rebuild_items(orig, shown, lang="en", alias=None, translate=None):
+	"""The sidebar rows for one user from Frappe's resolved rows (orig: already filtered by permission and, on
+	16.30+, by the site's and the user's Custom Sidebar layers) and the menu builder's groups (shown: apply()).
+	· our entries come in the builder's order with their new labels; one Frappe dropped (not permitted, or hidden
+	  by a Custom Sidebar layer) stays out — a menu never grants access;
+	· a section is kept as Frappe sent it (its key, so Frappe's sidebar editor still finds it), relabelled;
+	· custom links are added; rows that are not ours (added by a Custom Sidebar layer, private pages) follow at the end.
+	Pure apart from `translate` (frappe._)."""
+	from hipersign_trading import navigation
+
+	tr = translate or (lambda x: x)
+	alias = alias if alias is not None else {}
+	by_target, sections, ours = {}, {}, set()
+	section_tpl = None
+	for it in orig:
+		if it.get("type") == "Section Break":
+			section_tpl = section_tpl or it
+			sections.setdefault(it.get("label"), it)
+			continue
+		if it.get("type") == "Link":
+			by_target.setdefault(_row_id(it), it)
+	for g in shown:
+		for it in g["items"]:
+			if it.get("display"):
+				alias[it["display"]] = it["label"]
+		if g.get("display"):
+			alias[g["display"]] = g["label"]
+	std_targets = {(i["link_type"], i["target"]) for grp in navigation.nav_groups(check=False) for i in grp["items"]}
+	new_items = []
+	pending_section = None
+	for row in navigation.rows_from_groups(shown):
+		if row["type"] == "Section Break":
+			g = next(x for x in shown if x["key"] == row["hs_key"])
+			found = sections.get(tr(g["label"])) or sections.get(g["label"])
+			sec = dict(found) if found else dict(section_tpl or {}, **{k: v for k, v in row.items() if k != "hs_key"})
+			if found:
+				ours.add(id(found))
+			sec["label"] = g.get("display") or tr(g["label"])
+			pending_section = sec
+			continue
+		it = next((i for grp in shown for i in grp["items"] if i["key"] == row["hs_key"]), None)
+		if it and it.get("custom"):
+			url = it["target"]
+			base = {"type": "Link", "link_type": "URL", "url": url, "link_to": None, "icon": it["icon"], "child": row.get("child", 1),
+				"indent": 0, "collapsible": 1, "keep_closed": 0, "show_arrow": 0, "filters": None, "route_options": None, "tab": None,
+				"open_in_new_tab": 0 if url.startswith("/") else 1, "is_default_module": 0, "key": "|".join(("Link", "URL", "", url, ""))}
+			base["label"] = it.get("display") or it["label"]
+		else:
+			found = by_target.get((row["link_type"], row.get("link_to") or row.get("url")))
+			if not found:
+				continue  # not permitted for this user, or hidden by a Custom Sidebar layer
+			ours.add(id(found))
+			base = dict(found, child=row.get("child", 1))
+			if it and it.get("display"):
+				base["label"] = it["display"]
+		if pending_section and base.get("child", 1):
+			new_items.append(pending_section)
+			pending_section = None
+		new_items.append(base)
+	# rows that are not in the Hipersign menu at all (a Custom Sidebar layer's own links, private pages): kept, at the end
+	for it in orig:
+		if id(it) in ours or it.get("type") == "Section Break":
+			continue
+		if it.get("type") == "Link" and _row_id(it) in std_targets:
+			continue  # ours, hidden or moved by the builder
+		new_items.append(dict(it, child=0))
+	return new_items
+
+
 def boot(bootinfo, info):
 	"""Rewrite this user's copy of the Hipersign ERP sidebar in the boot info: hidden entries out, renamed labels,
 	builder order, custom links. Also sends nav_alias (shown label → NAV label, for sub-items and badges) and
-	menu_hidden_dts (for + New)."""
+	menu_hidden_dts (for + New). v1.8.1: on Frappe 16.30+ (module_sidebars) as on 16.29 (workspace_sidebar_item)."""
 	frappe = _frappe()
 	from frappe import _
 
@@ -275,52 +362,14 @@ def boot(bootinfo, info):
 	groups = navigation.nav_groups()
 	full = apply(groups, eff, lang, keep_hidden=True)
 	info["menu_hidden_dts"] = hidden_doctypes(full, navigation.NAV_SUB)
-	sbs = bootinfo.get("workspace_sidebar_item") if hasattr(bootinfo, "get") else None
-	key = navigation.SIDEBAR.lower()
-	if not sbs or key not in sbs or not isinstance(sbs[key], dict):
+	attr, key, sbs = _sidebar_payload(bootinfo)
+	if not attr:
 		return
 	sb = dict(sbs[key])
-	orig = list(sb.get("items") or [])
-	by_target = {}
-	section_tpl = None
-	for it in orig:
-		if it.get("type") == "Section Break":
-			section_tpl = section_tpl or it
-			continue
-		by_target[(it.get("link_type"), it.get("link_to") or it.get("url"))] = it
-	shown = apply(groups, eff, lang)
-	for g in shown:
-		for it in g["items"]:
-			if it.get("display"):
-				alias[it["display"]] = it["label"]
-		if g.get("display"):
-			alias[g["display"]] = g["label"]
-	new_items = []
-	pending_section = None
-	for row in navigation.rows_from_groups(shown):
-		if row["type"] == "Section Break":
-			g = next(x for x in shown if x["key"] == row["hs_key"])
-			sec = dict(section_tpl or {}, **{k: v for k, v in row.items() if k != "hs_key"})
-			sec["label"] = g.get("display") or _(g["label"])
-			pending_section = sec
-			continue
-		it = next((i for g in shown for i in g["items"] if i["key"] == row["hs_key"]), None)
-		if it and it.get("custom"):
-			base = {"type": "Link", "link_type": "URL", "url": it["target"], "link_to": None, "icon": it["icon"], "child": row.get("child", 1),
-				"indent": 0, "collapsible": 1, "keep_closed": 0, "show_arrow": 0, "filters": None, "route_options": None, "tab": None}
-			base["label"] = it.get("display") or it["label"]
-		else:
-			found = by_target.get((row["link_type"], row.get("link_to") or row.get("url")))
-			if not found:
-				continue  # not permitted for this user (the desk dropped it)
-			base = dict(found, child=row.get("child", 1))
-			if it and it.get("display"):
-				base["label"] = it["display"]
-		if pending_section and base.get("child", 1):
-			new_items.append(pending_section)
-			pending_section = None
-		new_items.append(base)
-	sb["items"] = new_items
+	sb["items"] = rebuild_items(list(sb.get("items") or []), apply(groups, eff, lang), lang, alias, _)
 	sbs = dict(sbs)
 	sbs[key] = sb
-	bootinfo.workspace_sidebar_item = sbs
+	if isinstance(bootinfo, dict):
+		bootinfo[attr] = sbs
+	else:
+		setattr(bootinfo, attr, sbs)
