@@ -58,15 +58,16 @@ class TestKeys(unittest.TestCase):
 
 	def test_new_group_needs_no_code(self):
 		# a NAV group added later (Projects, Manufacturing …) gets keys from its label and targets
+		# (v1.8.1: a group name NAV does not have — Projects is a real group since 1.8.0)
 		saved = list(navigation.NAV)
 		try:
-			navigation.NAV.append(("Projects", "folder", [("Project Tracker", "Page", "hipersign-projects", "folder", None, {})]))
+			navigation.NAV.append(("Field Service", "folder", [("Service Tracker", "Page", "hipersign-field", "folder", None, {})]))
 			gs = groups()
-			self.assertEqual(gs[-1]["key"], "g:projects")
-			eff = menu.effective([R("Site", "hipersign-projects", visibility="Hidden"), R("Site", "g:projects", label_zh="项目管理")])
+			self.assertEqual(gs[-1]["key"], "g:field-service")
+			eff = menu.effective([R("Site", "hipersign-field", visibility="Hidden"), R("Site", "g:field-service", label_zh="现场服务")])
 			out = menu.apply(gs, eff, "zh")
-			proj = next(g for g in out if g["key"] == "g:projects")
-			self.assertEqual(proj["display"], "项目管理")
+			proj = next(g for g in out if g["key"] == "g:field-service")
+			self.assertEqual(proj["display"], "现场服务")
 			self.assertEqual(proj["items"], [])  # its only item is hidden; rows_from_groups() then drops the empty group
 		finally:
 			navigation.NAV[:] = saved
@@ -178,7 +179,9 @@ class TestBoot(unittest.TestCase):
 	def tearDown(self):
 		menu.for_user, navigation.nav_groups, frappe_stub.local, frappe_stub._ = self.saved
 
-	def boot_with(self, eff, drop=()):
+	def boot_with(self, eff, drop=(), modern=False, extra=()):
+		"""modern: Frappe 16.30+ boot (module_sidebars, keyed by the Sidebar's name, rows with a "key");
+		extra: rows a Custom Sidebar layer added."""
 		menu.for_user = lambda user=None: eff
 		rows = navigation.rows_from_groups(groups())
 		items = []
@@ -189,11 +192,21 @@ class TestBoot(unittest.TestCase):
 			d["label"] = frappe_stub._(d["label"])
 			d.setdefault("url", None)
 			d.setdefault("link_to", None)
+			if modern:
+				d["key"] = "|".join((d["type"], d.get("link_type") or "", d.get("link_to") or "", d.get("url") or "", "")) \
+					if d["type"] == "Link" else "sec-" + d["label"]
 			items.append(d)
-		bootinfo = types.SimpleNamespace(workspace_sidebar_item={"hipersign erp": {"label": "Hipersign ERP", "items": items}})
+		items.extend(extra)
+		if modern:
+			bootinfo = types.SimpleNamespace(module_sidebars={"Hipersign ERP": {"name": "Hipersign ERP", "label": "Hipersign ERP", "items": items},
+				"Selling": {"name": "Selling", "items": []}})
+		else:
+			bootinfo = types.SimpleNamespace(workspace_sidebar_item={"hipersign erp": {"label": "Hipersign ERP", "items": items}})
 		bootinfo.get = lambda k, default=None: getattr(bootinfo, k, default)
 		info = {}
 		menu.boot(bootinfo, info)
+		if modern:
+			return bootinfo.module_sidebars["Hipersign ERP"]["items"], info
 		return bootinfo.workspace_sidebar_item["hipersign erp"]["items"], info
 
 	def test_no_overrides_untouched(self):
@@ -223,6 +236,34 @@ class TestBoot(unittest.TestCase):
 		for n, i in enumerate(items):
 			if i["type"] == "Section Break":
 				self.assertTrue(n + 1 < len(items) and items[n + 1]["type"] != "Section Break", i["label"])
+
+
+	def test_rewrite_frappe_16_30(self):
+		"""v1.8.1: the same rewrite on Frappe 16.30+ (module_sidebars); sections keep Frappe's key; a Custom Sidebar
+		layer's own link is kept at the end."""
+		eff = menu.effective([R("Site", "hipersign-crm", label_zh="线索"), R("Site", "g:projects", visibility="Hidden"),
+			R("Site", "link-x", item_type="Custom Link", label_en="Portal", link_url="/app/todo", parent_group="g:sales")])
+		layer = {"type": "Link", "label": "ToDo list", "link_type": "DocType", "link_to": "ToDo", "url": None, "child": 1, "added": 1,
+			"key": "Link|DocType|ToDo||"}
+		items, info = self.boot_with(eff, drop=("hipersign-exports",), modern=True, extra=[layer])
+		labels = [i["label"] for i in items]
+		self.assertEqual(items[0]["link_to"], "hipersign-home")
+		self.assertIn("线索", labels)
+		self.assertNotIn("hipersign-projects", [i.get("link_to") for i in items])
+		self.assertNotIn("hipersign-exports", [i.get("link_to") for i in items])
+		sales = next(i for i in items if i["type"] == "Section Break" and i["label"] == "销售")
+		self.assertEqual(sales["key"], "sec-销售")  # Frappe's own section row, relabelled
+		link = next(i for i in items if i.get("url") == "/app/todo")
+		self.assertEqual(link["open_in_new_tab"], 0)
+		self.assertTrue(link["key"])
+		self.assertEqual(items[-1]["link_to"], "ToDo")
+		self.assertEqual(items[-1]["child"], 0)
+
+	def test_hidden_by_layer_stays_hidden(self):
+		"""An entry Frappe left out (hidden by a Custom Sidebar layer, or not permitted) is not brought back."""
+		eff = menu.effective([R("Site", "hipersign-crm", label_zh="线索")])
+		items, info = self.boot_with(eff, drop=("hipersign-orders",), modern=True)
+		self.assertNotIn("hipersign-orders", [i.get("link_to") for i in items])
 
 
 class TestConfig(unittest.TestCase):

@@ -1,5 +1,27 @@
 # Changelog
 
+## 1.8.1 — The Hipersign menu on Frappe 16.30+ (the "Sidebar" model)
+- **Frappe 16.30 and later** replaced *Workspace Sidebar* with per-module **Sidebar** documents. Until now the app stopped
+  managing the menu there, so a site upgraded to 16.30+ kept the sidebar Frappe had converted on the day of its upgrade
+  (named *Hipersign Trading*, merged from our seven old sidebars): no Projects or Manufacturing groups, no Menu builder,
+  no feature switches, no brand block, sub-lists or count badges.
+- The app now writes **one Sidebar, "Hipersign ERP"** (module Hipersign Trading, not standard) from the same menu as
+  before — feature switches, the sites' own lists and pages, the same order — on install, every migrate and every
+  settings save, and only when its rows changed. Frappe's converted *Hipersign Trading* sidebar is replaced by it; rows
+  of that sidebar that are not in the Hipersign menu are listed once in the Error Log (*Hipersign menu: converted sidebar
+  replaced*) and stay in Frappe's Workspace Sidebar archive.
+- The **Hipersign ERP desktop tile** opens it again (Desktop Icons mode); on the Apps screen the Hipersign app opens the
+  Hipersign Trading workspace inside it.
+- **Menu builder** changes (hide, rename, reorder, custom links; role > company > site) apply on 16.30+ too: the boot
+  payload's `module_sidebars` entry is rewritten per user, as `workspace_sidebar_item` is on 16.29. Changes a site makes
+  with Frappe's own *Customize sidebar* (Custom Sidebar layers) are kept: what a layer hides stays hidden, links it adds
+  follow the Hipersign entries.
+- The **Home** link stays at the top of the menu when the builder moves another group above Overview.
+- A list that has a prototype page opens the page only for users who may open that page (others keep the list instead
+  of a *not permitted* error) — on 16.29 too.
+- Desk script: works with both sidebars (`module_sidebars` / `current_module` on 16.30+); theme covers 16.30+'s user button.
+- Frappe 16.29 (Workspace Sidebar) works as before.
+
 ## 1.8.0 — Projects (prototype p19): contracting and fit-out from enquiry to profit report
 - **Projects menu** (switch *Projects & contracting*, Settings → Features → Industries) with eight pages: **Projects**
   (portfolio, How it works, red flags), **Estimating & BOQ** (BOQ by section, cost build-up, tenders & quotations),

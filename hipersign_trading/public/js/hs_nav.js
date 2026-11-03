@@ -17,12 +17,21 @@ frappe.provide("hipersign.nav");
 hipersign.nav.base = (name) => ((frappe.boot.hipersign || {}).nav_alias || {})[name] || name;
 
 hipersign.nav.SIDEBAR = "Hipersign ERP";
+// v1.8.1: Frappe 16.30+ sends the sidebars as module_sidebars (keyed by the Sidebar's name) and calls the one on screen
+// current_module; up to 16.29 workspace_sidebar_item (keyed by the lowercased title) and sidebar_title
+hipersign.nav.data = function () {
+	const b = frappe.boot || {};
+	if (b.module_sidebars) return b.module_sidebars[hipersign.nav.SIDEBAR] || null;
+	return (b.workspace_sidebar_item && b.workspace_sidebar_item[hipersign.nav.SIDEBAR.toLowerCase()]) || null;
+};
+hipersign.nav.current = (sb) => (sb ? sb.current_module || sb.sidebar_title : null);
+hipersign.nav.ours = () => hipersign.nav.current(frappe.app && frappe.app.sidebar) === hipersign.nav.SIDEBAR;
 hipersign.nav.key = (s) => (s || "").toString().toLowerCase().replace(/[-_]/g, " ").trim();
 
 // every target the Hipersign sidebar links to (v1.5.6: and every sub-item under its entries), normalised, so a route
 // can be matched against it
 hipersign.nav.targets = function () {
-	const sb = frappe.boot.workspace_sidebar_item && frappe.boot.workspace_sidebar_item[hipersign.nav.SIDEBAR.toLowerCase()];
+	const sb = hipersign.nav.data();
 	if (!sb) return null;
 	if (!hipersign.nav._targets) {
 		hipersign.nav._targets = new Set((sb.items || []).filter((i) => i.link_to).map((i) => hipersign.nav.key(i.link_to)));
@@ -60,8 +69,9 @@ hipersign.nav.hook = function () {
 		try {
 			const route = frappe.get_route() || [];
 			if (hipersign.nav.lists_route(route)) {
-				if (this.sidebar_title !== hipersign.nav.SIDEBAR) frappe.app.sidebar.setup(hipersign.nav.SIDEBAR);
+				if (hipersign.nav.current(this) !== hipersign.nav.SIDEBAR) frappe.app.sidebar.setup(hipersign.nav.SIDEBAR);
 				if (typeof this.set_active_workspace_item === "function") this.set_active_workspace_item();
+				else if (typeof this.highlight_active_item === "function") this.highlight_active_item(); // 16.30+
 				return;
 			}
 		} catch (e) {
@@ -87,7 +97,7 @@ hipersign.nav.brand = function () {
 	const sb = frappe.app && frappe.app.sidebar;
 	const $h = $(".body-sidebar .sidebar-header");
 	if (!sb || !$h.length) return;
-	const ours = sb.sidebar_title === hipersign.nav.SIDEBAR;
+	const ours = hipersign.nav.current(sb) === hipersign.nav.SIDEBAR;
 	$h.toggleClass("hs-brand", ours);
 	if (ours) {
 		// a group with nothing this user may open (e.g. Admin for a sales user) is not shown
@@ -97,13 +107,13 @@ hipersign.nav.brand = function () {
 	}
 	if (ours) hipersign.nav.decorate();
 	if (ours && !$h.find(".hs-brand-logo").length) {
-		$h.find(".sidebar-item-icon").hide();
+		$h.find(".sidebar-item-icon, .header-logo").hide(); // .header-logo: Frappe 16.30+
 		$h.find(".title-container").hide();
 		// v1.7.3: the wordmark when the menu is open, the square mark when it is collapsed (no squeezed logo)
 		$h.prepend(`<span class="hs-brand-logo"><img class="hs-logo-full" src="/assets/hipersign_trading/images/hipersign-logo.png" alt="Hipersign ERP"><img class="hs-logo-mark" src="/assets/hipersign_trading/images/hipersign-mark.png" alt="Hipersign ERP"></span>`);
 	} else if (!ours) {
 		$h.find(".hs-brand-logo").remove();
-		$h.find(".sidebar-item-icon, .title-container").show();
+		$h.find(".sidebar-item-icon, .header-logo, .title-container").show();
 	}
 };
 
@@ -213,8 +223,7 @@ $(document).on("click", ".body-sidebar .hs-sub a", function (e) {
 	frappe.set_route(...JSON.parse($(this).attr("data-route")));
 });
 $(document).on("page-change", () => setTimeout(() => {
-	const sb = frappe.app && frappe.app.sidebar;
-	if (sb && sb.sidebar_title === hipersign.nav.SIDEBAR) {
+	if (hipersign.nav.ours()) {
 		const route = frappe.get_route() || [];
 		const here = hipersign.nav.key(route.length > 1 ? route[1] : route[0]);
 		$(".body-sidebar .hs-sub a").each(function () {
@@ -246,6 +255,8 @@ $(document).on("page-change", () => {
 	if (r[0] !== "List" || !r[1] || (r[2] && r[2] !== "List")) return;
 	const map = hipersign.nav.LIST_PAGE[r[1]];
 	if (!map || hipersign.nav.classic[r[1]] || (frappe.boot.hipersign || {}).no_list_pages) return;
+	// v1.8.1: only to a page this user may open (boot page_info) — otherwise the list stays a list
+	if (frappe.boot.page_info && !frappe.boot.page_info[map[0]]) return;
 	// a list opened with filters (from a link or a report) stays a list
 	if (frappe.route_options && Object.keys(frappe.route_options).length) return;
 	if (window.location.search && window.location.search.length > 1) return;
