@@ -96,14 +96,44 @@ html.hs-theme .hs-book-contacts { margin-top: 6px; color: var(--hs-muted); line-
 	html.hs-theme.hs-rail .body-sidebar .sidebar-item-container .item-anchor { justify-content: center; padding-inline: 0 !important; }
 	html.hs-theme.hs-rail .body-sidebar .hs-has-badge .sidebar-item-icon::after { content: ""; position: absolute; top: 2px; right: 2px; width: 7px; height: 7px; border-radius: 50%; background: var(--hs-red); }
 	html.hs-theme.hs-rail .body-sidebar .sidebar-item-icon { position: relative; }
-	html.hs-theme.hs-rail .hs-brand-logo img { width: 30px !important; }
+}
+html.hs-theme .body-sidebar .hs-rail-icon { display: none !important; }
+/* Frappe 16.54 draws a light grey rule down the left of an open group: on the navy menu it read as a stray white line */
+html.hs-theme .body-sidebar .nested-container { border-left-color: rgba(255, 255, 255, .1) !important; }
+@media (min-width: 901px) {
+	html.hs-theme.hs-rail .body-sidebar .hs-rail-icon { display: inline-flex !important; }
+	html.hs-theme.hs-rail .body-sidebar .nested-container { border-left: 0 !important; padding-inline-start: 0 !important; }
+	/* v1.8.2 (NAV-22): the rail shows the square mark, never the wordmark squeezed to 30 px (Frappe 16.54 keeps .expanded on the rail) */
+	html.hs-theme.hs-rail .body-sidebar .hs-brand-logo { padding: 5px !important; }
+	html.hs-theme.hs-rail .body-sidebar .hs-brand-logo .hs-logo-full { display: none !important; }
+	html.hs-theme.hs-rail .body-sidebar .hs-brand-logo .hs-logo-mark { display: block !important; width: 30px !important; height: 30px !important; }
+	html.hs-theme.hs-rail .body-sidebar .sidebar-header.hs-brand { justify-content: center; padding-inline: 0 !important; }
+	html.hs-theme.hs-rail .body-sidebar .sidebar-header.hs-brand .drop-icon { display: none !important; }
 }
 @media (max-width: 900px) {
-	html.hs-theme .body-sidebar-container { position: fixed !important; inset: 0 auto 0 0; z-index: 1040; transform: translateX(-105%); transition: transform .2s ease; }
-	html.hs-theme[dir="rtl"] .body-sidebar-container { inset: 0 0 0 auto; transform: translateX(105%); }
-	html.hs-theme.hs-menu-open .body-sidebar-container { transform: none; }
+	/* v1.8.2: the phone menu is a drawer of its own. Frappe 16.54 makes .body-sidebar absolute (the container measures 0 px, so
+	   sliding the container moved nothing) and fades its rows out unless .expanded — the drawer stayed on screen as an empty
+	   navy box. The drawer is now the .body-sidebar itself: off screen until the ☰ button opens it, then with every row shown. */
+	html.hs-theme .body-sidebar-container { position: fixed !important; inset: 0 auto 0 0; z-index: 1040; width: 0 !important; min-width: 0 !important; }
+	html.hs-theme .body-sidebar-container .body-sidebar { position: fixed !important; top: 0 !important; bottom: 0 !important; inset-inline-start: 0; left: 0;
+		width: min(280px, 86vw) !important; min-width: 0 !important; height: 100% !important; max-height: none !important; padding: 0 0 10px !important;
+		overflow-x: hidden; overflow-y: auto !important; z-index: 1040; transform: translateX(-105%); visibility: hidden; pointer-events: none;
+		transition: transform .2s ease, visibility 0s linear .2s; }
+	html.hs-theme[dir="rtl"] .body-sidebar-container { inset: 0 0 0 auto; }
+	html.hs-theme[dir="rtl"] .body-sidebar-container .body-sidebar { left: auto; right: 0; transform: translateX(105%); }
+	html.hs-theme.hs-menu-open .body-sidebar-container .body-sidebar { transform: none; visibility: visible; pointer-events: auto; transition: transform .2s ease; }
+	html.hs-theme .body-sidebar-container .body-sidebar > * { opacity: 1 !important; transform: none !important; }
+	html.hs-theme .body-sidebar-container .overlay, html.hs-theme .body-sidebar-container .sidebar-edge,
+	html.hs-theme .body-sidebar-container .sidebar-collapse-arrow { display: none !important; }
+	html.hs-theme .body-sidebar-container .hs-brand-logo { padding: 6px 10px !important; }
+	html.hs-theme .body-sidebar-container .hs-brand-logo .hs-logo-full { display: block !important; }
+	html.hs-theme .body-sidebar-container .hs-brand-logo .hs-logo-mark { display: none !important; }
 	html.hs-theme .hs-menu-backdrop { position: fixed; inset: 0; z-index: 1035; background: rgba(7, 15, 46, .45); }
+	html.hs-theme:not(.hs-menu-open) .hs-menu-backdrop { display: none; }
 }
+
+/* v1.8.2: Frappe 16.54 gives the sidebar header a fixed 40 px height (with overflow hidden): the logo card was cut at the top */
+html.hs-theme .body-sidebar .sidebar-header.hs-brand { height: auto !important; min-height: 60px; overflow: visible !important; padding-block: 6px !important; }
 
 /* sub-items under a module entry, badges, the Book-a-demo box */
 html.hs-theme .body-sidebar .hs-sub-toggle { margin-inline-start: auto; width: 22px; height: 22px; display: grid; place-items: center; border-radius: 6px; color: var(--hs-navy-muted);
@@ -134,22 +164,42 @@ html.hs-theme .frappe-list .result { overflow-x: auto; }
    seven columns overflowed 1366–1536 px screens and the last one (the ID) was cut off. Columns now shrink (ellipsis), the
    subject, the status and the last column keep a readable minimum, and the right-hand column has the same fixed width on
    the header and the rows (empty on the rows), so headings stay over their values. */
-html.hs-theme .frappe-list .result .list-row-container, html.hs-theme .frappe-list .result .list-row,
-html.hs-theme .frappe-list .result .list-row-head { max-width: 100% !important; min-width: 0 !important; }
-html.hs-theme .frappe-list .list-row .level-left, html.hs-theme .frappe-list .list-row-head .level-left { min-width: 0; flex: 1 1 auto; }
-html.hs-theme .frappe-list .list-row .level-left > .list-row-col,
-html.hs-theme .frappe-list .list-row-head .level-left > .list-row-col { flex-shrink: 1 !important; min-width: 84px !important; margin-right: 10px; }
-html.hs-theme .frappe-list .list-row .level-left > .list-row-col.tag-col,
-html.hs-theme .frappe-list .list-row-head .level-left > .list-row-col.tag-col { min-width: 0 !important; }
-html.hs-theme .frappe-list .list-row .level-left > .list-row-col.list-subject,
-html.hs-theme .frappe-list .list-row-head .level-left > .list-row-col.list-subject { min-width: 160px !important; }
-html.hs-theme .frappe-list .list-row .level-left > .list-row-col:not([style]):not(.tag-col),
-html.hs-theme .frappe-list .list-row-head .level-left > .list-row-col:not([style]):not(.tag-col) { min-width: 96px !important; }
-html.hs-theme .frappe-list .list-row .level-left > .list-row-col:last-child:not(.list-subject),
-html.hs-theme .frappe-list .list-row-head .level-left > .list-row-col:last-child:not(.list-subject) { min-width: 150px !important; }
+/* v1.8.2: tablet and desktop only — on a phone Frappe shows each row as a card (subject over date and amount) */
+@media (min-width: 768px) {
+	html.hs-theme .frappe-list .result .list-row-container, html.hs-theme .frappe-list .result .list-row,
+	html.hs-theme .frappe-list .result .list-row-head { max-width: 100% !important; min-width: 0 !important; }
+	html.hs-theme .frappe-list .list-row .level-left, html.hs-theme .frappe-list .list-row-head .level-left { min-width: 0; flex: 1 1 auto; }
+	html.hs-theme .frappe-list .list-row .level-left > .list-row-col,
+	html.hs-theme .frappe-list .list-row-head .level-left > .list-row-col { flex-shrink: 1 !important; min-width: 84px !important; margin-right: 10px; }
+	html.hs-theme .frappe-list .list-row .level-left > .list-row-col.tag-col,
+	html.hs-theme .frappe-list .list-row-head .level-left > .list-row-col.tag-col { min-width: 0 !important; }
+	html.hs-theme .frappe-list .list-row .level-left > .list-row-col.list-subject,
+	html.hs-theme .frappe-list .list-row-head .level-left > .list-row-col.list-subject { min-width: 160px !important; }
+	html.hs-theme .frappe-list .list-row .level-left > .list-row-col:not([style]):not(.tag-col),
+	html.hs-theme .frappe-list .list-row-head .level-left > .list-row-col:not([style]):not(.tag-col) { min-width: 72px !important; }
+	html.hs-theme .frappe-list .list-row .level-left > .list-row-col:last-child:not(.list-subject),
+	html.hs-theme .frappe-list .list-row-head .level-left > .list-row-col:last-child:not(.list-subject) { min-width: 150px !important; }
+}
 html.hs-theme .frappe-list .list-row-container .list-row > .level-right { display: block !important; visibility: hidden; position: static !important;
 	flex: 0 0 76px !important; width: 76px !important; min-width: 0 !important; }
 html.hs-theme .frappe-list .list-row-head > .level-right { position: static !important; flex: 0 0 76px !important; width: 76px !important; min-width: 0 !important; }
+/* v1.8.2: Frappe 16.54 sizes every row box to its own content ("width: fit-content", min-width 100 %), and the rule above took
+   the 100 % away, so each row was a different width and its columns drifted away from the headings; its list box is a
+   "display: table" that grows with the longest value, so the last column (the ID) ran off the card. The list box, every row
+   and the header are the width of the card again (as on 16.29), and the ID column fits a full "SAL-ORD-2026-00024". */
+@media (min-width: 768px) {
+	html.hs-theme .frappe-list .result-container .result { display: block !important; width: 100% !important; }
+	html.hs-theme .frappe-list .result .list-row-container { width: 100% !important; }
+	html.hs-theme .frappe-list .result .list-row-container > .list-row,
+	html.hs-theme .frappe-list .result .list-row-container > .list-row-head { width: 100% !important; }
+	html.hs-theme .frappe-list .result .list-row .level-left > .list-row-col[data-fieldname="name"]:not(.list-subject),
+	html.hs-theme .frappe-list .result .list-row-head .level-left > .list-row-col[data-fieldname="name"]:not(.list-subject) { min-width: 200px !important; }
+	/* 16.54 columns carry no width of their own (every one "flex: 1 1 0"): the subject (customer, supplier, title) takes a double share */
+	html.hs-theme .frappe-list .result .list-row .level-left > .list-row-col.list-subject:not(.tag-col),
+	html.hs-theme .frappe-list .result .list-row-head .level-left > .list-row-col.list-subject:not(.tag-col) { min-width: 160px !important; }
+	html.hs-theme .frappe-list .result .list-row .level-left > .list-row-col.list-subject:not([style]),
+	html.hs-theme .frappe-list .result .list-row-head .level-left > .list-row-col.list-subject:not([style]) { flex-grow: 2 !important; }
+}
 /* the active filter button: readable in both themes */
 html.hs-theme .filter-selector .filter-button.btn-primary-light,
 html.hs-theme .filter-selector .btn.btn-primary-light {
@@ -159,6 +209,12 @@ html.hs-theme .filter-selector .btn.btn-primary-light {
 /* Bank Reconciliation Tool: no "Not Saved" and no "Try the new Banking module" banner (v1.5.6) */
 html.hs-theme [data-page-route="Bank Reconciliation Tool"] .indicator-pill.orange,
 html.hs-theme [data-page-route="Bank Reconciliation Tool"] .form-message.blue { display: none !important; }
+
+/* v1.8.2 (NAV-13): with the top bar on, the menu has no Search row (Frappe 16.30+ .navbar-modal-search-mobile) and no user block
+   at its foot — the top bar has the search and the user menu (avatar, right) */
+html.hs-theme.hs-topbar-on .body-sidebar .standard-items-band .navbar-modal-search-mobile,
+html.hs-theme.hs-topbar-on .body-sidebar .body-sidebar-bottom .dropdown-navbar-user { display: none !important; }
+html.hs-theme.hs-topbar-on .body-sidebar .body-sidebar-bottom:not(:has(.promotional-banners > *)) { display: none !important; }
 
 /* ---------------------------------------------------------------- narrow screens */
 @media (max-width: 1180px) {
