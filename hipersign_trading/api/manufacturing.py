@@ -1026,6 +1026,19 @@ def _close_open(jc, when=None):
 			r.time_in_mins = (get_datetime(r.to_time) - get_datetime(r.from_time)).total_seconds() / 60
 
 
+def _upstream(jc):
+	"""v1.8.2: the operation before this one on the work order (routing order) and the units it has done so far — a flow
+	line lets the next operation start on the first units, but never run ahead of the one before. None for the first."""
+	ops = frappe.get_all("Work Order Operation", filters={"parent": jc.work_order}, fields=["name", "operation", "idx"], order_by="idx asc")
+	pos = next((i for i, o in enumerate(ops) if o.name == jc.operation_id), 0)
+	if pos == 0:
+		return None
+	prev = ops[pos - 1]
+	done = frappe.db.sql("""select coalesce(sum(tl.completed_qty), 0) from `tabJob Card Time Log` tl join `tabJob Card` j on j.name = tl.parent
+		where j.operation_id = %s and j.docstatus < 2""", prev.name)[0][0]
+	return prev.operation, flt(done)
+
+
 def jc_start(name, employee=None, when=None):
 	jc = _jc(name)
 	if any(r.from_time and not r.to_time for r in jc.time_logs):
@@ -1065,9 +1078,14 @@ def jc_qty(name, n, when=None):
 	n = flt(n)
 	done = sum(flt(r.completed_qty) for r in jc.time_logs)
 	room = flt(jc.for_quantity) - done - loss_left(jc)
-	n = min(n, room)
-	if n <= 0:
+	if room <= 0:
 		frappe.throw(_("{0}: all {1} units are done or scrapped.").format(name, _nf(jc.for_quantity)))
+	up = _upstream(jc)
+	if up and done + min(n, room) > up[1]:
+		if up[1] - done <= 0:
+			frappe.throw(_("{0} has done {1} units — this operation cannot run ahead of it.").format(_(up[0]), _nf(up[1])))
+		room = up[1] - done
+	n = min(n, room)
 	run = next((r for r in jc.time_logs if r.from_time and not r.to_time), None)
 	if run:
 		run.completed_qty = flt(run.completed_qty) + n
@@ -1111,6 +1129,9 @@ def jc_complete(name, when=None):
 	rest = flt(jc.for_quantity) - done - loss_left(jc)
 	if rest < -0.0001:
 		frappe.throw(_("{0}: {1} done and {2} lost is more than the {3} units of the job card.").format(name, _nf(done), _nf(loss_left(jc)), _nf(jc.for_quantity)))
+	up = _upstream(jc)
+	if rest > 0 and up and done + rest > up[1] + 0.0001:
+		frappe.throw(_("{0} has done {1} of {2} units — complete it first, then this operation.").format(_(up[0]), _nf(up[1]), _nf(jc.for_quantity)))
 	if rest > 0:
 		mins = flt(frappe.db.get_value("Work Order Operation", jc.operation_id, "time_in_mins")) / (flt(frappe.db.get_value("Work Order", jc.work_order, "qty")) or 1) * rest
 		end = get_datetime(when or now_datetime())
