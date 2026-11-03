@@ -17,6 +17,8 @@
   with Frappe's own *Customize sidebar* (Custom Sidebar layers) are kept: what a layer hides stays hidden, links it adds
   follow the Hipersign entries.
 - The **Home** link stays at the top of the menu when the builder moves another group above Overview.
+- A list that has a prototype page opens the page only for users who may open that page (others keep the list instead
+  of a *not permitted* error) — on 16.29 too.
 - Desk script: works with both sidebars (`module_sidebars` / `current_module` on 16.30+); theme covers 16.30+'s user button.
 - Frappe 16.29 (Workspace Sidebar) works as before.
 
