@@ -117,13 +117,29 @@ hipersign.nav.brand = function () {
 	}
 };
 
+hipersign.nav.at_desk_root = function () {
+	const parts = (window.location.pathname || "").split("/").filter(Boolean).map((p) => decodeURIComponent(p).toLowerCase());
+	if (!parts.length || !["app", "desk"].includes(parts[0])) return false;
+	if (parts.length === 1) return true;
+	if (parts.length > 2) return false;
+	const x = parts[1];
+	if (["home", "desktop", "apps"].includes(x)) return true;
+	const slug = (t) => (frappe.router && frappe.router.slug ? frappe.router.slug(t) : String(t).toLowerCase().replace(/[ _]/g, "-"));
+	const dts = [].concat((frappe.boot.user && frappe.boot.user.can_read) || []);
+	if (dts.some((d) => slug(d) === x)) return false; // /desk/sales-order is the Sales Order list
+	if ((frappe.boot.page_info || {})[x]) return false; // /desk/hipersign-crm is a page
+	const modules = Object.keys(frappe.boot.module_sidebars || {}).concat(Object.keys(frappe.workspaces || {}), frappe.boot.allowed_modules || []);
+	return modules.some((m) => slug(typeof m === "string" ? m : m.module_name || "") === x);
+};
+
 hipersign.nav.go_home = function () {
 	const info = (frappe.boot && frappe.boot.hipersign) || {};
 	if (!info.open_home || sessionStorage.getItem("hs_home_opened")) return;
 	sessionStorage.setItem("hs_home_opened", "1");
-	const route = frappe.get_route() || [];
-	const on_desktop = !route.length || !route[0] || ["desktop", "home", "apps"].includes((route[0] || "").toLowerCase());
-	if (!on_desktop) return;
+	// v1.8.2: decided from the address the browser asked for, not frappe.get_route(): on app_ready Frappe 16.54 has not routed
+	// yet (the route is still empty), so a deep link (/app/sales-order, /desk/customer) was sent to Home. Only the bare desk
+	// root goes home: /app, /desk, /app|desk/home|apps|desktop, or /desk/<module> when <module> is a workspace, not a DocType.
+	if (!hipersign.nav.at_desk_root()) return;
 	// v1.5: the prototype's Home page; the workspace when the page is not there (or not allowed for the user)
 	if (info.home_page) frappe.set_route(info.home_page);
 	else if (frappe.workspaces && frappe.workspaces[frappe.router.slug(info.home_workspace || "Hipersign Trading")]) {
@@ -150,6 +166,18 @@ hipersign.nav.decorate = function () {
 	const open = new Set(hipersign.nav.open_subs());
 	const route = frappe.get_route() || [];
 	const here = hipersign.nav.key(route.length > 1 ? route[1] : route[0]);
+	// v1.8.2: Frappe 16.30+ draws no icon on the rows inside a group, so the collapsed rail was empty below Home. The row's own
+	// icon (Sidebar Item) is added for the rail only (hs_shell.css shows it with html.hs-rail); 16.29 rows already have one.
+	const icons = {};
+	((hipersign.nav.data() || {}).items || []).forEach((i) => { if (i.icon && i.label) icons[i.label] = i.icon; });
+	$(".body-sidebar .sidebar-item-container").each(function () {
+		const $c = $(this), name = $c.attr("item-name");
+		if (!name || $c.hasClass("section-item")) return;
+		const $a = $c.children(".standard-sidebar-item").first().find(".item-anchor").first();
+		if ($a.length && !$a.children(".sidebar-item-icon").length && icons[name]) {
+			$a.prepend(`<span class="sidebar-item-icon hs-rail-icon" item-icon="${frappe.utils.escape_html(icons[name])}">${frappe.utils.icon(icons[name], "sm")}</span>`);
+		}
+	});
 	$(".body-sidebar .sidebar-item-container").each(function () {
 		const $c = $(this), name = $c.attr("item-name");
 		if (!name || $c.hasClass("section-item") || $c.attr("data-hs-dec")) return;
@@ -264,3 +292,24 @@ $(document).on("page-change", () => {
 	frappe.route_flags.replace_route = true; // Back does not bounce through the list again
 	frappe.set_route(map[0]);
 });
+
+// ---------------------------------------------------------------- v1.8.2: Escape closes the top bar's open panel (+ New, the bell)
+// and the phone menu. Frappe's own dialogs keep Escape when one is open.
+$(document).on("keydown.hs_nav_esc", (e) => {
+	if (e.key !== "Escape" || $(".modal.show").length) return;
+	const $open = $(".hs-topbar .hs-tb-panel").filter(function () { return !this.hidden; });
+	if ($open.length) {
+		$open.prop("hidden", true);
+		$(".hs-tb-modes").remove();
+		return;
+	}
+	if (document.documentElement.classList.contains("hs-menu-open") && hipersign.topbar && hipersign.topbar.toggle_menu) hipersign.topbar.toggle_menu();
+});
+// v1.8.2: on a phone the page title's ☰ (Frappe's own sidebar toggle) opens the same Hipersign menu drawer as the top bar's ☰
+document.addEventListener("click", (e) => {
+	const t = e.target && e.target.closest && e.target.closest(".page-head .sidebar-toggle-btn");
+	if (!t || !document.documentElement.classList.contains("hs-theme") || !hipersign.topbar || !hipersign.topbar.narrow || !hipersign.topbar.narrow()) return;
+	e.preventDefault();
+	e.stopImmediatePropagation();
+	hipersign.topbar.toggle_menu();
+}, true);

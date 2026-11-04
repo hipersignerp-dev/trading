@@ -12,6 +12,7 @@ panel, {"pill": label, "tone": …} is a status badge, {"bar": percent} is a pro
 """
 
 import frappe
+from hipersign_trading.utils import base_outstanding as _base_os  # v1.8.2
 from frappe import _
 from frappe.utils import cint, date_diff, flt, fmt_money, formatdate, get_datetime, getdate, money_in_words, today
 
@@ -582,9 +583,9 @@ def supplier(doc):
 		fields=["name", "transaction_date", "schedule_date", "grand_total", "currency", "per_received", "status"], order_by="transaction_date desc", limit=10) \
 		if frappe.has_permission("Purchase Order") else []
 	bills = frappe.get_all("Purchase Invoice", filters={"supplier": doc.name, "docstatus": 1, "outstanding_amount": ["!=", 0]},
-		fields=["name", "posting_date", "due_date", "outstanding_amount", "currency", "conversion_rate", "bill_no"], order_by="due_date asc", limit=10) \
+		fields=["name", "posting_date", "due_date", "outstanding_amount", "currency", "conversion_rate", "bill_no", "company", "party_account_currency"], order_by="due_date asc", limit=10) \
 		if frappe.has_permission("Purchase Invoice") else []
-	payable = sum(flt(b.outstanding_amount) * flt(b.conversion_rate or 1) for b in bills)
+	payable = sum(_base_os(b) for b in bills)
 	p["facts"] = kv(("Country", doc.country), ("Currency", doc.default_currency), ("Payment terms", doc.payment_terms),
 		("Incoterm", doc.get("hs_incoterm")), ("Lead time", f"{cint(doc.get('hs_lead_time_days'))} {_('days')}" if doc.get("hs_lead_time_days") else ""),
 		("TRN", doc.tax_id), ("Payable", money(payable, ccy) if bills else ""), ("Open orders", len(open_po) or ""))

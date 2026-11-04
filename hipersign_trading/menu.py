@@ -339,6 +339,40 @@ def rebuild_items(orig, shown, lang="en", alias=None, translate=None):
 	return new_items
 
 
+# v1.8.2: URL rows get no permission filter from Frappe — the roles each one needs (the Driver App: drivers and dispatch)
+URL_ROLES = {"/driver": ("Stock User", "Stock Manager", "Delivery Manager", "Logistics Coordinator", "System Manager")}
+
+
+def _drop_url_rows(bootinfo):
+	"""Take URL entries this user cannot open out of their copy of the sidebar (a driver is linked by Driver › Hipersign user)."""
+	frappe = _frappe()
+	attr, key, sbs = _sidebar_payload(bootinfo)
+	if not attr:
+		return
+	roles = set(frappe.get_roles())
+	is_driver = None
+	items = list(sbs[key].get("items") or [])
+	keep = []
+	for it in items:
+		need = URL_ROLES.get(it.get("url") or "")
+		if need and not roles.intersection(need):
+			if is_driver is None:
+				is_driver = bool(frappe.db.exists("Driver", {"hs_user": frappe.session.user})) if frappe.db.has_column("Driver", "hs_user") else False
+			if not is_driver:
+				continue
+		keep.append(it)
+	if len(keep) == len(items):
+		return
+	sb = dict(sbs[key])
+	sb["items"] = keep
+	sbs = dict(sbs)
+	sbs[key] = sb
+	if isinstance(bootinfo, dict):
+		bootinfo[attr] = sbs
+	else:
+		setattr(bootinfo, attr, sbs)
+
+
 def boot(bootinfo, info):
 	"""Rewrite this user's copy of the Hipersign ERP sidebar in the boot info: hidden entries out, renamed labels,
 	builder order, custom links. Also sends nav_alias (shown label → NAV label, for sub-items and badges) and
@@ -357,6 +391,7 @@ def boot(bootinfo, info):
 		for link in links:
 			if _(link[0]) != link[0]:
 				alias[_(link[0])] = link[0]
+	_drop_url_rows(bootinfo)
 	if not eff["items"] and not eff["links"]:
 		return
 	groups = navigation.nav_groups()

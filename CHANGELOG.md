@@ -1,5 +1,27 @@
 # Changelog
 
+## 1.8.2 — Fixes from the full site audit (3 Nov 2026)
+- **Trackers** laid out as the prototype: phases wrap two or three to a row, step names in full — the Manufacturing
+  "Make" phase was squeezed into the narrowest column.
+- **Money:** compact amounts keep whole-number zeros (AED 110,300 showed as "AED 11K"); foreign-currency outstanding is
+  counted once in the company currency (ERPNext keeps it in the party account's currency) — Finance receivables, Home
+  receivables and payables, credit exposure, supplier panel; the Order Tracker's "Paid" is no longer negative on USD orders.
+- **Customer portal:** /orders, /invoices and /quotations open the Hipersign portal (they crashed with a server error).
+- **Shop floor:** an operation cannot run ahead of the one before it.
+- **Create windows:** a typed rate with a line discount saves as shown; quotations and orders are in the party's currency
+  (credit exposure converted); stock transfer To starts on another warehouse and same-store or negative transfers are
+  refused; site transfers only from the project company's stores; company documents default to the current company; a
+  draft BOM is not made the default; tick boxes visible; nothing shows under the sticky buttons; dark-theme colours.
+- **Roles:** Driver App only for drivers and dispatch; Planning works without Sales Order read; Trade Journey lists only
+  permitted orders; role labels for the Projects and Manufacturing roles and the view-only demo; + New screen entries and
+  "All" only when the user may open them; page roles as the prototype's role matrix; demo users each in their own
+  company (demo step v182).
+- **Frappe 16.54:** list columns line up with their headings; phone sidebar is a closed drawer with the menu; Escape
+  closes + New; sidebar search and user block hidden under the top bar; collapsed rail shows the square mark and icons;
+  deep links (/app/sales-order) no longer jump to Home.
+- **Company Compliance** panel no longer crashes on a reminder stage.
+- **Arabic** UI translation at 100% ("Excel" kept); Chinese for every new message.
+
 ## 1.8.1 — The Hipersign menu on Frappe 16.30+ (the "Sidebar" model)
 - **Frappe 16.30 and later** replaced *Workspace Sidebar* with per-module **Sidebar** documents. Until now the app stopped
   managing the menu there, so a site upgraded to 16.30+ kept the sidebar Frappe had converted on the day of its upgrade

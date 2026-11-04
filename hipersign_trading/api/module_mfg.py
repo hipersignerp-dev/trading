@@ -201,7 +201,7 @@ def mf_prod_rows(tab, chip, q=None):
 def mf_plan_module():
 	cos = _cos()
 	cur = _cur(cos)
-	SO = [M.so_fig(s) for s in M.so_names(cos)] if cos else []
+	SO = [M.so_fig(s) for s in M.so_names(cos)] if cos and _perm("Sales Order") else []  # v1.8.2: buyers have no Sales Order read
 	opn = [s for s in SO if s.step < 18]
 	W = _wos(cos) if cos else []
 	SH = M.shortages(cos) if cos else []
@@ -224,7 +224,7 @@ def mf_plan_module():
 				"shopping-cart", True, cur, tab="short"),
 			kpi(_("Material requests open"), len(mrs), _("{0} awaiting approval").format(len([m for m in mrs if m.docstatus == 0])), "amber", "list", tab="mr"),
 		],
-		"tabs": [{"key": "demand", "label": _("Demand"), "chips": []}, {"key": "pp", "label": _("Production plans"), "chips": []},
+		"tabs": ([{"key": "demand", "label": _("Demand"), "chips": []}] if _perm("Sales Order") else []) + [{"key": "pp", "label": _("Production plans"), "chips": []},
 			{"key": "short", "label": _("Shortages") + (f" ({len(short)})" if short else ""), "chips": []}, {"key": "mr", "label": _("Material requests"), "chips": []},
 			{"key": "po", "label": _("Purchase orders"), "chips": []}],
 	}
@@ -295,7 +295,7 @@ def mf_plan_rows(tab, chip, q=None):
 			"empty": _("No component purchase orders.")}
 	# demand
 	rows = []
-	for s in [M.so_fig(n) for n in M.so_names(cos)]:
+	for s in ([M.so_fig(n) for n in M.so_names(cos)] if _perm("Sales Order") else []):
 		if q and q.lower() not in f"{s.name} {s.customer_name} {s.item_name}".lower():
 			continue
 		i = min(M.N - 1, s.step)

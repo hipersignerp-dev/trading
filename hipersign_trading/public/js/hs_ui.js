@@ -10,7 +10,7 @@ hipersign.ui.money = function (v, cur, compact) {
 	if (compact && Math.abs(v) >= 1000) {
 		const units = [[1e9, "B"], [1e6, "M"], [1e3, "K"]];
 		for (const [n, u] of units) {
-			if (Math.abs(v) >= n) return `${cur} ${(v / n).toFixed(Math.abs(v) >= n * 100 ? 0 : 2).replace(/\.?0+$/, "")}${u}`;
+			if (Math.abs(v) >= n) return `${cur} ${(v / n).toFixed(Math.abs(v) >= n * 100 ? 0 : 2).replace(/(\.\d*?)0+$/, "$1").replace(/\.$/, "") /* v1.8.2: zeros only after the point (110K stayed 11K) */}${u}`;
 		}
 	}
 	// the prototype writes the currency code first (AED 1,234.50), never the local symbol

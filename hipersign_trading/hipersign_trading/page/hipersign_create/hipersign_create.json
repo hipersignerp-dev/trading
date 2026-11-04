@@ -31,9 +31,39 @@
   },
   {
    "role": "QC Inspector"
+  },
+  {
+   "role": "Project Manager"
+  },
+  {
+   "role": "Quantity Surveyor"
+  },
+  {
+   "role": "Site Engineer"
+  },
+  {
+   "role": "HR User"
+  },
+  {
+   "role": "HR Manager"
+  },
+  {
+   "role": "Sales Manager"
+  },
+  {
+   "role": "Purchase Manager"
+  },
+  {
+   "role": "Stock Manager"
+  },
+  {
+   "role": "Accounts Manager"
+  },
+  {
+   "role": "Logistics Coordinator"
   }
  ],
  "owner": "Administrator",
  "creation": "2026-10-21 14:30:00",
- "modified": "2026-11-02 15:00:00"
+ "modified": "2026-11-03 15:00:00.000000"
 }

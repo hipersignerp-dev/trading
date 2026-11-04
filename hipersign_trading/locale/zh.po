@@ -15078,3 +15078,30 @@ msgstr "未开始"
 
 msgid "Stopped"
 msgstr "已停止"
+
+msgid "HR Officer"
+msgstr "人事专员"
+
+msgid "Expired notice"
+msgstr "到期通知"
+
+msgid "{0}-day notice"
+msgstr "{0} 天提醒"
+
+msgid "From and To are the same warehouse — choose where the stock goes."
+msgstr "调出和调入是同一个仓库 — 请选择货物要去的仓库。"
+
+msgid "Main store of the project's company"
+msgstr "项目所属公司的主仓库"
+
+msgid "Quantities must be more than zero."
+msgstr "数量必须大于零。"
+
+msgid "{0} belongs to another company — {1} can only take stock from its own stores."
+msgstr "{0} 属于另一家公司 — {1} 只能从自己的仓库调货。"
+
+msgid "{0} has done {1} of {2} units — complete it first, then this operation."
+msgstr "{0} 已完成 {1}/{2} 件 — 请先完成该工序,再完成本工序。"
+
+msgid "{0} has done {1} units — this operation cannot run ahead of it."
+msgstr "{0} 已完成 {1} 件 — 本工序不能超前于它。"

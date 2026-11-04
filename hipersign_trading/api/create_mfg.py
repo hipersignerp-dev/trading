@@ -36,7 +36,8 @@ def pre_bom(doc, v, rows):
 	cur = M.bom_of(item)
 	company = frappe.db.get_value("BOM", cur, "company") if cur else _company(v)
 	b = frappe.new_doc("BOM")
-	b.update({"item": item, "company": company, "quantity": 1, "with_operations": 1, "rm_cost_as_per": "Valuation Rate", "is_active": 1, "is_default": 1,
+	b.update({"item": item, "company": company, "quantity": 1, "with_operations": 1, "rm_cost_as_per": "Valuation Rate",
+		"is_active": 1, "is_default": 1 if v._action == "submit" else 0,  # v1.8.2: a draft version is not the default yet
 		"hs_change_note": v.get("hs_change_note"), "currency": frappe.get_cached_value("Company", company, "default_currency")})
 	for r in lines:
 		b.append("items", {"item_code": r["item_code"], "qty": flt(r["qty"]), "bom_no": M.bom_of(r["item_code"]) or None})

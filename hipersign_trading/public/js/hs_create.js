@@ -303,12 +303,17 @@ frappe.provide("hipersign.cm");
 				st.v.price_list = p.price_list || st.o.default_price_list || st.v.price_list;
 				if (p.terms) st.v.payment_terms = p.terms;
 				if (p.sales_person && !st.v.sales_person) st.v.sales_person = p.sales_person;
-				if (p.currency && (kind === "purchase_order" || !st.v.currency)) st.v.currency = p.currency;
+				// v1.8.2: the document is in the party's currency (an export customer billed in USD gets a USD order), as the totals show
+				if (p.currency) st.v.currency = p.currency;
 				if (p.incoterm && !st.v.incoterm) st.v.incoterm = p.incoterm;
 				st.v.contact_person = (p.contacts[0] || {}).name || "";
 				const ship = p.addresses.find((a) => a.shipping) || p.addresses[0], bill = p.addresses.find((a) => a.billing) || p.addresses[0];
 				st.v.shipping_address = ship ? ship.name : ""; st.v.billing_address = bill ? bill.name : "";
 				st.p.rate = 1;
+				// v1.8.2: credit exposure is in the company currency — convert this order's total at today's rate
+				if (st.v.currency && st.o.currency && st.v.currency !== st.o.currency)
+					frappe.xcall("erpnext.setup.utils.get_exchange_rate", { from_currency: st.v.currency, to_currency: st.o.currency })
+						.then((r) => { if (flt(r)) { st.p.rate = flt(r); totals && totals(); } }).catch(() => {});
 				draw();
 				reprice(true);
 			});
@@ -610,7 +615,7 @@ frappe.provide("hipersign.cm");
 			actions: [{ label: __("Save"), action: "save" }, { label: __("Submit request"), action: "submit", primary: 1 }] },
 		"Stock Entry": { title: __("Stock transfer"), sub: __("Move stock between warehouses"), fields: [
 			{ f: "from_warehouse", label: __("From"), t: "select", src: L("Warehouse", { is_group: 0 }), req: 1, m: "q" },
-			{ f: "to_warehouse", label: __("To"), t: "select", src: L("Warehouse", { is_group: 0 }), req: 1, m: "q" },
+			{ f: "to_warehouse", label: __("To"), t: "select", src: L("Warehouse", { is_group: 0 }), req: 1, m: "q", differ: "from_warehouse" },
 			{ f: "posting_date", label: __("Transfer date"), t: "date", m: "s", def: today },
 			{ f: "_requested_by", label: __("Requested by"), m: "s" },
 			{ f: "_reason", label: __("Reason"), m: "s", w: 2 },
@@ -728,7 +733,7 @@ frappe.provide("hipersign.cm");
 			{ f: "project", label: __("Project"), t: "select", src: L("Project"), m: "d" },
 		] },
 		"Company Document": { title: __("Add company document"), sub: __("Licence, registration or certificate — renewal reminders follow the expiry"), fields: [
-			{ f: "company", label: __("Company"), t: "select", src: L("Company"), req: 1, m: "q" },
+			{ f: "company", label: __("Company"), t: "select", src: L("Company"), req: 1, m: "q", def: co },
 			{ f: "document_type", label: __("Document type"), t: "select", src: L("Company Document Type"), req: 1, m: "q" },
 			{ f: "document_number", label: __("Number"), m: "q" },
 			{ f: "authority", label: __("Issuing authority"), m: "s" },
@@ -884,6 +889,12 @@ frappe.provide("hipersign.cm");
 			const fields = spec.fields.filter((df) => visible(df, mode) && (!df.show || df.show(v)));
 			let h = `<div class="hsc-grid">${fields.map((df) => {
 				let l = list(df);
+				// v1.8.2: "To" starts on a different warehouse than "From" (a transfer into the same store is refused)
+				if (df.differ && l && l.length > 1) {
+					const ov = (o) => String(Array.isArray(o) ? o[0] : o.name ?? o);
+					const other = v[df.differ] || (list(spec.fields.find((x) => x.f === df.differ) || {}) || []).map(ov)[0];
+					if (!v[df.f] || String(v[df.f]) === String(other)) { const o = l.find((x) => ov(x) !== String(other)); if (o) v[df.f] = ov(o); }
+				}
 				if (df.t === "select" && v[df.f] && l && !l.some((o) => String(Array.isArray(o) ? o[0] : o.name ?? o) === String(v[df.f]))) l = [[v[df.f], v[df.f]], ...l];
 				return C.field(Object.assign({}, df, { list: l }), v[df.f]);
 			}).join("")}</div>`;

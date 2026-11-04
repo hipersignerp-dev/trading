@@ -1,9 +1,9 @@
 /* Hipersign ERP v1.7.0 — the prototype's create modal (hs_create.js) */
 .hsc-ov { position: fixed; inset: 0; z-index: 1040; background: rgba(15, 23, 42, .45); display: flex; align-items: flex-start; justify-content: center;
-	padding: 40px 16px 60px; overflow-y: auto; opacity: 0; transition: opacity .15s; }
+	padding: 40px 16px 0; overflow-y: auto; opacity: 0; transition: opacity .15s; }
 .hsc-ov.show { opacity: 1; }
 .hsc-modal { background: #fff; color: #111827; width: 720px; max-width: 100%; border-radius: 16px; box-shadow: 0 24px 60px rgba(15, 23, 42, .28);
-	display: flex; flex-direction: column; font-size: 14px; }
+	display: flex; flex-direction: column; font-size: 14px; margin-bottom: 60px; } /* v1.8.2: space below as a margin — the sticky buttons sit on the screen edge with nothing showing under them */
 /* v1.7.2: the whole form shows, as on the prototype — the page behind scrolls, the buttons stay in view */
 .hsc-modal.hsc-wide { width: 1000px; }
 .hsc-head { display: flex; justify-content: space-between; align-items: flex-start; padding: 22px 24px 16px; border-bottom: 1px solid #eef0f3; }
@@ -103,3 +103,33 @@
 [data-theme="dark"] .hsc-att-h { color: #e5e7eb; }
 /* v1.8.0: tick boxes inside a line table (the material request line review) keep their own size */
 .hsc-lines input[type="checkbox"] { width: 16px; height: 16px; padding: 0; margin: 0; box-shadow: none; flex: none; }
+
+/* v1.8.2: tick boxes in windows and quick cards — the field style (padding, background) hid the tick; use the native box */
+.hsc-f input[type="checkbox"], .hsc-chk input, .hsc-modal input[type="checkbox"] { -webkit-appearance: checkbox !important; appearance: auto !important;
+	width: 16px !important; height: 16px !important; padding: 0 !important; margin: 0; flex: none; accent-color: #2563eb; background-image: none; }
+
+/* v1.8.2: dark theme — the close ×, the line delete buttons, the note strip, the totals and the line amounts were light-theme colours */
+[data-theme="dark"] .hsc-head, [data-theme="dark"] .hsc-foot { border-color: #1f2937; }
+[data-theme="dark"] .hsc-head p, [data-theme="dark"] .hsc-hint, [data-theme="dark"] .hsc-f > small { color: #94a3b8; }
+[data-theme="dark"] .hsc-x, [data-theme="dark"] .hsc-del { background: #1e293b; border-color: #334155; color: #e5e7eb; }
+[data-theme="dark"] .hsc-x:hover, [data-theme="dark"] .hsc-del:hover { background: #273449; color: #fff; }
+[data-theme="dark"] .hsc-x svg, [data-theme="dark"] .hsc-del svg, [data-theme="dark"] .hsc-x .icon, [data-theme="dark"] .hsc-del .icon { color: inherit; stroke: currentColor; }
+[data-theme="dark"] .hsc-x use, [data-theme="dark"] .hsc-del use { stroke: currentColor; }
+[data-theme="dark"] .hsc-note { background: #0f172a; border-color: #334155; color: #cbd5e1; }
+[data-theme="dark"] .hsc-tl { color: #94a3b8; }
+[data-theme="dark"] .hsc-tl b { color: #f1f5f9; }
+[data-theme="dark"] .hsc-tt { border-color: #334155; }
+[data-theme="dark"] .hsc-tt span { color: #60a5fa; }
+[data-theme="dark"] .hsc-lines thead th { color: #cbd5e1; border-color: #334155; }
+[data-theme="dark"] .hsc-lines td { border-color: #1f2937; }
+[data-theme="dark"] .hsc-lines td.c-n { color: #cbd5e1; }
+[data-theme="dark"] .hsc-box { border-color: #334155; }
+[data-theme="dark"] .hsc-seg button { color: #94a3b8; }
+[data-theme="dark"] .hsc-f input.hsc-ro { background: #1e293b; color: #cbd5e1; }
+[data-theme="dark"] .hsc-scan input { background: #0b1220; color: #e5e7eb; border-color: #334155; }
+[data-theme="dark"] .hsc-badge, [data-theme="dark"] .hsc-badge.grey { background: #1e293b; color: #cbd5e1; }
+[data-theme="dark"] .hsc-badge.blue { background: rgba(37, 99, 235, .22); color: #93c5fd; }
+[data-theme="dark"] .hsc-badge.orange { background: rgba(234, 88, 12, .2); color: #fdba74; }
+[data-theme="dark"] .hsc-badge.green { background: rgba(22, 163, 74, .2); color: #86efac; }
+[data-theme="dark"] .hsc-badge.red { background: rgba(220, 38, 38, .2); color: #fca5a5; }
+[data-theme="dark"] .hsc-att-t small, [data-theme="dark"] .hsc-att-h span { color: #94a3b8; }
