@@ -7,6 +7,8 @@ from frappe.utils import flt
 
 @frappe.whitelist()
 def purchase_orders():
+	if not frappe.has_permission("Purchase Order", "read"):  # v1.8.2: a user without purchase orders sees an empty journey, not an error
+		return []
 	pos = frappe.get_list("Purchase Order", filters={"docstatus": ["<", 2]},  # v1.8.2: only orders this user may open
 		fields=["name", "supplier_name", "status", "transaction_date"] + (["workflow_state"] if frappe.get_meta("Purchase Order").has_field("workflow_state") else []),
 		order_by="transaction_date desc, creation desc", limit=60)
