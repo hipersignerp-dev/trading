@@ -27,9 +27,6 @@
    "role": "Stock Manager"
   },
   {
-   "role": "Accounts User"
-  },
-  {
    "role": "Accounts Manager"
   },
   {
@@ -38,5 +35,5 @@
  ],
  "owner": "Administrator",
  "creation": "2026-10-27 10:00:00",
- "modified": "2026-11-03 15:00:00.000000"
+ "modified": "2026-11-03 18:00:00.000000"
 }
