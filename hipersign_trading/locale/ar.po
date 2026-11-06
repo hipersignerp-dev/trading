@@ -14963,7 +14963,7 @@ msgid "Days past due · {0}"
 msgstr "أيام التأخير · {0}"
 
 msgid "Days since submitted"
-msgstr "أيام منذ الاعتماد"
+msgstr "أيام منذ التقديم"
 
 msgid "Decided quotations · 90 days"
 msgstr "عروض الأسعار المحسومة · 90 يومًا"
@@ -15224,7 +15224,7 @@ msgid "Not yet ordered"
 msgstr "لم يُطلب بعد"
 
 msgid "Not yet submitted"
-msgstr "لم يُعتمد بعد"
+msgstr "لم يُقدَّم بعد"
 
 msgid "Notes on records"
 msgstr "ملاحظات على السجلات"
