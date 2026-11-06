@@ -195,3 +195,5 @@ html.hs-theme.hs-ui-white:not([data-theme="dark"]) { --hs-bg: #f7f8fb; }
 .hs-sa-f.off { opacity: .6; cursor: default; }
 .hs-sa-f > span:first-of-type { flex: 1; }
 .hs-sa-f small { display: block; color: var(--x-muted); font-size: 11.5px; }
+html.hs-theme.hs-ui-white .body-sidebar .hs-book-box .btn { color: #0b1846 !important; }
+html.hs-theme.hs-ui-white .body-sidebar .hs-book-box, html.hs-theme.hs-ui-white .body-sidebar .hs-book-box b { color: #fff; }
