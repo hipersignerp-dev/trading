@@ -197,11 +197,14 @@ frappe.provide("hipersign.band");
 		return `<div class="hs-heat" style="grid-template-columns:minmax(80px,150px) repeat(${cols.length},minmax(0,1fr))"><span></span>${cols.map((c) => `<span class="hs-hl c">${esc(c)}</span>`).join("")}${rows.map((r, ri) => `<span class="hs-hl">${esc(r)}</span>${cols.map((c, ci) => cell(ri, ci)).join("")}`).join("")}</div>`;
 	};
 
-	const TONE = { y: "hs-st-y", n: "hs-st-n", d: "hs-st-d", x: "hs-st-x", g: "hs-st-g" };
+	const TONE = { y: "hsb-st-y", n: "hsb-st-n", d: "hsb-st-d", x: "hsb-st-x", g: "hsb-st-g" };
+	// stage names that do not fit a narrow column when there are many stages
+	const SHORT = { Contacted: __("Contact"), Qualified: __("Qualif."), Negotiation: __("Negot."), Proposal: __("Prop."), Completed: __("Done"), "Waiting approval": __("Approval"),
+		"Pending approval": __("Approval"), "Work in progress": __("In progress"), "Not started": __("To start"), "In warehouse": __("In stock"), "Under Customs Clearance": __("Customs") };
 	C.stages = function (st) {
 		const mx = Math.max(1, ...st.map((s) => cint(s.n))), many = st.length > 5;
-		return `<div class="hs-stages ${many ? "many" : ""} ${st.length > 6 ? "lots" : ""}" style="grid-template-columns:repeat(${st.length},minmax(0,1fr))">${st.map((s) => `<button type="button" class="hs-stage ${TONE[s.tone] || ""}" ${link_attr(s)} title="${esc(s.label + (s.value ? " · " + s.value : ""))}">
-			<span class="hs-stage-b" style="height:${Math.round(44 + (110 * cint(s.n)) / mx)}px"><b>${cint(s.n)}</b></span><span class="hs-stage-l">${esc(s.label)}${s.value ? `<small>${esc(s.value)}</small>` : ""}</span></button>`).join("")}</div>`;
+		return `<div class="hsb-stages ${many ? "many" : ""} ${st.length > 6 ? "lots" : ""}" style="grid-template-columns:repeat(${st.length},minmax(0,1fr))">${st.map((s) => `<button type="button" class="hsb-stage ${TONE[s.tone] || ""}" ${link_attr(s)} title="${esc(s.label + (s.value ? " · " + s.value : ""))}">
+			<span class="hsb-stage-b" style="height:${Math.round(44 + (110 * cint(s.n)) / mx)}px"><b>${cint(s.n)}</b></span><span class="hsb-stage-l">${esc(st.length > 5 ? SHORT[s.label] || s.label : s.label)}${s.value ? `<small>${esc(s.value)}</small>` : ""}</span></button>`).join("")}</div>`;
 	};
 
 	// click targets: {open:[doctype, name]} opens the record panel, {route:[...]} a page, {tab, chip} a tab of this module page

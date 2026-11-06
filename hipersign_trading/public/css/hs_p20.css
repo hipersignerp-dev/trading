@@ -52,6 +52,9 @@ html.hs-theme .hs-tb-viewas[hidden] { display: none; }
 .hs-band-skel { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
 .hs-band-skel i { height: 200px; border-radius: 20px; background: var(--x-surface-2); border: 1px solid var(--x-line); animation: hs-pulse 1.4s ease-in-out infinite; }
 @keyframes hs-pulse { 50% { opacity: .55; } }
+.hs-band .hsx-card-h { justify-content: flex-start; }
+.hs-band .hsx-card-h h3 { display: block; line-height: 1.35; }
+.hs-band .hsx-card-h h3 svg { vertical-align: -3px; margin-inline-end: 6px; }
 .hs-band .hsx-card-h h3 small { font-weight: 500; color: var(--x-muted); font-size: 12px; margin-inline-start: 4px; }
 .hs-bnote { margin: 8px 0 0; font-size: 12px; color: var(--x-muted); }
 .hs-bnote.c { text-align: center; }
@@ -95,25 +98,25 @@ html.hs-cs-classic .hs-hbar-t { border-radius: 4px; }
 .hs-hl { color: var(--x-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; align-self: center; }
 .hs-hl.c { text-align: center; }
 
-.hs-stages { display: grid; gap: 8px; align-items: end; }
-.hs-stages.many { gap: 5px; }
-.hs-stages.lots { gap: 4px; }
-.hs-stage { border: 0; background: none; padding: 0; cursor: pointer; font: inherit; color: var(--x-ink); display: flex; flex-direction: column; align-items: stretch; gap: 6px; min-width: 0; }
-.hs-stage-b { border-radius: 12px; background: var(--x-line-2); color: var(--x-ink); display: flex; align-items: flex-start; justify-content: center; padding-top: 8px; }
-.hs-stage-b b { font-size: 20px; }
-.hs-stages.many .hs-stage-b b { font-size: 17px; }
-.hs-stage-l { font-size: 11px; line-height: 1.2; text-align: center; min-height: 27px; overflow-wrap: anywhere; }
-.hs-stages.many .hs-stage-l { font-size: 10.5px; }
-.hs-stages.lots .hs-stage-l { font-size: 9.5px; letter-spacing: -.02em; }
-.hs-stage-l small { display: block; color: var(--x-muted); font-size: 10px; }
-.hs-stage.hs-st-y .hs-stage-b { background: #f5c451; color: #3a2a00; }
-.hs-stage.hs-st-n .hs-stage-b { background: var(--hs-navy, #0b1846); color: #fff; }
-.hs-stage.hs-st-d .hs-stage-b { background: var(--x-surface); border: 1px dashed var(--hs-faint); }
-.hs-stage.hs-st-x .hs-stage-b { background: var(--x-red-bg); border: 1px dashed var(--x-red); color: var(--x-red); }
-.hs-stage.hs-st-g .hs-stage-b { background: var(--x-green-bg); color: var(--x-green); }
-html.hs-cs-glow .hs-stage.hs-st-n .hs-stage-b { background: linear-gradient(180deg, #8b5cf6, #4c1d95); }
-html.hs-cs-soft .hs-stage-b { border-radius: 16px; }
-html.hs-cs-classic .hs-stage-b { border-radius: 4px; }
+.hsb-stages { display: grid; gap: 8px; align-items: end; }
+.hsb-stages.many { gap: 5px; }
+.hsb-stages.lots { gap: 4px; }
+.hsb-stage { border: 0; background: none; padding: 0; cursor: pointer; font: inherit; color: var(--x-ink); display: flex; flex-direction: column; align-items: stretch; gap: 6px; min-width: 0; }
+.hsb-stage-b { border-radius: 12px; background: var(--x-line-2); color: var(--x-ink); display: flex; align-items: flex-start; justify-content: center; padding-top: 8px; }
+.hsb-stage-b b { font-size: 20px; }
+.hsb-stages.many .hsb-stage-b b { font-size: 17px; }
+.hsb-stage-l { font-size: 11px; line-height: 1.2; text-align: center; min-height: 27px; overflow-wrap: normal; hyphens: auto; }
+.hsb-stages.many .hsb-stage-l { font-size: 10.5px; }
+.hsb-stages.lots .hsb-stage-l { font-size: 9.5px; letter-spacing: -.02em; }
+.hsb-stage-l small { display: block; color: var(--x-muted); font-size: 10px; }
+.hsb-stage.hsb-st-y .hsb-stage-b { background: #f5c451; color: #3a2a00; }
+.hsb-stage.hsb-st-n .hsb-stage-b { background: var(--hs-navy, #0b1846); color: #fff; }
+.hsb-stage.hsb-st-d .hsb-stage-b { background: var(--x-surface); border: 1px dashed var(--hs-faint); }
+.hsb-stage.hsb-st-x .hsb-stage-b { background: var(--x-red-bg); border: 1px dashed var(--x-red); color: var(--x-red); }
+.hsb-stage.hsb-st-g .hsb-stage-b { background: var(--x-green-bg); color: var(--x-green); }
+html.hs-cs-glow .hsb-stage.hsb-st-n .hsb-stage-b { background: linear-gradient(180deg, #8b5cf6, #4c1d95); }
+html.hs-cs-soft .hsb-stage-b { border-radius: 16px; }
+html.hs-cs-classic .hsb-stage-b { border-radius: 4px; }
 
 /* the dark "needs attention" card */
 .hsx-card.hs-dark { background: var(--hs-navy, #0b1846) !important; border-color: var(--hs-navy, #0b1846) !important; color: #fff; }
