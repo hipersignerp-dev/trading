@@ -21,6 +21,14 @@ def boot_session(bootinfo):
 		info["theme"] = s.get("desk_theme") or "Hipersign"
 		info["keep_sidebar"] = bool(s.get("keep_hipersign_sidebar", 1))
 		info["open_home"] = bool(s.get("open_home_after_login"))
+		# v1.8.3 (prototype p20): chart style, brand colour, graph bands, the user's chart types
+		try:
+			from hipersign_trading.api.look import boot_look, chart_types
+
+			info["look"] = boot_look()
+			info["chart_types"] = chart_types()
+		except Exception:
+			frappe.log_error(title="Hipersign look (boot)")
 		info["sidebar"] = "Hipersign ERP"
 		info["home_workspace"] = "Hipersign Trading"
 		info["home_page"] = "hipersign-home" if frappe.db.exists("Page", "hipersign-home") and frappe.get_cached_doc("Page", "hipersign-home").is_permitted() else None
@@ -37,6 +45,14 @@ def boot_session(bootinfo):
 			menu_boot(bootinfo, info)
 		except Exception:
 			frappe.log_error(title="Hipersign menu builder (boot)")
+		# v1.8.3: super admins, the licence, and Frappe/ERPNext pop-ups only where the licence allows them
+		try:
+			from hipersign_trading.licence import boot_popups, is_super_admin
+
+			boot_popups(bootinfo)
+			info["super_admin"] = is_super_admin()
+		except Exception:
+			frappe.log_error(title="Hipersign licence (boot)")
 		bootinfo.hipersign = info
 		from hipersign_trading.demo_access import boot as demo_boot
 

@@ -2,7 +2,7 @@
 // The selection, client name, rate and contingency are kept in this browser; print the estimate to share it.
 frappe.pages["hipersign-addons"].on_page_load = function (wrapper) {
 	const ui = hipersign.ui;
-	const v = ui.page(wrapper, {
+	const v = ui.page(wrapper, { band: "addons",
 		title: __("Add-ons & Pricing"),
 		desc: __("Optional extras for messaging, tracking, payments and compliance. Tick what the client wants — hours and cost add up, needed add-ons are included automatically."),
 	});

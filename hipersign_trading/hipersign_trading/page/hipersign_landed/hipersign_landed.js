@@ -1,7 +1,7 @@
 // Landed Cost & Margin — what each shipment really cost, and what each item really earns.
 frappe.pages["hipersign-landed"].on_page_load = function (wrapper) {
 	const ui = hipersign.ui;
-	const v = ui.page(wrapper, {
+	const v = ui.page(wrapper, { band: "landed",
 		title: __("Landed Cost & Margin"),
 		desc: __("Freight, insurance, duty, clearing and handling spread onto the goods — the real cost of every unit, and the margin it earns against the price."),
 	});

@@ -56,7 +56,7 @@ frappe.provide("hipersign.projects");
 	// ---------------------------------------------------------------- Project Tracker page
 	P.tracker = function (wrapper) {
 		const ui = hipersign.ui;
-		const v = ui.page(wrapper, { title: __("Project Tracker"), desc: __("Every project on one line through the 26 process steps — status, % and date per step, with red flags. Hover a step for who does it, the documents and the facts behind the status.") });
+		const v = ui.page(wrapper, { band: "prj_tracker", title: __("Project Tracker"), desc: __("Every project on one line through the 26 process steps — status, % and date per step, with red flags. Hover a step for who does it, the documents and the facts behind the status.") });
 		v.page.set_title(__("Project Tracker"));
 		v.$wrap.addClass("hsx-mod");
 		const st = { filter: "open", q: "" };

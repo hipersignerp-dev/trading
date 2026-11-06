@@ -1,7 +1,7 @@
 // Hipersign Home — the prototype's dashboard: the group, the trading lifecycle, today's work, alerts, KPIs and profit.
 frappe.pages["hipersign-home"].on_page_load = function (wrapper) {
 	const ui = hipersign.ui;
-	const v = ui.page(wrapper, {
+	const v = ui.page(wrapper, { band: "home",
 		title: __("Hipersign Home"),
 		desc: __("One view of purchasing, imports, stock, sales and finance — every number below opens the records behind it."),
 	});

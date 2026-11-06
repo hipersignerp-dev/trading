@@ -1,7 +1,7 @@
 // Trade Journey — one purchase followed from the supplier order to the customer's payment.
 frappe.pages["hipersign-journey"].on_page_load = function (wrapper) {
 	const ui = hipersign.ui;
-	const v = ui.page(wrapper, {
+	const v = ui.page(wrapper, { band: "journey",
 		title: __("Trade Journey"),
 		desc: __("One purchase followed end to end: supplier order, shipment, receipt, landed cost, the sales that used the stock, delivery and payment."),
 	});

@@ -1,7 +1,7 @@
 // Messages — the conversations kept on orders, shipments, invoices and leads, in one inbox.
 frappe.pages["hipersign-messages"].on_page_load = function (wrapper) {
 	const ui = hipersign.ui;
-	const v = ui.page(wrapper, {
+	const v = ui.page(wrapper, { band: "messages",
 		title: __("Messages"),
 		desc: __("Comments, @mentions, emails and WhatsApp sends kept on each record — in one inbox. Writing here adds a comment to the record, as on the form."),
 	});

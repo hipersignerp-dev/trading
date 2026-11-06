@@ -1,7 +1,7 @@
 // Test Centre — the demo-site test scripts, with a result and a note for each, kept on the site for everyone.
 frappe.pages["hipersign-tests"].on_page_load = function (wrapper) {
 	const ui = hipersign.ui;
-	const v = ui.page(wrapper, {
+	const v = ui.page(wrapper, { band: "tests",
 		title: __("Test Centre"),
 		desc: __("Walk through each test script on the demo data: open the screen, do the steps, compare with the expected result and record Pass, Fail or Blocked."),
 	});

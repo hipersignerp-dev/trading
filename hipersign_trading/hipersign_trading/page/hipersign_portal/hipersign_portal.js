@@ -2,7 +2,7 @@
 // for any customer picked at the top right.
 frappe.pages["hipersign-portal"].on_page_load = function (wrapper) {
 	const ui = hipersign.ui;
-	const v = ui.page(wrapper, { title: __("Customer Portal"), desc: __("What your customers see when they log in — orders, invoices, statement, proof of delivery and warranty, all from the same records.") });
+	const v = ui.page(wrapper, { band: "portal", title: __("Customer Portal"), desc: __("What your customers see when they log in — orders, invoices, statement, proof of delivery and warranty, all from the same records.") });
 	v.$wrap.addClass("hsx-mod");
 	const $sel = $(`<select class="form-control" style="min-width:240px"></select>`).appendTo(v.$actions);
 	v.$body.html(`<div class="hsx-bnote" style="border:1px dashed var(--x-line,#e2e8f0);border-radius:10px;padding:9px 14px;margin-bottom:14px"></div>

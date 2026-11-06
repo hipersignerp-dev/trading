@@ -6,7 +6,7 @@
  "engine": "InnoDB",
  "owner": "Administrator",
  "creation": "2026-10-21 14:30:00.000000",
- "modified": "2026-11-02 15:00:00.000000",
+ "modified": "2026-11-06 18:00:00.000000",
  "actions": [],
  "links": [],
  "states": [],
@@ -127,6 +127,10 @@
   "tab_look",
   "sb_look",
   "desk_theme",
+  "erp_theme",
+  "chart_style",
+  "chart_brand_colour",
+  "hide_graph_bands",
   "sb_menus",
   "only_hipersign_tiles",
   "cb_menus",
@@ -977,6 +981,35 @@
    "label": "Desk theme",
    "options": "Hipersign\nERPNext standard",
    "default": "Hipersign"
+  },
+  {
+   "fieldname": "erp_theme",
+   "fieldtype": "Select",
+   "label": "ERP theme",
+   "options": "Classic\nWhite",
+   "default": "Classic",
+   "description": "Classic: the navy menu. White: a white menu on a light page, as on the Solar ERP. Each user can switch for themselves in the avatar menu."
+  },
+  {
+   "fieldname": "chart_style",
+   "fieldtype": "Select",
+   "label": "Chart style",
+   "options": "Hipersign\nSoft\nGlow\nClassic",
+   "default": "Hipersign",
+   "description": "Hipersign: rounded bars, soft areas, dark feature cards. Soft: light and airy. Glow: purple and cyan gradients that glow in dark mode. Classic: flat (always used for printing)."
+  },
+  {
+   "fieldname": "chart_brand_colour",
+   "fieldtype": "Color",
+   "label": "Chart brand colour",
+   "description": "Optional — the main chart colour. Leave empty for the Hipersign blue."
+  },
+  {
+   "fieldname": "hide_graph_bands",
+   "fieldtype": "Check",
+   "label": "Hide the graphs at the top of pages",
+   "default": "0",
+   "description": "By default every page opens with 2–3 graphs from its own records above the KPI cards (Messages, CRM, Quotations & Orders, Imports, Finance…). Each user can switch a chart between bars, line, area and table on the chart itself."
   },
   {
    "fieldname": "sb_menus",

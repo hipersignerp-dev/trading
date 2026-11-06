@@ -1,0 +1,199 @@
+/* Hipersign ERP v1.8.3 (prototype p20) — style B: rounder cards and KPI cards, pill tabs, the graph band on every page,
+   the chart kit (Hipersign · Soft · Glow · Classic), View as, light/dark switch and the sidebar guide line (#38).
+   Only with the Hipersign desk theme (html.hs-theme). Same pages, tabs and figures as before; only the look changes. */
+
+/* ---------------------------------------------------------------- chart colours (style presets + brand colour) */
+html.hs-theme { --hs-cblue: var(--hs-brand-c, #2b4fd8); --hs-cviolet: #7c4dff; }
+html.hs-theme[data-theme="dark"] { --hs-cblue: var(--hs-brand-c, #5b8cff); --hs-cviolet: #a07bff; }
+html.hs-theme.hs-cs-soft { --hs-cblue: var(--hs-brand-c, #3a8dff); --hs-cviolet: #1f2937; }
+html.hs-theme.hs-cs-soft[data-theme="dark"] { --hs-cviolet: #cbd5e1; }
+html.hs-theme.hs-cs-glow { --hs-cblue: var(--hs-brand-c, #8b5cf6); --hs-cviolet: #22d3ee; }
+html.hs-theme.hs-cs-classic { --hs-cblue: var(--hs-brand-c, var(--hs-blue)); --hs-cviolet: var(--hs-violet); }
+
+/* ---------------------------------------------------------------- style kit */
+html.hs-theme .hsx-card { border-radius: 20px; }
+html.hs-theme .hsx-card-h { padding: 16px 20px 10px; }
+html.hs-theme .hsx-card-h h3 { font-size: 15px; }
+html.hs-theme .hsx-kpi { border-radius: 18px; padding: 16px 16px 14px; }
+html.hs-theme .hsx-kpi::before { display: none; }
+html.hs-theme .hsx-kpi-ic { border-radius: 12px; }
+html.hs-theme .hsx-kpi-v { font-size: 22px; }
+html.hs-theme .hsx-mcard { border-radius: 20px; }
+html.hs-theme .hsx-mtabs button { font-size: 13.5px; }
+html.hs-theme .hsx-mtabs button.on { color: var(--x-ink); border-bottom-width: 3px; }
+html.hs-theme .hsx-chips button, html.hs-theme .hsx-seg, html.hs-theme .hsx-seg button { border-radius: 999px; }
+html.hs-theme .hsx-pill { padding-inline: 10px; }
+html.hs-theme .hsx-wrap .btn { border-radius: 12px; }
+html.hs-theme .hsx-t th { font-size: 11.5px; letter-spacing: .04em; text-transform: uppercase; }
+
+/* #38: the guide line of an open sidebar group, visible on navy; the active item in brand blue */
+html.hs-theme .body-sidebar .nested-container { border-left: 2px solid rgba(255, 255, 255, .24) !important; }
+html.hs-theme .body-sidebar .nested-container .standard-sidebar-item.selected,
+html.hs-theme .body-sidebar .nested-container .sidebar-item-container.selected > .standard-sidebar-item { box-shadow: inset 3px 0 0 #8fb0ff; }
+html.hs-theme[dir="rtl"] .body-sidebar .nested-container { border-left: 0 !important; border-right: 2px solid rgba(255, 255, 255, .24) !important; }
+
+/* ---------------------------------------------------------------- top bar: View as, light/dark */
+html.hs-theme .hs-tb-viewas { height: 36px; max-width: 240px; border: 1px solid var(--x-line); border-radius: 12px; background: var(--x-surface); color: var(--x-ink);
+	padding: 0 28px 0 12px; font-weight: 600; font-size: 13px; text-overflow: ellipsis; }
+html.hs-theme .hs-tb-viewas[hidden] { display: none; }
+.hs-viewas-bar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 10px 20px 0; padding: 10px 14px; border-radius: 14px; background: var(--hs-navy, #0b1846); color: #fff; font-size: 13px; }
+.hs-viewas-bar b { color: #fff; }
+.hs-viewas-bar svg { stroke: #fff; flex: none; }
+.hs-viewas-bar .btn { margin-inline-start: auto; background: #f5c451; color: #3a2a00; border: 0; font-weight: 700; border-radius: 10px; }
+/* the top bar must fit: View as and the theme button take room, so the search box, the name under the avatar and the
+   View as box give way on narrower screens (the top bar used to scroll sideways at 1440 px) */
+html.hs-theme .hs-tb-viewas { max-width: 170px; }
+html.hs-theme .hs-tb-search { min-width: 140px; }
+@media (max-width: 1560px) { html.hs-theme .hs-tb-ut { display: none !important; } }
+@media (max-width: 1280px) { html.hs-theme .hs-tb-viewas { max-width: 130px; } html.hs-theme .hs-tb-search { min-width: 110px; } html.hs-theme .hs-tb-search kbd { display: none; } html.hs-theme .hs-tb-pick { max-width: 160px; } }
+@media (max-width: 1100px) { html.hs-theme .hs-tb-pick { max-width: 130px; } html.hs-theme .hs-tb-search { min-width: 44px; } }
+@media (max-width: 1100px) { html.hs-theme .hs-tb-viewas { display: none !important; } }
+@media (max-width: 600px) { html.hs-theme .hs-tb-viewas, html.hs-theme .hs-tb-themebtn { display: none; } }
+
+/* ---------------------------------------------------------------- the graph band */
+.hs-band { display: grid; grid-template-columns: repeat(var(--bn, 3), minmax(0, 1fr)); gap: 14px; margin: 0 0 16px; }
+.hs-band > .hsx-card { margin: 0 !important; min-width: 0; }
+.hs-band .hsx-card-b { min-height: 150px; }
+@media (max-width: 1100px) { .hs-band { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 700px) { .hs-band { grid-template-columns: 1fr; } }
+.hs-band-skel { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.hs-band-skel i { height: 200px; border-radius: 20px; background: var(--x-surface-2); border: 1px solid var(--x-line); animation: hs-pulse 1.4s ease-in-out infinite; }
+@keyframes hs-pulse { 50% { opacity: .55; } }
+.hs-band .hsx-card-h { justify-content: flex-start; }
+.hs-band .hsx-card-h h3 { display: block; line-height: 1.35; }
+.hs-band .hsx-card-h h3 svg { vertical-align: -3px; margin-inline-end: 6px; }
+.hs-band .hsx-card-h h3 small { font-weight: 500; color: var(--x-muted); font-size: 12px; margin-inline-start: 4px; }
+.hs-bnote { margin: 8px 0 0; font-size: 12px; color: var(--x-muted); }
+.hs-bnote.c { text-align: center; }
+.hs-click { cursor: pointer; }
+
+/* the Sales Order Tracker's band sits above its own layout */
+.hs-band-wrap { padding: 0 !important; }
+
+/* charts */
+.hs-cbox { position: relative; }
+.hs-chart { width: 100%; height: auto; display: block; overflow: visible; }
+.hs-chart text { font-size: 12px; fill: var(--x-muted); font-family: var(--hs-font, inherit); }
+.hs-band .hs-chart text { font-size: 16px; }
+.hs-chart .gl { stroke: var(--x-line-2); stroke-dasharray: 3 4; }
+html.hs-cs-classic .hs-chart .gl { stroke-dasharray: none; }
+.hs-gauge { max-width: 300px; margin: 0 auto; }
+.hs-cmenu { position: absolute; top: -6px; inset-inline-end: 0; display: flex; gap: 2px; padding: 2px; border: 1px solid var(--x-line); border-radius: 10px; background: var(--x-surface);
+	opacity: .55; transition: opacity .15s; z-index: 2; }
+.hs-cbox:hover .hs-cmenu, .hs-cmenu:focus-within { opacity: 1; }
+.hs-cmenu button { width: 26px; height: 24px; border: 0; border-radius: 7px; background: none; color: var(--x-muted); display: grid; place-items: center; cursor: pointer; padding: 0; }
+.hs-cmenu button.on { background: var(--x-blue-bg); color: var(--x-blue); }
+.hs-ctab { width: 100%; border-collapse: collapse; font-size: 12.5px; margin-top: 26px; }
+.hs-ctab th, .hs-ctab td { padding: 6px 8px; border-bottom: 1px solid var(--x-line-2); text-align: end; }
+.hs-ctab th:first-child, .hs-ctab td:first-child { text-align: start; }
+.hs-legend { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 8px; font-size: 12px; color: var(--x-muted); }
+.hs-legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-inline-end: 6px; vertical-align: -1px; }
+
+.hs-hbars { display: flex; flex-direction: column; gap: 11px; }
+.hs-hbar { display: grid; grid-template-columns: minmax(80px, 150px) minmax(0, 1fr) auto; gap: 10px; align-items: center; font-size: 12.5px; }
+.hs-hbar > span { color: var(--x-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hs-hbar-t { background: var(--x-line-2); border-radius: 999px; overflow: hidden; }
+.hs-hbar-t i { display: block; height: 100%; }
+.hs-hbar b { min-width: 60px; text-align: end; color: var(--x-ink); }
+html.hs-cs-classic .hs-hbar-t { border-radius: 4px; }
+
+.hs-dn { width: 140px !important; height: 140px; flex: none; }
+.hs-dnw { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.hs-dnl { display: flex; flex-direction: column; gap: 7px; flex: 1 1 120px; font-size: 12.5px; }
+.hs-dnl > span { display: flex; justify-content: space-between; gap: 8px; }
+.hs-dnl i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-inline-end: 6px; }
+.hs-dnl b { color: var(--x-ink); }
+
+.hs-heat { display: grid; gap: 4px; font-size: 11.5px; }
+.hs-hc { height: 26px; border-radius: 6px; display: grid; place-items: center; font-weight: 700; font-size: 11px; }
+.hs-hl { color: var(--x-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; align-self: center; }
+.hs-hl.c { text-align: center; }
+
+.hsb-stages { display: grid; gap: 8px; align-items: end; }
+.hsb-stages.many { gap: 5px; }
+.hsb-stages.lots { gap: 4px; }
+.hsb-stage { border: 0; background: none; padding: 0; cursor: pointer; font: inherit; color: var(--x-ink); display: flex; flex-direction: column; align-items: stretch; gap: 6px; min-width: 0; }
+.hsb-stage-b { border-radius: 12px; background: var(--x-line-2); color: var(--x-ink); display: flex; align-items: flex-start; justify-content: center; padding-top: 8px; }
+.hsb-stage-b b { font-size: 20px; }
+.hsb-stages.many .hsb-stage-b b { font-size: 17px; }
+.hsb-stage-l { font-size: 11px; line-height: 1.2; text-align: center; min-height: 27px; overflow-wrap: normal; hyphens: auto; }
+.hsb-stages.many .hsb-stage-l { font-size: 10.5px; }
+.hsb-stages.lots .hsb-stage-l { font-size: 9.5px; letter-spacing: -.02em; }
+.hsb-stage-l small { display: block; color: var(--x-muted); font-size: 10px; }
+.hsb-stage.hsb-st-y .hsb-stage-b { background: #f5c451; color: #3a2a00; }
+.hsb-stage.hsb-st-n .hsb-stage-b { background: var(--hs-navy, #0b1846); color: #fff; }
+.hsb-stage.hsb-st-d .hsb-stage-b { background: var(--x-surface); border: 1px dashed var(--hs-faint); }
+.hsb-stage.hsb-st-x .hsb-stage-b { background: var(--x-red-bg); border: 1px dashed var(--x-red); color: var(--x-red); }
+.hsb-stage.hsb-st-g .hsb-stage-b { background: var(--x-green-bg); color: var(--x-green); }
+html.hs-cs-glow .hsb-stage.hsb-st-n .hsb-stage-b { background: linear-gradient(180deg, #8b5cf6, #4c1d95); }
+html.hs-cs-soft .hsb-stage-b { border-radius: 16px; }
+html.hs-cs-classic .hsb-stage-b { border-radius: 4px; }
+
+/* the dark "needs attention" card */
+.hsx-card.hs-dark { background: var(--hs-navy, #0b1846) !important; border-color: var(--hs-navy, #0b1846) !important; color: #fff; }
+html.hs-theme[data-theme="dark"] .hsx-card.hs-dark { background: #0a1336 !important; border-color: #1c2a5c !important; }
+.hs-dark .hsx-card-h h3, .hs-dark b { color: #fff; }
+.hs-dark .hsx-card-h h3 small, .hs-dark small, .hs-dark .hs-bnote { color: #b9c3e6 !important; }
+.hs-dark svg { stroke: #fff; }
+.hs-big { font-size: 38px; font-weight: 300; line-height: 1.1; margin-bottom: 4px; }
+.hs-big small { font-size: 14px; }
+.hs-drow { display: flex; justify-content: space-between; gap: 10px; padding: 9px 0; border: 0; border-top: 1px solid rgba(255, 255, 255, .12); background: none; color: #fff;
+	font-size: 13px; width: 100%; cursor: pointer; text-align: start; }
+.hs-drow small { display: block; font-size: 12px; }
+.hs-drow b { white-space: nowrap; }
+.hs-drow:hover { background: rgba(255, 255, 255, .04); }
+
+/* KPI trend line */
+.hs-spark { display: block; margin-top: 6px; width: 100%; max-width: 150px; height: 30px; }
+
+/* ---------------------------------------------------------------- printing: Classic, no band menus */
+@media print { .hs-cmenu, .hs-viewas-bar, .hs-tb-viewas { display: none !important; } }
+
+/* ---------------------------------------------------------------- v1.8.3: the White ERP theme (white menu, as on the Solar ERP)
+   Hipersign Settings › Look & menus sets the site's theme; each user can switch in the avatar menu. Classic = the navy menu. */
+html.hs-theme.hs-ui-white .body-sidebar-container, html.hs-theme.hs-ui-white .body-sidebar {
+	--hs-navy: var(--x-surface); --hs-navy-2: var(--x-surface); --hs-navy-ink: var(--x-ink); --hs-navy-muted: var(--x-muted);
+	background: var(--x-surface) !important; color: var(--x-ink); border-inline-end: 1px solid var(--x-line) !important; }
+html.hs-theme.hs-ui-white .body-sidebar .sidebar-header { border-bottom-color: var(--x-line); }
+html.hs-theme.hs-ui-white .body-sidebar .sidebar-header:hover { background: var(--x-surface-2); }
+html.hs-theme.hs-ui-white .body-sidebar .header-title { color: var(--x-ink) !important; }
+html.hs-theme.hs-ui-white .body-sidebar .hs-brand-logo { box-shadow: none; border: 1px solid var(--x-line); }
+html.hs-theme.hs-ui-white .body-sidebar .standard-sidebar-item:hover { background: var(--x-surface-2) !important; }
+html.hs-theme.hs-ui-white .body-sidebar .standard-sidebar-item:hover .sidebar-item-label { color: var(--x-ink) !important; }
+html.hs-theme.hs-ui-white .body-sidebar .standard-sidebar-item.active-sidebar,
+html.hs-theme.hs-ui-white .body-sidebar .standard-sidebar-item.selected { background: var(--x-blue-bg) !important; box-shadow: none; }
+html.hs-theme.hs-ui-white .body-sidebar .standard-sidebar-item.active-sidebar .sidebar-item-label,
+html.hs-theme.hs-ui-white .body-sidebar .standard-sidebar-item.active-sidebar .sidebar-item-icon,
+html.hs-theme.hs-ui-white .body-sidebar .standard-sidebar-item.active-sidebar svg,
+html.hs-theme.hs-ui-white .body-sidebar .standard-sidebar-item.selected .sidebar-item-label,
+html.hs-theme.hs-ui-white .body-sidebar .standard-sidebar-item.selected svg { color: var(--x-blue) !important; font-weight: 600; }
+html.hs-theme.hs-ui-white .body-sidebar .nested-container { border-left-color: var(--x-line) !important; }
+html.hs-theme.hs-ui-white[dir="rtl"] .body-sidebar .nested-container { border-right-color: var(--x-line) !important; }
+html.hs-theme.hs-ui-white .body-sidebar .nested-container .standard-sidebar-item.selected,
+html.hs-theme.hs-ui-white .body-sidebar .nested-container .sidebar-item-container.selected > .standard-sidebar-item { box-shadow: inset 3px 0 0 var(--x-blue); }
+html.hs-theme.hs-ui-white .body-sidebar .hs-sub-toggle:hover { background: var(--x-surface-2); color: var(--x-ink); }
+html.hs-theme.hs-ui-white .body-sidebar .hs-sub a:hover, html.hs-theme.hs-ui-white .body-sidebar .hs-sub a.on { color: var(--x-blue); background: var(--x-blue-bg); }
+html.hs-theme.hs-ui-white .body-sidebar .section-break-label, html.hs-theme.hs-ui-white .body-sidebar .sidebar-section-label { color: var(--x-muted) !important; }
+html.hs-theme.hs-ui-white .body-sidebar svg { color: var(--x-muted); }
+html.hs-theme.hs-ui-white .hs-viewas-bar { background: var(--x-blue-bg); color: var(--x-ink); border: 1px solid var(--x-line); }
+html.hs-theme.hs-ui-white .hs-viewas-bar b { color: var(--x-ink); }
+html.hs-theme.hs-ui-white .hs-viewas-bar svg { stroke: var(--x-blue); }
+html.hs-theme.hs-ui-white:not([data-theme="dark"]) { --hs-bg: #f7f8fb; }
+
+/* ---------------------------------------------------------------- v1.8.3: Super Admin page */
+.hs-sa-form { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+.hs-sa-form label { display: flex; flex-direction: column; gap: 6px; font-weight: 600; font-size: 12.5px; color: var(--x-ink); }
+.hs-sa-form small, .hs-sa-chk small { font-weight: 400; color: var(--x-muted); }
+.hs-sa-wide { grid-column: 1 / -1; }
+.hs-sa-chk { display: block !important; font-weight: 600; margin-bottom: 10px; }
+.hs-sa-chk small { display: block; margin: 2px 0 0 22px; }
+.hs-sa-form .hs-sa-chk { grid-column: 1 / -1; }
+.hs-sa-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+.hs-sa-g > b { display: block; font-size: 11.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--x-muted); margin-bottom: 6px; }
+.hs-sa-f { display: flex; gap: 8px; align-items: flex-start; padding: 7px 8px; border-radius: 10px; font-size: 13px; cursor: pointer; }
+.hs-sa-f:hover { background: var(--x-surface-2); }
+.hs-sa-f.off { opacity: .6; cursor: default; }
+.hs-sa-f > span:first-of-type { flex: 1; }
+.hs-sa-f small { display: block; color: var(--x-muted); font-size: 11.5px; }
+html.hs-theme.hs-ui-white .body-sidebar .hs-book-box .btn { color: #0b1846 !important; }
+html.hs-theme.hs-ui-white .body-sidebar .hs-book-box, html.hs-theme.hs-ui-white .body-sidebar .hs-book-box b { color: #fff; }

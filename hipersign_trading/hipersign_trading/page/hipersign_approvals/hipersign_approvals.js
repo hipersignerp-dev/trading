@@ -1,7 +1,7 @@
 // Approvals — every document waiting for a decision, the rule that routed it and who must act.
 frappe.pages["hipersign-approvals"].on_page_load = function (wrapper) {
 	const ui = hipersign.ui;
-	const v = ui.page(wrapper, {
+	const v = ui.page(wrapper, { band: "approvals",
 		title: __("Approvals"),
 		desc: __("Every document waiting for a decision, the rule that routed it and who must act. Approving here moves the source document to its next state."),
 	});
