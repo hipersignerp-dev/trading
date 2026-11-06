@@ -18,7 +18,7 @@ frappe.provide("hipersign.mfg");
 	// ---------------------------------------------------------------- Shop floor — tablet view
 	MF.floor = function (wrapper) {
 		const ui = hipersign.ui;
-		const v = ui.page(wrapper, { title: __("Shop floor"), desc: __("Tablet view for the line: job cards by workstation — start and stop, quantity, scrap and operator. Every tap updates the work order, the tracker and the cost.") });
+		const v = ui.page(wrapper, { band: "shopfloor", title: __("Shop floor"), desc: __("Tablet view for the line: job cards by workstation — start and stop, quantity, scrap and operator. Every tap updates the work order, the tracker and the cost.") });
 		v.page.set_title(__("Shop floor"));
 		v.$wrap.addClass("hsx-mod hsf");
 		const st = { ws: "all", data: null };
@@ -75,7 +75,7 @@ frappe.provide("hipersign.mfg");
 	// ---------------------------------------------------------------- Production Tracker
 	MF.tracker = function (wrapper) {
 		const ui = hipersign.ui;
-		const v = ui.page(wrapper, { title: __("Production Tracker"), desc: __("Every sales order and its work order through the 22 manufacturing steps — status, % and date per step, with red flags. Hover a step for who does it and the facts behind it.") });
+		const v = ui.page(wrapper, { band: "prod_tracker", title: __("Production Tracker"), desc: __("Every sales order and its work order through the 22 manufacturing steps — status, % and date per step, with red flags. Hover a step for who does it and the facts behind it.") });
 		v.page.set_title(__("Production Tracker"));
 		v.$wrap.addClass("hsx-mod");
 		const st = { filter: "open", q: "" };

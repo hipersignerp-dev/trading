@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.8.3 — The p20 look on every page (6 Nov 2026)
+- **Graphs on every page:** each menu page opens with 2–3 graphs drawn from that page's own records — stage columns,
+  trend, gauge, donut, ranked bars, a dark "needs attention" card or a heatmap (hipersign_trading.api.band). Bars, rows
+  and stages open the record, the page or the matching tab. The KPI cards, tabs and lists below are unchanged.
+- **Chart styles:** Hipersign, Soft, Glow or Classic, plus an optional brand colour — Hipersign Settings › Look & menus.
+  Printing always uses Classic. The graphs can be switched off there too.
+- **Chart type per user:** a small menu on each chart shows it as bars, line, area or table; kept for that user
+  ("Reset my chart types" in the avatar menu).
+- **Light / dark switch** in the top bar.
+- **View as** (#39): demo users in a top-bar drop-down (demo sites; System Manager or the view-only demo login), with a
+  bar under the top bar and Back to the original login — no new login.
+- **Style B:** rounder cards and KPI cards (no colour strip), pill tabs and chips; the sidebar group guide line is visible
+  on navy and the active item is marked in brand blue (#38).
+
 ## 1.8.2 — Fixes from the full site audit (3 Nov 2026)
 - **Trackers** laid out as the prototype: phases wrap two or three to a row, step names in full — the Manufacturing
   "Make" phase was squeezed into the narrowest column.

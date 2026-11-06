@@ -24,9 +24,12 @@ class HipersignTracker {
 		this.status = page.add_field({ fieldtype: "Select", fieldname: "status", label: __("Status"), options: HS_BUCKETS.join("\n"), change: () => this.refresh() });
 		this.month = page.add_field({ fieldtype: "Data", fieldname: "month", label: __("Month (YYYY-MM)"), change: () => this.refresh() });
 		page.set_primary_action(__("New sales order"), () => frappe.new_doc("Sales Order"), "add");
+		// v1.8.3 (prototype p20): the tracker's graphs above the list
+		this.$band = $(`<div class="hs-band" style="display:none"></div>`).appendTo(page.main);
 		this.$body = $(`<div class="hs-tracker"></div>`).appendTo(page.main);
 	}
 	refresh() {
+		if (hipersign.band) hipersign.band.mount(this.$band, "so_tracker");
 		frappe
 			.xcall("hipersign_trading.api.tracker.get_orders", {
 				search: this.search.get_value(),

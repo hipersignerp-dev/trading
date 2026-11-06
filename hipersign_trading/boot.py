@@ -21,6 +21,14 @@ def boot_session(bootinfo):
 		info["theme"] = s.get("desk_theme") or "Hipersign"
 		info["keep_sidebar"] = bool(s.get("keep_hipersign_sidebar", 1))
 		info["open_home"] = bool(s.get("open_home_after_login"))
+		# v1.8.3 (prototype p20): chart style, brand colour, graph bands, the user's chart types
+		try:
+			from hipersign_trading.api.look import boot_look, chart_types
+
+			info["look"] = boot_look()
+			info["chart_types"] = chart_types()
+		except Exception:
+			frappe.log_error(title="Hipersign look (boot)")
 		info["sidebar"] = "Hipersign ERP"
 		info["home_workspace"] = "Hipersign Trading"
 		info["home_page"] = "hipersign-home" if frappe.db.exists("Page", "hipersign-home") and frappe.get_cached_doc("Page", "hipersign-home").is_permitted() else None

@@ -1,7 +1,7 @@
 // Insights & Alerts — early warnings from deterministic rules over the live records, with evidence and a recommended action.
 frappe.pages["hipersign-alerts"].on_page_load = function (wrapper) {
 	const ui = hipersign.ui;
-	const v = ui.page(wrapper, {
+	const v = ui.page(wrapper, { band: "alerts",
 		title: __("Insights & Alerts"),
 		desc: __("Early warnings from shipments, stock, margins, credit and receivables. Each shows its evidence, the rule and a recommended action."),
 	});

@@ -24,8 +24,16 @@ hipersign.ui.page = function (wrapper, opts) {
 	const page = frappe.ui.make_app_page({ parent: wrapper, title: opts.title, single_column: true });
 	const $wrap = $(`<div class="hsx-wrap">
 		<div class="hsx-ph"><p class="hsx-desc">${hipersign.ui.esc(opts.desc || "")}</p><div class="hsx-ph-actions"></div></div>
-		<div class="hsx-body"></div></div>`).appendTo(page.main);
-	return { page, $wrap, $actions: $wrap.find(".hsx-ph-actions"), $body: $wrap.find(".hsx-body") };
+		<div class="hs-band" style="display:none"></div><div class="hsx-body"></div></div>`).appendTo(page.main);
+	// v1.8.3 (prototype p20): the graph band sits between the page head and the body, so a body redraw keeps it
+	const $band = $wrap.find(".hs-band");
+	const band = () => opts.band && hipersign.band && hipersign.band.mount($band, typeof opts.band === "function" ? opts.band() : opts.band);
+	if (opts.band) {
+		band();
+		$(wrapper).on("show", () => { if ($band.data("hs-at") && Date.now() - $band.data("hs-at") > 60000) band(); });
+		$(document).on("hs-scope-change", () => { if ($(wrapper).is(":visible")) band(); });
+	}
+	return { page, $wrap, $actions: $wrap.find(".hsx-ph-actions"), $body: $wrap.find(".hsx-body"), $band, band };
 };
 
 hipersign.ui.route_attr = (route, options) => (route ? ` data-hs-route='${hipersign.ui.esc(JSON.stringify(route))}'` + (options ? ` data-hs-opts='${hipersign.ui.esc(JSON.stringify(options))}'` : "") : "");

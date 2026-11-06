@@ -58,6 +58,8 @@ HIPERSIGN_READ = {
 	"api.module_mfg.get_floor", "api.module_mfg.get_tracker",
 	# v1.8.0: the material request line review and the Create PO window read before anything is saved
 	"api.projects.mr_lines", "api.projects.mr_po_preset",
+	# v1.8.3 (prototype p20): the graph band reads; a chart type picked on a chart is the viewer's own setting (DefaultValue)
+	"api.band.get_band", "api.look.set_chart_type", "api.look.reset_chart_types",
 }
 
 

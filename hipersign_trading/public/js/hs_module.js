@@ -117,6 +117,8 @@ hipersign.module.render = function (wrapper, key) {
 		// v1.7.2: a list opened from search lands here on its own tab (hs_nav.js LIST_PAGE)
 		const want = (frappe.route_options || {}).hs_tab;
 		if (want) { st.tab = want; frappe.route_options = null; }
+		// v1.8.3 (prototype p20): the page's graphs above the KPI cards, loaded beside the page itself
+		hipersign.band && hipersign.band.mount(v.$band, key);
 		frappe.xcall("hipersign_trading.api.module.get_module", { key, owner: st.owner, source: st.source }).then((m) => {
 			st.data = m;
 			head(m);

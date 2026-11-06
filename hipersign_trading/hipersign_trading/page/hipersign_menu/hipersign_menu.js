@@ -4,7 +4,7 @@
 // is logged in Hipersign Menu Log. The rules: hipersign_trading/menu.py.
 frappe.pages["hipersign-menu"].on_page_load = function (wrapper) {
 	const ui = hipersign.ui, esc = ui.esc, ic = ui.icon;
-	const v = ui.page(wrapper, {
+	const v = ui.page(wrapper, { band: "menu",
 		title: __("Menu builder"),
 		desc: __("Show or hide, rename in English, Arabic and Chinese, and reorder any menu group or screen — for the whole site, one company or one role. Users see the new menu the next time they load the desk."),
 	});

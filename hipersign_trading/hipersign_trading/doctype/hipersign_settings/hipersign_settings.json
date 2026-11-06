@@ -6,7 +6,7 @@
  "engine": "InnoDB",
  "owner": "Administrator",
  "creation": "2026-10-21 14:30:00.000000",
- "modified": "2026-11-02 15:00:00.000000",
+ "modified": "2026-11-06 18:00:00.000000",
  "actions": [],
  "links": [],
  "states": [],
@@ -127,6 +127,9 @@
   "tab_look",
   "sb_look",
   "desk_theme",
+  "chart_style",
+  "chart_brand_colour",
+  "graph_bands",
   "sb_menus",
   "only_hipersign_tiles",
   "cb_menus",
@@ -977,6 +980,27 @@
    "label": "Desk theme",
    "options": "Hipersign\nERPNext standard",
    "default": "Hipersign"
+  },
+  {
+   "fieldname": "chart_style",
+   "fieldtype": "Select",
+   "label": "Chart style",
+   "options": "Hipersign\nSoft\nGlow\nClassic",
+   "default": "Hipersign",
+   "description": "Hipersign: rounded bars, soft areas, dark feature cards. Soft: light and airy. Glow: purple and cyan gradients that glow in dark mode. Classic: flat (always used for printing)."
+  },
+  {
+   "fieldname": "chart_brand_colour",
+   "fieldtype": "Color",
+   "label": "Chart brand colour",
+   "description": "Optional — the main chart colour. Leave empty for the Hipersign blue."
+  },
+  {
+   "fieldname": "graph_bands",
+   "fieldtype": "Check",
+   "label": "Show graphs at the top of every page",
+   "default": "1",
+   "description": "2–3 graphs from the page's own records above the KPI cards (Messages, CRM, Quotations & Orders, Imports, Finance…). Each user can switch a chart between bars, line, area and table on the chart itself."
   },
   {
    "fieldname": "sb_menus",

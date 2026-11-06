@@ -206,6 +206,8 @@ hipersign.topbar.render = function () {
 				<button type="button" class="btn btn-primary hs-tb-new" aria-haspopup="true" aria-expanded="false">${hs_icon("add")}<span>${hs_esc(__("New"))}</span></button>
 				<div class="hs-tb-panel hs-tb-create" hidden></div>
 			</div>
+			<select class="hs-tb-viewas" hidden aria-label="${hs_esc(__("View as"))}" title="${hs_esc(__("View as another demo user — see their menus, pages and permissions"))}"></select>
+			<button type="button" class="hs-tb-icon hs-tb-themebtn" title="${hs_esc(__("Light or dark"))}" aria-label="${hs_esc(__("Light or dark"))}"></button>
 			<div class="dropdown hs-tb-langwrap">
 				<button type="button" class="hs-tb-icon hs-tb-lang" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Language · اللغة · 语言" aria-label="Language · اللغة · 语言">${hs_esc(lang_now[2])}</button>
 				<div class="dropdown-menu dropdown-menu-right hs-tb-menu-list hs-tb-langs">
@@ -226,6 +228,7 @@ hipersign.topbar.render = function () {
 			</div>
 		</div>`);
 	hipersign.topbar.user_menu(null);
+	hipersign.topbar.theme_icon();
 	hipersign.topbar.banners();
 	hipersign.topbar.sync();
 	hipersign.topbar.refresh(true);
@@ -245,6 +248,7 @@ hipersign.topbar.refresh = function (force) {
 		$(".hs-topbar .hs-tb-period-l").text(hipersign.topbar.period_label(r.period));
 		hipersign.topbar.scope_menu(r);
 		hipersign.topbar.user_menu(r.switch);
+		hipersign.topbar.view_as(r.switch);
 		if (r.company) frappe.defaults.set_user_default_local("Company", r.company);
 	});
 };
@@ -422,6 +426,7 @@ hipersign.topbar.user_menu = function (sw) {
 	if (hipersign.tour) items.push(`<a class="dropdown-item" data-act="tour">${hs_esc(__("Take the guided tour"))}</a>`);
 	if ((frappe.boot.hipersign || {}).demo_site) items.push(`<a class="dropdown-item" data-act="present">${hs_esc(hipersign.topbar.presenting() ? __("Leave presentation mode") : __("Presentation mode"))}</a>`);
 	items.push(`<a class="dropdown-item" data-act="settings">${hs_esc(__("My settings"))}</a>`);
+	if (Object.keys((frappe.boot.hipersign || {}).chart_types || {}).length) items.push(`<a class="dropdown-item" data-act="charts_reset">${hs_esc(__("Reset my chart types"))}</a>`);
 	items.push(`<a class="dropdown-item" data-act="theme">${hs_esc(__("Toggle theme"))}</a><div class="dropdown-divider"></div>`);
 	items.push(`<a class="dropdown-item" data-act="logout">${hs_esc(__("Log out"))}</a>`);
 	$(".hs-topbar .hs-tb-usermenu").html(items.join(""));
@@ -432,6 +437,48 @@ hipersign.topbar.switch_to = function (user) {
 		window.location.href = (r && r.home) || "/app";
 	});
 };
+
+// ---------------------------------------------------------------- v1.8.3 (prototype p20, #39): View as + light/dark
+// View as: the demo users in the top bar (demo sites, System Manager or the view-only demo login). While switched, a bar
+// under the top bar says whose view this is, with Back to the original login — no new login needed.
+hipersign.topbar.view_as = function (sw) {
+	const $s = $(".hs-topbar .hs-tb-viewas");
+	if (!sw || !sw.users || !sw.users.length) { $s.prop("hidden", true); $(".hs-viewas-bar").remove(); return; }
+	const me = frappe.session.user, orig = sw.original;
+	const opt = (u, l) => `<option value="${hs_esc(u)}" ${u === me ? "selected" : ""}>${hs_esc(l)}</option>`;
+	const users = sw.users.filter((u) => u.user !== orig);
+	$s.html(opt(orig, __("View as: {0}", [orig === "Administrator" ? __("Administrator") : (frappe.user.full_name(orig) || orig)]))
+		+ users.map((u) => opt(u.user, `${u.full_name || u.user}${u.role ? " · " + u.role : ""}`)).join("")).prop("hidden", false);
+	$(".hs-viewas-bar").remove();
+	if (sw.switched) {
+		const u = sw.users.find((x) => x.user === me) || {};
+		$(`<div class="hs-viewas-bar">${hs_icon("users")}<span>${__("You are viewing as <b>{0}</b>{1} — their menus, pages and permissions.", [hs_esc(u.full_name || me), u.role ? " (" + hs_esc(u.role) + ")" : ""])}</span>
+			<button type="button" class="btn btn-xs hs-viewas-back" data-user="${hs_esc(orig)}">${hs_esc(__("Back to {0}", [orig === "Administrator" ? __("Administrator") : orig]))}</button></div>`)
+			.insertAfter($(".main-section > header.hs-topbar-host").first());
+	}
+};
+$(document).on("change", ".hs-topbar .hs-tb-viewas", function () {
+	const u = $(this).val();
+	if (u && u !== frappe.session.user) hipersign.topbar.switch_to(u);
+});
+$(document).on("click", ".hs-viewas-back", function () { hipersign.topbar.switch_to($(this).attr("data-user")); });
+
+hipersign.topbar.is_dark = () => document.documentElement.getAttribute("data-theme") === "dark";
+hipersign.topbar.theme_icon = function () {
+	const dark = hipersign.topbar.is_dark();
+	$(".hs-topbar .hs-tb-themebtn").html(dark
+		? '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>'
+		: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>')
+		.attr("title", dark ? __("Switch to light") : __("Switch to dark"));
+};
+$(document).on("click", ".hs-topbar .hs-tb-themebtn", function () {
+	const to = hipersign.topbar.is_dark() ? "Light" : "Dark";
+	document.documentElement.setAttribute("data-theme", to.toLowerCase());
+	document.documentElement.setAttribute("data-theme-mode", to.toLowerCase());
+	hipersign.topbar.theme_icon();
+	frappe.xcall("frappe.core.doctype.user.user.switch_theme", { theme: to }).catch(() => {});
+});
+new MutationObserver(() => hipersign.topbar.theme_icon()).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
 
 // ---------------------------------------------------------------- demo, view-only and presentation banners
 hipersign.topbar.presenting = () => {
@@ -623,6 +670,7 @@ $(document).on("click", ".hs-topbar .hs-tb-user [data-act]", function (e) {
 	if (act === "settings") frappe.set_route("Form", "User", frappe.session.user);
 	else if (act === "theme") new frappe.ui.ThemeSwitcher().show();
 	else if (act === "logout") frappe.app.logout();
+	else if (act === "charts_reset") hipersign.chart.reset_types().then(() => { hipersign.band.redraw(); frappe.show_alert({ message: __("Charts are back to their default types"), indicator: "green" }); hipersign.topbar.user_menu((hipersign.topbar.state.data || {}).switch); });
 	else if (act === "add_user") frappe.new_doc("User");
 	else if (act === "users") frappe.set_route("List", "User");
 	else if (act === "tour") hipersign.tour.start();
