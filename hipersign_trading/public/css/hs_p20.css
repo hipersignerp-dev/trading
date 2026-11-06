@@ -60,6 +60,9 @@ html.hs-theme .hs-tb-viewas[hidden] { display: none; }
 .hs-bnote.c { text-align: center; }
 .hs-click { cursor: pointer; }
 
+/* the Sales Order Tracker's band sits above its own layout */
+.hs-band-wrap { padding: 0 !important; }
+
 /* charts */
 .hs-cbox { position: relative; }
 .hs-chart { width: 100%; height: auto; display: block; overflow: visible; }
@@ -87,6 +90,7 @@ html.hs-cs-classic .hs-chart .gl { stroke-dasharray: none; }
 .hs-hbar b { min-width: 60px; text-align: end; color: var(--x-ink); }
 html.hs-cs-classic .hs-hbar-t { border-radius: 4px; }
 
+.hs-dn { width: 140px !important; height: 140px; flex: none; }
 .hs-dnw { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
 .hs-dnl { display: flex; flex-direction: column; gap: 7px; flex: 1 1 120px; font-size: 12.5px; }
 .hs-dnl > span { display: flex; justify-content: space-between; gap: 8px; }

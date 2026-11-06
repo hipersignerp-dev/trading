@@ -172,7 +172,7 @@ frappe.provide("hipersign.band");
 			<path d="M30 120 A90 90 0 0 1 210 120" fill="none" stroke="${stroke}" stroke-width="18" stroke-linecap="round" stroke-dasharray="${(L * p).toFixed(1)} ${L.toFixed(1)}"${glow ? ' filter="url(#hsglow)"' : ""}/>
 			<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="10" fill="var(--x-surface)" stroke="${col}" stroke-width="4"/>
 			<text x="120" y="104" text-anchor="middle" style="font-size:34px;font-weight:800;fill:var(--x-ink)">${esc(big)}</text>
-			<text x="120" y="126" text-anchor="middle" style="font-size:11px;fill:var(--x-muted)">${esc(sub || "")}</text></svg>`;
+			<text x="120" y="126" text-anchor="middle" style="font-size:${String(sub || "").length > 28 ? 9 : 11}px;fill:var(--x-muted)">${esc(String(sub || "").length > 40 ? String(sub).slice(0, 38) + "…" : sub || "")}</text></svg>`;
 		return with_defs(s, defs, glow);
 	};
 
