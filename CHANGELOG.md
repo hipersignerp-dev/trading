@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.8.3 — The p20 look on every page (6 Nov 2026)
+## 1.8.3 — The p20 look on every page, Super Admin and licence, White theme (6 Nov 2026)
 - **Graphs on every page:** each menu page opens with 2–3 graphs drawn from that page's own records — stage columns,
   trend, gauge, donut, ranked bars, a dark "needs attention" card or a heatmap (hipersign_trading.api.band). Bars, rows
   and stages open the record, the page or the matching tab. The KPI cards, tabs and lists below are unchanged.
@@ -11,6 +11,18 @@
 - **Light / dark switch** in the top bar.
 - **View as** (#39): demo users in a top-bar drop-down (demo sites; System Manager or the view-only demo login), with a
   bar under the top bar and Back to the original login — no new login.
+- **Super Admin** (new page, avatar menu): only Hipersign's super admins — Administrator and the logins in the site config
+  key `hipersign_super_admins` (Press › Site › Config; the client cannot change it). The Hipersign Licence sets the users
+  allowed (portal customers, driver-only logins, Administrator and super admins are not counted), the companies allowed and
+  which modules may be switched on; the server refuses a user or company beyond the licence and keeps unlicensed modules
+  off. Shows what is in use today.
+- **Frappe and ERPNext pop-ups only for super admins:** update notices, What's new, onboarding tours and Frappe's prompts are
+  hidden from everyone else (the licence can show them to the client's admins too). Errors and validation messages,
+  approvals, messages and alerts are unchanged.
+- **ERP theme:** Classic (navy menu) or White (white menu on a light page, as on the Solar ERP) — the site's default in
+  Hipersign Settings › Look & menus, and each user can switch in the avatar menu. Works with dark mode.
+- **Top bar fits** at 1024–1440 px (it scrolled sideways on narrower screens): the name under the avatar, the search box
+  and View as give way.
 - **Style B:** rounder cards and KPI cards (no colour strip), pill tabs and chips; the sidebar group guide line is visible
   on navy and the active item is marked in brand blue (#38).
 

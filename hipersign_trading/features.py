@@ -81,6 +81,11 @@ def feature_on(key):
 	"""True when the feature is switched on (features added later default to on)."""
 	if not frappe.db.exists("DocType", SETTINGS):
 		return True
+	# v1.8.3: a module the licence does not include is off, whatever the switch says
+	from hipersign_trading.licence import feature_licensed
+
+	if not feature_licensed(key):
+		return False
 	s = _s()
 	if not s.meta.has_field(field(key)) or not s.get("setup_done"):
 		return True
@@ -105,8 +110,10 @@ def pack_of(s=None):
 def set_switches(s, pack):
 	"""Every switch, the document level and the pack name from a pack, on the settings document in memory."""
 	p = PACKS[pack]
+	from hipersign_trading.licence import feature_licensed  # v1.8.3: a pack never switches on an unlicensed module
+
 	for k in FEATURES:
-		s.set(field(k), 1 if k in p["on"] else 0)
+		s.set(field(k), 1 if k in p["on"] and feature_licensed(k) else 0)
 	if s.get("company_mode") == "Group":
 		s.set(field("group"), 1)
 	s.document_level = p["doc_level"]

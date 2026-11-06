@@ -20,6 +20,7 @@ frappe.provide("hipersign.band");
 	C.apply = function () {
 		const root = document.documentElement, st = C.style();
 		["hip", "soft", "glow", "classic"].forEach((k) => root.classList.toggle("hs-cs-" + k, k === st));
+		root.classList.toggle("hs-ui-white", C.look().erp_theme === "White");  // v1.8.3: the White ERP theme
 		const b = C.look().brand_colour;
 		if (b) root.style.setProperty("--hs-brand-c", b); else root.style.removeProperty("--hs-brand-c");
 	};
@@ -288,5 +289,28 @@ frappe.provide("hipersign.band");
 	// theme changes (Frappe sets data-theme on <html>): redraw so glow and colours follow
 	new MutationObserver(() => hipersign.band.redraw()).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
 	$(document).on("startup", () => C.apply());
+
+	// ---------------------------------------------------------------- v1.8.3: Frappe / ERPNext pop-ups only for super admins
+	// (or everyone when the licence says so). The server already leaves the change log and onboarding tours out of the boot
+	// and answers the update check with nothing; these are Frappe's own prompts shown from the desk.
+	if (frappe.boot && frappe.boot.hs_popups === 0) {
+		frappe.provide("frappe.ui");
+		["maybe_show_new_navigation_prompt", "maybe_show_legacy_gravatar_cleanup_prompt"].forEach((fn) => {
+			const quiet = () => false;
+			try {
+				Object.defineProperty(frappe.ui, fn, { configurable: true, get: () => quiet, set: () => {} });
+			} catch (e) {
+				frappe.ui[fn] = quiet;
+			}
+		});
+		const quiet_desk = () => {
+			if (frappe.Application && frappe.Application.prototype) {
+				frappe.Application.prototype.show_update_available = () => {};
+				frappe.Application.prototype.show_change_log = () => {};
+			}
+		};
+		quiet_desk();
+		$(document).on("startup", quiet_desk);
+	}
 	if (frappe.boot && frappe.boot.hipersign) C.apply();
 })();

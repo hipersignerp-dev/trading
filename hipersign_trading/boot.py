@@ -45,6 +45,14 @@ def boot_session(bootinfo):
 			menu_boot(bootinfo, info)
 		except Exception:
 			frappe.log_error(title="Hipersign menu builder (boot)")
+		# v1.8.3: super admins, the licence, and Frappe/ERPNext pop-ups only where the licence allows them
+		try:
+			from hipersign_trading.licence import boot_popups, is_super_admin
+
+			boot_popups(bootinfo)
+			info["super_admin"] = is_super_admin()
+		except Exception:
+			frappe.log_error(title="Hipersign licence (boot)")
 		bootinfo.hipersign = info
 		from hipersign_trading.demo_access import boot as demo_boot
 

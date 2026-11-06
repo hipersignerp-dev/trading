@@ -1,0 +1,18 @@
+{
+ "doctype": "Page",
+ "name": "hipersign-super-admin",
+ "page_name": "hipersign-super-admin",
+ "title": "Super Admin",
+ "module": "Hipersign Trading",
+ "standard": "Yes",
+ "system_page": 0,
+ "icon": "",
+ "roles": [
+  {
+   "role": "System Manager"
+  }
+ ],
+ "owner": "Administrator",
+ "creation": "2026-11-06 21:00:00",
+ "modified": "2026-11-06 21:00:00.000000"
+}

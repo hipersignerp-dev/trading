@@ -15774,3 +15774,159 @@ msgstr "المشاريع النشطة · % الإنجاز"
 
 msgid "Cost above budget × % done"
 msgstr "التكلفة فوق الميزانية × % الإنجاز"
+
+msgid "0 = no limit"
+msgstr "0 = بلا حد"
+
+msgid "0 = no limit."
+msgstr "0 = بلا حد."
+
+msgid "Classic: the navy menu. White: a white menu on a light page, as on the Solar ERP. Each user can switch for themselves in the avatar menu."
+msgstr "كلاسيكي: القائمة الكحلية. أبيض: قائمة بيضاء على صفحة فاتحة، كما في Solar ERP. يمكن لكل مستخدم التبديل بنفسه من قائمة الصورة الرمزية."
+
+msgid "Companies allowed"
+msgstr "الشركات المسموح بها"
+
+msgid "Company limit reached"
+msgstr "تم بلوغ حد الشركات"
+
+msgid "Counted"
+msgstr "محتسب"
+
+msgid "Desk users who can log in. 0 = no limit. Not counted: Administrator, super admins, portal customers and driver-only logins."
+msgstr "مستخدمو المكتب الذين يمكنهم تسجيل الدخول. 0 = بلا حد. لا يُحتسب: Administrator والمشرفون العامون وعملاء البوابة وحسابات السائقين فقط."
+
+msgid "Driver only"
+msgstr "سائق فقط"
+
+msgid "ERP theme"
+msgstr "سمة النظام"
+
+msgid "Feature keys, set on the Super Admin page."
+msgstr "مفاتيح الميزات، تُضبط في صفحة المشرف العام."
+
+msgid "Frappe and ERPNext messages"
+msgstr "رسائل Frappe وERPNext"
+
+msgid "Frappe pop-ups"
+msgstr "نوافذ Frappe المنبثقة"
+
+msgid "Hipersign Licence"
+msgstr "ترخيص Hipersign"
+
+msgid "Last active"
+msgstr "آخر نشاط"
+
+msgid "Licence saved"
+msgstr "تم حفظ الترخيص"
+
+msgid "Licensed modules"
+msgstr "الوحدات المرخّصة"
+
+msgid "Licensed to"
+msgstr "مرخّص لـ"
+
+msgid "Modules"
+msgstr "الوحدات"
+
+msgid "Modules left out cannot be switched on in Hipersign Settings › Features and disappear from the menu. No data is deleted."
+msgstr "الوحدات المستبعدة لا يمكن تفعيلها في إعدادات Hipersign › الميزات وتختفي من القائمة. لا تُحذف أي بيانات."
+
+msgid "No roles"
+msgstr "لا أدوار"
+
+msgid "Not counted"
+msgstr "غير محتسب"
+
+msgid "Not in your licence, so left off: {0}. Ask Hipersign to add them."
+msgstr "غير مشمولة في ترخيصك، لذا تُركت: {0}. اطلب من Hipersign إضافتها."
+
+msgid "Not named"
+msgstr "بلا اسم"
+
+msgid "Off (default): update notices, \"What's new\", onboarding tours and Frappe prompts appear only for super admins. Errors and validation messages always show."
+msgstr "إيقاف (افتراضي): إشعارات التحديث و\"ما الجديد\" والجولات التعريفية وتنبيهات Frappe تظهر للمشرفين العامين فقط. رسائل الأخطاء والتحقق تظهر دائمًا."
+
+msgid "Off = every module may be switched on in Hipersign Settings › Features."
+msgstr "إيقاف = يمكن تفعيل كل وحدة في إعدادات Hipersign › الميزات."
+
+msgid "Off: update notices, What's new, onboarding tours and Frappe prompts appear only for super admins. Errors and validation messages always show."
+msgstr "إيقاف: إشعارات التحديث وما الجديد والجولات التعريفية وتنبيهات Frappe تظهر للمشرفين العامين فقط. رسائل الأخطاء والتحقق تظهر دائمًا."
+
+msgid "Only Hipersign can change the licence."
+msgstr "Hipersign وحدها يمكنها تغيير الترخيص."
+
+msgid "Only Hipersign's super admins can open this page."
+msgstr "هذه الصفحة متاحة للمشرفين العامين في Hipersign فقط."
+
+msgid "Only the modules ticked below"
+msgstr "الوحدات المحددة أدناه فقط"
+
+msgid "Only the modules ticked on the Super Admin page"
+msgstr "الوحدات المحددة في صفحة المشرف العام فقط"
+
+msgid "Portal customer"
+msgstr "عميل البوابة"
+
+msgid "Save licence"
+msgstr "حفظ الترخيص"
+
+msgid "Set in Press › Site › Config as hipersign_super_admins (a list of logins). The client cannot change this from the ERP."
+msgstr "يُضبط في Press › Site › Config باسم hipersign_super_admins (قائمة بأسماء الدخول). لا يمكن للعميل تغييره من النظام."
+
+msgid "Show Frappe and ERPNext pop-ups to the client's admins too"
+msgstr "عرض نوافذ Frappe وERPNext المنبثقة لمديري العميل أيضًا"
+
+msgid "Shown as a reminder to super admins; nothing is locked when it passes."
+msgstr "يظهر كتذكير للمشرفين العامين؛ لا يُقفل شيء عند انقضائه."
+
+msgid "Super Admin"
+msgstr "المشرف العام"
+
+msgid "Super admin"
+msgstr "مشرف عام"
+
+msgid "Super admins"
+msgstr "المشرفون العامون"
+
+msgid "Super admins only"
+msgstr "المشرفون العامون فقط"
+
+msgid "The client's licence: how many users and companies, which modules, and who sees Frappe and ERPNext pop-ups. Only Hipersign's super admins can open this page."
+msgstr "ترخيص العميل: عدد المستخدمين والشركات، والوحدات، ومن يرى نوافذ Frappe وERPNext المنبثقة. هذه الصفحة متاحة للمشرفين العامين في Hipersign فقط."
+
+msgid "Theme: switch to Classic (navy menu)"
+msgstr "السمة: التبديل إلى الكلاسيكي (قائمة كحلية)"
+
+msgid "Theme: switch to White"
+msgstr "السمة: التبديل إلى الأبيض"
+
+msgid "These modules are on now and will be switched off: {0}. No data is deleted. Continue?"
+msgstr "هذه الوحدات مفعّلة الآن وسيتم إيقافها: {0}. لا تُحذف أي بيانات. هل تريد المتابعة؟"
+
+msgid "User limit reached"
+msgstr "تم بلوغ حد المستخدمين"
+
+msgid "Users allowed"
+msgstr "المستخدمون المسموح بهم"
+
+msgid "What this client's licence allows — set by Hipersign (super admins only)."
+msgstr "ما يسمح به ترخيص هذا العميل — تضبطه Hipersign (للمشرفين العامين فقط)."
+
+msgid "White"
+msgstr "أبيض"
+
+msgid "Your licence allows {0} companies. Ask Hipersign to extend the licence."
+msgstr "يسمح ترخيصك بـ {0} شركات. اطلب من Hipersign توسيع الترخيص."
+
+msgid "Your licence allows {0} users and {1} are in use. Disable a user or ask Hipersign to extend the licence."
+msgstr "يسمح ترخيصك بـ {0} مستخدمين و{1} قيد الاستخدام. عطّل مستخدمًا أو اطلب من Hipersign توسيع الترخيص."
+
+msgid "in use of the licence"
+msgstr "مستخدم من الترخيص"
+
+msgid "no limit set"
+msgstr "لم يُحدد حد"
+
+msgid "{0} counted · portal customers, driver-only logins and super admins are not counted"
+msgstr "{0} محتسب · لا يُحتسب عملاء البوابة وحسابات السائقين فقط والمشرفون العامون"

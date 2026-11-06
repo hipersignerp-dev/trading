@@ -5362,3 +5362,55 @@ waiting,等待中
 {0}% done · {1} spent,已完成 {0}% · 已支出 {1}
 · we owe {0},· 我方欠 {0}
 Active projects · % complete,进行中项目 · 完成 %
+0 = no limit,0 = 不限
+0 = no limit.,0 = 不限。
+"Classic: the navy menu. White: a white menu on a light page, as on the Solar ERP. Each user can switch for themselves in the avatar menu.",经典：深蓝色菜单。白色：浅色页面上的白色菜单，与 Solar ERP 相同。每位用户可在头像菜单中自行切换。
+Companies allowed,允许的公司数
+Company limit reached,已达公司数上限
+Counted,计入
+"Desk users who can log in. 0 = no limit. Not counted: Administrator, super admins, portal customers and driver-only logins.",可登录的桌面用户。0 = 不限。不计入：Administrator、超级管理员、门户客户和仅司机账号。
+Driver only,仅司机
+ERP theme,ERP 主题
+"Feature keys, set on the Super Admin page.",功能开关，在超级管理员页面设置。
+Frappe and ERPNext messages,Frappe 和 ERPNext 消息
+Frappe pop-ups,Frappe 弹窗
+Hipersign Licence,Hipersign 许可证
+Last active,最近活动
+Licence saved,许可证已保存
+Licensed modules,已授权模块
+Licensed to,授权给
+Modules,模块
+Modules left out cannot be switched on in Hipersign Settings › Features and disappear from the menu. No data is deleted.,未包含的模块无法在 Hipersign 设置 › 功能中启用，并会从菜单中隐藏。不会删除任何数据。
+No roles,无角色
+Not counted,不计入
+"Not in your licence, so left off: {0}. Ask Hipersign to add them.",不在您的许可证范围内，已略过：{0}。请联系 Hipersign 添加。
+Not named,未命名
+"Off (default): update notices, ""What's new"", onboarding tours and Frappe prompts appear only for super admins. Errors and validation messages always show.","关闭（默认）：更新通知、""新功能""、新手引导和 Frappe 提示仅向超级管理员显示。错误和校验消息始终显示。"
+Off = every module may be switched on in Hipersign Settings › Features.,关闭 = 所有模块均可在 Hipersign 设置 › 功能中启用。
+"Off: update notices, What's new, onboarding tours and Frappe prompts appear only for super admins. Errors and validation messages always show.",关闭：更新通知、新功能、新手引导和 Frappe 提示仅向超级管理员显示。错误和校验消息始终显示。
+Only Hipersign can change the licence.,只有 Hipersign 可以更改许可证。
+Only Hipersign's super admins can open this page.,只有 Hipersign 的超级管理员可以打开此页面。
+Only the modules ticked below,仅下方勾选的模块
+Only the modules ticked on the Super Admin page,仅超级管理员页面中勾选的模块
+Portal customer,门户客户
+Save licence,保存许可证
+Set in Press › Site › Config as hipersign_super_admins (a list of logins). The client cannot change this from the ERP.,在 Press › Site › Config 中设置为 hipersign_super_admins（登录账号列表）。客户无法在 ERP 中更改。
+Show Frappe and ERPNext pop-ups to the client's admins too,同时向客户的管理员显示 Frappe 和 ERPNext 弹窗
+Shown as a reminder to super admins; nothing is locked when it passes.,仅作为对超级管理员的提醒；到期后不会锁定任何功能。
+Super Admin,超级管理员
+Super admin,超级管理员
+Super admins,超级管理员
+Super admins only,仅限超级管理员
+"The client's licence: how many users and companies, which modules, and who sees Frappe and ERPNext pop-ups. Only Hipersign's super admins can open this page.",客户的许可证：用户数和公司数、哪些模块，以及谁能看到 Frappe 和 ERPNext 弹窗。只有 Hipersign 的超级管理员可以打开此页面。
+Theme: switch to Classic (navy menu),主题：切换为经典（深蓝色菜单）
+Theme: switch to White,主题：切换为白色
+These modules are on now and will be switched off: {0}. No data is deleted. Continue?,以下模块当前已启用，将被关闭：{0}。不会删除任何数据。是否继续？
+User limit reached,已达用户数上限
+Users allowed,允许的用户数
+What this client's licence allows — set by Hipersign (super admins only).,此客户许可证允许的内容 — 由 Hipersign 设置（仅限超级管理员）。
+White,白色
+Your licence allows {0} companies. Ask Hipersign to extend the licence.,您的许可证允许 {0} 家公司。请联系 Hipersign 扩展许可证。
+Your licence allows {0} users and {1} are in use. Disable a user or ask Hipersign to extend the licence.,您的许可证允许 {0} 个用户，已使用 {1} 个。请停用一个用户或联系 Hipersign 扩展许可证。
+in use of the licence,已使用的许可额度
+no limit set,未设置上限
+"{0} counted · portal customers, driver-only logins and super admins are not counted",已计入 {0} 个 · 门户客户、仅司机账号和超级管理员不计入

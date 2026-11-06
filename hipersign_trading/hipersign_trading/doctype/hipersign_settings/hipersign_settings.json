@@ -127,6 +127,7 @@
   "tab_look",
   "sb_look",
   "desk_theme",
+  "erp_theme",
   "chart_style",
   "chart_brand_colour",
   "hide_graph_bands",
@@ -980,6 +981,14 @@
    "label": "Desk theme",
    "options": "Hipersign\nERPNext standard",
    "default": "Hipersign"
+  },
+  {
+   "fieldname": "erp_theme",
+   "fieldtype": "Select",
+   "label": "ERP theme",
+   "options": "Classic\nWhite",
+   "default": "Classic",
+   "description": "Classic: the navy menu. White: a white menu on a light page, as on the Solar ERP. Each user can switch for themselves in the avatar menu."
   },
   {
    "fieldname": "chart_style",

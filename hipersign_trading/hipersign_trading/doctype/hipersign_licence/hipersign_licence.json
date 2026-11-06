@@ -1,0 +1,91 @@
+{
+ "doctype": "DocType",
+ "name": "Hipersign Licence",
+ "module": "Hipersign Trading",
+ "issingle": 1,
+ "custom": 0,
+ "engine": "InnoDB",
+ "track_changes": 1,
+ "description": "What this client's licence allows — set by Hipersign (super admins only).",
+ "fields": [
+  {
+   "fieldname": "licensee",
+   "fieldtype": "Data",
+   "label": "Licensed to"
+  },
+  {
+   "fieldname": "valid_until",
+   "fieldtype": "Date",
+   "label": "Valid until",
+   "description": "Shown as a reminder to super admins; nothing is locked when it passes."
+  },
+  {
+   "fieldname": "cb1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "max_users",
+   "fieldtype": "Int",
+   "label": "Users allowed",
+   "description": "Desk users who can log in. 0 = no limit. Not counted: Administrator, super admins, portal customers and driver-only logins."
+  },
+  {
+   "fieldname": "max_companies",
+   "fieldtype": "Int",
+   "label": "Companies allowed",
+   "description": "0 = no limit."
+  },
+  {
+   "fieldname": "sb_features",
+   "fieldtype": "Section Break",
+   "label": "Modules"
+  },
+  {
+   "fieldname": "limit_features",
+   "fieldtype": "Check",
+   "label": "Only the modules ticked on the Super Admin page",
+   "description": "Off = every module may be switched on in Hipersign Settings › Features."
+  },
+  {
+   "fieldname": "licensed_features",
+   "fieldtype": "Small Text",
+   "label": "Licensed modules",
+   "read_only": 1,
+   "description": "Feature keys, set on the Super Admin page."
+  },
+  {
+   "fieldname": "sb_popups",
+   "fieldtype": "Section Break",
+   "label": "Frappe and ERPNext messages"
+  },
+  {
+   "fieldname": "show_frappe_popups_to_all",
+   "fieldtype": "Check",
+   "label": "Show Frappe and ERPNext pop-ups to the client's admins too",
+   "description": "Off (default): update notices, \"What's new\", onboarding tours and Frappe prompts appear only for super admins. Errors and validation messages always show."
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Small Text",
+   "label": "Notes"
+  }
+ ],
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "print": 0,
+   "email": 0,
+   "report": 0,
+   "export": 0,
+   "share": 0
+  }
+ ],
+ "owner": "Administrator",
+ "creation": "2026-11-06 21:00:00",
+ "modified": "2026-11-06 21:00:00.000000",
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

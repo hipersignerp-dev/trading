@@ -426,6 +426,10 @@ hipersign.topbar.user_menu = function (sw) {
 	if (hipersign.tour) items.push(`<a class="dropdown-item" data-act="tour">${hs_esc(__("Take the guided tour"))}</a>`);
 	if ((frappe.boot.hipersign || {}).demo_site) items.push(`<a class="dropdown-item" data-act="present">${hs_esc(hipersign.topbar.presenting() ? __("Leave presentation mode") : __("Presentation mode"))}</a>`);
 	items.push(`<a class="dropdown-item" data-act="settings">${hs_esc(__("My settings"))}</a>`);
+	// v1.8.3: the ERP theme (navy or white menu) for this user, and the Super Admin page for Hipersign's super admins
+	const white = ((frappe.boot.hipersign || {}).look || {}).erp_theme === "White";
+	items.push(`<a class="dropdown-item" data-act="erp_theme">${hs_esc(white ? __("Theme: switch to Classic (navy menu)") : __("Theme: switch to White"))}</a>`);
+	if ((frappe.boot.hipersign || {}).super_admin) items.push(`<a class="dropdown-item" data-act="super_admin">${hs_esc(__("Super Admin"))}</a>`);
 	if (Object.keys((frappe.boot.hipersign || {}).chart_types || {}).length) items.push(`<a class="dropdown-item" data-act="charts_reset">${hs_esc(__("Reset my chart types"))}</a>`);
 	items.push(`<a class="dropdown-item" data-act="theme">${hs_esc(__("Toggle theme"))}</a><div class="dropdown-divider"></div>`);
 	items.push(`<a class="dropdown-item" data-act="logout">${hs_esc(__("Log out"))}</a>`);
@@ -670,6 +674,14 @@ $(document).on("click", ".hs-topbar .hs-tb-user [data-act]", function (e) {
 	if (act === "settings") frappe.set_route("Form", "User", frappe.session.user);
 	else if (act === "theme") new frappe.ui.ThemeSwitcher().show();
 	else if (act === "logout") frappe.app.logout();
+	else if (act === "super_admin") frappe.set_route("hipersign-super-admin");
+	else if (act === "erp_theme") {
+		const look = (frappe.boot.hipersign.look = frappe.boot.hipersign.look || {});
+		look.erp_theme = look.erp_theme === "White" ? "Classic" : "White";
+		hipersign.chart.apply();
+		hipersign.topbar.user_menu((hipersign.topbar.state.data || {}).switch);
+		frappe.xcall("hipersign_trading.api.look.set_erp_theme", { theme: look.erp_theme }).catch(() => {});
+	}
 	else if (act === "charts_reset") hipersign.chart.reset_types().then(() => { hipersign.band.redraw(); frappe.show_alert({ message: __("Charts are back to their default types"), indicator: "green" }); hipersign.topbar.user_menu((hipersign.topbar.state.data || {}).switch); });
 	else if (act === "add_user") frappe.new_doc("User");
 	else if (act === "users") frappe.set_route("List", "User");

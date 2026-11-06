@@ -20,6 +20,18 @@ class HipersignSettings(Document):
 		if chose:
 			set_switches(self, self.feature_pack)
 			self.flags.hs_pack_applied = self.feature_pack
+		# v1.8.3: modules outside the licence cannot be switched on
+		from hipersign_trading.features import FEATURES, field
+		from hipersign_trading.licence import licensed_features
+
+		allowed = licensed_features()
+		if allowed is not None:
+			off = [FEATURES[k][0] for k in FEATURES if self.get(field(k)) and k not in allowed]
+			for k in FEATURES:
+				if k not in allowed:
+					self.set(field(k), 0)
+			if off:
+				frappe.msgprint(_("Not in your licence, so left off: {0}. Ask Hipersign to add them.").format(", ".join(_(x) for x in off)), indicator="orange")
 		enforce_dependencies(self)
 		if self.setup_done and not chose:
 			self.feature_pack = pack_of(self)

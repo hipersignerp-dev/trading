@@ -40,7 +40,14 @@ html.hs-theme .hs-tb-viewas[hidden] { display: none; }
 .hs-viewas-bar b { color: #fff; }
 .hs-viewas-bar svg { stroke: #fff; flex: none; }
 .hs-viewas-bar .btn { margin-inline-start: auto; background: #f5c451; color: #3a2a00; border: 0; font-weight: 700; border-radius: 10px; }
-@media (max-width: 900px) { html.hs-theme .hs-tb-viewas { max-width: 130px; } }
+/* the top bar must fit: View as and the theme button take room, so the search box, the name under the avatar and the
+   View as box give way on narrower screens (the top bar used to scroll sideways at 1440 px) */
+html.hs-theme .hs-tb-viewas { max-width: 170px; }
+html.hs-theme .hs-tb-search { min-width: 140px; }
+@media (max-width: 1560px) { html.hs-theme .hs-tb-ut { display: none !important; } }
+@media (max-width: 1280px) { html.hs-theme .hs-tb-viewas { max-width: 130px; } html.hs-theme .hs-tb-search { min-width: 110px; } html.hs-theme .hs-tb-search kbd { display: none; } html.hs-theme .hs-tb-pick { max-width: 160px; } }
+@media (max-width: 1100px) { html.hs-theme .hs-tb-pick { max-width: 130px; } html.hs-theme .hs-tb-search { min-width: 44px; } }
+@media (max-width: 1100px) { html.hs-theme .hs-tb-viewas { display: none !important; } }
 @media (max-width: 600px) { html.hs-theme .hs-tb-viewas, html.hs-theme .hs-tb-themebtn { display: none; } }
 
 /* ---------------------------------------------------------------- the graph band */
@@ -141,3 +148,50 @@ html.hs-theme[data-theme="dark"] .hsx-card.hs-dark { background: #0a1336 !import
 
 /* ---------------------------------------------------------------- printing: Classic, no band menus */
 @media print { .hs-cmenu, .hs-viewas-bar, .hs-tb-viewas { display: none !important; } }
+
+/* ---------------------------------------------------------------- v1.8.3: the White ERP theme (white menu, as on the Solar ERP)
+   Hipersign Settings › Look & menus sets the site's theme; each user can switch in the avatar menu. Classic = the navy menu. */
+html.hs-theme.hs-ui-white .body-sidebar-container, html.hs-theme.hs-ui-white .body-sidebar {
+	--hs-navy: var(--x-surface); --hs-navy-2: var(--x-surface); --hs-navy-ink: var(--x-ink); --hs-navy-muted: var(--x-muted);
+	background: var(--x-surface) !important; color: var(--x-ink); border-inline-end: 1px solid var(--x-line) !important; }
+html.hs-theme.hs-ui-white .body-sidebar .sidebar-header { border-bottom-color: var(--x-line); }
+html.hs-theme.hs-ui-white .body-sidebar .sidebar-header:hover { background: var(--x-surface-2); }
+html.hs-theme.hs-ui-white .body-sidebar .header-title { color: var(--x-ink) !important; }
+html.hs-theme.hs-ui-white .body-sidebar .hs-brand-logo { box-shadow: none; border: 1px solid var(--x-line); }
+html.hs-theme.hs-ui-white .body-sidebar .standard-sidebar-item:hover { background: var(--x-surface-2) !important; }
+html.hs-theme.hs-ui-white .body-sidebar .standard-sidebar-item:hover .sidebar-item-label { color: var(--x-ink) !important; }
+html.hs-theme.hs-ui-white .body-sidebar .standard-sidebar-item.active-sidebar,
+html.hs-theme.hs-ui-white .body-sidebar .standard-sidebar-item.selected { background: var(--x-blue-bg) !important; box-shadow: none; }
+html.hs-theme.hs-ui-white .body-sidebar .standard-sidebar-item.active-sidebar .sidebar-item-label,
+html.hs-theme.hs-ui-white .body-sidebar .standard-sidebar-item.active-sidebar .sidebar-item-icon,
+html.hs-theme.hs-ui-white .body-sidebar .standard-sidebar-item.active-sidebar svg,
+html.hs-theme.hs-ui-white .body-sidebar .standard-sidebar-item.selected .sidebar-item-label,
+html.hs-theme.hs-ui-white .body-sidebar .standard-sidebar-item.selected svg { color: var(--x-blue) !important; font-weight: 600; }
+html.hs-theme.hs-ui-white .body-sidebar .nested-container { border-left-color: var(--x-line) !important; }
+html.hs-theme.hs-ui-white[dir="rtl"] .body-sidebar .nested-container { border-right-color: var(--x-line) !important; }
+html.hs-theme.hs-ui-white .body-sidebar .nested-container .standard-sidebar-item.selected,
+html.hs-theme.hs-ui-white .body-sidebar .nested-container .sidebar-item-container.selected > .standard-sidebar-item { box-shadow: inset 3px 0 0 var(--x-blue); }
+html.hs-theme.hs-ui-white .body-sidebar .hs-sub-toggle:hover { background: var(--x-surface-2); color: var(--x-ink); }
+html.hs-theme.hs-ui-white .body-sidebar .hs-sub a:hover, html.hs-theme.hs-ui-white .body-sidebar .hs-sub a.on { color: var(--x-blue); background: var(--x-blue-bg); }
+html.hs-theme.hs-ui-white .body-sidebar .section-break-label, html.hs-theme.hs-ui-white .body-sidebar .sidebar-section-label { color: var(--x-muted) !important; }
+html.hs-theme.hs-ui-white .body-sidebar svg { color: var(--x-muted); }
+html.hs-theme.hs-ui-white .hs-viewas-bar { background: var(--x-blue-bg); color: var(--x-ink); border: 1px solid var(--x-line); }
+html.hs-theme.hs-ui-white .hs-viewas-bar b { color: var(--x-ink); }
+html.hs-theme.hs-ui-white .hs-viewas-bar svg { stroke: var(--x-blue); }
+html.hs-theme.hs-ui-white:not([data-theme="dark"]) { --hs-bg: #f7f8fb; }
+
+/* ---------------------------------------------------------------- v1.8.3: Super Admin page */
+.hs-sa-form { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+.hs-sa-form label { display: flex; flex-direction: column; gap: 6px; font-weight: 600; font-size: 12.5px; color: var(--x-ink); }
+.hs-sa-form small, .hs-sa-chk small { font-weight: 400; color: var(--x-muted); }
+.hs-sa-wide { grid-column: 1 / -1; }
+.hs-sa-chk { display: block !important; font-weight: 600; margin-bottom: 10px; }
+.hs-sa-chk small { display: block; margin: 2px 0 0 22px; }
+.hs-sa-form .hs-sa-chk { grid-column: 1 / -1; }
+.hs-sa-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+.hs-sa-g > b { display: block; font-size: 11.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--x-muted); margin-bottom: 6px; }
+.hs-sa-f { display: flex; gap: 8px; align-items: flex-start; padding: 7px 8px; border-radius: 10px; font-size: 13px; cursor: pointer; }
+.hs-sa-f:hover { background: var(--x-surface-2); }
+.hs-sa-f.off { opacity: .6; cursor: default; }
+.hs-sa-f > span:first-of-type { flex: 1; }
+.hs-sa-f small { display: block; color: var(--x-muted); font-size: 11.5px; }

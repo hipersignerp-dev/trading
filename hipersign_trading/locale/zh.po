@@ -16095,3 +16095,159 @@ msgstr "· 我方欠 {0}"
 
 msgid "Active projects · % complete"
 msgstr "进行中项目 · 完成 %"
+
+msgid "0 = no limit"
+msgstr "0 = 不限"
+
+msgid "0 = no limit."
+msgstr "0 = 不限。"
+
+msgid "Classic: the navy menu. White: a white menu on a light page, as on the Solar ERP. Each user can switch for themselves in the avatar menu."
+msgstr "经典：深蓝色菜单。白色：浅色页面上的白色菜单，与 Solar ERP 相同。每位用户可在头像菜单中自行切换。"
+
+msgid "Companies allowed"
+msgstr "允许的公司数"
+
+msgid "Company limit reached"
+msgstr "已达公司数上限"
+
+msgid "Counted"
+msgstr "计入"
+
+msgid "Desk users who can log in. 0 = no limit. Not counted: Administrator, super admins, portal customers and driver-only logins."
+msgstr "可登录的桌面用户。0 = 不限。不计入：Administrator、超级管理员、门户客户和仅司机账号。"
+
+msgid "Driver only"
+msgstr "仅司机"
+
+msgid "ERP theme"
+msgstr "ERP 主题"
+
+msgid "Feature keys, set on the Super Admin page."
+msgstr "功能开关，在超级管理员页面设置。"
+
+msgid "Frappe and ERPNext messages"
+msgstr "Frappe 和 ERPNext 消息"
+
+msgid "Frappe pop-ups"
+msgstr "Frappe 弹窗"
+
+msgid "Hipersign Licence"
+msgstr "Hipersign 许可证"
+
+msgid "Last active"
+msgstr "最近活动"
+
+msgid "Licence saved"
+msgstr "许可证已保存"
+
+msgid "Licensed modules"
+msgstr "已授权模块"
+
+msgid "Licensed to"
+msgstr "授权给"
+
+msgid "Modules"
+msgstr "模块"
+
+msgid "Modules left out cannot be switched on in Hipersign Settings › Features and disappear from the menu. No data is deleted."
+msgstr "未包含的模块无法在 Hipersign 设置 › 功能中启用，并会从菜单中隐藏。不会删除任何数据。"
+
+msgid "No roles"
+msgstr "无角色"
+
+msgid "Not counted"
+msgstr "不计入"
+
+msgid "Not in your licence, so left off: {0}. Ask Hipersign to add them."
+msgstr "不在您的许可证范围内，已略过：{0}。请联系 Hipersign 添加。"
+
+msgid "Not named"
+msgstr "未命名"
+
+msgid "Off (default): update notices, \"What's new\", onboarding tours and Frappe prompts appear only for super admins. Errors and validation messages always show."
+msgstr "关闭（默认）：更新通知、\"新功能\"、新手引导和 Frappe 提示仅向超级管理员显示。错误和校验消息始终显示。"
+
+msgid "Off = every module may be switched on in Hipersign Settings › Features."
+msgstr "关闭 = 所有模块均可在 Hipersign 设置 › 功能中启用。"
+
+msgid "Off: update notices, What's new, onboarding tours and Frappe prompts appear only for super admins. Errors and validation messages always show."
+msgstr "关闭：更新通知、新功能、新手引导和 Frappe 提示仅向超级管理员显示。错误和校验消息始终显示。"
+
+msgid "Only Hipersign can change the licence."
+msgstr "只有 Hipersign 可以更改许可证。"
+
+msgid "Only Hipersign's super admins can open this page."
+msgstr "只有 Hipersign 的超级管理员可以打开此页面。"
+
+msgid "Only the modules ticked below"
+msgstr "仅下方勾选的模块"
+
+msgid "Only the modules ticked on the Super Admin page"
+msgstr "仅超级管理员页面中勾选的模块"
+
+msgid "Portal customer"
+msgstr "门户客户"
+
+msgid "Save licence"
+msgstr "保存许可证"
+
+msgid "Set in Press › Site › Config as hipersign_super_admins (a list of logins). The client cannot change this from the ERP."
+msgstr "在 Press › Site › Config 中设置为 hipersign_super_admins（登录账号列表）。客户无法在 ERP 中更改。"
+
+msgid "Show Frappe and ERPNext pop-ups to the client's admins too"
+msgstr "同时向客户的管理员显示 Frappe 和 ERPNext 弹窗"
+
+msgid "Shown as a reminder to super admins; nothing is locked when it passes."
+msgstr "仅作为对超级管理员的提醒；到期后不会锁定任何功能。"
+
+msgid "Super Admin"
+msgstr "超级管理员"
+
+msgid "Super admin"
+msgstr "超级管理员"
+
+msgid "Super admins"
+msgstr "超级管理员"
+
+msgid "Super admins only"
+msgstr "仅限超级管理员"
+
+msgid "The client's licence: how many users and companies, which modules, and who sees Frappe and ERPNext pop-ups. Only Hipersign's super admins can open this page."
+msgstr "客户的许可证：用户数和公司数、哪些模块，以及谁能看到 Frappe 和 ERPNext 弹窗。只有 Hipersign 的超级管理员可以打开此页面。"
+
+msgid "Theme: switch to Classic (navy menu)"
+msgstr "主题：切换为经典（深蓝色菜单）"
+
+msgid "Theme: switch to White"
+msgstr "主题：切换为白色"
+
+msgid "These modules are on now and will be switched off: {0}. No data is deleted. Continue?"
+msgstr "以下模块当前已启用，将被关闭：{0}。不会删除任何数据。是否继续？"
+
+msgid "User limit reached"
+msgstr "已达用户数上限"
+
+msgid "Users allowed"
+msgstr "允许的用户数"
+
+msgid "What this client's licence allows — set by Hipersign (super admins only)."
+msgstr "此客户许可证允许的内容 — 由 Hipersign 设置（仅限超级管理员）。"
+
+msgid "White"
+msgstr "白色"
+
+msgid "Your licence allows {0} companies. Ask Hipersign to extend the licence."
+msgstr "您的许可证允许 {0} 家公司。请联系 Hipersign 扩展许可证。"
+
+msgid "Your licence allows {0} users and {1} are in use. Disable a user or ask Hipersign to extend the licence."
+msgstr "您的许可证允许 {0} 个用户，已使用 {1} 个。请停用一个用户或联系 Hipersign 扩展许可证。"
+
+msgid "in use of the licence"
+msgstr "已使用的许可额度"
+
+msgid "no limit set"
+msgstr "未设置上限"
+
+msgid "{0} counted · portal customers, driver-only logins and super admins are not counted"
+msgstr "已计入 {0} 个 · 门户客户、仅司机账号和超级管理员不计入"

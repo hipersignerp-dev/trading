@@ -5255,3 +5255,55 @@ waiting,بالانتظار
 · we owe {0},· علينا {0}
 Active projects · % complete,المشاريع النشطة · % الإنجاز
 Cost above budget × % done,التكلفة فوق الميزانية × % الإنجاز
+0 = no limit,0 = بلا حد
+0 = no limit.,0 = بلا حد.
+"Classic: the navy menu. White: a white menu on a light page, as on the Solar ERP. Each user can switch for themselves in the avatar menu.",كلاسيكي: القائمة الكحلية. أبيض: قائمة بيضاء على صفحة فاتحة، كما في Solar ERP. يمكن لكل مستخدم التبديل بنفسه من قائمة الصورة الرمزية.
+Companies allowed,الشركات المسموح بها
+Company limit reached,تم بلوغ حد الشركات
+Counted,محتسب
+"Desk users who can log in. 0 = no limit. Not counted: Administrator, super admins, portal customers and driver-only logins.",مستخدمو المكتب الذين يمكنهم تسجيل الدخول. 0 = بلا حد. لا يُحتسب: Administrator والمشرفون العامون وعملاء البوابة وحسابات السائقين فقط.
+Driver only,سائق فقط
+ERP theme,سمة النظام
+"Feature keys, set on the Super Admin page.",مفاتيح الميزات، تُضبط في صفحة المشرف العام.
+Frappe and ERPNext messages,رسائل Frappe وERPNext
+Frappe pop-ups,نوافذ Frappe المنبثقة
+Hipersign Licence,ترخيص Hipersign
+Last active,آخر نشاط
+Licence saved,تم حفظ الترخيص
+Licensed modules,الوحدات المرخّصة
+Licensed to,مرخّص لـ
+Modules,الوحدات
+Modules left out cannot be switched on in Hipersign Settings › Features and disappear from the menu. No data is deleted.,الوحدات المستبعدة لا يمكن تفعيلها في إعدادات Hipersign › الميزات وتختفي من القائمة. لا تُحذف أي بيانات.
+No roles,لا أدوار
+Not counted,غير محتسب
+"Not in your licence, so left off: {0}. Ask Hipersign to add them.",غير مشمولة في ترخيصك، لذا تُركت: {0}. اطلب من Hipersign إضافتها.
+Not named,بلا اسم
+"Off (default): update notices, ""What's new"", onboarding tours and Frappe prompts appear only for super admins. Errors and validation messages always show.","إيقاف (افتراضي): إشعارات التحديث و""ما الجديد"" والجولات التعريفية وتنبيهات Frappe تظهر للمشرفين العامين فقط. رسائل الأخطاء والتحقق تظهر دائمًا."
+Off = every module may be switched on in Hipersign Settings › Features.,إيقاف = يمكن تفعيل كل وحدة في إعدادات Hipersign › الميزات.
+"Off: update notices, What's new, onboarding tours and Frappe prompts appear only for super admins. Errors and validation messages always show.",إيقاف: إشعارات التحديث وما الجديد والجولات التعريفية وتنبيهات Frappe تظهر للمشرفين العامين فقط. رسائل الأخطاء والتحقق تظهر دائمًا.
+Only Hipersign can change the licence.,Hipersign وحدها يمكنها تغيير الترخيص.
+Only Hipersign's super admins can open this page.,هذه الصفحة متاحة للمشرفين العامين في Hipersign فقط.
+Only the modules ticked below,الوحدات المحددة أدناه فقط
+Only the modules ticked on the Super Admin page,الوحدات المحددة في صفحة المشرف العام فقط
+Portal customer,عميل البوابة
+Save licence,حفظ الترخيص
+Set in Press › Site › Config as hipersign_super_admins (a list of logins). The client cannot change this from the ERP.,يُضبط في Press › Site › Config باسم hipersign_super_admins (قائمة بأسماء الدخول). لا يمكن للعميل تغييره من النظام.
+Show Frappe and ERPNext pop-ups to the client's admins too,عرض نوافذ Frappe وERPNext المنبثقة لمديري العميل أيضًا
+Shown as a reminder to super admins; nothing is locked when it passes.,يظهر كتذكير للمشرفين العامين؛ لا يُقفل شيء عند انقضائه.
+Super Admin,المشرف العام
+Super admin,مشرف عام
+Super admins,المشرفون العامون
+Super admins only,المشرفون العامون فقط
+"The client's licence: how many users and companies, which modules, and who sees Frappe and ERPNext pop-ups. Only Hipersign's super admins can open this page.",ترخيص العميل: عدد المستخدمين والشركات، والوحدات، ومن يرى نوافذ Frappe وERPNext المنبثقة. هذه الصفحة متاحة للمشرفين العامين في Hipersign فقط.
+Theme: switch to Classic (navy menu),السمة: التبديل إلى الكلاسيكي (قائمة كحلية)
+Theme: switch to White,السمة: التبديل إلى الأبيض
+These modules are on now and will be switched off: {0}. No data is deleted. Continue?,هذه الوحدات مفعّلة الآن وسيتم إيقافها: {0}. لا تُحذف أي بيانات. هل تريد المتابعة؟
+User limit reached,تم بلوغ حد المستخدمين
+Users allowed,المستخدمون المسموح بهم
+What this client's licence allows — set by Hipersign (super admins only).,ما يسمح به ترخيص هذا العميل — تضبطه Hipersign (للمشرفين العامين فقط).
+White,أبيض
+Your licence allows {0} companies. Ask Hipersign to extend the licence.,يسمح ترخيصك بـ {0} شركات. اطلب من Hipersign توسيع الترخيص.
+Your licence allows {0} users and {1} are in use. Disable a user or ask Hipersign to extend the licence.,يسمح ترخيصك بـ {0} مستخدمين و{1} قيد الاستخدام. عطّل مستخدمًا أو اطلب من Hipersign توسيع الترخيص.
+in use of the licence,مستخدم من الترخيص
+no limit set,لم يُحدد حد
+"{0} counted · portal customers, driver-only logins and super admins are not counted",{0} محتسب · لا يُحتسب عملاء البوابة وحسابات السائقين فقط والمشرفون العامون

@@ -170,7 +170,14 @@ doc_events = {
 	# v1.8.0: project purchase orders and material requests carry the project on the header (Projects pages, cost heads)
 	"Purchase Order": {"validate": "hipersign_trading.api.projects.po_project"},
 	"Material Request": {"validate": "hipersign_trading.api.projects.mr_project"},
-	"User": {"before_insert": "hipersign_trading.overrides.user.before_insert"},
+	"User": {"before_insert": "hipersign_trading.overrides.user.before_insert",
+		"validate": "hipersign_trading.licence.check_user"},  # v1.8.3: the licence's user limit
+	"Company": {"before_insert": "hipersign_trading.licence.check_company"},  # v1.8.3: the licence's company limit
+}
+
+# v1.8.3: Frappe's "new version available" notice only for super admins (or when the licence allows it)
+override_whitelisted_methods = {
+	"frappe.utils.change_log.show_update_popup": "hipersign_trading.licence.show_update_popup",
 }
 
 # ---------------------------------------------------------------- scheduler
