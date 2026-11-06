@@ -14784,3 +14784,993 @@ msgstr "إشعار انتهاء"
 
 msgid "{0}-day notice"
 msgstr "إشعار قبل {0} يومًا"
+
+msgid "1–2 days"
+msgstr "1–2 يوم"
+
+msgid "3–7 days"
+msgstr "3–7 أيام"
+
+msgid "Accepted and rejected"
+msgstr "المقبول والمرفوض"
+
+msgid "Act on these"
+msgstr "إجراءات مطلوبة"
+
+msgid "Active BOMs with operations"
+msgstr "قوائم المواد النشطة ذات العمليات"
+
+msgid "Active default"
+msgstr "الافتراضية النشطة"
+
+msgid "Active default BOMs · {0}"
+msgstr "قوائم المواد الافتراضية النشطة · {0}"
+
+msgid "Active projects · {0}"
+msgstr "المشاريع النشطة · {0}"
+
+msgid "Active subcontracts"
+msgstr "عقود الباطن النشطة"
+
+msgid "Alerts by area"
+msgstr "التنبيهات حسب المجال"
+
+msgid "Alerts by level"
+msgstr "التنبيهات حسب المستوى"
+
+msgid "All active projects"
+msgstr "جميع المشاريع النشطة"
+
+msgid "All filed"
+msgstr "تم تقديم الكل"
+
+msgid "All on programme"
+msgstr "الكل وفق البرنامج"
+
+msgid "All proofs on file"
+msgstr "جميع الإثباتات محفوظة"
+
+msgid "All within budget"
+msgstr "الكل ضمن الميزانية"
+
+msgid "Approved sales orders · {0}"
+msgstr "أوامر البيع المعتمدة · {0}"
+
+msgid "Area"
+msgstr "المجال"
+
+msgid "Assets by category"
+msgstr "الأصول حسب الفئة"
+
+msgid "Assets by status"
+msgstr "الأصول حسب الحالة"
+
+msgid "At port"
+msgstr "في الميناء"
+
+msgid "At port or customs"
+msgstr "في الميناء أو الجمارك"
+
+msgid "Average uplift"
+msgstr "متوسط الزيادة"
+
+msgid "Awarded of decided"
+msgstr "المُرسى من المحسوم"
+
+msgid "Bars"
+msgstr "أعمدة"
+
+msgid "Book value ÷ cost"
+msgstr "القيمة الدفترية ÷ التكلفة"
+
+msgid "Budget used"
+msgstr "الميزانية المستخدمة"
+
+msgid "By default every page opens with 2–3 graphs from its own records above the KPI cards (Messages, CRM, Quotations & Orders, Imports, Finance…). Each user can switch a chart between bars, line, area and table on the chart itself."
+msgstr "تفتح كل صفحة افتراضيًا مع 2–3 رسوم بيانية من سجلاتها فوق بطاقات المؤشرات (الرسائل، إدارة العملاء، عروض الأسعار والطلبات، الاستيراد، المالية…). يمكن لكل مستخدم تبديل الرسم بين أعمدة وخط ومساحة وجدول من الرسم نفسه."
+
+msgid "By month · {0}"
+msgstr "حسب الشهر · {0}"
+
+msgid "By scope"
+msgstr "حسب النطاق"
+
+msgid "By status"
+msgstr "حسب الحالة"
+
+msgid "By type · 6 months"
+msgstr "حسب النوع · 6 أشهر"
+
+msgid "Cash in and out"
+msgstr "التدفقات النقدية الداخلة والخارجة"
+
+msgid "Certified per month"
+msgstr "المعتمد شهريًا"
+
+msgid "Changed by"
+msgstr "تم التغيير بواسطة"
+
+msgid "Changes"
+msgstr "التغييرات"
+
+msgid "Charges as % of goods value"
+msgstr "الرسوم كنسبة % من قيمة البضائع"
+
+msgid "Charges ÷ goods value"
+msgstr "الرسوم ÷ قيمة البضائع"
+
+msgid "Chart brand colour"
+msgstr "لون الرسوم البيانية"
+
+msgid "Chart style"
+msgstr "نمط الرسوم البيانية"
+
+msgid "Chart type"
+msgstr "نوع الرسم البياني"
+
+msgid "Charts are back to their default types"
+msgstr "عادت الرسوم البيانية إلى أنواعها الافتراضية"
+
+msgid "Classic"
+msgstr "كلاسيكي"
+
+msgid "Companies by country"
+msgstr "الشركات حسب الدولة"
+
+msgid "Company × month"
+msgstr "الشركة × الشهر"
+
+msgid "Completed orders"
+msgstr "الطلبات المكتملة"
+
+msgid "Conversations by kind"
+msgstr "المحادثات حسب النوع"
+
+msgid "Corporate tax returns"
+msgstr "إقرارات ضريبة الشركات"
+
+msgid "Cost per unit"
+msgstr "التكلفة للوحدة"
+
+msgid "Cost per work order"
+msgstr "التكلفة لكل أمر عمل"
+
+msgid "Cost uplift per shipment"
+msgstr "زيادة التكلفة لكل شحنة"
+
+msgid "Cost · {0}"
+msgstr "التكلفة · {0}"
+
+msgid "Count by status"
+msgstr "العدد حسب الحالة"
+
+msgid "Custom menus"
+msgstr "قوائم مخصصة"
+
+msgid "Customers and suppliers"
+msgstr "العملاء والموردون"
+
+msgid "Customers owe"
+msgstr "مستحقات العملاء"
+
+msgid "Customs duty"
+msgstr "الرسوم الجمركية"
+
+msgid "Days by type · 6 months"
+msgstr "الأيام حسب النوع · 6 أشهر"
+
+msgid "Days past due · {0}"
+msgstr "أيام التأخير · {0}"
+
+msgid "Days since submitted"
+msgstr "أيام منذ الاعتماد"
+
+msgid "Decided quotations · 90 days"
+msgstr "عروض الأسعار المحسومة · 90 يومًا"
+
+msgid "Declared"
+msgstr "المُصرّح"
+
+msgid "Delivered to"
+msgstr "التسليم إلى"
+
+msgid "Deliveries per month"
+msgstr "التسليمات شهريًا"
+
+msgid "Demurrage risk"
+msgstr "خطر غرامات التأخير"
+
+msgid "Docs done"
+msgstr "المستندات المكتملة"
+
+msgid "Docs presented"
+msgstr "المستندات المقدّمة"
+
+msgid "Documents by company"
+msgstr "المستندات حسب الشركة"
+
+msgid "Draft timesheets"
+msgstr "سجلات دوام مسودة"
+
+msgid "Due {0} · {1} / {2}"
+msgstr "الاستحقاق {0} · {1} / {2}"
+
+msgid "Due {0} · {1}% delivered"
+msgstr "الاستحقاق {0} · تم تسليم {1}%"
+
+msgid "Email & WhatsApp"
+msgstr "البريد الإلكتروني وواتساب"
+
+msgid "Expected next"
+msgstr "المتوقع لاحقًا"
+
+msgid "Expiring in 60 days"
+msgstr "تنتهي خلال 60 يومًا"
+
+msgid "Exposure by bank"
+msgstr "الانكشاف حسب البنك"
+
+msgid "Features"
+msgstr "الميزات"
+
+msgid "Features in use"
+msgstr "الميزات المستخدمة"
+
+msgid "Finished goods · {0}"
+msgstr "المنتجات التامة · {0}"
+
+msgid "First-pass yield"
+msgstr "نسبة النجاح من أول مرة"
+
+msgid "Follow up today"
+msgstr "متابعة اليوم"
+
+msgid "Free {0} · on hand {1}"
+msgstr "المتاح {0} · المتوفر {1}"
+
+msgid "Freight, duty and clearing · {0}"
+msgstr "الشحن والرسوم والتخليص · {0}"
+
+msgid "From order to stock"
+msgstr "من الطلب إلى المخزون"
+
+msgid "From quotation to completed order"
+msgstr "من عرض السعر إلى الطلب المكتمل"
+
+msgid "From request to received"
+msgstr "من الطلب إلى الاستلام"
+
+msgid "Glow"
+msgstr "توهج"
+
+msgid "Goods received notes"
+msgstr "إيصالات استلام البضائع"
+
+msgid "Hide the graphs at the top of pages"
+msgstr "إخفاء الرسوم البيانية أعلى الصفحات"
+
+msgid "Highest first"
+msgstr "الأعلى أولًا"
+
+msgid "Hipersign: rounded bars, soft areas, dark feature cards. Soft: light and airy. Glow: purple and cyan gradients that glow in dark mode. Classic: flat (always used for printing)."
+msgstr "Hipersign: أعمدة مستديرة ومساحات ناعمة وبطاقات داكنة. ناعم: فاتح وخفيف. توهج: تدرجات بنفسجية وسماوية تتوهج في الوضع الداكن. كلاسيكي: مسطح (يُستخدم دائمًا للطباعة)."
+
+msgid "Hit rate"
+msgstr "نسبة النجاح"
+
+msgid "Hours by person"
+msgstr "الساعات حسب الشخص"
+
+msgid "Hours by project"
+msgstr "الساعات حسب المشروع"
+
+msgid "How long they wait"
+msgstr "مدة الانتظار"
+
+msgid "In transit"
+msgstr "قيد النقل"
+
+msgid "Inactive"
+msgstr "غير نشط"
+
+msgid "Income and purchases"
+msgstr "الإيرادات والمشتريات"
+
+msgid "Inspections per month"
+msgstr "الفحوصات شهريًا"
+
+msgid "Inspections · 60 days"
+msgstr "الفحوصات · 60 يومًا"
+
+msgid "Interim payment certificates"
+msgstr "المستخلصات"
+
+msgid "Invoices of the last 6 months"
+msgstr "فواتير آخر 6 أشهر"
+
+msgid "LCs and guarantees"
+msgstr "الاعتمادات المستندية والضمانات"
+
+msgid "Labour & overheads"
+msgstr "العمالة والمصاريف غير المباشرة"
+
+msgid "Landing charges per shipment"
+msgstr "رسوم الوصول لكل شحنة"
+
+msgid "Last 14 days"
+msgstr "آخر 14 يومًا"
+
+msgid "Last 30 days"
+msgstr "آخر 30 يومًا"
+
+msgid "Last 6 months"
+msgstr "آخر 6 أشهر"
+
+msgid "Last 6 months · each in its own currency"
+msgstr "آخر 6 أشهر · كلٌّ بعملته"
+
+msgid "Last 6 months · in {0}"
+msgstr "آخر 6 أشهر · بعملة {0}"
+
+msgid "Last 6 months · net · {0}"
+msgstr "آخر 6 أشهر · صافي · {0}"
+
+msgid "Last 6 months · {0}"
+msgstr "آخر 6 أشهر · {0}"
+
+msgid "Last 7 days"
+msgstr "آخر 7 أيام"
+
+msgid "Last {0} shipments"
+msgstr "آخر {0} شحنات"
+
+msgid "Late from suppliers"
+msgstr "متأخرة من الموردين"
+
+msgid "Late or at risk"
+msgstr "متأخرة أو معرّضة للخطر"
+
+msgid "Latest first"
+msgstr "الأحدث أولًا"
+
+msgid "Latest · {0}"
+msgstr "الأحدث · {0}"
+
+msgid "Leads · {0} value"
+msgstr "العملاء المحتملون · القيمة {0}"
+
+msgid "Leave taken"
+msgstr "الإجازات المأخوذة"
+
+msgid "Licences expiring"
+msgstr "تراخيص تقارب الانتهاء"
+
+msgid "Light or dark"
+msgstr "فاتح أو داكن"
+
+msgid "Load by workstation"
+msgstr "الحمل حسب محطة العمل"
+
+msgid "Low stock · {0} on hand"
+msgstr "مخزون منخفض · المتوفر {0}"
+
+msgid "Manpower on site"
+msgstr "العمالة في الموقع"
+
+msgid "Margin after purchases"
+msgstr "الهامش بعد المشتريات"
+
+msgid "Menu changes"
+msgstr "تغييرات القوائم"
+
+msgid "Menu changes saved"
+msgstr "تم حفظ تغييرات القوائم"
+
+msgid "Menu items per group"
+msgstr "عناصر القائمة لكل مجموعة"
+
+msgid "Messages per day"
+msgstr "الرسائل يوميًا"
+
+msgid "Needed for zero-rated VAT"
+msgstr "مطلوب لضريبة نسبة الصفر"
+
+msgid "Needed {0}"
+msgstr "مطلوب {0}"
+
+msgid "Negot."
+msgstr "تفاوض"
+
+msgid "Net VAT per return"
+msgstr "صافي الضريبة لكل إقرار"
+
+msgid "Net of retention · {0}"
+msgstr "بعد خصم المحتجزات · {0}"
+
+msgid "Net pay"
+msgstr "صافي الراتب"
+
+msgid "Net pay · {0}"
+msgstr "صافي الراتب · {0}"
+
+msgid "Net sales · {0}"
+msgstr "صافي المبيعات · {0}"
+
+msgid "Net · last 6 months · {0}"
+msgstr "صافي · آخر 6 أشهر · {0}"
+
+msgid "Next deadlines"
+msgstr "المواعيد النهائية القادمة"
+
+msgid "No follow-ups due"
+msgstr "لا متابعات مستحقة"
+
+msgid "No late orders"
+msgstr "لا طلبات متأخرة"
+
+msgid "No licences expiring"
+msgstr "لا تراخيص تقارب الانتهاء"
+
+msgid "No project"
+msgstr "بدون مشروع"
+
+msgid "No rejections"
+msgstr "لا مرفوضات"
+
+msgid "Not past the delivery date"
+msgstr "لم يتجاوز تاريخ التسليم"
+
+msgid "Not yet ordered"
+msgstr "لم يُطلب بعد"
+
+msgid "Not yet submitted"
+msgstr "لم يُعتمد بعد"
+
+msgid "Notes on records"
+msgstr "ملاحظات على السجلات"
+
+msgid "Nothing at port"
+msgstr "لا شيء في الميناء"
+
+msgid "Nothing due"
+msgstr "لا شيء مستحق"
+
+msgid "Nothing expiring"
+msgstr "لا شيء يقارب الانتهاء"
+
+msgid "Nothing in progress"
+msgstr "لا شيء قيد التنفيذ"
+
+msgid "Nothing late"
+msgstr "لا شيء متأخر"
+
+msgid "Nothing needs attention"
+msgstr "لا شيء يحتاج إلى انتباه"
+
+msgid "Nothing overdue"
+msgstr "لا شيء متأخر السداد"
+
+msgid "Nothing running late"
+msgstr "لا شيء متأخر عن الجدول"
+
+msgid "Nothing short"
+msgstr "لا نقص"
+
+msgid "Nothing to approve"
+msgstr "لا شيء للاعتماد"
+
+msgid "Of all active parties"
+msgstr "من جميع الأطراف النشطة"
+
+msgid "Of all scripts"
+msgstr "من جميع سيناريوهات الاختبار"
+
+msgid "Oldest first"
+msgstr "الأقدم أولًا"
+
+msgid "On"
+msgstr "مفعّل"
+
+msgid "On and off"
+msgstr "مفعّل ومعطّل"
+
+msgid "On the floor now"
+msgstr "قيد التصنيع الآن"
+
+msgid "On time"
+msgstr "في الموعد"
+
+msgid "Open LCs · {0}"
+msgstr "الاعتمادات المستندية المفتوحة · {0}"
+
+msgid "Open insights"
+msgstr "الرؤى المفتوحة"
+
+msgid "Open job cards · units"
+msgstr "بطاقات العمل المفتوحة · الوحدات"
+
+msgid "Open orders customers can track"
+msgstr "طلبات مفتوحة يتتبعها العملاء"
+
+msgid "Open quantity by item"
+msgstr "الكمية المفتوحة حسب الصنف"
+
+msgid "Optional — the main chart colour. Leave empty for the Hipersign blue."
+msgstr "اختياري — اللون الرئيسي للرسوم البيانية. اتركه فارغًا لاستخدام أزرق Hipersign."
+
+msgid "Order value by subcontractor"
+msgstr "قيمة الطلبات حسب مقاول الباطن"
+
+msgid "Ordered more than in stock"
+msgstr "المطلوب أكثر من المخزون"
+
+msgid "Orders"
+msgstr "الطلبات"
+
+msgid "Orders and delivery notes"
+msgstr "الطلبات وإشعارات التسليم"
+
+msgid "Orders booked"
+msgstr "الطلبات المسجّلة"
+
+msgid "Orders by status"
+msgstr "الطلبات حسب الحالة"
+
+msgid "Orders still to receive"
+msgstr "طلبات بانتظار الاستلام"
+
+msgid "Output VAT"
+msgstr "ضريبة المخرجات"
+
+msgid "Output against plan"
+msgstr "الإنتاج مقابل الخطة"
+
+msgid "Output and input VAT"
+msgstr "ضريبة المخرجات والمدخلات"
+
+msgid "Over a week"
+msgstr "أكثر من أسبوع"
+
+msgid "Own"
+msgstr "خاص"
+
+msgid "Passed by area"
+msgstr "الناجح حسب المجال"
+
+msgid "Past due date"
+msgstr "تجاوز تاريخ الاستحقاق"
+
+msgid "Past the delivery date"
+msgstr "تجاوز تاريخ التسليم"
+
+msgid "Past the planned end"
+msgstr "تجاوز تاريخ الانتهاء المخطط"
+
+msgid "Past the required date"
+msgstr "تجاوز التاريخ المطلوب"
+
+msgid "Payable · {0}"
+msgstr "المستحق الدفع · {0}"
+
+msgid "Payments · last 6 months"
+msgstr "المدفوعات · آخر 6 أشهر"
+
+msgid "People by department"
+msgstr "الموظفون حسب القسم"
+
+msgid "Pipeline by stage"
+msgstr "المسار حسب المرحلة"
+
+msgid "Planned end {0} · {1}% done"
+msgstr "الانتهاء المخطط {0} · منجز {1}%"
+
+msgid "Planned load"
+msgstr "الحمل المخطط"
+
+msgid "Projects by status"
+msgstr "المشاريع حسب الحالة"
+
+msgid "Proof of export due"
+msgstr "إثبات التصدير المستحق"
+
+msgid "Prop."
+msgstr "عرض"
+
+msgid "Purchase orders · last 6 months"
+msgstr "أوامر الشراء · آخر 6 أشهر"
+
+msgid "Purchases & expenses"
+msgstr "المشتريات والمصروفات"
+
+msgid "Qualif."
+msgstr "مؤهل"
+
+msgid "Quotation win rate"
+msgstr "نسبة الفوز بعروض الأسعار"
+
+msgid "Quotes open"
+msgstr "عروض الأسعار المفتوحة"
+
+msgid "Receipts"
+msgstr "الاستلامات"
+
+msgid "Receipts per month"
+msgstr "الاستلامات شهريًا"
+
+msgid "Received by supplier"
+msgstr "المستلم حسب المورد"
+
+msgid "Registrations due"
+msgstr "تسجيلات مستحقة"
+
+msgid "Rejected lately"
+msgstr "المرفوض مؤخرًا"
+
+msgid "Required {0} · {1}% received"
+msgstr "مطلوب {0} · تم استلام {1}%"
+
+msgid "Reset my chart types"
+msgstr "إعادة تعيين أنواع الرسوم البيانية"
+
+msgid "Returns to file"
+msgstr "إقرارات للتقديم"
+
+msgid "Revenue against AED 3M"
+msgstr "الإيرادات مقابل 3 ملايين AED"
+
+msgid "Revenue this year by company"
+msgstr "إيرادات هذا العام حسب الشركة"
+
+msgid "Running late"
+msgstr "متأخر عن الجدول"
+
+msgid "Sales and purchases"
+msgstr "المبيعات والمشتريات"
+
+msgid "Sales by company"
+msgstr "المبيعات حسب الشركة"
+
+msgid "Sales by destination"
+msgstr "المبيعات حسب الوجهة"
+
+msgid "Sales by month"
+msgstr "المبيعات حسب الشهر"
+
+msgid "Saved changes"
+msgstr "التغييرات المحفوظة"
+
+msgid "Saved per month"
+msgstr "المحفوظ شهريًا"
+
+msgid "Scripts passed"
+msgstr "سيناريوهات الاختبار الناجحة"
+
+msgid "Short against orders"
+msgstr "نقص مقابل الطلبات"
+
+msgid "Site material requests"
+msgstr "طلبات مواد الموقع"
+
+msgid "Site, company and role menus"
+msgstr "قوائم الموقع والشركة والدور"
+
+msgid "Small business relief"
+msgstr "إعفاء الأعمال الصغيرة"
+
+msgid "Soft"
+msgstr "ناعم"
+
+msgid "Spend by currency"
+msgstr "الإنفاق حسب العملة"
+
+msgid "Spending ahead of progress"
+msgstr "الإنفاق يسبق الإنجاز"
+
+msgid "Stock health"
+msgstr "صحة المخزون"
+
+msgid "Submitted inspections · 6 months"
+msgstr "الفحوصات المعتمدة · 6 أشهر"
+
+msgid "Switch to dark"
+msgstr "التبديل إلى الداكن"
+
+msgid "Switch to light"
+msgstr "التبديل إلى الفاتح"
+
+msgid "Switched on"
+msgstr "مفعّل"
+
+msgid "Switched on for this site"
+msgstr "مفعّل لهذا الموقع"
+
+msgid "Table"
+msgstr "جدول"
+
+msgid "Team notes"
+msgstr "ملاحظات الفريق"
+
+msgid "Tenders"
+msgstr "المناقصات"
+
+msgid "Tenders due"
+msgstr "مناقصات مستحقة"
+
+msgid "Test results"
+msgstr "نتائج الاختبار"
+
+msgid "To receive"
+msgstr "بانتظار الاستلام"
+
+msgid "To start"
+msgstr "للبدء"
+
+msgid "Top customers · net sales by month"
+msgstr "أهم العملاء · صافي المبيعات حسب الشهر"
+
+msgid "Units due · next 14 days"
+msgstr "الوحدات المستحقة · الـ 14 يومًا القادمة"
+
+msgid "Units still to make"
+msgstr "وحدات متبقية للتصنيع"
+
+msgid "Unread notifications"
+msgstr "إشعارات غير مقروءة"
+
+msgid "Value by status · {0}"
+msgstr "القيمة حسب الحالة · {0}"
+
+msgid "Value produced"
+msgstr "القيمة المنتجة"
+
+msgid "Value remaining"
+msgstr "القيمة المتبقية"
+
+msgid "Vehicles and equipment · 60 days"
+msgstr "المركبات والمعدات · 60 يومًا"
+
+msgid "View as"
+msgstr "العرض كـ"
+
+msgid "View as another demo user — see their menus, pages and permissions"
+msgstr "العرض كمستخدم تجريبي آخر — شاهد قوائمه وصفحاته وصلاحياته"
+
+msgid "View as: {0}"
+msgstr "العرض كـ: {0}"
+
+msgid "Visible to them in the portal · {0}"
+msgstr "مرئي لهم في البوابة · {0}"
+
+msgid "Waiting approval"
+msgstr "بانتظار الاعتماد"
+
+msgid "Waiting by type"
+msgstr "الانتظار حسب النوع"
+
+msgid "Waiting for material"
+msgstr "بانتظار المواد"
+
+msgid "Waiting for you"
+msgstr "بانتظارك"
+
+msgid "What customers owe"
+msgstr "مستحقات العملاء"
+
+msgid "Where landing costs go"
+msgstr "توزيع تكاليف الوصول"
+
+msgid "Where leads come from"
+msgstr "مصادر العملاء المحتملين"
+
+msgid "Where production cost goes"
+msgstr "توزيع تكلفة الإنتاج"
+
+msgid "Where the containers are"
+msgstr "مواقع الحاويات"
+
+msgid "Who buys when"
+msgstr "من يشتري ومتى"
+
+msgid "Win rate {0}"
+msgstr "نسبة الفوز {0}"
+
+msgid "With routings"
+msgstr "بمسارات تصنيع"
+
+msgid "Within 30 days or expired"
+msgstr "خلال 30 يومًا أو منتهية"
+
+msgid "Within 60 days"
+msgstr "خلال 60 يومًا"
+
+msgid "Work in progress"
+msgstr "قيد التنفيذ"
+
+msgid "You are viewing as <b>{0}</b>{1} — their menus, pages and permissions."
+msgstr "أنت تعرض كـ <b>{0}</b>{1} — قوائمه وصفحاته وصلاحياته."
+
+msgid "cards"
+msgstr "بطاقات"
+
+msgid "changes"
+msgstr "تغييرات"
+
+msgid "changes saved — every menu is the standard one"
+msgstr "تغييرات محفوظة — جميع القوائم قياسية"
+
+msgid "containers"
+msgstr "حاويات"
+
+msgid "documents"
+msgstr "مستندات"
+
+msgid "due · {0} open"
+msgstr "مستحق · {0} مفتوح"
+
+msgid "entries"
+msgstr "قيود"
+
+msgid "features"
+msgstr "ميزات"
+
+msgid "features on"
+msgstr "ميزات مفعّلة"
+
+msgid "have a routing"
+msgstr "لها مسار تصنيع"
+
+msgid "in 30 days"
+msgstr "خلال 30 يومًا"
+
+msgid "in progress"
+msgstr "قيد التنفيذ"
+
+msgid "items"
+msgstr "أصناف"
+
+msgid "messages"
+msgstr "رسائل"
+
+msgid "on {0} goods"
+msgstr "على بضائع بقيمة {0}"
+
+msgid "open"
+msgstr "مفتوح"
+
+msgid "parties"
+msgstr "أطراف"
+
+msgid "plans"
+msgstr "خطط"
+
+msgid "rejected"
+msgstr "مرفوض"
+
+msgid "requests"
+msgstr "طلبات"
+
+msgid "returns"
+msgstr "إقرارات"
+
+msgid "scripts"
+msgstr "سيناريوهات"
+
+msgid "shipments"
+msgstr "شحنات"
+
+msgid "subcontractors"
+msgstr "مقاولو باطن"
+
+msgid "timesheets"
+msgstr "سجلات دوام"
+
+msgid "to act on"
+msgstr "بانتظار إجراء"
+
+msgid "to approve"
+msgstr "بانتظار الاعتماد"
+
+msgid "to renew"
+msgstr "للتجديد"
+
+msgid "unread"
+msgstr "غير مقروء"
+
+msgid "variations"
+msgstr "أوامر تغيير"
+
+msgid "waiting"
+msgstr "بالانتظار"
+
+msgid "{0} BOQs"
+msgstr "{0} جداول كميات"
+
+msgid "{0} IPCs"
+msgstr "{0} مستخلصات"
+
+msgid "{0} LCs"
+msgstr "{0} اعتمادات مستندية"
+
+msgid "{0} accepted of {1}"
+msgstr "{0} مقبول من {1}"
+
+msgid "{0} active"
+msgstr "{0} نشط"
+
+msgid "{0} approvals"
+msgstr "{0} موافقات"
+
+msgid "{0} approved orders"
+msgstr "{0} طلبات معتمدة"
+
+msgid "{0} book value"
+msgstr "القيمة الدفترية {0}"
+
+msgid "{0} claims"
+msgstr "{0} مطالبات"
+
+msgid "{0} h · from {1}"
+msgstr "{0} س · من {1}"
+
+msgid "{0} in total"
+msgstr "{0} إجمالًا"
+
+msgid "{0} income"
+msgstr "إيرادات {0}"
+
+msgid "{0} leads · pipeline {1}"
+msgstr "{0} عملاء محتملون · المسار {1}"
+
+msgid "{0} of {1} units"
+msgstr "{0} من {1} وحدة"
+
+msgid "{0} on file"
+msgstr "{0} محفوظة"
+
+msgid "{0} passed"
+msgstr "{0} ناجح"
+
+msgid "{0} projects"
+msgstr "{0} مشاريع"
+
+msgid "{0} running late"
+msgstr "{0} متأخر عن الجدول"
+
+msgid "{0} scripts"
+msgstr "{0} سيناريوهات"
+
+msgid "{0} shipments"
+msgstr "{0} شحنات"
+
+msgid "{0} so far this year"
+msgstr "{0} منذ بداية العام"
+
+msgid "{0} still to collect"
+msgstr "{0} متبقٍ للتحصيل"
+
+msgid "{0} waiting over 2 days"
+msgstr "{0} بانتظار أكثر من يومين"
+
+msgid "{0} won of {1}"
+msgstr "{0} فوز من {1}"
+
+msgid "{0} · expires {1}"
+msgstr "{0} · ينتهي {1}"
+
+msgid "{0} · licence {1}"
+msgstr "{0} · الرخصة {1}"
+
+msgid "{0} · period to {1}"
+msgstr "{0} · الفترة حتى {1}"
+
+msgid "{0}% done · {1} spent"
+msgstr "منجز {0}% · مصروف {1}"
+
+msgid "· we owe {0}"
+msgstr "· علينا {0}"
+
+msgid "Active projects · % complete"
+msgstr "المشاريع النشطة · % الإنجاز"
+
+msgid "Cost above budget × % done"
+msgstr "التكلفة فوق الميزانية × % الإنجاز"

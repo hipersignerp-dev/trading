@@ -15105,3 +15105,993 @@ msgstr "{0} 已完成 {1}/{2} 件 — 请先完成该工序,再完成本工序�
 
 msgid "{0} has done {1} units — this operation cannot run ahead of it."
 msgstr "{0} 已完成 {1} 件 — 本工序不能超前于它。"
+
+msgid "1–2 days"
+msgstr "1–2 天"
+
+msgid "3–7 days"
+msgstr "3–7 天"
+
+msgid "Accepted and rejected"
+msgstr "合格与不合格"
+
+msgid "Act on these"
+msgstr "待处理事项"
+
+msgid "Active BOMs with operations"
+msgstr "含工序的有效 BOM"
+
+msgid "Active default"
+msgstr "有效默认"
+
+msgid "Active default BOMs · {0}"
+msgstr "有效默认 BOM · {0}"
+
+msgid "Active projects · {0}"
+msgstr "进行中项目 · {0}"
+
+msgid "Active subcontracts"
+msgstr "进行中分包合同"
+
+msgid "Alerts by area"
+msgstr "按领域分类的提醒"
+
+msgid "Alerts by level"
+msgstr "按级别分类的提醒"
+
+msgid "All active projects"
+msgstr "全部进行中项目"
+
+msgid "All filed"
+msgstr "已全部申报"
+
+msgid "All on programme"
+msgstr "全部按计划进行"
+
+msgid "All proofs on file"
+msgstr "证明均已存档"
+
+msgid "All within budget"
+msgstr "全部在预算内"
+
+msgid "Approved sales orders · {0}"
+msgstr "已批准销售订单 · {0}"
+
+msgid "Area"
+msgstr "领域"
+
+msgid "Assets by category"
+msgstr "按类别分类的资产"
+
+msgid "Assets by status"
+msgstr "按状态分类的资产"
+
+msgid "At port"
+msgstr "在港"
+
+msgid "At port or customs"
+msgstr "在港或清关中"
+
+msgid "Average uplift"
+msgstr "平均加成"
+
+msgid "Awarded of decided"
+msgstr "已定标中的中标"
+
+msgid "Bars"
+msgstr "柱状"
+
+msgid "Book value ÷ cost"
+msgstr "账面价值 ÷ 成本"
+
+msgid "Budget used"
+msgstr "预算使用"
+
+msgid "By default every page opens with 2–3 graphs from its own records above the KPI cards (Messages, CRM, Quotations & Orders, Imports, Finance…). Each user can switch a chart between bars, line, area and table on the chart itself."
+msgstr "默认情况下，每个页面会在 KPI 卡片上方显示 2–3 个基于本页记录的图表（消息、CRM、报价与订单、进口、财务…）。每位用户可在图表上直接切换柱状、折线、面积和表格。"
+
+msgid "By month · {0}"
+msgstr "按月 · {0}"
+
+msgid "By scope"
+msgstr "按范围"
+
+msgid "By status"
+msgstr "按状态"
+
+msgid "By type · 6 months"
+msgstr "按类型 · 6 个月"
+
+msgid "Cash in and out"
+msgstr "现金收支"
+
+msgid "Certified per month"
+msgstr "每月核定额"
+
+msgid "Changed by"
+msgstr "修改人"
+
+msgid "Changes"
+msgstr "更改"
+
+msgid "Charges as % of goods value"
+msgstr "费用占货值 %"
+
+msgid "Charges ÷ goods value"
+msgstr "费用 ÷ 货值"
+
+msgid "Chart brand colour"
+msgstr "图表品牌色"
+
+msgid "Chart style"
+msgstr "图表样式"
+
+msgid "Chart type"
+msgstr "图表类型"
+
+msgid "Charts are back to their default types"
+msgstr "图表已恢复为默认类型"
+
+msgid "Classic"
+msgstr "经典"
+
+msgid "Companies by country"
+msgstr "按国家分类的公司"
+
+msgid "Company × month"
+msgstr "公司 × 月份"
+
+msgid "Completed orders"
+msgstr "已完成订单"
+
+msgid "Conversations by kind"
+msgstr "按类型分类的会话"
+
+msgid "Corporate tax returns"
+msgstr "企业所得税申报"
+
+msgid "Cost above budget × % done"
+msgstr "超预算成本 × 完成 %"
+
+msgid "Cost per unit"
+msgstr "单位成本"
+
+msgid "Cost per work order"
+msgstr "每张工单成本"
+
+msgid "Cost uplift per shipment"
+msgstr "每票货运成本加成"
+
+msgid "Cost · {0}"
+msgstr "成本 · {0}"
+
+msgid "Count by status"
+msgstr "按状态计数"
+
+msgid "Custom menus"
+msgstr "自定义菜单"
+
+msgid "Customers and suppliers"
+msgstr "客户与供应商"
+
+msgid "Customers owe"
+msgstr "客户欠款"
+
+msgid "Customs duty"
+msgstr "关税"
+
+msgid "Days by type · 6 months"
+msgstr "按类型统计天数 · 6 个月"
+
+msgid "Days past due · {0}"
+msgstr "逾期天数 · {0}"
+
+msgid "Days since submitted"
+msgstr "提交后天数"
+
+msgid "Decided quotations · 90 days"
+msgstr "已定结果报价单 · 90 天"
+
+msgid "Declared"
+msgstr "已申报"
+
+msgid "Delivered to"
+msgstr "送达"
+
+msgid "Deliveries per month"
+msgstr "每月送货"
+
+msgid "Demurrage risk"
+msgstr "滞期费风险"
+
+msgid "Docs done"
+msgstr "单据已齐"
+
+msgid "Docs presented"
+msgstr "已交单"
+
+msgid "Documents by company"
+msgstr "按公司分类的文件"
+
+msgid "Draft timesheets"
+msgstr "草稿工时表"
+
+msgid "Due {0} · {1} / {2}"
+msgstr "到期 {0} · {1} / {2}"
+
+msgid "Due {0} · {1}% delivered"
+msgstr "到期 {0} · 已送货 {1}%"
+
+msgid "Email & WhatsApp"
+msgstr "邮件与 WhatsApp"
+
+msgid "Expected next"
+msgstr "预计下一步"
+
+msgid "Expiring in 60 days"
+msgstr "60 天内到期"
+
+msgid "Exposure by bank"
+msgstr "按银行分类的敞口"
+
+msgid "Features"
+msgstr "功能"
+
+msgid "Features in use"
+msgstr "使用中的功能"
+
+msgid "Finished goods · {0}"
+msgstr "成品 · {0}"
+
+msgid "First-pass yield"
+msgstr "一次合格率"
+
+msgid "Follow up today"
+msgstr "今日跟进"
+
+msgid "Free {0} · on hand {1}"
+msgstr "可用 {0} · 现有 {1}"
+
+msgid "Freight, duty and clearing · {0}"
+msgstr "运费、关税与清关 · {0}"
+
+msgid "From order to stock"
+msgstr "从订单到入库"
+
+msgid "From quotation to completed order"
+msgstr "从报价单到完成订单"
+
+msgid "From request to received"
+msgstr "从申请到收货"
+
+msgid "Glow"
+msgstr "光晕"
+
+msgid "Goods received notes"
+msgstr "收货单"
+
+msgid "Hide the graphs at the top of pages"
+msgstr "隐藏页面顶部的图表"
+
+msgid "Highest first"
+msgstr "从高到低"
+
+msgid "Hipersign: rounded bars, soft areas, dark feature cards. Soft: light and airy. Glow: purple and cyan gradients that glow in dark mode. Classic: flat (always used for printing)."
+msgstr "Hipersign：圆角柱、柔和面积、深色重点卡片。柔和：明亮轻盈。光晕：紫色与青色渐变，在深色模式下发光。经典：扁平（打印时始终使用）。"
+
+msgid "Hit rate"
+msgstr "命中率"
+
+msgid "Hours by person"
+msgstr "按人员统计工时"
+
+msgid "Hours by project"
+msgstr "按项目统计工时"
+
+msgid "How long they wait"
+msgstr "等待时长"
+
+msgid "In transit"
+msgstr "在途"
+
+msgid "Inactive"
+msgstr "未启用"
+
+msgid "Income and purchases"
+msgstr "收入与采购"
+
+msgid "Inspections per month"
+msgstr "每月检验"
+
+msgid "Inspections · 60 days"
+msgstr "检验 · 60 天"
+
+msgid "Interim payment certificates"
+msgstr "期中付款证书"
+
+msgid "Invoices of the last 6 months"
+msgstr "近 6 个月发票"
+
+msgid "LCs and guarantees"
+msgstr "信用证与保函"
+
+msgid "Labour & overheads"
+msgstr "人工与间接费用"
+
+msgid "Landing charges per shipment"
+msgstr "每票货运到岸费用"
+
+msgid "Last 14 days"
+msgstr "近 14 天"
+
+msgid "Last 30 days"
+msgstr "近 30 天"
+
+msgid "Last 6 months"
+msgstr "近 6 个月"
+
+msgid "Last 6 months · each in its own currency"
+msgstr "近 6 个月 · 各按其币种"
+
+msgid "Last 6 months · in {0}"
+msgstr "近 6 个月 · 以 {0} 计"
+
+msgid "Last 6 months · net · {0}"
+msgstr "近 6 个月 · 净额 · {0}"
+
+msgid "Last 6 months · {0}"
+msgstr "近 6 个月 · {0}"
+
+msgid "Last 7 days"
+msgstr "近 7 天"
+
+msgid "Last {0} shipments"
+msgstr "最近 {0} 票货运"
+
+msgid "Late from suppliers"
+msgstr "供应商延迟"
+
+msgid "Late or at risk"
+msgstr "延迟或有风险"
+
+msgid "Latest first"
+msgstr "最新优先"
+
+msgid "Latest · {0}"
+msgstr "最新 · {0}"
+
+msgid "Leads · {0} value"
+msgstr "线索 · {0} 金额"
+
+msgid "Leave taken"
+msgstr "已休假"
+
+msgid "Licences expiring"
+msgstr "即将到期执照"
+
+msgid "Light or dark"
+msgstr "浅色或深色"
+
+msgid "Load by workstation"
+msgstr "按工作站负荷"
+
+msgid "Low stock · {0} on hand"
+msgstr "低库存 · 现有 {0}"
+
+msgid "Manpower on site"
+msgstr "现场人力"
+
+msgid "Margin after purchases"
+msgstr "扣除采购后毛利"
+
+msgid "Menu changes"
+msgstr "菜单更改"
+
+msgid "Menu changes saved"
+msgstr "菜单更改已保存"
+
+msgid "Menu items per group"
+msgstr "每组菜单项"
+
+msgid "Messages per day"
+msgstr "每日消息"
+
+msgid "Needed for zero-rated VAT"
+msgstr "零税率增值税所需"
+
+msgid "Needed {0}"
+msgstr "需求 {0}"
+
+msgid "Negot."
+msgstr "谈判"
+
+msgid "Net VAT per return"
+msgstr "每期申报增值税净额"
+
+msgid "Net of retention · {0}"
+msgstr "扣除保留金后 · {0}"
+
+msgid "Net pay"
+msgstr "实发工资"
+
+msgid "Net pay · {0}"
+msgstr "实发工资 · {0}"
+
+msgid "Net sales · {0}"
+msgstr "净销售额 · {0}"
+
+msgid "Net · last 6 months · {0}"
+msgstr "净额 · 近 6 个月 · {0}"
+
+msgid "Next deadlines"
+msgstr "近期截止日期"
+
+msgid "No follow-ups due"
+msgstr "无待跟进"
+
+msgid "No late orders"
+msgstr "无延迟订单"
+
+msgid "No licences expiring"
+msgstr "无即将到期执照"
+
+msgid "No project"
+msgstr "无项目"
+
+msgid "No rejections"
+msgstr "无不合格"
+
+msgid "Not past the delivery date"
+msgstr "未超过交货日期"
+
+msgid "Not yet ordered"
+msgstr "尚未下单"
+
+msgid "Not yet submitted"
+msgstr "尚未提交"
+
+msgid "Notes on records"
+msgstr "记录备注"
+
+msgid "Nothing at port"
+msgstr "无在港货物"
+
+msgid "Nothing due"
+msgstr "无到期事项"
+
+msgid "Nothing expiring"
+msgstr "无即将到期"
+
+msgid "Nothing in progress"
+msgstr "无进行中"
+
+msgid "Nothing late"
+msgstr "无延迟"
+
+msgid "Nothing needs attention"
+msgstr "无需关注事项"
+
+msgid "Nothing overdue"
+msgstr "无逾期"
+
+msgid "Nothing running late"
+msgstr "无进度延迟"
+
+msgid "Nothing short"
+msgstr "无短缺"
+
+msgid "Nothing to approve"
+msgstr "无待审批"
+
+msgid "Of all active parties"
+msgstr "占全部活跃往来方"
+
+msgid "Of all scripts"
+msgstr "占全部测试脚本"
+
+msgid "Oldest first"
+msgstr "最早优先"
+
+msgid "On"
+msgstr "开启"
+
+msgid "On and off"
+msgstr "开启与关闭"
+
+msgid "On the floor now"
+msgstr "当前在产"
+
+msgid "On time"
+msgstr "准时"
+
+msgid "Open LCs · {0}"
+msgstr "未结信用证 · {0}"
+
+msgid "Open insights"
+msgstr "未处理洞察"
+
+msgid "Open job cards · units"
+msgstr "未完工序卡 · 数量"
+
+msgid "Open orders customers can track"
+msgstr "客户可跟踪的未结订单"
+
+msgid "Open quantity by item"
+msgstr "按物料未结数量"
+
+msgid "Optional — the main chart colour. Leave empty for the Hipersign blue."
+msgstr "可选 — 图表主色。留空则使用 Hipersign 蓝。"
+
+msgid "Order value by subcontractor"
+msgstr "按分包商统计订单金额"
+
+msgid "Ordered more than in stock"
+msgstr "订购量超过库存"
+
+msgid "Orders"
+msgstr "订单"
+
+msgid "Orders and delivery notes"
+msgstr "订单与送货单"
+
+msgid "Orders booked"
+msgstr "已接订单"
+
+msgid "Orders by status"
+msgstr "按状态分类的订单"
+
+msgid "Orders still to receive"
+msgstr "待收货订单"
+
+msgid "Output VAT"
+msgstr "销项增值税"
+
+msgid "Output against plan"
+msgstr "产出对比计划"
+
+msgid "Output and input VAT"
+msgstr "销项与进项增值税"
+
+msgid "Over a week"
+msgstr "超过一周"
+
+msgid "Own"
+msgstr "自有"
+
+msgid "Passed by area"
+msgstr "按领域通过数"
+
+msgid "Past due date"
+msgstr "已过到期日"
+
+msgid "Past the delivery date"
+msgstr "已过交货日期"
+
+msgid "Past the planned end"
+msgstr "已过计划完成日"
+
+msgid "Past the required date"
+msgstr "已过需求日期"
+
+msgid "Payable · {0}"
+msgstr "应付 · {0}"
+
+msgid "Payments · last 6 months"
+msgstr "付款 · 近 6 个月"
+
+msgid "People by department"
+msgstr "按部门统计人员"
+
+msgid "Pipeline by stage"
+msgstr "按阶段销售漏斗"
+
+msgid "Planned end {0} · {1}% done"
+msgstr "计划完成 {0} · 已完成 {1}%"
+
+msgid "Planned load"
+msgstr "计划负荷"
+
+msgid "Projects by status"
+msgstr "按状态分类的项目"
+
+msgid "Proof of export due"
+msgstr "待交出口证明"
+
+msgid "Prop."
+msgstr "方案"
+
+msgid "Purchase orders · last 6 months"
+msgstr "采购订单 · 近 6 个月"
+
+msgid "Purchases & expenses"
+msgstr "采购与费用"
+
+msgid "Qualif."
+msgstr "已确认"
+
+msgid "Quotation win rate"
+msgstr "报价中标率"
+
+msgid "Quotes open"
+msgstr "未结报价"
+
+msgid "Receipts"
+msgstr "收货"
+
+msgid "Receipts per month"
+msgstr "每月收货"
+
+msgid "Received by supplier"
+msgstr "按供应商收货"
+
+msgid "Registrations due"
+msgstr "待办注册"
+
+msgid "Rejected lately"
+msgstr "近期不合格"
+
+msgid "Required {0} · {1}% received"
+msgstr "需求 {0} · 已收货 {1}%"
+
+msgid "Reset my chart types"
+msgstr "重置我的图表类型"
+
+msgid "Returns to file"
+msgstr "待申报"
+
+msgid "Revenue against AED 3M"
+msgstr "收入对比 AED 3M"
+
+msgid "Revenue this year by company"
+msgstr "本年按公司收入"
+
+msgid "Running late"
+msgstr "进度延迟"
+
+msgid "Sales and purchases"
+msgstr "销售与采购"
+
+msgid "Sales by company"
+msgstr "按公司销售"
+
+msgid "Sales by destination"
+msgstr "按目的地销售"
+
+msgid "Sales by month"
+msgstr "按月销售"
+
+msgid "Saved changes"
+msgstr "已保存的更改"
+
+msgid "Saved per month"
+msgstr "每月保存"
+
+msgid "Scripts passed"
+msgstr "通过的测试脚本"
+
+msgid "Short against orders"
+msgstr "相对订单短缺"
+
+msgid "Site material requests"
+msgstr "现场物料申请"
+
+msgid "Site, company and role menus"
+msgstr "站点、公司与角色菜单"
+
+msgid "Small business relief"
+msgstr "小企业减免"
+
+msgid "Soft"
+msgstr "柔和"
+
+msgid "Spend by currency"
+msgstr "按币种支出"
+
+msgid "Spending ahead of progress"
+msgstr "支出超前于进度"
+
+msgid "Stock health"
+msgstr "库存健康"
+
+msgid "Submitted inspections · 6 months"
+msgstr "已提交检验 · 6 个月"
+
+msgid "Switch to dark"
+msgstr "切换为深色"
+
+msgid "Switch to light"
+msgstr "切换为浅色"
+
+msgid "Switched on"
+msgstr "已开启"
+
+msgid "Switched on for this site"
+msgstr "已为本站点开启"
+
+msgid "Table"
+msgstr "表格"
+
+msgid "Team notes"
+msgstr "团队备注"
+
+msgid "Tenders"
+msgstr "投标"
+
+msgid "Tenders due"
+msgstr "待投标"
+
+msgid "Test results"
+msgstr "测试结果"
+
+msgid "To receive"
+msgstr "待收货"
+
+msgid "To start"
+msgstr "待开始"
+
+msgid "Top customers · net sales by month"
+msgstr "主要客户 · 按月净销售额"
+
+msgid "Units due · next 14 days"
+msgstr "到期数量 · 未来 14 天"
+
+msgid "Units still to make"
+msgstr "待生产数量"
+
+msgid "Unread notifications"
+msgstr "未读通知"
+
+msgid "Value by status · {0}"
+msgstr "按状态金额 · {0}"
+
+msgid "Value produced"
+msgstr "产出价值"
+
+msgid "Value remaining"
+msgstr "剩余价值"
+
+msgid "Vehicles and equipment · 60 days"
+msgstr "车辆与设备 · 60 天"
+
+msgid "View as"
+msgstr "以…身份查看"
+
+msgid "View as another demo user — see their menus, pages and permissions"
+msgstr "以其他演示用户身份查看 — 查看其菜单、页面和权限"
+
+msgid "View as: {0}"
+msgstr "查看身份：{0}"
+
+msgid "Visible to them in the portal · {0}"
+msgstr "门户中可见 · {0}"
+
+msgid "Waiting approval"
+msgstr "待审批"
+
+msgid "Waiting by type"
+msgstr "按类型待处理"
+
+msgid "Waiting for material"
+msgstr "等待物料"
+
+msgid "Waiting for you"
+msgstr "等待您处理"
+
+msgid "What customers owe"
+msgstr "客户欠款"
+
+msgid "Where landing costs go"
+msgstr "到岸成本去向"
+
+msgid "Where leads come from"
+msgstr "线索来源"
+
+msgid "Where production cost goes"
+msgstr "生产成本去向"
+
+msgid "Where the containers are"
+msgstr "集装箱位置"
+
+msgid "Who buys when"
+msgstr "谁在何时购买"
+
+msgid "Win rate {0}"
+msgstr "中标率 {0}"
+
+msgid "With routings"
+msgstr "含工艺路线"
+
+msgid "Within 30 days or expired"
+msgstr "30 天内到期或已过期"
+
+msgid "Within 60 days"
+msgstr "60 天内"
+
+msgid "Work in progress"
+msgstr "在制品"
+
+msgid "You are viewing as <b>{0}</b>{1} — their menus, pages and permissions."
+msgstr "您正在以 <b>{0}</b>{1} 身份查看 — 其菜单、页面和权限。"
+
+msgid "cards"
+msgstr "张卡片"
+
+msgid "changes"
+msgstr "项更改"
+
+msgid "changes saved — every menu is the standard one"
+msgstr "项更改已保存 — 所有菜单均为标准菜单"
+
+msgid "containers"
+msgstr "个集装箱"
+
+msgid "documents"
+msgstr "份文件"
+
+msgid "due · {0} open"
+msgstr "到期 · {0} 未结"
+
+msgid "entries"
+msgstr "条记录"
+
+msgid "features"
+msgstr "项功能"
+
+msgid "features on"
+msgstr "项功能已开启"
+
+msgid "have a routing"
+msgstr "有工艺路线"
+
+msgid "in 30 days"
+msgstr "30 天内"
+
+msgid "in progress"
+msgstr "进行中"
+
+msgid "items"
+msgstr "项物料"
+
+msgid "messages"
+msgstr "条消息"
+
+msgid "on {0} goods"
+msgstr "货值 {0}"
+
+msgid "open"
+msgstr "未结"
+
+msgid "parties"
+msgstr "个往来方"
+
+msgid "plans"
+msgstr "个计划"
+
+msgid "rejected"
+msgstr "不合格"
+
+msgid "requests"
+msgstr "个申请"
+
+msgid "returns"
+msgstr "份申报"
+
+msgid "scripts"
+msgstr "个脚本"
+
+msgid "shipments"
+msgstr "票货运"
+
+msgid "subcontractors"
+msgstr "个分包商"
+
+msgid "timesheets"
+msgstr "张工时表"
+
+msgid "to act on"
+msgstr "待处理"
+
+msgid "to approve"
+msgstr "待审批"
+
+msgid "to renew"
+msgstr "待续期"
+
+msgid "unread"
+msgstr "未读"
+
+msgid "variations"
+msgstr "项变更"
+
+msgid "waiting"
+msgstr "等待中"
+
+msgid "{0} BOQs"
+msgstr "{0} 份工程量清单"
+
+msgid "{0} IPCs"
+msgstr "{0} 份期中付款证书"
+
+msgid "{0} LCs"
+msgstr "{0} 份信用证"
+
+msgid "{0} accepted of {1}"
+msgstr "{1} 中 {0} 合格"
+
+msgid "{0} active"
+msgstr "{0} 个进行中"
+
+msgid "{0} approvals"
+msgstr "{0} 项审批"
+
+msgid "{0} approved orders"
+msgstr "{0} 张已批准订单"
+
+msgid "{0} book value"
+msgstr "账面价值 {0}"
+
+msgid "{0} claims"
+msgstr "{0} 项索款"
+
+msgid "{0} h · from {1}"
+msgstr "{0} 小时 · 来自 {1}"
+
+msgid "{0} in total"
+msgstr "共 {0}"
+
+msgid "{0} income"
+msgstr "收入 {0}"
+
+msgid "{0} leads · pipeline {1}"
+msgstr "{0} 条线索 · 漏斗 {1}"
+
+msgid "{0} of {1} units"
+msgstr "{0} / {1} 件"
+
+msgid "{0} on file"
+msgstr "已存档 {0}"
+
+msgid "{0} passed"
+msgstr "{0} 项通过"
+
+msgid "{0} projects"
+msgstr "{0} 个项目"
+
+msgid "{0} running late"
+msgstr "{0} 项进度延迟"
+
+msgid "{0} scripts"
+msgstr "{0} 个脚本"
+
+msgid "{0} shipments"
+msgstr "{0} 票货运"
+
+msgid "{0} so far this year"
+msgstr "本年迄今 {0}"
+
+msgid "{0} still to collect"
+msgstr "待收款 {0}"
+
+msgid "{0} waiting over 2 days"
+msgstr "{0} 项等待超过 2 天"
+
+msgid "{0} won of {1}"
+msgstr "{1} 中中标 {0}"
+
+msgid "{0} · expires {1}"
+msgstr "{0} · {1} 到期"
+
+msgid "{0} · licence {1}"
+msgstr "{0} · 执照 {1}"
+
+msgid "{0} · period to {1}"
+msgstr "{0} · 期间截至 {1}"
+
+msgid "{0}% done · {1} spent"
+msgstr "已完成 {0}% · 已支出 {1}"
+
+msgid "· we owe {0}"
+msgstr "· 我方欠 {0}"
+
+msgid "Active projects · % complete"
+msgstr "进行中项目 · 完成 %"

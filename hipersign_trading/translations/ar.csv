@@ -4925,3 +4925,333 @@ yrs,سنوات
 …and up to % of the invoice,…وحتى % من الفاتورة
 Expired notice,إشعار انتهاء
 {0}-day notice,إشعار قبل {0} يومًا
+1–2 days,1–2 يوم
+3–7 days,3–7 أيام
+Accepted and rejected,المقبول والمرفوض
+Act on these,إجراءات مطلوبة
+Active BOMs with operations,قوائم المواد النشطة ذات العمليات
+Active default,الافتراضية النشطة
+Active default BOMs · {0},قوائم المواد الافتراضية النشطة · {0}
+Active projects · {0},المشاريع النشطة · {0}
+Active subcontracts,عقود الباطن النشطة
+Alerts by area,التنبيهات حسب المجال
+Alerts by level,التنبيهات حسب المستوى
+All active projects,جميع المشاريع النشطة
+All filed,تم تقديم الكل
+All on programme,الكل وفق البرنامج
+All proofs on file,جميع الإثباتات محفوظة
+All within budget,الكل ضمن الميزانية
+Approved sales orders · {0},أوامر البيع المعتمدة · {0}
+Area,المجال
+Assets by category,الأصول حسب الفئة
+Assets by status,الأصول حسب الحالة
+At port,في الميناء
+At port or customs,في الميناء أو الجمارك
+Average uplift,متوسط الزيادة
+Awarded of decided,المُرسى من المحسوم
+Bars,أعمدة
+Book value ÷ cost,القيمة الدفترية ÷ التكلفة
+Budget used,الميزانية المستخدمة
+"By default every page opens with 2–3 graphs from its own records above the KPI cards (Messages, CRM, Quotations & Orders, Imports, Finance…). Each user can switch a chart between bars, line, area and table on the chart itself.",تفتح كل صفحة افتراضيًا مع 2–3 رسوم بيانية من سجلاتها فوق بطاقات المؤشرات (الرسائل، إدارة العملاء، عروض الأسعار والطلبات، الاستيراد، المالية…). يمكن لكل مستخدم تبديل الرسم بين أعمدة وخط ومساحة وجدول من الرسم نفسه.
+By month · {0},حسب الشهر · {0}
+By scope,حسب النطاق
+By status,حسب الحالة
+By type · 6 months,حسب النوع · 6 أشهر
+Cash in and out,التدفقات النقدية الداخلة والخارجة
+Certified per month,المعتمد شهريًا
+Changed by,تم التغيير بواسطة
+Changes,التغييرات
+Charges as % of goods value,الرسوم كنسبة % من قيمة البضائع
+Charges ÷ goods value,الرسوم ÷ قيمة البضائع
+Chart brand colour,لون الرسوم البيانية
+Chart style,نمط الرسوم البيانية
+Chart type,نوع الرسم البياني
+Charts are back to their default types,عادت الرسوم البيانية إلى أنواعها الافتراضية
+Classic,كلاسيكي
+Companies by country,الشركات حسب الدولة
+Company × month,الشركة × الشهر
+Completed orders,الطلبات المكتملة
+Conversations by kind,المحادثات حسب النوع
+Corporate tax returns,إقرارات ضريبة الشركات
+Cost per unit,التكلفة للوحدة
+Cost per work order,التكلفة لكل أمر عمل
+Cost uplift per shipment,زيادة التكلفة لكل شحنة
+Cost · {0},التكلفة · {0}
+Count by status,العدد حسب الحالة
+Custom menus,قوائم مخصصة
+Customers and suppliers,العملاء والموردون
+Customers owe,مستحقات العملاء
+Customs duty,الرسوم الجمركية
+Days by type · 6 months,الأيام حسب النوع · 6 أشهر
+Days past due · {0},أيام التأخير · {0}
+Days since submitted,أيام منذ الاعتماد
+Decided quotations · 90 days,عروض الأسعار المحسومة · 90 يومًا
+Declared,المُصرّح
+Delivered to,التسليم إلى
+Deliveries per month,التسليمات شهريًا
+Demurrage risk,خطر غرامات التأخير
+Docs done,المستندات المكتملة
+Docs presented,المستندات المقدّمة
+Documents by company,المستندات حسب الشركة
+Draft timesheets,سجلات دوام مسودة
+Due {0} · {1} / {2},الاستحقاق {0} · {1} / {2}
+Due {0} · {1}% delivered,الاستحقاق {0} · تم تسليم {1}%
+Email & WhatsApp,البريد الإلكتروني وواتساب
+Expected next,المتوقع لاحقًا
+Expiring in 60 days,تنتهي خلال 60 يومًا
+Exposure by bank,الانكشاف حسب البنك
+Features,الميزات
+Features in use,الميزات المستخدمة
+Finished goods · {0},المنتجات التامة · {0}
+First-pass yield,نسبة النجاح من أول مرة
+Follow up today,متابعة اليوم
+Free {0} · on hand {1},المتاح {0} · المتوفر {1}
+"Freight, duty and clearing · {0}",الشحن والرسوم والتخليص · {0}
+From order to stock,من الطلب إلى المخزون
+From quotation to completed order,من عرض السعر إلى الطلب المكتمل
+From request to received,من الطلب إلى الاستلام
+Glow,توهج
+Goods received notes,إيصالات استلام البضائع
+Hide the graphs at the top of pages,إخفاء الرسوم البيانية أعلى الصفحات
+Highest first,الأعلى أولًا
+"Hipersign: rounded bars, soft areas, dark feature cards. Soft: light and airy. Glow: purple and cyan gradients that glow in dark mode. Classic: flat (always used for printing).",Hipersign: أعمدة مستديرة ومساحات ناعمة وبطاقات داكنة. ناعم: فاتح وخفيف. توهج: تدرجات بنفسجية وسماوية تتوهج في الوضع الداكن. كلاسيكي: مسطح (يُستخدم دائمًا للطباعة).
+Hit rate,نسبة النجاح
+Hours by person,الساعات حسب الشخص
+Hours by project,الساعات حسب المشروع
+How long they wait,مدة الانتظار
+In transit,قيد النقل
+Inactive,غير نشط
+Income and purchases,الإيرادات والمشتريات
+Inspections per month,الفحوصات شهريًا
+Inspections · 60 days,الفحوصات · 60 يومًا
+Interim payment certificates,المستخلصات
+Invoices of the last 6 months,فواتير آخر 6 أشهر
+LCs and guarantees,الاعتمادات المستندية والضمانات
+Labour & overheads,العمالة والمصاريف غير المباشرة
+Landing charges per shipment,رسوم الوصول لكل شحنة
+Last 14 days,آخر 14 يومًا
+Last 30 days,آخر 30 يومًا
+Last 6 months,آخر 6 أشهر
+Last 6 months · each in its own currency,آخر 6 أشهر · كلٌّ بعملته
+Last 6 months · in {0},آخر 6 أشهر · بعملة {0}
+Last 6 months · net · {0},آخر 6 أشهر · صافي · {0}
+Last 6 months · {0},آخر 6 أشهر · {0}
+Last 7 days,آخر 7 أيام
+Last {0} shipments,آخر {0} شحنات
+Late from suppliers,متأخرة من الموردين
+Late or at risk,متأخرة أو معرّضة للخطر
+Latest first,الأحدث أولًا
+Latest · {0},الأحدث · {0}
+Leads · {0} value,العملاء المحتملون · القيمة {0}
+Leave taken,الإجازات المأخوذة
+Licences expiring,تراخيص تقارب الانتهاء
+Light or dark,فاتح أو داكن
+Load by workstation,الحمل حسب محطة العمل
+Low stock · {0} on hand,مخزون منخفض · المتوفر {0}
+Manpower on site,العمالة في الموقع
+Margin after purchases,الهامش بعد المشتريات
+Menu changes,تغييرات القوائم
+Menu changes saved,تم حفظ تغييرات القوائم
+Menu items per group,عناصر القائمة لكل مجموعة
+Messages per day,الرسائل يوميًا
+Needed for zero-rated VAT,مطلوب لضريبة نسبة الصفر
+Needed {0},مطلوب {0}
+Negot.,تفاوض
+Net VAT per return,صافي الضريبة لكل إقرار
+Net of retention · {0},بعد خصم المحتجزات · {0}
+Net pay,صافي الراتب
+Net pay · {0},صافي الراتب · {0}
+Net sales · {0},صافي المبيعات · {0}
+Net · last 6 months · {0},صافي · آخر 6 أشهر · {0}
+Next deadlines,المواعيد النهائية القادمة
+No follow-ups due,لا متابعات مستحقة
+No late orders,لا طلبات متأخرة
+No licences expiring,لا تراخيص تقارب الانتهاء
+No project,بدون مشروع
+No rejections,لا مرفوضات
+Not past the delivery date,لم يتجاوز تاريخ التسليم
+Not yet ordered,لم يُطلب بعد
+Not yet submitted,لم يُعتمد بعد
+Notes on records,ملاحظات على السجلات
+Nothing at port,لا شيء في الميناء
+Nothing due,لا شيء مستحق
+Nothing expiring,لا شيء يقارب الانتهاء
+Nothing in progress,لا شيء قيد التنفيذ
+Nothing late,لا شيء متأخر
+Nothing needs attention,لا شيء يحتاج إلى انتباه
+Nothing overdue,لا شيء متأخر السداد
+Nothing running late,لا شيء متأخر عن الجدول
+Nothing short,لا نقص
+Nothing to approve,لا شيء للاعتماد
+Of all active parties,من جميع الأطراف النشطة
+Of all scripts,من جميع سيناريوهات الاختبار
+Oldest first,الأقدم أولًا
+On,مفعّل
+On and off,مفعّل ومعطّل
+On the floor now,قيد التصنيع الآن
+On time,في الموعد
+Open LCs · {0},الاعتمادات المستندية المفتوحة · {0}
+Open insights,الرؤى المفتوحة
+Open job cards · units,بطاقات العمل المفتوحة · الوحدات
+Open orders customers can track,طلبات مفتوحة يتتبعها العملاء
+Open quantity by item,الكمية المفتوحة حسب الصنف
+Optional — the main chart colour. Leave empty for the Hipersign blue.,اختياري — اللون الرئيسي للرسوم البيانية. اتركه فارغًا لاستخدام أزرق Hipersign.
+Order value by subcontractor,قيمة الطلبات حسب مقاول الباطن
+Ordered more than in stock,المطلوب أكثر من المخزون
+Orders,الطلبات
+Orders and delivery notes,الطلبات وإشعارات التسليم
+Orders booked,الطلبات المسجّلة
+Orders by status,الطلبات حسب الحالة
+Orders still to receive,طلبات بانتظار الاستلام
+Output VAT,ضريبة المخرجات
+Output against plan,الإنتاج مقابل الخطة
+Output and input VAT,ضريبة المخرجات والمدخلات
+Over a week,أكثر من أسبوع
+Own,خاص
+Passed by area,الناجح حسب المجال
+Past due date,تجاوز تاريخ الاستحقاق
+Past the delivery date,تجاوز تاريخ التسليم
+Past the planned end,تجاوز تاريخ الانتهاء المخطط
+Past the required date,تجاوز التاريخ المطلوب
+Payable · {0},المستحق الدفع · {0}
+Payments · last 6 months,المدفوعات · آخر 6 أشهر
+People by department,الموظفون حسب القسم
+Pipeline by stage,المسار حسب المرحلة
+Planned end {0} · {1}% done,الانتهاء المخطط {0} · منجز {1}%
+Planned load,الحمل المخطط
+Projects by status,المشاريع حسب الحالة
+Proof of export due,إثبات التصدير المستحق
+Prop.,عرض
+Purchase orders · last 6 months,أوامر الشراء · آخر 6 أشهر
+Purchases & expenses,المشتريات والمصروفات
+Qualif.,مؤهل
+Quotation win rate,نسبة الفوز بعروض الأسعار
+Quotes open,عروض الأسعار المفتوحة
+Receipts,الاستلامات
+Receipts per month,الاستلامات شهريًا
+Received by supplier,المستلم حسب المورد
+Registrations due,تسجيلات مستحقة
+Rejected lately,المرفوض مؤخرًا
+Required {0} · {1}% received,مطلوب {0} · تم استلام {1}%
+Reset my chart types,إعادة تعيين أنواع الرسوم البيانية
+Returns to file,إقرارات للتقديم
+Revenue against AED 3M,الإيرادات مقابل 3 ملايين AED
+Revenue this year by company,إيرادات هذا العام حسب الشركة
+Running late,متأخر عن الجدول
+Sales and purchases,المبيعات والمشتريات
+Sales by company,المبيعات حسب الشركة
+Sales by destination,المبيعات حسب الوجهة
+Sales by month,المبيعات حسب الشهر
+Saved changes,التغييرات المحفوظة
+Saved per month,المحفوظ شهريًا
+Scripts passed,سيناريوهات الاختبار الناجحة
+Short against orders,نقص مقابل الطلبات
+Site material requests,طلبات مواد الموقع
+"Site, company and role menus",قوائم الموقع والشركة والدور
+Small business relief,إعفاء الأعمال الصغيرة
+Soft,ناعم
+Spend by currency,الإنفاق حسب العملة
+Spending ahead of progress,الإنفاق يسبق الإنجاز
+Stock health,صحة المخزون
+Submitted inspections · 6 months,الفحوصات المعتمدة · 6 أشهر
+Switch to dark,التبديل إلى الداكن
+Switch to light,التبديل إلى الفاتح
+Switched on,مفعّل
+Switched on for this site,مفعّل لهذا الموقع
+Table,جدول
+Team notes,ملاحظات الفريق
+Tenders,المناقصات
+Tenders due,مناقصات مستحقة
+Test results,نتائج الاختبار
+To receive,بانتظار الاستلام
+To start,للبدء
+Top customers · net sales by month,أهم العملاء · صافي المبيعات حسب الشهر
+Units due · next 14 days,الوحدات المستحقة · الـ 14 يومًا القادمة
+Units still to make,وحدات متبقية للتصنيع
+Unread notifications,إشعارات غير مقروءة
+Value by status · {0},القيمة حسب الحالة · {0}
+Value produced,القيمة المنتجة
+Value remaining,القيمة المتبقية
+Vehicles and equipment · 60 days,المركبات والمعدات · 60 يومًا
+View as,العرض كـ
+"View as another demo user — see their menus, pages and permissions",العرض كمستخدم تجريبي آخر — شاهد قوائمه وصفحاته وصلاحياته
+View as: {0},العرض كـ: {0}
+Visible to them in the portal · {0},مرئي لهم في البوابة · {0}
+Waiting approval,بانتظار الاعتماد
+Waiting by type,الانتظار حسب النوع
+Waiting for material,بانتظار المواد
+Waiting for you,بانتظارك
+What customers owe,مستحقات العملاء
+Where landing costs go,توزيع تكاليف الوصول
+Where leads come from,مصادر العملاء المحتملين
+Where production cost goes,توزيع تكلفة الإنتاج
+Where the containers are,مواقع الحاويات
+Who buys when,من يشتري ومتى
+Win rate {0},نسبة الفوز {0}
+With routings,بمسارات تصنيع
+Within 30 days or expired,خلال 30 يومًا أو منتهية
+Within 60 days,خلال 60 يومًا
+Work in progress,قيد التنفيذ
+"You are viewing as <b>{0}</b>{1} — their menus, pages and permissions.",أنت تعرض كـ <b>{0}</b>{1} — قوائمه وصفحاته وصلاحياته.
+cards,بطاقات
+changes,تغييرات
+changes saved — every menu is the standard one,تغييرات محفوظة — جميع القوائم قياسية
+containers,حاويات
+documents,مستندات
+due · {0} open,مستحق · {0} مفتوح
+entries,قيود
+features,ميزات
+features on,ميزات مفعّلة
+have a routing,لها مسار تصنيع
+in 30 days,خلال 30 يومًا
+in progress,قيد التنفيذ
+items,أصناف
+messages,رسائل
+on {0} goods,على بضائع بقيمة {0}
+open,مفتوح
+parties,أطراف
+plans,خطط
+rejected,مرفوض
+requests,طلبات
+returns,إقرارات
+scripts,سيناريوهات
+shipments,شحنات
+subcontractors,مقاولو باطن
+timesheets,سجلات دوام
+to act on,بانتظار إجراء
+to approve,بانتظار الاعتماد
+to renew,للتجديد
+unread,غير مقروء
+variations,أوامر تغيير
+waiting,بالانتظار
+{0} BOQs,{0} جداول كميات
+{0} IPCs,{0} مستخلصات
+{0} LCs,{0} اعتمادات مستندية
+{0} accepted of {1},{0} مقبول من {1}
+{0} active,{0} نشط
+{0} approvals,{0} موافقات
+{0} approved orders,{0} طلبات معتمدة
+{0} book value,القيمة الدفترية {0}
+{0} claims,{0} مطالبات
+{0} h · from {1},{0} س · من {1}
+{0} in total,{0} إجمالًا
+{0} income,إيرادات {0}
+{0} leads · pipeline {1},{0} عملاء محتملون · المسار {1}
+{0} of {1} units,{0} من {1} وحدة
+{0} on file,{0} محفوظة
+{0} passed,{0} ناجح
+{0} projects,{0} مشاريع
+{0} running late,{0} متأخر عن الجدول
+{0} scripts,{0} سيناريوهات
+{0} shipments,{0} شحنات
+{0} so far this year,{0} منذ بداية العام
+{0} still to collect,{0} متبقٍ للتحصيل
+{0} waiting over 2 days,{0} بانتظار أكثر من يومين
+{0} won of {1},{0} فوز من {1}
+{0} · expires {1},{0} · ينتهي {1}
+{0} · licence {1},{0} · الرخصة {1}
+{0} · period to {1},{0} · الفترة حتى {1}
+{0}% done · {1} spent,منجز {0}% · مصروف {1}
+· we owe {0},· علينا {0}
+Active projects · % complete,المشاريع النشطة · % الإنجاز
+Cost above budget × % done,التكلفة فوق الميزانية × % الإنجاز
