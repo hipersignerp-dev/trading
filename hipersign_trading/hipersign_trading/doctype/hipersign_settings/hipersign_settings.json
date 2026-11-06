@@ -129,7 +129,7 @@
   "desk_theme",
   "chart_style",
   "chart_brand_colour",
-  "graph_bands",
+  "hide_graph_bands",
   "sb_menus",
   "only_hipersign_tiles",
   "cb_menus",
@@ -996,11 +996,11 @@
    "description": "Optional — the main chart colour. Leave empty for the Hipersign blue."
   },
   {
-   "fieldname": "graph_bands",
+   "fieldname": "hide_graph_bands",
    "fieldtype": "Check",
-   "label": "Show graphs at the top of every page",
-   "default": "1",
-   "description": "2–3 graphs from the page's own records above the KPI cards (Messages, CRM, Quotations & Orders, Imports, Finance…). Each user can switch a chart between bars, line, area and table on the chart itself."
+   "label": "Hide the graphs at the top of pages",
+   "default": "0",
+   "description": "By default every page opens with 2–3 graphs from its own records above the KPI cards (Messages, CRM, Quotations & Orders, Imports, Finance…). Each user can switch a chart between bars, line, area and table on the chart itself."
   },
   {
    "fieldname": "sb_menus",

@@ -15,7 +15,7 @@ def boot_look():
 	return {
 		"chart_style": STYLES.get(s.get("chart_style") or "Hipersign", "hip"),
 		"brand_colour": s.get("chart_brand_colour") or None,
-		"bands": 0 if s.get("graph_bands") == 0 else 1,
+		"bands": 0 if s.get("hide_graph_bands") else 1,
 	}
 
 

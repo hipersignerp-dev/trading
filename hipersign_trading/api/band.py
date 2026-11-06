@@ -67,6 +67,29 @@ def _scope():
 	return cos, getdate(start), getdate(end), label, cur or "AED"
 
 
+def _pscope():
+	"""Projects pages: the scope's companies when they have projects, else every project the user may read (as module_prj)."""
+	cos, start, end, label, cur = _scope()
+	if cos and _can("Project") and not frappe.get_list("Project", filters={"company": ["in", cos]}, fields=["name"], limit_page_length=1):
+		pr = frappe.get_list("Project", fields=["company"], limit_page_length=1)
+		cur = frappe.get_cached_value("Company", pr[0].company, "default_currency") if pr and pr[0].company else cur
+		cos = []
+	return cos, start, end, label, cur or "AED"
+
+
+def _mscope():
+	"""Manufacturing pages: the manufacturing companies of the scope (as module_mfg)."""
+	from hipersign_trading.api import manufacturing as M
+
+	cos, start, end, label, cur = _scope()
+	mc = M.companies(cos) or []
+	try:
+		cur = M.currency(mc) or cur
+	except Exception:
+		pass
+	return mc or [""], start, end, label, cur or "AED"
+
+
 def _months(n=6):
 	t = getdate(today())
 	out = []
@@ -343,7 +366,6 @@ def b_addons():
 
 
 def b_menu():
-	rows = _rows("Hipersign Menu Override", {}, ["name", "modified"], 200) if _exists("Hipersign Menu Override") else []
 	logs = _rows("Hipersign Menu Log", {}, ["creation", "owner"], 500) if _exists("Hipersign Menu Log") else []
 	out = []
 	if logs:
@@ -352,7 +374,17 @@ def b_menu():
 			return W_trend(_("Menu changes"), _("Saved per month"), lb, [{"name": _("Changes"), "data": d, "color": "violet"}])
 		out.append(per_month)
 		out.append(lambda: W_bars(_("Changed by"), _("Saved changes"), _bars_rows(_cnt(logs, lambda r: frappe.utils.get_fullname(r.owner))), icon="users"))
-	out.append(lambda: W_gauge(_("Custom menus"), _("Site, company and role menus"), min(1, len(rows) / 10), str(len(rows)), _("saved menus"), icon="menu"))
+	def groups():
+		from hipersign_trading.navigation import nav_groups
+
+		g = nav_groups()
+		return W_bars(_("Menu items per group"), _("Switched on for this site"), [{"label": _(x["label"]), "value": len(x["items"]), "color": "blue"} for x in g if x["items"]][:8], icon="menu")
+	out.append(groups)
+	ov = _rows("Hipersign Menu Override", {}, ["scope", "visibility"], 2000) if _exists("Hipersign Menu Override") else []
+	if ov:
+		out.append(lambda: W_donut(_("Menu changes saved"), _("By scope"), [{"label": _(k), "value": v} for k, v in _cnt(ov, "scope").items()], len(ov), _("changes"), icon="sliders"))
+	else:
+		out.append(lambda: W_gauge(_("Custom menus"), _("Site, company and role menus"), 0, "0", _("changes saved — every menu is the standard one"), icon="menu"))
 	return out
 
 
@@ -773,7 +805,7 @@ def _projects(cos):
 
 
 def b_pj_home():
-	cos, start, end, label, cur = _scope()
+	cos, start, end, label, cur = _pscope()
 	p = _projects(cos)
 	if not p:
 		return []
@@ -792,7 +824,7 @@ def b_prj_tracker():
 
 
 def b_pj_boq():
-	cos, start, end, label, cur = _scope()
+	cos, start, end, label, cur = _pscope()
 	b = _rows("Project BOQ", _co("Project BOQ", cos), ["name", "title", "status", "tender_value", "margin_pct", "due_date", "client_name"], 500)
 	if not b:
 		return []
@@ -809,7 +841,7 @@ def b_pj_boq():
 
 
 def b_pj_site():
-	cos, start, end, label, cur = _scope()
+	cos, start, end, label, cur = _pscope()
 	ds = _rows("Daily Site Report", _co("Daily Site Report", cos, {"report_date": [">=", add_days(today(), -13)]}), ["project", "report_date", "manpower_own", "manpower_sub"], 1000)
 	mr = _rows("Material Request", _co("Material Request", cos, {"docstatus": ["<", 2], "creation": [">=", add_months(today(), -6)]}), ["name", "status", "schedule_date", "project"], 1000)
 	out = []
@@ -825,7 +857,7 @@ def b_pj_site():
 
 
 def b_pj_bill():
-	cos, start, end, label, cur = _scope()
+	cos, start, end, label, cur = _pscope()
 	pc = _rows("Progress Certificate", _co("Progress Certificate", cos), ["name", "project", "status", "net_amount", "total_due", "retention", "period_to", "certified_on"], 500, "period_to desc")
 	vo = _rows("Variation Order", _co("Variation Order", cos), ["name", "project", "status", "amount", "title"], 500)
 	out = []
@@ -844,7 +876,7 @@ def b_pj_bill():
 
 
 def b_pj_sub():
-	cos, start, end, label, cur = _scope()
+	cos, start, end, label, cur = _pscope()
 	so = _rows("Subcontract Order", _co("Subcontract Order", cos, {"status": ["!=", "Cancelled"]}), ["name", "supplier", "package", "order_value", "status", "behind_programme"], 500)
 	cl = _rows("Subcontract Claim", _co("Subcontract Claim", cos), ["name", "supplier", "status", "net_amount", "claim_date"], 500)
 	out = []
@@ -859,7 +891,7 @@ def b_pj_sub():
 
 
 def b_pj_time():
-	cos, start, end, label, cur = _scope()
+	cos, start, end, label, cur = _pscope()
 	ts = _rows("Timesheet", _co("Timesheet", cos, {"docstatus": ["<", 2], "start_date": [">=", add_days(today(), -60)]}), ["name", "employee_name", "total_hours", "start_date", "docstatus", "parent_project", "total_costing_amount"], 2000)
 	if not ts:
 		return []
@@ -872,7 +904,7 @@ def b_pj_time():
 
 
 def b_pj_cost():
-	cos, start, end, label, cur = _scope()
+	cos, start, end, label, cur = _pscope()
 	p = [x for x in _projects(cos) if x.status == "Open"]
 	if not p:
 		return []
@@ -894,7 +926,7 @@ def _wos(cos):
 
 
 def b_mf_prod():
-	cos, start, end, label, cur = _scope()
+	cos, start, end, label, cur = _mscope()
 	w = _wos(cos)
 	if not w:
 		return []
@@ -920,7 +952,7 @@ def b_prod_tracker():
 
 
 def b_mf_plan():
-	cos, start, end, label, cur = _scope()
+	cos, start, end, label, cur = _mscope()
 	w = [x for x in _wos(cos) if x.status in ("Draft", "Not Started", "In Process")]
 	pp = _rows("Production Plan", _co("Production Plan", cos, {"docstatus": ["<", 2]}), ["name", "status"], 200)
 	out = []
@@ -934,7 +966,7 @@ def b_mf_plan():
 
 
 def b_mf_bom():
-	cos, start, end, label, cur = _scope()
+	cos, start, end, label, cur = _mscope()
 	b = _rows("BOM", _co("BOM", cos, {"docstatus": ["<", 2]}), ["name", "item", "item_name", "is_active", "is_default", "total_cost", "docstatus", "with_operations"], 500)
 	if not b:
 		return []
@@ -948,7 +980,7 @@ def b_mf_bom():
 
 
 def b_mf_floor():
-	cos, start, end, label, cur = _scope()
+	cos, start, end, label, cur = _mscope()
 	jc = _rows("Job Card", _co("Job Card", cos, {"docstatus": ["<", 2], "creation": [">=", add_days(today(), -30)]}), ["name", "workstation", "status", "for_quantity", "total_completed_qty", "operation", "work_order"], 2000)
 	if not jc:
 		return []
@@ -962,7 +994,7 @@ def b_mf_floor():
 
 
 def b_mf_qc():
-	cos, start, end, label, cur = _scope()
+	cos, start, end, label, cur = _mscope()
 	qi = _rows("Quality Inspection", _co("Quality Inspection", cos, {"docstatus": ["<", 2], "report_date": [">=", add_months(today(), -6)]}), ["name", "status", "report_date", "item_name", "item_code", "inspection_type", "docstatus", "reference_name"], 2000)
 	if not qi:
 		return []
@@ -982,7 +1014,7 @@ def b_mf_qc():
 
 
 def b_mf_cost():
-	cos, start, end, label, cur = _scope()
+	cos, start, end, label, cur = _mscope()
 	se = _rows("Stock Entry", _co("Stock Entry", cos, {"docstatus": 1, "purpose": "Manufacture", "posting_date": [">=", _months()[0][0]]}), ["name", "posting_date", "total_outgoing_value", "total_incoming_value", "work_order", "total_additional_costs"], 2000)
 	if not se:
 		return []
