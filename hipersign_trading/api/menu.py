@@ -67,6 +67,15 @@ def _std_labels(groups):
 @frappe.whitelist()
 def get_builder(scope="Site", company=None, role=None):
 	_guard()
+	# v1.8.4 (#28): switching to the Company or Role scope used to send no company / role yet — the server refused and
+	# the page stayed on "Loading…". Start on the user's default company (else the first) and the first role instead.
+	if scope == "Company" and not (company and frappe.db.exists("Company", company)):
+		company = frappe.defaults.get_user_default("Company")
+		if not (company and frappe.db.exists("Company", company)):
+			company = (frappe.get_all("Company", pluck="name", order_by="name", limit=1) or [None])[0]
+	if scope == "Role" and not (role and frappe.db.exists("Role", role)):
+		role = (frappe.get_all("Role", filters={"disabled": 0, "desk_access": 1, "name": ["not in", ["Administrator", "Guest", "All", "Desk User"]]},
+			pluck="name", order_by="name", limit=1) or [None])[0]
 	scope, company, role = _scope(scope, company, role)
 	groups = navigation.nav_groups(check=False)
 	return {
@@ -77,6 +86,8 @@ def get_builder(scope="Site", company=None, role=None):
 		"own": _own(scope, company, role),
 		"inherited": _inherited(scope, company, role),
 		"scope_label": scope_label(scope, company, role),
+		"company": company,
+		"role": role,
 		"companies": frappe.get_all("Company", pluck="name", order_by="name"),
 		"roles": frappe.get_all("Role", filters={"disabled": 0, "desk_access": 1, "name": ["not in", ["Administrator", "Guest", "All", "Desk User"]]},
 			pluck="name", order_by="name"),

@@ -331,3 +331,17 @@ if (hipersign.nav && hipersign.nav.LIST_PAGE) Object.assign(hipersign.nav.LIST_P
 	"Subcontract Order": ["hipersign-subcontract", "sco"], "Subcontract Claim": ["hipersign-subcontract", "claims"], "Back Charge": ["hipersign-subcontract", "bc"],
 	"Daily Site Report": ["hipersign-timesheets", "dsr"],
 });
+
+// v1.8.4: a tracker step's pop-up stays on screen — it flips to the left edge of its step when it would run off the right
+// (or the left in Arabic) and opens above the step near the bottom of the window
+$(document).on("mouseenter focusin", ".hsp-stg", function () {
+	const $p = $(this).children(".hsp-pop");
+	if (!$p.length) return;
+	$p.removeClass("pr hsp-up").css({ left: "", right: "" });
+	const r = this.getBoundingClientRect(), W = 270, vw = window.innerWidth, vh = window.innerHeight, rtl = document.documentElement.dir === "rtl";
+	const roomRight = vw - r.left, roomLeft = r.right;
+	if (!rtl && roomRight < W + 12) $p.addClass("pr");
+	if (rtl && roomLeft < W + 12) $p.css({ left: 0, right: "auto" });
+	const ph = $p.outerHeight() || 220;
+	if (r.bottom + ph + 12 > vh && r.top > ph + 12) $p.addClass("hsp-up");
+});

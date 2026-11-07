@@ -7,7 +7,7 @@ frappe.pages["hipersign-messages"].on_page_load = function (wrapper) {
 	});
 	const st = { box: "all", doctype: "", list: [], types: [], current: null };
 	v.$actions.html(
-		`<button class="btn btn-sm btn-primary hsx-newmsg">${frappe.utils.icon("add", "sm")} ${__("New message on a record")}</button> ` +
+		`<button class="btn btn-sm btn-primary hsx-newmsg">${frappe.utils.icon("add", "sm")} ${__("New message")}</button> ` +
 		ui.seg("box", [["all", __("All")], ["mentions", __("Mentions")], ["mine", __("I'm in")], ["email", __("Email")], ["whatsapp", "WhatsApp"]], st.box) +
 			`<select class="hsx-select hsx-dt"><option value="">${__("All records")}</option></select>`
 	);
@@ -29,7 +29,7 @@ frappe.pages["hipersign-messages"].on_page_load = function (wrapper) {
 				.map((c, i) => `<button class="hsx-conv ${st.current && st.current.doctype === c.doctype && st.current.name === c.name ? "on" : ""}" data-i="${i}">
 				<div class="h"><b>${c.mention ? "● " : ""}${ui.esc(c.title)}</b><span>${ui.esc(ago(c.last.when))}</span></div>
 				<p><b>${ui.esc(c.last.who)}:</b> ${ui.esc(c.last.text)}</p>
-				<div style="display:flex;gap:4px;flex-wrap:wrap">${ui.pill(__(c.doctype), "violet")} ${c.kinds.map(kindPill).join(" ")} <span class="text-muted small">${c.count}</span></div></button>`)
+				<div style="display:flex;gap:4px;flex-wrap:wrap">${ui.pill(c.doctype === "Hipersign Conversation" ? __("Direct message") : __(c.doctype), "violet")} ${c.kinds.map(kindPill).join(" ")} <span class="text-muted small">${c.count}</span></div></button>`)
 				.join("")
 		);
 	}
@@ -44,8 +44,12 @@ frappe.pages["hipersign-messages"].on_page_load = function (wrapper) {
 					<div>${m.html}</div>${m.kind === "system" ? `<div class="small">${ui.esc(ago(m.when))}</div>` : ""}</div>`)
 					.join("")
 			: `<div class="hsx-empty">${__("No messages yet — write the first one.")}</div>`;
-		$thread.html(`<div class="hsx-thread-h"><div><b>${ui.esc(t.title)}</b><div class="text-muted small">${ui.esc(__(t.doctype))} · ${ui.esc(t.name)}</div></div>
-			<button class="btn btn-xs btn-default" data-hs-route='${ui.esc(JSON.stringify(["Form", t.doctype, t.name]))}'>${__("Open record")} →</button></div>
+		// v1.8.4 (#32): a conversation without a record shows its people (and the record it is about, if any)
+		const conv = t.doctype === "Hipersign Conversation";
+		const sub = conv ? (t.people || []).join(", ") : `${__(t.doctype)} · ${t.name}`;
+		const target = conv ? (t.linked ? ["Form", t.linked[0], t.linked[1]] : null) : ["Form", t.doctype, t.name];
+		$thread.html(`<div class="hsx-thread-h"><div><b>${ui.esc(t.title)}</b><div class="text-muted small">${ui.esc(sub)}</div></div>
+			${target ? `<button class="btn btn-xs btn-default" data-hs-route='${ui.esc(JSON.stringify(target))}'>${__("Open record")} →</button>` : ""}</div>
 			<div class="hsx-thread-b">${items}</div>
 			<div class="hsx-thread-f"><div class="hsx-box"></div><div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px">
 			<span class="text-muted small">${__("Type @ to mention a colleague — they get a notification.")}</span><button class="btn btn-sm btn-primary hsx-send">${__("Send")}</button></div></div>`);
@@ -84,31 +88,71 @@ frappe.pages["hipersign-messages"].on_page_load = function (wrapper) {
 			})
 			.finally(() => $btn.prop("disabled", false));
 	});
-	// v1.5.6 (MSG-03): start a conversation on any record
-	v.$actions.on("click", ".hsx-newmsg", function () {
-		const d = new frappe.ui.Dialog({
-			title: __("New message on a record"),
-			fields: [
-				{ fieldtype: "Link", fieldname: "doctype", label: __("Record type"), options: "DocType", reqd: 1,
-					get_query: () => ({ filters: { istable: 0, issingle: 0, name: ["in", ["Sales Order", "Quotation", "Lead", "Customer", "Supplier", "Purchase Order",
-						"Import Shipment", "Export Shipment", "Delivery Note", "Sales Invoice", "Purchase Invoice", "Payment Entry", "Letter of Credit", "Item",
-						"Post Dated Cheque", "Material Request", "Purchase Receipt", "Employee", "Asset", "Tax Return", "Warranty Claim"]] } }) },
-				{ fieldtype: "Dynamic Link", fieldname: "name", label: __("Record"), options: "doctype", reqd: 1 },
-				// v1.7.3: a Comment control cannot start inside a dialog in Frappe 16 ("Invalid Quill container"); the text editor can, with @mentions
-				{ fieldtype: "Text Editor", fieldname: "text", label: __("Message"), enable_mentions: 1, reqd: 1 },
-			],
-			primary_action_label: __("Send"),
-			primary_action(val) {
-				if (!val.text || !strip_html(val.text).trim()) return;
-				frappe.xcall("hipersign_trading.api.messages.post", { doctype: val.doctype, name: val.name, text: val.text }).then((t) => {
-					d.hide();
-					render_thread(t);
-					load(true);
-				});
-			},
+	// v1.8.4 (#32, #33): New message — pick people and write; a record is optional. The prototype's create-window look
+	// (hipersign.cm.shell) with one search across records instead of Frappe's "Record type" dialog.
+	v.$actions.on("click", ".hsx-newmsg", () => new_message());
+	function new_message(preset) {
+		const esc = ui.esc, ns = { people: [], record: preset || null };
+		const sh = hipersign.cm.shell({ title: __("New message"), sub: __("Write to colleagues. Linking a record is optional — the message is then kept on that record.") });
+		sh.$ov.addClass("hsx-nm");
+		sh.$body.html(`<div class="hsc-grid">
+			<div class="hsc-f hsc-w2"><label>${esc(__("To"))}</label><div class="hsx-nm-chips hsx-nm-people"></div>
+				<input type="text" class="hsx-nm-pq" placeholder="${esc(__("Type a name…"))}" autocomplete="off"><div class="hsx-nm-res hsx-nm-pres"></div></div>
+			<div class="hsc-f hsc-w2"><label>${esc(__("About a record"))} <small class="text-muted">${esc(__("optional"))}</small></label><div class="hsx-nm-rec"></div>
+				<input type="text" class="hsx-nm-rq" placeholder="${esc(__("Search an order, invoice, shipment, customer, item… by number or name"))}" autocomplete="off"><div class="hsx-nm-res hsx-nm-rres"></div></div>
+			<div class="hsc-f hsc-w2"><label>${esc(__("Message"))}</label><textarea class="hsx-nm-text" rows="5" placeholder="${esc(__("Write a message…"))}"></textarea>
+				<small>${esc(__("The people you pick get a notification."))}</small></div></div>`);
+		sh.$fr.html(`<button type="button" class="btn btn-default hsx-nm-cancel">${esc(__("Cancel"))}</button> <button type="button" class="btn btn-primary hsx-nm-send">${esc(__("Send"))}</button>`);
+		const $b = sh.$body;
+		const drawPeople = () => $b.find(".hsx-nm-people").html(ns.people.map((p, i) => `<span class="hsx-nm-chip">${esc(p.name)}<button type="button" data-i="${i}" aria-label="${esc(__("Remove"))}">×</button></span>`).join(""));
+		const drawRec = () => {
+			const r = ns.record;
+			$b.find(".hsx-nm-rec").html(r ? `<span class="hsx-nm-chip rec">${frappe.utils.icon(r.icon || "file", "sm")} <b>${esc(r.label || __(r.doctype))}</b> ${esc(r.title || r.name)}${r.title && r.title !== r.name ? ` <small>${esc(r.name)}</small>` : ""}<button type="button" class="hsx-nm-unrec" aria-label="${esc(__("Remove"))}">×</button></span>` : "");
+			$b.find(".hsx-nm-rq").toggle(!r);
+		};
+		const searchPeople = frappe.utils.debounce((q) => frappe.xcall("hipersign_trading.api.messages.search_people", { txt: q }).then((rows) => {
+			rows = rows.filter((r) => !ns.people.some((p) => p.user === r.user));
+			$b.find(".hsx-nm-pres").html(rows.map((r) => `<button type="button" class="hsx-nm-opt" data-u="${esc(r.user)}" data-n="${esc(r.name)}">${frappe.avatar(r.user, "avatar-xs")}<span>${esc(r.name)}<small>${esc(r.user)}</small></span></button>`).join("")).show();
+		}), 200);
+		const searchRec = frappe.utils.debounce((q) => frappe.xcall("hipersign_trading.api.messages.search_records", { txt: q }).then((rows) => {
+			$b.find(".hsx-nm-rres").data("rows", rows).html(rows.length ? rows.map((r, i) => `<button type="button" class="hsx-nm-opt" data-i="${i}">${frappe.utils.icon(r.icon || "file", "sm")}<span><b>${esc(r.title)}</b>${r.title !== r.name ? ` · ${esc(r.name)}` : ""}<small>${esc(r.label)}${r.sub ? " · " + esc(r.sub) : ""}</small></span></button>`).join("")
+				: `<div class="hsx-nm-none">${esc(__("Nothing found"))}</div>`).show();
+		}), 250);
+		$b.on("click input", ".hsx-nm-pq", function () { searchPeople($(this).val()); });
+		$b.on("click input", ".hsx-nm-rq", function () { searchRec($(this).val()); });
+		$b.on("mousedown", ".hsx-nm-pres .hsx-nm-opt", function (e) {
+			e.preventDefault();
+			ns.people.push({ user: $(this).attr("data-u"), name: $(this).attr("data-n") });
+			drawPeople(); $b.find(".hsx-nm-pres").hide(); $b.find(".hsx-nm-pq").val("").trigger("focus");
 		});
-		d.show();
-	});
+		$b.on("mousedown", ".hsx-nm-rres .hsx-nm-opt", function (e) {
+			e.preventDefault();
+			ns.record = ($b.find(".hsx-nm-rres").data("rows") || [])[cint($(this).attr("data-i"))];
+			$b.find(".hsx-nm-rres").hide(); drawRec();
+		});
+		$b.on("click", ".hsx-nm-people button", function () { ns.people.splice(cint($(this).attr("data-i")), 1); drawPeople(); });
+		$b.on("click", ".hsx-nm-unrec", () => { ns.record = null; drawRec(); $b.find(".hsx-nm-rq").val("").trigger("focus"); });
+		$b.on("blur", ".hsx-nm-pq, .hsx-nm-rq", function () { setTimeout(() => $(this).siblings(".hsx-nm-res").hide(), 150); });
+		$b.on("keydown", ".hsx-nm-pq", function (e) {
+			if (e.key === "Backspace" && !$(this).val() && ns.people.length) { ns.people.pop(); drawPeople(); }
+		});
+		sh.$fr.on("click", ".hsx-nm-cancel", () => sh.close());
+		sh.$fr.on("click", ".hsx-nm-send", function () {
+			const text = ($b.find(".hsx-nm-text").val() || "").trim();
+			if (!text) return frappe.show_alert({ message: __("Write a message first"), indicator: "orange" });
+			if (!ns.people.length && !ns.record) return frappe.show_alert({ message: __("Pick at least one person, or a record to write on"), indicator: "orange" });
+			const $btn = $(this).prop("disabled", true);
+			frappe.xcall("hipersign_trading.api.messages.start", { text, people: JSON.stringify(ns.people.map((p) => p.user)),
+				doctype: ns.record ? ns.record.doctype : null, name: ns.record ? ns.record.name : null }).then((t) => {
+				sh.close();
+				render_thread(t);
+				load(true);
+				frappe.show_alert({ message: __("Message sent"), indicator: "green" });
+			}).finally(() => $btn.prop("disabled", false));
+		});
+		drawPeople(); drawRec();
+		setTimeout(() => $b.find(".hsx-nm-pq").trigger("focus"), 50);
+	}
 	v.$actions.on("click", "[data-seg=box] button", function () {
 		st.box = $(this).attr("data-v");
 		$(this).addClass("on").siblings().removeClass("on");

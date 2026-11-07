@@ -370,11 +370,11 @@ def customer(doc):
 				rows=[[link("Quotation", x.name), d(x.transaction_date), money(x.grand_total, x.currency), pill(x.status)] for x in q]))
 	if frappe.has_permission("Sales Invoice"):
 		inv = frappe.get_all("Sales Invoice", filters={"customer": doc.name, "docstatus": 1, "outstanding_amount": ["!=", 0]},
-			fields=["name", "due_date", "outstanding_amount", "currency"], order_by="due_date asc", limit=10)
+			fields=["name", "due_date", "outstanding_amount", "currency", "party_account_currency"], order_by="due_date asc", limit=10)
 		if inv:
 			p["sections"].append(section("Open invoices", kind="table", cols=["Invoice", "Due", "Outstanding"],
 				rows=[[link("Sales Invoice", x.name), {"pill": d(x.due_date), "tone": "red"} if x.due_date and getdate(x.due_date) < getdate(today()) else d(x.due_date),
-					money(x.outstanding_amount, x.currency)] for x in inv]))
+					money(x.outstanding_amount, x.party_account_currency or x.currency)] for x in inv]))  # v1.8.4: account currency
 	if frappe.has_permission("Sales Order"):
 		so = frappe.get_all("Sales Order", filters={"customer": doc.name, "docstatus": ["<", 2]}, fields=["name", "transaction_date", "status", "grand_total", "currency"],
 			order_by="transaction_date desc", limit=8)
@@ -411,7 +411,7 @@ def sales_invoice(doc):
 		section("Totals", kv(("Net total", money(doc.net_total, doc.currency)), ("VAT", money(doc.total_taxes_and_charges, doc.currency)),
 			("Grand total", money(doc.rounded_total or doc.grand_total, doc.currency)), ("In words", doc.get("in_words")),
 			("Paid", money(paid, doc.currency) if doc.docstatus == 1 and not ret else ""),
-			("Outstanding", money(doc.outstanding_amount, doc.currency) if doc.docstatus == 1 else ""))),
+			("Outstanding", money(doc.outstanding_amount, doc.get("party_account_currency") or doc.currency) if doc.docstatus == 1 else ""))),
 	]
 	pays = frappe.db.sql("""select pe.name, pe.posting_date, pe.mode_of_payment, r.allocated_amount from `tabPayment Entry Reference` r
 		join `tabPayment Entry` pe on pe.name = r.parent where r.reference_doctype = 'Sales Invoice' and r.reference_name = %s and pe.docstatus = 1
@@ -597,7 +597,7 @@ def supplier(doc):
 			rows=[[link("Purchase Order", r.name), d(r.transaction_date), d(r.schedule_date), money(r.grand_total, r.currency), bar(r.per_received), pill(r.status)] for r in open_po]))
 	if bills:
 		p["sections"].append(section("Bills to pay", kind="table", cols=["Bill", "Supplier ref", "Due", "Outstanding"],
-			rows=[[link("Purchase Invoice", b.name), b.bill_no or "", d(b.due_date), money(b.outstanding_amount, b.currency)] for b in bills]))
+			rows=[[link("Purchase Invoice", b.name), b.bill_no or "", d(b.due_date), money(b.outstanding_amount, b.party_account_currency or b.currency)] for b in bills]))
 	acts = []
 	if p["can_edit"]:
 		acts.append(act("Edit", route=["Form", "Supplier", doc.name]))
@@ -789,9 +789,10 @@ BUILDERS = {"Lead": lead, "Quotation": quotation, "Sales Order": sales_order, "C
 # ---------------------------------------------------------------- API
 @frappe.whitelist()
 def get_panel(doctype, name):
-	from hipersign_trading.api import panel_mfg, panel_more, panel_projects
+	from hipersign_trading.api import panel_generic, panel_mfg, panel_more, panel_projects
 
-	builders = {**BUILDERS, **panel_more.BUILDERS, **panel_projects.BUILDERS, **panel_mfg.BUILDERS}
+	# v1.8.4: masters and rarer documents get the generic panel (their own builders, where they exist, come after and win)
+	builders = {**panel_generic.BUILDERS, **BUILDERS, **panel_more.BUILDERS, **panel_projects.BUILDERS, **panel_mfg.BUILDERS}
 	if doctype not in builders:
 		frappe.throw(_("No panel for {0}").format(doctype))
 	doc = frappe.get_doc(doctype, name)

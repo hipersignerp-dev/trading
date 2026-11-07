@@ -256,3 +256,6 @@ body.hp-open .hp-backdrop { display: block; }
 	.hsm-row.hsm-head .hsm-ins { display: none; }
 	.hsm-add { grid-template-columns: 1fr; }
 }
+
+/* v1.8.4: a forecast / memo row in a table (not in the totals) */
+.hsx-muted-row td { color: var(--x-muted); font-style: italic; }

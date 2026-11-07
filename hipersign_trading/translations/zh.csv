@@ -5414,3 +5414,139 @@ Your licence allows {0} users and {1} are in use. Disable a user or ask Hipersig
 in use of the licence,已使用的许可额度
 no limit set,未设置上限
 "{0} counted · portal customers, driver-only logins and super admins are not counted",已计入 {0} 个 · 门户客户、仅司机账号和超级管理员不计入
+ · forecasts planned once confirmed: {0}, · 确认后计划的预测：{0}
++{0} earlier · loss {1},+{0} 较早 · 损耗 {1}
+About a record,关于某条记录
+Add to favourites,加入收藏
+Against an order: blank = the advance still due on it,针对订单：留空 = 该订单仍应收的预付款
+Against sales order,针对销售订单
+Asked by,申请人
+"Asked for, not yet decided",已申请，尚未决定
+Back to whole site,返回整个站点
+Billing a subcontract claim,开具分包索款账单
+Blocking,阻止
+"Business pack and features, company defaults, numbering and the Hipersign look.",业务套件与功能、公司默认值、编号规则和 Hipersign 外观。
+Changed,变更时间
+"Chart style, brand colour, ERP theme and the graphs at the top of pages.",图表样式、品牌色、ERP 主题以及页面顶部的图表。
+Checks,检查
+Created,创建时间
+Default workstation,默认工作站
+Direct message,私信
+Done by,执行人
+"Every report you can open, by area. Star the ones you use most; they stay at the top.",按领域列出你可打开的所有报表。为常用报表加星，它们将固定在顶部。
+Exceptions waiting,待处理例外
+Favourites,收藏
+"Features, look and menus, approval rules and workflows, document rules, lists and users — everything an administrator sets, in one place.",功能、外观和菜单、审批规则和工作流、单据规则、列表和用户 — 管理员的所有设置集中一处。
+Forecasts waiting to be confirmed: {0},待确认的预测：{0}
+From and To must be different stores.,来源和目标必须是不同的仓库。
+Hipersign Conversation,Hipersign 会话
+Inspection templates,检验模板
+Item / serial,物料 / 序列号
+Job card paused,工序卡已暂停
+"Language, time zone, date and number format, password policy.",语言、时区、日期和数字格式、密码策略。
+Line {0}: the quantity cannot be negative ({1}). Type the quantity as a positive number; returns have their own window.,第 {0} 行：数量不能为负（{1}）。请输入正数；退货有单独的窗口。
+Linked record,关联记录
+Linked record type,关联记录类型
+Local and overseas suppliers with currency and terms.,本地和海外供应商，含币种和条款。
+"Logins, one per line",登录账号，每行一个
+"Logins, roles and which companies each person sees.",登录账号、角色以及每人可见的公司。
+Low or short ({0}),偏低或短缺（{0}）
+Message sent,消息已发送
+"Money received before the invoice — against a sales order, or kept on the customer and applied to an invoice later",开票前收到的款项 — 针对销售订单，或挂在客户名下，之后再核销到发票
+"Move your data in, in this order: masters first, then opening stock and balances. Each step gives a template to fill, checks it and imports it.",按此顺序导入数据：先主数据，再期初库存和余额。每一步提供模板，填写后校验并导入。
+"Names, contacts, TRN, credit limits and payment terms.",名称、联系人、税号、信用额度和付款条件。
+Negative quantity,负数量
+New exception,新建例外
+New message,新消息
+Next charge {0} on {1},下次扣费 {0}，日期 {1}
+No document rules.,暂无单据规则。
+No exceptions.,暂无例外。
+No imports yet.,暂无导入记录。
+No inspection templates.,暂无检验模板。
+No operations.,暂无工序。
+No opportunities.,暂无商机。
+No payments.,暂无付款。
+No pick lists.,暂无拣货单。
+No report matches.,没有匹配的报表。
+No routings.,暂无工艺路线。
+No steps recorded yet.,尚未记录步骤。
+No warranty claims.,暂无保修索赔。
+Nothing found,未找到
+Nothing missing — every record has its documents.,无缺失 — 每条记录都有其单据。
+On hand {0} · reserved {1},现有 {0} · 已预留 {1}
+Open invoices and bills due — not in the totals,到期的未结发票和账单 — 不计入合计
+Opening balances,期初余额
+Paused — tap Start to resume before recording quantities or scrap.,已暂停 — 点击开始恢复后再记录数量或报废。
+Paying a subcontract claim,支付分包索款
+"Pick at least one person, or a record to write on",请至少选择一人，或选择要留言的记录
+Pick lists,拣货单
+"Prepared test scripts per role, with results.",按角色准备的测试脚本及结果。
+Prices,价格
+"Products with codes, units, groups, HS codes and reorder levels.",产品，含编码、单位、分组、HS 编码和再订货水平。
+Quantity and valuation per item and warehouse on your start date.,启用日期时每个物料和仓库的数量与估值。
+Receive customer advance,收取客户预付款
+Recent imports,最近导入
+Record advance,记录预付款
+Recording the client's decision on a variation,记录客户对变更的决定
+Remove from favourites,取消收藏
+"Rename, hide or reorder menu entries per company, role or site.",按公司、角色或站点重命名、隐藏或重新排序菜单项。
+Reported,报告时间
+Reports,报表
+Required or blocking documents,必需或阻止性单据
+Resolved,已解决
+Routings & operations,工艺路线与工序
+"Search an order, invoice, shipment, customer, item… by number or name",按编号或名称搜索订单、发票、货运、客户、物料…
+Search reports…,搜索报表…
+Selling and buying price lists.,销售和采购价格表。
+"Set in Press › Site › Config as hipersign_super_admins (a list of logins). When it is set, only those logins are super admins — Administrator too becomes an ordinary admin. The client cannot change this from the ERP.",在 Press › Site › Config 中设置为 hipersign_super_admins（登录账号列表）。设置后只有这些账号是超级管理员 — Administrator 也变为普通管理员。客户无法在 ERP 中更改此设置。
+Short {0},短缺 {0}
+"Staff with joining date, department, visa and labour card details.",员工，含入职日期、部门、签证和劳工卡信息。
+Start import,开始导入
+Started,开始时间
+Step log,步骤日志
+Stop the record being submitted,阻止提交该记录
+System settings,系统设置
+Template,模板
+"The drop-down values your team can change: lead sources, reasons, document types…",团队可修改的下拉选项值：线索来源、原因、单据类型…
+The job card's process loss counts the scrap of the operations before this one too,工序卡的工艺损耗也计入此前各工序的报废
+The menu could not be loaded for this scope.,无法加载此范围的菜单。
+The menu could not be loaded.,无法加载菜单。
+The people you pick get a notification.,你选择的人员会收到通知。
+"Trial balance on the start date: bank, fixed assets, loans, capital.",启用日期的试算平衡：银行、固定资产、贷款、资本。
+Try again,重试
+Type a name…,输入姓名…
+Unknown report,未知报表
+Unpaid customer and supplier invoices on the start date.,启用日期未付的客户和供应商发票。
+Valid to must be on or after Valid from,有效期至必须不早于生效日期
+Variation {0} added to the contract by {1},{1} 已将变更 {0} 加入合同
+Warehouse {0} not found,未找到仓库 {0}
+Warranty claims,保修索赔
+"Which documents a record needs before it can be submitted (trade licence, VAT certificate…).",记录提交前需要哪些单据（营业执照、增值税证书…）。
+"Which records still miss a required document (trade licence, VAT certificate, packing list…), the exceptions asked for, and the rules behind them.",哪些记录仍缺少必需单据（营业执照、增值税证书、装箱单…）、已申请的例外，以及对应的规则。
+"Who approves quotations, orders, purchase orders and payments, and at which amounts.",谁审批报价单、订单、采购订单和付款，以及对应金额。
+Write to colleagues. Linking a record is optional — the message is then kept on that record.,给同事发消息。关联记录为可选 — 关联后消息将保存在该记录上。
+You do not have access to this list.,你无权访问此列表。
+active,启用
+desk users,桌面用户
+fully planned,已全部计划
+optional,可选
+rules,条规则
+see the error log,请查看错误日志
+type the quantity returned on each line,在每行输入退货数量
+v1.8.4: a message thread that is not on a record (Messages › New message). Only its people can open it.,v1.8.4：不关联记录的消息会话（消息 › 新消息）。仅其成员可打开。
+values,个值
+{0} has no routing operations — release it with a BOM that has a routing.,{0} 没有工艺路线工序 — 请使用带工艺路线的物料清单下达。
+{0} is an order of {1}.,{0} 是 {1} 的订单。
+"{0} is approved, but the contract sales order could not be updated: {1}",{0} 已批准，但无法更新合同销售订单：{1}
+{0} is not a store of {1}.,{0} 不是 {1} 的仓库。
+"{0} is paused — tap Start to resume it, then record the quantity.",{0} 已暂停 — 点击开始恢复，然后记录数量。
+"{0} is paused — tap Start to resume it, then record the scrap.",{0} 已暂停 — 点击开始恢复，然后记录报废。
+{0} records,{0} 条记录
+{0} sent you a message,{0} 给你发了一条消息
+{0} to do,{0} 项待办
+{0} — contract signed; the BOQ became the contract BOQ and the sales order,{0} — 合同已签署；工程量清单已转为合同工程量清单和销售订单
+{0} — currently at step {1} · {2},{0} — 当前处于第 {1} 步 · {2}
+"{0}: type the quantity returned as a positive number (e.g. 5, not −5)",{0}：请以正数输入退货数量（如 5，而非 −5）
+— choose For first —,— 请先选择“用于” —
+— none: kept on the customer —,— 无：挂在客户名下 —
+— pick the work order first —,— 请先选择工单 —

@@ -73,18 +73,21 @@ def _stock_summary(cos):
 	levels = _reorder_levels(per.keys(), whs)
 	for code, r in per.items():
 		r.level = levels.get(code, 0)
-		r.status = "Out of Stock" if r.qty <= 0 else "Low Stock" if r.level and r.qty - r.reserved <= r.level else "In Stock"
+		# v1.8.4 (#36): more reserved than on hand is "Short", not "In stock" (free shows 0 and the shortfall is flagged)
+		r.free = max(0.0, r.qty - r.reserved)
+		r.short = max(0.0, r.reserved - r.qty) if r.qty > 0 else 0.0
+		r.status = "Out of Stock" if r.qty <= 0 else "Short" if r.short > 0 else "Low Stock" if r.level and r.qty - r.reserved <= r.level else "In Stock"
 	return per, bins, whs
 
 
-STOCK_TONE = {"In Stock": "green", "Low Stock": "orange", "Out of Stock": "red"}
+STOCK_TONE = {"In Stock": "green", "Low Stock": "orange", "Out of Stock": "red", "Short": "red"}
 
 
 def stock_module():
 	cos, start, end, label, cur = _scope()
 	per, bins, whs = _stock_summary(cos)
 	in_stock = [c for c, r in per.items() if r.qty > 0]
-	low = [c for c, r in per.items() if r.status == "Low Stock"]
+	low = [c for c, r in per.items() if r.status in ("Low Stock", "Short")]
 	out = [c for c, r in per.items() if r.status == "Out of Stock"]
 	sold = _sold_recently(in_stock)
 	slow = sum(per[c].value for c in in_stock if c not in sold)
@@ -101,7 +104,7 @@ def stock_module():
 	total = sum(r.value for r in per.values())
 	grp = sorted(by_grp.items(), key=lambda kv: -kv[1])
 	tabs = [
-		{"key": "items", "label": _("Stock items"), "chips": [["all", _("All")], ["low", _("Low stock ({0})").format(len(low))], ["out", _("Out of stock ({0})").format(len(out))],
+		{"key": "items", "label": _("Stock items"), "chips": [["all", _("All")], ["low", _("Low or short ({0})").format(len(low))], ["out", _("Out of stock ({0})").format(len(out))],
 			["reserved", _("Reserved")]]},
 		{"key": "moves", "label": _("Stock movements"), "chips": [["all", _("All")], ["in", _("In")], ["out", _("Out")]]},
 		{"key": "transfers", "label": _("Transfers") + (f" ({n_transfer})" if n_transfer else ""), "chips": [["all", _("All")], ["draft", _("Draft")]]},
@@ -113,7 +116,9 @@ def stock_module():
 	return {
 		"title": _("Warehouse & Inventory"),
 		"desc": _("Know what you have and where it is — stock, locations, movements, counts and ageing across every warehouse."),
-		"new": [{"label": _("Stock transfer"), "doctype": "Stock Entry"}, {"label": _("Stock count"), "doctype": "Stock Reconciliation"}],
+		# v1.8.4 (#35): add a product from the stock pages too (quick / detailed window, like the other pages)
+		"new": ([{"label": _("New item"), "doctype": "Item"}] if frappe.has_permission("Item", "create") else [])
+		+ [{"label": _("Stock transfer"), "doctype": "Stock Entry"}, {"label": _("Stock count"), "doctype": "Stock Reconciliation"}],
 		"kpis": [
 			kpi(_("Stock value"), total, _("Moving average incl. landed cost"), "violet", "chart-column", True, cur, tab="warehouses"),
 			kpi(_("Items in stock"), f"{len(in_stock)} / {len(per)}", _("{0} units").format(f"{sum(r.qty for r in per.values()):,.0f}"), "blue", "layers", tab="items", chip="all"),
@@ -149,16 +154,16 @@ def stock_rows(tab, chip, q=None):
 			it = items.get(code)
 			if not it or it.disabled:
 				continue
-			if chip == "low" and r.status != "Low Stock" or chip == "out" and r.status != "Out of Stock" or chip == "reserved" and not r.reserved:
+			if chip == "low" and r.status not in ("Low Stock", "Short") or chip == "out" and r.status != "Out of Stock" or chip == "reserved" and not r.reserved:
 				continue
 			if not _match(q, code, it.item_name, it.item_group, it.brand):
 				continue
 			sub = " · ".join(x for x in [it.brand, it.get("hs_model")] if x)
 			rows.append({"dt": "Item", "name": code, "cells": [{"code": code},
 				{"main": it.item_name, "sub": " ".join(x for x in [sub, it.get("hs_item_name_ar")] if x)}, it.item_group or "—", ", ".join(r.whs) or "—",
-				{"main": f"{r.qty:,.0f}"}, {"text": f"{r.reserved:,.0f}", "tone": "violet"} if r.reserved else "—", {"main": f"{r.qty - r.reserved:,.0f}"},
+				{"main": f"{r.qty:,.0f}"}, {"text": f"{r.reserved:,.0f}", "tone": "violet"} if r.reserved else "—", {"main": f"{r.free:,.0f}", "sub": _("Short {0}").format(f"{r.short:,.0f}") if r.short else "", "late": bool(r.short)},
 				f"{r.ordered:,.0f}" if r.ordered else "—", {"money": r.value / r.qty if r.qty else 0}, {"money": r.value},
-				{"pill": _(r.status), "tone": STOCK_TONE[r.status]}]})
+				{"pill": _("Short {0}").format(f"{r.short:,.0f}") if r.short else _(r.status), "tone": STOCK_TONE[r.status]}]})
 		return {"cols": [{"label": _("Item code")}, {"label": _("Description")}, {"label": _("Category")}, {"label": _("Warehouse")},
 			{"label": _("On hand"), "cls": "num"}, {"label": _("Reserved"), "cls": "num"}, {"label": _("Free"), "cls": "num"}, {"label": _("On order"), "cls": "num"},
 			{"label": _("Valuation rate"), "cls": "num"}, {"label": _("Value ({0})").format(cur), "cls": "num"}, {"label": _("Status")}],

@@ -104,6 +104,10 @@ def load():
 
 		for step in v182.STEPS:  # v1.8.2: each demo user in their own company
 			run(step, ctx)
+		from hipersign_trading.demo import v184
+
+		for step in v184.STEPS:  # v1.8.4: all group companies are group members; Temporary Opening closed to equity
+			run(step, ctx)
 	finally:
 		resume_workflows(paused)
 		frappe.flags.hs_apply_credit_limit = False

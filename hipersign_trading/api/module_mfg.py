@@ -22,7 +22,11 @@ def _cur(cos=None):
 
 
 def _m(v, cur):
-	return frappe.format(flt(v), {"fieldtype": "Currency", "options": cur})
+	"""v1.8.4: amounts in KPI sub-lines and card notes are compact ("AED 5.3M"), as on the other pages — they showed full
+	precision ("AED 5,320,401.99") and pushed the cards wide."""
+	from hipersign_trading.api.module import _fmt
+
+	return _fmt(v, cur or "")
 
 
 def _short(v, cur):
@@ -572,7 +576,9 @@ def get_floor(ws=None):
 			run = M.open_log(o.live.name) if o.live else None
 			opr = o.jc.hs_operator
 			cards.append({"jc": o.jc.name, "live": 1 if o.live else 0, "state": o.state, "wo": f.name, "item": f.item_name, "op": f"{o.idx * 10}", "op_name": o.op,
-				"ws": o.ws, "ws_name": M.ws_rates(o.ws).workstation_name, "done": o.done, "planned": f.qty, "scrap": o.scrap, "mins": round(o.mins),
+				"ws": o.ws, "ws_name": M.ws_rates(o.ws).workstation_name, "done": o.done, "planned": f.qty, "scrap": o.scrap,
+				# v1.8.4: the loss the job card records (ERPNext's process loss = this operation's scrap + the scrap before it)
+				"loss": o.loss, "paused": 1 if o.live and o.live.is_paused else 0, "mins": round(o.mins),
 				"pct": min(100, o.done / f.qty * 100) if f.qty else 0, "operator": opr, "operator_name": frappe.db.get_value("Employee", opr, "employee_name") if opr else "",
 				"started": frappe.utils.get_datetime(run.from_time).strftime("%H:%M") if run else None, "late": f.late})
 	order = {"Work in progress": 0, "On hold": 1, "Open": 2, "Completed": 3}

@@ -84,3 +84,28 @@ hipersign.ui.loading = ($el) => $el.html(`<div class="hsx-loading">${__("Loading
 hipersign.ui.companies = function () {
 	return frappe.xcall("frappe.client.get_list", { doctype: "Company", filters: { is_group: 0 }, fields: ["name"], limit_page_length: 50 }).then((r) => (r || []).map((c) => c.name));
 };
+
+// v1.8.4: Chinese month and weekday names in dates the browser formats ("07 11月" not "07 Nov") — Frappe ships only the
+// English moment locale; the server already formats Chinese (and Arabic) months
+(function () {
+	const zh = () => {
+		const lang = (frappe.boot && frappe.boot.lang) || "";
+		if (!lang.startsWith("zh") || typeof moment === "undefined") return;
+		if (!moment.locales().includes("zh-hs")) {
+			moment.defineLocale("zh-hs", {
+				parentLocale: "en",
+				months: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+				monthsShort: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
+				weekdays: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"],
+				weekdaysShort: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"],
+				weekdaysMin: ["日", "一", "二", "三", "四", "五", "六"],
+				meridiem: (h) => (h < 12 ? "上午" : "下午"),
+				relativeTime: { future: "%s后", past: "%s前", s: "几秒", ss: "%d 秒", m: "1 分钟", mm: "%d 分钟", h: "1 小时", hh: "%d 小时", d: "1 天", dd: "%d 天", M: "1 个月", MM: "%d 个月", y: "1 年", yy: "%d 年" },
+				week: { dow: (moment.localeData("en").firstDayOfWeek && moment.localeData("en").firstDayOfWeek()) || 1, doy: 4 },
+			});
+		}
+		moment.locale("zh-hs");
+	};
+	$(document).on("startup", zh);
+	if (frappe.boot && frappe.boot.lang) zh();
+})();

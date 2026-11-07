@@ -116,7 +116,7 @@ def purchase_invoice(doc):
 	pos = sorted({i.purchase_order for i in doc.items if i.purchase_order})
 	prs = sorted({i.purchase_receipt for i in doc.items if i.purchase_receipt})
 	p["facts"] = kv(("Supplier", link("Supplier", doc.supplier, doc.supplier_name)), ("Bill no.", " · ".join(x for x in [doc.bill_no, d(doc.bill_date)] if x)),
-		("Due", d(doc.due_date)), ("Total", money(doc.rounded_total or doc.grand_total, doc.currency)), ("Outstanding", money(doc.outstanding_amount, doc.currency) if doc.docstatus == 1 else ""))
+		("Due", d(doc.due_date)), ("Total", money(doc.rounded_total or doc.grand_total, doc.currency)), ("Outstanding", money(doc.outstanding_amount, doc.get("party_account_currency") or doc.currency) if doc.docstatus == 1 else ""))
 	p["sections"] = [
 		section("Bill", kv(("Posting date", d(doc.posting_date)), ("Purchase orders", ", ".join(pos)), ("Goods receipts", ", ".join(prs)),
 			("Against bill", link("Purchase Invoice", doc.return_against) if ret else ""), ("Currency", doc.currency), ("Status", pill(_status(doc))))),

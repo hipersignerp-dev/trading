@@ -22,7 +22,10 @@ def _bucket(charge_type):
 def shipments(company=None):
 	f = {} if not company else {"company": company}
 	out = []
-	for s in frappe.get_all("Import Shipment", filters=f, fields=["name", "status", "goods_value", "total_charges", "landed_cost_voucher", "company", "eta"],
+	# v1.8.4: only shipments this user may read (a purchase/stock user without import shipments got a permission error)
+	if not frappe.has_permission("Import Shipment", "read"):
+		return out
+	for s in frappe.get_list("Import Shipment", filters=f, fields=["name", "status", "goods_value", "total_charges", "landed_cost_voucher", "company", "eta"],
 			order_by="creation desc", limit=40):
 		row = {"name": s.name, "status": s.status, "goods": flt(s.goods_value), "lcv": s.landed_cost_voucher, "company": s.company,
 			"freight": 0, "insurance": 0, "duty": 0, "clearing": 0, "handling": 0, "other": 0}

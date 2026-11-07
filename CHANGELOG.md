@@ -1,9 +1,41 @@
 # Changelog
 
-## 1.8.4 — Super admins only from the site config (7 Nov 2026)
-- When Press › Site › Config has `hipersign_super_admins`, only those logins are super admins: Administrator then no longer
-  opens the Super Admin page, cannot change the Hipersign Licence and no longer sees Frappe/ERPNext pop-ups (unless the
-  licence shows them to the client's admins). With no list, Administrator stays the super admin so nobody is locked out.
+## 1.8.4 — Fixes from the audit: every open issue, every menu entry in the Hipersign theme (7 Nov 2026)
+**Serious issues (#21–#27 and more)**
+- Transfer to WIP uses the warehouses picked (#21); the Nairobi USD invoice shows its AED outstanding as AED (#22).
+- Variation approval (#23) and subcontract claim billing/payment (#24) work for MD, project managers and accounts users.
+- HR › Request advance opens the Employee Advance window (#25); Finance › Receive advance is a new window, filled from the
+  sales order when started from one (#26); Bank Reconciliation Tool opens without errors and accounts users get it (#27).
+- Stock: free quantity never below 0, with a red "Short N" status (#36). Landed costs and the site page load for users
+  without import shipments (chen.hao).
+- Demo step v184: Golden Dragon Interiors and Hipersign Lighting Industries are group members (#40); Temporary Opening
+  closed, so the balance sheet has no negative current assets. Cash-flow total leaves out the forecast row; depreciation
+  line added. New records follow the demo's naming series per company.
+**Go-live findings (#28–#35)**
+- Menu builder loads for every scope and shows the reason on an error (#28).
+- Only the Hipersign app on /apps and the app switcher (super admins see all); everyone lands on Hipersign Home (#29); the
+  six old workspaces are hidden and their links open Hipersign Home (#30); square app logo, title "Hipersign" (#31).
+- Messages: one "New message" button — pick people, record optional (private direct conversations); new record and people
+  pickers in the Hipersign style (#32, #33).
+- "+ New item" on Warehouse & Inventory (#35).
+**Every menu entry in the Hipersign theme (#34, #37)**
+- All 146 sidebar entries open a Hipersign page or tab (new tabs for opportunities, payments, pick lists, warranty claims,
+  routings & operations, inspection templates, step logs); lists opened from search land on the matching page and tab.
+- New pages: Reports (about 90 reports by area, search, favourites; report views restyled), Document Centre, Workflows &
+  Settings, Data Migration (8 import steps).
+**Smaller findings**
+- Create windows: job card offers the work order's operations; production plan keeps warehouse and options; quotation
+  keeps the sales person; debit/credit notes start empty; bank guarantee keeps its end date; clear message for negative
+  quantities; contact/address "For" is a picker.
+- Shop floor: paused cards refuse quantities and scrap; scrap matches the job card; tablet-size buttons.
+- Projects/Manufacturing: currency once in the column header, compact KPI lines, pop-ups stay on screen, BOQ "From tender to
+  contract" stepper, charts with axes. Home Projects card and lifecycle row fit at 1280 px; Order Tracker pop-over steady.
+- Prints: BOM and certificate on one page; Arabic text no longer overlaps (22 formats); receipt voucher shows bank charges
+  so words match figures.
+- About 37 more record types open the record panel; Arabic keeps numbers in order; Chinese month names; phone top bar
+  keeps company and period.
+**Super admins** only from the site config `hipersign_super_admins` (Administrator only when it is not set).
+Arabic and Chinese 100%.
 
 ## 1.8.3 — The p20 look on every page, Super Admin and licence, White theme (6 Nov 2026)
 - **Graphs on every page:** each menu page opens with 2–3 graphs drawn from that page's own records — stage columns,

@@ -120,16 +120,26 @@ frappe.pages["hipersign-menu"].on_page_load = function (wrapper) {
 			st.own = JSON.parse(JSON.stringify(d.own || {}));
 			st.dirty = false;
 			v.$actions.find(".hsm-save").prop("disabled", true);
-			if (st.scope === "Company" && !st.company) st.company = d.companies[0];
-			if (st.scope === "Role" && !st.role) st.role = d.roles[0];
+			// v1.8.4 (#28): the server picks the company / role when none is chosen yet
+			if (st.scope === "Company") st.company = d.company || st.company || d.companies[0];
+			if (st.scope === "Role") st.role = d.role || st.role || d.roles[0];
 			draw();
 			preview();
+		}).catch((e) => {
+			// v1.8.4 (#28): show why instead of spinning; the scope switch stays usable
+			const why = (e && (e.message || (e._server_messages && JSON.parse(JSON.parse(e._server_messages)[0]).message))) || __("The menu could not be loaded.");
+			v.$body.html(`<div class="hsx-empty">${esc(__("The menu could not be loaded for this scope."))}<br><small>${esc(frappe.utils.strip_html(String(why)))}</small><br>
+				<button class="btn btn-default btn-sm hsm-retry" style="margin-top:10px">${esc(__("Try again"))}</button>
+				<button class="btn btn-default btn-sm hsm-site" style="margin-top:10px">${esc(__("Back to whole site"))}</button></div>`);
 		});
 	}
+	v.$body.on("click", ".hsm-retry", () => load());
+	v.$body.on("click", ".hsm-site", () => { st.scope = "Site"; st.dirty = false; load(); });
 	const preview = frappe.utils.debounce(() => {
 		if (!st.data) return;
 		frappe.xcall("hipersign_trading.api.menu.preview", { scope: st.scope, company: st.company, role: st.role, config: JSON.stringify(st.own) })
-			.then((p) => { st.preview = p || []; v.$body.find(".hsm-pv").html(previewHtml()); });
+			.then((p) => { st.preview = p || []; v.$body.find(".hsm-pv").html(previewHtml()); })
+			.catch(() => {});
 	}, 300);
 	function switchScope(fn) {
 		const go = () => { fn(); load(); };

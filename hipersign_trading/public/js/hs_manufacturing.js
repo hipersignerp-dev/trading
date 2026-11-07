@@ -36,15 +36,16 @@ frappe.provide("hipersign.mfg");
 				<div class="hsf-h"><span class="hsx-code">${esc(c.jc)}</span><span class="hsx-pill ${pill[c.state] || "grey"}">${esc(__(c.state))}</span><span class="text-muted small hsf-ws">${esc(c.ws_name)}</span></div>
 				<div class="hsf-t"><b>${__("Op")} ${esc(c.op)} · ${esc(c.op_name)}</b><span class="text-muted small"><a class="hsf-wo" data-wo="${esc(c.wo)}">${esc(c.wo)}</a> · ${esc(c.item)}${c.late ? ` <span class="hsx-pill red">${__("Late")}</span>` : ""}</span></div>
 				<div class="hsf-num"><div><span>${__("Done")}</span><b>${nf(c.done)}</b></div><div><span>${__("Planned")}</span><b>${nf(c.planned)}</b></div>
-					<div><span>${__("Scrap")}</span><b class="${c.scrap ? "text-danger" : ""}">${nf(c.scrap)}</b></div><div><span>${__("Time")}</span><b>${hrs}</b></div></div>
+					<div><span>${__("Scrap")}</span><b class="${c.scrap ? "text-danger" : ""}">${nf(c.scrap)}</b>${flt(c.loss) > flt(c.scrap) ? `<small class="text-muted" title="${esc(__("The job card's process loss counts the scrap of the operations before this one too"))}">${__("+{0} earlier · loss {1}", [nf(c.loss - c.scrap), nf(c.loss)])}</small>` : ""}</div><div><span>${__("Time")}</span><b>${hrs}</b></div></div>
 				<div class="hsf-bar"><span class="hp-bar"><span style="width:${Math.min(100, c.pct)}%"></span></span><b>${Math.round(c.pct)}%</b></div>
 				<div class="hsf-row"><select class="form-control hsf-op" ${w ? "" : "disabled"} aria-label="${__("Operator")}"><option value="">${__("— operator —")}</option>${ops}</select>
 					${c.started && c.state === "Work in progress" ? `<span class="small text-muted">${frappe.utils.icon("clock", "xs")} ${__("started {0}", [esc(c.started)])}</span>` : ""}</div>
 				${w ? `<div class="hsf-btns">${c.state === "Work in progress" ? `<button class="btn btn-default" data-a="jc_pause">${frappe.utils.icon("clock", "sm")} ${__("Pause")}</button>`
 					: `<button class="btn btn-success" data-a="jc_start">→ ${__("Start")}</button>`}
-					<button class="btn btn-default" data-a="jc_qty" data-n="10">+10</button><button class="btn btn-default" data-a="jc_qty" data-n="50">+50</button>
-					<button class="btn btn-default hsf-scrap" data-a="jc_scrap">${__("Scrap +1")}</button>
-					<button class="btn btn-primary" data-a="jc_done">${frappe.utils.icon("check", "sm")} ${__("Complete")}</button></div>` : ""}</div>`;
+					<button class="btn btn-default" data-a="jc_qty" data-n="10" ${c.paused ? "disabled" : ""}>+10</button><button class="btn btn-default" data-a="jc_qty" data-n="50" ${c.paused ? "disabled" : ""}>+50</button>
+					<button class="btn btn-default hsf-scrap" data-a="jc_scrap" ${c.paused ? "disabled" : ""}>${__("Scrap +1")}</button>
+					<button class="btn btn-primary" data-a="jc_done">${frappe.utils.icon("check", "sm")} ${__("Complete")}</button></div>
+					${c.paused ? `<div class="small text-muted hsf-paused">${__("Paused — tap Start to resume before recording quantities or scrap.")}</div>` : ""}` : ""}</div>`;
 		}
 		function draw() {
 			const d = st.data;
@@ -168,8 +169,9 @@ frappe.provide("hipersign.mfg");
 			], actions: [{ label: __("Run MRP and plan"), action: "save", primary: 1 }] },
 		"Job Card": { title: __("New job card"), sub: __("Quick: work order and operation — workstation from the routing. Standard adds the operator; Detailed the planned start and remarks."),
 			fields: [
-				{ f: "work_order", label: __("Work order"), t: "select", src: Q("Work Order", "wo_released"), req: 1, m: "q", w: 2, blank: __("— choose —") },
-				{ f: "operation", label: __("Operation"), t: "select", src: Q("Operation", "operations"), req: 1, m: "q", w: 2, blank: __("— choose —") },
+				{ f: "work_order", label: __("Work order"), t: "select", src: Q("Work Order", "wo_released"), req: 1, m: "q", w: 2, blank: __("— choose —"), fill: "mfg_wo_ops" },
+				// v1.8.4: only the operations of the chosen work order's routing (filled when the work order is picked)
+				{ f: "operation", label: __("Operation"), t: "select", opts: [], req: 1, m: "q", w: 2, blank: __("— pick the work order first —") },
 				{ f: "hs_operator", label: __("Operator"), t: "select", src: Q("Employee", "operators"), m: "s", blank: "—" },
 				{ f: "_qty", label: __("Quantity (blank: what is left)"), t: "number", m: "s" },
 				{ f: "_start", label: __("Planned start"), m: "d", def: "07:30" },

@@ -50,8 +50,18 @@ class HipersignTracker {
 		html += r.orders.map((o) => this.row(o)).join("");
 		this.$body.html(html);
 		this.$body.find("[data-popup]").each(function () {
-			$(this).popover({ trigger: "hover focus", html: true, placement: "top", container: "body", content: decodeURIComponent($(this).attr("data-popup")) });
+			// v1.8.4: shown and hidden by hand — "hover focus" made the pop-up flicker (hover-out hid it, focus showed it again,
+			// and a pop-up over the pointer re-fired the hover); the pop-up itself never takes the pointer
+			$(this).popover({ trigger: "manual", html: true, placement: "auto", boundary: "viewport", container: "body",
+				template: '<div class="popover hs-stage-pop" role="tooltip" style="pointer-events:none"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>',
+				content: decodeURIComponent($(this).attr("data-popup")) });
 		});
+		let open = null, timer = null;
+		const show = (el) => { clearTimeout(timer); if (open === el) return; open && $(open).popover("hide"); open = el; $(el).popover("show"); };
+		const hide = (el) => { clearTimeout(timer); timer = setTimeout(() => { if (open === el) { $(el).popover("hide"); open = null; } }, 80); };
+		this.$body.off(".hspop");
+		this.$body.on("mouseenter.hspop focusin.hspop", "[data-popup]", function () { show(this); });
+		this.$body.on("mouseleave.hspop focusout.hspop", "[data-popup]", function () { hide(this); });
 		this.$body.find("[data-act]").on("click", (e) => this.action($(e.currentTarget)));
 		this.$body.find("select.hs-report").on("change", (e) => {
 			const el = $(e.currentTarget), v = el.val();

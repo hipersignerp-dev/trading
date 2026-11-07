@@ -1,0 +1,45 @@
+{
+ "doctype": "Page",
+ "name": "hipersign-doccentre",
+ "page_name": "hipersign-doccentre",
+ "title": "Document Centre",
+ "module": "Hipersign Trading",
+ "standard": "Yes",
+ "system_page": 0,
+ "icon": "",
+ "roles": [
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "Managing Director"
+  },
+  {
+   "role": "Accounts Manager"
+  },
+  {
+   "role": "Accounts User"
+  },
+  {
+   "role": "Sales Manager"
+  },
+  {
+   "role": "Sales User"
+  },
+  {
+   "role": "Purchase Manager"
+  },
+  {
+   "role": "Purchase User"
+  },
+  {
+   "role": "Stock Manager"
+  },
+  {
+   "role": "Stock User"
+  }
+ ],
+ "owner": "Administrator",
+ "creation": "2026-11-07 12:00:00",
+ "modified": "2026-11-07 12:00:00.000000"
+}

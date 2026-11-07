@@ -47,3 +47,13 @@
 .hsf-btns .btn { height: 44px; font-size: 13.5px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
 .hsf-btns .hsf-scrap { color: var(--x-red); border-color: color-mix(in srgb, var(--x-red) 40%, var(--x-line)); }
 @media (max-width: 700px) { .hsf-num { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* v1.8.4: tablet-sized touch targets on the shop floor (as on p19); scoped strongly enough to beat the theme's 28 px .hsx-wrap .btn */
+.hsf .hsf-btns { grid-template-columns: repeat(auto-fit, minmax(104px, 1fr)); gap: 10px; }
+html .hsx-wrap.hsf .hsf-btns .btn, html.hs-theme .hsx-wrap.hsf .hsf-btns .btn { height: 54px; padding: 0 12px; justify-content: center; font-size: 15.5px; font-weight: 600; border-radius: 12px; }
+.hsf .hsf-btns .btn:disabled { opacity: .45; }
+.hsf .hsf-op { height: 48px; font-size: 15px; }
+.hsf .hsf-seg button { min-height: 44px; padding: 0 18px; font-size: 14.5px; }
+.hsf .hsf-num small { display: block; font-size: 11px; font-weight: 500; }
+.hsf .hsf-paused { margin-top: -4px; }
+.hsx-thcur { font-weight: 500; color: var(--x-muted); text-transform: none; letter-spacing: 0; }

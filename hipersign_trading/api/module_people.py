@@ -162,7 +162,7 @@ def hr_rows(tab, chip, q=None):
 				rows.append({"dt": "Employee Advance", "name": a.name, "cells": [{"code": a.name}, {"main": a.employee_name, "sub": (a.purpose or "")[:50]}, _("Advance"), {"date": a.posting_date},
 					{"money": a.advance_amount}, {"pill": _(a.status), "tone": "orange" if a.status in ("Draft", "Unpaid") else "blue"}]})
 		return {"cols": [{"label": _("Document")}, {"label": _("Employee")}, {"label": _("Type")}, {"label": _("Date")}, {"label": _("Amount"), "cls": "num"}, {"label": _("Status")}], "rows": rows,
-			"actions": [{"label": _("New expense claim"), "primary": 1, "route": ["Form", "Expense Claim", "new"]}, {"label": _("Request advance"), "route": ["Form", "Employee Advance", "new"]}],
+			"actions": [{"label": _("New expense claim"), "primary": 1, "route": ["Form", "Expense Claim", "new"]}, {"label": _("Request advance"), "new": "Employee Advance"}],
 			"empty": _("No expense claims or advances.")}
 	if tab == "docs":
 		emps = _employees(cos)

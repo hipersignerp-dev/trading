@@ -1,0 +1,95 @@
+/* Hipersign ERP v1.8.4 (#34/#37) — the Reports page, Workflows & Settings, Data Migration, and Frappe's report view in the
+   Hipersign look (filters as a card, KPI-style summary, chart card, readable table), light and dark. */
+
+/* ---------------------------------------------------------------- Reports page */
+html.hs-theme .hs-rp-top { margin: 0 0 12px; }
+html.hs-theme .hs-rp-top .hs-rp-q { max-width: 420px; height: 40px; border-radius: 12px; }
+html.hs-theme .hs-rp-chips { margin-bottom: 14px; flex-wrap: wrap; }
+html.hs-theme .hs-rp-sec { margin-bottom: 14px; }
+html.hs-theme .hs-rp-sec .hsx-card-h h3 small { color: var(--x-muted); font-weight: 500; margin-inline-start: 6px; }
+.hs-rp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 10px; }
+.hs-rp-card { display: flex; align-items: center; gap: 12px; padding: 12px 12px 12px 14px; border: 1px solid var(--x-line); border-radius: 14px;
+	background: var(--x-surface); cursor: pointer; transition: border-color .15s, box-shadow .15s; min-width: 0; }
+.hs-rp-card:hover, .hs-rp-card:focus-visible { border-color: var(--x-blue); box-shadow: 0 0 0 3px var(--x-blue-bg); outline: none; }
+.hs-rp-ic { width: 34px; height: 34px; border-radius: 10px; background: var(--x-blue-bg); color: var(--x-blue); display: grid; place-items: center; flex: none; }
+.hs-rp-ic svg { stroke: currentColor; }
+.hs-rp-t { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.hs-rp-t b { font-size: 13.5px; color: var(--x-ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hs-rp-t span { font-size: 12px; color: var(--x-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hs-rp-star { border: 0; background: none; color: var(--x-muted); padding: 4px; border-radius: 8px; flex: none; cursor: pointer; }
+.hs-rp-star:hover { background: var(--x-surface-2); }
+.hs-rp-star.on { color: #f5a623; }
+.hs-rp-star.on svg { fill: #f5a623; stroke: #f5a623; }
+
+/* ---------------------------------------------------------------- Workflows & Settings */
+html.hs-theme .hs-sh-lic .hsx-card-b { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; font-size: 13px; color: var(--x-muted); }
+html.hs-theme .hs-sh-lic b { color: var(--x-ink); }
+html.hs-theme .hs-sh-lic .btn { margin-inline-start: auto; }
+.hs-sh-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; margin-top: 14px; }
+html.hs-theme .hs-sh-card { display: flex; align-items: center; gap: 14px; padding: 18px; text-align: start; cursor: pointer; color: var(--x-ink); margin: 0;
+	border: 1px solid var(--x-line); transition: border-color .15s, box-shadow .15s; }
+html.hs-theme .hs-sh-card:hover, html.hs-theme .hs-sh-card:focus-visible { border-color: var(--x-blue); box-shadow: 0 0 0 3px var(--x-blue-bg); outline: none; }
+.hs-sh-ic { width: 42px; height: 42px; border-radius: 12px; background: var(--x-blue-bg); color: var(--x-blue); display: grid; place-items: center; flex: none; }
+.hs-sh-ic svg { stroke: currentColor; }
+.hs-sh-t { flex: 1; display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.hs-sh-t b { font-size: 14.5px; }
+.hs-sh-t > span { font-size: 12.5px; color: var(--x-muted); line-height: 1.4; }
+.hs-sh-n { color: var(--x-blue); font-weight: 600; font-size: 12px; }
+
+/* ---------------------------------------------------------------- Data Migration */
+.hs-mg-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; margin-bottom: 16px; }
+html.hs-theme .hs-mg-card { display: flex; align-items: center; gap: 14px; padding: 16px; margin: 0; }
+.hs-mg-n { width: 32px; height: 32px; border-radius: 50%; background: var(--hs-navy, #0b1846); color: #fff; font-weight: 700; display: grid; place-items: center; flex: none; }
+html.hs-theme[data-theme="dark"] .hs-mg-n { background: var(--x-blue); }
+.hs-mg-t { flex: 1; display: flex; flex-direction: column; align-items: flex-start; gap: 3px; min-width: 0; text-align: start; }
+.hs-mg-t b { font-size: 14px; display: flex; align-items: center; justify-content: flex-start; gap: 6px; width: 100%; }
+.hs-mg-t span { font-size: 12.5px; color: var(--x-muted); }
+.hs-mg-card .btn { flex: none; border-radius: 10px; }
+
+/* ---------------------------------------------------------------- Frappe's report view (query / script reports) */
+html.hs-theme .page-container[data-page-route^="query-report"] {
+	--x-surface: var(--hs-surface); --x-surface-2: var(--hs-surface-2); --x-line: var(--hs-line); --x-line-2: var(--hs-line-2); --x-ink: var(--hs-ink);
+	--x-muted: var(--hs-muted); --x-blue: var(--hs-blue); --x-blue-bg: var(--hs-blue-bg); --x-shadow: var(--hs-shadow); }
+html.hs-theme .page-container[data-page-route^="query-report"] .layout-main-section-wrapper { padding-top: 6px; }
+html.hs-theme .page-container[data-page-route^="query-report"] .page-form {
+	background: var(--x-surface); border: 1px solid var(--x-line); border-radius: 18px; padding: 14px 14px 4px !important; margin: 0 0 14px !important;
+	box-shadow: var(--x-shadow, none); }
+html.hs-theme .page-container[data-page-route^="query-report"] .page-form .form-control,
+html.hs-theme .page-container[data-page-route^="query-report"] .page-form .awesomplete input,
+html.hs-theme .page-container[data-page-route^="query-report"] .page-form select {
+	height: 36px; border-radius: 10px; background: var(--x-surface-2); border: 1px solid var(--x-line); font-size: 13px; color: var(--x-ink); }
+html.hs-theme .page-container[data-page-route^="query-report"] .page-form .frappe-control { margin-bottom: 10px; }
+html.hs-theme .page-container[data-page-route^="query-report"] .report-wrapper {
+	background: var(--x-surface); border: 1px solid var(--x-line) !important; border-radius: 18px; padding: 6px 0 0; overflow: hidden; box-shadow: var(--x-shadow, none); }
+html.hs-theme .page-container[data-page-route^="query-report"] .chart-wrapper {
+	background: var(--x-surface); border: 1px solid var(--x-line); border-radius: 18px; margin: 0 0 14px; padding: 8px 12px; box-shadow: var(--x-shadow, none); }
+html.hs-theme .page-container[data-page-route^="query-report"] .report-summary {
+	display: grid !important; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 12px; background: none !important; border: 0 !important;
+	padding: 0 !important; margin: 0 0 14px !important; }
+html.hs-theme .page-container[data-page-route^="query-report"] .report-summary .summary-item {
+	background: var(--x-surface); border: 1px solid var(--x-line); border-radius: 16px; padding: 14px 16px; margin: 0 !important; text-align: start;
+	box-shadow: var(--x-shadow, none); min-width: 0; }
+html.hs-theme .page-container[data-page-route^="query-report"] .report-summary .summary-label { font-size: 12px; color: var(--x-muted); text-transform: none; }
+html.hs-theme .page-container[data-page-route^="query-report"] .report-summary .summary-value { font-size: 20px; font-weight: 800; color: var(--x-ink); }
+html.hs-theme .page-container[data-page-route^="query-report"] .report-summary .summary-separator { display: none; }
+html.hs-theme .page-container[data-page-route^="query-report"] .dt-header .dt-cell,
+html.hs-theme .page-container[data-page-route^="query-report"] .dt-header .dt-cell__content {
+	background: var(--x-surface-2) !important; color: var(--x-muted); font-size: 11.5px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+html.hs-theme .page-container[data-page-route^="query-report"] .dt-cell { border-color: var(--x-line-2) !important; }
+html.hs-theme .page-container[data-page-route^="query-report"] .dt-row:hover .dt-cell { background: var(--x-blue-bg) !important; }
+html.hs-theme .page-container[data-page-route^="query-report"] .dt-cell__content { font-size: 13px; color: var(--x-ink); }
+html.hs-theme .page-container[data-page-route^="query-report"] .dt-row--highlight .dt-cell,
+html.hs-theme .page-container[data-page-route^="query-report"] .dt-row:last-child[data-is-total] .dt-cell { font-weight: 700; }
+html.hs-theme .page-container[data-page-route^="query-report"] .dt-scrollable { border-radius: 0 0 18px 18px; }
+html.hs-theme .page-container[data-page-route^="query-report"] .msg-box.no-border,
+html.hs-theme .page-container[data-page-route^="query-report"] .no-result {
+	background: var(--x-surface); border: 1px dashed var(--x-line) !important; border-radius: 18px; padding: 40px 16px !important; color: var(--x-muted); }
+html.hs-theme .page-container[data-page-route^="query-report"] .page-head .page-title .title-text { font-weight: 800; }
+html.hs-theme .page-container[data-page-route^="query-report"] .page-actions .btn { border-radius: 12px; }
+html.hs-theme .page-container[data-page-route^="query-report"] .group-by-selector,
+html.hs-theme .page-container[data-page-route^="query-report"] .report-footer { border-radius: 0 0 18px 18px; background: var(--x-surface); }
+/* dark: Frappe's datatable keeps light greys in places */
+html.hs-theme[data-theme="dark"] .page-container[data-page-route^="query-report"] .dt-cell,
+html.hs-theme[data-theme="dark"] .page-container[data-page-route^="query-report"] .dt-instance-1 { background-color: var(--x-surface); }
+html.hs-theme[data-theme="dark"] .page-container[data-page-route^="query-report"] .dt-cell--highlight,
+html.hs-theme[data-theme="dark"] .page-container[data-page-route^="query-report"] .dt-row:hover .dt-cell { background-color: rgba(91, 140, 255, .12) !important; }

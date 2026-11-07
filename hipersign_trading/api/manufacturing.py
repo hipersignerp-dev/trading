@@ -445,15 +445,16 @@ def _bin(item, wh, field="actual_qty"):
 	return flt(frappe.db.get_value("Bin", {"item_code": item, "warehouse": wh}, field))
 
 
-def wo_shortages(w):
-	"""The components a work order still needs against usable stock in the components store (not yet issued)."""
+def wo_shortages(w, from_warehouse=None):
+	"""The components a work order still needs against usable stock in the components store (not yet issued).
+	v1.8.4: against the store the components are picked from, when one is chosen."""
 	W = whs(w.company)
 	out = []
 	for r in w.required_items:
 		if bom_of(r.item_code):
 			continue
 		need = max(0, flt(r.required_qty) - flt(r.transferred_qty))
-		have = _bin(r.item_code, W.components)
+		have = _bin(r.item_code, from_warehouse or W.components)
 		out.append(frappe._dict(item=r.item_code, need=need, stock=have, short_now=max(0, need - have)))
 	return out
 
@@ -792,7 +793,7 @@ def _clear_msgs():
 	frappe.local.message_log = [m for m in (frappe.local.message_log or []) if "created" not in str(m)]
 
 
-def make_plan(sales_orders, company=None, include_sub=True, name=None, posting_date=None, mrs=True):
+def make_plan(sales_orders, company=None, include_sub=True, name=None, posting_date=None, mrs=True, for_warehouse=None, safety_stock=0):
 	"""Sales orders → production plan (submitted) → draft work orders (finished goods and sub-assemblies) and material
 	requests for the components short in stock."""
 	sos = [so_doc(s) for s in sales_orders]
@@ -804,7 +805,9 @@ def make_plan(sales_orders, company=None, include_sub=True, name=None, posting_d
 	company = company or sos[0].company
 	W = ensure_setup(company)
 	pp = frappe.get_doc({"doctype": "Production Plan", "company": company, "get_items_from": "Sales Order", "posting_date": posting_date or today(),
-		"for_warehouse": W.components, "sub_assembly_warehouse": W.wip, "include_safety_stock": 0, "skip_available_sub_assembly_item": 1})
+		# v1.8.4: the window's raw material warehouse and "keep safety stock" are used (they were ignored)
+		"for_warehouse": for_warehouse or W.components, "sub_assembly_warehouse": W.wip, "include_safety_stock": 1 if safety_stock else 0,
+		"skip_available_sub_assembly_item": 1})
 	for s in sos:
 		pp.append("sales_orders", {"sales_order": s.name, "sales_order_date": s.transaction_date, "customer": s.customer, "grand_total": s.grand_total})
 	pp.get_items()
@@ -1075,6 +1078,8 @@ def jc_qty(name, n, when=None):
 	"""Quantity done on the operation: on the running time log, or — when the card is not running — a time log of the
 	routing minutes for that quantity ending now."""
 	jc = _jc(name)
+	if jc.is_paused:  # v1.8.4: a paused card took quantities — resume it first
+		frappe.throw(_("{0} is paused — tap Start to resume it, then record the quantity.").format(name), title=_("Job card paused"))
 	n = flt(n)
 	done = sum(flt(r.completed_qty) for r in jc.time_logs)
 	room = flt(jc.for_quantity) - done - loss_left(jc)
@@ -1102,6 +1107,8 @@ def jc_qty(name, n, when=None):
 
 def jc_scrap(name, n=1):
 	jc = _jc(name)
+	if jc.is_paused:  # v1.8.4: no scrap on a paused card
+		frappe.throw(_("{0} is paused — tap Start to resume it, then record the scrap.").format(name), title=_("Job card paused"))
 	jc.hs_scrap_qty = flt(jc.hs_scrap_qty) + flt(n or 1)
 	done = sum(flt(r.completed_qty) for r in jc.time_logs)
 	if done + loss_left(jc) > flt(jc.for_quantity):
@@ -1217,22 +1224,37 @@ def _split(jc, q, make_job_card):
 
 
 # ---------------------------------------------------------------- material transfer, manufacture, delivery, invoice, close
-def transfer(wo_name, pct=100, picked_by=None, posting_date=None, name=None, extra=None):
-	"""Stores pick the components of the work order and transfer them to WIP (Material Transfer for Manufacture)."""
+def transfer(wo_name, pct=100, picked_by=None, posting_date=None, name=None, extra=None, from_warehouse=None, to_warehouse=None):
+	"""Stores pick the components of the work order and transfer them to WIP (Material Transfer for Manufacture).
+	v1.8.4: the stores picked in the window (from / to) are used; blank = the work order's own stores."""
 	from erpnext.manufacturing.doctype.work_order.work_order import make_stock_entry
 
 	w = frappe.get_doc("Work Order", wo_name)
 	if w.docstatus != 1:
 		frappe.throw(_("Release {0} first (it is a draft).").format(wo_name))
+	for wh in (from_warehouse, to_warehouse):
+		if wh and frappe.db.get_value("Warehouse", wh, "company") != w.company:
+			frappe.throw(_("{0} is not a store of {1}.").format(wh, w.company))
+	if from_warehouse and to_warehouse and from_warehouse == to_warehouse:
+		frappe.throw(_("From and To must be different stores."))
 	left = flt(w.qty) - flt(w.material_transferred_for_manufacturing)
 	q = min(left, flt(w.qty) * flt(pct or 100) / 100)
 	if q <= 0:
 		frappe.throw(_("{0}: every component is already issued to WIP.").format(wo_name))
-	sh = [x for x in wo_shortages(w) if x.need and x.stock < x.need * q / max(left, 1) - 0.0001]
+	sh = wo_shortages(w, from_warehouse)
+	sh = [x for x in sh if x.need and x.stock < x.need * q / max(left, 1) - 0.0001]
 	if sh:
 		frappe.throw(_("Cannot issue {0} — short of {1}.").format(wo_name, ", ".join(x.item for x in sh)))
 	se = frappe.get_doc(make_stock_entry(wo_name, "Material Transfer for Manufacture", q))
 	se.naming_series = "MTW-.YYYY.-.####"
+	if from_warehouse:
+		se.from_warehouse = from_warehouse
+		for r in se.items:
+			r.s_warehouse = from_warehouse
+	if to_warehouse:
+		se.to_warehouse = to_warehouse
+		for r in se.items:
+			r.t_warehouse = to_warehouse
 	if posting_date:
 		se.posting_date, se.set_posting_time = posting_date, 1
 	se.hs_picked_by = picked_by

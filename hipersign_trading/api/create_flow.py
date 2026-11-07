@@ -212,6 +212,9 @@ def _commit_deliver(source, v, lines):
 
 	dn = make_delivery_note(source)
 	want = {int(r["i"]): r for r in lines}
+	from hipersign_trading.api.create import no_negative  # v1.8.4: a clear message for a minus quantity
+
+	no_negative(lines, "item_code")
 	so_rows = frappe.get_all("Sales Order Item", filters={"parent": source}, fields=["name", "idx"], order_by="idx asc")
 	idx_of = {r.name: r.idx - 1 for r in so_rows}
 	keep = []

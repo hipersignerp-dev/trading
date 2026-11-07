@@ -17,11 +17,17 @@ app_logo_url = "/assets/hipersign_trading/images/hipersign-logo.png"
 add_to_apps_screen = [
 	{
 		"name": "hipersign_trading",
-		"logo": "/assets/hipersign_trading/images/hipersign-logo.png",
-		"title": "Hipersign ERP",
-		"route": "/app/hipersign-trading",
+		# v1.8.4 (#31, #30): a square icon like the other tiles, a name that fits, and Hipersign Home (not the old
+		# "Hipersign Trading" workspace) as the landing page
+		"logo": "/assets/hipersign_trading/images/hipersign-app.svg",
+		"title": "Hipersign",
+		"route": "/app/hipersign-home",
+		"sequence_id": 0.5,
 	}
 ]
+
+# v1.8.4 (#29): only the Hipersign app on the apps screen for everyone but super admins
+extend_bootinfo = "hipersign_trading.boot.only_hipersign_app"
 
 app_include_css = [
 	"/assets/hipersign_trading/css/hipersign.css" + _v,
@@ -32,6 +38,7 @@ app_include_css = [
 	"/assets/hipersign_trading/css/hs_projects.css" + _v,
 	"/assets/hipersign_trading/css/hs_manufacturing.css" + _v,
 	"/assets/hipersign_trading/css/hs_p20.css" + _v,
+	"/assets/hipersign_trading/css/hs_reports.css" + _v,  # v1.8.4: Reports, Workflows & Settings, Data Migration, report views
 ]
 app_include_js = [
 	"/assets/hipersign_trading/js/hipersign.js" + _v,
@@ -107,7 +114,12 @@ fixtures = [
 
 # ---------------------------------------------------------------- document events
 # v1.6.0: sales staff may change only credit notes among sales invoices (overrides/returns.py)
-has_permission = {"Sales Invoice": "hipersign_trading.overrides.returns.sales_invoice_permission"}
+has_permission = {"Sales Invoice": "hipersign_trading.overrides.returns.sales_invoice_permission",
+	# v1.8.4 (#32): a conversation without a record is private to its people
+	"Hipersign Conversation": "hipersign_trading.hipersign_trading.doctype.hipersign_conversation.hipersign_conversation.has_permission"}
+permission_query_conditions = {
+	"Hipersign Conversation": "hipersign_trading.hipersign_trading.doctype.hipersign_conversation.hipersign_conversation.query_conditions",
+}
 
 doc_events = {
 	# external documents: blocking rules on submit and on status changes (Hipersign Document Rule)
@@ -175,9 +187,16 @@ doc_events = {
 	"Company": {"before_insert": "hipersign_trading.licence.check_company"},  # v1.8.3: the licence's company limit
 }
 
+# v1.8.4: each company's own document series (MSO-, PO-LI-, MMR-, PJPO-, PMR- …) — merged into the events above
+for _dt in ("Sales Order", "Purchase Order", "Material Request", "Purchase Receipt", "Delivery Note", "Sales Invoice"):
+	_ev = doc_events.setdefault(_dt, {}).get("before_insert")
+	_ev = [_ev] if isinstance(_ev, str) else list(_ev or [])
+	doc_events[_dt]["before_insert"] = _ev + ["hipersign_trading.naming.company_series"]
+
 # v1.8.3: Frappe's "new version available" notice only for super admins (or when the licence allows it)
 override_whitelisted_methods = {
 	"frappe.utils.change_log.show_update_popup": "hipersign_trading.licence.show_update_popup",
+	"frappe.apps.get_apps": "hipersign_trading.boot.get_apps",  # v1.8.4 (#29)
 }
 
 # ---------------------------------------------------------------- scheduler

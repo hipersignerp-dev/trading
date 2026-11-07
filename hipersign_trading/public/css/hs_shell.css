@@ -222,7 +222,14 @@ html.hs-theme.hs-topbar-on .body-sidebar .body-sidebar-bottom:not(:has(.promotio
 }
 @media (max-width: 900px) {
 	html.hs-theme .hs-tb-search { flex: 1 1 auto; min-width: 0; }
-	html.hs-theme .hs-tb-search kbd, html.hs-theme .hs-tb-scope, html.hs-theme .hs-tb-scope-fixed, html.hs-theme .hs-tb-period { display: none !important; }
+	html.hs-theme .hs-tb-search kbd { display: none !important; }
+	/* v1.8.4: on phones the company and period pickers move to a second row of the top bar (they were hidden) */
+	html.hs-theme .hs-topbar { flex-wrap: wrap; height: auto; min-height: 60px; row-gap: 8px; padding-top: 10px; padding-bottom: 10px; }
+	html.hs-theme .hs-tb-scope, html.hs-theme .hs-tb-scope-fixed:not([hidden]), html.hs-theme .hs-tb-period { order: 20; flex: 1 1 40%; min-width: 0; }
+	html.hs-theme .hs-tb-scope .hs-tb-pick, html.hs-theme .hs-tb-period .hs-tb-pick { width: 100%; max-width: none; height: 36px; }
+	html.hs-theme .hs-tb-scope-fixed:not([hidden]) { display: inline-flex; align-items: center; height: 36px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-size: 13px; }
+	html.hs-theme .hs-tb-search { flex: 1 1 0 !important; min-width: 44px !important; }
+	html.hs-theme .hs-tb-sp { display: none; }
 	html.hs-theme .hs-tb-panel { position: fixed; top: 64px; left: 12px; right: 12px; width: auto; }
 	html.hs-theme .hs-tb-grid { grid-template-columns: 1fr; }
 	html.hs-theme .hs-tb-results { position: fixed; top: 64px; left: 12px; right: 12px; min-width: 0; }

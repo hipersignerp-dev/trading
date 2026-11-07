@@ -79,3 +79,5 @@
 .hsp-pr > span:first-child { color: var(--x-muted); }
 .hsp-flags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
 .hsp-tf { border: 1px solid color-mix(in srgb, var(--x-red) 40%, var(--x-line)); background: var(--x-red-bg); color: var(--x-red); border-radius: 999px; padding: 3px 10px; font-size: 11.5px; cursor: pointer; }
+/* v1.8.4: the step pop-up opens above when there is no room below */
+.hsp-pop.hsp-up { top: auto; bottom: 100%; }
