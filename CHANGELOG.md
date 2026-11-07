@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.8.4 — Super admins only from the site config (7 Nov 2026)
+- When Press › Site › Config has `hipersign_super_admins`, only those logins are super admins: Administrator then no longer
+  opens the Super Admin page, cannot change the Hipersign Licence and no longer sees Frappe/ERPNext pop-ups (unless the
+  licence shows them to the client's admins). With no list, Administrator stays the super admin so nobody is locked out.
+
 ## 1.8.3 — The p20 look on every page, Super Admin and licence, White theme (6 Nov 2026)
 - **Graphs on every page:** each menu page opens with 2–3 graphs drawn from that page's own records — stage columns,
   trend, gauge, donut, ranked bars, a dark "needs attention" card or a heatmap (hipersign_trading.api.band). Bars, rows

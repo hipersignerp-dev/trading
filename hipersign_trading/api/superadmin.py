@@ -1,5 +1,5 @@
-"""v1.8.3: the Super Admin page — only Hipersign's super admins (Administrator and the site config's
-hipersign_super_admins). The licence: users and companies allowed, which modules may be switched on, and whether the
+"""v1.8.3: the Super Admin page — only Hipersign's super admins (the site config's hipersign_super_admins,
+or Administrator when it is not set). The licence: users and companies allowed, which modules may be switched on, and whether the
 client's admins see Frappe and ERPNext pop-ups."""
 
 import json
