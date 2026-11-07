@@ -39,7 +39,10 @@ hipersign.nav.targets = function () {
 		// v1.5.6: pages opened from the top bar (Create New, Test Centre…) and every document of the + New panel keep the
 		// Hipersign menu instead of falling back to an older workspace sidebar
 		["hipersign-create", "hipersign-tests", "hipersign-addons", "serial-lookup", "hipersign-landed", "hipersign-journey", "hipersign-messages",
-			"hipersign-alerts", "hipersign-approvals", "sales-order-tracker", "Hipersign Settings", "Hipersign Lists"].forEach((t) => hipersign.nav._targets.add(hipersign.nav.key(t)));
+			"hipersign-alerts", "hipersign-approvals", "sales-order-tracker", "Hipersign Settings", "Hipersign Lists",
+			// v1.8.4 (#37): every report (opened from the Reports page) and what Workflows & Settings / Data Migration open
+			"query-report", "Data Import", "Workflow", "User", "System Settings", "Hipersign List Value", "Hipersign Document Rule", "Document Waiver",
+			"Opening Invoice Creation Tool"].forEach((t) => hipersign.nav._targets.add(hipersign.nav.key(t)));
 		try {
 			(hipersign.create && hipersign.create.GROUPS ? hipersign.create.GROUPS() : []).forEach(([, items]) => items.forEach(([, , a]) => {
 				if (a.dt) hipersign.nav._targets.add(hipersign.nav.key(a.dt));
@@ -155,6 +158,19 @@ $(document).on("app_ready", () => {
 });
 $(document).on("page-change", () => setTimeout(hipersign.nav.hook, 0));
 
+// v1.8.4 (#30): the six old Frappe workspaces (Hipersign Trading, Sales, Warehouse, Finance, HR, Documents) are retired
+// (hidden); any link, bookmark or tile that still opens one lands on Hipersign Home instead.
+hipersign.nav.OLD_WORKSPACES = ["hipersign-trading", "hipersign-sales", "hipersign-warehouse", "hipersign-finance", "hipersign-hr", "hipersign-documents"];
+hipersign.nav.leave_old_workspace = function () {
+	const r = frappe.get_route() || [], slug = (t) => String(t || "").toLowerCase().replace(/[ _]/g, "-");
+	const ws = r[0] === "Workspaces" ? slug(r[1]) : r.length === 1 ? slug(r[0]) : "";
+	if (!hipersign.nav.OLD_WORKSPACES.includes(ws)) return;
+	const home = ((frappe.boot && frappe.boot.hipersign) || {}).home_page || "hipersign-home";
+	frappe.set_route(home);
+};
+$(document).on("page-change", () => setTimeout(hipersign.nav.leave_old_workspace, 0));
+if (frappe.router && frappe.router.on) frappe.router.on("change", () => setTimeout(hipersign.nav.leave_old_workspace, 0));
+
 // ---------------------------------------------------------------- v1.5.6: sub-items, count badges, Book a demo
 hipersign.nav.open_subs = function () {
 	try { return JSON.parse(localStorage.getItem("hs_nav_open") || "[]"); } catch (e) { return []; }
@@ -187,7 +203,11 @@ hipersign.nav.decorate = function () {
 		const $row = $c.children(".standard-sidebar-item").first();
 		$(`<span class="hs-sub-toggle" title="${frappe.utils.escape_html(__("Lists"))}">${frappe.utils.icon("right", "xs")}</span>`).appendTo($row);
 		const active = rows.some((r) => hipersign.nav.key(r.target) === here);
-		const $sub = $(`<div class="hs-sub">${rows.map((r) => `<a data-route='${frappe.utils.escape_html(JSON.stringify(r.route))}' class="${hipersign.nav.key(r.target) === here ? "on" : ""}">${frappe.utils.escape_html(__(r.label))}</a>`).join("")}</div>`);
+		// v1.8.4 (#34/#37): a sub-item opens its Hipersign page on a tab (data-tab / data-chip) or the Reports page on a group
+		const $sub = $(`<div class="hs-sub">${rows.map((r) => `<a data-route='${frappe.utils.escape_html(JSON.stringify(r.route))}'
+			${r.tab ? `data-tab="${frappe.utils.escape_html(r.tab)}"` : ""} ${r.chip ? `data-chip="${frappe.utils.escape_html(r.chip)}"` : ""}
+			${r.group ? `data-group="${frappe.utils.escape_html(r.group)}"` : ""}
+			class="${hipersign.nav.sub_on(r.route, r.tab, r.group) ? "on" : ""}">${frappe.utils.escape_html(__(r.label))}</a>`).join("")}</div>`);
 		$sub.insertAfter($c);
 		$c.toggleClass("hs-sub-open", open.has(name) || active);
 	});
@@ -246,18 +266,44 @@ $(document).on("click", ".body-sidebar .hs-sub-toggle", function (e) {
 	$c.hasClass("hs-sub-open") ? open.add(name) : open.delete(name);
 	try { localStorage.setItem("hs_nav_open", JSON.stringify([...open])); } catch (err) { /* ignore */ }
 });
+// v1.8.4: the page and tab on screen now (module pages keep their tab in wrapper.hs_module; the Reports page its group)
+hipersign.nav.here_tab = function () {
+	const w = (window.cur_page && cur_page.page) || null;
+	return (w && w.hs_module && w.hs_module.tab) || (w && w.hs_reports_group) || null;
+};
+hipersign.nav.sub_on = function (route, tab, group) {
+	const now = frappe.get_route() || [];
+	const r = route || [];
+	if (hipersign.nav.key(r.length > 1 ? r[1] : r[0]) !== hipersign.nav.key(now.length > 1 ? now[1] : now[0])) return false;
+	if (!tab && !group) return true;
+	return hipersign.nav.here_tab() === (tab || group);
+};
 $(document).on("click", ".body-sidebar .hs-sub a", function (e) {
 	e.preventDefault();
-	frappe.set_route(...JSON.parse($(this).attr("data-route")));
+	const route = JSON.parse($(this).attr("data-route"));
+	const tab = $(this).attr("data-tab"), chip = $(this).attr("data-chip"), group = $(this).attr("data-group");
+	const now = frappe.get_route() || [];
+	// already on that page: switch the tab in place (set_route to the same page would not reload it)
+	if (route.length === 1 && now[0] === route[0] && window.cur_page && cur_page.page) {
+		const w = cur_page.page;
+		if (tab && w.hs_module && w.hs_module.goto) { w.hs_module.goto(tab, chip); return hipersign.nav.mark_sub(); }
+		if (group && w.hs_reports_goto) { w.hs_reports_goto(group); return hipersign.nav.mark_sub(); }
+		if (!tab && !group) return;
+	}
+	frappe.route_options = tab ? Object.assign({ hs_tab: tab }, chip ? { hs_chip: chip } : {}) : group ? { hs_group: group } : null;
+	frappe.set_route(...route);
 });
+hipersign.nav.mark_sub = function () {
+	$(".body-sidebar .hs-sub a").each(function () {
+		$(this).toggleClass("on", hipersign.nav.sub_on(JSON.parse($(this).attr("data-route")), $(this).attr("data-tab"), $(this).attr("data-group")));
+	});
+};
+$(document).on("hs-module-tab", () => hipersign.nav.mark_sub());
 $(document).on("page-change", () => setTimeout(() => {
 	if (hipersign.nav.ours()) {
 		const route = frappe.get_route() || [];
 		const here = hipersign.nav.key(route.length > 1 ? route[1] : route[0]);
-		$(".body-sidebar .hs-sub a").each(function () {
-			const r = JSON.parse($(this).attr("data-route"));
-			$(this).toggleClass("on", hipersign.nav.key(r.length > 1 ? r[1] : r[0]) === here);
-		});
+		hipersign.nav.mark_sub();
 		hipersign.nav.decorate();
 	}
 }, 50));
@@ -270,6 +316,22 @@ hipersign.nav.LIST_PAGE = {
 	"Asset Maintenance Log": ["hipersign-assets", "maintenance"], Employee: ["hipersign-people", "employees"], "Leave Application": ["hipersign-people", "leave"],
 	"Expense Claim": ["hipersign-people", "expenses"], "Payroll Entry": ["hipersign-people", "payroll"], Attendance: ["hipersign-people", "attendance"],
 	"Tax Return": ["hipersign-tax", null],
+	// v1.8.4 (#34/#37): every list the sidebar used to open in the old theme now opens its Hipersign page and tab
+	Lead: ["hipersign-crm", "leads"], Opportunity: ["hipersign-crm", "opps"], Quotation: ["hipersign-orders", "quotes"], "Sales Order": ["hipersign-orders", "orders"],
+	Customer: ["hipersign-orders", "credit"], "Supplier Quotation": ["hipersign-purchasing", "quotes"], "Purchase Order": ["hipersign-purchasing", "orders"],
+	Supplier: ["hipersign-purchasing", "suppliers"], "Import Shipment": ["hipersign-imports", "all"], "Landed Cost Voucher": ["hipersign-landed", null],
+	"Purchase Receipt": ["hipersign-receiving", "receipts"], Item: ["hipersign-stock", "items"], "Stock Reconciliation": ["hipersign-stock", "counts"],
+	"Pick List": ["hipersign-stock", "picks"], "Warranty Claim": ["hipersign-stock", "claims"], "Delivery Note": ["hipersign-dispatch", "notes"],
+	"Delivery Trip": ["hipersign-dispatch", "trips"], "Sales Invoice": ["hipersign-fin", "receivables"], "Payment Entry": ["hipersign-fin", "payments"],
+	"Post Dated Cheque": ["hipersign-fin", "cheques"], "Purchase Invoice": ["hipersign-fin", "payables"], "Exchange Rate Revaluation": ["hipersign-accounts", "reval"],
+	"Letter of Credit": ["hipersign-lc", "lcs"], "Bank Guarantee": ["hipersign-lc", "bgs"], "Hipersign Group Member": ["hipersign-group", "structure"],
+	"Document Waiver": ["hipersign-doccentre", "waivers"], "Hipersign Document Rule": ["hipersign-doccentre", "rules"], Project: ["hipersign-projects", "port"],
+	"Project Step Log": ["hipersign-projects", "log"], "Project BOQ": ["hipersign-boq", "boq"], "Progress Certificate": ["hipersign-billing", "ipc"],
+	"Variation Order": ["hipersign-billing", "vo"], "Subcontract Order": ["hipersign-subcontract", "sco"], "Subcontract Claim": ["hipersign-subcontract", "claims"],
+	"Back Charge": ["hipersign-subcontract", "bc"], Timesheet: ["hipersign-timesheets", "ts"], Task: ["hipersign-timesheets", "task"],
+	"Daily Site Report": ["hipersign-timesheets", "dsr"], "Work Order": ["hipersign-production", "wo"], "Manufacturing Step Log": ["hipersign-production", "log"],
+	"Production Plan": ["hipersign-planning", "pp"], BOM: ["hipersign-boms", "tree"], Routing: ["hipersign-boms", "routing"], Workstation: ["hipersign-boms", "ws"],
+	"Job Card": ["hipersign-shopfloor", null], "Quality Inspection": ["hipersign-quality", "inc"], "Quality Inspection Template": ["hipersign-quality", "tpl"],
 };
 hipersign.nav.classic = {};
 hipersign.nav.classic_menu = function (page, route) {

@@ -158,8 +158,12 @@ def apply_effects(s=None):
 		if not on:
 			hide_now.update("ws:" + w for w in f[7] + f[8])
 	# whole workspaces (our own and ERPNext's) — restore only what we hid ourselves
+	from hipersign_trading.setup import OLD_WORKSPACES
+
 	for key in hidden_before | hide_now:
 		name = key[3:]
+		if name in OLD_WORKSPACES:  # v1.8.4 (#30): retired, stay hidden whatever the switches say
+			continue
 		if frappe.db.exists("Workspace", name):
 			frappe.db.set_value("Workspace", name, "is_hidden", 1 if key in hide_now else 0, update_modified=False)
 	# links inside the Hipersign workspaces

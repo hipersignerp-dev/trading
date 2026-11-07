@@ -11,6 +11,13 @@ hipersign.panel.TYPES = ["Lead", "Quotation", "Sales Order", "Customer", "Sales 
 	"Pick List", "Delivery Trip", "Warranty Claim", "Company Document", "Company Deadline",
 	// v1.8.0: Projects
 	"Project", "Progress Certificate", "Variation Order", "Subcontract Order", "Subcontract Claim", "Project BOQ"];
+// v1.8.4: masters and rarer documents in the module lists open a panel too (api/panel_generic.py) instead of the full form
+hipersign.panel.GENERIC = ["Price List", "Warehouse", "Bank Transaction", "Account", "Company", "Attendance", "Cost Center", "Workstation", "Operation", "Routing",
+	"Task", "Timesheet", "Supplier Quotation", "Stock Reconciliation", "Quality Inspection Template", "Pricing Rule", "Period Closing Voucher",
+	"Opportunity", "Exchange Rate Revaluation", "Accounting Period", "Daily Site Report", "Back Charge", "Document Waiver",
+	"Company Document Type", "Hipersign Document Rule", "Bank Account", "Holiday List", "Salary Structure", "Shift Type", "Vehicle", "Driver",
+	"Customer Group", "Supplier Group", "Item Group", "Payment Terms Template", "Sales Taxes and Charges Template", "Purchase Taxes and Charges Template"];
+hipersign.panel.GENERIC.forEach((dt) => { if (!hipersign.panel.TYPES.includes(dt)) hipersign.panel.TYPES.push(dt); });
 hipersign.panel.has = (dt) => hipersign.panel.TYPES.includes(dt) && !((frappe.boot.hipersign || {}).no_panels);
 hipersign.panel.stack = [];
 

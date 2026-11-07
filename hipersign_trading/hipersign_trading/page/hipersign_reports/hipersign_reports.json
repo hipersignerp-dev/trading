@@ -1,0 +1,14 @@
+{
+ "doctype": "Page",
+ "name": "hipersign-reports",
+ "page_name": "hipersign-reports",
+ "title": "Reports",
+ "module": "Hipersign Trading",
+ "standard": "Yes",
+ "system_page": 0,
+ "icon": "",
+ "roles": [],
+ "owner": "Administrator",
+ "creation": "2026-11-07 12:00:00",
+ "modified": "2026-11-07 12:00:00.000000"
+}

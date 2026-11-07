@@ -43,6 +43,7 @@ NAV = [
 		("Approvals", "Page", "hipersign-approvals", "inbox", None, {}),
 		("Insights & Alerts", "Page", "hipersign-alerts", "sparkles", None, {}),
 		("Trade Journey", "Page", "hipersign-journey", "workflow", None, {}),
+		("Reports", "Page", "hipersign-reports", "chart-column", None, {}),  # v1.8.4: every report in one Hipersign page
 	]),
 	("Sales", "tag", [
 		("CRM & Leads", "Page", "hipersign-crm", "users", "crm", {}),
@@ -99,10 +100,11 @@ NAV = [
 		("Fixed Assets", "Page", "hipersign-assets", "building", "assets", {}),
 	]),
 	("Admin", "sliders-horizontal", [
-		("Workflows & Settings", "DocType", "Hipersign Settings", "sliders-horizontal", None, {}),
+		# v1.8.4 (#37): Workflows & Settings, Document Centre and Data Migration are Hipersign pages (keys kept for the menu builder)
+		("Workflows & Settings", "Page", "hipersign-settings-hub", "sliders-horizontal", None, {"key": "hipersign-settings"}),
 		("Menu builder", "Page", "hipersign-menu", "menu", None, {}),  # v1.8.0
-		("Document Centre", "Report", "Missing Documents", "file-warning", None, {}),
-		("Data Migration", "DocType", "Data Import", "upload", None, {}),
+		("Document Centre", "Page", "hipersign-doccentre", "file-warning", None, {"key": "missing-documents"}),
+		("Data Migration", "Page", "hipersign-migration", "upload", None, {"key": "data-import"}),
 		("Test Centre", "Page", "hipersign-tests", "flask-conical", None, {}),
 	]),
 	("Add-ons", "puzzle", [
@@ -166,6 +168,67 @@ NAV_SUB = {
 	"Quality": [("Quality Inspections", "DocType", "Quality Inspection", None), ("Inspection Templates", "DocType", "Quality Inspection Template", None)],
 	"Costing": [("Work Orders", "DocType", "Work Order", None), ("Stock Ledger", "Report", "Stock Ledger", None)],
 }
+
+# v1.8.4 (#34/#37): where each sub-item opens — a Hipersign page and its tab, instead of the old-theme Frappe list, form or
+# report. (entry label, sub-item label) → (page, tab or None). Reports open the Reports page on that report's group.
+SUB_TABS = {
+	("CRM & Leads", "Leads"): ("hipersign-crm", "leads"), ("CRM & Leads", "Opportunities"): ("hipersign-crm", "opps"),
+	("Quotations & Orders", "Quotations"): ("hipersign-orders", "quotes"), ("Quotations & Orders", "Sales Orders"): ("hipersign-orders", "orders"),
+	("Quotations & Orders", "Customers"): ("hipersign-orders", "credit"),
+	("Exports & Re-exports", "Export Shipments"): ("hipersign-exports", "board"),
+	("Purchase Orders", "Purchase Requests"): ("hipersign-purchasing", "requests"), ("Purchase Orders", "Supplier Quotations"): ("hipersign-purchasing", "quotes"),
+	("Purchase Orders", "Purchase Orders"): ("hipersign-purchasing", "orders"), ("Purchase Orders", "Smart Reorder"): ("hipersign-purchasing", "reorder"),
+	("Purchase Orders", "Suppliers"): ("hipersign-purchasing", "suppliers"),
+	("Imports & Shipments", "Import Shipments"): ("hipersign-imports", "all"), ("Imports & Shipments", "Landed Cost Vouchers"): ("hipersign-landed", None),
+	("Goods Receiving", "Purchase Receipts"): ("hipersign-receiving", "receipts"),
+	("Warehouse & Stock", "Items"): ("hipersign-stock", "items"), ("Warehouse & Stock", "Stock Balance"): ("hipersign-stock", "warehouses"),
+	("Warehouse & Stock", "Stock Transfers"): ("hipersign-stock", "transfers"), ("Warehouse & Stock", "Stock Count"): ("hipersign-stock", "counts"),
+	("Warehouse & Stock", "Pick Lists"): ("hipersign-stock", "picks"), ("Warehouse & Stock", "Warranty Claims"): ("hipersign-stock", "claims"),
+	("Dispatch & Delivery", "Delivery Notes"): ("hipersign-dispatch", "notes"), ("Dispatch & Delivery", "Delivery Trips"): ("hipersign-dispatch", "trips"),
+	("Finance", "Sales Invoices"): ("hipersign-fin", "receivables"), ("Finance", "Payments"): ("hipersign-fin", "payments"),
+	("Finance", "Post-dated Cheques"): ("hipersign-fin", "cheques"), ("Finance", "Bank Reconciliation"): ("hipersign-fin", "bankrec"),
+	("Finance", "Purchase Invoices"): ("hipersign-fin", "payables"),
+	("Accounting", "Journal Entries"): ("hipersign-accounts", "je"), ("Accounting", "General Ledger"): ("hipersign-accounts", "gl"),
+	("Accounting", "Profit and Loss"): ("hipersign-fin", "pl"), ("Accounting", "Balance Sheet"): ("hipersign-accounts", "bs"),
+	("Accounting", "Currency Revaluation"): ("hipersign-accounts", "reval"),
+	("LCs & Guarantees", "Letters of Credit"): ("hipersign-lc", "lcs"), ("LCs & Guarantees", "Bank Guarantees"): ("hipersign-lc", "bgs"),
+	("VAT & E-invoicing", "Tax Returns"): ("hipersign-vat", "history"), ("VAT & E-invoicing", "VAT 201"): ("hipersign-vat", "return"),
+	("Group & Countries", "Group Members"): ("hipersign-group", "structure"), ("Group & Countries", "Group Consolidation"): ("hipersign-group", "pl"),
+	("KYC & Compliance", "Missing Documents"): ("hipersign-doccentre", "missing"),
+	("Company Compliance", "Company Documents"): ("hipersign-codocs", "register"), ("Company Compliance", "Company Deadlines"): ("hipersign-codocs", "deadlines"),
+	("HR & Payroll", "Employees"): ("hipersign-people", "employees"), ("HR & Payroll", "Leave"): ("hipersign-people", "leave"),
+	("HR & Payroll", "Expense Claims"): ("hipersign-people", "expenses"), ("HR & Payroll", "Payroll"): ("hipersign-people", "payroll"),
+	("Fixed Assets", "Assets"): ("hipersign-assets", "register"),
+	("Workflows & Settings", "Hipersign Settings"): ("hipersign-settings-hub", None), ("Workflows & Settings", "Approval Workflows"): ("hipersign-settings-hub", None),
+	("Workflows & Settings", "Document Rules"): ("hipersign-doccentre", "rules"), ("Workflows & Settings", "Editable Lists"): ("hipersign-settings-hub", None),
+	("Workflows & Settings", "Users"): ("hipersign-settings-hub", None), ("Workflows & Settings", "System Settings"): ("hipersign-settings-hub", None),
+	("Document Centre", "Missing Documents"): ("hipersign-doccentre", "missing"), ("Document Centre", "Document Waivers"): ("hipersign-doccentre", "waivers"),
+	("Projects", "Projects"): ("hipersign-projects", "port"), ("Projects", "Project Step Log"): ("hipersign-projects", "log"),
+	("Projects", "Bank Guarantees (bonds)"): ("hipersign-lc", "bgs"),
+	("Estimating & BOQ", "Project BOQs & tenders"): ("hipersign-boq", "boq"),
+	("Site & procurement", "Material Requests"): ("hipersign-site", "mr"), ("Site & procurement", "Purchase Orders"): ("hipersign-site", "po"),
+	("Site & procurement", "Stock Entries"): ("hipersign-site", "del"),
+	("Progress & billing", "Progress Certificates"): ("hipersign-billing", "ipc"), ("Progress & billing", "Variation Orders"): ("hipersign-billing", "vo"),
+	("Progress & billing", "Sales Invoices"): ("hipersign-billing", "inv"),
+	("Subcontractors", "Subcontract Orders"): ("hipersign-subcontract", "sco"), ("Subcontractors", "Subcontract Claims"): ("hipersign-subcontract", "claims"),
+	("Subcontractors", "Back Charges"): ("hipersign-subcontract", "bc"),
+	("Timesheets & labour", "Timesheets"): ("hipersign-timesheets", "ts"), ("Timesheets & labour", "Tasks"): ("hipersign-timesheets", "task"),
+	("Timesheets & labour", "Daily Site Reports"): ("hipersign-timesheets", "dsr"), ("Timesheets & labour", "Activity Costs"): ("hipersign-timesheets", "crew"),
+	("Production", "Work Orders"): ("hipersign-production", "wo"), ("Production", "Manufacturing Step Log"): ("hipersign-production", "log"),
+	("Production", "Stock Entries"): ("hipersign-production", "ent"),
+	("Planning", "Production Plans"): ("hipersign-planning", "pp"), ("Planning", "Material Requests"): ("hipersign-planning", "mr"),
+	("Planning", "Purchase Orders"): ("hipersign-planning", "po"),
+	("BOMs & routings", "BOMs"): ("hipersign-boms", "tree"), ("BOMs & routings", "Routings"): ("hipersign-boms", "routing"),
+	("BOMs & routings", "Operations"): ("hipersign-boms", "routing"), ("BOMs & routings", "Workstations"): ("hipersign-boms", "ws"),
+	("Shop floor", "Job Cards"): ("hipersign-shopfloor", None),
+	("Quality", "Quality Inspections"): ("hipersign-quality", "inc"), ("Quality", "Inspection Templates"): ("hipersign-quality", "tpl"),
+	("Costing", "Work Orders"): ("hipersign-mfg-costing", "cost"), ("Costing", "Stock Ledger"): ("hipersign-stock", "moves"),
+}
+# the chip a sub-item opens with, where the tab has several (Routings vs Operations)
+SUB_CHIPS = {("BOMs & routings", "Operations"): "ops"}
+# v1.8.4: a Reports sub-item under each module group opens the Reports page on that group
+REPORT_GROUP = {"Quotations & Orders": "sales", "Purchase Orders": "purchasing", "Warehouse & Stock": "stock", "Finance": "finance", "Accounting": "finance",
+	"VAT & E-invoicing": "tax", "HR & Payroll": "hr", "Projects": "projects", "Production": "manufacturing"}
 
 # count badges, as in the prototype
 NAV_BADGES = ("Messages", "Approvals", "Insights & Alerts", "CRM & Leads")
@@ -310,7 +373,14 @@ def sub_items():
 				continue
 			if ltype == "Page" and not frappe.get_cached_doc("Page", target).is_permitted():
 				continue
-			kept.append({"label": label, "route": _route(ltype, target), "target": target})
+			row = {"label": label, "route": _route(ltype, target), "target": target}
+			# v1.8.4 (#34/#37): open the Hipersign page and tab, when the user may open that page
+			to = SUB_TABS.get((entry, label))
+			if to and frappe.db.exists("Page", to[0]) and frappe.get_cached_doc("Page", to[0]).is_permitted():
+				row.update({"route": [to[0]], "target": to[0], "tab": to[1], "chip": SUB_CHIPS.get((entry, label))})
+			kept.append(row)
+		if entry in REPORT_GROUP and frappe.db.exists("Page", "hipersign-reports"):
+			kept.append({"label": "Reports", "route": ["hipersign-reports"], "target": "hipersign-reports", "group": REPORT_GROUP[entry]})
 		if kept:
 			out[entry] = kept
 	return out

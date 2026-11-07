@@ -104,7 +104,11 @@ def pj_home_module():
 
 
 def _m(v, cur):
-	return frappe.format(flt(v), {"fieldtype": "Currency", "options": cur})
+	"""v1.8.4: amounts in KPI sub-lines and card notes are compact ("AED 5.3M"), as on the other pages — they showed full
+	precision ("AED 5,320,401.99") and pushed the cards wide."""
+	from hipersign_trading.api.module import _fmt
+
+	return _fmt(v, cur or "")
 
 
 def how_block():
@@ -235,6 +239,10 @@ def pj_boq_rows(tab, chip, q=None):
 		acts.append({"label": _("Submit tender") if step == 3 else _("Complete step {0}").format(step + 1), "method": ACT, "args": {"action": "step", "name": pj}, "primary": 1})
 	flow = ["Enquiry", "Site visit", "BOQ & estimate", "Tender / quotation", "Negotiation", "Letter of Award", "Contract (sales order)"]
 	return {"blocks": [
+		# v1.8.4: "From tender to contract" as the prototype's stepper across the top (it was a plain list beside the BOQ)
+		{"type": "flow", "span": 3, "title": _("From tender to contract"), "steps": [_(x) for x in flow], "at": min(step, 6) if step < 7 else 7,
+			"note": (_("{0} — contract signed; the BOQ became the contract BOQ and the sales order").format(p.project_name) if step >= 5
+				else _("{0} — currently at step {1} · {2}").format(p.project_name, step + 1, _(P.STEPS[step][0])))},
 		{"type": "table", "span": 2, "title": _("Bill of quantities — {0}").format(p.project_name), "sub": _("{0} lines by section · qty × rate").format(len(b.items)),
 			"cols": [{"label": _("Item")}, {"label": _("Unit")}, {"label": _("Qty"), "cls": "num"}, {"label": _("Rate"), "cls": "num"}, {"label": _("Amount"), "cls": "num"}, {"label": _("Done")}],
 			"rows": _boq_rows(b, "boq", cur) + [{"cls": "hsx-tot-row", "cells": [{"main": _("Total BOQ · {0} lines").format(len(b.items))}, "", "", "", {"money": total, "currency": cur},
@@ -244,9 +252,6 @@ def pj_boq_rows(tab, chip, q=None):
 			{"label": _("Total cost"), "value": direct + ov, "currency": cur},
 			{"label": _("Margin"), "value": total - direct - ov, "currency": cur, "sub": _pct((total - direct - ov) / total * 100 if total else 0)},
 			{"label": _("Tender / contract value"), "value": total, "currency": cur, "total": 1}]},
-		{"type": "list", "span": 1, "title": _("From tender to contract"), "items": [{"label": f"{i + 1}. {_(s)}", "value": {"pill": _("Done") if i < min(step, 7) else _("Now") if i == min(step, 6) else _("Next"),
-			"tone": "green" if i < min(step, 7) else "blue" if i == min(step, 6) else "grey"}} for i, s in enumerate(flow)],
-			"note": _("Contract signed — the BOQ became the contract BOQ and the sales order") if step >= 5 else _("Currently at step {0} · {1}").format(step + 1, _(P.STEPS[step][0]))},
 	]}
 
 

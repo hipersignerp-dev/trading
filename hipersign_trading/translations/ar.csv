@@ -5307,3 +5307,139 @@ Your licence allows {0} users and {1} are in use. Disable a user or ask Hipersig
 in use of the licence,مستخدم من الترخيص
 no limit set,لم يُحدد حد
 "{0} counted · portal customers, driver-only logins and super admins are not counted",{0} محتسب · لا يُحتسب عملاء البوابة وحسابات السائقين فقط والمشرفون العامون
+ · forecasts planned once confirmed: {0}, · التوقعات المخطط لها بعد التأكيد: {0}
++{0} earlier · loss {1},+{0} سابقًا · الفاقد {1}
+About a record,حول سجل
+Add to favourites,إضافة إلى المفضلة
+Against an order: blank = the advance still due on it,مقابل أمر: فارغ = الدفعة المقدمة المستحقة عليه
+Against sales order,مقابل أمر بيع
+Asked by,طلبه
+"Asked for, not yet decided",مطلوب، لم يُبت فيه بعد
+Back to whole site,العودة إلى الموقع بالكامل
+Billing a subcontract claim,فوترة مطالبة مقاول باطن
+Blocking,مانع
+"Business pack and features, company defaults, numbering and the Hipersign look.",باقة النشاط والميزات، والإعدادات الافتراضية للشركة، والترقيم، ومظهر Hipersign.
+Changed,تم التغيير
+"Chart style, brand colour, ERP theme and the graphs at the top of pages.",نمط الرسوم البيانية، ولون العلامة، ومظهر النظام، والرسوم البيانية أعلى الصفحات.
+Checks,الفحوصات
+Created,تاريخ الإنشاء
+Default workstation,محطة العمل الافتراضية
+Direct message,رسالة مباشرة
+Done by,نفّذه
+"Every report you can open, by area. Star the ones you use most; they stay at the top.",كل التقارير المتاحة لك حسب المجال. ميّز بنجمة الأكثر استخدامًا لتبقى في الأعلى.
+Exceptions waiting,استثناءات بالانتظار
+Favourites,المفضلة
+"Features, look and menus, approval rules and workflows, document rules, lists and users — everything an administrator sets, in one place.",الميزات والمظهر والقوائم، وقواعد الاعتماد وسير العمل، وقواعد المستندات، والقوائم والمستخدمين — كل ما يضبطه المسؤول في مكان واحد.
+Forecasts waiting to be confirmed: {0},توقعات بانتظار التأكيد: {0}
+From and To must be different stores.,يجب أن يكون المستودع المصدر والوجهة مختلفين.
+Hipersign Conversation,محادثة Hipersign
+Inspection templates,نماذج الفحص
+Item / serial,الصنف / الرقم التسلسلي
+Job card paused,بطاقة العمل متوقفة مؤقتًا
+"Language, time zone, date and number format, password policy.",اللغة، والمنطقة الزمنية، وتنسيق التاريخ والأرقام، وسياسة كلمات المرور.
+Line {0}: the quantity cannot be negative ({1}). Type the quantity as a positive number; returns have their own window.,السطر {0}: لا يمكن أن تكون الكمية سالبة ({1}). أدخل الكمية كرقم موجب؛ للمرتجعات نافذة خاصة.
+Linked record,السجل المرتبط
+Linked record type,نوع السجل المرتبط
+Local and overseas suppliers with currency and terms.,الموردون المحليون والخارجيون مع العملة والشروط.
+"Logins, one per line",أسماء الدخول، واحد في كل سطر
+"Logins, roles and which companies each person sees.",أسماء الدخول والأدوار والشركات التي يراها كل شخص.
+Low or short ({0}),منخفض أو ناقص ({0})
+Message sent,تم إرسال الرسالة
+"Money received before the invoice — against a sales order, or kept on the customer and applied to an invoice later",مبالغ مستلمة قبل الفاتورة — مقابل أمر بيع، أو تُحفظ على العميل وتُطبّق على فاتورة لاحقًا
+"Move your data in, in this order: masters first, then opening stock and balances. Each step gives a template to fill, checks it and imports it.",انقل بياناتك بهذا الترتيب: البيانات الرئيسية أولًا، ثم المخزون والأرصدة الافتتاحية. كل خطوة توفر نموذجًا للتعبئة، وتتحقق منه وتستورده.
+"Names, contacts, TRN, credit limits and payment terms.",الأسماء وجهات الاتصال والرقم الضريبي وحدود الائتمان وشروط الدفع.
+Negative quantity,كمية سالبة
+New exception,استثناء جديد
+New message,رسالة جديدة
+Next charge {0} on {1},الرسم التالي {0} في {1}
+No document rules.,لا توجد قواعد مستندات.
+No exceptions.,لا توجد استثناءات.
+No imports yet.,لا توجد عمليات استيراد بعد.
+No inspection templates.,لا توجد نماذج فحص.
+No operations.,لا توجد عمليات.
+No opportunities.,لا توجد فرص.
+No payments.,لا توجد مدفوعات.
+No pick lists.,لا توجد قوائم تجهيز.
+No report matches.,لا توجد تقارير مطابقة.
+No routings.,لا توجد مسارات تصنيع.
+No steps recorded yet.,لم تُسجل أي خطوات بعد.
+No warranty claims.,لا توجد مطالبات ضمان.
+Nothing found,لم يُعثر على شيء
+Nothing missing — every record has its documents.,لا شيء ناقص — كل سجل لديه مستنداته.
+On hand {0} · reserved {1},المتوفر {0} · المحجوز {1}
+Open invoices and bills due — not in the totals,الفواتير المفتوحة المستحقة — غير مشمولة في الإجماليات
+Opening balances,الأرصدة الافتتاحية
+Paused — tap Start to resume before recording quantities or scrap.,متوقف مؤقتًا — اضغط ابدأ للاستئناف قبل تسجيل الكميات أو التالف.
+Paying a subcontract claim,دفع مطالبة مقاول باطن
+"Pick at least one person, or a record to write on",اختر شخصًا واحدًا على الأقل، أو سجلًا للكتابة عليه
+Pick lists,قوائم التجهيز
+"Prepared test scripts per role, with results.",سيناريوهات اختبار جاهزة لكل دور، مع النتائج.
+Prices,الأسعار
+"Products with codes, units, groups, HS codes and reorder levels.",المنتجات مع الرموز والوحدات والمجموعات وأكواد HS ومستويات إعادة الطلب.
+Quantity and valuation per item and warehouse on your start date.,الكمية والتقييم لكل صنف ومستودع في تاريخ البدء.
+Receive customer advance,استلام دفعة مقدمة من عميل
+Recent imports,عمليات الاستيراد الأخيرة
+Record advance,تسجيل دفعة مقدمة
+Recording the client's decision on a variation,تسجيل قرار العميل بشأن أمر تغيير
+Remove from favourites,إزالة من المفضلة
+"Rename, hide or reorder menu entries per company, role or site.",إعادة تسمية عناصر القائمة أو إخفاؤها أو ترتيبها لكل شركة أو دور أو موقع.
+Reported,تاريخ البلاغ
+Reports,التقارير
+Required or blocking documents,المستندات المطلوبة أو المانعة
+Resolved,تم الحل
+Routings & operations,مسارات التصنيع والعمليات
+"Search an order, invoice, shipment, customer, item… by number or name",ابحث عن أمر أو فاتورة أو شحنة أو عميل أو صنف… بالرقم أو الاسم
+Search reports…,ابحث في التقارير…
+Selling and buying price lists.,قوائم أسعار البيع والشراء.
+"Set in Press › Site › Config as hipersign_super_admins (a list of logins). When it is set, only those logins are super admins — Administrator too becomes an ordinary admin. The client cannot change this from the ERP.",يُضبط في Press › Site › Config باسم hipersign_super_admins (قائمة بأسماء الدخول). عند ضبطه يصبح هؤلاء فقط مشرفين عامين — ويصبح Administrator أيضًا مسؤولًا عاديًا. لا يمكن للعميل تغيير ذلك من النظام.
+Short {0},ناقص {0}
+"Staff with joining date, department, visa and labour card details.",الموظفون مع تاريخ الالتحاق والقسم وبيانات التأشيرة وبطاقة العمل.
+Start import,بدء الاستيراد
+Started,تاريخ البدء
+Step log,سجل الخطوات
+Stop the record being submitted,منع اعتماد السجل
+System settings,إعدادات النظام
+Template,النموذج
+"The drop-down values your team can change: lead sources, reasons, document types…",قيم القوائم المنسدلة التي يمكن لفريقك تغييرها: مصادر العملاء المحتملين، الأسباب، أنواع المستندات…
+The job card's process loss counts the scrap of the operations before this one too,فاقد العملية في بطاقة العمل يحتسب أيضًا تالف العمليات السابقة
+The menu could not be loaded for this scope.,تعذر تحميل القائمة لهذا النطاق.
+The menu could not be loaded.,تعذر تحميل القائمة.
+The people you pick get a notification.,يتلقى الأشخاص الذين تختارهم إشعارًا.
+"Trial balance on the start date: bank, fixed assets, loans, capital.",ميزان المراجعة في تاريخ البدء: البنك، الأصول الثابتة، القروض، رأس المال.
+Try again,إعادة المحاولة
+Type a name…,اكتب اسمًا…
+Unknown report,تقرير غير معروف
+Unpaid customer and supplier invoices on the start date.,فواتير العملاء والموردين غير المدفوعة في تاريخ البدء.
+Valid to must be on or after Valid from,يجب أن يكون صالح إلى في تاريخ صالح من أو بعده
+Variation {0} added to the contract by {1},أضاف {1} أمر التغيير {0} إلى العقد
+Warehouse {0} not found,المستودع {0} غير موجود
+Warranty claims,مطالبات الضمان
+"Which documents a record needs before it can be submitted (trade licence, VAT certificate…).",المستندات التي يحتاجها السجل قبل اعتماده (الرخصة التجارية، شهادة ضريبة القيمة المضافة…).
+"Which records still miss a required document (trade licence, VAT certificate, packing list…), the exceptions asked for, and the rules behind them.",السجلات التي ينقصها مستند مطلوب (الرخصة التجارية، شهادة ضريبة القيمة المضافة، قائمة التعبئة…)، والاستثناءات المطلوبة، والقواعد التي تستند إليها.
+"Who approves quotations, orders, purchase orders and payments, and at which amounts.",من يعتمد عروض الأسعار والأوامر وأوامر الشراء والمدفوعات، وعند أي مبالغ.
+Write to colleagues. Linking a record is optional — the message is then kept on that record.,راسل زملاءك. ربط سجل اختياري — وتُحفظ الرسالة حينها على ذلك السجل.
+You do not have access to this list.,ليست لديك صلاحية الوصول إلى هذه القائمة.
+active,نشط
+desk users,مستخدمو الواجهة
+fully planned,مخطط بالكامل
+optional,اختياري
+rules,قواعد
+see the error log,راجع سجل الأخطاء
+type the quantity returned on each line,أدخل الكمية المرتجعة في كل سطر
+v1.8.4: a message thread that is not on a record (Messages › New message). Only its people can open it.,v1.8.4: سلسلة رسائل غير مرتبطة بسجل (الرسائل › رسالة جديدة). لا يفتحها إلا أشخاصها.
+values,قيم
+{0} has no routing operations — release it with a BOM that has a routing.,{0} ليس له عمليات تصنيع — أطلقه بقائمة مواد لها مسار تصنيع.
+{0} is an order of {1}.,{0} أمر تابع لـ {1}.
+"{0} is approved, but the contract sales order could not be updated: {1}",تم اعتماد {0}، لكن تعذر تحديث أمر بيع العقد: {1}
+{0} is not a store of {1}.,{0} ليس مستودعًا لـ {1}.
+"{0} is paused — tap Start to resume it, then record the quantity.",{0} متوقف مؤقتًا — اضغط ابدأ لاستئنافه، ثم سجّل الكمية.
+"{0} is paused — tap Start to resume it, then record the scrap.",{0} متوقف مؤقتًا — اضغط ابدأ لاستئنافه، ثم سجّل التالف.
+{0} records,{0} سجلات
+{0} sent you a message,أرسل لك {0} رسالة
+{0} to do,{0} للتنفيذ
+{0} — contract signed; the BOQ became the contract BOQ and the sales order,{0} — تم توقيع العقد؛ أصبح جدول الكميات جدول كميات العقد وأمر البيع
+{0} — currently at step {1} · {2},{0} — حاليًا في الخطوة {1} · {2}
+"{0}: type the quantity returned as a positive number (e.g. 5, not −5)",{0}: أدخل الكمية المرتجعة كرقم موجب (مثلًا 5 وليس −5)
+— choose For first —,— اختر «لـ» أولًا —
+— none: kept on the customer —,— لا شيء: يُحفظ على العميل —
+— pick the work order first —,— اختر أمر العمل أولًا —

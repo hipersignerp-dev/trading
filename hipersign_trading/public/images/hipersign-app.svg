@@ -1,0 +1,6 @@
+<svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+<!-- v1.8.4 (#31): square app icon for the apps screen, same size and padding as the ERPNext and Frappe HR tiles -->
+<defs><linearGradient id="hsg" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#0A7BD8"/><stop offset="0.55" stop-color="#3B3FD6"/><stop offset="1" stop-color="#7A2BD9"/></linearGradient></defs>
+<rect width="100" height="100" rx="28.57" fill="url(#hsg)"/>
+<path d="M40.5 31.6c-2.9-1.7-6.5.4-6.5 3.7v29.4c0 3.3 3.6 5.4 6.5 3.7l25.4-14.7c2.9-1.7 2.9-5.8 0-7.4L40.5 31.6z" fill="#fff"/>
+</svg>

@@ -1,7 +1,7 @@
 """v1.8.3: the licence and the super admins.
 
-Super admins are Hipersign's own logins: Administrator plus the users listed in the site config key
-`hipersign_super_admins` (set in Press › Site › Config — the client cannot change it from the ERP). Only they can open the
+Super admins are Hipersign's own logins: the users listed in the site config key `hipersign_super_admins`
+(or Administrator when the key is not set) (set in Press › Site › Config — the client cannot change it from the ERP). Only they can open the
 Super Admin page and change the Hipersign Licence: how many desk users and companies the client may have and which
 modules may be switched on. The limits are checked on the server when a user is enabled or given a role, when a company is
 created and when a feature is switched on. Portal customers, driver-only logins, Administrator and super admins are not
@@ -23,7 +23,10 @@ def super_admins():
 	v = frappe.conf.get("hipersign_super_admins") or []
 	if isinstance(v, str):
 		v = [x.strip() for x in v.split(",")]
-	return {"Administrator"} | {x for x in v if x}
+	v = {x for x in v if x}
+	# v1.8.4: when the site config names super admins, only they are super admins — Administrator too is then an
+	# ordinary (client) admin. With no list, Administrator stays the super admin so nobody is locked out.
+	return v or {"Administrator"}
 
 
 def is_super_admin(user=None):

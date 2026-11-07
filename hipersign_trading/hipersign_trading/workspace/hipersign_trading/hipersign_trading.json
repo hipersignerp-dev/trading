@@ -3,7 +3,7 @@
  "label": "Hipersign Trading",
  "title": "Hipersign Trading",
  "public": 1,
- "is_hidden": 0,
+ "is_hidden": 1,
  "icon": "organization",
  "indicator_color": "",
  "sequence_id": 1.0,
@@ -29,11 +29,11 @@
  "number_cards": [
   {
    "number_card_name": "HS Gross Profit (Month)",
-   "label": "Gross profit \u2014 this month"
+   "label": "Gross profit — this month"
   },
   {
    "number_card_name": "HS Net Profit (Month)",
-   "label": "Net profit \u2014 this month"
+   "label": "Net profit — this month"
   },
   {
    "number_card_name": "HS Open Sales Orders",
@@ -787,5 +787,5 @@
  "module": "Hipersign Trading",
  "owner": "Administrator",
  "creation": "2026-10-21 14:30:00.000000",
- "modified": "2026-10-26 12:00:00.000000"
+ "modified": "2026-11-07 12:00:00.000000"
 }

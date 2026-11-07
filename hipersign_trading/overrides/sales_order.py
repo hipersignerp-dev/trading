@@ -11,6 +11,12 @@ def validate(doc, method=None):
 	from hipersign_trading.overrides.pricing import keep
 
 	keep(doc)
+	# v1.8.4: the quotation's sales person goes with it to the order's sales team
+	if not doc.get("sales_team") and doc.meta.has_field("sales_team"):
+		qn = next((i.prevdoc_docname for i in doc.items if i.get("prevdoc_docname")), None)
+		sp = qn and frappe.db.get_value("Quotation", qn, "hs_sales_person") if frappe.get_meta("Quotation").has_field("hs_sales_person") else None
+		if sp:
+			doc.append("sales_team", {"sales_person": sp, "allocated_percentage": 100})
 	s = settings()
 	apply_export_terms(doc, s)
 	reasons_sm, reasons_fin = [], []

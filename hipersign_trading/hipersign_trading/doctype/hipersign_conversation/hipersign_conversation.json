@@ -1,0 +1,59 @@
+{
+ "doctype": "DocType",
+ "name": "Hipersign Conversation",
+ "module": "Hipersign Trading",
+ "custom": 0,
+ "engine": "InnoDB",
+ "autoname": "hash",
+ "track_changes": 0,
+ "title_field": "title",
+ "show_title_field_in_link": 1,
+ "search_fields": "title",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "description": "v1.8.4: a message thread that is not on a record (Messages › New message). Only its people can open it.",
+ "fields": [
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "label": "Title",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "participants",
+   "fieldtype": "Small Text",
+   "label": "People",
+   "description": "Logins, one per line"
+  },
+  {
+   "fieldname": "linked_doctype",
+   "fieldtype": "Link",
+   "label": "Linked record type",
+   "options": "DocType"
+  },
+  {
+   "fieldname": "linked_name",
+   "fieldtype": "Dynamic Link",
+   "label": "Linked record",
+   "options": "linked_doctype"
+  }
+ ],
+ "permissions": [
+  {
+   "role": "Desk User",
+   "read": 1,
+   "write": 1,
+   "create": 1
+  },
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  }
+ ],
+ "owner": "Administrator",
+ "creation": "2026-11-07 12:00:00",
+ "modified": "2026-11-07 12:00:00.000000"
+}

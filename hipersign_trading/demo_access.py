@@ -44,7 +44,7 @@ HIPERSIGN_READ = {
 	"alerts.get_alerts", "api.compare.open_rfqs", "api.compare.rfq_compare", "api.approvals.get_approvals", "api.centre.get_addons", "api.centre.get_tests", "api.dashboard.gross_profit",
 	"api.dashboard.net_profit", "api.docs.doc_info", "api.docs.document_types", "api.docs.ruled_doctypes", "api.driver.my_stops",
 	"api.group.trial_balance", "api.home.get_home", "api.journey.chain", "api.journey.purchase_orders", "api.landed.get_landed",
-	"api.landed.get_stack", "api.landed.price_helper", "api.messages.conversations", "api.messages.thread", "api.nav.counts",
+	"api.landed.get_stack", "api.landed.price_helper", "api.messages.conversations", "api.messages.thread", "api.messages.search_records", "api.messages.search_people", "api.nav.counts",
 	"api.pricing.price_list_info", "api.quick.find_items", "api.quick.form_modes", "api.quick.last_order", "api.quick.open_invoices",
 	"api.quick.to_bill", "api.quick.set_form_mode", "api.serials.lookup", "api.setup.demo_status", "api.share.whatsapp_link",
 	"api.tracker.get_orders", "api.ui.bell", "api.ui.mark_all_read", "api.ui.search", "api.ui.set_company", "api.ui.set_language",
@@ -59,6 +59,7 @@ HIPERSIGN_READ = {
 	# v1.8.0: the material request line review and the Create PO window read before anything is saved
 	"api.projects.mr_lines", "api.projects.mr_po_preset",
 	# v1.8.3 (prototype p20): the graph band reads; a chart type picked on a chart is the viewer's own setting (DefaultValue)
+	"api.reports.get_reports", "api.reports.set_favourite",  # v1.8.4: Reports page (favourites are the viewer's own setting)
 	"api.band.get_band", "api.look.set_chart_type", "api.look.reset_chart_types", "api.look.set_erp_theme",
 }
 

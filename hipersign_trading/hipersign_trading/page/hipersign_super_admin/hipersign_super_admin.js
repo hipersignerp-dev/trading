@@ -1,5 +1,5 @@
-// v1.8.3: Super Admin — Hipersign's own console on a client site. Only super admins (Administrator and the users in the
-// site config's hipersign_super_admins) can open it: the licence (users and companies allowed, which modules may be
+// v1.8.3: Super Admin — Hipersign's own console on a client site. Only super admins (the users in the site config's
+// hipersign_super_admins, or Administrator when it is not set) can open it: the licence (users and companies allowed, which modules may be
 // switched on, Frappe/ERPNext pop-ups for the client's admins), with what is in use today.
 frappe.pages["hipersign-super-admin"].on_page_load = function (wrapper) {
 	const ui = hipersign.ui, esc = ui.esc;
@@ -52,7 +52,7 @@ frappe.pages["hipersign-super-admin"].on_page_load = function (wrapper) {
 				<tbody>${st.users.map(urow).join("")}</tbody></table></div></div></div>
 			<div class="hsx-card"><div class="hsx-card-h"><h3>${esc(__("Super admins"))}</h3></div><div class="hsx-card-b">
 				<p>${st.super_admins.map((x) => `<span class="hsx-pill blue">${esc(x)}</span>`).join(" ")}</p>
-				<p class="small text-muted">${esc(__("Set in Press › Site › Config as hipersign_super_admins (a list of logins). The client cannot change this from the ERP."))}</p></div></div>`);
+				<p class="small text-muted">${esc(__("Set in Press › Site › Config as hipersign_super_admins (a list of logins). When it is set, only those logins are super admins — Administrator too becomes an ordinary admin. The client cannot change this from the ERP."))}</p></div></div>`);
 		v.$actions.html(`<button class="btn btn-primary btn-sm hs-sa-save" ${Object.keys(dirty).length ? "" : "disabled"}>${esc(__("Save licence"))}</button>`);
 	}
 	function load() {

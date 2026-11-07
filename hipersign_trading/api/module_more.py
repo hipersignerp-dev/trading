@@ -5,7 +5,7 @@ Same shape as api/module.py (get_module / get_rows dispatch there). Read with th
 
 import frappe
 from frappe import _
-from frappe.utils import add_days, add_months, cint, date_diff, flt, formatdate, get_first_day, get_last_day, getdate, today  # noqa: F401
+from frappe.utils import add_days, add_months, cint, date_diff, flt, fmt_money, formatdate, get_first_day, get_last_day, getdate, today  # noqa: F401
 
 from hipersign_trading.api.module import _fields, _fmt, _perm, _scope, kpi
 
@@ -262,7 +262,7 @@ def accounts_rows(tab, chip, q=None):
 				rows.append({"dt": "Account", "name": p, "cells": [{"text": "   " + (frappe.db.get_value("Account", p, "account_name") or p)}, "", {"money": v * sign}]})
 			if rt == "Equity":
 				rows.append({"cells": [{"text": "   " + _("Current year profit")}, "", {"money": profit}]})
-		return {"title": _("Balance sheet — today"), "cols": [{"label": _("Line")}, {"label": ""}, {"label": _("Amount ({0})").format(cur), "cls": "num"}], "rows": rows}
+		return {"title": _("Balance sheet — today"), "nototal": 1, "cols": [{"label": _("Line")}, {"label": ""}, {"label": _("Amount ({0})").format(cur), "cls": "num"}], "rows": rows}
 	if tab == "gl":
 		gl = frappe.get_list("GL Entry", filters={"company": ["in", cos], "is_cancelled": 0, "posting_date": ["between", [start, end]]},
 			fields=["posting_date", "account", "debit", "credit", "voucher_type", "voucher_no", "party", "remarks"], order_by="posting_date desc, creation desc", limit=200) \
@@ -406,7 +406,9 @@ def _doc_cells(d, ab):
 		{"pill": d.state, "tone": d.tone}, {"text": _("On file"), "tone": "green"} if d.attachment else {"text": _("Missing"), "tone": "red"}]
 
 
-DOC_COLS = [{"label": _("Document")}, {"label": _("Number")}, {"label": _("Issued by")}, {"label": _("Expiry")}, {"label": _("Owner · company")}, {"label": _("Status")}, {"label": _("File")}]
+def DOC_COLS():
+	"""v1.8.4: built per request, so the headings follow the user's language (a module-level list was translated once, in English)."""
+	return [{"label": _("Document")}, {"label": _("Number")}, {"label": _("Issued by")}, {"label": _("Expiry")}, {"label": _("Owner · company")}, {"label": _("Status")}, {"label": _("File")}]
 
 
 def codocs_rows(tab, chip, q=None):
@@ -418,11 +420,11 @@ def codocs_rows(tab, chip, q=None):
 		docs = _cdocs([chip] if chip and chip != "all" else allc)
 		if q:
 			docs = [d for d in docs if q.lower() in (d.document_type + (d.document_number or "") + (d.authority or "")).lower()]
-		return {"cols": DOC_COLS, "rows": [{"dt": "Company Document", "name": d.name, "cells": _doc_cells(d, ab)} for d in docs],
+		return {"cols": DOC_COLS(), "rows": [{"dt": "Company Document", "name": d.name, "cells": _doc_cells(d, ab)} for d in docs],
 			"empty": _("No company documents yet — use Add document.")}
 	if tab == "renewals":
 		docs = [d for d in _cdocs(allc) if d.tone in ("orange", "red", "blue")]
-		return {"cols": DOC_COLS, "rows": [{"dt": "Company Document", "name": d.name, "cells": _doc_cells(d, ab)} for d in docs], "empty": _("Nothing due for renewal.")}
+		return {"cols": DOC_COLS(), "rows": [{"dt": "Company Document", "name": d.name, "cells": _doc_cells(d, ab)} for d in docs], "empty": _("Nothing due for renewal.")}
 	if tab == "deadlines":
 		dls = _deadlines(allc)
 		if chip != "all":
@@ -590,7 +592,7 @@ def finance_extra(tab, chip, q=None):
 			{"money": s.advance_paid, "currency": s.currency if s.currency != cur else None}, {"money": s.advance_paid}, {"pill": _("Held on order"), "tone": "blue"}]} for s in so_adv]
 		return {"title": _("Customer advances"), "cols": [{"label": _("Receipt / order")}, {"label": _("Customer")}, {"label": _("Received")}, {"label": _("Amount"), "cls": "num"},
 			{"label": _("Unapplied"), "cls": "num"}, {"label": _("Status")}], "rows": rows,
-			"actions": [{"label": _("Receive advance"), "primary": 1, "route": ["Form", "Payment Entry", "new"], "options": {"payment_type": "Receive", "party_type": "Customer"}}],
+			"actions": [{"label": _("Receive advance"), "primary": 1, "new": "Payment Entry:advance"}],  # v1.8.4: a window, not a blank Payment Entry
 			"empty": _("No customer advances waiting to be applied.")}
 	if tab == "collections":
 		inv = frappe.get_list("Sales Invoice", filters={"company": ["in", cos], "docstatus": 1, "outstanding_amount": [">", 0], "due_date": ["<=", add_days(t, 7)]},
@@ -636,7 +638,9 @@ def finance_extra(tab, chip, q=None):
 			(tuple(cos), add_days(t, 30)))[0][0])
 		dues_out = flt(frappe.db.sql("""select sum(outstanding_amount) from `tabPurchase Invoice` where docstatus=1 and company in %s and outstanding_amount > 0 and due_date <= %s""",
 			(tuple(cos), add_days(t, 30)))[0][0])
-		rows.append({"cells": [{"main": _("Next 30 days (expected)")}, {"money": dues_in}, {"money": dues_out}, {"money": dues_in - dues_out, "neg": dues_in < dues_out}, {"money": bal + dues_in - dues_out}]})
+		# v1.8.4: the expected next 30 days are not part of the six months' totals
+		rows.append({"nosum": 1, "cls": "hsx-muted-row", "cells": [{"main": _("Next 30 days (expected)"), "sub": _("Open invoices and bills due — not in the totals")}, {"money": dues_in},
+			{"money": dues_out}, {"money": dues_in - dues_out, "neg": dues_in < dues_out}, {"money": bal + dues_in - dues_out}]})
 		return {"title": _("Cash flow — bank and cash, last six months"), "cols": [{"label": _("Month")}, {"label": _("Money in"), "cls": "num"}, {"label": _("Money out"), "cls": "num"},
 			{"label": _("Net"), "cls": "num"}, {"label": _("Closing balance"), "cls": "num"}], "rows": rows,
 			"actions": [{"label": _("Cash Flow report"), "route": ["query-report", "Cash Flow"]}]}
@@ -648,12 +652,14 @@ def finance_extra(tab, chip, q=None):
 			r = frappe.db.sql("""select a.root_type, a.account_type, a.parent_account, sum(gle.credit - gle.debit) amt from `tabGL Entry` gle join tabAccount a on a.name = gle.account
 				where gle.is_cancelled = 0 and gle.company in %s and gle.posting_date between %s and %s and a.root_type in ('Income', 'Expense')
 				and gle.voucher_type != 'Period Closing Voucher' group by a.root_type, a.account_type, a.parent_account""", (tuple(cos), a, b), as_dict=True)
-			f = frappe._dict(rev=0, cogs=0, exp={})
+			f = frappe._dict(rev=0, cogs=0, exp={}, dep=0)
 			for x in r:
 				if x.root_type == "Income":
 					f.rev += flt(x.amt)
 				elif x.account_type in ("Cost of Goods Sold", "Stock Adjustment"):
 					f.cogs += -flt(x.amt)
+				elif x.account_type == "Depreciation":  # v1.8.4: depreciation on its own line
+					f.dep += -flt(x.amt)
 				else:
 					k = (frappe.db.get_value("Account", x.parent_account, "account_name") or x.parent_account or _("Other")) if x.parent_account else _("Other")
 					f.exp[k] = f.exp.get(k, 0) - flt(x.amt)
@@ -664,9 +670,17 @@ def finance_extra(tab, chip, q=None):
 		rows = [line(_("Revenue"), [f.rev for f in figs], b=1), line(_("Cost of sales (landed)"), [-f.cogs for f in figs]),
 			line(_("Gross profit"), [f.rev - f.cogs for f in figs], b=1)]
 		rows += [line("   " + k, [-f.exp.get(k, 0) for f in figs]) for k in keys]
-		rows.append(line(_("Net profit"), [f.rev - f.cogs - sum(f.exp.values()) for f in figs], b=1))
+		# v1.8.4: depreciation always shown (with the next scheduled charge when none is booked yet)
+		nxt = frappe.db.sql("""select ds.schedule_date, sum(ds.depreciation_amount) from `tabDepreciation Schedule` ds join `tabAsset Depreciation Schedule` ads on ads.name = ds.parent
+			join tabAsset a on a.name = ads.asset where ads.docstatus = 1 and a.company in %s and ifnull(ds.journal_entry, '') = '' and ds.schedule_date > %s
+			group by ds.schedule_date order by ds.schedule_date limit 1""", (tuple(cos), t)) if frappe.db.table_exists("Depreciation Schedule") else []
+		dep = line("   " + _("Depreciation"), [-f.dep for f in figs])
+		if nxt:
+			dep["cells"][0] = {"main": "   " + _("Depreciation"), "sub": _("Next charge {0} on {1}").format(fmt_money(nxt[0][1], currency=cur), formatdate(nxt[0][0], "dd MMM yyyy"))}
+		rows.append(dep)
+		rows.append(line(_("Net profit"), [f.rev - f.cogs - sum(f.exp.values()) - f.dep for f in figs], b=1))
 		gm = [((f.rev - f.cogs) / f.rev * 100) if f.rev else 0 for f in figs]
 		rows.append({"cells": [_("Gross margin")] + [{"text": f"{g:.1f}%"} for g in gm]})
-		return {"title": _("Profit & loss"), "cols": [{"label": _("Line")}] + [{"label": l, "cls": "num"} for l, _a, _b in cols_p], "rows": rows,
+		return {"title": _("Profit & loss"), "nototal": 1, "cols": [{"label": _("Line")}] + [{"label": l, "cls": "num"} for l, _a, _b in cols_p], "rows": rows,
 			"actions": [{"label": _("Profit and Loss report"), "route": ["query-report", "Profit and Loss Statement"]}]}
 	return {"cols": [], "rows": []}

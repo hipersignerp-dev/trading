@@ -123,3 +123,34 @@ hipersign.trim_create = function (frm) {
 };
 ["Quotation", "Sales Order", "Delivery Note", "Sales Invoice", "Purchase Order", "Purchase Receipt", "Purchase Invoice", "Material Request", "Supplier Quotation"]
 	.forEach((dt) => frappe.ui.form.on(dt, { refresh: hipersign.trim_create }));
+
+// v1.8.4 (#27): ERPNext's Bank Reconciliation Tool draws its cards and table from a bundle it loads on refresh, but it also
+// draws them as soon as a bank account is set on load — before the bundle is there ("NumberCardManager is not a constructor",
+// one error per redraw). Wait for the bundle first. Its own onload sets the company and dates, which made the empty tool show
+// "Not Saved"; the tool is never saved, so that marker is cleared.
+frappe.ui.form.on("Bank Reconciliation Tool", {
+	setup(frm) {
+		const B = "bank-reconciliation-tool.bundle.js";
+		["render_chart", "make_reconciliation_tool"].forEach((ev) => {
+			const list = frappe.ui.form.get_event_handler_list("Bank Reconciliation Tool", ev);
+			list.forEach((fn, i) => {
+				if (fn.hs_wrapped) return;
+				const w = function (f, ...rest) {
+					const ns = (window.erpnext && erpnext.accounts && erpnext.accounts.bank_reconciliation) || {};
+					if (ns.NumberCardManager && ns.DataTableManager) return fn.call(this, f, ...rest);
+					return new Promise((res) => frappe.require(B, () => res(fn.call(this, f, ...rest))));
+				};
+				w.hs_wrapped = 1;
+				list[i] = w;
+			});
+		});
+	},
+	refresh(frm) {
+		frm.doc.__unsaved = 0;
+		frm.page.clear_indicator();
+	},
+	onload_post_render(frm) {
+		frm.doc.__unsaved = 0;
+		frm.page.clear_indicator();
+	},
+});

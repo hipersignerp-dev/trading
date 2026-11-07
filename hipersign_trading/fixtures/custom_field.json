@@ -2289,5 +2289,18 @@
   "label": "Company name (Chinese)",
   "insert_after": "company_name",
   "description": "Printed on the English + Chinese manufacturing documents"
+ },
+ {
+  "doctype": "Custom Field",
+  "dt": "Quotation",
+  "fieldname": "hs_sales_person",
+  "fieldtype": "Link",
+  "options": "Sales Person",
+  "insert_after": "hs_warranty_months",
+  "is_system_generated": 0,
+  "label": "Sales person",
+  "module": "Hipersign Trading",
+  "name": "Quotation-hs_sales_person",
+  "description": "v1.8.4: the sales person on the quotation (Quotation has no sales team); passed to the sales order"
  }
 ]

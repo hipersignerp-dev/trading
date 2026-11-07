@@ -378,6 +378,15 @@ def crm_rows(tab, chip, q=None, owner=None, source=None):
 # ---------------------------------------------------------------- API
 @frappe.whitelist()
 def get_module(key, owner=None, source=None):
+	# v1.8.4 (#34/#37): extra tabs so every sidebar sub-item opens a tab of its Hipersign page (api/module_extra.py)
+	from hipersign_trading.api import module_extra
+
+	if key in module_extra.PAGES:
+		return module_extra.page_module(key)
+	return module_extra.extend(key, _get_module(key, owner, source))
+
+
+def _get_module(key, owner=None, source=None):
 	if key.startswith("pj_"):  # v1.8.0: the Projects pages
 		from hipersign_trading.api import module_prj
 
@@ -439,6 +448,11 @@ def get_module(key, owner=None, source=None):
 
 @frappe.whitelist()
 def get_rows(key, tab, chip=None, q=None, owner=None, source=None):
+	# v1.8.4 (#34/#37): the extra tabs (api/module_extra.py)
+	from hipersign_trading.api import module_extra
+
+	if module_extra.has_tab(key, tab):
+		return module_extra.rows(key, tab, chip or None, q or None)
 	if key.startswith("pj_"):  # v1.8.0: the Projects pages
 		from hipersign_trading.api import module_prj
 

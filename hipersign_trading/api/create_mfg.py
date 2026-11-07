@@ -94,11 +94,20 @@ def pre_production_plan(doc, v, rows):
 		sos = [pick]
 		if M.so_doc(pick).docstatus == 0:
 			frappe.throw(_("{0} is a forecast — confirm it as a sales order first, then plan it.").format(pick))
+	# v1.8.4: forecast orders (drafts) are counted when "Include forecast orders" is ticked — ERPNext plans only confirmed
+	# orders, so they are named in the result instead of being silently left out
+	fc = []
+	if pick == "open" and cint(v.get("_fc", 1)):
+		fc = [s for s in M.so_names(cos, include_forecast=True) if M.so_doc(s).docstatus == 0 and not M.main_wo(s)]
 	if not sos:
-		frappe.throw(_("Every open order already has a work order."))
-	r = M.make_plan(sos, include_sub=cint(v.get("_sub", 1)), mrs=True)
+		frappe.throw(_("Every open order already has a work order.") + (" " + _("Forecasts waiting to be confirmed: {0}").format(", ".join(fc)) if fc else ""))
+	wh = v.get("for_warehouse") or None
+	if wh and not frappe.db.exists("Warehouse", wh):
+		frappe.throw(_("Warehouse {0} not found").format(wh))
+	r = M.make_plan(sos, include_sub=cint(v.get("_sub", 1)), mrs=True, for_warehouse=wh, safety_stock=cint(v.get("_ss", 0)))
 	return _done(doc, frappe.get_doc("Production Plan", r.plan), _("{0} — {1} work order(s) proposed ({2})").format(r.plan, len(r.wos), ", ".join(r.wos))
-		+ (_(" · {0} material request(s)").format(len(r.mrs)) if r.mrs else ""))
+		+ (_(" · {0} material request(s)").format(len(r.mrs)) if r.mrs else "")
+		+ (_(" · forecasts planned once confirmed: {0}").format(", ".join(fc)) if fc else ""))
 
 
 def pre_job_card(doc, v, rows):
@@ -180,7 +189,8 @@ def pre_stock_entry_wip(doc, v, rows):
 	wo = v.get("work_order")
 	if not wo:
 		frappe.throw(_("Choose the work order"))
-	se = M.transfer(wo, flt(v.get("_pct")) or 100, v.get("hs_picked_by") or None)
+	se = M.transfer(wo, flt(v.get("_pct")) or 100, v.get("hs_picked_by") or None,  # v1.8.4: the stores picked are used
+		from_warehouse=v.get("from_warehouse") or None, to_warehouse=v.get("to_warehouse") or None)
 	return _done(doc, se, _("{0} — {1} components issued to WIP for {2}").format(se.name, len(se.items), wo))
 
 
@@ -233,3 +243,20 @@ def fill_bom(item, values=None):
 	q = flt(b.quantity) or 1
 	return {"values": {}, "rows": [{"item_code": r.item_code, "qty": flt(r.qty) / q} for r in b.items],
 		"note": _("Components of {0} (the active version) — change what differs; the routing is copied.").format(cur)}
+
+
+def fill_wo_ops(wo, values=None):
+	"""v1.8.4: the job card window's Operation list = the operations of this work order (its routing), the first one with
+	quantity still to do picked; before, every operation in the system was offered."""
+	if not frappe.has_permission("Work Order", "read", wo):
+		return {"values": {}, "opts": {"operation": []}}
+	w = frappe.get_doc("Work Order", wo)
+	opts, first = [], None
+	for o in w.operations:
+		done = sum(flt(j.for_quantity) for j in frappe.get_all("Job Card", filters={"operation_id": o.name, "docstatus": ["<", 2]}, fields=["for_quantity"]))
+		left = max(0, flt(w.qty) - done)
+		opts.append({"name": o.operation, "label": f"{o.idx * 10} · {o.operation}" + (f" — {_('{0} to do').format(f'{left:,.0f}')}" if left else f" — {_('fully planned')}")})
+		if first is None and left:
+			first = o.operation
+	note = "" if opts else _("{0} has no routing operations — release it with a BOM that has a routing.").format(wo)
+	return {"values": {"operation": first or (opts[0]["name"] if opts else "")}, "force": ["operation"], "opts": {"operation": opts}, "note": note}

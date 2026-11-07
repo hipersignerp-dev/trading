@@ -569,7 +569,7 @@ def b_lc():
 def b_stock():
 	cos, start, end, label, cur = _scope()
 	whs = [w.name for w in frappe.get_all("Warehouse", filters={"company": ["in", cos], "is_group": 0}, fields=["name"])] if cos else []
-	bins = _rows("Bin", {"warehouse": ["in", whs or [""]]}, ["item_code", "warehouse", "actual_qty", "stock_value", "projected_qty"], 5000)
+	bins = _rows("Bin", {"warehouse": ["in", whs or [""]]}, ["item_code", "warehouse", "actual_qty", "stock_value", "projected_qty", "reserved_qty", "reserved_stock"], 5000)
 	if not bins:
 		return []
 	by_wh = _sum_by(bins, "warehouse", "stock_value")
@@ -577,18 +577,18 @@ def b_stock():
 	for b in bins:
 		per.setdefault(b.item_code, [0, 0])
 		per[b.item_code][0] += flt(b.actual_qty)
-		per[b.item_code][1] += flt(b.projected_qty)
+		per[b.item_code][1] += flt(b.get("reserved_stock")) or flt(b.get("reserved_qty"))  # v1.8.4 (#36): reserved, as on the page
 	reorder = {r.parent: flt(r.warehouse_reorder_level) for r in frappe.get_all("Item Reorder", fields=["parent", "warehouse_reorder_level"], limit=5000)}
-	low = [c for c, (q, p) in per.items() if q > 0 and reorder.get(c) and q <= reorder[c]]
-	out_ = [c for c, (q, p) in per.items() if q <= 0]
-	neg = [c for c, (q, p) in per.items() if p < 0]
-	ok = len(per) - len(low) - len(out_)
+	neg = [c for c, (q, rs) in per.items() if q > 0 and rs > q]
+	low = [c for c, (q, rs) in per.items() if q > 0 and c not in neg and reorder.get(c) and q - rs <= reorder[c]]
+	out_ = [c for c, (q, rs) in per.items() if q <= 0]
+	ok = len(per) - len(low) - len(out_) - len(neg)
 	names = {i.name: i.item_name for i in frappe.get_all("Item", filters={"name": ["in", (neg + low)[:6] or [""]]}, fields=["name", "item_name"])}
 	return [
 		lambda: W_donut(_("Stock health"), _("{0} items").format(len(per)), [{"label": _("In stock"), "value": ok, "color": "green"}, {"label": _("Low"), "value": len(low), "color": "amber"},
-			{"label": _("Out of stock"), "value": len(out_), "color": "red"}], len(per), _("items"), icon="package"),
+			{"label": _("Short"), "value": len(neg), "color": "red"}, {"label": _("Out of stock"), "value": len(out_), "color": "grey"}], len(per), _("items"), icon="package"),
 		lambda: W_bars(_("Stock value by warehouse"), cur, _bars_rows(by_wh, 6, "blue"), True, cur, icon="warehouse"),
-		lambda: W_dark(_("Short against orders"), _("Ordered more than in stock"), len(neg), _("items"), [{"label": names.get(c, c), "sub": _("Free {0} · on hand {1}").format(round(per[c][1]), round(per[c][0])), "value": "",
+		lambda: W_dark(_("Short against orders"), _("Ordered more than in stock"), len(neg), _("items"), [{"label": names.get(c, c), "sub": _("On hand {0} · reserved {1}").format(round(per[c][0]), round(per[c][1])), "value": _("Short {0}").format(round(per[c][1] - per[c][0])),
 			"open": ["Item", c]} for c in neg] or [{"label": names.get(c, c), "sub": _("Low stock · {0} on hand").format(round(per[c][0])), "value": "", "open": ["Item", c]} for c in low], _("Nothing short"), icon="triangle-alert"),
 	]
 
@@ -844,6 +844,7 @@ def b_pj_site():
 	cos, start, end, label, cur = _pscope()
 	ds = _rows("Daily Site Report", _co("Daily Site Report", cos, {"report_date": [">=", add_days(today(), -13)]}), ["project", "report_date", "manpower_own", "manpower_sub"], 1000)
 	mr = _rows("Material Request", _co("Material Request", cos, {"docstatus": ["<", 2], "creation": [">=", add_months(today(), -6)]}), ["name", "status", "schedule_date", "project"], 1000)
+	mr = [m for m in mr if m.get("project")]  # v1.8.4: site requests only (a factory's material requests are not site requests), as on the page
 	out = []
 	if ds:
 		days = [add_days(today(), -i) for i in range(13, -1, -1)]

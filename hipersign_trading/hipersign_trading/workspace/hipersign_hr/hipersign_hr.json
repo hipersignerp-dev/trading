@@ -3,7 +3,7 @@
  "label": "Hipersign HR",
  "title": "Hipersign HR",
  "public": 1,
- "is_hidden": 0,
+ "is_hidden": 1,
  "icon": "hr",
  "indicator_color": "",
  "sequence_id": 5,
@@ -16,7 +16,7 @@
   },
   {
    "number_card_name": "HS Visas Expiring",
-   "label": "Visas expiring \u2264 60 days"
+   "label": "Visas expiring ≤ 60 days"
   }
  ],
  "shortcuts": [
@@ -269,5 +269,5 @@
  "module": "Hipersign Trading",
  "owner": "Administrator",
  "creation": "2026-10-22 18:00:00.000000",
- "modified": "2026-10-26 12:00:00.000000"
+ "modified": "2026-11-07 12:00:00.000000"
 }

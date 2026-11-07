@@ -827,21 +827,23 @@ def finance_rows(tab, chip, q=None):
 			"rows": [{"dt": "Sales Invoice", "name": r.name, "cells": [{"code": r.name}, {"main": r.customer_name}, {"date": r.posting_date},
 				{"main": frappe.utils.formatdate(r.due_date, "dd MMM yyyy") if r.due_date else "—",
 					"sub": _("{0} d overdue").format((t - getdate(r.due_date)).days) if r.due_date and getdate(r.due_date) < t and flt(r.outstanding_amount) > 0 else "", "late": True},
-				{"money": r.grand_total, "currency": r.currency if r.currency != cur else None}, {"money": r.outstanding_amount, "currency": r.currency if r.currency != cur else None},
+				{"money": r.grand_total, "currency": r.currency if r.currency != cur else None},
+				# v1.8.4: the outstanding is in the customer's account currency (AED for the Nairobi USD invoice), not the invoice currency
+				{"money": r.outstanding_amount, "currency": (r.party_account_currency or r.currency) if (r.party_account_currency or r.currency) != cur else None},
 				st(r), {"button": _("Receive"), "primary": 1, "make": "hipersign_trading.api.panel.pay_sales_invoice", "source": r.name}
 				if can_pe and flt(r.outstanding_amount) > 0 else ""]} for r in rows], "empty": _("No invoices here.")}
 	if tab == "payables":
 		if not _perm("Purchase Invoice"):
 			return {"cols": [], "rows": []}
 		rows = frappe.get_list("Purchase Invoice", filters={"company": ["in", cos], "docstatus": 1, "outstanding_amount": [">", 0]}, fields=["name", "supplier", "supplier_name",
-			"bill_no", "posting_date", "due_date", "grand_total", "outstanding_amount", "currency"], order_by="due_date asc", limit=300)
+			"bill_no", "posting_date", "due_date", "grand_total", "outstanding_amount", "currency", "party_account_currency"], order_by="due_date asc", limit=300)
 		if chip == "due":
 			rows = [r for r in rows if r.due_date and getdate(r.due_date) <= frappe.utils.add_days(t, 30)]
 		return {"cols": [{"label": _("Bill")}, {"label": _("Supplier")}, {"label": _("Supplier ref")}, {"label": _("Date")}, {"label": _("Due")}, {"label": _("Total"), "cls": "num"},
 			{"label": _("Outstanding"), "cls": "num"}, {"label": ""}],
 			"rows": [{"dt": "Purchase Invoice", "name": r.name, "cells": [{"code": r.name}, {"main": r.supplier_name or r.supplier}, r.bill_no or "—", {"date": r.posting_date},
 				{"date": r.due_date, "late": bool(r.due_date and getdate(r.due_date) < t)}, {"money": r.grand_total, "currency": r.currency if r.currency != cur else None},
-				{"money": r.outstanding_amount, "currency": r.currency if r.currency != cur else None},
+				{"money": r.outstanding_amount, "currency": (r.party_account_currency or r.currency) if (r.party_account_currency or r.currency) != cur else None},
 				{"button": _("Pay"), "make": "hipersign_trading.api.panel.pay_purchase_invoice", "source": r.name} if can_pe else ""]} for r in rows],
 			"empty": _("Nothing to pay.")}
 	if tab == "tobill":

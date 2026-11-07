@@ -235,7 +235,17 @@ def rates(kind, party=None, items=None):
 DOCTYPES = {"quotation": "Quotation", "sales_order": "Sales Order", "purchase_order": "Purchase Order", "delivery_note": "Delivery Note", "invoice": "Sales Invoice"}
 
 
+def no_negative(lines, label="item_code"):
+	"""v1.8.4: a line typed with a minus quantity was dropped and the user then got "Add at least one line…" —
+	now it says which line and why."""
+	for r in lines or []:
+		if r and flt(r.get("qty")) < 0:
+			frappe.throw(_("Line {0}: the quantity cannot be negative ({1}). Type the quantity as a positive number; returns have their own window.")
+				.format(r.get(label) or r.get("_item") or "", r.get("qty")), title=_("Negative quantity"))
+
+
 def _lines(doc, lines, kind, need):
+	no_negative(lines)
 	for r in lines:
 		if not r.get("item_code") or flt(r.get("qty")) <= 0:
 			continue
@@ -306,6 +316,9 @@ def save(kind, values, lines=None, action="save"):
 		for f in ("hs_subject", "hs_enquiry_ref", "hs_enquiry_date", "hs_delivery_period", "hs_warranty_months", "incoterm"):
 			if values.get(f) and doc.meta.has_field(f):
 				doc.set(f, values[f])
+		# v1.8.4: a quotation has no sales team — the sales person was dropped; it is kept on hs_sales_person
+		if values.get("sales_person") and doc.meta.has_field("hs_sales_person"):
+			doc.hs_sales_person = values.sales_person
 	elif kind == "sales_order":
 		doc.customer = values.party
 		doc.delivery_date = need
@@ -689,7 +702,11 @@ def _pre_bank_guarantee(doc, v, rows):
 	if v.get("_valid_to"):
 		from frappe.utils import date_diff
 
-		doc.validity = date_diff(v._valid_to, doc.start_date)
+		# v1.8.4: the end date was lost — ERPNext only sets it in the browser form; keep it, validity as the form counts it
+		if getdate(v._valid_to) < getdate(doc.start_date):
+			frappe.throw(_("Valid to must be on or after Valid from"))
+		doc.validity = date_diff(v._valid_to, doc.start_date) + 1
+		doc.end_date = v._valid_to
 	if flt(v.get("_margin_pct")):
 		doc.margin_money = doc.amount * flt(v._margin_pct) / 100
 	doc.more_information = " — ".join(x for x in [v.get("_bg_kind"), v.get("_contract")] if x)
@@ -741,6 +758,7 @@ def _pre_purchase_invoice(doc, v, rows):
 	if v.get("_source"):
 		doc, sdt = _bill_mapped(v._source)
 		want = {cint(r["_i"]): r for r in rows if r.get("_i") not in (None, "")}
+		no_negative(rows, "_item")
 		keep = []
 		for i, row in enumerate(doc.items):
 			r = want.get(i)
@@ -810,6 +828,8 @@ def _debit_note(v, rows):
 	keep = []
 	for i, row in enumerate(dn.items):
 		r = want.get(i)
+		if r and flt(r.get("qty")) < 0:  # v1.8.4: a minus is not turned into a return of that size silently
+			frappe.throw(_("{0}: type the quantity returned as a positive number (e.g. 5, not −5)").format(row.item_name or row.item_code))
 		q = abs(flt(r.get("qty"))) if r else 0
 		if q <= 0:
 			continue
@@ -852,7 +872,10 @@ def _pre_payment_entry(doc, v, rows):
 
 	if not v.get("customer"):
 		frappe.throw(_("Choose the customer"))
-	pe = receive_entry(v.customer, v.get("amount"), v.get("mode_of_payment"), v.get("reference_no"), v.get("company"))
+	if cint(v.get("_advance")):
+		pe = _advance_entry(v)  # v1.8.4: Receive advance (Finance › Customer advances) — not applied to invoices
+	else:
+		pe = receive_entry(v.customer, v.get("amount"), v.get("mode_of_payment"), v.get("reference_no"), v.get("company"))
 	if v.get("paid_to"):
 		pe.paid_to = v.paid_to
 		pe.paid_to_account_currency = frappe.get_cached_value("Account", v.paid_to, "account_currency")
@@ -881,6 +904,47 @@ def _pre_payment_entry(doc, v, rows):
 	pe.set_exchange_rate()
 	pe.set_amounts()
 	pe.flags.hs_ready = True
+	return pe
+
+
+def _advance_entry(v):
+	"""v1.8.4: a customer advance — against a sales order when one is chosen (the advance due on it is the default amount),
+	otherwise left unallocated on the customer, to be applied to an invoice later."""
+	from erpnext.accounts.doctype.payment_entry.payment_entry import get_payment_entry
+
+	amount = flt(v.get("amount"))
+	if v.get("sales_order"):
+		so = frappe.get_doc("Sales Order", v.sales_order)
+		so.check_permission("read")
+		if so.customer != v.customer:
+			frappe.throw(_("{0} is an order of {1}.").format(so.name, so.customer_name))
+		if amount <= 0:
+			from hipersign_trading.overrides.advances import position
+
+			required, received = position(so)
+			amount = max(0.0, flt(required) - flt(received)) or flt(so.grand_total) - flt(so.advance_paid)
+		pe = get_payment_entry("Sales Order", so.name, party_amount=amount)
+	else:
+		if amount <= 0:
+			frappe.throw(_("Enter the amount received"))
+		company = v.get("company") or frappe.defaults.get_user_default("Company") or frappe.get_all("Company", limit=1, pluck="name")[0]
+		pe = frappe.new_doc("Payment Entry")
+		pe.update({"payment_type": "Receive", "party_type": "Customer", "party": v.customer, "company": company, "posting_date": today(),
+			"paid_amount": amount, "received_amount": amount})
+		pe.setup_party_account_field()
+		pe.set_missing_values()
+	pe.paid_amount = pe.received_amount = amount
+	if v.get("mode_of_payment"):
+		pe.mode_of_payment = v.mode_of_payment
+		acc = frappe.db.get_value("Mode of Payment Account", {"parent": v.mode_of_payment, "company": pe.company}, "default_account")
+		if acc:
+			pe.paid_to = acc
+	if not pe.get("paid_to"):
+		pe.paid_to = frappe.get_cached_value("Company", pe.company, "default_bank_account") or frappe.get_cached_value("Company", pe.company, "default_cash_account")
+	if pe.get("paid_to"):
+		pe.paid_to_account_currency = frappe.get_cached_value("Account", pe.paid_to, "account_currency")
+	pe.reference_no = v.get("reference_no") or _("Advance")
+	pe.reference_date = today()
 	return pe
 
 
@@ -1004,6 +1068,10 @@ def fill_doc(kind, name, values=None):
 	values = frappe._dict(frappe.parse_json(values) if isinstance(values, str) else (values or {}))
 	if kind in _FILL:
 		return _FILL[kind](name, values)
+	if kind == "mfg_wo_ops" and name:  # v1.8.4: a job card offers only the operations of the work order's routing
+		from hipersign_trading.api.create_mfg import fill_wo_ops
+
+		return fill_wo_ops(name, values)
 	if kind == "mfg_bom" and name:  # v1.8.0: a new BOM version starts from the active one's components
 		from hipersign_trading.api.create_mfg import fill_bom
 
@@ -1102,8 +1170,9 @@ def _fill_debit(name, v):
 	src.check_permission("read")
 	dn = make_debit_note(name)
 	rows = [{"_i": i, "item_code": r.item_code, "_item": f"{r.item_code} — {r.item_name}" if r.item_name and r.item_name != r.item_code else r.item_code,
-		"_can": abs(flt(r.qty)), "qty": abs(flt(r.qty)), "rate": flt(r.rate)} for i, r in enumerate(dn.items) if abs(flt(r.qty)) > 0]
-	note = _("{0} · bill {1} · {2} · {3}").format(src.supplier_name or src.supplier, src.bill_no or "—", frappe.format(src.posting_date, "Date"), _money(src.grand_total, src.currency))
+		"_can": abs(flt(r.qty)), "qty": "", "rate": flt(r.rate)} for i, r in enumerate(dn.items) if abs(flt(r.qty)) > 0]
+	# v1.8.4: the return quantities start empty (they defaulted to the whole bill) — "Can return" shows what is left
+	note = _("{0} · bill {1} · {2} · {3}").format(src.supplier_name or src.supplier, src.bill_no or "—", frappe.format(src.posting_date, "Date"), _money(src.grand_total, src.currency)) + " · " + _("type the quantity returned on each line")
 	if not rows:
 		note = _("Everything on {0} has already been returned").format(name)
 	return {"values": {"_vat_rate": _taxes_rate(src)}, "force": ["_vat_rate"], "rows": rows, "note": note}
@@ -1122,6 +1191,8 @@ def _pre_sales_invoice(doc, v, rows):
 	keep = []
 	for i, row in enumerate(cn.items):
 		r = want.get(i)
+		if r and flt(r.get("qty")) < 0:  # v1.8.4: a minus is not turned into a return of that size silently
+			frappe.throw(_("{0}: type the quantity returned as a positive number (e.g. 5, not −5)").format(row.item_name or row.item_code))
 		q = abs(flt(r.get("qty"))) if r else 0
 		if q <= 0:
 			continue
@@ -1157,9 +1228,9 @@ def _fill_credit_note(name, v):
 	src.check_permission("read")
 	cn = make_sales_return(name)
 	rows = [{"_i": i, "item_code": r.item_code, "_item": f"{r.item_code} — {r.item_name}" if r.item_name and r.item_name != r.item_code else r.item_code,
-		"_can": abs(flt(r.qty)), "qty": abs(flt(r.qty)), "rate": flt(r.rate)} for i, r in enumerate(cn.items) if abs(flt(r.qty)) > 0]
+		"_can": abs(flt(r.qty)), "qty": "", "rate": flt(r.rate)} for i, r in enumerate(cn.items) if abs(flt(r.qty)) > 0]
 	note = _("{0} · {1} · {2} · outstanding {3}").format(src.customer_name or src.customer, frappe.format(src.posting_date, "Date"), _money(src.grand_total, src.currency),
-		_money(src.outstanding_amount, src.currency))
+		_money(src.outstanding_amount, src.currency)) + " · " + _("type the quantity returned on each line")
 	if not rows:
 		note = _("Everything on {0} has already been credited").format(name)
 	return {"values": {"_vat_rate": _taxes_rate(src)}, "force": ["_vat_rate"], "rows": rows, "note": note}

@@ -133,3 +133,26 @@
 [data-theme="dark"] .hsc-badge.green { background: rgba(22, 163, 74, .2); color: #86efac; }
 [data-theme="dark"] .hsc-badge.red { background: rgba(220, 38, 38, .2); color: #fca5a5; }
 [data-theme="dark"] .hsc-att-t small, [data-theme="dark"] .hsc-att-h span { color: #94a3b8; }
+
+/* v1.8.4 (#32, #33): Messages › New message — people chips and one search across records */
+.hsx-nm .hsc-f { position: relative; }
+.hsx-nm-chips:empty, .hsx-nm-rec:empty { display: none; }
+.hsx-nm-chips, .hsx-nm-rec { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
+.hsx-nm-chip { display: inline-flex; align-items: center; gap: 6px; background: #eef2ff; color: #1e3a8a; border-radius: 999px; padding: 4px 6px 4px 12px; font-size: 13px; font-weight: 600; }
+.hsx-nm-chip.rec { border-radius: 10px; font-weight: 500; padding: 6px 6px 6px 10px; }
+.hsx-nm-chip small { color: #64748b; }
+.hsx-nm-chip button { border: 0; background: rgba(30, 58, 138, .1); color: inherit; width: 22px; height: 22px; border-radius: 50%; line-height: 1; font-size: 15px; padding: 0; }
+.hsx-nm-res { display: none; position: absolute; top: 100%; inset-inline: 0; z-index: 5; margin-top: 4px; background: #fff; border: 1px solid #e2e8f0; border-radius: 12px;
+	box-shadow: 0 12px 30px rgba(15, 23, 42, .16); max-height: 280px; overflow-y: auto; padding: 4px; }
+.hsx-nm-opt { display: flex; flex-direction: row; justify-content: flex-start; gap: 10px; align-items: center; width: 100%; border: 0; background: none; text-align: start; padding: 8px 10px; border-radius: 8px; font-size: 13px; color: #0f172a; }
+.hsx-nm-opt:hover, .hsx-nm-opt:focus { background: #f1f5f9; }
+.hsx-nm-opt > span { display: flex; flex-direction: column; align-items: flex-start; flex: 1 1 auto; min-width: 0; text-align: start; }
+.hsx-nm-opt small { color: #64748b; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hsx-nm-opt svg { flex: none; color: #2563eb; }
+.hsx-nm-none { padding: 10px; color: #64748b; font-size: 13px; }
+[data-theme="dark"] .hsx-nm-chip { background: #1e3a8a; color: #dbeafe; }
+[data-theme="dark"] .hsx-nm-chip small { color: #bfdbfe; }
+[data-theme="dark"] .hsx-nm-res { background: #0f172a; border-color: #334155; }
+[data-theme="dark"] .hsx-nm-opt { color: #e5e7eb; }
+[data-theme="dark"] .hsx-nm-opt:hover, [data-theme="dark"] .hsx-nm-opt:focus { background: #1e293b; }
+[data-theme="dark"] .hsx-nm-opt small, [data-theme="dark"] .hsx-nm-none { color: #94a3b8; }

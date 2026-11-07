@@ -141,7 +141,8 @@ frappe.provide("hipersign.band");
 		const kind = o.kind === "bar" ? "bar" : "line", key = C.key(o, kind[0]), types = kind === "bar" ? ["bar", "line", "area", "table"] : ["line", "area", "bar", "table"];
 		const t = C.types()[key] || kind;
 		const body = t === "table" ? table(o) : t === "bar" ? bars_svg(o) : line_svg(o, t === "area");
-		return `<div class="hs-cbox">${menu(key, types, t)}${body}${t === "table" ? "" : legend(o.series)}</div>`;
+		// v1.8.4: the chart keeps its data so a chart outside the band (module cards) can be redrawn in the type picked
+		return `<div class="hs-cbox" data-hs-o="${esc(JSON.stringify(o))}">${menu(key, types, t)}${body}${t === "table" ? "" : legend(o.series)}</div>`;
 	};
 
 	C.donut = function (rows, center, sub, o) {
@@ -259,6 +260,10 @@ frappe.provide("hipersign.band");
 	$(document).on("click", ".hs-cmenu button", function (e) {
 		e.preventDefault(); e.stopPropagation();
 		C.set_type($(this).attr("data-ckey"), $(this).attr("data-ctype"));
+		const $box = $(this).closest(".hs-cbox");
+		if (!$box.closest(".hs-band").length && $box.attr("data-hs-o")) {
+			try { $box.replaceWith(C.chart(JSON.parse($box.attr("data-hs-o")))); } catch (err) { /* keep it */ }
+		}
 		hipersign.band.redraw();
 		$(document).trigger("hs-chart-type");
 	});

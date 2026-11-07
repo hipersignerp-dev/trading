@@ -3,7 +3,7 @@
  "label": "Hipersign Warehouse",
  "title": "Hipersign Warehouse",
  "public": 1,
- "is_hidden": 0,
+ "is_hidden": 1,
  "icon": "stock",
  "indicator_color": "",
  "sequence_id": 4,
@@ -379,5 +379,5 @@
  "module": "Hipersign Trading",
  "owner": "Administrator",
  "creation": "2026-10-22 18:00:00.000000",
- "modified": "2026-10-26 12:00:00.000000"
+ "modified": "2026-11-07 12:00:00.000000"
 }

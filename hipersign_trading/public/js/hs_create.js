@@ -447,6 +447,12 @@ frappe.provide("hipersign.cm");
 			// v1.7.3: a card may give [value, label] pairs (the user's role)
 			if (t === "Select") Object.assign(df, { t: "select", list: Array.isArray(f.options) ? f.options : (f.options || "").split("\n").filter((x) => x !== ""), blank: f.reqd ? undefined : "—" });
 			else if (t === "Link") Object.assign(df, { t: "select", list: links[f.options] || [], blank: f.reqd ? undefined : "—" });
+			// v1.8.4: "For → Name" (contact, address) is a picker of the chosen customer / supplier / lead, not a typed ID
+			else if (t === "Dynamic Link") {
+				const l = v[f.options] ? links[v[f.options]] || [] : [];
+				Object.assign(df, { t: "select", list: v[f.fieldname] && !l.some((o) => (o.name ?? o) === v[f.fieldname]) ? [{ name: v[f.fieldname], label: v[f.fieldname] }, ...l] : l,
+					blank: v[f.options] ? "—" : __("— choose For first —") });
+			}
 			else if (t === "Check") df.t = "check";
 			else if (t === "Date") df.t = "date";
 			else if (["Currency", "Float", "Int", "Percent"].includes(t)) df.t = t === "Currency" ? "currency" : "number";
@@ -461,7 +467,8 @@ frappe.provide("hipersign.cm");
 		};
 		sh.$body.on("change", "select,input[type=checkbox]", () => { read(); draw(); });
 		// Link choices: one call per doctype the card uses
-		const need = [...new Set(fields.filter((f) => f.fieldtype === "Link").map((f) => f.options))];
+		const dynOf = (f) => ((fields.find((x) => x.fieldname === f.options) || {}).options || "").split("\n").filter((x) => x);
+		const need = [...new Set([...fields.filter((f) => f.fieldtype === "Link").map((f) => f.options), ...fields.filter((f) => f.fieldtype === "Dynamic Link").flatMap(dynOf)])];
 		Promise.all(need.map((ldt) => frappe.xcall("hipersign_trading.api.create.link_options", { doctype: ldt,
 			query: (fields.find((f) => f.options === ldt && f.get_query) || {}).get_query ? JSON.stringify(fields.find((f) => f.options === ldt).get_query()) : null })
 			.then((r) => { links[ldt] = r || []; }).catch(() => { links[ldt] = []; }))).then(draw);
@@ -813,6 +820,20 @@ frappe.provide("hipersign.cm");
 			{ f: "remarks", label: __("Remarks"), t: "textarea", m: "d", w: 2 },
 		], full: (v) => ({ payment_type: "Receive", party_type: "Customer", party: v.customer }),
 			actions: [{ label: __("Save draft"), action: "save" }, { label: __("Record receipt"), action: "submit", primary: 1 }] },
+		// v1.8.4: Receive advance (Finance › Customer advances, a customer or an order): customer, amount, mode — against an order or left on the customer
+		"Payment Entry:advance": { doctype: "Payment Entry", preset: { _advance: 1 }, title: __("Receive customer advance"),
+			sub: __("Money received before the invoice — against a sales order, or kept on the customer and applied to an invoice later"), fields: [
+			{ f: "customer", label: __("Customer"), t: "select", src: L("Customer", { disabled: 0 }), req: 1, m: "q", w: 2, blank: __("— choose —") },
+			{ f: "amount", label: __("Amount received"), t: "number", req: 1, m: "q", hint: __("Against an order: blank = the advance still due on it") },
+			{ f: "mode_of_payment", label: __("Mode"), t: "select", src: L("Mode of Payment", { enabled: 1 }), m: "q", def: "Wire Transfer" },
+			{ f: "sales_order", label: __("Against sales order"), t: "select", src: L("Sales Order", { docstatus: 1, status: ["not in", ["Closed", "Completed", "Cancelled"]] }), m: "s", w: 2, blank: __("— none: kept on the customer —") },
+			{ f: "paid_to", label: __("Deposit to"), t: "select", src: L("Account", { account_type: ["in", ["Bank", "Cash"]], is_group: 0 }), m: "s", blank: __("— the mode's account —") },
+			{ f: "reference_no", label: __("Bank reference / cheque no."), m: "s", ph: __("From the bank advice") },
+			{ f: "reference_date", label: __("Reference date"), t: "date", m: "s", def: today },
+			{ f: "posting_date", label: __("Posting date"), t: "date", m: "d", def: today },
+			{ f: "remarks", label: __("Remarks"), t: "textarea", m: "d", w: 2 },
+		], full: (v) => ({ payment_type: "Receive", party_type: "Customer", party: v.customer }),
+			actions: [{ label: __("Save draft"), action: "save" }, { label: __("Record advance"), action: "submit", primary: 1 }] },
 		"Warranty Claim": { title: __("New warranty claim"), sub: __("Look up the serial — customer, item and warranty follow"), fields: [
 			{ f: "serial_no", label: __("Serial no."), t: "select", src: L("Serial No", { status: ["in", ["Delivered", "Active"]] }), m: "q", w: 2, blank: __("— no serial —"), fill: "serial_claim" },
 			{ f: "customer", label: __("Customer"), t: "select", src: L("Customer", { disabled: 0 }), req: 1, m: "q", blank: __("— choose —") },
@@ -865,7 +886,9 @@ frappe.provide("hipersign.cm");
 		const K = (s) => JSON.stringify(s);
 		// v1.7.3: a list may join several sources (purchase orders and goods receipts)
 		const src = (s) => !s ? null : Array.isArray(s) ? [].concat(...s.map((x) => opt[K(x)] || [])) : opt[K(s)] || [];
-		const list = (df) => df.src ? src(df.src) : df.opts === "@meta" ? C.meta_opts(dt, df.f) : df.opts;
+		// v1.8.4: a pick may replace another field's choices (the job card's operations follow the work order)
+		const dyn = {};
+		const list = (df) => dyn[df.f] ? dyn[df.f] : df.src ? src(df.src) : df.opts === "@meta" ? C.meta_opts(dt, df.f) : df.opts;
 		const fmt = (x) => format_currency(x, v.currency || undefined);
 		const read = () => {
 			// v1.7.3: tick boxes send 1 / 0
@@ -917,6 +940,7 @@ frappe.provide("hipersign.cm");
 			if (!df || !df.fill || !v[df.f]) return Promise.resolve();
 			return frappe.xcall("hipersign_trading.api.create.fill_doc", { kind: df.fill, name: v[df.f], values: v }).then((r) => {
 				const force = r.force || [];
+				Object.entries(r.opts || {}).forEach(([k, l]) => { dyn[k] = l; });
 				Object.entries(r.values || {}).forEach(([k, val]) => {
 					const def = (spec.fields.find((x) => x.f === k) || {}).def;
 					if (force.includes(k) || !v[k] || filled[k] !== undefined && String(v[k]) === String(filled[k]) || (typeof def === "function" ? def() : def) === v[k]) { v[k] = val; filled[k] = val; }

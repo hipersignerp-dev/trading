@@ -28,6 +28,8 @@ def after_install():
 	set_credit_controller()
 	ensure_cheque_mode()
 	v13_defaults(new_site=True)
+	ensure_default_app()
+	retire_old_workspaces()
 	frappe.db.commit()
 
 
@@ -37,6 +39,15 @@ def after_migrate():
 	ensure_cheque_mode()
 	default_print_formats()
 	v13_defaults(new_site=False)
+	ensure_default_app()
+	retire_old_workspaces()
+	try:  # v1.8.4: each company's own document series
+		from hipersign_trading.naming import ensure_series
+
+		ensure_series()
+	except Exception:
+		frappe.log_error(title="Hipersign naming series")
+	ensure_tool_permissions()
 	# v1.7.3: the square mark as the browser-tab icon where the site still uses our wordmark there
 	if frappe.db.get_single_value("Website Settings", "favicon") == LOGO:
 		frappe.db.set_single_value("Website Settings", "favicon", MARK)
@@ -44,6 +55,31 @@ def after_migrate():
 	from hipersign_trading import navigation
 
 	navigation.apply()
+
+
+# v1.8.4 (#30): the six old Frappe workspaces from 1.0–1.4. Hipersign Home and the Hipersign menu replaced them; a link to
+# one of them lands on Hipersign Home (hs_nav.js). Hidden on every migrate, never deleted.
+OLD_WORKSPACES = ("Hipersign Trading", "Hipersign Sales", "Hipersign Warehouse", "Hipersign Finance", "Hipersign HR", "Hipersign Documents")
+
+
+def retire_old_workspaces():
+	try:
+		for name in OLD_WORKSPACES:
+			if frappe.db.exists("Workspace", name) and not frappe.db.get_value("Workspace", name, "is_hidden"):
+				frappe.db.set_value("Workspace", name, "is_hidden", 1, update_modified=False)
+		frappe.db.sql("update `tabUser` set default_workspace = null where default_workspace in %(old)s", {"old": OLD_WORKSPACES})
+	except Exception:
+		frappe.log_error(title="Hipersign old workspaces")
+
+
+def ensure_default_app():
+	"""v1.8.4 (#29): after login everyone goes to the Hipersign app (Hipersign Home), not Frappe's apps screen. Only set when
+	the site has no default app yet; a user's own default app still wins."""
+	try:
+		if frappe.get_meta("System Settings").has_field("default_app") and not frappe.db.get_single_value("System Settings", "default_app"):
+			frappe.db.set_single_value("System Settings", "default_app", "hipersign_trading")
+	except Exception:
+		frappe.log_error(title="Hipersign default app")
 
 
 # v1.8.0: the top bar switches between English, Arabic and Simplified Chinese — make sure both Language records exist
@@ -470,3 +506,26 @@ def ensure_cheque_mode():
 	"""Post-dated cheques create Payment Entries with mode of payment “Cheque”."""
 	if not frappe.db.exists("Mode of Payment", "Cheque"):
 		frappe.get_doc({"doctype": "Mode of Payment", "mode_of_payment": "Cheque", "type": "Bank"}).insert(ignore_permissions=True)
+
+
+# v1.8.4 (#27): ERPNext 16 gives the Bank Reconciliation Tool to the System Manager only, so the accountants (and the
+# Finance page's "Open reconciliation tool") got "not permitted". The accounts roles may use it.
+TOOL_ROLES = {"Bank Reconciliation Tool": ("Accounts Manager", "Accounts User")}
+
+
+def ensure_tool_permissions():
+	from frappe.permissions import add_permission, update_permission_property
+
+	for dt, roles in TOOL_ROLES.items():
+		if not frappe.db.exists("DocType", dt):
+			continue
+		for role in roles:
+			if not frappe.db.exists("Role", role):
+				continue
+			try:
+				if not frappe.db.exists("Custom DocPerm", {"parent": dt, "role": role, "permlevel": 0}):
+					add_permission(dt, role, 0)
+				for ptype in ("read", "write", "create"):
+					update_permission_property(dt, role, 0, ptype, 1, validate=False)
+			except Exception:
+				frappe.log_error(title=f"Hipersign permissions {dt} {role}")

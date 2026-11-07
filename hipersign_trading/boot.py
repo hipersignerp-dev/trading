@@ -30,7 +30,7 @@ def boot_session(bootinfo):
 		except Exception:
 			frappe.log_error(title="Hipersign look (boot)")
 		info["sidebar"] = "Hipersign ERP"
-		info["home_workspace"] = "Hipersign Trading"
+		info["home_workspace"] = "Hipersign Trading"  # only a fallback when Hipersign Home cannot open (v1.8.4: retired, see hs_nav)
 		info["home_page"] = "hipersign-home" if frappe.db.exists("Page", "hipersign-home") and frappe.get_cached_doc("Page", "hipersign-home").is_permitted() else None
 		info["demo_site"] = bool(frappe.conf.get("hipersign_demo_site"))
 		info["deal_demo"] = bool(info["demo_site"] and s.get("deal_demo") and "System Manager" in frappe.get_roles())
@@ -59,3 +59,41 @@ def boot_session(bootinfo):
 		demo_boot(bootinfo)
 	except Exception:
 		frappe.log_error(title="Hipersign boot info")
+
+
+# ---------------------------------------------------------------- v1.8.4 (#29): only the Hipersign app on the apps screen
+APP = "hipersign_trading"
+
+
+def _only_ours():
+	"""Everyone but Hipersign's super admins sees only the Hipersign app (Hipersign Settings › only Hipersign tiles)."""
+	try:
+		from hipersign_trading.licence import is_super_admin
+
+		if is_super_admin():
+			return False
+		s = frappe.get_cached_doc("Hipersign Settings")
+		return s.get("only_hipersign_tiles") is None or bool(s.get("only_hipersign_tiles"))
+	except Exception:
+		return False
+
+
+def only_hipersign_app(bootinfo):
+	"""extend_bootinfo: ERPNext, Frappe HR and Framework leave the apps screen (/desk) and the sidebar's app switcher;
+	their screens stay reachable through the Hipersign menu and links, with the usual permissions."""
+	if not _only_ours():
+		return
+	for a in bootinfo.get("app_data") or []:
+		if a.get("app_name") != APP:
+			a["on_apps_screen"] = False
+
+
+@frappe.whitelist()
+def get_apps():
+	"""Replaces frappe.apps.get_apps (the apps list the desk asks for) with the same filter."""
+	from frappe.apps import get_apps as frappe_get_apps
+
+	apps = frappe_get_apps()
+	if _only_ours():
+		apps = [a for a in apps if a.get("name") == APP] or apps
+	return apps

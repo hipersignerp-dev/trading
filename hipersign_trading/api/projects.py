@@ -94,6 +94,23 @@ def _need(roles, what):
 		frappe.throw(_("{0} needs the {1}.").format(what, " / ".join(_(r) for r in roles)), frappe.PermissionError)
 
 
+class _elevated:
+	"""v1.8.4: the follow-on documents of a project action (the contract sales order a variation changes, the subcontractor's
+	bill and its payment) are made by the system once the user's role has been checked — a PM or MD who may approve the step
+	need not also hold every ERPNext permission on the sales order / purchase invoice / payment. The real user is recorded."""
+
+	def __enter__(self):
+		self.user = frappe.session.user
+		if self.user != "Administrator":
+			frappe.set_user("Administrator")
+		return self.user
+
+	def __exit__(self, *a):
+		if frappe.session.user != self.user:
+			frappe.set_user(self.user)
+		return False
+
+
 # ---------------------------------------------------------------- accounts, items, warehouses
 def _account(company, name, root_type, parent, account_type=""):
 	abbr = frappe.get_cached_value("Company", company, "abbr")
@@ -833,8 +850,9 @@ def make_sales_order(name):
 	return so
 
 
-def _vo_on_sales_order(vo):
-	"""An approved variation adds a line to the contract sales order (positive variations; omissions stay on the project)."""
+def _vo_on_sales_order(vo, by=None):
+	"""An approved variation adds a line to the contract sales order (positive variations; omissions stay on the project).
+	v1.8.4: returns the reason when the order could not be updated (it used to fail silently)."""
 	so_name = frappe.db.get_value("Project", vo.project, "sales_order")
 	if not so_name or flt(vo.amount) <= 0:
 		return
@@ -855,11 +873,15 @@ def _vo_on_sales_order(vo):
 	frappe.db.savepoint("hs_vo_so")
 	try:
 		update_child_qty_rate("Sales Order", frappe.as_json(rows), so.name)
-	except Exception:
+		if by and by != "Administrator":
+			frappe.get_doc("Sales Order", so.name).add_comment("Info", _("Variation {0} added to the contract by {1}").format(vo.name, frappe.utils.get_fullname(by)))
+	except Exception as e:
 		if frappe.flags.hs_debug:
 			raise
 		frappe.db.rollback(save_point="hs_vo_so")
 		frappe.clear_last_message()
+		frappe.log_error(title=f"Hipersign variation {vo.name} → {so.name}")
+		return frappe.utils.strip_html(str(e)) or _("see the error log")
 
 
 # ---------------------------------------------------------------- the actions (buttons on the pages and the project panel)
@@ -1029,13 +1051,18 @@ def _a_vo(name, a, new):
 			frappe.throw(_("{0} is {1} — send it to the client first.").format(name, _(v.status)))
 		if new == "Approved" and flt(v.amount) < 0:
 			_need([MD], _("Approving an omission"))
+		else:
+			_need([PM, MD], _("Recording the client's decision on a variation"))  # v1.8.4
 		v.approved_on = today()
 	v.status = new
 	v.save()
 	v.add_comment("Info", {"Pending client": _("Sent to the client for approval"), "Approved": _("Approved by the client — added to the contract"),
 		"Rejected": _("Rejected by the client")}[new])
 	if new == "Approved":
-		_vo_on_sales_order(v)
+		with _elevated() as who:  # v1.8.4: the contract sales order is updated for every user who may approve, not only Administrator
+			err = _vo_on_sales_order(v, who)
+		if err:
+			frappe.msgprint(_("{0} is approved, but the contract sales order could not be updated: {1}").format(name, err), indicator="orange", alert=True)
 	clear_cache()
 	return {"message": _("{0} approved · contract value now {1}").format(name, _money(revised(project(v.project)))) if new == "Approved"
 		else _("{0}: {1}").format(name, _(new))}
@@ -1058,18 +1085,24 @@ def _a_claim_certify(name, a):
 
 
 def _a_claim_bill(name, a):
-	frappe.has_permission("Purchase Invoice", "create", throw=True)
-	pi = make_claim_bill(name)
+	# v1.8.4: the PM, MD or accounts raise the subcontractor's bill from a certified claim (their company only)
+	frappe.get_doc("Subcontract Claim", name).check_permission("read")
+	_need([PM, MD, FM, "Accounts User"], _("Billing a subcontract claim"))
+	with _elevated():
+		pi = make_claim_bill(name)
 	return {"message": _("Supplier bill {0} — {1} payable").format(pi.name, _money(pi.grand_total)), "open": ["Purchase Invoice", pi.name]}
 
 
 def _a_claim_pay(name, a):
-	frappe.has_permission("Payment Entry", "create", throw=True)
+	# v1.8.4: paying a certified claim — MD, the project manager or accounts (their company only)
 	cl = frappe.get_doc("Subcontract Claim", name)
-	if not cl.purchase_invoice:
-		make_claim_bill(name)
-		cl.reload()
-	pe = pay(cl.purchase_invoice)
+	cl.check_permission("read")
+	_need([PM, MD, FM, "Accounts User"], _("Paying a subcontract claim"))
+	with _elevated():
+		if not cl.purchase_invoice:
+			make_claim_bill(name)
+			cl.reload()
+		pe = pay(cl.purchase_invoice)
 	frappe.db.set_value("Subcontract Claim", name, {"status": "Paid", "paid_on": today()})
 	return {"message": _("{0} paid — {1}").format(name, pe.name)}
 
