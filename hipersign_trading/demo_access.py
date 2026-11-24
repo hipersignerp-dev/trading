@@ -114,7 +114,8 @@ def before_request():
 		refuse()
 
 
-def doc_guard(doc, method=None):
+def doc_guard(doc, method=None, *args, **kwargs):
+	# before_rename also passes old, new and merge
 	if doc.doctype in SYSTEM_DOCTYPES or getattr(frappe.flags, "in_install", False) or getattr(frappe.flags, "in_migrate", False):
 		return
 	try:
